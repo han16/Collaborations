@@ -4,3 +4,5 @@ author: ""
 date: ""
 output: html_document
 ---
+
+* [Latent Class longitudinal data analysis](LCLDA.html)

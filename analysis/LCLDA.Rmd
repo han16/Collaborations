@@ -1,0 +1,71 @@
+---
+title: "Latent Class longitudinal data analysis"
+author: "Shengtong Han"
+date: ""
+output: html_document
+---
+
+Review R for latent class growth analysis (LCGA) and/or growth mixture models (GMMs). 
+
+
+
+## lcmm-R package 
+
+[lcmm R package can fit both GMM and LCGA](https://github.com/CecileProust-Lima/lcmm/issues/44)
+
+### mixed models 
+
+####  linear mixed model 
+
+As in [Laird and Ware (1982)](https://www.jstor.org/stable/2529876?origin=crossref&seq=1#metadata_info_tab_contents), define linear mixed model 
+
+$$Y_{ij}=X_{Li}(t_{ij})^T\beta+Z_i(t_{ij})^Tu_i+w_i(t_{ij})+\epsilon_{ij}$$
+
+* $Y_{ij}$ outcome value of subject $i$ from accasion $j$.
+* $X_{Li}(t_{ij}), Z_i(t_{ij})$ two vector of covariates 
+* $\beta$ fixed efffect 
+* $u_i$, random effect, follows $N(0, B)$
+* $\epsilon_i \sim N(0, \sigma_{\epsilon}^2)$
+* $w_i(.)$, zero mean Gaussian stochastic process, with $cov(w_i(t), w_i(s))=\sigma_w^2min(t,s)$
+
+Aim: to estimate $(\beta, vec(B), \sigma_{\epsilon}^2, \sigma_w^2)$. 
+
+#### Latent process mixed model 
+
+Define it without measurement error 
+
+$$\Lambda_{i}(t)=X_{Li}(t)^T\beta+Z_i(t)^Tu_i+w_i(t)$$
+to define a flexible nonlinear measurement error model 
+
+$$Y_{ij}=H(\Lambda_i(t_{ij})+\epsilon_{ij}, \eta)$$
+$H$ is a paramerized link function and for a quantitative marker, $H^{-1}$ could be a  monotone increasing function. 
+
+### Example 
+
+This example is from [here](https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/lcmm)
+
+```{r, echo=T, message=F, warning=F, eval=F}
+library(lcmm)
+
+# linear link function
+m10<-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject='ID',ng=1,
+data=data_lcmm,link="linear")
+#summary(m10)
+
+# Beta link function
+m11<-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject='ID',ng=1,
+data=data_lcmm,link="beta") # ng: number of latent classes and ng=1 no mixture, ng>1 mixture is reuired 
+#summary(m11)
+plot(m11,which="linkfunction",bty="l")
+
+
+
+```
+
+#### Reference 
+
+* [Estimation of Extended Mixed Models Using Latent Classes and Latent Processes: The R Package lcmm](https://www.jstatsoft.org/article/view/v078i02)
+
+
+## kml3d 
+
