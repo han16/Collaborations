@@ -7,7 +7,116 @@ output: html_document
 
 Review R for latent class growth analysis (LCGA) and/or growth mixture models (GMMs). 
 
+## Jointlcmm 
 
+This function fits joint latent class mixed models for a longitudinal outcome and a right-censored (possibly left-truncated) time-to-event. The function handles competing risks and Gaussian or non Gaussian (curvilinear) longitudinal outcomes. For curvilinear longitudinal outcomes, normalizing continuous functions (splines or Beta CDF) can be specified as in lcmm.
+
+### Example 
+
+Here is the [Example](https://cran.r-project.org/web/packages/lcmm/lcmm.pdf). 
+
+```{r, echo=T}
+#### Example of a joint latent class model estimated for a varying number
+    # of latent classes:
+    # The linear mixed model includes a subject- (ID) and class-specific
+    # linear trend (intercept and Time in fixed, random and mixture components)
+    # and a common effect of X1 and its interaction with time over classes
+    # (in fixed).
+    # The variance of the random intercept and slopes are assumed to be equal
+    # over classes (nwg=F).
+    # The covariate X3 predicts the class membership (in classmb).
+
+# The baseline hazard function is modelled with cubic M-splines -3
+    # nodes at the quantiles- (in hazard) and a proportional hazard over
+    # classes is assumed (in hazardtype). Covariates X1 and X2 predict the
+    # risk of event (in survival) with a common effect over classes for X1
+    # and a class-specific effect of X2.
+    # !CAUTION: for illustration, only default initial values where used but
+    # other sets of initial values should be tried to ensure convergence
+    # towards the global maximum.
+
+```
+
+
+```{r, echo=T, warning=F, message=F}
+## Not run:
+    #### estimation with 1 latent class (ng=1): independent models for the
+    # longitudinal outcome and the time of event
+library(lcmm)
+head(data_lcmm)
+    m1 <- Jointlcmm(fixed= Ydep1~X1*Time,random=~Time,subject='ID'
+    ,survival = Surv(Tevent,Event)~ X1+X2 ,hazard="3-quant-splines"
+    ,hazardtype="PH",ng=1,data=data_lcmm)
+    summary(m1)
+    #Goodness-of-fit statistics for m1:
+    #    maximum log-likelihood: -3944.77 ; AIC: 7919.54  ;  BIC: 7975.09
+    ## End(Not run)
+
+```
+
+```{r, echo=T}
+#### estimation with 2 latent classes (ng=2)
+    m2 <- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
+    classmb=~X3,subject='ID',survival = Surv(Tevent,Event)~X1+mixture(X2),
+    hazard="3-quant-splines",hazardtype="PH",ng=2,data=data_lcmm,
+    B=c(0.64,-0.62,0,0,0.52,0.81,0.41,0.78,0.1,0.77,-0.05,10.43,11.3,-2.6,
+    -0.52,1.41,-0.05,0.91,0.05,0.21,1.5))
+    summary(m2)
+    #Goodness-of-fit statistics for m2:
+    #       maximum log-likelihood: -3921.27; AIC: 7884.54; BIC: 7962.32
+
+```
+
+```{r, echo=T}
+## Not run:
+    #### estimation with 3 latent classes (ng=3)
+    m3 <- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
+    classmb=~X3,subject='ID',survival = Surv(Tevent,Event)~ X1+mixture(X2),
+    hazard="3-quant-splines",hazardtype="PH",ng=3,data=data_lcmm,
+    B=c(0.77,0.4,-0.82,-0.27,0,0,0,0.3,0.62,2.62,5.31,-0.03,1.36,0.82,
+    -13.5,10.17,10.24,11.51,-2.62,-0.43,-0.61,1.47,-0.04,0.85,0.04,0.26,1.5))
+    summary(m3)
+    #Goodness-of-fit statistics for m3:
+    #       maximum log-likelihood: -3890.26 ; AIC: 7834.53;  BIC: 7934.53
+
+```
+
+```{r, echo=T}
+ #### estimation with 4 latent classes (ng=4)
+    m4 <- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
+    classmb=~X3,subject='ID',survival = Surv(Tevent,Event)~ X1+mixture(X2),
+    hazard="3-quant-splines",hazardtype="PH",ng=4,data=data_lcmm,
+    B=c(0.54,-0.42,0.36,-0.94,-0.64,-0.28,0,0,0,0.34,0.59,2.6,2.56,5.26,
+    -0.1,1.27,1.34,0.7,-5.72,10.54,9.02,10.2,11.58,-2.47,-2.78,-0.28,-0.57,
+    1.48,-0.06,0.61,-0.07,0.31,1.5))
+    summary(m4)
+    #Goodness-of-fit statistics for m4:
+    #   maximum log-likelihood: -3886.93 ; AIC: 7839.86;  BIC: 7962.09
+```
+
+```{r, echo=T}
+##### The model with 3 latent classes is retained according to the BIC
+##### and the conditional independence assumption is not rejected at
+##### the 5% level.
+# posterior classification
+plot(m3,which="postprob")
+# Class-specific predicted baseline risk & survival functions in the
+# 3-class model retained (for the reference value of the covariates)
+plot(m3,which="baselinerisk",bty="l")
+plot(m3,which="baselinerisk",ylim=c(0,5),bty="l")
+plot(m3,which="survival",bty="l")
+# class-specific predicted trajectories in the 3-class model retained
+# (with characteristics of subject ID=193)
+data <- data_lcmm[data_lcmm$ID==193,]
+plot(predictY(m3,var.time="Time",newdata=data,bty="l"))
+# predictive accuracy of the model evaluated with EPOCE
+vect <- 1:15
+cvpl <- epoce(m3,var.time="Time",pred.times=vect)
+summary(cvpl)
+plot(cvpl,bty="l",ylim=c(0,2))
+############## end of example ##############
+## End(Not run)
+```
 
 ## lcmm-R package 
 
@@ -48,7 +157,7 @@ $H$ is a paramerized link function and for a quantitative marker, $H^{-1}$ could
 
 This example is from [here](https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/lcmm)
 
-```{r, echo=T, message=F, warning=F, eval=T}
+```{r, echo=T, message=F, warning=F, eval=F}
 library(lcmm)
 #### Estimation of homogeneous mixed models with different assumed link
 #### functions, a quadratic mean trajectory for the latent process and 
@@ -58,33 +167,33 @@ library(lcmm)
 # linear link function
 m10<-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject='ID',ng=1,
 data=data_lcmm,link="linear")
-summary(m10)
+#summary(m10)
 ```
-```{r, echo=T, message=F, warning=F}
+```{r, echo=T, message=F, warning=F, eval=F}
 # Beta link function
 m11<-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject='ID',ng=1,
 data=data_lcmm,link="beta")
-summary(m11)
-plot(m11,which="linkfunction",bty="l")
+#summary(m11)
+#plot(m11,which="linkfunction",bty="l")
 ```
 
-```{r,echo=T, message=F, warning=F}
+```{r,echo=T, message=F, warning=F, eval=F}
 # I-splines with 3 equidistant nodes
 m12<-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject='ID',ng=1,
 data=data_lcmm,link="3-equi-splines")
-summary(m12)
+#summary(m12)
 # I-splines with 5 nodes at quantiles
 m13<-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject='ID',ng=1,
 data=data_lcmm,link="5-quant-splines")
-summary(m13)
+#summary(m13)
 # I-splines with 5 nodes, and interior nodes entered manually
 m14<-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject='ID',ng=1,
 data=data_lcmm,link="5-manual-splines",intnodes=c(10,20,25))
-summary(m14)
-plot(m14,which="linkfunction",bty="l")
+#summary(m14)
+#plot(m14,which="linkfunction",bty="l")
 ```
 
-```{r, echo=T, message=F, warning=F, cache=T}
+```{r, echo=T, message=F, warning=F, cache=T, eval=F}
 
 # Thresholds
 # Especially for the threshold link function, we recommend to estimate 
@@ -98,11 +207,11 @@ B=c(-0.8379, -0.1103,  0.3832,  0.3788 , 0.4524, -7.3180,  0.5917,  0.7364,
  0.6530, 0.4038,  0.4290,  0.6099,  0.6014 , 0.5354 , 0.5029 , 0.5463,
  0.5310 , 0.5352, 0.6498,  0.6653,  0.5851,  0.6525,  0.6701 , 0.6670 ,
  0.6767 , 0.7394 , 0.7426, 0.7153,  0.7702,  0.6421))
-summary(m15)
-plot(m15,which="linkfunction",bty="l")
+#summary(m15)
+#plot(m15,which="linkfunction",bty="l")
 ```
 
-```{r, echo=T, message=F, warning=F}
+```{r, echo=T, message=F, warning=F, eval=F}
 #### Plot of estimated different link functions:
 #### (applicable for models that only differ in the "link function" used. 
 ####  Otherwise, the latent process scale is different and a rescaling
@@ -118,7 +227,7 @@ legend(x="bottomright",legend=c("linear","beta","spl_3e","spl_5q","spl_5m","thre
 col=1:6,lty=1,inset=.02,box.lty=0)
 ```
 
-```{r, echo=T, message=F, warning=F}
+```{r, echo=T, message=F, warning=F, eval=F}
 #### Estimation of 2-latent class mixed models with different assumed link 
 #### functions with individual and class specific linear trend
 #### for illustration, only default initial values where used but other
@@ -128,11 +237,11 @@ col=1:6,lty=1,inset=.02,box.lty=0)
 m20<-lcmm(Ydep2~Time,random=~Time,subject='ID',mixture=~Time,ng=2,
 idiag=TRUE,data=data_lcmm,link="linear",B=c(-0.98,0.79,-2.09,
 -0.81,0.19,0.55,24.49,2.24))
-summary(m20)
-postprob(m20)
+#summary(m20)
+#postprob(m20)
 ```
 
-```{r, echo=T, message=F, warning=F}
+```{r, echo=T, message=F, warning=F, eval=F}
 # Beta link function
 m21<-lcmm(Ydep2~Time,random=~Time,subject='ID',mixture=~Time,ng=2,
 idiag=TRUE,data=data_lcmm,link="beta",B=c(-0.1,-0.56,-0.4,-1.77,
@@ -141,7 +250,7 @@ summary(m21)
 postprob(m21)
 ```
 
-```{r, echo=T, message=F, warning=F}
+```{r, echo=T, message=F, warning=F, eval=F}
 # I-splines link function (and 5 nodes at quantiles)
 m22<-lcmm(Ydep2~Time,random=~Time,subject='ID',mixture=~Time,ng=2,
 idiag=TRUE,data=data_lcmm,link="5-quant-splines",B=c(0.12,0.63,
@@ -151,7 +260,7 @@ postprob(m22)
 
 data <- data_lcmm[data_lcmm$ID==193,]
 plot(predictL(m22,var.time="Time",newdata=data,bty="l"))
-
+head(m22$pprob)
 ```
 
 #### Reference 
@@ -161,7 +270,7 @@ plot(predictL(m22,var.time="Time",newdata=data,bty="l"))
 
 ## kml3d 
 
-a new implementation of k-means for longitudinal data (or trajectories).
+[kml3d](https://cran.r-project.org/web/packages/kml3d/kml3d.pdf) is a new implementation of k-means for longitudinal data (or trajectories).
 
 * can deal with missing value (how?)
 * By default, nbClusters is 2:6, with the maximum of 26, 20 times each 
@@ -173,14 +282,14 @@ a new implementation of k-means for longitudinal data (or trajectories).
 
 This is the [example](https://www.rdocumentation.org/packages/kml3d/versions/2.4.2/topics/kml3d)
 
-```{r, echo=T, message=F, warning=F}
+```{r, echo=T, message=F, warning=F, eval=F}
 library(kml3d)
 ### Generation of some data
 cld1 <- generateArtificialLongData3d(15)
 cld1
 ```
 
-```{r, echo=T, message=F, warning=F}
+```{r, echo=T, message=F, warning=F, eval=F}
 ### We suspect 2, 3, 4 or 5 clusters, we want 3 redrawing.
 ###   We want to "see" what happen (so toPlot="both")
 kml3d(cld1,2:5,3,toPlot="both")
@@ -196,7 +305,7 @@ kml3d(cld1,3,10,toPlot="criterion")
 #### Example 2 
 
 
-```{r, echo=T, warning=F, message=F}
+```{r, echo=T, warning=F, message=F, eval=F}
 library(kml3d)
 # NOT RUN {
 ### 1. Data Preparation
@@ -216,3 +325,4 @@ try(choice(cld3dPregTemp))
 plotMeans3d(cld3dPregTemp,4)
 # }
 ```
+

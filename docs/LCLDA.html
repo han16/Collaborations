@@ -439,10 +439,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-02
+<strong>Last updated:</strong> 2021-06-07
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 4 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -506,22 +506,34 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+The following chunks had caches available:
+<ul>
+<li>
+unnamed-chunk-10
+</li>
+<li>
+unnamed-chunk-4
+</li>
+<li>
+unnamed-chunk-6
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory <code>LCLDA_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb60ca2eba753f58508e02688afce8febb78f5065targetblankb60ca2ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/b60ca2eba753f58508e02688afce8febb78f5065" target="_blank">b60ca2e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree329ccd0a8aab6f2840bb296f3aa166c9ec13781dtargetblank329ccd0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/329ccd0a8aab6f2840bb296f3aa166c9ec13781d" target="_blank">329ccd0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb60ca2eba753f58508e02688afce8febb78f5065targetblankb60ca2ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree329ccd0a8aab6f2840bb296f3aa166c9ec13781dtargetblank329ccd0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -529,12 +541,7 @@ Great! You are using Git for version control. Tracking code development and conn
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
-
-Untracked files:
-    Untracked:  analysis/cld1.Rdata
-    Untracked:  analysis/cld3dPregTemp.Rdata
-    Untracked:  cld1.Rdata
-    Untracked:  cld3dPregTemp.Rdata
+    Ignored:    analysis/LCLDA_cache/
 
 Unstaged changes:
     Modified:   analysis/LCLDA.Rmd
@@ -576,6 +583,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/329ccd0a8aab6f2840bb296f3aa166c9ec13781d/analysis/LCLDA.Rmd" target="_blank">329ccd0</a>
+</td>
+<td>
+han16
+</td>
+<td>
+2021-06-02
+</td>
+<td>
+6/2/2021
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/329ccd0a8aab6f2840bb296f3aa166c9ec13781d/docs/LCLDA.html" target="_blank">329ccd0</a>
+</td>
+<td>
+han16
+</td>
+<td>
+2021-06-02
+</td>
+<td>
+6/2/2021
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -635,6 +676,440 @@ han16
 </div>
 </div>
 <p>Review R for latent class growth analysis (LCGA) and/or growth mixture models (GMMs).</p>
+<div id="jointlcmm" class="section level2">
+<h2>Jointlcmm</h2>
+<p>This function fits joint latent class mixed models for a longitudinal outcome and a right-censored (possibly left-truncated) time-to-event. The function handles competing risks and Gaussian or non Gaussian (curvilinear) longitudinal outcomes. For curvilinear longitudinal outcomes, normalizing continuous functions (splines or Beta CDF) can be specified as in lcmm.</p>
+<div id="example" class="section level3">
+<h3>Example</h3>
+<p>Here is the <a href="https://cran.r-project.org/web/packages/lcmm/lcmm.pdf">Example</a>.</p>
+<pre class="r"><code>#### Example of a joint latent class model estimated for a varying number
+    # of latent classes:
+    # The linear mixed model includes a subject- (ID) and class-specific
+    # linear trend (intercept and Time in fixed, random and mixture components)
+    # and a common effect of X1 and its interaction with time over classes
+    # (in fixed).
+    # The variance of the random intercept and slopes are assumed to be equal
+    # over classes (nwg=F).
+    # The covariate X3 predicts the class membership (in classmb).
+
+# The baseline hazard function is modelled with cubic M-splines -3
+    # nodes at the quantiles- (in hazard) and a proportional hazard over
+    # classes is assumed (in hazardtype). Covariates X1 and X2 predict the
+    # risk of event (in survival) with a common effect over classes for X1
+    # and a class-specific effect of X2.
+    # !CAUTION: for illustration, only default initial values where used but
+    # other sets of initial values should be tried to ensure convergence
+    # towards the global maximum.</code></pre>
+<pre class="r"><code>## Not run:
+    #### estimation with 1 latent class (ng=1): independent models for the
+    # longitudinal outcome and the time of event
+library(lcmm)
+head(data_lcmm)</code></pre>
+<pre><code>  ID   Ydep1 Ydep2 Ydep3 Tentry  Tevent Event   Time X1 X2      X3 X4
+1  1 11.1742    25     7 8.5552 12.0208     1 0.8555  1  1  0.1632  3
+2  1  7.0532    20     1 8.5552 12.0208     1 1.0555  1  1  0.1632  3
+3  1 11.3063    26     7 8.5552 12.0208     1 1.2021  1  1  0.1632  3
+4  2  8.5895    22     3 6.7242 13.5959     1 0.6724  0  1 -0.7390  2
+5  2  7.7670    21     2 6.7242 13.5959     1 0.8724  0  1 -0.7390  2
+6  2  7.3881    20     2 6.7242 13.5959     1 1.0724  0  1 -0.7390  2</code></pre>
+<pre class="r"><code>    m1 &lt;- Jointlcmm(fixed= Ydep1~X1*Time,random=~Time,subject=&#39;ID&#39;
+    ,survival = Surv(Tevent,Event)~ X1+X2 ,hazard=&quot;3-quant-splines&quot;
+    ,hazardtype=&quot;PH&quot;,ng=1,data=data_lcmm)</code></pre>
+<pre><code>Be patient, Jointlcmm is running ... 
+The program took 4.21 seconds </code></pre>
+<pre class="r"><code>    summary(m1)</code></pre>
+<pre><code>Joint latent class model for quantitative outcome and competing risks 
+     fitted by maximum likelihood method 
+ 
+Jointlcmm(fixed = Ydep1 ~ X1 * Time, random = ~Time, subject = &quot;ID&quot;, 
+    ng = 1, survival = Surv(Tevent, Event) ~ X1 + X2, hazard = &quot;3-quant-splines&quot;, 
+    hazardtype = &quot;PH&quot;, data = data_lcmm)
+ 
+Statistical Model: 
+     Dataset: data_lcmm 
+     Number of subjects: 300 
+     Number of observations: 1678 
+     Number of latent classes: 1 
+     Number of parameters: 15  
+     Event 1: 
+        Number of events: 150
+        M-splines constant baseline risk function with nodes 
+        0 11.3966 29.413  
+ 
+Iteration process: 
+     Convergence criteria satisfied 
+     Number of iterations:  21 
+     Convergence criteria: parameters= 9.1e-09 
+                         : likelihood= 3.2e-07 
+                         : second derivatives= 4.6e-07 
+ 
+Goodness-of-fit statistics: 
+     maximum log-likelihood: -3944.77  
+     AIC: 7919.54  
+     BIC: 7975.1  
+     Score test statistic for CI assumption: 6.976 (p-value=0.0306) 
+ 
+Maximum Likelihood Estimates: 
+ 
+Parameters in the proportional hazard model:
+
+                             coef      Se   Wald p-value
+event1 +/-sqrt(splines1) -0.00001 0.08475  0.000 0.99993
+event1 +/-sqrt(splines2)  0.00001 0.06756  0.000 0.99989
+event1 +/-sqrt(splines3)  0.71713 0.08702  8.241 0.00000
+event1 +/-sqrt(splines4)  0.97669 0.15657  6.238 0.00000
+event1 +/-sqrt(splines5)  0.19832 1.09667  0.181 0.85649
+X1                        0.08281 0.16412  0.505 0.61388
+X2                        0.58993 0.17573  3.357 0.00079
+
+Fixed effects in the longitudinal model:
+
+              coef      Se   Wald p-value
+intercept 10.56723 0.15598 67.746 0.00000
+X1         1.47700 0.21832  6.765 0.00000
+Time      -1.65870 0.17333 -9.570 0.00000
+X1:Time   -0.08096 0.24336 -0.333 0.73939
+
+
+Variance-covariance matrix of the random-effects:
+          intercept    Time
+intercept   0.92403        
+Time        0.56427 1.22771
+
+                            coef      Se
+Residual standard error  1.50045 0.02990</code></pre>
+<pre class="r"><code>    #Goodness-of-fit statistics for m1:
+    #    maximum log-likelihood: -3944.77 ; AIC: 7919.54  ;  BIC: 7975.09
+    ## End(Not run)</code></pre>
+<pre class="r"><code>#### estimation with 2 latent classes (ng=2)
+    m2 &lt;- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
+    classmb=~X3,subject=&#39;ID&#39;,survival = Surv(Tevent,Event)~X1+mixture(X2),
+    hazard=&quot;3-quant-splines&quot;,hazardtype=&quot;PH&quot;,ng=2,data=data_lcmm,
+    B=c(0.64,-0.62,0,0,0.52,0.81,0.41,0.78,0.1,0.77,-0.05,10.43,11.3,-2.6,
+    -0.52,1.41,-0.05,0.91,0.05,0.21,1.5))</code></pre>
+<pre><code>Be patient, Jointlcmm is running ... 
+The program took 1.26 seconds </code></pre>
+<pre class="r"><code>    summary(m2)</code></pre>
+<pre><code>Joint latent class model for quantitative outcome and competing risks 
+     fitted by maximum likelihood method 
+ 
+Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
+    subject = &quot;ID&quot;, classmb = ~X3, ng = 2, survival = Surv(Tevent, 
+        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
+    hazardtype = &quot;PH&quot;, data = data_lcmm)
+ 
+Statistical Model: 
+     Dataset: data_lcmm 
+     Number of subjects: 300 
+     Number of observations: 1678 
+     Number of latent classes: 2 
+     Number of parameters: 21  
+     Event 1: 
+        Number of events: 150
+        Proportional hazards over latent classes and 
+        M-splines constant baseline risk function with nodes 
+        0 11.3966 29.413  
+ 
+Iteration process: 
+     Convergence criteria satisfied 
+     Number of iterations:  2 
+     Convergence criteria: parameters= 1.7e-07 
+                         : likelihood= 2.9e-05 
+                         : second derivatives= 1.4e-05 
+ 
+Goodness-of-fit statistics: 
+     maximum log-likelihood: -3921.28  
+     AIC: 7884.56  
+     BIC: 7962.34  
+     Score test statistic for CI assumption: 4.868 (p-value=0.0877) 
+ 
+Maximum Likelihood Estimates: 
+ 
+Fixed effects in the class-membership model:
+(the class of reference is the last class) 
+
+                     coef      Se    Wald p-value
+intercept class1  0.64179 0.23639   2.715 0.00663
+X3 class1        -0.62135 0.18720  -3.319 0.00090
+
+Parameters in the proportional hazard model:
+
+                             coef      Se    Wald p-value
+event1 +/-sqrt(splines1) -0.00007 0.02194  -0.003 0.99752
+event1 +/-sqrt(splines2) -0.00014 0.04412  -0.003 0.99747
+event1 +/-sqrt(splines3)  0.50421 0.10396   4.850 0.00000
+event1 +/-sqrt(splines4)  0.80901 0.15970   5.066 0.00000
+event1 +/-sqrt(splines5)  0.43681 0.39996   1.092 0.27477
+event1 SurvPH class1      0.78331 0.35394   2.213 0.02689
+X1                        0.10318 0.16729   0.617 0.53739
+X2 class1                 0.76963 0.20998   3.665 0.00025
+X2 class2                -0.04521 0.57232  -0.079 0.93703
+
+Fixed effects in the longitudinal model:
+
+                     coef      Se    Wald p-value
+intercept class1 10.42612 0.19161  54.414 0.00000
+intercept class2 11.29780 0.23627  47.816 0.00000
+Time class1      -2.59556 0.17992 -14.426 0.00000
+Time class2      -0.52342 0.17642  -2.967 0.00301
+X1                1.41450 0.22174   6.379 0.00000
+Time:X1          -0.04995 0.20647  -0.242 0.80886
+
+
+Variance-covariance matrix of the random-effects:
+          intercept    Time
+intercept   0.91249        
+Time        0.05005 0.21387
+
+                            coef      Se
+Residual standard error  1.50271 0.03000</code></pre>
+<pre class="r"><code>    #Goodness-of-fit statistics for m2:
+    #       maximum log-likelihood: -3921.27; AIC: 7884.54; BIC: 7962.32</code></pre>
+<pre class="r"><code>## Not run:
+    #### estimation with 3 latent classes (ng=3)
+    m3 &lt;- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
+    classmb=~X3,subject=&#39;ID&#39;,survival = Surv(Tevent,Event)~ X1+mixture(X2),
+    hazard=&quot;3-quant-splines&quot;,hazardtype=&quot;PH&quot;,ng=3,data=data_lcmm,
+    B=c(0.77,0.4,-0.82,-0.27,0,0,0,0.3,0.62,2.62,5.31,-0.03,1.36,0.82,
+    -13.5,10.17,10.24,11.51,-2.62,-0.43,-0.61,1.47,-0.04,0.85,0.04,0.26,1.5))</code></pre>
+<pre><code>Be patient, Jointlcmm is running ... 
+The program took 3.44 seconds </code></pre>
+<pre class="r"><code>    summary(m3)</code></pre>
+<pre><code>Joint latent class model for quantitative outcome and competing risks 
+     fitted by maximum likelihood method 
+ 
+Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
+    subject = &quot;ID&quot;, classmb = ~X3, ng = 3, survival = Surv(Tevent, 
+        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
+    hazardtype = &quot;PH&quot;, data = data_lcmm)
+ 
+Statistical Model: 
+     Dataset: data_lcmm 
+     Number of subjects: 300 
+     Number of observations: 1678 
+     Number of latent classes: 3 
+     Number of parameters: 27  
+     Event 1: 
+        Number of events: 150
+        Proportional hazards over latent classes and 
+        M-splines constant baseline risk function with nodes 
+        0 11.3966 29.413  
+ 
+Iteration process: 
+     Convergence criteria satisfied 
+     Number of iterations:  4 
+     Convergence criteria: parameters= 1.5e-08 
+                         : likelihood= 5.5e-07 
+                         : second derivatives= 3.6e-09 
+ 
+Goodness-of-fit statistics: 
+     maximum log-likelihood: -3890.05  
+     AIC: 7834.1  
+     BIC: 7934.1  
+     Score test statistic for CI assumption: 0.637 (p-value=0.7274) 
+ 
+Maximum Likelihood Estimates: 
+ 
+Fixed effects in the class-membership model:
+(the class of reference is the last class) 
+
+                      coef         Se    Wald p-value
+intercept class1   0.75755    0.22144   3.421 0.00062
+intercept class2   0.40955    0.24289   1.686 0.09177
+X3 class1         -0.82323    0.21632  -3.806 0.00014
+X3 class2         -0.27369    0.20651  -1.325 0.18506
+
+Parameters in the proportional hazard model:
+
+                              coef         Se    Wald p-value
+event1 +/-sqrt(splines1)   0.00000    0.00422   0.000 0.99996
+event1 +/-sqrt(splines2)   0.00000    0.00873   0.000 0.99998
+event1 +/-sqrt(splines3)   0.00000    0.02982   0.000 0.99995
+event1 +/-sqrt(splines4)   0.28375    0.11503   2.467 0.01364
+event1 +/-sqrt(splines5)   0.63381    0.19734   3.212 0.00132
+event1 SurvPH class1       2.63247    0.63228   4.163 0.00003
+event1 SurvPH class2       5.39638    0.77249   6.986 0.00000
+X1                        -0.02725    0.21999  -0.124 0.90140
+X2 class1                  1.39796    0.34967   3.998 0.00006
+X2 class2                  0.81682    0.35742   2.285 0.02229
+X2 class3                -13.49985 1168.06858  -0.012 0.99078
+
+Fixed effects in the longitudinal model:
+
+                      coef         Se    Wald p-value
+intercept class1  10.16395    0.21251  47.829 0.00000
+intercept class2  10.23943    0.32069  31.929 0.00000
+intercept class3  11.51088    0.24745  46.517 0.00000
+Time class1       -2.62195    0.18596 -14.100 0.00000
+Time class2       -0.45529    0.42090  -1.082 0.27938
+Time class3       -0.60547    0.18179  -3.331 0.00087
+X1                 1.47305    0.21607   6.818 0.00000
+Time:X1           -0.03833    0.20286  -0.189 0.85015
+
+
+Variance-covariance matrix of the random-effects:
+          intercept    Time
+intercept   0.85123        
+Time        0.03889 0.26245
+
+                             coef         Se
+Residual standard error   1.49821    0.02975</code></pre>
+<pre class="r"><code>    #Goodness-of-fit statistics for m3:
+    #       maximum log-likelihood: -3890.26 ; AIC: 7834.53;  BIC: 7934.53</code></pre>
+<pre class="r"><code> #### estimation with 4 latent classes (ng=4)
+    m4 &lt;- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
+    classmb=~X3,subject=&#39;ID&#39;,survival = Surv(Tevent,Event)~ X1+mixture(X2),
+    hazard=&quot;3-quant-splines&quot;,hazardtype=&quot;PH&quot;,ng=4,data=data_lcmm,
+    B=c(0.54,-0.42,0.36,-0.94,-0.64,-0.28,0,0,0,0.34,0.59,2.6,2.56,5.26,
+    -0.1,1.27,1.34,0.7,-5.72,10.54,9.02,10.2,11.58,-2.47,-2.78,-0.28,-0.57,
+    1.48,-0.06,0.61,-0.07,0.31,1.5))</code></pre>
+<pre><code>Be patient, Jointlcmm is running ... 
+The program took 29.71 seconds </code></pre>
+<pre class="r"><code>    summary(m4)</code></pre>
+<pre><code>Joint latent class model for quantitative outcome and competing risks 
+     fitted by maximum likelihood method 
+ 
+Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
+    subject = &quot;ID&quot;, classmb = ~X3, ng = 4, survival = Surv(Tevent, 
+        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
+    hazardtype = &quot;PH&quot;, data = data_lcmm)
+ 
+Statistical Model: 
+     Dataset: data_lcmm 
+     Number of subjects: 300 
+     Number of observations: 1678 
+     Number of latent classes: 4 
+     Number of parameters: 33  
+     Event 1: 
+        Number of events: 150
+        Proportional hazards over latent classes and 
+        M-splines constant baseline risk function with nodes 
+        0 11.3966 29.413  
+ 
+Iteration process: 
+     Convergence criteria satisfied 
+     Number of iterations:  27 
+     Convergence criteria: parameters= 1.3e-13 
+                         : likelihood= 2.3e-12 
+                         : second derivatives= 2.9e-10 
+ 
+Goodness-of-fit statistics: 
+     maximum log-likelihood: -3886.79  
+     AIC: 7839.57  
+     BIC: 7961.8  
+     Score test statistic for CI assumption: 0.346 (p-value=0.8409) 
+ 
+Maximum Likelihood Estimates: 
+ 
+Fixed effects in the class-membership model:
+(the class of reference is the last class) 
+
+                      coef        Se    Wald p-value
+intercept class1   0.53190   0.32076   1.658 0.09727
+intercept class2  -0.43372   0.75859  -0.572 0.56750
+intercept class3   0.37259   0.25690   1.450 0.14696
+X3 class1         -0.94387   0.25600  -3.687 0.00023
+X3 class2         -0.63606   0.31287  -2.033 0.04206
+X3 class3         -0.28567   0.21009  -1.360 0.17392
+
+Parameters in the proportional hazard model:
+
+                              coef        Se    Wald p-value
+event1 +/-sqrt(splines1)   0.00000   0.00472   0.000 1.00000
+event1 +/-sqrt(splines2)   0.00000   0.00961   0.000 1.00000
+event1 +/-sqrt(splines3)   0.00000   0.04907   0.000 1.00000
+event1 +/-sqrt(splines4)   0.31294   0.13192   2.372 0.01768
+event1 +/-sqrt(splines5)   0.59938   0.19425   3.086 0.00203
+event1 SurvPH class1       2.61561   0.68727   3.806 0.00014
+event1 SurvPH class2       2.60883   0.92254   2.828 0.00469
+event1 SurvPH class3       5.35037   0.78683   6.800 0.00000
+X1                        -0.09760   0.23140  -0.422 0.67320
+X2 class1                  1.31521   0.45664   2.880 0.00397
+X2 class2                  1.37384   0.87222   1.575 0.11523
+X2 class3                  0.70985   0.38092   1.864 0.06239
+X2 class4                -14.57316 920.84139  -0.016 0.98737
+
+Fixed effects in the longitudinal model:
+
+                      coef        Se    Wald p-value
+intercept class1  10.53172   0.32863  32.047 0.00000
+intercept class2   9.01620   0.63963  14.096 0.00000
+intercept class3  10.21078   0.32767  31.162 0.00000
+intercept class4  11.57527   0.23875  48.484 0.00000
+Time class1       -2.46960   0.24244 -10.186 0.00000
+Time class2       -2.78091   0.37351  -7.445 0.00000
+Time class3       -0.31449   0.47183  -0.667 0.50508
+Time class4       -0.57283   0.18600  -3.080 0.00207
+X1                 1.48476   0.21641   6.861 0.00000
+Time:X1           -0.05422   0.20884  -0.260 0.79515
+
+
+Variance-covariance matrix of the random-effects:
+          intercept    Time
+intercept   0.61385        
+Time       -0.06706 0.30641
+
+                             coef        Se
+Residual standard error   1.49827   0.02976</code></pre>
+<pre class="r"><code>    #Goodness-of-fit statistics for m4:
+    #   maximum log-likelihood: -3886.93 ; AIC: 7839.86;  BIC: 7962.09</code></pre>
+<pre class="r"><code>##### The model with 3 latent classes is retained according to the BIC
+##### and the conditional independence assumption is not rejected at
+##### the 5% level.
+# posterior classification
+plot(m3,which=&quot;postprob&quot;)</code></pre>
+<p><img src="figure/LCLDA.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Class-specific predicted baseline risk &amp; survival functions in the
+# 3-class model retained (for the reference value of the covariates)
+plot(m3,which=&quot;baselinerisk&quot;,bty=&quot;l&quot;)
+plot(m3,which=&quot;baselinerisk&quot;,ylim=c(0,5),bty=&quot;l&quot;)
+plot(m3,which=&quot;survival&quot;,bty=&quot;l&quot;)</code></pre>
+<p><img src="figure/LCLDA.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># class-specific predicted trajectories in the 3-class model retained
+# (with characteristics of subject ID=193)
+data &lt;- data_lcmm[data_lcmm$ID==193,]
+plot(predictY(m3,var.time=&quot;Time&quot;,newdata=data,bty=&quot;l&quot;))
+# predictive accuracy of the model evaluated with EPOCE
+vect &lt;- 1:15
+cvpl &lt;- epoce(m3,var.time=&quot;Time&quot;,pred.times=vect)</code></pre>
+<pre><code>Be patient, epoce function is running ... 
+The program took 2.18 seconds </code></pre>
+<pre class="r"><code>summary(cvpl)</code></pre>
+<pre><code>Expected Prognostic Observed Cross-Entropy (EPOCE) of the joint latent class model: 
+ 
+Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
+    subject = &quot;ID&quot;, classmb = ~X3, ng = 3, survival = Surv(Tevent, 
+        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
+    hazardtype = &quot;PH&quot;, data = data_lcmm)
+ 
+EPOCE estimators on data used for estimation: 
+    Mean Prognostic Observed Log-likelihood (MPOL) 
+    and Cross-validated Prognostic Observed Log-likelihood (CVPOL) 
+    (CVPOL is the bias-corrected MPOL obtained by approximated cross-validation) 
+ 
+  pred. times  N at risk  N events     MPOL    CVPOL
+            1        300       150 1.738399 1.777393
+            2        300       150 1.737965 1.776959
+            3        299       150 1.826216 1.854454
+            4        296       150 1.949889 1.982856
+            5        291       149 2.017342 2.042650
+            6        275       139 2.015116 2.032020
+            7        258       127 1.815015 1.828040
+            8        229       116 1.840203 1.848909
+            9        205       107 1.883315 1.900622
+           10        184        97 1.914311 1.923069
+           11        158        81 1.712072 1.730462
+           12        143        75 1.695110 1.707581
+           13        129        68 1.779851 1.777540
+           14        116        59 1.390196 1.411671
+           15         99        49 1.492159 1.490220
+ </code></pre>
+<pre class="r"><code>plot(cvpl,bty=&quot;l&quot;,ylim=c(0,2))
+############## end of example ##############
+## End(Not run)</code></pre>
+<p><img src="figure/LCLDA.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
 <div id="lcmm-r-package" class="section level2">
 <h2>lcmm-R package</h2>
 <p><a href="https://github.com/CecileProust-Lima/lcmm/issues/44">lcmm R package can fit both GMM and LCGA</a></p>
@@ -665,7 +1140,7 @@ han16
 <p><span class="math display">\[Y_{ij}=H(\Lambda_i(t_{ij})+\epsilon_{ij}, \eta)\]</span> <span class="math inline">\(H\)</span> is a paramerized link function and for a quantitative marker, <span class="math inline">\(H^{-1}\)</span> could be a monotone increasing function.</p>
 </div>
 </div>
-<div id="example" class="section level3">
+<div id="example-1" class="section level3">
 <h3>Example</h3>
 <p>This example is from <a href="https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/lcmm">here</a></p>
 <pre class="r"><code>library(lcmm)
@@ -676,332 +1151,26 @@ han16
 #### -- comparison of linear, Beta and 3 different splines link functions --
 # linear link function
 m10&lt;-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject=&#39;ID&#39;,ng=1,
-data=data_lcmm,link=&quot;linear&quot;)</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 1.29 seconds </code></pre>
-<pre class="r"><code>summary(m10)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time + I(Time^2), random = ~Time, subject = &quot;ID&quot;, 
-    ng = 1, link = &quot;linear&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 1 
-     Number of parameters: 7  
-     Link function: linear  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  10 
-     Convergence criteria: parameters= 6.4e-08 
-                         : likelihood= 1.3e-05 
-                         : second derivatives= 5.4e-13 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -4064.97  
-     AIC: 8143.94  
-     BIC: 8169.87  
- 
-     Discrete posterior log-likelihood: -4035.53  
-     Discrete AIC: 8085.06  
- 
-     Mean discrete AIC per subject: 13.4751  
-     Mean UACV per subject: 13.4786  
-     Mean discrete LL per subject: -13.4518  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the longitudinal model:
-
-                              coef      Se    Wald p-value
-intercept (not estimated)        0                        
-Time                      -0.77541 0.18949  -4.092 0.00004
-I(Time^2)                 -0.18472 0.07578  -2.438 0.01478
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.29660        
-Time        0.19106 0.91884
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-                         coef      Se    Wald p-value
-Linear 1 (intercept) 25.40487 0.22614 112.340 0.00000
-Linear 2 (std err)    2.23846 0.04444  50.367 0.00000</code></pre>
+data=data_lcmm,link=&quot;linear&quot;)
+#summary(m10)</code></pre>
 <pre class="r"><code># Beta link function
 m11&lt;-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject=&#39;ID&#39;,ng=1,
-data=data_lcmm,link=&quot;beta&quot;)</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 1.8 seconds </code></pre>
-<pre class="r"><code>summary(m11)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time + I(Time^2), random = ~Time, subject = &quot;ID&quot;, 
-    ng = 1, link = &quot;beta&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 1 
-     Number of parameters: 9  
-     Link function: Standardised Beta CdF  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  7 
-     Convergence criteria: parameters= 8.5e-08 
-                         : likelihood= 4.6e-06 
-                         : second derivatives= 9.4e-12 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3998.69  
-     AIC: 8015.39  
-     BIC: 8048.72  
- 
-     Discrete posterior log-likelihood: -3991.42  
-     Discrete AIC: 8000.85  
- 
-     Mean discrete AIC per subject: 13.3347  
-     Mean UACV per subject: 13.3289  
-     Mean discrete LL per subject: -13.3047  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the longitudinal model:
-
-                              coef      Se   Wald p-value
-intercept (not estimated)        0                       
-Time                      -0.87803 0.19004 -4.620 0.00000
-I(Time^2)                 -0.10269 0.07663 -1.340 0.18022
-
-
-Variance-covariance matrix of the random-effects:
-          intercept   Time
-intercept   0.55149       
-Time        0.21239 0.6301
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-          coef      Se   Wald p-value
-Beta1  0.54413 0.06827  7.971 0.00000
-Beta2 -0.76244 0.09124 -8.356 0.00000
-Beta3  0.70397 0.01668 42.200 0.00000
-Beta4  0.08959 0.00436 20.533 0.00000</code></pre>
-<pre class="r"><code>plot(m11,which=&quot;linkfunction&quot;,bty=&quot;l&quot;)</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+data=data_lcmm,link=&quot;beta&quot;)
+#summary(m11)
+#plot(m11,which=&quot;linkfunction&quot;,bty=&quot;l&quot;)</code></pre>
 <pre class="r"><code># I-splines with 3 equidistant nodes
 m12&lt;-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject=&#39;ID&#39;,ng=1,
-data=data_lcmm,link=&quot;3-equi-splines&quot;)</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 2.47 seconds </code></pre>
-<pre class="r"><code>summary(m12)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time + I(Time^2), random = ~Time, subject = &quot;ID&quot;, 
-    ng = 1, link = &quot;3-equi-splines&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 1 
-     Number of parameters: 10  
-     Link function: Quadratic I-splines with nodes  
-0 15 30  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  23 
-     Convergence criteria: parameters= 2.2e-05 
-                         : likelihood= 5.4e-05 
-                         : second derivatives= 6.9e-09 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -4001.28  
-     AIC: 8022.56  
-     BIC: 8059.6  
- 
-     Discrete posterior log-likelihood: -3987.12  
-     Discrete AIC: 7994.25  
- 
-     Mean discrete AIC per subject: 13.3237  
-     Mean UACV per subject: 13.3172  
-     Mean discrete LL per subject: -13.2904  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the longitudinal model:
-
-                              coef      Se    Wald p-value
-intercept (not estimated)        0                        
-Time                      -0.88945 0.19004  -4.680 0.00000
-I(Time^2)                 -0.09774 0.07662  -1.276 0.20206
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.56771        
-Time        0.21876 0.61783
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-               coef      Se    Wald p-value
-I-splines1 -7.86160 0.53453 -14.707 0.00000
-I-splines2  0.92439 0.29168   3.169 0.00153
-I-splines3  1.48732 0.17299   8.598 0.00000
-I-splines4  2.03434 0.07782  26.140 0.00000
-I-splines5  1.80953 0.04665  38.789 0.00000</code></pre>
-<pre class="r"><code># I-splines with 5 nodes at quantiles
+data=data_lcmm,link=&quot;3-equi-splines&quot;)
+#summary(m12)
+# I-splines with 5 nodes at quantiles
 m13&lt;-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject=&#39;ID&#39;,ng=1,
-data=data_lcmm,link=&quot;5-quant-splines&quot;)</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 3.22 seconds </code></pre>
-<pre class="r"><code>summary(m13)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time + I(Time^2), random = ~Time, subject = &quot;ID&quot;, 
-    ng = 1, link = &quot;5-quant-splines&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 1 
-     Number of parameters: 12  
-     Link function: Quadratic I-splines with nodes  
-0 21 24 26 30  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  28 
-     Convergence criteria: parameters= 5.8e-07 
-                         : likelihood= 1.8e-06 
-                         : second derivatives= 1.5e-10 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3997.93  
-     AIC: 8019.86  
-     BIC: 8064.3  
- 
-     Discrete posterior log-likelihood: -3989.15  
-     Discrete AIC: 8002.3  
- 
-     Mean discrete AIC per subject: 13.3372  
-     Mean UACV per subject: 13.3294  
-     Mean discrete LL per subject: -13.2972  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the longitudinal model:
-
-                              coef      Se    Wald p-value
-intercept (not estimated)        0                        
-Time                      -0.88818 0.19005  -4.673 0.00000
-I(Time^2)                 -0.09850 0.07661  -1.286 0.19850
-
-
-Variance-covariance matrix of the random-effects:
-          intercept   Time
-intercept   0.56531       
-Time        0.22178 0.6181
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-               coef      Se    Wald p-value
-I-splines1 -7.84058 0.52816 -14.845 0.00000
-I-splines2  1.07555 0.30104   3.573 0.00035
-I-splines3  1.38553 0.16519   8.387 0.00000
-I-splines4  1.93948 0.04966  39.056 0.00000
-I-splines5  1.29499 0.03787  34.193 0.00000
-I-splines6  0.93882 0.06677  14.061 0.00000
-I-splines7  1.05754 0.05827  18.148 0.00000</code></pre>
-<pre class="r"><code># I-splines with 5 nodes, and interior nodes entered manually
+data=data_lcmm,link=&quot;5-quant-splines&quot;)
+#summary(m13)
+# I-splines with 5 nodes, and interior nodes entered manually
 m14&lt;-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject=&#39;ID&#39;,ng=1,
-data=data_lcmm,link=&quot;5-manual-splines&quot;,intnodes=c(10,20,25))</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 3.1 seconds </code></pre>
-<pre class="r"><code>summary(m14)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time + I(Time^2), random = ~Time, subject = &quot;ID&quot;, 
-    ng = 1, link = &quot;5-manual-splines&quot;, intnodes = c(10, 20, 25), 
-    data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 1 
-     Number of parameters: 12  
-     Link function: Quadratic I-splines with nodes  
-0 10 20 25 30  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  27 
-     Convergence criteria: parameters= 3e-07 
-                         : likelihood= 9.6e-05 
-                         : second derivatives= 7.3e-11 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -4000.65  
-     AIC: 8025.3  
-     BIC: 8069.75  
- 
-     Discrete posterior log-likelihood: -3988.83  
-     Discrete AIC: 8001.66  
- 
-     Mean discrete AIC per subject: 13.3361  
-     Mean UACV per subject: 13.3286  
-     Mean discrete LL per subject: -13.2961  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the longitudinal model:
-
-                              coef      Se    Wald p-value
-intercept (not estimated)        0                        
-Time                      -0.89255 0.19003  -4.697 0.00000
-I(Time^2)                 -0.09715 0.07661  -1.268 0.20474
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.56335        
-Time        0.21967 0.61937
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-               coef      Se    Wald p-value
-I-splines1 -7.90258 0.54675 -14.454 0.00000
-I-splines2  0.75149 0.28089   2.675 0.00747
-I-splines3 -1.22355 0.24723  -4.949 0.00000
-I-splines4  1.55833 0.10378  15.015 0.00000
-I-splines5  1.75324 0.04651  37.698 0.00000
-I-splines6  1.33834 0.04752  28.164 0.00000
-I-splines7  1.09680 0.05415  20.253 0.00000</code></pre>
-<pre class="r"><code>plot(m14,which=&quot;linkfunction&quot;,bty=&quot;l&quot;)</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+data=data_lcmm,link=&quot;5-manual-splines&quot;,intnodes=c(10,20,25))
+#summary(m14)
+#plot(m14,which=&quot;linkfunction&quot;,bty=&quot;l&quot;)</code></pre>
 <pre class="r"><code># Thresholds
 # Especially for the threshold link function, we recommend to estimate 
 # models with increasing complexity and use estimates of previous ones 
@@ -1013,92 +1182,9 @@ m15&lt;-lcmm(Ydep2~Time+I(Time^2),random=~Time,subject=&#39;ID&#39;,ng=1
 B=c(-0.8379, -0.1103,  0.3832,  0.3788 , 0.4524, -7.3180,  0.5917,  0.7364,
  0.6530, 0.4038,  0.4290,  0.6099,  0.6014 , 0.5354 , 0.5029 , 0.5463,
  0.5310 , 0.5352, 0.6498,  0.6653,  0.5851,  0.6525,  0.6701 , 0.6670 ,
- 0.6767 , 0.7394 , 0.7426, 0.7153,  0.7702,  0.6421))</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 70.07 seconds </code></pre>
-<pre class="r"><code>summary(m15)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time + I(Time^2), random = ~Time, subject = &quot;ID&quot;, 
-    ng = 1, link = &quot;thresholds&quot;, data = data_lcmm, maxiter = 100)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 1 
-     Number of parameters: 30  
-     Link function: thresholds  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  1 
-     Convergence criteria: parameters= 2.5e-06 
-                         : likelihood= 5.5e-05 
-                         : second derivatives= 5.3e-08 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3971.85  
-     AIC: 8003.7  
-     BIC: 8114.82  
- 
-     Discrete posterior log-likelihood: -3971.85  
-     Discrete AIC: 8003.7  
- 
-     Mean discrete AIC per subject: 13.3395  
-     Mean UACV per subject: 13.3463  
-     Mean discrete LL per subject: -13.2395  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the longitudinal model:
-
-                              coef      Se    Wald p-value
-intercept (not estimated)        0                        
-Time                      -0.83913 0.18322  -4.580 0.00000
-I(Time^2)                 -0.10980 0.07429  -1.478 0.13940
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.38331        
-Time        0.37882 0.45229
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-(the following levels are not observed in the data:  2 3 4 5 6 
-so that the number of parameters in the threshold transformation is reduced to 25 ) 
-
-                   coef      Se    Wald p-value
-thresh. parm1  -7.31747 0.47070 -15.546 0.00000
-thresh. parm2   0.59168 0.33974   1.742 0.08158
-thresh. parm3   0.73582 0.21497   3.423 0.00062
-thresh. parm4   0.65297 0.14759   4.424 0.00001
-thresh. parm5   0.40392 0.13940   2.898 0.00376
-thresh. parm6   0.42909 0.12066   3.556 0.00038
-thresh. parm7   0.60985 0.09889   6.167 0.00000
-thresh. parm8   0.60140 0.08007   7.511 0.00000
-thresh. parm9   0.53533 0.07142   7.495 0.00000
-thresh. parm10  0.50297 0.06476   7.767 0.00000
-thresh. parm11  0.54621 0.05731   9.531 0.00000
-thresh. parm12  0.53101 0.05024  10.570 0.00000
-thresh. parm13  0.53522 0.04478  11.951 0.00000
-thresh. parm14  0.64985 0.03981  16.325 0.00000
-thresh. parm15  0.66526 0.03485  19.091 0.00000
-thresh. parm16  0.58512 0.03148  18.590 0.00000
-thresh. parm17  0.65253 0.02837  23.003 0.00000
-thresh. parm18  0.67008 0.02593  25.845 0.00000
-thresh. parm19  0.66703 0.02476  26.939 0.00000
-thresh. parm20  0.67671 0.02437  27.768 0.00000
-thresh. parm21  0.73938 0.02402  30.781 0.00000
-thresh. parm22  0.74264 0.02526  29.394 0.00000
-thresh. parm23  0.71529 0.02874  24.891 0.00000
-thresh. parm24  0.77017 0.03553  21.675 0.00000
-thresh. parm25  0.64207 0.04728  13.579 0.00000</code></pre>
-<pre class="r"><code>plot(m15,which=&quot;linkfunction&quot;,bty=&quot;l&quot;)</code></pre>
-<img src="figure/LCLDA.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+ 0.6767 , 0.7394 , 0.7426, 0.7153,  0.7702,  0.6421))
+#summary(m15)
+#plot(m15,which=&quot;linkfunction&quot;,bty=&quot;l&quot;)</code></pre>
 <div class="alert alert-warning">
 <p>
 <strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
@@ -1118,7 +1204,6 @@ plot(m14,which=&quot;linkfunction&quot;,add=TRUE,col=5,legend=NULL)
 plot(m15,which=&quot;linkfunction&quot;,add=TRUE,col=6,legend=NULL)
 legend(x=&quot;bottomright&quot;,legend=c(&quot;linear&quot;,&quot;beta&quot;,&quot;spl_3e&quot;,&quot;spl_5q&quot;,&quot;spl_5m&quot;,&quot;thresholds&quot;),
 col=1:6,lty=1,inset=.02,box.lty=0)</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#### Estimation of 2-latent class mixed models with different assumed link 
 #### functions with individual and class specific linear trend
 #### for illustration, only default initial values where used but other
@@ -1127,278 +1212,25 @@ col=1:6,lty=1,inset=.02,box.lty=0)</code></pre>
 # Linear link function
 m20&lt;-lcmm(Ydep2~Time,random=~Time,subject=&#39;ID&#39;,mixture=~Time,ng=2,
 idiag=TRUE,data=data_lcmm,link=&quot;linear&quot;,B=c(-0.98,0.79,-2.09,
--0.81,0.19,0.55,24.49,2.24))</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 2.45 seconds </code></pre>
-<pre class="r"><code>summary(m20)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time, mixture = ~Time, random = ~Time, subject = &quot;ID&quot;, 
-    ng = 2, idiag = TRUE, link = &quot;linear&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 2 
-     Number of parameters: 8  
-     Link function: linear  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  2 
-     Convergence criteria: parameters= 1.5e-07 
-                         : likelihood= 1.3e-06 
-                         : second derivatives= 1.2e-10 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -4061.88  
-     AIC: 8139.76  
-     BIC: 8169.39  
- 
-     Discrete posterior log-likelihood: -4036.05  
-     Discrete AIC: 8088.09  
- 
-     Mean discrete AIC per subject: 13.4802  
-     Mean UACV per subject: 13.4828  
-     Mean discrete LL per subject: -13.4535  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the class-membership model:
-(the class of reference is the last class) 
-
-                     coef      Se   Wald p-value
-intercept class1 -0.97956 0.38189 -2.565 0.01032
-
-Fixed effects in the longitudinal model:
-
-                                     coef      Se   Wald p-value
-intercept class1 (not estimated)        0                       
-intercept class2                  0.79049 0.26631  2.968 0.00299
-Time class1                      -2.08922 0.27103 -7.708 0.00000
-Time class2                      -0.81346 0.13339 -6.098 0.00000
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.18864        
-Time        0.00000 0.55495
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-                         coef      Se   Wald p-value
-Linear 1 (intercept) 24.49109 0.46740 52.399 0.00000
-Linear 2 (std err)    2.24229 0.04398 50.986 0.00000</code></pre>
-<pre class="r"><code>postprob(m20)</code></pre>
-<pre><code> 
-Posterior classification: 
-  class1 class2
-N  68.00 232.00
-%  22.67  77.33
- 
-Posterior classification table: 
-     --&gt; mean of posterior probabilities in each class 
-        prob1  prob2
-class1 0.7985 0.2015
-class2 0.1189 0.8811
- 
-Posterior probabilities above a threshold (%): 
-         class1 class2
-prob&gt;0.7  66.18  85.78
-prob&gt;0.8  54.41  74.14
-prob&gt;0.9  41.18  62.50
- </code></pre>
+-0.81,0.19,0.55,24.49,2.24))
+#summary(m20)
+#postprob(m20)</code></pre>
 <pre class="r"><code># Beta link function
 m21&lt;-lcmm(Ydep2~Time,random=~Time,subject=&#39;ID&#39;,mixture=~Time,ng=2,
 idiag=TRUE,data=data_lcmm,link=&quot;beta&quot;,B=c(-0.1,-0.56,-0.4,-1.77,
-0.53,0.14,0.6,-0.83,0.73,0.09))</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 3.17 seconds </code></pre>
-<pre class="r"><code>summary(m21)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time, mixture = ~Time, random = ~Time, subject = &quot;ID&quot;, 
-    ng = 2, idiag = TRUE, link = &quot;beta&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 2 
-     Number of parameters: 10  
-     Link function: Standardised Beta CdF  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  3 
-     Convergence criteria: parameters= 7.4e-07 
-                         : likelihood= 3e-05 
-                         : second derivatives= 2e-10 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3994.54  
-     AIC: 8009.09  
-     BIC: 8046.13  
- 
-     Discrete posterior log-likelihood: -3985.49  
-     Discrete AIC: 7990.99  
- 
-     Mean discrete AIC per subject: 13.3183  
-     Mean UACV per subject: 13.3174  
-     Mean discrete LL per subject: -13.285  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the class-membership model:
-(the class of reference is the last class) 
-
-                     coef      Se    Wald p-value
-intercept class1 -0.09650 0.22158  -0.435 0.66320
-
-Fixed effects in the longitudinal model:
-
-                                     coef      Se    Wald p-value
-intercept class1 (not estimated)        0                        
-intercept class2                 -0.56422 0.24360  -2.316 0.02055
-Time class1                      -0.39606 0.11528  -3.436 0.00059
-Time class2                      -1.77211 0.13371 -13.254 0.00000
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.52572        
-Time        0.00000 0.14307
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-          coef      Se    Wald p-value
-Beta1  0.59713 0.06486   9.206 0.00000
-Beta2 -0.82702 0.08991  -9.198 0.00000
-Beta3  0.73447 0.01833  40.069 0.00000
-Beta4  0.09274 0.00434  21.390 0.00000</code></pre>
-<pre class="r"><code>postprob(m21)</code></pre>
-<pre><code> 
-Posterior classification: 
-  class1 class2
-N    138    162
-%     46     54
- 
-Posterior classification table: 
-     --&gt; mean of posterior probabilities in each class 
-        prob1  prob2
-class1 0.8393 0.1607
-class2 0.1663 0.8337
- 
-Posterior probabilities above a threshold (%): 
-         class1 class2
-prob&gt;0.7  73.91  77.16
-prob&gt;0.8  67.39  60.49
-prob&gt;0.9  46.38  43.83
- </code></pre>
+0.53,0.14,0.6,-0.83,0.73,0.09))
+summary(m21)
+postprob(m21)</code></pre>
 <pre class="r"><code># I-splines link function (and 5 nodes at quantiles)
 m22&lt;-lcmm(Ydep2~Time,random=~Time,subject=&#39;ID&#39;,mixture=~Time,ng=2,
 idiag=TRUE,data=data_lcmm,link=&quot;5-quant-splines&quot;,B=c(0.12,0.63,
--1.76,-0.39,0.51,0.13,-7.37,1.05,1.28,1.96,1.3,0.93,1.05))</code></pre>
-<pre><code>Be patient, lcmm is running ... 
-The program took 3.8 seconds </code></pre>
-<pre class="r"><code>summary(m22)</code></pre>
-<pre><code>General latent class mixed model 
-     fitted by maximum likelihood method 
- 
-lcmm(fixed = Ydep2 ~ Time, mixture = ~Time, random = ~Time, subject = &quot;ID&quot;, 
-    ng = 2, idiag = TRUE, link = &quot;5-quant-splines&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 2 
-     Number of parameters: 13  
-     Link function: Quadratic I-splines with nodes  
-0 21 24 26 30  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  2 
-     Convergence criteria: parameters= 2.7e-06 
-                         : likelihood= 3.4e-05 
-                         : second derivatives= 4.2e-08 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3992.38  
-     AIC: 8010.76  
-     BIC: 8058.91  
- 
-     Discrete posterior log-likelihood: -3983  
-     Discrete AIC: 7991.99  
- 
-     Mean discrete AIC per subject: 13.32  
-     Mean UACV per subject: 13.3175  
-     Mean discrete LL per subject: -13.2767  
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the class-membership model:
-(the class of reference is the last class) 
+-1.76,-0.39,0.51,0.13,-7.37,1.05,1.28,1.96,1.3,0.93,1.05))
+summary(m22)
+postprob(m22)
 
-                     coef      Se    Wald p-value
-intercept class1  0.11993 0.20591   0.582 0.56026
-
-Fixed effects in the longitudinal model:
-
-                                     coef      Se    Wald p-value
-intercept class1 (not estimated)        0                        
-intercept class2                  0.62722 0.23425   2.678 0.00742
-Time class1                      -1.76180 0.12715 -13.856 0.00000
-Time class2                      -0.38973 0.10967  -3.554 0.00038
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.51154        
-Time        0.00000 0.12703
-
-Residual standard error (not estimated) = 1
-
-Parameters of the link function:
-
-               coef      Se    Wald p-value
-I-splines1 -7.37438 0.51801 -14.236 0.00000
-I-splines2  1.04709 0.29509   3.548 0.00039
-I-splines3  1.27806 0.17474   7.314 0.00000
-I-splines4  1.95670 0.04927  39.711 0.00000
-I-splines5  1.30287 0.03782  34.447 0.00000
-I-splines6  0.93180 0.06714  13.878 0.00000
-I-splines7  1.05285 0.05806  18.133 0.00000</code></pre>
-<pre class="r"><code>postprob(m22)</code></pre>
-<pre><code> 
-Posterior classification: 
-  class1 class2
-N    162    138
-%     54     46
- 
-Posterior classification table: 
-     --&gt; mean of posterior probabilities in each class 
-        prob1  prob2
-class1 0.8507 0.1493
-class2 0.1534 0.8466
- 
-Posterior probabilities above a threshold (%): 
-         class1 class2
-prob&gt;0.7  81.48  76.09
-prob&gt;0.8  65.43  67.39
-prob&gt;0.9  50.62  47.83
- </code></pre>
-<pre class="r"><code>data &lt;- data_lcmm[data_lcmm$ID==193,]
-plot(predictL(m22,var.time=&quot;Time&quot;,newdata=data,bty=&quot;l&quot;))</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+data &lt;- data_lcmm[data_lcmm$ID==193,]
+plot(predictL(m22,var.time=&quot;Time&quot;,newdata=data,bty=&quot;l&quot;))
+head(m22$pprob)</code></pre>
 <div id="reference" class="section level4">
 <h4>Reference</h4>
 <ul>
@@ -1409,13 +1241,13 @@ plot(predictL(m22,var.time=&quot;Time&quot;,newdata=data,bty=&quot;l&quot;))</co
 </div>
 <div id="kml3d" class="section level2">
 <h2>kml3d</h2>
-<p>a new implementation of k-means for longitudinal data (or trajectories).</p>
+<p><a href="https://cran.r-project.org/web/packages/kml3d/kml3d.pdf">kml3d</a> is a new implementation of k-means for longitudinal data (or trajectories).</p>
 <ul>
 <li>can deal with missing value (how?)</li>
 <li>By default, nbClusters is 2:6, with the maximum of 26, 20 times each</li>
 <li>k-means is a “hill-climbing” algorithm, no guarantee of optimality</li>
 </ul>
-<div id="example-1" class="section level3">
+<div id="example-2" class="section level3">
 <h3>Example</h3>
 <div id="example-1-1" class="section level4">
 <h4>Example 1</h4>
@@ -1424,221 +1256,34 @@ plot(predictL(m22,var.time=&quot;Time&quot;,newdata=data,bty=&quot;l&quot;))</co
 ### Generation of some data
 cld1 &lt;- generateArtificialLongData3d(15)
 cld1</code></pre>
-<pre><code>   ~~~ Class: ClusterLongData3d ~~~
-      ~ Sub-Class: LongData3d ~ 
-~ idAll       = [45] i1 i2 i3 i4 i5 i6 i7 i8 i9 i10 ...
-~ idFewNA     = [45] i1 i2 i3 i4 i5 i6 i7 i8 i9 i10 ...
-~ varNames    = [2] V T
-~ time        = [11] 0 1 2 3 4 5 6 7 8 9 ...
-~ maxNA       = [2] 9 9
-~ reverse     = [2x2]
-    - mean    = 0 0
-    - SD      = 1 1
-
-~ traj = [45x11x2] (limited to 5x10x3)  :
-
- V :
-      t0    t1    t2    t3    t4    t5    t6    t7    t8    t9 more
-i1 -2.06 -1.37 -2.48 -0.45 -2.50 -5.61 -1.24 -3.30 -2.26 -4.31  ...
-i2  0.00  4.84  2.09  0.55  6.64 -0.10  5.90  2.32  5.24 -1.20  ...
-i3  2.31  1.26  0.32  1.34  2.00  1.08  0.39  2.78  4.24 -4.35  ...
-i4  0.16 -1.44  2.23 -0.64 -3.52 -0.46 -2.46 -1.36 -0.37 -0.83  ...
-i5 -3.54  0.89 -0.66  0.38 -3.51  2.34  0.51  0.06 -2.28  0.11  ...
-... ...
-
- T :
-      t0    t1    t2    t3    t4   t5    t6    t7    t8    t9 more
-i1  1.85 -3.90 -1.39 -0.35 -0.80 0.48 -3.26  0.45 -1.23 -1.11  ...
-i2 -0.27  2.64  2.29 -1.29  1.27 3.67  1.74  2.23  2.34 -1.80  ...
-i3  3.34  3.19  4.74  4.78 -0.45 1.77  1.71 -2.57  1.20  3.61  ...
-i4  4.59 -1.36  1.54  0.16  2.77 4.75  6.94  0.78  1.25  2.63  ...
-i5 -3.17 -4.00 -1.21 -7.00 -3.90 0.18 -1.59 -2.53 -3.02 -4.64  ...
-... ...
-
-    ~ Sub-Class: ListPartition ~ 
- ~ criterionActif          =  Calinski.Harabatz
- ~ initializationMethod    =  
- ~ sorted                  =  
- ~ criterion values (Calinski.Harabatz):
-    &lt;no Partition&gt;</code></pre>
 <pre class="r"><code>### We suspect 2, 3, 4 or 5 clusters, we want 3 redrawing.
 ###   We want to &quot;see&quot; what happen (so toPlot=&quot;both&quot;)
-kml3d(cld1,2:5,3,toPlot=&quot;both&quot;)</code></pre>
-<pre><code> ~ Slow KmL3D ~</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>
-S</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>### 3 seems to be the best.
+kml3d(cld1,2:5,3,toPlot=&quot;both&quot;)
+
+
+### 3 seems to be the best.
 ###   We don&#39;t want to see again, we want to get the result as fast as possible.
 ###   Just, to check the overall process, we plot the criterion evolution
 kml3d(cld1,3,10,toPlot=&quot;criterion&quot;)</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code> ~ Fast KmL3D ~
-*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-5.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-6.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-7.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-8.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-9.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-10.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-11.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>*</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-12.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-S</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-10-13.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="example-2" class="section level4">
+<div id="example-2-1" class="section level4">
 <h4>Example 2</h4>
 <pre class="r"><code>library(kml3d)
 # NOT RUN {
 ### 1. Data Preparation
 data(pregnandiol)
-head(pregnandiol)</code></pre>
-<pre><code>   id temperature1 pregnandiol1 temperature2 pregnandiol2 temperature3
-1 I-1         36.8         1.78         36.4         2.84         37.0
-2 I-2         36.8         1.34         36.8         1.36         36.7
-3 I-3           NA         3.13           NA         1.17           NA
-4 I-4         36.8        11.50         36.8         3.95         36.5
-5 I-5           NA        17.90           NA         7.35           NA
-6 I-6           NA           NA           NA         4.59           NA
-  pregnandiol3 temperature4 pregnandiol4 temperature5 pregnandiol5 temperature6
-1           NA         37.0         2.38         36.5         2.02         36.3
-2         1.67         36.7         0.61         36.6         0.69         36.7
-3         1.13           NA         0.75           NA         0.41           NA
-4         3.15         36.7         2.74         36.6         3.65         36.7
-5        12.70           NA         3.23         36.3         6.08         36.8
-6         3.08         36.9         3.63         36.8         3.38         36.5
-  pregnandiol6 temperature7 pregnandiol7 temperature8 pregnandiol8 temperature9
-1         2.35         36.5         2.67         36.5         2.23         36.5
-2         1.08         36.4         1.22         36.6         2.16         36.6
-3         0.69           NA         0.88         36.5         0.70         36.5
-4         3.38         36.7         3.94         36.7         3.54         36.4
-5         4.83         36.5         7.68         36.6         3.02         36.5
-6         3.06         36.6         4.02         36.5         2.33         36.4
-  pregnandiol9 temperature10 pregnandiol10 temperature11 pregnandiol11
-1         2.16          36.5          3.05          36.6          3.03
-2         0.87          36.5          1.09          36.7          2.43
-3         0.77          36.5          0.27          36.6          0.72
-4         3.18          36.6         11.40          36.6          2.29
-5         2.33          36.3          6.71          36.7          2.20
-6         1.86          36.4          1.62          36.5          2.33
-  temperature12 pregnandiol12 temperature13 pregnandiol13 temperature14
-1          36.4          1.91          36.5            NA          36.6
-2          36.5          1.66          36.5          2.04          36.5
-3          36.6          0.65          36.7          1.56          36.6
-4          36.5          2.35          36.6          1.90          36.5
-5          36.7          8.65          36.7          2.59          36.1
-6          36.4          2.45          36.5          1.66          36.4
-  pregnandiol14 temperature15 pregnandiol15 temperature16 pregnandiol16
-1          2.89          36.7          3.44          36.9          4.02
-2          1.04          36.5          2.43          36.6          1.32
-3          1.08          36.8          3.21          36.8          1.56
-4          3.10          36.5          2.93          36.6          2.26
-5          7.68          36.5         12.60          36.5          1.63
-6          1.57          36.5          1.90          36.6          2.10
-  temperature17 pregnandiol17 temperature18 pregnandiol18 temperature19
-1          36.8            NA          36.5          4.61          36.9
-2          36.4          0.76          36.4          1.80          36.3
-3          36.9          2.75          36.8         10.80          36.9
-4          36.8          2.84          36.8          6.59          36.7
-5          36.5          2.23          36.3          2.13          37.0
-6          36.5          2.08          36.6          2.98          36.9
-  pregnandiol19 temperature20 pregnandiol20 temperature21 pregnandiol21
-1         14.20          36.9         14.40          36.8         16.20
-2          0.73          36.5          1.83          36.5          2.87
-3          6.52          36.9          5.35          37.0          6.65
-4          7.50          36.7          6.17          36.6          9.51
-5         21.40          36.7         12.40          36.6         13.90
-6          2.14          37.0          4.68          36.9         12.80
-  temperature22 pregnandiol22 temperature23 pregnandiol23 temperature24
-1          36.9         19.60          36.9         18.20          36.8
-2          36.7          3.22          36.8          2.45          36.8
-3          37.0         13.60          37.0         11.40          37.1
-4          36.7          8.36          36.9         17.50          36.9
-5          36.8         22.10          36.9          7.96          36.7
-6          36.9         14.10          37.0         13.10          37.1
-  pregnandiol24 temperature25 pregnandiol25 temperature26 pregnandiol26
-1         15.70          37.0         15.30          37.1          2.96
-2          2.54          36.7         14.60          36.9         11.50
-3          8.09          37.1          6.51          37.1          6.47
-4         39.50          37.0         36.20          36.8         31.50
-5         12.80          37.0         17.90          37.0         21.70
-6         18.10          37.2         14.40          37.0         11.90
-  temperature27 pregnandiol27 temperature28 pregnandiol28 temperature29
-1          37.3          2.06          37.0          1.94            NA
-2          36.8         17.80          37.0         12.90          37.0
-3          37.0          1.59          36.9          0.94            NA
-4          36.8         34.30          36.9         30.30          36.8
-5          37.0         19.00          36.9         19.80          36.7
-6            NA          9.93          37.1         17.60          37.1
-  pregnandiol29 temperature30 pregnandiol30
-1            NA            NA            NA
-2          14.1          36.9          18.2
-3            NA            NA            NA
-4          12.0          37.0          10.0
-5          19.3            NA            NA
-6           3.7            NA            NA</code></pre>
-<pre class="r"><code>names(pregnandiol)</code></pre>
-<pre><code> [1] &quot;id&quot;            &quot;temperature1&quot;  &quot;pregnandiol1&quot;  &quot;temperature2&quot; 
- [5] &quot;pregnandiol2&quot;  &quot;temperature3&quot;  &quot;pregnandiol3&quot;  &quot;temperature4&quot; 
- [9] &quot;pregnandiol4&quot;  &quot;temperature5&quot;  &quot;pregnandiol5&quot;  &quot;temperature6&quot; 
-[13] &quot;pregnandiol6&quot;  &quot;temperature7&quot;  &quot;pregnandiol7&quot;  &quot;temperature8&quot; 
-[17] &quot;pregnandiol8&quot;  &quot;temperature9&quot;  &quot;pregnandiol9&quot;  &quot;temperature10&quot;
-[21] &quot;pregnandiol10&quot; &quot;temperature11&quot; &quot;pregnandiol11&quot; &quot;temperature12&quot;
-[25] &quot;pregnandiol12&quot; &quot;temperature13&quot; &quot;pregnandiol13&quot; &quot;temperature14&quot;
-[29] &quot;pregnandiol14&quot; &quot;temperature15&quot; &quot;pregnandiol15&quot; &quot;temperature16&quot;
-[33] &quot;pregnandiol16&quot; &quot;temperature17&quot; &quot;pregnandiol17&quot; &quot;temperature18&quot;
-[37] &quot;pregnandiol18&quot; &quot;temperature19&quot; &quot;pregnandiol19&quot; &quot;temperature20&quot;
-[41] &quot;pregnandiol20&quot; &quot;temperature21&quot; &quot;pregnandiol21&quot; &quot;temperature22&quot;
-[45] &quot;pregnandiol22&quot; &quot;temperature23&quot; &quot;pregnandiol23&quot; &quot;temperature24&quot;
-[49] &quot;pregnandiol24&quot; &quot;temperature25&quot; &quot;pregnandiol25&quot; &quot;temperature26&quot;
-[53] &quot;pregnandiol26&quot; &quot;temperature27&quot; &quot;pregnandiol27&quot; &quot;temperature28&quot;
-[57] &quot;pregnandiol28&quot; &quot;temperature29&quot; &quot;pregnandiol29&quot; &quot;temperature30&quot;
-[61] &quot;pregnandiol30&quot;</code></pre>
-<pre class="r"><code>cld3dPregTemp &lt;- cld3d(pregnandiol,timeInData=list(temp=1:30*2,preg=1:30*2+1))
+head(pregnandiol)
+names(pregnandiol)
+cld3dPregTemp &lt;- cld3d(pregnandiol,timeInData=list(temp=1:30*2,preg=1:30*2+1))
 
 ### 2. Building &quot;optimal&quot; clusteration (with only 2 redrawings)
 ###    Real analysis needs at least 20 redrawings
-kml3d(cld3dPregTemp,3:5,nbRedrawing=2,toPlot=&quot;both&quot;)</code></pre>
-<pre><code> ~ Slow KmL3D ~</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>*</code></pre>
-<pre><code>
-S</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>### 3. Exporting results
-try(choice(cld3dPregTemp))</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>Choix :   class : NULL  length : 0 
-Error in switch(EXPR = choix, Up = { : EXPR must be a length 1 vector</code></pre>
-<pre class="r"><code>### 4. Visualizing in 3D
+kml3d(cld3dPregTemp,3:5,nbRedrawing=2,toPlot=&quot;both&quot;)
+
+### 3. Exporting results
+try(choice(cld3dPregTemp))
+
+### 4. Visualizing in 3D
 plotMeans3d(cld3dPregTemp,4)
 # }</code></pre>
 <br> <br>
@@ -1664,29 +1309,18 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kml3d_2.4.2            kml_2.4.1              longitudinalData_2.4.1
- [4] misc3d_0.9-0           rgl_0.106.8            clv_0.3-2.2           
- [7] class_7.3-15           cluster_2.0.7-1        lcmm_1.8.1            
-[10] survival_3.1-8        
+[1] lcmm_1.8.1     survival_3.1-8
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.0              later_1.2.0             pillar_1.6.0           
- [4] compiler_3.5.1          git2r_0.24.0            highr_0.7              
- [7] workflowr_1.2.0         tools_3.5.1             digest_0.6.27          
-[10] jsonlite_1.7.2          evaluate_0.13           lifecycle_1.0.0        
-[13] tibble_3.1.1            lattice_0.20-38         pkgconfig_2.0.2        
-[16] rlang_0.4.10            Matrix_1.2-15           shiny_1.6.0            
-[19] crosstalk_1.1.1         yaml_2.2.0              xfun_0.22              
-[22] fastmap_1.1.0           stringr_1.4.0           knitr_1.32             
-[25] htmlwidgets_1.5.1       fs_1.5.0                vctrs_0.3.7            
-[28] manipulateWidget_0.11.0 rprojroot_1.3-2         grid_3.5.1             
-[31] glue_1.3.2              R6_2.4.0                fansi_0.4.0            
-[34] tcltk_3.5.1             rmarkdown_1.11          magrittr_2.0.1         
-[37] whisker_0.3-2           promises_1.2.0.1        backports_1.1.3        
-[40] codetools_0.2-16        ellipsis_0.3.0          htmltools_0.5.1.1      
-[43] splines_3.5.1           xtable_1.8-4            mime_0.6               
-[46] httpuv_1.6.1            utf8_1.1.4              miniUI_0.1.1.1         
-[49] stringi_1.3.1           crayon_1.4.1           </code></pre>
+ [1] whisker_0.3-2     knitr_1.32        magrittr_2.0.1    workflowr_1.2.0  
+ [5] splines_3.5.1     lattice_0.20-38   rlang_0.4.10      fansi_0.4.0      
+ [9] highr_0.7         stringr_1.4.0     tools_3.5.1       grid_3.5.1       
+[13] xfun_0.22         utf8_1.1.4        git2r_0.24.0      htmltools_0.5.1.1
+[17] ellipsis_0.3.0    yaml_2.2.0        digest_0.6.27     rprojroot_1.3-2  
+[21] tibble_3.1.1      lifecycle_1.0.0   crayon_1.4.1      Matrix_1.2-15    
+[25] vctrs_0.3.7       fs_1.5.0          glue_1.3.2        evaluate_0.13    
+[29] rmarkdown_1.11    stringi_1.3.1     compiler_3.5.1    pillar_1.6.0     
+[33] backports_1.1.3   pkgconfig_2.0.2  </code></pre>
 </div>
 </div>
 </div>
