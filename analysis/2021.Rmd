@@ -6,3 +6,5 @@ output: html_document
 ---
 
 * [Latent Class longitudinal data analysis](LCLDA.html)
+
+* [pancreatic marker data analysis](pancreatic_marker_data.html)

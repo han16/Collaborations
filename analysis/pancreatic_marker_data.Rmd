@@ -7,10 +7,13 @@ output: html_document
 library("readxl")
 library(tidyverse)
 library(kableExtra)
+library(lcmm)
 ```
 
 
 ## data mergering 
+
+* handle missing values 
 
 ```{r, echo=F, message=F, warning=F}
 path="C:/Shengtong/Research/Collaboration"
@@ -19,9 +22,83 @@ subdata1=read_excel(paste(path, "cA19-9_pancreatic_marker_data/2020-12-23 - Long
 col_names_subdata1=colnames(subdata1)
 subdata2=read_excel(paste(path, "cA19-9_pancreatic_marker_data/2020-12-23 - Wide format Chemo -- XRT.XLSX", sep="/"))
 col_names_subdata2=colnames(subdata2)
-interest_column=union(col_names_subdata1[c(1,2,3,5,6, 10)], c("study_id_num",	"age", "gender", "race",	"bmi",	"metastatic", "diseaseprogression", "pfsmofromdx", 	"dead", 	"osmofromdx"))
+interest_column=union(col_names_subdata1[c(1,2,3,4,5,6, 10)], c("study_id_num",	"age", "gender", "race",	"bmi",	"metastatic", "diseaseprogression", "pfsmofromdx", 	"dead", 	"osmofromdx")) # only look at interested columns 
 pancreatic_data=full_join(subdata1, subdata2, by="study_id_num")%>% select(interest_column)%>%drop_na() 
 kable(pancreatic_data, caption = "")%>%
 kable_styling() %>%
 scroll_box(height = "500px")
+```
+
+
+
+
+
+```{r, echo=T, eval=T}
+m1 <- Jointlcmm(fixed=ca199_long~coded_time_point+age+gender+race+bmi, random=~coded_time_point	,subject="study_id_num"
+    ,survival = Surv(osmofromdx,dead)~ age+gender+bmi ,hazard="piecewise"
+    ,hazardtype="PH",ng=1,data=data.frame(pancreatic_data))
+# race is not numeric 
+## the input data must be data.frame!!!!!!
+## variable in mixture must be from that in fixed 
+## at least 3 nodes are required for spline function in hazard, but hazard="3-quant-splines", that is too strict to result in convergence issue 
+summary(m1)
+plot(m1)
+```
+
+
+
+
+
+```{r, echo=T, eval=T}
+m2 <- Jointlcmm(fixed=ca199_long~coded_time_point+age, mixture=~age, random=~coded_time_point	,subject="study_id_num"
+    ,survival = Surv(osmofromdx,dead)~ age ,hazard="piecewise"
+    ,hazardtype="PH",ng=2,data=data.frame(pancreatic_data))
+## race is not numeric 
+## the input data must be data.frame!!!!!!
+## variable in mixture must be from that in fixed 
+## at least 3 nodes are required for spline function in hazard, but hazard="3-quant-splines", that is too strict to result in convergence issue
+## don't use too many covariates in "fixed" 
+summary(m2)
+plot(m2, which="postprob")
+kable(m2$pprob, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+plot(m2,which="survival",bty="l")
+```
+
+
+
+```{r, echo=T, eval=T}
+m3 <- Jointlcmm(fixed=ca199_long~coded_time_point+age, mixture=~age, random=~coded_time_point	,subject="study_id_num"
+    ,survival = Surv(osmofromdx,dead)~ age ,hazard="piecewise"
+    ,hazardtype="PH",ng=3,data=data.frame(pancreatic_data))
+## race is not numeric 
+## the input data must be data.frame!!!!!!
+## variable in mixture must be from that in fixed 
+## at least 3 nodes are required for spline function in hazard, but hazard="3-quant-splines", that is too strict to result in convergence issue
+summary(m3)
+plot(m3, which="postprob")
+kable(m3$pprob, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+plot(m3,which="survival",bty="l")
+```
+
+
+
+
+```{r, echo=T, eval=T}
+m4 <- Jointlcmm(fixed=ca199_long~coded_time_point+age, mixture=~age, random=~coded_time_point	,subject="study_id_num"
+    ,survival = Surv(osmofromdx,dead)~ age ,hazard="piecewise"
+    ,hazardtype="PH",ng=4,data=data.frame(pancreatic_data))
+## race is not numeric 
+## the input data must be data.frame!!!!!!
+## variable in mixture must be from that in fixed 
+## at least 3 nodes are required for spline function in hazard, but hazard="3-quant-splines", that is too strict to result in convergence issue
+summary(m4)
+plot(m4, which="postprob")
+kable(m4$pprob, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+plot(m4,which="survival",bty="l")
 ```
