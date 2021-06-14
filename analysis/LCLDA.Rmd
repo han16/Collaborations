@@ -47,7 +47,7 @@ head(data_lcmm)
     m1 <- Jointlcmm(fixed= Ydep1~X1*Time,random=~Time,subject='ID'
     ,survival = Surv(Tevent,Event)~ X1+X2 ,hazard="3-quant-splines"
     ,hazardtype="PH",ng=1,data=data_lcmm)
-    summary(m1)
+    #summary(m1)
     #Goodness-of-fit statistics for m1:
     #    maximum log-likelihood: -3944.77 ; AIC: 7919.54  ;  BIC: 7975.09
     ## End(Not run)
@@ -61,7 +61,7 @@ head(data_lcmm)
     hazard="3-quant-splines",hazardtype="PH",ng=2,data=data_lcmm,
     B=c(0.64,-0.62,0,0,0.52,0.81,0.41,0.78,0.1,0.77,-0.05,10.43,11.3,-2.6,
     -0.52,1.41,-0.05,0.91,0.05,0.21,1.5))
-    summary(m2)
+    #summary(m2)
     #Goodness-of-fit statistics for m2:
     #       maximum log-likelihood: -3921.27; AIC: 7884.54; BIC: 7962.32
 
@@ -75,7 +75,7 @@ head(data_lcmm)
     hazard="3-quant-splines",hazardtype="PH",ng=3,data=data_lcmm,
     B=c(0.77,0.4,-0.82,-0.27,0,0,0,0.3,0.62,2.62,5.31,-0.03,1.36,0.82,
     -13.5,10.17,10.24,11.51,-2.62,-0.43,-0.61,1.47,-0.04,0.85,0.04,0.26,1.5))
-    summary(m3)
+    #summary(m3)
     #Goodness-of-fit statistics for m3:
     #       maximum log-likelihood: -3890.26 ; AIC: 7834.53;  BIC: 7934.53
 
@@ -89,7 +89,7 @@ head(data_lcmm)
     B=c(0.54,-0.42,0.36,-0.94,-0.64,-0.28,0,0,0,0.34,0.59,2.6,2.56,5.26,
     -0.1,1.27,1.34,0.7,-5.72,10.54,9.02,10.2,11.58,-2.47,-2.78,-0.28,-0.57,
     1.48,-0.06,0.61,-0.07,0.31,1.5))
-    summary(m4)
+    #summary(m4)
     #Goodness-of-fit statistics for m4:
     #   maximum log-likelihood: -3886.93 ; AIC: 7839.86;  BIC: 7962.09
 ```

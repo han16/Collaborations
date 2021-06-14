@@ -1,0 +1,27 @@
+---
+title: "pancreatic marker data analysis"
+output: html_document
+---
+
+```{r, echo=F, warning=F, message=F}
+library("readxl")
+library(tidyverse)
+library(kableExtra)
+```
+
+
+## data mergering 
+
+```{r, echo=F, message=F, warning=F}
+path="C:/Shengtong/Research/Collaboration"
+####### read into two data sets 
+subdata1=read_excel(paste(path, "cA19-9_pancreatic_marker_data/2020-12-23 - Long format Chemo -- XRT.XLSX", sep="/"))
+col_names_subdata1=colnames(subdata1)
+subdata2=read_excel(paste(path, "cA19-9_pancreatic_marker_data/2020-12-23 - Wide format Chemo -- XRT.XLSX", sep="/"))
+col_names_subdata2=colnames(subdata2)
+interest_column=union(col_names_subdata1[c(1,2,3,5,6, 10)], c("study_id_num",	"age", "gender", "race",	"bmi",	"metastatic", "diseaseprogression", "pfsmofromdx", 	"dead", 	"osmofromdx"))
+pancreatic_data=full_join(subdata1, subdata2, by="study_id_num")%>% select(interest_column)%>%drop_na() 
+kable(pancreatic_data, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```

@@ -29,6 +29,14 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -75,9 +83,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -195,8 +201,6 @@ $(document).ready(function () {
   menuAnchor.closest('li.dropdown').addClass('active');
 });
 </script>
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -344,8 +348,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -354,6 +356,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -402,19 +414,12 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Latent Class longitudinal data analysis</h1>
-<h4 class="author"><em>Shengtong Han</em></h4>
+<h4 class="author">Shengtong Han</h4>
 
 </div>
 
@@ -430,7 +435,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#report"> Report <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -439,21 +444,21 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-07
+<strong>Last updated:</strong> 2021-06-10
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 4 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.2.0). The <em>Report</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
-<div id="report" class="tab-pane fade">
+<div id="checks" class="tab-pane fade">
 <div id="workflowr-checks" class="panel-group">
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -487,7 +492,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20210523code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20210523)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20210523)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -516,12 +521,6 @@ The following chunks had caches available:
 <li>
 unnamed-chunk-10
 </li>
-<li>
-unnamed-chunk-4
-</li>
-<li>
-unnamed-chunk-6
-</li>
 </ul>
 <p>To ensure reproducibility of the results, delete the cache directory <code>LCLDA_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
@@ -530,17 +529,34 @@ unnamed-chunk-6
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree329ccd0a8aab6f2840bb296f3aa166c9ec13781dtargetblank329ccd0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/329ccd0a8aab6f2840bb296f3aa166c9ec13781d" target="_blank">329ccd0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree329ccd0a8aab6f2840bb296f3aa166c9ec13781dtargetblank329ccd0a" class="panel-collapse collapse">
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0a0a7f74030f10f26b3cda72b5fb904c7bbddaeetargetblank0a0a7f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/0a0a7f74030f10f26b3cda72b5fb904c7bbddaee" target="_blank">0a0a7f7</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0a0a7f74030f10f26b3cda72b5fb904c7bbddaeetargetblank0a0a7f7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/0a0a7f74030f10f26b3cda72b5fb904c7bbddaee" target="_blank">0a0a7f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .Rhistory
     Ignored:    analysis/LCLDA_cache/
 
 Unstaged changes:
@@ -559,7 +575,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/LCLDA.Rmd</code>) and HTML (<code>docs/LCLDA.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -583,6 +599,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/0a0a7f74030f10f26b3cda72b5fb904c7bbddaee/analysis/LCLDA.Rmd" target="_blank">0a0a7f7</a>
+</td>
+<td>
+han16
+</td>
+<td>
+2021-06-07
+</td>
+<td>
+6/7/2021
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/0a0a7f74030f10f26b3cda72b5fb904c7bbddaee/docs/LCLDA.html" target="_blank">0a0a7f7</a>
+</td>
+<td>
+han16
+</td>
+<td>
+2021-06-07
+</td>
+<td>
+6/7/2021
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -716,69 +766,9 @@ head(data_lcmm)</code></pre>
     ,survival = Surv(Tevent,Event)~ X1+X2 ,hazard=&quot;3-quant-splines&quot;
     ,hazardtype=&quot;PH&quot;,ng=1,data=data_lcmm)</code></pre>
 <pre><code>Be patient, Jointlcmm is running ... 
-The program took 4.21 seconds </code></pre>
-<pre class="r"><code>    summary(m1)</code></pre>
-<pre><code>Joint latent class model for quantitative outcome and competing risks 
-     fitted by maximum likelihood method 
- 
-Jointlcmm(fixed = Ydep1 ~ X1 * Time, random = ~Time, subject = &quot;ID&quot;, 
-    ng = 1, survival = Surv(Tevent, Event) ~ X1 + X2, hazard = &quot;3-quant-splines&quot;, 
-    hazardtype = &quot;PH&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 1 
-     Number of parameters: 15  
-     Event 1: 
-        Number of events: 150
-        M-splines constant baseline risk function with nodes 
-        0 11.3966 29.413  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  21 
-     Convergence criteria: parameters= 9.1e-09 
-                         : likelihood= 3.2e-07 
-                         : second derivatives= 4.6e-07 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3944.77  
-     AIC: 7919.54  
-     BIC: 7975.1  
-     Score test statistic for CI assumption: 6.976 (p-value=0.0306) 
- 
-Maximum Likelihood Estimates: 
- 
-Parameters in the proportional hazard model:
-
-                             coef      Se   Wald p-value
-event1 +/-sqrt(splines1) -0.00001 0.08475  0.000 0.99993
-event1 +/-sqrt(splines2)  0.00001 0.06756  0.000 0.99989
-event1 +/-sqrt(splines3)  0.71713 0.08702  8.241 0.00000
-event1 +/-sqrt(splines4)  0.97669 0.15657  6.238 0.00000
-event1 +/-sqrt(splines5)  0.19832 1.09667  0.181 0.85649
-X1                        0.08281 0.16412  0.505 0.61388
-X2                        0.58993 0.17573  3.357 0.00079
-
-Fixed effects in the longitudinal model:
-
-              coef      Se   Wald p-value
-intercept 10.56723 0.15598 67.746 0.00000
-X1         1.47700 0.21832  6.765 0.00000
-Time      -1.65870 0.17333 -9.570 0.00000
-X1:Time   -0.08096 0.24336 -0.333 0.73939
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.92403        
-Time        0.56427 1.22771
-
-                            coef      Se
-Residual standard error  1.50045 0.02990</code></pre>
-<pre class="r"><code>    #Goodness-of-fit statistics for m1:
+The program took 3.83 seconds </code></pre>
+<pre class="r"><code>    #summary(m1)
+    #Goodness-of-fit statistics for m1:
     #    maximum log-likelihood: -3944.77 ; AIC: 7919.54  ;  BIC: 7975.09
     ## End(Not run)</code></pre>
 <pre class="r"><code>#### estimation with 2 latent classes (ng=2)
@@ -788,82 +778,9 @@ Residual standard error  1.50045 0.02990</code></pre>
     B=c(0.64,-0.62,0,0,0.52,0.81,0.41,0.78,0.1,0.77,-0.05,10.43,11.3,-2.6,
     -0.52,1.41,-0.05,0.91,0.05,0.21,1.5))</code></pre>
 <pre><code>Be patient, Jointlcmm is running ... 
-The program took 1.26 seconds </code></pre>
-<pre class="r"><code>    summary(m2)</code></pre>
-<pre><code>Joint latent class model for quantitative outcome and competing risks 
-     fitted by maximum likelihood method 
- 
-Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
-    subject = &quot;ID&quot;, classmb = ~X3, ng = 2, survival = Surv(Tevent, 
-        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
-    hazardtype = &quot;PH&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 2 
-     Number of parameters: 21  
-     Event 1: 
-        Number of events: 150
-        Proportional hazards over latent classes and 
-        M-splines constant baseline risk function with nodes 
-        0 11.3966 29.413  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  2 
-     Convergence criteria: parameters= 1.7e-07 
-                         : likelihood= 2.9e-05 
-                         : second derivatives= 1.4e-05 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3921.28  
-     AIC: 7884.56  
-     BIC: 7962.34  
-     Score test statistic for CI assumption: 4.868 (p-value=0.0877) 
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the class-membership model:
-(the class of reference is the last class) 
-
-                     coef      Se    Wald p-value
-intercept class1  0.64179 0.23639   2.715 0.00663
-X3 class1        -0.62135 0.18720  -3.319 0.00090
-
-Parameters in the proportional hazard model:
-
-                             coef      Se    Wald p-value
-event1 +/-sqrt(splines1) -0.00007 0.02194  -0.003 0.99752
-event1 +/-sqrt(splines2) -0.00014 0.04412  -0.003 0.99747
-event1 +/-sqrt(splines3)  0.50421 0.10396   4.850 0.00000
-event1 +/-sqrt(splines4)  0.80901 0.15970   5.066 0.00000
-event1 +/-sqrt(splines5)  0.43681 0.39996   1.092 0.27477
-event1 SurvPH class1      0.78331 0.35394   2.213 0.02689
-X1                        0.10318 0.16729   0.617 0.53739
-X2 class1                 0.76963 0.20998   3.665 0.00025
-X2 class2                -0.04521 0.57232  -0.079 0.93703
-
-Fixed effects in the longitudinal model:
-
-                     coef      Se    Wald p-value
-intercept class1 10.42612 0.19161  54.414 0.00000
-intercept class2 11.29780 0.23627  47.816 0.00000
-Time class1      -2.59556 0.17992 -14.426 0.00000
-Time class2      -0.52342 0.17642  -2.967 0.00301
-X1                1.41450 0.22174   6.379 0.00000
-Time:X1          -0.04995 0.20647  -0.242 0.80886
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.91249        
-Time        0.05005 0.21387
-
-                            coef      Se
-Residual standard error  1.50271 0.03000</code></pre>
-<pre class="r"><code>    #Goodness-of-fit statistics for m2:
+The program took 1.21 seconds </code></pre>
+<pre class="r"><code>    #summary(m2)
+    #Goodness-of-fit statistics for m2:
     #       maximum log-likelihood: -3921.27; AIC: 7884.54; BIC: 7962.32</code></pre>
 <pre class="r"><code>## Not run:
     #### estimation with 3 latent classes (ng=3)
@@ -873,88 +790,9 @@ Residual standard error  1.50271 0.03000</code></pre>
     B=c(0.77,0.4,-0.82,-0.27,0,0,0,0.3,0.62,2.62,5.31,-0.03,1.36,0.82,
     -13.5,10.17,10.24,11.51,-2.62,-0.43,-0.61,1.47,-0.04,0.85,0.04,0.26,1.5))</code></pre>
 <pre><code>Be patient, Jointlcmm is running ... 
-The program took 3.44 seconds </code></pre>
-<pre class="r"><code>    summary(m3)</code></pre>
-<pre><code>Joint latent class model for quantitative outcome and competing risks 
-     fitted by maximum likelihood method 
- 
-Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
-    subject = &quot;ID&quot;, classmb = ~X3, ng = 3, survival = Surv(Tevent, 
-        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
-    hazardtype = &quot;PH&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 3 
-     Number of parameters: 27  
-     Event 1: 
-        Number of events: 150
-        Proportional hazards over latent classes and 
-        M-splines constant baseline risk function with nodes 
-        0 11.3966 29.413  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  4 
-     Convergence criteria: parameters= 1.5e-08 
-                         : likelihood= 5.5e-07 
-                         : second derivatives= 3.6e-09 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3890.05  
-     AIC: 7834.1  
-     BIC: 7934.1  
-     Score test statistic for CI assumption: 0.637 (p-value=0.7274) 
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the class-membership model:
-(the class of reference is the last class) 
-
-                      coef         Se    Wald p-value
-intercept class1   0.75755    0.22144   3.421 0.00062
-intercept class2   0.40955    0.24289   1.686 0.09177
-X3 class1         -0.82323    0.21632  -3.806 0.00014
-X3 class2         -0.27369    0.20651  -1.325 0.18506
-
-Parameters in the proportional hazard model:
-
-                              coef         Se    Wald p-value
-event1 +/-sqrt(splines1)   0.00000    0.00422   0.000 0.99996
-event1 +/-sqrt(splines2)   0.00000    0.00873   0.000 0.99998
-event1 +/-sqrt(splines3)   0.00000    0.02982   0.000 0.99995
-event1 +/-sqrt(splines4)   0.28375    0.11503   2.467 0.01364
-event1 +/-sqrt(splines5)   0.63381    0.19734   3.212 0.00132
-event1 SurvPH class1       2.63247    0.63228   4.163 0.00003
-event1 SurvPH class2       5.39638    0.77249   6.986 0.00000
-X1                        -0.02725    0.21999  -0.124 0.90140
-X2 class1                  1.39796    0.34967   3.998 0.00006
-X2 class2                  0.81682    0.35742   2.285 0.02229
-X2 class3                -13.49985 1168.06858  -0.012 0.99078
-
-Fixed effects in the longitudinal model:
-
-                      coef         Se    Wald p-value
-intercept class1  10.16395    0.21251  47.829 0.00000
-intercept class2  10.23943    0.32069  31.929 0.00000
-intercept class3  11.51088    0.24745  46.517 0.00000
-Time class1       -2.62195    0.18596 -14.100 0.00000
-Time class2       -0.45529    0.42090  -1.082 0.27938
-Time class3       -0.60547    0.18179  -3.331 0.00087
-X1                 1.47305    0.21607   6.818 0.00000
-Time:X1           -0.03833    0.20286  -0.189 0.85015
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.85123        
-Time        0.03889 0.26245
-
-                             coef         Se
-Residual standard error   1.49821    0.02975</code></pre>
-<pre class="r"><code>    #Goodness-of-fit statistics for m3:
+The program took 33.25 seconds </code></pre>
+<pre class="r"><code>    #summary(m3)
+    #Goodness-of-fit statistics for m3:
     #       maximum log-likelihood: -3890.26 ; AIC: 7834.53;  BIC: 7934.53</code></pre>
 <pre class="r"><code> #### estimation with 4 latent classes (ng=4)
     m4 &lt;- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
@@ -964,94 +802,9 @@ Residual standard error   1.49821    0.02975</code></pre>
     -0.1,1.27,1.34,0.7,-5.72,10.54,9.02,10.2,11.58,-2.47,-2.78,-0.28,-0.57,
     1.48,-0.06,0.61,-0.07,0.31,1.5))</code></pre>
 <pre><code>Be patient, Jointlcmm is running ... 
-The program took 29.71 seconds </code></pre>
-<pre class="r"><code>    summary(m4)</code></pre>
-<pre><code>Joint latent class model for quantitative outcome and competing risks 
-     fitted by maximum likelihood method 
- 
-Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
-    subject = &quot;ID&quot;, classmb = ~X3, ng = 4, survival = Surv(Tevent, 
-        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
-    hazardtype = &quot;PH&quot;, data = data_lcmm)
- 
-Statistical Model: 
-     Dataset: data_lcmm 
-     Number of subjects: 300 
-     Number of observations: 1678 
-     Number of latent classes: 4 
-     Number of parameters: 33  
-     Event 1: 
-        Number of events: 150
-        Proportional hazards over latent classes and 
-        M-splines constant baseline risk function with nodes 
-        0 11.3966 29.413  
- 
-Iteration process: 
-     Convergence criteria satisfied 
-     Number of iterations:  27 
-     Convergence criteria: parameters= 1.3e-13 
-                         : likelihood= 2.3e-12 
-                         : second derivatives= 2.9e-10 
- 
-Goodness-of-fit statistics: 
-     maximum log-likelihood: -3886.79  
-     AIC: 7839.57  
-     BIC: 7961.8  
-     Score test statistic for CI assumption: 0.346 (p-value=0.8409) 
- 
-Maximum Likelihood Estimates: 
- 
-Fixed effects in the class-membership model:
-(the class of reference is the last class) 
-
-                      coef        Se    Wald p-value
-intercept class1   0.53190   0.32076   1.658 0.09727
-intercept class2  -0.43372   0.75859  -0.572 0.56750
-intercept class3   0.37259   0.25690   1.450 0.14696
-X3 class1         -0.94387   0.25600  -3.687 0.00023
-X3 class2         -0.63606   0.31287  -2.033 0.04206
-X3 class3         -0.28567   0.21009  -1.360 0.17392
-
-Parameters in the proportional hazard model:
-
-                              coef        Se    Wald p-value
-event1 +/-sqrt(splines1)   0.00000   0.00472   0.000 1.00000
-event1 +/-sqrt(splines2)   0.00000   0.00961   0.000 1.00000
-event1 +/-sqrt(splines3)   0.00000   0.04907   0.000 1.00000
-event1 +/-sqrt(splines4)   0.31294   0.13192   2.372 0.01768
-event1 +/-sqrt(splines5)   0.59938   0.19425   3.086 0.00203
-event1 SurvPH class1       2.61561   0.68727   3.806 0.00014
-event1 SurvPH class2       2.60883   0.92254   2.828 0.00469
-event1 SurvPH class3       5.35037   0.78683   6.800 0.00000
-X1                        -0.09760   0.23140  -0.422 0.67320
-X2 class1                  1.31521   0.45664   2.880 0.00397
-X2 class2                  1.37384   0.87222   1.575 0.11523
-X2 class3                  0.70985   0.38092   1.864 0.06239
-X2 class4                -14.57316 920.84139  -0.016 0.98737
-
-Fixed effects in the longitudinal model:
-
-                      coef        Se    Wald p-value
-intercept class1  10.53172   0.32863  32.047 0.00000
-intercept class2   9.01620   0.63963  14.096 0.00000
-intercept class3  10.21078   0.32767  31.162 0.00000
-intercept class4  11.57527   0.23875  48.484 0.00000
-Time class1       -2.46960   0.24244 -10.186 0.00000
-Time class2       -2.78091   0.37351  -7.445 0.00000
-Time class3       -0.31449   0.47183  -0.667 0.50508
-Time class4       -0.57283   0.18600  -3.080 0.00207
-X1                 1.48476   0.21641   6.861 0.00000
-Time:X1           -0.05422   0.20884  -0.260 0.79515
-
-
-Variance-covariance matrix of the random-effects:
-          intercept    Time
-intercept   0.61385        
-Time       -0.06706 0.30641
-
-                             coef        Se
-Residual standard error   1.49827   0.02976</code></pre>
-<pre class="r"><code>    #Goodness-of-fit statistics for m4:
+The program took 23.12 seconds </code></pre>
+<pre class="r"><code>    #summary(m4)
+    #Goodness-of-fit statistics for m4:
     #   maximum log-likelihood: -3886.93 ; AIC: 7839.86;  BIC: 7962.09</code></pre>
 <pre class="r"><code>##### The model with 3 latent classes is retained according to the BIC
 ##### and the conditional independence assumption is not rejected at
@@ -1073,7 +826,7 @@ plot(predictY(m3,var.time=&quot;Time&quot;,newdata=data,bty=&quot;l&quot;))
 vect &lt;- 1:15
 cvpl &lt;- epoce(m3,var.time=&quot;Time&quot;,pred.times=vect)</code></pre>
 <pre><code>Be patient, epoce function is running ... 
-The program took 2.18 seconds </code></pre>
+The program took 2.19 seconds </code></pre>
 <pre class="r"><code>summary(cvpl)</code></pre>
 <pre><code>Expected Prognostic Observed Cross-Entropy (EPOCE) of the joint latent class model: 
  
@@ -1088,21 +841,21 @@ EPOCE estimators on data used for estimation:
     (CVPOL is the bias-corrected MPOL obtained by approximated cross-validation) 
  
   pred. times  N at risk  N events     MPOL    CVPOL
-            1        300       150 1.738399 1.777393
-            2        300       150 1.737965 1.776959
-            3        299       150 1.826216 1.854454
-            4        296       150 1.949889 1.982856
-            5        291       149 2.017342 2.042650
-            6        275       139 2.015116 2.032020
-            7        258       127 1.815015 1.828040
-            8        229       116 1.840203 1.848909
-            9        205       107 1.883315 1.900622
-           10        184        97 1.914311 1.923069
-           11        158        81 1.712072 1.730462
-           12        143        75 1.695110 1.707581
-           13        129        68 1.779851 1.777540
-           14        116        59 1.390196 1.411671
-           15         99        49 1.492159 1.490220
+            1        300       150 1.738399 1.777508
+            2        300       150 1.737965 1.777073
+            3        299       150 1.826219 1.854540
+            4        296       150 1.949889 1.982967
+            5        291       149 2.017347 2.042720
+            6        275       139 2.015122 2.032085
+            7        258       127 1.815015 1.828072
+            8        229       116 1.840224 1.849152
+            9        205       107 1.883315 1.900653
+           10        184        97 1.914311 1.923098
+           11        158        81 1.712072 1.730542
+           12        143        75 1.695109 1.707619
+           13        129        68 1.779851 1.777560
+           14        116        59 1.390196 1.411742
+           15         99        49 1.492460 1.491550
  </code></pre>
 <pre class="r"><code>plot(cvpl,bty=&quot;l&quot;,ylim=c(0,2))
 ############## end of example ##############
@@ -1286,7 +1039,7 @@ try(choice(cld3dPregTemp))
 ### 4. Visualizing in 3D
 plotMeans3d(cld3dPregTemp,4)
 # }</code></pre>
-<br> <br>
+<br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
 <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
@@ -1294,33 +1047,34 @@ plotMeans3d(cld3dPregTemp,4)
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.1 (2018-07-02)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS High Sierra 10.13.6
+<pre><code>R version 3.6.0 (2019-04-26)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 18363)
 
 Matrix products: default
-BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 
 locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252   
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.1252    
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
-[1] lcmm_1.8.1     survival_3.1-8
+[1] lcmm_1.9.2        survival_2.44-1.1
 
 loaded via a namespace (and not attached):
- [1] whisker_0.3-2     knitr_1.32        magrittr_2.0.1    workflowr_1.2.0  
- [5] splines_3.5.1     lattice_0.20-38   rlang_0.4.10      fansi_0.4.0      
- [9] highr_0.7         stringr_1.4.0     tools_3.5.1       grid_3.5.1       
-[13] xfun_0.22         utf8_1.1.4        git2r_0.24.0      htmltools_0.5.1.1
-[17] ellipsis_0.3.0    yaml_2.2.0        digest_0.6.27     rprojroot_1.3-2  
-[21] tibble_3.1.1      lifecycle_1.0.0   crayon_1.4.1      Matrix_1.2-15    
-[25] vctrs_0.3.7       fs_1.5.0          glue_1.3.2        evaluate_0.13    
-[29] rmarkdown_1.11    stringi_1.3.1     compiler_3.5.1    pillar_1.6.0     
-[33] backports_1.1.3   pkgconfig_2.0.2  </code></pre>
+ [1] Rcpp_1.0.1      knitr_1.23      whisker_0.3-2   magrittr_1.5   
+ [5] workflowr_1.6.2 splines_3.6.0   lattice_0.20-38 R6_2.4.1       
+ [9] stringr_1.4.0   tools_3.6.0     grid_3.6.0      xfun_0.20      
+[13] git2r_0.26.1    htmltools_0.3.6 yaml_2.2.0      digest_0.6.19  
+[17] rprojroot_1.3-2 Matrix_1.2-17   later_0.8.0     promises_1.0.1 
+[21] fs_1.3.1        glue_1.4.1      evaluate_0.13   rmarkdown_1.13 
+[25] stringi_1.4.3   compiler_3.6.0  backports_1.1.4 httpuv_1.5.1   </code></pre>
 </div>
 </div>
 </div>
