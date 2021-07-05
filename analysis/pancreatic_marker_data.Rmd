@@ -7,6 +7,8 @@ output: html_document
 library("readxl")
 library(tidyverse)
 library(kableExtra)
+library(gridExtra)
+library(ggpubr)
 library(lcmm)
 ```
 
@@ -23,19 +25,197 @@ col_names_subdata1=colnames(subdata1)
 subdata2=read_excel(paste(path, "cA19-9_pancreatic_marker_data/2020-12-23 - Wide format Chemo -- XRT.XLSX", sep="/"))
 col_names_subdata2=colnames(subdata2)
 interest_column=union(col_names_subdata1[c(1,2,3,4,5,6, 10)], c("study_id_num",	"age", "gender", "race",	"bmi",	"metastatic", "diseaseprogression", "pfsmofromdx", 	"dead", 	"osmofromdx")) # only look at interested columns 
-pancreatic_data=full_join(subdata1, subdata2, by="study_id_num")%>% select(interest_column)%>%drop_na() 
+pancreatic_data=full_join(subdata1, subdata2, by="study_id_num")%>% select(interest_column) %>%drop_na() 
+surv.days=pancreatic_data%>%select(osmofromdx)*30  # both day and osmofromda need to be in same scale 
+pancreatic_data=pancreatic_data%>%add_column(surv.days=surv.days$osmofromdx)
+
 kable(pancreatic_data, caption = "")%>%
 kable_styling() %>%
 scroll_box(height = "500px")
 ```
 
 
+## lcmm 
+
+### one cluster 
+
+```{r, echo=T}
+m10<-lcmm(ca199_long~day,random=~day,subject='study_id_num',ng=1,
+data=data.frame(pancreatic_data),link="linear")
+#summary(m10)
+#plot(m10,which="linkfunction", bty="l")
+
+
+m11<-lcmm(ca199_long~day,random=~day,subject='study_id_num',ng=1,
+data=data.frame(pancreatic_data),link="beta")
+#summary(m11)
+#plot(m11,which="linkfunction", bty="l")
+
+
+m12<-lcmm(ca199_long~day,random=~day,subject='study_id_num',ng=1,
+data=data.frame(pancreatic_data),link="3-equi-splines")
+#summary(m10)
+#plot(m12,which="linkfunction", bty="l")
+
+m13<-lcmm(ca199_long~day,random=~day,subject='study_id_num',ng=1,
+data=data.frame(pancreatic_data),link="5-quant-splines")
+#summary(m10)
+#plot(m13,which="linkfunction", bty="l")
+
+### Plot of estimated different link functions:
+#### (applicable for models that only differ in the "link function" used.
+plot(m10,which="linkfunction",col=1,xlab="latent process",ylab="marker",
+bty="l",xlim=c(-10,5),legend=NULL)
+plot(m11,which="linkfunction",add=TRUE,col=2,legend=NULL)
+plot(m12,which="linkfunction",add=TRUE,col=3,legend=NULL)
+plot(m13,which="linkfunction",add=TRUE,col=4,legend=NULL)
+legend(x="bottomright",legend=c("linear","beta","spl_3e","spl_5q"),
+col=1:6,lty=1,inset=.02,box.lty=0)
+```
+
+### two clusters 
+
+```{r, echo=T}
+# Beta link function
+m21<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=2,
+idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
+#B=c(-0.1,-0.56,-0.4,-1.77,
+#0.53,0.14,0.6,-0.83,0.73,0.09)
+)
+summary(m21)
+postprob(m21)
+
+#The function plot.predict provides directly the plot of these class-specific predicted trajectories. The function predictY provides the class-specific predicted trajectories computed in the natural scale of the outcome(s).
+
+data <- pancreatic_data[pancreatic_data$study_id_num==31,]
+data
+plot(predictL(m21,var.time="day",newdata=data,bty="l"))
 
 
 
-```{r, echo=T, eval=T}
-m1 <- Jointlcmm(fixed=ca199_long~coded_time_point+age+gender+race+bmi, random=~coded_time_point	,subject="study_id_num"
-    ,survival = Surv(osmofromdx,dead)~ age+gender+bmi ,hazard="piecewise"
+#plot(m21,which="link",bty="l")
+kable(m21$pprob, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```
+
+### 3 clusters 
+
+```{r, echo=T}
+# Beta link function
+m31<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=3,
+idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
+#B=c(-0.1,-0.56,-0.4,-1.77,
+#0.53,0.14,0.6,-0.83,0.73,0.09)
+)
+#summary(m31)
+#postprob(m31)
+
+#The function plot.predict provides directly the plot of these class-specific predicted trajectories. The function predictY provides the class-specific predicted trajectories computed in the natural scale of the outcome(s).
+
+data <- pancreatic_data[pancreatic_data$study_id_num==31,]
+data
+plot(predictL(m31,var.time="day",newdata=data,bty="l"))
+
+
+#plot(m21,which="link",bty="l")
+kable(m31$pprob, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```
+
+### 4 clusters 
+
+```{r, echo=T}
+# Beta link function
+m41<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=4,
+idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
+#B=c(-0.1,-0.56,-0.4,-1.77,
+#0.53,0.14,0.6,-0.83,0.73,0.09)
+)
+#summary(m41)
+#postprob(m41)
+
+#The function plot.predict provides directly the plot of these class-specific predicted trajectories. The function predictY provides the class-specific predicted trajectories computed in the natural scale of the outcome(s).
+
+data <- pancreatic_data[pancreatic_data$study_id_num==31,]
+data
+plot(predictL(m41,var.time="day",newdata=data,bty="l"))
+
+
+#plot(m21,which="link",bty="l")
+kable(m41$pprob, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```
+
+### 5 clusters 
+
+```{r, echo=T}
+# Beta link function
+m51<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=5,
+idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
+#B=c(-0.1,-0.56,-0.4,-1.77,
+#0.53,0.14,0.6,-0.83,0.73,0.09)
+)
+#summary(m51)
+#postprob(m51)
+
+#The function plot.predict provides directly the plot of these class-specific predicted trajectories. The function predictY provides the class-specific predicted trajectories computed in the natural scale of the outcome(s).
+
+data <- pancreatic_data[pancreatic_data$study_id_num==31,]
+data
+plot(predictL(m51,var.time="day",newdata=data,bty="l"))
+
+
+#plot(m21,which="link",bty="l")
+kable(m51$pprob, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```
+
+```{r, echo=F}
+fig1=plot(predictL(m11,var.time="day",newdata=data,bty="l", main="1 cluster"))
+fig2=plot(predictL(m21,var.time="day",newdata=data,bty="l", main="2 clusters"))
+fig3=plot(predictL(m31,var.time="day",newdata=data,bty="l", main="3 clusters"))
+fig4=plot(predictL(m41,var.time="day",newdata=data,bty="l", main="4 clusters"))
+fig5=plot(predictL(m51,var.time="day",newdata=data,bty="l", main="5 clusters"))
+#figure=ggarrange(fig1, fig2, fig3, fig4, fig5,  common.legend = TRUE, legend="right") 
+#annotate_figure(figure,top = text_grob(" class specific mean predicted trajectory", color = "red", face = "bold", size = 14))
+
+```
+### determine number of clusters 
+
+```{r, echo=T}
+# BIC criterion 
+m11$BIC
+m21$BIC
+m31$BIC
+m41$BIC
+m51$BIC
+## 1 cluster is chosen 
+# log likelihood 
+m11$loglik
+m21$loglik
+m31$loglik
+m41$loglik
+m51$loglik
+## 5 clusters should be chosen 
+```
+
+
+
+## Jointlcmm 
+
+
+This function doesn't work due to **Output can not be produced. The program stopped abnormally or there was an error in the computation
+of the estimated baseline risk functions and survival functions.**
+
+
+
+```{r, echo=F, eval=F}
+m1 <- Jointlcmm(fixed=ca199_long~day+age+gender+race+bmi, random=~day	,subject="study_id_num"
+    ,survival = Surv(surv.days,dead)~ age+gender+bmi ,hazard="piecewise"
     ,hazardtype="PH",ng=1,data=data.frame(pancreatic_data))
 # race is not numeric 
 ## the input data must be data.frame!!!!!!
@@ -49,9 +229,9 @@ plot(m1)
 
 
 
-```{r, echo=T, eval=T}
-m2 <- Jointlcmm(fixed=ca199_long~coded_time_point+age, mixture=~age, random=~coded_time_point	,subject="study_id_num"
-    ,survival = Surv(osmofromdx,dead)~ age ,hazard="piecewise"
+```{r, echo=T, eval=F}
+m2 <- Jointlcmm(fixed=ca199_long~day, mixture=~day, random=~day	,subject="study_id_num"
+    ,survival = Surv(surv.days,dead)~age,hazard="piecewise"
     ,hazardtype="PH",ng=2,data=data.frame(pancreatic_data))
 ## race is not numeric 
 ## the input data must be data.frame!!!!!!
@@ -68,9 +248,9 @@ plot(m2,which="survival",bty="l")
 
 
 
-```{r, echo=T, eval=T}
-m3 <- Jointlcmm(fixed=ca199_long~coded_time_point+age, mixture=~age, random=~coded_time_point	,subject="study_id_num"
-    ,survival = Surv(osmofromdx,dead)~ age ,hazard="piecewise"
+```{r, echo=F, eval=F}
+m3 <- Jointlcmm(fixed=ca199_long~day, mixture=~day, random=~day	,subject="study_id_num"
+    ,survival = Surv(surv.days,dead)~ age ,hazard="piecewise"
     ,hazardtype="PH",ng=3,data=data.frame(pancreatic_data))
 ## race is not numeric 
 ## the input data must be data.frame!!!!!!
@@ -87,9 +267,9 @@ plot(m3,which="survival",bty="l")
 
 
 
-```{r, echo=T, eval=T}
-m4 <- Jointlcmm(fixed=ca199_long~coded_time_point+age, mixture=~age, random=~coded_time_point	,subject="study_id_num"
-    ,survival = Surv(osmofromdx,dead)~ age ,hazard="piecewise"
+```{r, echo=F, eval=F}
+m4 <- Jointlcmm(fixed=ca199_long~day, mixture=~day, random=~day	,subject="study_id_num"
+    ,survival = Surv(surv.days,dead)~ age ,hazard="piecewise"
     ,hazardtype="PH",ng=4,data=data.frame(pancreatic_data))
 ## race is not numeric 
 ## the input data must be data.frame!!!!!!

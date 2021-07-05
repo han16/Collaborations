@@ -444,7 +444,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-10
+<strong>Last updated:</strong> 2021-06-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
@@ -541,16 +541,16 @@ unnamed-chunk-10
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0a0a7f74030f10f26b3cda72b5fb904c7bbddaeetargetblank0a0a7f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/0a0a7f74030f10f26b3cda72b5fb904c7bbddaee" target="_blank">0a0a7f7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb80e74f8c2e15ac4addf92f4642ad1c5034aa4ectargetblankb80e74fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/b80e74f8c2e15ac4addf92f4642ad1c5034aa4ec" target="_blank">b80e74f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0a0a7f74030f10f26b3cda72b5fb904c7bbddaeetargetblank0a0a7f7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb80e74f8c2e15ac4addf92f4642ad1c5034aa4ectargetblankb80e74fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/0a0a7f74030f10f26b3cda72b5fb904c7bbddaee" target="_blank">0a0a7f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/b80e74f8c2e15ac4addf92f4642ad1c5034aa4ec" target="_blank">b80e74f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -560,7 +560,9 @@ Ignored files:
     Ignored:    analysis/LCLDA_cache/
 
 Unstaged changes:
+    Modified:   analysis/2021.Rmd
     Modified:   analysis/LCLDA.Rmd
+    Modified:   analysis/pancreatic_marker_data.Rmd
 
 </code></pre>
 <p>
@@ -599,6 +601,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a23e4b8f581bc761c6e215f8ee09e0169522d731/analysis/LCLDA.Rmd" target="_blank">a23e4b8</a>
+</td>
+<td>
+Shengtong
+</td>
+<td>
+2021-06-14
+</td>
+<td>
+6/14/2021
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a23e4b8f581bc761c6e215f8ee09e0169522d731/docs/LCLDA.html" target="_blank">a23e4b8</a>
+</td>
+<td>
+Shengtong
+</td>
+<td>
+2021-06-14
+</td>
+<td>
+6/14/2021
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -766,20 +802,32 @@ head(data_lcmm)</code></pre>
     ,survival = Surv(Tevent,Event)~ X1+X2 ,hazard=&quot;3-quant-splines&quot;
     ,hazardtype=&quot;PH&quot;,ng=1,data=data_lcmm)</code></pre>
 <pre><code>Be patient, Jointlcmm is running ... 
-The program took 3.83 seconds </code></pre>
+The program took 3.9 seconds </code></pre>
 <pre class="r"><code>    #summary(m1)
     #Goodness-of-fit statistics for m1:
     #    maximum log-likelihood: -3944.77 ; AIC: 7919.54  ;  BIC: 7975.09
     ## End(Not run)</code></pre>
+<p>A data frame with 1678 observations over 300 different subjects and 22 variables. ID subject identification number</p>
+<ul>
+<li>Ydep1 longitudinal continuous outcome</li>
+<li>Ydep2 longitudinal ordinal outcome with 31 levels</li>
+<li>Ydep3 longitudinal ordinal outcome with 11 levels</li>
+<li>Tentry delayed entry for the time-to-event</li>
+<li>Tevent observed time-to-event: either censoring time or time of event</li>
+<li>Event indicator that Tevent is the time of event</li>
+<li>Time time of measurement</li>
+<li>X1 binary covariate</li>
+<li>X2 binary covariate</li>
+<li>X3 continuous covariate</li>
+<li>X4 categorical covariate</li>
+</ul>
 <pre class="r"><code>#### estimation with 2 latent classes (ng=2)
     m2 &lt;- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
     classmb=~X3,subject=&#39;ID&#39;,survival = Surv(Tevent,Event)~X1+mixture(X2),
     hazard=&quot;3-quant-splines&quot;,hazardtype=&quot;PH&quot;,ng=2,data=data_lcmm,
     B=c(0.64,-0.62,0,0,0.52,0.81,0.41,0.78,0.1,0.77,-0.05,10.43,11.3,-2.6,
-    -0.52,1.41,-0.05,0.91,0.05,0.21,1.5))</code></pre>
-<pre><code>Be patient, Jointlcmm is running ... 
-The program took 1.21 seconds </code></pre>
-<pre class="r"><code>    #summary(m2)
+    -0.52,1.41,-0.05,0.91,0.05,0.21,1.5))
+    #summary(m2)
     #Goodness-of-fit statistics for m2:
     #       maximum log-likelihood: -3921.27; AIC: 7884.54; BIC: 7962.32</code></pre>
 <pre class="r"><code>## Not run:
@@ -788,10 +836,8 @@ The program took 1.21 seconds </code></pre>
     classmb=~X3,subject=&#39;ID&#39;,survival = Surv(Tevent,Event)~ X1+mixture(X2),
     hazard=&quot;3-quant-splines&quot;,hazardtype=&quot;PH&quot;,ng=3,data=data_lcmm,
     B=c(0.77,0.4,-0.82,-0.27,0,0,0,0.3,0.62,2.62,5.31,-0.03,1.36,0.82,
-    -13.5,10.17,10.24,11.51,-2.62,-0.43,-0.61,1.47,-0.04,0.85,0.04,0.26,1.5))</code></pre>
-<pre><code>Be patient, Jointlcmm is running ... 
-The program took 33.25 seconds </code></pre>
-<pre class="r"><code>    #summary(m3)
+    -13.5,10.17,10.24,11.51,-2.62,-0.43,-0.61,1.47,-0.04,0.85,0.04,0.26,1.5))
+    #summary(m3)
     #Goodness-of-fit statistics for m3:
     #       maximum log-likelihood: -3890.26 ; AIC: 7834.53;  BIC: 7934.53</code></pre>
 <pre class="r"><code> #### estimation with 4 latent classes (ng=4)
@@ -800,67 +846,31 @@ The program took 33.25 seconds </code></pre>
     hazard=&quot;3-quant-splines&quot;,hazardtype=&quot;PH&quot;,ng=4,data=data_lcmm,
     B=c(0.54,-0.42,0.36,-0.94,-0.64,-0.28,0,0,0,0.34,0.59,2.6,2.56,5.26,
     -0.1,1.27,1.34,0.7,-5.72,10.54,9.02,10.2,11.58,-2.47,-2.78,-0.28,-0.57,
-    1.48,-0.06,0.61,-0.07,0.31,1.5))</code></pre>
-<pre><code>Be patient, Jointlcmm is running ... 
-The program took 23.12 seconds </code></pre>
-<pre class="r"><code>    #summary(m4)
+    1.48,-0.06,0.61,-0.07,0.31,1.5))
+    #summary(m4)
     #Goodness-of-fit statistics for m4:
     #   maximum log-likelihood: -3886.93 ; AIC: 7839.86;  BIC: 7962.09</code></pre>
 <pre class="r"><code>##### The model with 3 latent classes is retained according to the BIC
 ##### and the conditional independence assumption is not rejected at
 ##### the 5% level.
 # posterior classification
-plot(m3,which=&quot;postprob&quot;)</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># Class-specific predicted baseline risk &amp; survival functions in the
+plot(m3,which=&quot;postprob&quot;)
+# Class-specific predicted baseline risk &amp; survival functions in the
 # 3-class model retained (for the reference value of the covariates)
 plot(m3,which=&quot;baselinerisk&quot;,bty=&quot;l&quot;)
 plot(m3,which=&quot;baselinerisk&quot;,ylim=c(0,5),bty=&quot;l&quot;)
-plot(m3,which=&quot;survival&quot;,bty=&quot;l&quot;)</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># class-specific predicted trajectories in the 3-class model retained
+plot(m3,which=&quot;survival&quot;,bty=&quot;l&quot;)
+# class-specific predicted trajectories in the 3-class model retained
 # (with characteristics of subject ID=193)
 data &lt;- data_lcmm[data_lcmm$ID==193,]
 plot(predictY(m3,var.time=&quot;Time&quot;,newdata=data,bty=&quot;l&quot;))
 # predictive accuracy of the model evaluated with EPOCE
 vect &lt;- 1:15
-cvpl &lt;- epoce(m3,var.time=&quot;Time&quot;,pred.times=vect)</code></pre>
-<pre><code>Be patient, epoce function is running ... 
-The program took 2.19 seconds </code></pre>
-<pre class="r"><code>summary(cvpl)</code></pre>
-<pre><code>Expected Prognostic Observed Cross-Entropy (EPOCE) of the joint latent class model: 
- 
-Jointlcmm(fixed = Ydep1 ~ Time * X1, mixture = ~Time, random = ~Time, 
-    subject = &quot;ID&quot;, classmb = ~X3, ng = 3, survival = Surv(Tevent, 
-        Event) ~ X1 + mixture(X2), hazard = &quot;3-quant-splines&quot;, 
-    hazardtype = &quot;PH&quot;, data = data_lcmm)
- 
-EPOCE estimators on data used for estimation: 
-    Mean Prognostic Observed Log-likelihood (MPOL) 
-    and Cross-validated Prognostic Observed Log-likelihood (CVPOL) 
-    (CVPOL is the bias-corrected MPOL obtained by approximated cross-validation) 
- 
-  pred. times  N at risk  N events     MPOL    CVPOL
-            1        300       150 1.738399 1.777508
-            2        300       150 1.737965 1.777073
-            3        299       150 1.826219 1.854540
-            4        296       150 1.949889 1.982967
-            5        291       149 2.017347 2.042720
-            6        275       139 2.015122 2.032085
-            7        258       127 1.815015 1.828072
-            8        229       116 1.840224 1.849152
-            9        205       107 1.883315 1.900653
-           10        184        97 1.914311 1.923098
-           11        158        81 1.712072 1.730542
-           12        143        75 1.695109 1.707619
-           13        129        68 1.779851 1.777560
-           14        116        59 1.390196 1.411742
-           15         99        49 1.492460 1.491550
- </code></pre>
-<pre class="r"><code>plot(cvpl,bty=&quot;l&quot;,ylim=c(0,2))
+cvpl &lt;- epoce(m3,var.time=&quot;Time&quot;,pred.times=vect)
+summary(cvpl)
+plot(cvpl,bty=&quot;l&quot;,ylim=c(0,2))
 ############## end of example ##############
 ## End(Not run)</code></pre>
-<p><img src="figure/LCLDA.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="lcmm-r-package" class="section level2">

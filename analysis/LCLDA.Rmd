@@ -54,7 +54,23 @@ head(data_lcmm)
 
 ```
 
-```{r, echo=T}
+
+A data frame with 1678 observations over 300 different subjects and 22 variables.
+ID subject identification number
+
+* Ydep1 longitudinal continuous outcome
+* Ydep2 longitudinal ordinal outcome with 31 levels
+* Ydep3 longitudinal ordinal outcome with 11 levels
+* Tentry delayed entry for the time-to-event
+* Tevent observed time-to-event: either censoring time or time of event
+* Event indicator that Tevent is the time of event
+* Time time of measurement
+* X1 binary covariate
+* X2 binary covariate
+* X3 continuous covariate
+* X4 categorical covariate
+
+```{r, echo=T, eval=F}
 #### estimation with 2 latent classes (ng=2)
     m2 <- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
     classmb=~X3,subject='ID',survival = Surv(Tevent,Event)~X1+mixture(X2),
@@ -67,7 +83,7 @@ head(data_lcmm)
 
 ```
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
 ## Not run:
     #### estimation with 3 latent classes (ng=3)
     m3 <- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
@@ -81,7 +97,7 @@ head(data_lcmm)
 
 ```
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
  #### estimation with 4 latent classes (ng=4)
     m4 <- Jointlcmm(fixed= Ydep1~Time*X1,mixture=~Time,random=~Time,
     classmb=~X3,subject='ID',survival = Surv(Tevent,Event)~ X1+mixture(X2),
@@ -94,7 +110,7 @@ head(data_lcmm)
     #   maximum log-likelihood: -3886.93 ; AIC: 7839.86;  BIC: 7962.09
 ```
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
 ##### The model with 3 latent classes is retained according to the BIC
 ##### and the conditional independence assumption is not rejected at
 ##### the 5% level.
