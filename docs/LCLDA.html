@@ -444,7 +444,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-28
+<strong>Last updated:</strong> 2021-07-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
@@ -541,16 +541,16 @@ unnamed-chunk-10
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb80e74f8c2e15ac4addf92f4642ad1c5034aa4ectargetblankb80e74fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/b80e74f8c2e15ac4addf92f4642ad1c5034aa4ec" target="_blank">b80e74f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree47ead6a6872d7d86965510d4705778eeb796f116targetblank47ead6aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/47ead6a6872d7d86965510d4705778eeb796f116" target="_blank">47ead6a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb80e74f8c2e15ac4addf92f4642ad1c5034aa4ectargetblankb80e74fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree47ead6a6872d7d86965510d4705778eeb796f116targetblank47ead6aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/b80e74f8c2e15ac4addf92f4642ad1c5034aa4ec" target="_blank">b80e74f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/47ead6a6872d7d86965510d4705778eeb796f116" target="_blank">47ead6a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -560,8 +560,8 @@ Ignored files:
     Ignored:    analysis/LCLDA_cache/
 
 Unstaged changes:
-    Modified:   analysis/2021.Rmd
     Modified:   analysis/LCLDA.Rmd
+    Modified:   analysis/cld1.Rdata
     Modified:   analysis/pancreatic_marker_data.Rmd
 
 </code></pre>
@@ -601,6 +601,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/16611dd1cd9465e2c757fb802eee4c6423392c42/analysis/LCLDA.Rmd" target="_blank">16611dd</a>
+</td>
+<td>
+Shengtong
+</td>
+<td>
+2021-07-05
+</td>
+<td>
+7/5/2021
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/16611dd1cd9465e2c757fb802eee4c6423392c42/docs/LCLDA.html" target="_blank">16611dd</a>
+</td>
+<td>
+Shengtong
+</td>
+<td>
+2021-07-05
+</td>
+<td>
+7/5/2021
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -802,7 +836,7 @@ head(data_lcmm)</code></pre>
     ,survival = Surv(Tevent,Event)~ X1+X2 ,hazard=&quot;3-quant-splines&quot;
     ,hazardtype=&quot;PH&quot;,ng=1,data=data_lcmm)</code></pre>
 <pre><code>Be patient, Jointlcmm is running ... 
-The program took 3.9 seconds </code></pre>
+The program took 4 seconds </code></pre>
 <pre class="r"><code>    #summary(m1)
     #Goodness-of-fit statistics for m1:
     #    maximum log-likelihood: -3944.77 ; AIC: 7919.54  ;  BIC: 7975.09
@@ -1009,12 +1043,99 @@ head(m22$pprob)</code></pre>
 <li>can deal with missing value (how?)</li>
 <li>By default, nbClusters is 2:6, with the maximum of 26, 20 times each</li>
 <li>k-means is a “hill-climbing” algorithm, no guarantee of optimality</li>
+<li>All subjects must be measured at the same set of time points?</li>
 </ul>
 <div id="example-2" class="section level3">
 <h3>Example</h3>
+<div id="data-preparation-by-clusterlongdata3d" class="section level4">
+<h4>data preparation by clusterLongData3d</h4>
+<pre class="r"><code>library(kml3d)
+###############
+### Building an array
+tr1n &lt;- array(c(1,2,NA, 1,4,NA, 6,1,8, 10,NA,2, 3,NA,NA,
+4,NA,5, 6,3,4, 3,4,4, 4,NA,NA, 5,5,4),
+dim=c(3,5,2))
+###############
+### clusterLongData
+### With maxNA=3
+clusterLongData3d(traj=tr1n,
+idAll=as.character(c(100,102,104)),
+time=c(1,2,4,8,16),
+varNames=c(&quot;P&quot;,&quot;A&quot;),
+maxNA=3
+)</code></pre>
+<pre><code>   ~~~ Class: ClusterLongData3d ~~~
+      ~ Sub-Class: LongData3d ~ 
+~ idAll       = [3] 100 102 104
+~ idFewNA     = [3] 100 102 104
+~ varNames    = [2] P A
+~ time        = [5] 1 2 4 8 16
+~ maxNA       = [2] 3 3
+~ reverse     = [2x2]
+    - mean    = 0 0
+    - SD      = 1 1
+
+~ traj = [3x5x2] (limited to 5x10x3)  :
+
+ P :
+    t1 t2 t4 t8 t16
+100  1  1  6 10   3
+102  2  4  1 NA  NA
+104 NA NA  8  2  NA
+
+ A :
+    t1 t2 t4 t8 t16
+100  4  6  3  4   5
+102 NA  3  4 NA   5
+104  5  4  4 NA   4
+
+    ~ Sub-Class: ListPartition ~ 
+ ~ criterionActif          =  Calinski.Harabatz
+ ~ initializationMethod    =  
+ ~ sorted                  =  
+ ~ criterion values (Calinski.Harabatz):
+    &lt;no Partition&gt;</code></pre>
+<pre class="r"><code>### With maxNA=2
+### Individual 104 is exclude
+clusterLongData3d(traj=tr1n,
+idAll=as.character(c(100,102,104)),
+time=c(1,2,4,8,16),
+varNames=c(&quot;P&quot;,&quot;A&quot;),
+maxNA=2
+)</code></pre>
+<pre><code>   ~~~ Class: ClusterLongData3d ~~~
+      ~ Sub-Class: LongData3d ~ 
+~ idAll       = [3] 100 102 104
+~ idFewNA     = [2] 100 102
+~ varNames    = [2] P A
+~ time        = [5] 1 2 4 8 16
+~ maxNA       = [2] 2 2
+~ reverse     = [2x2]
+    - mean    = 0 0
+    - SD      = 1 1
+
+~ traj = [2x5x2] (limited to 5x10x3)  :
+
+ P :
+    t1 t2 t4 t8 t16
+100  1  1  6 10   3
+102  2  4  1 NA  NA
+
+ A :
+    t1 t2 t4 t8 t16
+100  4  6  3  4   5
+102 NA  3  4 NA   5
+
+    ~ Sub-Class: ListPartition ~ 
+ ~ criterionActif          =  Calinski.Harabatz
+ ~ initializationMethod    =  
+ ~ sorted                  =  
+ ~ criterion values (Calinski.Harabatz):
+    &lt;no Partition&gt;</code></pre>
+</div>
 <div id="example-1-1" class="section level4">
 <h4>Example 1</h4>
-<p>This is the <a href="https://www.rdocumentation.org/packages/kml3d/versions/2.4.2/topics/kml3d">example</a></p>
+<p>This is the <a href="https://www.rdocumentation.org/packages/kml3d/versions/2.4.2/topics/kml3d">example</a> and the <a href="https://cran.r-project.org/web/packages/kml3d/kml3d.pdf">package manual</a></p>
 <pre class="r"><code>library(kml3d)
 ### Generation of some data
 cld1 &lt;- generateArtificialLongData3d(15)
@@ -1075,16 +1196,33 @@ attached base packages:
 [8] base     
 
 other attached packages:
-[1] lcmm_1.9.2        survival_2.44-1.1
+ [1] kml3d_2.4.2            kml_2.4.1              longitudinalData_2.4.1
+ [4] misc3d_0.9-0           rgl_0.106.8            clv_0.3-2.2           
+ [7] class_7.3-15           cluster_2.0.8          lcmm_1.9.2            
+[10] survival_2.44-1.1     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.1      knitr_1.23      whisker_0.3-2   magrittr_1.5   
- [5] workflowr_1.6.2 splines_3.6.0   lattice_0.20-38 R6_2.4.1       
- [9] stringr_1.4.0   tools_3.6.0     grid_3.6.0      xfun_0.20      
-[13] git2r_0.26.1    htmltools_0.3.6 yaml_2.2.0      digest_0.6.19  
-[17] rprojroot_1.3-2 Matrix_1.2-17   later_0.8.0     promises_1.0.1 
-[21] fs_1.3.1        glue_1.4.1      evaluate_0.13   rmarkdown_1.13 
-[25] stringi_1.4.3   compiler_3.6.0  backports_1.1.4 httpuv_1.5.1   </code></pre>
+ [1] Rcpp_1.0.1              compiler_3.6.0         
+ [3] later_0.8.0             git2r_0.26.1           
+ [5] workflowr_1.6.2         tools_3.6.0            
+ [7] digest_0.6.19           memoise_1.1.0          
+ [9] jsonlite_1.6            evaluate_0.13          
+[11] lattice_0.20-38         rlang_0.4.6            
+[13] Matrix_1.2-17           shiny_1.3.2            
+[15] crosstalk_1.0.0         yaml_2.2.0             
+[17] pkgdown_1.4.1           xfun_0.20              
+[19] stringr_1.4.0           knitr_1.23             
+[21] fs_1.3.1                htmlwidgets_1.5.1      
+[23] manipulateWidget_0.11.0 rprojroot_1.3-2        
+[25] grid_3.6.0              glue_1.4.1             
+[27] R6_2.4.1                tcltk_3.6.0            
+[29] rmarkdown_1.13          magrittr_1.5           
+[31] whisker_0.3-2           MASS_7.3-51.4          
+[33] backports_1.1.4         promises_1.0.1         
+[35] htmltools_0.3.6         splines_3.6.0          
+[37] mime_0.6                xtable_1.8-4           
+[39] httpuv_1.5.1            miniUI_0.1.1.1         
+[41] stringi_1.4.3          </code></pre>
 </div>
 </div>
 </div>

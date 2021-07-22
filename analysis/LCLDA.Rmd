@@ -291,12 +291,43 @@ head(m22$pprob)
 * can deal with missing value (how?)
 * By default, nbClusters is 2:6, with the maximum of 26, 20 times each 
 * k-means is a "hill-climbing" algorithm, no guarantee of optimality
+* All subjects must be measured at the same set of time points? 
 
 ### Example 
 
+#### data preparation by clusterLongData3d 
+
+```{r, echo=T, message=F, warning=F}
+library(kml3d)
+###############
+### Building an array
+tr1n <- array(c(1,2,NA, 1,4,NA, 6,1,8, 10,NA,2, 3,NA,NA,
+4,NA,5, 6,3,4, 3,4,4, 4,NA,NA, 5,5,4),
+dim=c(3,5,2))
+###############
+### clusterLongData
+### With maxNA=3
+clusterLongData3d(traj=tr1n,
+idAll=as.character(c(100,102,104)),
+time=c(1,2,4,8,16),
+varNames=c("P","A"),
+maxNA=3
+)
+### With maxNA=2
+### Individual 104 is exclude
+clusterLongData3d(traj=tr1n,
+idAll=as.character(c(100,102,104)),
+time=c(1,2,4,8,16),
+varNames=c("P","A"),
+maxNA=2
+)
+
+```
+
+
 #### Example 1
 
-This is the [example](https://www.rdocumentation.org/packages/kml3d/versions/2.4.2/topics/kml3d)
+This is the [example](https://www.rdocumentation.org/packages/kml3d/versions/2.4.2/topics/kml3d) and the [package manual](https://cran.r-project.org/web/packages/kml3d/kml3d.pdf)
 
 ```{r, echo=T, message=F, warning=F, eval=F}
 library(kml3d)

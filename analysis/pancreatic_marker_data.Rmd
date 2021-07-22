@@ -28,7 +28,7 @@ col_names_subdata2=colnames(subdata2)
 #interest_column=union(col_names_subdata1[c(1,2,3,4,5,6, 10)], c("study_id_num",	"age", "gender", "race",	"bmi",	"metastatic", "diseaseprogression", "pfsmofromdx", 	"dead", 	"osmofromdx")) # only look at interested columns 
 #pancreatic_data=full_join(subdata1, subdata2, by="study_id_num")%>% select(interest_column) %>%drop_na()  # be careful with missing value 
 
-interest_column=c("study_id_num",  "day",  "ca199_long", "osmofromdx", "dead") # start from the short list as more missing values comes in when including more variables 
+interest_column=c("study_id_num",  "day", "coded_time_point", "ca199_long", "osmofromdx", "dead") # start from the short list as more missing values comes in when including more variables 
 
 pancreatic_data=full_join(subdata1, subdata2, by="study_id_num")%>% select(interest_column) %>%drop_na() 
 
@@ -38,7 +38,60 @@ pancreatic_data=pancreatic_data%>%add_column(surv.days=surv.days$osmofromdx)
 kable(pancreatic_data, caption = "")%>%
 kable_styling() %>%
 scroll_box(height = "500px")
+#write.csv(pancreatic_data, file="C:\\Shengtong\\Research\\Collaboration\\cA19-9_pancreatic_marker_data\\pancreatic_marker_data.csv")
 ```
+
+## kml3d 
+
+
+### data format preparation 
+
+```{r, echo=F, warning=F, message=F}
+library(kml3d)
+pancreatic_data_coded_time=pancreatic_data%>%filter(coded_time_point %in% c(0,2,10)) # only look at 3 coded time points 0, 2, 10. 
+sub_id=unique(pancreatic_data_coded_time$study_id_num)
+
+# find subjects with missing value at 0, 2, 10
+sub_id_with_missing=numeric(); k=0
+for (i in 1:length(sub_id))
+  if (nrow(pancreatic_data_coded_time %>% filter(study_id_num==sub_id[i]))<3)
+  {
+      k=k+1
+      sub_id_with_missing[k]=sub_id[i]
+  }
+# there are 67 among 219 subjects with incomplete records 
+#clusterLongData3d(data.frame(pancreatic_data))
+pancreatic_data_coded_time_no_missing=pancreatic_data_coded_time%>%filter(!(study_id_num %in% sub_id_with_missing)) # exclude subjects with missing values at at least one time point 
+measure_at_0=seq(1,456, by=3) # extract index of time point to build array
+measure_at_2=measure_at_0+1
+measure_at_10=measure_at_0+2
+
+num_sub=length(unique(pancreatic_data_coded_time_no_missing$study_id_num))
+traj=array(c(pancreatic_data_coded_time_no_missing$ca199_long[measure_at_0], pancreatic_data_coded_time_no_missing$ca199_long[measure_at_2], pancreatic_data_coded_time_no_missing$ca199_long[measure_at_10]), dim=c(num_sub, 3,1))
+
+# data preparation 
+pancreatic_data_coded_time_no_missing_cluster=clusterLongData3d(traj=traj,
+idAll=unique(pancreatic_data_coded_time_no_missing$study_id_num),
+time=c(0,2,10)
+#varNames=c("P","A"),
+#maxNA=3
+)
+############### kml3d 
+# run the method 
+kml3d(pancreatic_data_coded_time_no_missing_cluster,2:6, nbRedrawing=2,toPlot="both")
+# cluster 2:6
+# 2 redrawings 
+# plot both trajectory and criterion 
+
+#try(choice(pancreatic_data_coded_time_no_missing_cluster))
+#plotMeans3d(pancreatic_data_coded_time_no_missing_cluster,4)
+
+################## try kml 
+
+#kml(pancreatic_data_coded_time_no_missing_cluster,c(2,3,4,5,6),toPlot="both")
+
+```
+
 
 
 ## lcmm 
@@ -134,17 +187,27 @@ scroll_box(height = "500px")
 
 ```{r, echo=T}
 # Beta link function
+#m41<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=4,
+#idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
+#B=c(-0.1,-0.56,-0.4,-1.77,
+#0.53,0.14,0.6,-0.83,0.73,0.09)
+#)
 m41<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=4,
-idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
+idiag=TRUE,data=data.frame(pancreatic_data),link="5-equi-splines"
 #B=c(-0.1,-0.56,-0.4,-1.77,
 #0.53,0.14,0.6,-0.83,0.73,0.09)
 )
+
+#link="3-equi-splines"
+
+
+
 #summary(m41)
 #postprob(m41)
 
 #The function plot.predict provides directly the plot of these class-specific predicted trajectories. The function predictY provides the class-specific predicted trajectories computed in the natural scale of the outcome(s).
 
-data <- pancreatic_data[pancreatic_data$study_id_num==31,]
+data <- pancreatic_data[pancreatic_data$study_id_num==52,]
 data
 plot(predictL(m41,var.time="day",newdata=data,bty="l"))
 
@@ -194,7 +257,7 @@ model_fit4=survfit(Surv(surv.days,dead)~1, data=sub_data)
 plot(model_fit4, xlab="Time", ylab="Overall survival probability", main="cluster 4")
 ```
 
-```{r, echo=T}
+```{r, echo=F}
 plot(model_fit1, xlim=c(0,4000), ylim=c(0,1), xlab="Time", ylab="Survival", lty=1, col="black", conf.int = F)
 lines(model_fit2, type="l", col="blue", conf.int = F)
 lines(model_fit3, type="l", col="green", conf.int = F)
