@@ -534,16 +534,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree47ead6a6872d7d86965510d4705778eeb796f116targetblank47ead6aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/47ead6a6872d7d86965510d4705778eeb796f116" target="_blank">47ead6a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4af019a15469b744de77f225af72f02036d5cb2ctargetblank4af019aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/4af019a15469b744de77f225af72f02036d5cb2c" target="_blank">4af019a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree47ead6a6872d7d86965510d4705778eeb796f116targetblank47ead6aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4af019a15469b744de77f225af72f02036d5cb2ctargetblank4af019aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/47ead6a6872d7d86965510d4705778eeb796f116" target="_blank">47ead6a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/4af019a15469b744de77f225af72f02036d5cb2c" target="_blank">4af019a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -552,13 +552,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    analysis/LCLDA_cache/
 
-Untracked files:
-    Untracked:  analysis/pancreatic_data_coded_time_no_missing_cluster.Rdata
-    Untracked:  pancreatic_data_coded_time_no_missing_cluster.Rdata
-
 Unstaged changes:
-    Modified:   analysis/LCLDA.Rmd
-    Modified:   analysis/cld1.Rdata
     Modified:   analysis/pancreatic_marker_data.Rmd
 
 </code></pre>
@@ -598,6 +592,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/4af019a15469b744de77f225af72f02036d5cb2c/analysis/pancreatic_marker_data.Rmd" target="_blank">4af019a</a>
+</td>
+<td>
+Shengtong
+</td>
+<td>
+2021-07-22
+</td>
+<td>
+7/22/2021
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/4af019a15469b744de77f225af72f02036d5cb2c/docs/pancreatic_marker_data.html" target="_blank">4af019a</a>
+</td>
+<td>
+Shengtong
+</td>
+<td>
+2021-07-22
+</td>
+<td>
+7/22/2021
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -29028,6 +29056,38 @@ surv.days
 <h2>kml3d</h2>
 <div id="data-format-preparation" class="section level3">
 <h3>data format preparation</h3>
+<pre class="r"><code>library(kml3d)
+pancreatic_data_coded_time=pancreatic_data%&gt;%filter(coded_time_point %in% c(0,2,10)) # only look at 3 coded time points 0, 2, 10. 
+sub_id=unique(pancreatic_data_coded_time$study_id_num)
+
+# find subjects with missing value at 0, 2, 10
+sub_id_with_missing=numeric(); k=0
+for (i in 1:length(sub_id))
+  if (nrow(pancreatic_data_coded_time %&gt;% filter(study_id_num==sub_id[i]))&lt;3)
+  {
+      k=k+1
+      sub_id_with_missing[k]=sub_id[i]
+  }
+# there are 67 among 219 subjects with incomplete records 
+#clusterLongData3d(data.frame(pancreatic_data))
+pancreatic_data_coded_time_no_missing=pancreatic_data_coded_time%&gt;%filter(!(study_id_num %in% sub_id_with_missing)) # exclude subjects with missing values at at least one time point 
+measure_at_0=seq(1,456, by=3) # extract index of time point to build array
+measure_at_2=measure_at_0+1
+measure_at_10=measure_at_0+2
+
+num_sub=length(unique(pancreatic_data_coded_time_no_missing$study_id_num))
+traj=array(c(pancreatic_data_coded_time_no_missing$ca199_long[measure_at_0], pancreatic_data_coded_time_no_missing$ca199_long[measure_at_2], pancreatic_data_coded_time_no_missing$ca199_long[measure_at_10]), dim=c(num_sub, 3,1))
+
+# data preparation 
+pancreatic_data_coded_time_no_missing_cluster=clusterLongData3d(traj=traj,
+idAll=unique(pancreatic_data_coded_time_no_missing$study_id_num),
+time=c(0,2,10)
+#varNames=c(&quot;P&quot;,&quot;A&quot;),
+#maxNA=3
+)
+############### kml3d 
+# run the method 
+kml3d(pancreatic_data_coded_time_no_missing_cluster,2:6, nbRedrawing=2,toPlot=&quot;both&quot;)</code></pre>
 <pre><code> ~ Slow KmL3D ~</code></pre>
 <pre><code>*</code></pre>
 <pre><code>*</code></pre>
@@ -29042,6 +29102,16 @@ surv.days
 <pre><code>
 S</code></pre>
 <p><img src="figure/pancreatic_marker_data.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># cluster 2:6
+# 2 redrawings 
+# plot both trajectory and criterion 
+
+#try(choice(pancreatic_data_coded_time_no_missing_cluster))
+#plotMeans3d(pancreatic_data_coded_time_no_missing_cluster,4)
+
+################## try kml 
+
+#kml(pancreatic_data_coded_time_no_missing_cluster,c(2,3,4,5,6),toPlot=&quot;both&quot;)</code></pre>
 </div>
 </div>
 <div id="lcmm" class="section level2">
@@ -29059,7 +29129,7 @@ The program took 1.77 seconds </code></pre>
 m11&lt;-lcmm(ca199_long~day,random=~day,subject=&#39;study_id_num&#39;,ng=1,
 data=data.frame(pancreatic_data),link=&quot;beta&quot;)</code></pre>
 <pre><code>Be patient, lcmm is running ... 
-The program took 8.14 seconds </code></pre>
+The program took 8.19 seconds </code></pre>
 <pre class="r"><code>#summary(m11)
 #plot(m11,which=&quot;linkfunction&quot;, bty=&quot;l&quot;)
 
@@ -29067,14 +29137,14 @@ The program took 8.14 seconds </code></pre>
 m12&lt;-lcmm(ca199_long~day,random=~day,subject=&#39;study_id_num&#39;,ng=1,
 data=data.frame(pancreatic_data),link=&quot;3-equi-splines&quot;)</code></pre>
 <pre><code>Be patient, lcmm is running ... 
-The program took 1.96 seconds </code></pre>
+The program took 2.02 seconds </code></pre>
 <pre class="r"><code>#summary(m10)
 #plot(m12,which=&quot;linkfunction&quot;, bty=&quot;l&quot;)
 
 m13&lt;-lcmm(ca199_long~day,random=~day,subject=&#39;study_id_num&#39;,ng=1,
 data=data.frame(pancreatic_data),link=&quot;5-quant-splines&quot;)</code></pre>
 <pre><code>Be patient, lcmm is running ... 
-The program took 1.95 seconds </code></pre>
+The program took 1.98 seconds </code></pre>
 <pre class="r"><code>#summary(m10)
 #plot(m13,which=&quot;linkfunction&quot;, bty=&quot;l&quot;)
 
@@ -29098,7 +29168,7 @@ idiag=TRUE,data=data.frame(pancreatic_data),link=&quot;beta&quot;
 #0.53,0.14,0.6,-0.83,0.73,0.09)
 )</code></pre>
 <pre><code>Be patient, lcmm is running ... 
-The program took 12.71 seconds </code></pre>
+The program took 12.8 seconds </code></pre>
 <pre class="r"><code>summary(m21)</code></pre>
 <pre><code>General latent class mixed model 
      fitted by maximum likelihood method 
@@ -32295,7 +32365,7 @@ idiag=TRUE,data=data.frame(pancreatic_data),link=&quot;beta&quot;
 #0.53,0.14,0.6,-0.83,0.73,0.09)
 )</code></pre>
 <pre><code>Be patient, lcmm is running ... 
-The program took 21.09 seconds </code></pre>
+The program took 21.11 seconds </code></pre>
 <pre class="r"><code>#summary(m31)
 #postprob(m31)
 
@@ -40558,7 +40628,7 @@ idiag=TRUE,data=data.frame(pancreatic_data),link=&quot;beta&quot;
 #0.53,0.14,0.6,-0.83,0.73,0.09)
 )</code></pre>
 <pre><code>Be patient, lcmm is running ... 
-The program took 43.53 seconds </code></pre>
+The program took 43.78 seconds </code></pre>
 <pre class="r"><code>#summary(m51)
 #postprob(m51)
 

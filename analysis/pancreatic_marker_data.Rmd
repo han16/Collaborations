@@ -46,7 +46,7 @@ scroll_box(height = "500px")
 
 ### data format preparation 
 
-```{r, echo=F, warning=F, message=F}
+```{r, echo=T, warning=F, message=F}
 library(kml3d)
 pancreatic_data_coded_time=pancreatic_data%>%filter(coded_time_point %in% c(0,2,10)) # only look at 3 coded time points 0, 2, 10. 
 sub_id=unique(pancreatic_data_coded_time$study_id_num)
