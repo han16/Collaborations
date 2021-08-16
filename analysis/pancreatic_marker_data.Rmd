@@ -104,59 +104,119 @@ kml3d(pancreatic_data_coded_time_no_missing_cluster,2:6, nbRedrawing=2,toPlot="b
 ### 2 clusters 
 
 ```{r, echo=T, message=F, warning=F}
-pancreatic_data_coded_time_no_missing_tidy=as_tibble(traj[,,1])
-colnames(pancreatic_data_coded_time_no_missing_tidy)=c("0", "2", "10")
-rownames(pancreatic_data_coded_time_no_missing_tidy)=unique(pancreatic_data_coded_time_no_missing$study_id_num)
+pancreatic_data_coded_time_no_missing_tidy=as_tibble(traj[,,1])%>%add_column( dead=pancreatic_data_coded_time_no_missing$dead[seq(1, 456, by=3)], surv.days=pancreatic_data_coded_time_no_missing$surv.days[seq(1, 456, by=3)])
+#colnames(pancreatic_data_coded_time_no_missing_tidy)=c("00", "02", "10")
+#rownames(pancreatic_data_coded_time_no_missing_tidy)=unique(pancreatic_data_coded_time_no_missing$study_id_num)
+```
 
-cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy, 2)
-center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("0", "2", "10"),2), group=rep(c("1", "2"),each=3))
+```{r, echo=T, message=F, warning=F}
+num.cluster=2
+cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy[,1:3], num.cluster)
+center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("00", "02", "10"),2), group=rep(c("1", "2"),each=3))
 ggplot(center, aes(x=time, y=traj, group=group))+
-  ylab("ca199_long")+xlab("coded time")+
+  ylab("standardized ca199_long")+xlab("coded time")+
   geom_line(aes(color=group))+
   geom_point(aes(color=group))
 kable(cluster.result$cluster, caption = "")%>%
 kable_styling() %>%
 scroll_box(height = "500px")
+model_fit=list()
+for (i in 1:num.cluster)
+{
+sub_data=pancreatic_data_coded_time_no_missing_tidy[which(cluster.result$cluster==i),]
+model_fit[[i]]=survfit(Surv(surv.days,dead)~1, data=sub_data)
+#plot(model_fit, xlab="Time", ylab="Overall survival probability")
+}
+
+plot(model_fit[[1]], xlim=c(0,4000), ylim=c(0,1), xlab="Time", ylab="Survival", lty=1, col="black", conf.int = F)
+lines(model_fit[[2]], type="l", col="blue", conf.int = F)
 ```
 
 
 ### 3 clusters 
 
 ```{r, echo=T, message=F, warning=F}
-pancreatic_data_coded_time_no_missing_tidy=as_tibble(traj[,,1])
-colnames(pancreatic_data_coded_time_no_missing_tidy)=c("0", "2", "10")
-rownames(pancreatic_data_coded_time_no_missing_tidy)=unique(pancreatic_data_coded_time_no_missing$study_id_num)
 
 num.cluster=3
-cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy, num.cluster)
-center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("0", "2", "10"),num.cluster), group=as.character(rep(seq(1:num.cluster),each=3)))
+cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy[,1:3], num.cluster)
+center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("00", "02", "10"),num.cluster), group=as.character(rep(seq(1:num.cluster),each=3)))
 ggplot(center, aes(x=time, y=traj, group=group))+
-  ylab("ca199_long")+xlab("coded time")+
+  ylab("standardized ca199_long")+xlab("coded time")+
   geom_line(aes(color=group))+
   geom_point(aes(color=group))
 kable(cluster.result$cluster, caption = "")%>%
 kable_styling() %>%
 scroll_box(height = "500px")
+
+model_fit=list()
+for (i in 1:num.cluster)
+{
+sub_data=pancreatic_data_coded_time_no_missing_tidy[which(cluster.result$cluster==i),]
+model_fit[[i]]=survfit(Surv(surv.days,dead)~1, data=sub_data)
+#plot(model_fit, xlab="Time", ylab="Overall survival probability")
+}
+
+plot(model_fit[[1]], xlim=c(0,4000), ylim=c(0,1), xlab="Time", ylab="Survival", lty=1, col="black", conf.int = F)
+for (i in 2:num.cluster)
+ lines(model_fit[[i]], type="l", col="blue", conf.int = F)
 ```
 
 ### 4 clusters 
 
 ```{r, echo=T, message=F, warning=F}
-pancreatic_data_coded_time_no_missing_tidy=as_tibble(traj[,,1])
-colnames(pancreatic_data_coded_time_no_missing_tidy)=c("0", "2", "10")
-rownames(pancreatic_data_coded_time_no_missing_tidy)=unique(pancreatic_data_coded_time_no_missing$study_id_num)
-
 num.cluster=4
-cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy, num.cluster)
-center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("0", "2", "10"),num.cluster), group=as.character(rep(seq(1:num.cluster),each=3)))
+cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy[,1:3], num.cluster)
+center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("00", "02", "10"),num.cluster), group=as.character(rep(seq(1:num.cluster),each=3)))
 ggplot(center, aes(x=time, y=traj, group=group))+
-  ylab("ca199_long")+xlab("coded time")+
+  ylab("standardized ca199_long")+xlab("coded time")+
   geom_line(aes(color=group))+
   geom_point(aes(color=group))
 kable(cluster.result$cluster, caption = "")%>%
 kable_styling() %>%
 scroll_box(height = "500px")
+
+model_fit=list()
+for (i in 1:num.cluster)
+{
+sub_data=pancreatic_data_coded_time_no_missing_tidy[which(cluster.result$cluster==i),]
+model_fit[[i]]=survfit(Surv(surv.days,dead)~1, data=sub_data)
+#plot(model_fit, xlab="Time", ylab="Overall survival probability")
+}
+
+plot(model_fit[[1]], xlim=c(0,4000), ylim=c(0,1), xlab="Time", ylab="Survival", lty=1, col="black", conf.int = F)
+for (i in 2:num.cluster)
+ lines(model_fit[[i]], type="l", col=i, conf.int = F)
+
 ```
+
+
+### more clusters 
+
+```{r, echo=T, message=F, warning=F}
+num.cluster=9
+cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy[,1:3], num.cluster)
+center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("00", "02", "10"),num.cluster), group=as.character(rep(seq(1:num.cluster),each=3)))
+ggplot(center, aes(x=time, y=traj, group=group))+
+  ylab("standardized ca199_long")+xlab("coded time")+
+  geom_line(aes(color=group))+
+  geom_point(aes(color=group))
+kable(cluster.result$cluster, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+
+model_fit=list()
+for (i in 1:num.cluster)
+{
+sub_data=pancreatic_data_coded_time_no_missing_tidy[which(cluster.result$cluster==i),]
+model_fit[[i]]=survfit(Surv(surv.days,dead)~1, data=sub_data)
+#plot(model_fit, xlab="Time", ylab="Overall survival probability")
+}
+
+plot(model_fit[[1]], xlim=c(0,4000), ylim=c(0,1), xlab="Time", ylab="Survival", lty=1, col="black", conf.int = F)
+for (i in 2:num.cluster)
+ lines(model_fit[[i]], type="l", col=i, conf.int = F)
+```
+
 
 
 
