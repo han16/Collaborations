@@ -229,7 +229,7 @@ kable_styling() %>%
 scroll_box(height = "500px")
 ```
 
-### 3 clusters 
+### 3-clusters 
 
 ```{r, echo=T, eval=F}
 # Beta link function
@@ -254,7 +254,7 @@ kable_styling() %>%
 scroll_box(height = "500px")
 ```
 
-### 4 clusters 
+### 4-clusters 
 
 ```{r, echo=T, eval=F}
 # Beta link function
@@ -343,7 +343,7 @@ ggplot(num_sub_cluster, aes(x=cluster, y=count)) +
 ```
 
 
-### 5 clusters 
+### 5-clusters 
 
 ```{r, echo=T, eval=F}
 # Beta link function
