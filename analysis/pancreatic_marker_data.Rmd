@@ -44,6 +44,8 @@ scroll_box(height = "500px")
 ## kml3d 
 
 
+**couldn't find the clustering membership**
+
 ### data format preparation 
 
 ```{r, echo=T, warning=F, message=F}
@@ -73,12 +75,16 @@ traj=array(c(pancreatic_data_coded_time_no_missing$ca199_long[measure_at_0], pan
 pancreatic_data_coded_time_no_missing_cluster=clusterLongData3d(traj=traj,
 idAll=unique(pancreatic_data_coded_time_no_missing$study_id_num),
 time=c(0,2,10)
+
+
 #varNames=c("P","A"),
 #maxNA=3
 )
 ############### kml3d 
 # run the method 
 kml3d(pancreatic_data_coded_time_no_missing_cluster,2:6, nbRedrawing=2,toPlot="both")
+
+#kml3d(pancreatic_data_coded_time_no_missing_cluster,3,10,toPlot="criterion")
 # cluster 2:6
 # 2 redrawings 
 # plot both trajectory and criterion 
@@ -93,12 +99,77 @@ kml3d(pancreatic_data_coded_time_no_missing_cluster,2:6, nbRedrawing=2,toPlot="b
 ```
 
 
+## kmeans function
+
+### 2 clusters 
+
+```{r, echo=T, message=F, warning=F}
+pancreatic_data_coded_time_no_missing_tidy=as_tibble(traj[,,1])
+colnames(pancreatic_data_coded_time_no_missing_tidy)=c("0", "2", "10")
+rownames(pancreatic_data_coded_time_no_missing_tidy)=unique(pancreatic_data_coded_time_no_missing$study_id_num)
+
+cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy, 2)
+center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("0", "2", "10"),2), group=rep(c("1", "2"),each=3))
+ggplot(center, aes(x=time, y=traj, group=group))+
+  ylab("ca199_long")+xlab("coded time")+
+  geom_line(aes(color=group))+
+  geom_point(aes(color=group))
+kable(cluster.result$cluster, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```
+
+
+### 3 clusters 
+
+```{r, echo=T, message=F, warning=F}
+pancreatic_data_coded_time_no_missing_tidy=as_tibble(traj[,,1])
+colnames(pancreatic_data_coded_time_no_missing_tidy)=c("0", "2", "10")
+rownames(pancreatic_data_coded_time_no_missing_tidy)=unique(pancreatic_data_coded_time_no_missing$study_id_num)
+
+num.cluster=3
+cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy, num.cluster)
+center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("0", "2", "10"),num.cluster), group=as.character(rep(seq(1:num.cluster),each=3)))
+ggplot(center, aes(x=time, y=traj, group=group))+
+  ylab("ca199_long")+xlab("coded time")+
+  geom_line(aes(color=group))+
+  geom_point(aes(color=group))
+kable(cluster.result$cluster, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```
+
+### 4 clusters 
+
+```{r, echo=T, message=F, warning=F}
+pancreatic_data_coded_time_no_missing_tidy=as_tibble(traj[,,1])
+colnames(pancreatic_data_coded_time_no_missing_tidy)=c("0", "2", "10")
+rownames(pancreatic_data_coded_time_no_missing_tidy)=unique(pancreatic_data_coded_time_no_missing$study_id_num)
+
+num.cluster=4
+cluster.result=kmeans(pancreatic_data_coded_time_no_missing_tidy, num.cluster)
+center=tibble(traj=as.vector(t(cluster.result$centers)), time=rep(c("0", "2", "10"),num.cluster), group=as.character(rep(seq(1:num.cluster),each=3)))
+ggplot(center, aes(x=time, y=traj, group=group))+
+  ylab("ca199_long")+xlab("coded time")+
+  geom_line(aes(color=group))+
+  geom_point(aes(color=group))
+kable(cluster.result$cluster, caption = "")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+```
+
+
+
 
 ## lcmm 
 
+
+**predicted trajectories are monotonly decreasing, which violate the observation pattern** 
+
+
 ### one cluster 
 
-```{r, echo=T}
+```{r, echo=T, message=F, warning=F, eval=F}
 m10<-lcmm(ca199_long~day,random=~day,subject='study_id_num',ng=1,
 data=data.frame(pancreatic_data),link="linear")
 #summary(m10)
@@ -134,7 +205,7 @@ col=1:6,lty=1,inset=.02,box.lty=0)
 
 ### two clusters 
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
 # Beta link function
 m21<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=2,
 idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
@@ -160,7 +231,7 @@ scroll_box(height = "500px")
 
 ### 3 clusters 
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
 # Beta link function
 m31<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=3,
 idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
@@ -185,7 +256,7 @@ scroll_box(height = "500px")
 
 ### 4 clusters 
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
 # Beta link function
 #m41<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=4,
 #idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
@@ -223,7 +294,7 @@ scroll_box(height = "500px")
 
 * first cluster 
 
-```{r, echo=T}
+```{r, echo=T,eval=F}
 sub_data=pancreatic_data %>% filter(study_id_num %in% m41$pprob[which(m41$pprob$class==1),]$study_id_num) # extract subjects in class "1"
 num_sub_data1=length(m41$pprob[which(m41$pprob$class==1),]$study_id_num)
 model_fit1=survfit(Surv(surv.days,dead)~1, data=sub_data)
@@ -232,7 +303,7 @@ plot(model_fit1, xlab="Time", ylab="Overall survival probability", main="cluster
 
 * second cluster 
 
-```{r, echo=F}
+```{r, echo=F, eval=F}
 sub_data=pancreatic_data %>% filter(study_id_num %in% m41$pprob[which(m41$pprob$class==2),]$study_id_num) # extract subjects in class "2"
 num_sub_data2=length(m41$pprob[which(m41$pprob$class==2),]$study_id_num)
 model_fit2=survfit(Surv(surv.days,dead)~1, data=sub_data)
@@ -241,7 +312,7 @@ plot(model_fit2, xlab="Time", ylab="Overall survival probability", main="cluster
 
 * third cluster 
 
-```{r, echo=F}
+```{r, echo=F, eval=F}
 sub_data=pancreatic_data %>% filter(study_id_num %in% m41$pprob[which(m41$pprob$class==3),]$study_id_num) # extract subjects in class "3"
 num_sub_data3=length(m41$pprob[which(m41$pprob$class==3),]$study_id_num)
 model_fit3=survfit(Surv(surv.days,dead)~1, data=sub_data)
@@ -250,14 +321,14 @@ plot(model_fit3, xlab="Time", ylab="Overall survival probability", main="cluster
 
 * fourth cluster 
 
-```{r, echo=F}
+```{r, echo=F, eval=F}
 sub_data=pancreatic_data %>% filter(study_id_num %in% m41$pprob[which(m41$pprob$class==4),]$study_id_num) # extract subjects in class "4"
 num_sub_data4=length(m41$pprob[which(m41$pprob$class==4),]$study_id_num)
 model_fit4=survfit(Surv(surv.days,dead)~1, data=sub_data)
 plot(model_fit4, xlab="Time", ylab="Overall survival probability", main="cluster 4")
 ```
 
-```{r, echo=F}
+```{r, echo=F, eval=F}
 plot(model_fit1, xlim=c(0,4000), ylim=c(0,1), xlab="Time", ylab="Survival", lty=1, col="black", conf.int = F)
 lines(model_fit2, type="l", col="blue", conf.int = F)
 lines(model_fit3, type="l", col="green", conf.int = F)
@@ -274,7 +345,7 @@ ggplot(num_sub_cluster, aes(x=cluster, y=count)) +
 
 ### 5 clusters 
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
 # Beta link function
 m51<-lcmm(ca199_long~day,random=~day,subject='study_id_num',mixture=~day,ng=5,
 idiag=TRUE,data=data.frame(pancreatic_data),link="beta"
@@ -297,7 +368,7 @@ kable_styling() %>%
 scroll_box(height = "500px")
 ```
 
-```{r, echo=F}
+```{r, echo=F, eval=F}
 fig1=plot(predictL(m11,var.time="day",newdata=data,bty="l", main="1 cluster"))
 fig2=plot(predictL(m21,var.time="day",newdata=data,bty="l", main="2 clusters"))
 fig3=plot(predictL(m31,var.time="day",newdata=data,bty="l", main="3 clusters"))
@@ -309,7 +380,7 @@ fig5=plot(predictL(m51,var.time="day",newdata=data,bty="l", main="5 clusters"))
 ```
 ### determine number of clusters 
 
-```{r, echo=T}
+```{r, echo=T, eval=F}
 # BIC criterion 
 m11$BIC
 m21$BIC
