@@ -119,7 +119,7 @@ ggplot(center, aes(x=time, y=traj, group=group))+
   geom_point(aes(color=group))
 kable(cluster.result$cluster, caption = "")%>%
 kable_styling() %>%
-scroll_box(height = "500px")
+scroll_box(height = "200px")
 model_fit=list()
 for (i in 1:num.cluster)
 {
@@ -146,7 +146,7 @@ ggplot(center, aes(x=time, y=traj, group=group))+
   geom_point(aes(color=group))
 kable(cluster.result$cluster, caption = "")%>%
 kable_styling() %>%
-scroll_box(height = "500px")
+scroll_box(height = "200px")
 
 model_fit=list()
 for (i in 1:num.cluster)
@@ -158,7 +158,7 @@ model_fit[[i]]=survfit(Surv(surv.days,dead)~1, data=sub_data)
 
 plot(model_fit[[1]], xlim=c(0,4000), ylim=c(0,1), xlab="Time", ylab="Survival", lty=1, col="black", conf.int = F)
 for (i in 2:num.cluster)
- lines(model_fit[[i]], type="l", col="blue", conf.int = F)
+ lines(model_fit[[i]], type="l", col=i, conf.int = F)
 ```
 
 ### 4 clusters 
@@ -173,7 +173,7 @@ ggplot(center, aes(x=time, y=traj, group=group))+
   geom_point(aes(color=group))
 kable(cluster.result$cluster, caption = "")%>%
 kable_styling() %>%
-scroll_box(height = "500px")
+scroll_box(height = "200px")
 
 model_fit=list()
 for (i in 1:num.cluster)
@@ -202,7 +202,7 @@ ggplot(center, aes(x=time, y=traj, group=group))+
   geom_point(aes(color=group))
 kable(cluster.result$cluster, caption = "")%>%
 kable_styling() %>%
-scroll_box(height = "500px")
+scroll_box(height = "200px")
 
 model_fit=list()
 for (i in 1:num.cluster)
