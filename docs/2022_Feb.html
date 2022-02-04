@@ -11,7 +11,7 @@
 
 
 
-<title>2022</title>
+<title>2022 Feb</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -356,7 +356,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">2022</h1>
+<h1 class="title toc-ignore">2022 Feb</h1>
 
 </div>
 
@@ -405,7 +405,7 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -487,6 +487,9 @@ The results in this page were generated with repository version <a href="https:/
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
+Untracked files:
+    Untracked:  analysis/2022_Feb.Rmd
+
 Unstaged changes:
     Modified:   analysis/2022.Rmd
 
@@ -501,76 +504,51 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/2022.Rmd</code>) and HTML (<code>docs/2022.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/9bc8ef04a96e43c754e3140ddf65ddd35d0ac46b/analysis/2022.Rmd" target="_blank">9bc8ef0</a>
-</td>
-<td>
-Han
-</td>
-<td>
-2022-02-03
-</td>
-<td>
-2/3/2022
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/9bc8ef04a96e43c754e3140ddf65ddd35d0ac46b/docs/2022.html" target="_blank">9bc8ef0</a>
-</td>
-<td>
-Han
-</td>
-<td>
-2022-02-03
-</td>
-<td>
-2/3/2022
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
+<div id="probem-1" class="section level2">
+<h2>Probem 1</h2>
+<pre class="r"><code> perform a sample size calculation with an 80% power, on the basis of reported clinical and radiographical failure rates of pulpotomy treatment which ranges between 10%-20% (for each) in the literature. `</code></pre>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2</h2>
+<pre class="r"><code>Will it it be possible if we make estimatations of sample sizes for 10%, 12% and 15% differences (respectively) between the groups with significance level of 0.05? </code></pre>
+</div>
+<div id="problem-formulation" class="section level2">
+<h2>Problem formulation</h2>
+<p>Because sample size is not big (&lt;40), it’s better to assume binomial distribution for number of success, <span class="math inline">\(X\)</span>. Consider the hypothesis test, <span class="math inline">\(H_0: p=p_0\)</span> vs <span class="math inline">\(H_a: p&lt; p_0\)</span>. The power is defined as <span class="math inline">\(P(reject~ H_0|H_a)=P(X&lt;=X_0|p)=\sum_{X=0}^{X_0} {n \choose k}p^k(1-p)^{n-k}\)</span></p>
 <ul>
-<li><a href="2022_Feb.html">Feb</a></li>
+<li><span class="math inline">\(p\)</span> is success probability in alternative hypothesis</li>
+<li><span class="math inline">\(n\)</span> is sample size</li>
+<li><span class="math inline">\(X_0\)</span> is rejection cutoff such that X is rejected when <span class="math inline">\(X&lt;X_0\)</span></li>
 </ul>
+<pre class="r"><code>n=seq(10, 40, by=2) # vary sample size from 10 to 40 
+k=qbinom(0.05, n, 0.5)-1 # significance level 0.05; p_0=0.5 
+pa=0.5 # pa is any value within H_a
+power=pbinom(k, n, pa) # calculate power when p=pa
+data.frame(n, k, power)</code></pre>
+<pre><code>    n  k      power
+1  10  1 0.01074219
+2  12  2 0.01928711
+3  14  3 0.02868652
+4  16  4 0.03840637
+5  18  5 0.04812622
+6  20  5 0.02069473
+7  22  6 0.02623940
+8  24  7 0.03195733
+9  26  8 0.03775935
+10 28  9 0.04357928
+11 30 10 0.04936857
+12 32 10 0.02505123
+13 34 11 0.02880634
+14 36 12 0.03262267
+15 38 13 0.03647569
+16 40 14 0.04034523</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -596,15 +574,16 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8       whisker_0.4      knitr_1.37       magrittr_2.0.1  
- [5] workflowr_1.7.0  R6_2.5.1         rlang_0.4.12     fastmap_1.1.0   
- [9] fansi_1.0.2      stringr_1.4.0    tools_4.1.2      xfun_0.29       
-[13] utf8_1.2.2       git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2 
-[17] ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.2       digest_0.6.29   
-[21] tibble_3.1.6     lifecycle_1.0.1  crayon_1.4.2     later_1.3.0     
-[25] vctrs_0.3.8      promises_1.2.0.1 fs_1.5.2         glue_1.6.0      
-[29] evaluate_0.14    rmarkdown_2.11   stringi_1.7.6    compiler_4.1.2  
-[33] pillar_1.6.5     httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.8       knitr_1.37       magrittr_2.0.1   workflowr_1.7.0 
+ [5] R6_2.5.1         rlang_0.4.12     fastmap_1.1.0    fansi_1.0.2     
+ [9] stringr_1.4.0    tools_4.1.2      xfun_0.29        utf8_1.2.2      
+[13] git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2  
+[17] rprojroot_2.0.2  yaml_2.2.2       digest_0.6.29    tibble_3.1.6    
+[21] lifecycle_1.0.1  crayon_1.4.2     later_1.3.0      vctrs_0.3.8     
+[25] promises_1.2.0.1 fs_1.5.2         glue_1.6.0       evaluate_0.14   
+[29] rmarkdown_2.11   stringi_1.7.6    compiler_4.1.2   pillar_1.6.5    
+[33] httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
+</div>
 </div>
 
 

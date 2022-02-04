@@ -1,0 +1,40 @@
+---
+title: "2022 Feb"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Probem 1  
+
+```{r, echo=T, eval=F}
+ perform a sample size calculation with an 80% power, on the basis of reported clinical and radiographical failure rates of pulpotomy treatment which ranges between 10%-20% (for each) in the literature. `
+```
+
+
+
+## Problem 2 
+
+```{r, echo=T, eval=F}
+Will it it be possible if we make estimatations of sample sizes for 10%, 12% and 15% differences (respectively) between the groups with significance level of 0.05? 
+```
+
+
+## Problem formulation 
+
+
+Because sample size is not big (<40), it's better to assume binomial distribution for number of success, $X$. Consider the hypothesis test, $H_0: p=p_0$ vs $H_a: p< p_0$. The power is defined as $P(reject~ H_0|H_a)=P(X<=X_0|p)=\sum_{X=0}^{X_0} {n \choose k}p^k(1-p)^{n-k}$
+
+* $p$ is success probability in alternative hypothesis 
+* $n$  is sample size 
+* $X_0$ is rejection cutoff such that X is rejected when $X<X_0$
+
+```{r, echo=T}
+n=seq(10, 40, by=2) # vary sample size from 10 to 40 
+k=qbinom(0.05, n, 0.5)-1 # significance level 0.05; p_0=0.5 
+pa=0.5 # pa is any value within H_a
+power=pbinom(k, n, pa) # calculate power when p=pa
+data.frame(n, k, power)
+```
