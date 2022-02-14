@@ -38,7 +38,7 @@ The observed sample is summarized in the Table
 
 Question: With different failure rates under each setting, what is the sample size required to achieve 80% power? 
 
-### look at three groups together 
+### three group simultaneous test 
 
 3 different scenarios, the error rate in group 1, 2 are 10%, 17% and 25% and error rate in group 3 are 0%, 5% and 10%, resulting in the error difference 10%, 12%, 15%. Let $p_i$ be the failure rate, $i=1, 2, 3$. Consider the test $H_0:p_1=p_2=p_3$, $H_a:not ~all~ of~ them ~are ~equal$, Use chi square test $$X^2=\sum \frac{(n_{ij}-\hat{\mu}_{ij})^2}{\hat{\mu}_{ij}}$$,   
 
@@ -121,7 +121,7 @@ pwr.anova.test(k=3, f=0.3, sig.level=0.05, power=0.8)
 
 
 
-### look at each group separately 
+### one sample test 
 
 #### power vs sample size 
 
@@ -181,7 +181,7 @@ ggplot(data=data.frame(n, k, power), aes(x=pa, y=power, group=1)) +
   ylim(c(0,1))
 ```
 
-#### two sample proportion test 
+### two sample proportion test 
 
 In two independent samples, $p_1, p_2$ are sample proportions. Consider 
  the test $H_0:p_1-p_2=p_0$ vs $H_a:p_1-p_2>p_0$, $p_0$ is the specified difference. Use test statistics $$Z=\frac{\hat{p_1}-\hat{p_2}-p_0}{\sqrt{\hat{p}(1-\hat{p}(1/n_1+1/n_2))}}$$, 
@@ -189,3 +189,17 @@ In two independent samples, $p_1, p_2$ are sample proportions. Consider
  where $\hat{p_1}=\frac{No.X=1}{n_1}, \hat{p_2}=\frac{No.Y=1}{n_2}$ are estimated proportions in two samples, and $\hat{p}=\frac{No.X=1+No.Y=1}{n_1+n_2}$ in the combined sample. Under null hypothesis, $Z\sim N(0.1)$ approximately. The test needs to be rejected when $Z>Z_{1-\alpha}$, e.g. $Z_{0.95}=1.64$. 
  
 
+#### use pwr.2p.test
+
+Use R function [pwr.2p.test](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html)
+
+```{r, echo=T}
+library(pwr)
+pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, power = .80, alternative ="greater") # failure rate in group 2 &3 are 10%, 0
+
+pwr.2p.test(h = ES.h(p1 = 0.17, p2 = 0.05), sig.level = 0.05, power = .80,  alternative ="greater") # failure rate in group 2 &3 are 17%, 5%
+
+
+pwr.2p.test(h = ES.h(p1 = 0.25, p2 = 0.10), sig.level = 0.05, power = .80,  alternative ="greater") # failure rate in group 2 &3 are 25%, 10%
+
+```
