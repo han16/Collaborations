@@ -207,9 +207,9 @@ pwr.2p.test(h = ES.h(p1 = 0.25, p2 = 0.10), sig.level = 0.05, power = .80,  alte
 ```
 ```{r, echo=T}
 library(pwr)
-pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, n=35, alternative ="greater") # failure rate in group 2 &3 are 10%, 0
+pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, n=35, alternative ="greater") # failure rate in group 2 &3 are 10%, 0, power will be reported
 
-pwr.2p.test(h = ES.h(p1 = 0.20, p2 = 0.10), sig.level = 0.05, power = .80,  alternative ="greater") # failure rate in group 2 &3 are 17%, 5%
+pwr.2p.test(h = ES.h(p1 = 0.20, p2 = 0.10), sig.level = 0.05, power = .80,  alternative ="greater") # failure rate in group 2 &3 are 20%, 10%. Although same difference, the sample size needs to be increased a lot! 
 
 
 ```

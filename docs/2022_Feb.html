@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef660fa5af24d53abdbbe6f3c47bd0c79beffe0c2targetblankf660fa5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/f660fa5af24d53abdbbe6f3c47bd0c79beffe0c2" target="_blank">f660fa5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedacebe45106771f70c38d71c87b83b1b4657d7f0targetblankdacebe4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/dacebe45106771f70c38d71c87b83b1b4657d7f0" target="_blank">dacebe4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef660fa5af24d53abdbbe6f3c47bd0c79beffe0c2targetblankf660fa5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedacebe45106771f70c38d71c87b83b1b4657d7f0targetblankdacebe4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/f660fa5af24d53abdbbe6f3c47bd0c79beffe0c2" target="_blank">f660fa5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/dacebe45106771f70c38d71c87b83b1b4657d7f0" target="_blank">dacebe4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dacebe45106771f70c38d71c87b83b1b4657d7f0/analysis/2022_Feb.Rmd" target="_blank">dacebe4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-14
+</td>
+<td>
+2/14/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/dacebe45106771f70c38d71c87b83b1b4657d7f0/docs/2022_Feb.html" target="_blank">dacebe4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-14
+</td>
+<td>
+2/14/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1014,7 +1048,7 @@ NOTE: same sample sizes</code></pre>
 
 NOTE: same sample sizes</code></pre>
 <pre class="r"><code>library(pwr)
-pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, n=35, alternative =&quot;greater&quot;) # failure rate in group 2 &amp;3 are 10%, 0</code></pre>
+pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, n=35, alternative =&quot;greater&quot;) # failure rate in group 2 &amp;3 are 10%, 0, power will be reported</code></pre>
 <pre><code>
      Difference of proportion power calculation for binomial distribution (arcsine transformation) 
 
@@ -1025,7 +1059,7 @@ pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, n=35, alternative =&q
     alternative = greater
 
 NOTE: same sample sizes</code></pre>
-<pre class="r"><code>pwr.2p.test(h = ES.h(p1 = 0.20, p2 = 0.10), sig.level = 0.05, power = .80,  alternative =&quot;greater&quot;) # failure rate in group 2 &amp;3 are 17%, 5%</code></pre>
+<pre class="r"><code>pwr.2p.test(h = ES.h(p1 = 0.20, p2 = 0.10), sig.level = 0.05, power = .80,  alternative =&quot;greater&quot;) # failure rate in group 2 &amp;3 are 20%, 10%. Although same difference, the sample size needs to be increased a lot! </code></pre>
 <pre><code>
      Difference of proportion power calculation for binomial distribution (arcsine transformation) 
 
