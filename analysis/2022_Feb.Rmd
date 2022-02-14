@@ -193,6 +193,8 @@ In two independent samples, $p_1, p_2$ are sample proportions. Consider
 
 Use R function [pwr.2p.test](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html)
 
+**G2 vs G3**
+
 ```{r, echo=T}
 library(pwr)
 pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, power = .80, alternative ="greater") # failure rate in group 2 &3 are 10%, 0
@@ -203,3 +205,13 @@ pwr.2p.test(h = ES.h(p1 = 0.17, p2 = 0.05), sig.level = 0.05, power = .80,  alte
 pwr.2p.test(h = ES.h(p1 = 0.25, p2 = 0.10), sig.level = 0.05, power = .80,  alternative ="greater") # failure rate in group 2 &3 are 25%, 10%
 
 ```
+```{r, echo=T}
+library(pwr)
+pwr.2p.test(h = ES.h(p1 = 0.10, p2 = 0), sig.level = 0.05, n=35, alternative ="greater") # failure rate in group 2 &3 are 10%, 0
+
+pwr.2p.test(h = ES.h(p1 = 0.20, p2 = 0.10), sig.level = 0.05, power = .80,  alternative ="greater") # failure rate in group 2 &3 are 17%, 5%
+
+
+```
+
+
