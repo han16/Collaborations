@@ -34,3 +34,48 @@ summary(annova)
 pairwise_test=pairwise.t.test(translucency$td, translucency$materials, p.adjust.method = "bonf")
 pairwise_test$p.value
 ```
+
+
+### two sample t test with confidence interval 
+
+$H_0:\mu_1=\mu_2$  vs $Ha: \mu_1 \neq \mu_2$. Below is the 95% confidence interval for mean difference $\mu_1-\mu_2$. $\mu_i$ is the sample mean in group $i$. 
+
+
+```{r, echo=T}
+groups=levels(translucency$materials); lower=numeric(); upper=numeric() 
+k=0
+for (i in 1:(length(groups)-1))
+  for (j in (i+1):length(groups))
+   {
+    k=k+1
+    test=t.test(translucency[translucency$materials==groups[i],]$td, translucency[translucency$materials==groups[j],]$td, conf.level = 0.95)
+    lower[k]=test$conf.int[1];upper[k]=test$conf.int[2] 
+  }
+confidence_interval=data.frame(group1=groups[1:(length(groups)-1)], group2=groups[2:length(groups)], Lower=lower, Upper=upper)
+confidence_interval
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

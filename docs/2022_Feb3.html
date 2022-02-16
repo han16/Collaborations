@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4ceb853c92c9a20bfc44eac0318b608ed60cc1dftargetblank4ceb853a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/4ceb853c92c9a20bfc44eac0318b608ed60cc1df" target="_blank">4ceb853</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2f95eaea354263096c77cbfd841445d93618f082targetblank2f95eaea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/2f95eaea354263096c77cbfd841445d93618f082" target="_blank">2f95eae</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4ceb853c92c9a20bfc44eac0318b608ed60cc1dftargetblank4ceb853a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2f95eaea354263096c77cbfd841445d93618f082targetblank2f95eaea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/4ceb853c92c9a20bfc44eac0318b608ed60cc1df" target="_blank">4ceb853</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/2f95eaea354263096c77cbfd841445d93618f082" target="_blank">2f95eae</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2f95eaea354263096c77cbfd841445d93618f082/analysis/2022_Feb3.Rmd" target="_blank">2f95eae</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-16
+</td>
+<td>
+2/16/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/2f95eaea354263096c77cbfd841445d93618f082/docs/2022_Feb3.html" target="_blank">2f95eae</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-16
+</td>
+<td>
+2/16/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -619,6 +653,37 @@ GC Initial LT LiSi blocks                NA
 IPS e.max CAD HT                         NA
 IPS e.max CAD MT                         NA
 Vita Suprinity PC                0.01061074</code></pre>
+</div>
+<div id="two-sample-t-test-with-confidence-interval" class="section level3">
+<h3>two sample t test with confidence interval</h3>
+<p><span class="math inline">\(H_0:\mu_1=\mu_2\)</span> vs <span class="math inline">\(Ha: \mu_1 \neq \mu_2\)</span>. Below is the 95% confidence interval for mean difference <span class="math inline">\(\mu_1-\mu_2\)</span>. <span class="math inline">\(\mu_i\)</span> is the sample mean in group <span class="math inline">\(i\)</span>.</p>
+<pre class="r"><code>groups=levels(translucency$materials); lower=numeric(); upper=numeric() 
+k=0
+for (i in 1:(length(groups)-1))
+  for (j in (i+1):length(groups))
+   {
+    k=k+1
+    test=t.test(translucency[translucency$materials==groups[i],]$td, translucency[translucency$materials==groups[j],]$td, conf.level = 0.95)
+    lower[k]=test$conf.int[1];upper[k]=test$conf.int[2] 
+  }
+confidence_interval=data.frame(group1=groups[1:(length(groups)-1)], group2=groups[2:length(groups)], Lower=lower, Upper=upper)
+confidence_interval</code></pre>
+<pre><code>                       group1                     group2      Lower      Upper
+1                  Celtra Duo  GC Initial HT LiSi blocks -3.2178662 -2.4084680
+2   GC Initial HT LiSi blocks GC Initial LT LiSi blocks   1.5724392  2.3139258
+3  GC Initial LT LiSi blocks            IPS e.max CAD HT -0.7848425 -0.2585056
+4            IPS e.max CAD HT           IPS e.max CAD MT  1.8485299  2.5548095
+5            IPS e.max CAD MT          Vita Suprinity PC  2.4701157  3.2987814
+6                  Celtra Duo  GC Initial HT LiSi blocks  4.3039112  5.2087880
+7   GC Initial HT LiSi blocks GC Initial LT LiSi blocks   1.9162092  2.6667770
+8  GC Initial LT LiSi blocks            IPS e.max CAD HT  4.5759414  5.4537323
+9            IPS e.max CAD HT           IPS e.max CAD MT  5.2103999  6.1848315
+10           IPS e.max CAD MT          Vita Suprinity PC -2.8025167 -2.1271964
+11                 Celtra Duo  GC Initial HT LiSi blocks -0.1500262  0.6670006
+12  GC Initial HT LiSi blocks GC Initial LT LiSi blocks   0.4804208  1.4021113
+13 GC Initial LT LiSi blocks            IPS e.max CAD HT  2.4055824  3.0411051
+14           IPS e.max CAD HT           IPS e.max CAD MT  3.0203105  3.7919347
+15           IPS e.max CAD MT          Vita Suprinity PC  0.2351559  1.1304018</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
