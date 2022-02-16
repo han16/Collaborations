@@ -1,5 +1,5 @@
 ---
-title: "2022 Feb3"
+title: "2/15/2022"
 output: html_document
 ---
 
@@ -7,11 +7,30 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Since this is a balanced study design. R fucntion  [aov](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/aov) could be used to perform one way anova.  
+
+
+
+The following are groups  
+
 ```{r, echo=F}
 data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\Translucency.csv", header=T)
-levels(data$materials)
+translucency=data.frame(td=data$transclucency, materials=as.factor(data$materials))
+levels(translucency$materials)
 ```
 
+### anova test 
+
 ```{r, echo=T}
-annova=aov(translucency~materials)
+annova=aov(td~materials, data=translucency)
+annova
+summary(annova)
+```
+
+
+### pairwise t test with Bonferroni Adjustment
+
+```{r, echo=T}
+pairwise_test=pairwise.t.test(translucency$td, translucency$materials, p.adjust.method = "bonf")
+pairwise_test$p.value
 ```
