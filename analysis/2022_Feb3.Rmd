@@ -1,0 +1,17 @@
+---
+title: "2022 Feb3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=F}
+data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\Translucency.csv", header=T)
+levels(data$materials)
+```
+
+```{r, echo=T}
+annova=aov(translucency~materials)
+```
