@@ -16,7 +16,7 @@ The following are groups
 ```{r, echo=F}
 data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\Translucency.csv", header=T)
 translucency=data.frame(td=data$transclucency, materials=as.factor(data$materials))
-levels(translucency$materials)
+groups=levels(translucency$materials)
 ```
 
 ### anova test 
@@ -27,8 +27,25 @@ Null hypothesis is $H_0:\mu_1=\mu_2=...=\mu_6$ and $H_a:Not~all~equal$
 annova=aov(td~materials, data=translucency)
 annova
 summary(annova)
+
+############## equivalently use linear regression 
+LM <- lm(td ~ materials, data=translucency)
+anova(LM)
+
+summary(LM)
 ```
 
+```{r, echo=T}
+mean=numeric(); standard_deviation=numeric()
+for (i in 1:length(groups))
+{
+  mean[i]=mean(translucency[translucency$materials==groups[i],]$td)
+  standard_deviation[i]=sd(translucency[translucency$materials==groups[i],]$td)
+}
+
+anova=data.frame(Parameters=c("Translucency", groups), N=c("-", rep(20, length(groups))), mean=c("-", mean), standard_deviation=c("-", standard_deviation), F_value=c(237.7, rep(NA, length(groups))), p_value=c("<2e-16", rep("NA", length(groups))), R_square=c(0.9125, rep("NA", length(groups))))
+anova
+```
 
 ### pairwise t test with Bonferroni Adjustment
 
@@ -44,16 +61,19 @@ $H_0:\mu_1=\mu_2$  vs $Ha: \mu_1 \neq \mu_2$. Below is the 95% confidence interv
 
 
 ```{r, echo=T}
-groups=levels(translucency$materials); lower=numeric(); upper=numeric() 
+lower=numeric(); upper=numeric(); mean_difference=numeric(); pvalue=numeric() 
 k=0
 for (i in 1:(length(groups)-1))
   for (j in (i+1):length(groups))
    {
     k=k+1
     test=t.test(translucency[translucency$materials==groups[i],]$td, translucency[translucency$materials==groups[j],]$td, conf.level = 0.95)
+    mean_difference[k]=mean(translucency[translucency$materials==groups[i],]$td)-mean(translucency[translucency$materials==groups[j],]$td)
     lower[k]=test$conf.int[1];upper[k]=test$conf.int[2] 
+    pvalue[k]=test$p.value
+    
   }
-confidence_interval=data.frame(group1=groups[1:(length(groups)-1)], group2=groups[2:length(groups)], Lower=lower, Upper=upper)
+confidence_interval=data.frame(group1=groups[1:(length(groups)-1)], group2=groups[2:length(groups)], mean_difference=mean_difference, p_value=pvalue, Lower=lower, Upper=upper)
 confidence_interval
 ```
 
