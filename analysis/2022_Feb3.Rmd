@@ -21,6 +21,8 @@ levels(translucency$materials)
 
 ### anova test 
 
+Null hypothesis is $H_0:\mu_1=\mu_2=...=\mu_6$ and $H_a:Not~all~equal$
+
 ```{r, echo=T}
 annova=aov(td~materials, data=translucency)
 annova
