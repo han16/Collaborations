@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea42a06f053ff927124dd0b641a18aacd60518476targetblanka42a06fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/a42a06f053ff927124dd0b641a18aacd60518476" target="_blank">a42a06f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c961fd5554ba110243d1d4d3dad5e7bbb459970targetblank9c961fda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/9c961fd5554ba110243d1d4d3dad5e7bbb459970" target="_blank">9c961fd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea42a06f053ff927124dd0b641a18aacd60518476targetblanka42a06fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c961fd5554ba110243d1d4d3dad5e7bbb459970targetblank9c961fda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/a42a06f053ff927124dd0b641a18aacd60518476" target="_blank">a42a06f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/9c961fd5554ba110243d1d4d3dad5e7bbb459970" target="_blank">9c961fd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -490,11 +490,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/2022_Feb4.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
     Modified:   analysis/2022_Feb3.Rmd
 
 </code></pre>
@@ -534,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/9c961fd5554ba110243d1d4d3dad5e7bbb459970/analysis/2022_Feb3.Rmd" target="_blank">9c961fd</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-17
+</td>
+<td>
+2/17/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/9c961fd5554ba110243d1d4d3dad5e7bbb459970/docs/2022_Feb3.html" target="_blank">9c961fd</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-17
+</td>
+<td>
+2/17/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -678,62 +708,19 @@ Han
 </div>
 </div>
 <p>Since this is a balanced study design. R fucntion <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/aov">aov</a> could be used to perform one way anova.</p>
-<p>The following are groups</p>
 <div id="anova-test" class="section level3">
 <h3>anova test</h3>
 <p>Null hypothesis is <span class="math inline">\(H_0:\mu_1=\mu_2=...=\mu_6\)</span> and <span class="math inline">\(H_a:Not~all~equal\)</span></p>
 <pre class="r"><code>annova=aov(td~materials, data=translucency)
-annova</code></pre>
-<pre><code>Call:
-   aov(formula = td ~ materials, data = translucency)
+#annova
+#summary(annova)
 
-Terms:
-                materials Residuals
-Sum of Squares   457.0913   43.8425
-Deg. of Freedom         5       114
-
-Residual standard error: 0.6201475
-Estimated effects may be unbalanced</code></pre>
-<pre class="r"><code>summary(annova)</code></pre>
-<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)    
-materials     5  457.1   91.42   237.7 &lt;2e-16 ***
-Residuals   114   43.8    0.38                   
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>############## equivalently use linear regression 
+############## equivalently use linear regression 
 LM &lt;- lm(td ~ materials, data=translucency)
-anova(LM)</code></pre>
-<pre><code>Analysis of Variance Table
+#anova(LM)
 
-Response: td
-           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-materials   5 457.09  91.418  237.71 &lt; 2.2e-16 ***
-Residuals 114  43.84   0.385                      
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>summary(LM)</code></pre>
-<pre><code>
-Call:
-lm(formula = td ~ materials, data = translucency)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--2.15518 -0.37818  0.00645  0.35127  1.70112 
-
-Coefficients:
-                                    Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                          14.6369     0.1387 105.553  &lt; 2e-16 ***
-materialsGC Initial HT LiSi blocks    2.8132     0.1961  14.345  &lt; 2e-16 ***
-materialsGC Initial LT LiSi blocks   -1.9432     0.1961  -9.909  &lt; 2e-16 ***
-materialsIPS e.max CAD HT             0.5217     0.1961   2.660  0.00894 ** 
-materialsIPS e.max CAD MT            -2.2017     0.1961 -11.227  &lt; 2e-16 ***
-materialsVita Suprinity PC           -2.8844     0.1961 -14.708  &lt; 2e-16 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 0.6201 on 114 degrees of freedom
-Multiple R-squared:  0.9125,    Adjusted R-squared:  0.9086 
-F-statistic: 237.7 on 5 and 114 DF,  p-value: &lt; 2.2e-16</code></pre>
+#summary(LM)</code></pre>
+<p>These are ANOVA results corresponding to Table 2</p>
 <pre class="r"><code>mean=numeric(); standard_deviation=numeric()
 for (i in 1:length(groups))
 {
@@ -762,6 +749,7 @@ anova</code></pre>
 </div>
 <div id="pairwise-t-test-with-bonferroni-adjustment" class="section level3">
 <h3>pairwise t test with Bonferroni Adjustment</h3>
+<p>These are p values in pairwise two sample tests, as in Table 3</p>
 <pre class="r"><code>pairwise_test=pairwise.t.test(translucency$td, translucency$materials, p.adjust.method = &quot;bonf&quot;)
 pairwise_test$p.value</code></pre>
 <pre><code>                             Celtra Duo GC Initial HT LiSi blocks
@@ -786,6 +774,7 @@ Vita Suprinity PC                0.01061074</code></pre>
 <div id="two-sample-t-test-with-confidence-interval" class="section level3">
 <h3>two sample t test with confidence interval</h3>
 <p><span class="math inline">\(H_0:\mu_1=\mu_2\)</span> vs <span class="math inline">\(Ha: \mu_1 \neq \mu_2\)</span>. Below is the 95% confidence interval for mean difference <span class="math inline">\(\mu_1-\mu_2\)</span>. <span class="math inline">\(\mu_i\)</span> is the sample mean in group <span class="math inline">\(i\)</span>.</p>
+<p>These are other summary statistics in Table 3</p>
 <pre class="r"><code>lower=numeric(); upper=numeric(); mean_difference=numeric(); pvalue=numeric() 
 k=0
 for (i in 1:(length(groups)-1))

@@ -10,9 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 Since this is a balanced study design. R fucntion  [aov](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/aov) could be used to perform one way anova.  
 
 
-
-The following are groups  
-
 ```{r, echo=F}
 data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\Translucency.csv", header=T)
 translucency=data.frame(td=data$transclucency, materials=as.factor(data$materials))
@@ -25,15 +22,17 @@ Null hypothesis is $H_0:\mu_1=\mu_2=...=\mu_6$ and $H_a:Not~all~equal$
 
 ```{r, echo=T}
 annova=aov(td~materials, data=translucency)
-annova
-summary(annova)
+#annova
+#summary(annova)
 
 ############## equivalently use linear regression 
 LM <- lm(td ~ materials, data=translucency)
-anova(LM)
+#anova(LM)
 
-summary(LM)
+#summary(LM)
 ```
+
+These are ANOVA results corresponding to Table 2
 
 ```{r, echo=T}
 mean=numeric(); standard_deviation=numeric()
@@ -49,6 +48,8 @@ anova
 
 ### pairwise t test with Bonferroni Adjustment
 
+These are p values in pairwise two sample tests, as in Table 3
+
 ```{r, echo=T}
 pairwise_test=pairwise.t.test(translucency$td, translucency$materials, p.adjust.method = "bonf")
 pairwise_test$p.value
@@ -59,6 +60,8 @@ pairwise_test$p.value
 
 $H_0:\mu_1=\mu_2$  vs $Ha: \mu_1 \neq \mu_2$. Below is the 95% confidence interval for mean difference $\mu_1-\mu_2$. $\mu_i$ is the sample mean in group $i$. 
 
+
+These are other summary statistics in Table 3 
 
 ```{r, echo=T}
 lower=numeric(); upper=numeric(); mean_difference=numeric(); pvalue=numeric() 
