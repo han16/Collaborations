@@ -381,7 +381,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-02-16
+<strong>Last updated:</strong> 2022-02-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree57721254a9a85c65fcb9083ddeb332f76e69cddbtargetblank5772125a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/57721254a9a85c65fcb9083ddeb332f76e69cddb" target="_blank">5772125</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree74e759b9ed9c80884099774b472ce481066c6049targetblank74e759ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/74e759b9ed9c80884099774b472ce481066c6049" target="_blank">74e759b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree57721254a9a85c65fcb9083ddeb332f76e69cddbtargetblank5772125a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree74e759b9ed9c80884099774b472ce481066c6049targetblank74e759ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/57721254a9a85c65fcb9083ddeb332f76e69cddb" target="_blank">5772125</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/74e759b9ed9c80884099774b472ce481066c6049" target="_blank">74e759b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -489,9 +489,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    analysis/.Rhistory
-
-Untracked files:
-    Untracked:  analysis/2022_Feb3.Rmd
 
 Unstaged changes:
     Modified:   analysis/2022.Rmd
@@ -539,6 +536,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/4ceb853c92c9a20bfc44eac0318b608ed60cc1df/analysis/2022_Feb2.Rmd" target="_blank">4ceb853</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-16
+</td>
+<td>
+2/16/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/4ceb853c92c9a20bfc44eac0318b608ed60cc1df/docs/2022_Feb2.html" target="_blank">4ceb853</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-16
+</td>
+<td>
+2/16/2022
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/14ad83ea8653ca3827f562b05a9f46bbd04610d1/analysis/2022_Feb2.Rmd" target="_blank">14ad83e</a>
 </td>
 <td>
@@ -579,84 +610,61 @@ Han
 <h2>two sample t test</h2>
 <div id="use-r-package-pwr" class="section level3">
 <h3>use R package <code>pwr</code></h3>
-<pre class="r"><code>library(pwr)
-# set effect size d=0.3
-pwr.t.test(n=10, d = 10, sig.level = 0.05, alternative = &quot;greater&quot;)</code></pre>
-<pre><code>
-     Two-sample t test power calculation 
-
-              n = 10
-              d = 10
-      sig.level = 0.05
-          power = 1
-    alternative = greater
-
-NOTE: n is number in *each* group</code></pre>
 </div>
 <div id="use-r-package-power.t.test" class="section level3">
 <h3>Use R package <code>power.t.test</code></h3>
 <p><a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/power.t.test.html">power.t.test</a></p>
-<pre class="r"><code>d=0.3; SD=0.2
-power.t.test(power = .80, delta = d, alternative = &quot;one.sided&quot;, sig.level=0.05, sd=SD)</code></pre>
+<p><img src="figure/2022_Feb2.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb2.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="parameter-settings-in-the-experiement" class="section level4">
+<h4>Parameter settings in the experiement</h4>
+<pre class="r"><code>d=0.3; SD=0.15 
+power.t.test(power = .80, delta = d, alternative = &quot;two.sided&quot;, sig.level=0.05, sd=SD)</code></pre>
 <pre><code>
      Two-sample t test power calculation 
 
-              n = 6.298691
+              n = 5.090008
           delta = 0.3
-             sd = 0.2
+             sd = 0.15
       sig.level = 0.05
           power = 0.8
-    alternative = one.sided
+    alternative = two.sided
 
 NOTE: n is number in *each* group</code></pre>
-<pre class="r"><code>library(ggplot2)
-d=seq(0.1, 1, by=0.1); SD=0.2
-sample_size=numeric()
-for (i in 1:length(d))
-{
-  test=power.t.test(power = .80, delta = d[i], alternative = &quot;one.sided&quot;, sig.level=0.05, sd=SD)
-  sample_size[i]=round(test$n)
-}
-ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
-  geom_line(color=&quot;red&quot;)+
-  geom_hline(yintercept=0.8, linetype=&quot;dashed&quot;, color = &quot;blue&quot;)+
-  geom_point()+
-  xlab(&quot;d:mean difference&quot;)+
-  ylab(&quot;n:sample size&quot;)+
-  ggtitle(&quot;power=0.8; SD=0.2&quot;)</code></pre>
-<p><img src="figure/2022_Feb2.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>d=0.1; SD=seq(0.1, 1, by=0.1)
-sample_size=numeric()
-for (i in 1:length(SD))
-{
-  test=power.t.test(power = .80, delta = d, alternative = &quot;one.sided&quot;, sig.level=0.05, sd=SD[i])
-  sample_size[i]=round(test$n)
-}
-ggplot(data=data.frame(SD, sample_size), aes(x=SD, y=sample_size, group=1)) +
-  geom_line(color=&quot;red&quot;)+
-  geom_hline(yintercept=0.8, linetype=&quot;dashed&quot;, color = &quot;blue&quot;)+
-  geom_point()+
-  xlab(&quot;SD:standard deviation&quot;)+
-  ylab(&quot;n:sample size&quot;)+
-  ggtitle(&quot;power=0.8; mean diffrence d=0.1&quot;)</code></pre>
-<p><img src="figure/2022_Feb2.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>power.t.test(n=5, delta = d, alternative = &quot;two.sided&quot;, sig.level=0.05, sd=SD)</code></pre>
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 5
+          delta = 0.3
+             sd = 0.15
+      sig.level = 0.05
+          power = 0.7905416
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+<pre class="r"><code>power.t.test(n=10, delta = d, alternative = &quot;two.sided&quot;, sig.level=0.05, sd=SD)</code></pre>
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 10
+          delta = 0.3
+             sd = 0.15
+      sig.level = 0.05
+          power = 0.988179
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+<pre class="r"><code>For power analysis, we have used function-power.t.test in statistical software R version 4.1.2 to caulcate sample size required to achieve desired power, with  Type 1 error probability of 0.05. With group mean difference 30% and standard variation of 15%, at least 5 animals /group/time points are needed to obtain 80% power, and it will be significantly increased to 98% when there are 10  animals /group/time point. </code></pre>
+</div>
 </div>
 <div id="use-formular" class="section level3">
 <h3>use formular</h3>
 <p>use formular in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3826013/">this paper</a></p>
 <p><span class="math inline">\(sample-size=2*SD^2(1.96+0.842)^2/d^2\)</span></p>
-<pre class="r"><code>d=0.3; SD=0.2
-n=2*SD^2*(1.96+0.842)^2/d^2
-n</code></pre>
-<pre><code>[1] 6.978848</code></pre>
 </div>
 <div id="manual-calculation" class="section level3">
 <h3>manual calculation</h3>
-<pre class="r"><code>mean=1.65; p_a=0.3; sample_size=7; SD=0.2
-
-power=1-pnorm(1.65-p_a/(SD/sqrt(5)))
-power</code></pre>
-<pre><code>[1] 0.955819</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
