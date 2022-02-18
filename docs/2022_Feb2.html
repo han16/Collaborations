@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree74e759b9ed9c80884099774b472ce481066c6049targetblank74e759ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/74e759b9ed9c80884099774b472ce481066c6049" target="_blank">74e759b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree529d86e54afb4f63f0570d58cfc0566799429214targetblank529d86ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/529d86e54afb4f63f0570d58cfc0566799429214" target="_blank">529d86e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree74e759b9ed9c80884099774b472ce481066c6049targetblank74e759ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree529d86e54afb4f63f0570d58cfc0566799429214targetblank529d86ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/74e759b9ed9c80884099774b472ce481066c6049" target="_blank">74e759b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/529d86e54afb4f63f0570d58cfc0566799429214" target="_blank">529d86e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -491,7 +491,6 @@ Ignored files:
     Ignored:    analysis/.Rhistory
 
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
     Modified:   analysis/2022_Feb2.Rmd
 
 </code></pre>
@@ -531,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/529d86e54afb4f63f0570d58cfc0566799429214/analysis/2022_Feb2.Rmd" target="_blank">529d86e</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-18
+</td>
+<td>
+2/18/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/529d86e54afb4f63f0570d58cfc0566799429214/docs/2022_Feb2.html" target="_blank">529d86e</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-18
+</td>
+<td>
+2/18/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -606,6 +639,10 @@ Han
 </div>
 </div>
 </div>
+<div id="experiment-design" class="section level2">
+<h2>Experiment design</h2>
+<p>There are 4 independent animal groups, and 2 time points. The goal is to test difference between groups at every time point. Observations are proportions between 0 and 1, which suggests the proportion of bones that are formed.</p>
+</div>
 <div id="two-sample-t-test" class="section level2">
 <h2>two sample t test</h2>
 <div id="use-r-package-pwr" class="section level3">
@@ -655,7 +692,7 @@ NOTE: n is number in *each* group</code></pre>
     alternative = two.sided
 
 NOTE: n is number in *each* group</code></pre>
-<pre class="r"><code>For power analysis, we have used function-power.t.test in statistical software R version 4.1.2 to caulcate sample size required to achieve desired power, with  Type 1 error probability of 0.05. With group mean difference 30% and standard variation of 15%, at least 5 animals /group/time points are needed to obtain 80% power, and it will be significantly increased to 98% when there are 10  animals /group/time point. </code></pre>
+<pre class="r"><code>For power analysis, we have used function-power.t.test in statistical software R version 4.1.2 to calculate sample size required to achieve desired power, with  Type 1 error probability of 0.05. With group mean difference 30% and standard variation of 15%, at least 5 animals /group/time points are needed to obtain 80% power, and it will be significantly increased to 98% when there are 10  animals /group/time point. </code></pre>
 </div>
 </div>
 <div id="use-formular" class="section level3">
