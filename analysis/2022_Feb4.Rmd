@@ -8,3 +8,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+```{r, echo=F, message=F}
+library(tidyverse)
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Soni\\data_2021-09-27_4.csv"))
+dim(data)
+colnames(data)
+```
