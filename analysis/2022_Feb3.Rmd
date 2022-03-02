@@ -9,6 +9,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Since this is a balanced study design. R fucntion  [aov](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/aov) could be used to perform one way anova.  
 
+```{r, echo=F}
+set.seed(123)
+```
+
 
 ```{r, echo=F}
 data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\Translucency.csv", header=T)
@@ -20,7 +24,7 @@ groups=levels(translucency$materials)
 
 Null hypothesis is $H_0:\mu_1=\mu_2=...=\mu_6$ and $H_a:Not~all~equal$
 
-```{r, echo=T}
+```{r, echo=F}
 annova=aov(td~materials, data=translucency)
 #annova
 #summary(annova)
@@ -34,7 +38,7 @@ LM <- lm(td ~ materials, data=translucency)
 
 These are ANOVA results corresponding to Table 2
 
-```{r, echo=T}
+```{r, echo=F}
 mean=numeric(); standard_deviation=numeric()
 for (i in 1:length(groups))
 {
@@ -43,27 +47,30 @@ for (i in 1:length(groups))
 }
 
 anova=data.frame(Parameters=c("Translucency", groups), N=c("-", rep(20, length(groups))), mean=c("-", mean), standard_deviation=c("-", standard_deviation), F_value=c(237.7, rep(NA, length(groups))), p_value=c("<2e-16", rep("NA", length(groups))), R_square=c(0.9125, rep("NA", length(groups))))
-anova
+knitr::kable(anova)
 ```
+In this able p value is `<0.001` because it's $<10^{-16}$. 
+
 
 ### pairwise t test with Bonferroni Adjustment
 
 These are p values in pairwise two sample tests, as in Table 3
 
-```{r, echo=T}
+```{r, echo=F}
 pairwise_test=pairwise.t.test(translucency$td, translucency$materials, p.adjust.method = "bonf")
-pairwise_test$p.value
+#knitr::kable(pairwise_test$p.value)
+
 ```
 
 
 ### two sample t test with confidence interval 
 
-$H_0:\mu_1=\mu_2$  vs $Ha: \mu_1 \neq \mu_2$. Below is the 95% confidence interval for mean difference $\mu_1-\mu_2$. $\mu_i$ is the sample mean in group $i$. 
+$H_0:\mu_I=\mu_J$  vs $Ha: \mu_I \neq \mu_J$. Below is the 95% confidence interval for mean difference $\mu_I-\mu_J$. $\mu_I$ is the sample mean in group $I$. 
 
 
 These are other summary statistics in Table 3 
 
-```{r, echo=T}
+```{r, echo=F}
 lower=numeric(); upper=numeric(); mean_difference=numeric(); pvalue=numeric() 
 k=0
 for (i in 1:(length(groups)-1))
@@ -77,19 +84,65 @@ for (i in 1:(length(groups)-1))
     
   }
 confidence_interval=data.frame(group1=groups[1:(length(groups)-1)], group2=groups[2:length(groups)], mean_difference=mean_difference, p_value=pvalue, Lower=lower, Upper=upper)
-confidence_interval
+colnames(confidence_interval)=c("(I) Group", "(J) Group", "Mean Differences", "P", "95% CI Lower", "95% CI Upper")
+knitr::kable(confidence_interval, "pipe")
 ```
 
 
+## Regression (Mar2)
 
 
 
+```{r, echo=F, eval=F}
+
+data2=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\CopyofEdge-chippingtest_Last.csv", header=T)
+groups=colnames(data2)[seq(1, 12, b=2)]
+adjust_rsquare_d=numeric(); adjust_rsquare_dsquare=numeric() 
+confidence_interval_d=list(); confidence_interval_dsquare=list()
+p_value_d=list(); p_value_dsquare=list()
+for (i in 1:6)
+{
+  material=data2[,c(i, i+1)] # extract response and predictor 
+  material=cbind(material, material[,2]^2)
+  material=material[complete.cases(material), ] # 
+  reg_d=lm(material[,1]~0+material[,2]) # enforce intercept to 0 
+  reg_dsquare=lm(material[,1]~0+material[,2]+material[,3]) # enforce intercept to 0
+  
+  adjust_rsquare_d[i]=summary(reg_d)$adj.r.squared  # extract adjusted R^2
+  adjust_rsquare_dsquare[i]=summary(reg_dsquare)$adj.r.squared
+  p_value_d[[i]]=summary(reg_d)$coefficients[,4]    # extract p value for coefficients 
+  p_value_dsquare[[i]]=summary(reg_dsquare)$coefficients[,4]
+  confidence_interval_d[[i]]=confint(reg_d)   # extract confidence interval 
+  confidence_interval_dsquare[[i]]=confint(reg_dsquare)
+}
+
+```
+
+
+|Group              | predictor  |adjusted R^2 | CI_2.5% | CI_97.5% | P value 
+------------------|-------------|-------------|----------|---------|---------------
+|IPS.e.max.CAD.HT |     d        | 0.8134205      |  303.9338|  413.5111 | 5.15629e-16
+|IPS.e.max.CAD.HT |     d        | 0.8101295     |   150.0542| 726.4554 | 0.003852139
+| \                | d^2          | ***        | -451.8887  | 253.5316 | 0.572543383
+| IPS.e.max.CAD.MT | d           | 0.7981414   | 0.002548354 |  0.00352154 | 2.413599e-15
+| IPS.e.max.CAD.MT | d          | 0.9246016    | 5.524282e-03 |  0.0073060321 | 3.813585e-17
+| \                | d^2        | ***          | -1.461409e-05 |  -0.0000087982 | 7.262220e-10 
+| GC.Initial.HT.LiSi.blocksÂ | d |  0.831656 | 241.2785 | 322.1442 | 6.869752e-17
+| GC.Initial.HT.LiSi.blocksÂ | d | 0.8333107 | 183.7196 | 642.4280 | 0.0007946215
+| \                          | d^2 | ***     | -468.2044 |  123.7901 | 0.2462141043
+| GC.Initial.LT.LiSi | d       | 0.8108168    | 0.003434933 | 0.004685802 | 6.766023e-16
+| GC.Initial.LT.LiSi | d       | 0.9524138   |  7.339576e-03 |  9.000841e-03 | 1.052441e-21
+| \                  | d^2     |  ***        | -2.315732e-05 | -1.585707e-05 | 3.662766e-13
+| Vita.Suprinity.PC | d        | 0.8434779  | 193.2889 |  254.8913 | 1.650096e-17
+| Vita.Suprinity.PC | d        | 0.8435104  | 135.9108 | 480.3343  | 0.0008511375
+| \                 | d^2     |  ***        | -364.8881 | 122.9402 | 0.3217115154
+| Celtra.Duo        | d        | 0.8393648 | 0.002181179|  0.002995183 | 4.61217e-14
+| Celtra.Duo        | d       | 0.9489159  | 4.746469e-03 |   6.269245e-03 |  2.624311e-15
+| \                 | d^2     | ***        | -1.252505e-05 |  -7.537278e-06 | 3.604572e-09
 
 
 
-
-
-
+Note $e-16=10^{-16}$. 
 
 
 

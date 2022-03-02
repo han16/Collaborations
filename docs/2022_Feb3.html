@@ -381,7 +381,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-02-17
+<strong>Last updated:</strong> 2022-03-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c961fd5554ba110243d1d4d3dad5e7bbb459970targetblank9c961fda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/9c961fd5554ba110243d1d4d3dad5e7bbb459970" target="_blank">9c961fd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree16d7ab40d85da51faa7aa4ac8968398163aff079targetblank16d7ab4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/16d7ab40d85da51faa7aa4ac8968398163aff079" target="_blank">16d7ab4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c961fd5554ba110243d1d4d3dad5e7bbb459970targetblank9c961fda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree16d7ab40d85da51faa7aa4ac8968398163aff079targetblank16d7ab4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/9c961fd5554ba110243d1d4d3dad5e7bbb459970" target="_blank">9c961fd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/16d7ab40d85da51faa7aa4ac8968398163aff079" target="_blank">16d7ab4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/74e759b9ed9c80884099774b472ce481066c6049/analysis/2022_Feb3.Rmd" target="_blank">74e759b</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-17
+</td>
+<td>
+2/17/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/74e759b9ed9c80884099774b472ce481066c6049/docs/2022_Feb3.html" target="_blank">74e759b</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-02-17
+</td>
+<td>
+2/17/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -711,116 +745,399 @@ Han
 <div id="anova-test" class="section level3">
 <h3>anova test</h3>
 <p>Null hypothesis is <span class="math inline">\(H_0:\mu_1=\mu_2=...=\mu_6\)</span> and <span class="math inline">\(H_a:Not~all~equal\)</span></p>
-<pre class="r"><code>annova=aov(td~materials, data=translucency)
-#annova
-#summary(annova)
-
-############## equivalently use linear regression 
-LM &lt;- lm(td ~ materials, data=translucency)
-#anova(LM)
-
-#summary(LM)</code></pre>
 <p>These are ANOVA results corresponding to Table 2</p>
-<pre class="r"><code>mean=numeric(); standard_deviation=numeric()
-for (i in 1:length(groups))
-{
-  mean[i]=mean(translucency[translucency$materials==groups[i],]$td)
-  standard_deviation[i]=sd(translucency[translucency$materials==groups[i],]$td)
-}
-
-anova=data.frame(Parameters=c(&quot;Translucency&quot;, groups), N=c(&quot;-&quot;, rep(20, length(groups))), mean=c(&quot;-&quot;, mean), standard_deviation=c(&quot;-&quot;, standard_deviation), F_value=c(237.7, rep(NA, length(groups))), p_value=c(&quot;&lt;2e-16&quot;, rep(&quot;NA&quot;, length(groups))), R_square=c(0.9125, rep(&quot;NA&quot;, length(groups))))
-anova</code></pre>
-<pre><code>                  Parameters  N           mean standard_deviation F_value
-1               Translucency  -              -                  -   237.7
-2                 Celtra Duo 20    14.63694965  0.478858202685365      NA
-3  GC Initial HT LiSi blocks 20  17.4501167695  0.748848064732816      NA
-4 GC Initial LT LiSi blocks  20   12.693767163  0.661215165954839      NA
-5           IPS e.max CAD HT 20   15.158623702  0.325070781599964      NA
-6           IPS e.max CAD MT 20  12.4352799585  0.613945247379989      NA
-7          Vita Suprinity PC 20 11.75250109565  0.773054773572939      NA
-  p_value R_square
-1  &lt;2e-16   0.9125
-2      NA       NA
-3      NA       NA
-4      NA       NA
-5      NA       NA
-6      NA       NA
-7      NA       NA</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameters</th>
+<th align="left">N</th>
+<th align="left">mean</th>
+<th align="left">standard_deviation</th>
+<th align="right">F_value</th>
+<th align="left">p_value</th>
+<th align="left">R_square</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Translucency</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="right">237.7</td>
+<td align="left">&lt;2e-16</td>
+<td align="left">0.9125</td>
+</tr>
+<tr class="even">
+<td align="left">Celtra Duo</td>
+<td align="left">20</td>
+<td align="left">14.63694965</td>
+<td align="left">0.478858202685365</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">GC Initial HT LiSi blocks</td>
+<td align="left">20</td>
+<td align="left">17.4501167695</td>
+<td align="left">0.748848064732816</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">GC Initial LT LiSi blocks</td>
+<td align="left">20</td>
+<td align="left">12.693767163</td>
+<td align="left">0.661215165954839</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">IPS e.max CAD HT</td>
+<td align="left">20</td>
+<td align="left">15.158623702</td>
+<td align="left">0.325070781599964</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">IPS e.max CAD MT</td>
+<td align="left">20</td>
+<td align="left">12.4352799585</td>
+<td align="left">0.613945247379989</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Vita Suprinity PC</td>
+<td align="left">20</td>
+<td align="left">11.75250109565</td>
+<td align="left">0.773054773572939</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<p>In this able p value is <code>&lt;0.001</code> because it’s <span class="math inline">\(&lt;10^{-16}\)</span>.</p>
 </div>
 <div id="pairwise-t-test-with-bonferroni-adjustment" class="section level3">
 <h3>pairwise t test with Bonferroni Adjustment</h3>
 <p>These are p values in pairwise two sample tests, as in Table 3</p>
-<pre class="r"><code>pairwise_test=pairwise.t.test(translucency$td, translucency$materials, p.adjust.method = &quot;bonf&quot;)
-pairwise_test$p.value</code></pre>
-<pre><code>                             Celtra Duo GC Initial HT LiSi blocks
-GC Initial HT LiSi blocks  4.068460e-26                        NA
-GC Initial LT LiSi blocks  6.804061e-16              1.202613e-45
-IPS e.max CAD HT           1.340453e-01              4.845587e-20
-IPS e.max CAD MT           5.654856e-19              7.302755e-48
-Vita Suprinity PC          6.330290e-27              2.391491e-53
-                           GC Initial LT LiSi blocks  IPS e.max CAD HT
-GC Initial HT LiSi blocks                          NA               NA
-GC Initial LT LiSi blocks                          NA               NA
-IPS e.max CAD HT                         4.357077e-22               NA
-IPS e.max CAD MT                         1.000000e+00     4.327636e-25
-Vita Suprinity PC                        7.288932e-05     1.235373e-32
-                           IPS e.max CAD MT
-GC Initial HT LiSi blocks                NA
-GC Initial LT LiSi blocks                NA
-IPS e.max CAD HT                         NA
-IPS e.max CAD MT                         NA
-Vita Suprinity PC                0.01061074</code></pre>
 </div>
 <div id="two-sample-t-test-with-confidence-interval" class="section level3">
 <h3>two sample t test with confidence interval</h3>
-<p><span class="math inline">\(H_0:\mu_1=\mu_2\)</span> vs <span class="math inline">\(Ha: \mu_1 \neq \mu_2\)</span>. Below is the 95% confidence interval for mean difference <span class="math inline">\(\mu_1-\mu_2\)</span>. <span class="math inline">\(\mu_i\)</span> is the sample mean in group <span class="math inline">\(i\)</span>.</p>
+<p><span class="math inline">\(H_0:\mu_I=\mu_J\)</span> vs <span class="math inline">\(Ha: \mu_I \neq \mu_J\)</span>. Below is the 95% confidence interval for mean difference <span class="math inline">\(\mu_I-\mu_J\)</span>. <span class="math inline">\(\mu_I\)</span> is the sample mean in group <span class="math inline">\(I\)</span>.</p>
 <p>These are other summary statistics in Table 3</p>
-<pre class="r"><code>lower=numeric(); upper=numeric(); mean_difference=numeric(); pvalue=numeric() 
-k=0
-for (i in 1:(length(groups)-1))
-  for (j in (i+1):length(groups))
-   {
-    k=k+1
-    test=t.test(translucency[translucency$materials==groups[i],]$td, translucency[translucency$materials==groups[j],]$td, conf.level = 0.95)
-    mean_difference[k]=mean(translucency[translucency$materials==groups[i],]$td)-mean(translucency[translucency$materials==groups[j],]$td)
-    lower[k]=test$conf.int[1];upper[k]=test$conf.int[2] 
-    pvalue[k]=test$p.value
-    
-  }
-confidence_interval=data.frame(group1=groups[1:(length(groups)-1)], group2=groups[2:length(groups)], mean_difference=mean_difference, p_value=pvalue, Lower=lower, Upper=upper)
-confidence_interval</code></pre>
-<pre><code>                       group1                     group2 mean_difference
-1                  Celtra Duo  GC Initial HT LiSi blocks      -2.8131671
-2   GC Initial HT LiSi blocks GC Initial LT LiSi blocks        1.9431825
-3  GC Initial LT LiSi blocks            IPS e.max CAD HT      -0.5216741
-4            IPS e.max CAD HT           IPS e.max CAD MT       2.2016697
-5            IPS e.max CAD MT          Vita Suprinity PC       2.8844486
-6                  Celtra Duo  GC Initial HT LiSi blocks       4.7563496
-7   GC Initial HT LiSi blocks GC Initial LT LiSi blocks        2.2914931
-8  GC Initial LT LiSi blocks            IPS e.max CAD HT       5.0148368
-9            IPS e.max CAD HT           IPS e.max CAD MT       5.6976157
-10           IPS e.max CAD MT          Vita Suprinity PC      -2.4648565
-11                 Celtra Duo  GC Initial HT LiSi blocks       0.2584872
-12  GC Initial HT LiSi blocks GC Initial LT LiSi blocks        0.9412661
-13 GC Initial LT LiSi blocks            IPS e.max CAD HT       2.7233437
-14           IPS e.max CAD HT           IPS e.max CAD MT       3.4061226
-15           IPS e.max CAD MT          Vita Suprinity PC       0.6827789
-        p_value      Lower      Upper
-1  2.104785e-15 -3.2178662 -2.4084680
-2  1.837277e-12  1.5724392  2.3139258
-3  3.027537e-04 -0.7848425 -0.2585056
-4  8.777431e-15  1.8485299  2.5548095
-5  2.796594e-15  2.4701157  3.2987814
-6  1.631535e-22  4.3039112  5.2087880
-7  1.609330e-12  1.9162092  2.6667770
-8  1.866774e-23  4.5759414  5.4537323
-9  2.454638e-24  5.2103999  6.1848315
-10 8.652636e-15 -2.8025167 -2.1271964
-11 2.079405e-01 -0.1500262  0.6670006
-12 1.930659e-04  0.4804208  1.4021113
-13 6.213269e-17  2.4055824  3.0411051
-14 4.119103e-16  3.0203105  3.7919347
-15 3.807044e-03  0.2351559  1.1304018</code></pre>
+<table>
+<colgroup>
+<col width="24%" />
+<col width="24%" />
+<col width="16%" />
+<col width="9%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">(I) Group</th>
+<th align="left">(J) Group</th>
+<th align="right">Mean Differences</th>
+<th align="right">P</th>
+<th align="right">95% CI Lower</th>
+<th align="right">95% CI Upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Celtra Duo</td>
+<td align="left">GC Initial HT LiSi blocks</td>
+<td align="right">-2.8131671</td>
+<td align="right">0.0000000</td>
+<td align="right">-3.2178662</td>
+<td align="right">-2.4084680</td>
+</tr>
+<tr class="even">
+<td align="left">GC Initial HT LiSi blocks</td>
+<td align="left">GC Initial LT LiSi blocks</td>
+<td align="right">1.9431825</td>
+<td align="right">0.0000000</td>
+<td align="right">1.5724392</td>
+<td align="right">2.3139258</td>
+</tr>
+<tr class="odd">
+<td align="left">GC Initial LT LiSi blocks</td>
+<td align="left">IPS e.max CAD HT</td>
+<td align="right">-0.5216741</td>
+<td align="right">0.0003028</td>
+<td align="right">-0.7848425</td>
+<td align="right">-0.2585056</td>
+</tr>
+<tr class="even">
+<td align="left">IPS e.max CAD HT</td>
+<td align="left">IPS e.max CAD MT</td>
+<td align="right">2.2016697</td>
+<td align="right">0.0000000</td>
+<td align="right">1.8485299</td>
+<td align="right">2.5548095</td>
+</tr>
+<tr class="odd">
+<td align="left">IPS e.max CAD MT</td>
+<td align="left">Vita Suprinity PC</td>
+<td align="right">2.8844486</td>
+<td align="right">0.0000000</td>
+<td align="right">2.4701157</td>
+<td align="right">3.2987814</td>
+</tr>
+<tr class="even">
+<td align="left">Celtra Duo</td>
+<td align="left">GC Initial HT LiSi blocks</td>
+<td align="right">4.7563496</td>
+<td align="right">0.0000000</td>
+<td align="right">4.3039112</td>
+<td align="right">5.2087880</td>
+</tr>
+<tr class="odd">
+<td align="left">GC Initial HT LiSi blocks</td>
+<td align="left">GC Initial LT LiSi blocks</td>
+<td align="right">2.2914931</td>
+<td align="right">0.0000000</td>
+<td align="right">1.9162092</td>
+<td align="right">2.6667770</td>
+</tr>
+<tr class="even">
+<td align="left">GC Initial LT LiSi blocks</td>
+<td align="left">IPS e.max CAD HT</td>
+<td align="right">5.0148368</td>
+<td align="right">0.0000000</td>
+<td align="right">4.5759414</td>
+<td align="right">5.4537323</td>
+</tr>
+<tr class="odd">
+<td align="left">IPS e.max CAD HT</td>
+<td align="left">IPS e.max CAD MT</td>
+<td align="right">5.6976157</td>
+<td align="right">0.0000000</td>
+<td align="right">5.2103999</td>
+<td align="right">6.1848315</td>
+</tr>
+<tr class="even">
+<td align="left">IPS e.max CAD MT</td>
+<td align="left">Vita Suprinity PC</td>
+<td align="right">-2.4648565</td>
+<td align="right">0.0000000</td>
+<td align="right">-2.8025167</td>
+<td align="right">-2.1271964</td>
+</tr>
+<tr class="odd">
+<td align="left">Celtra Duo</td>
+<td align="left">GC Initial HT LiSi blocks</td>
+<td align="right">0.2584872</td>
+<td align="right">0.2079405</td>
+<td align="right">-0.1500262</td>
+<td align="right">0.6670006</td>
+</tr>
+<tr class="even">
+<td align="left">GC Initial HT LiSi blocks</td>
+<td align="left">GC Initial LT LiSi blocks</td>
+<td align="right">0.9412661</td>
+<td align="right">0.0001931</td>
+<td align="right">0.4804208</td>
+<td align="right">1.4021113</td>
+</tr>
+<tr class="odd">
+<td align="left">GC Initial LT LiSi blocks</td>
+<td align="left">IPS e.max CAD HT</td>
+<td align="right">2.7233437</td>
+<td align="right">0.0000000</td>
+<td align="right">2.4055824</td>
+<td align="right">3.0411051</td>
+</tr>
+<tr class="even">
+<td align="left">IPS e.max CAD HT</td>
+<td align="left">IPS e.max CAD MT</td>
+<td align="right">3.4061226</td>
+<td align="right">0.0000000</td>
+<td align="right">3.0203105</td>
+<td align="right">3.7919347</td>
+</tr>
+<tr class="odd">
+<td align="left">IPS e.max CAD MT</td>
+<td align="left">Vita Suprinity PC</td>
+<td align="right">0.6827789</td>
+<td align="right">0.0038070</td>
+<td align="right">0.2351559</td>
+<td align="right">1.1304018</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="regression-mar2" class="section level2">
+<h2>Regression (Mar2)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>predictor</th>
+<th>adjusted R^2</th>
+<th>CI_2.5%</th>
+<th>CI_97.5%</th>
+<th>P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IPS.e.max.CAD.HT</td>
+<td>d</td>
+<td>0.8134205</td>
+<td>303.9338</td>
+<td>413.5111</td>
+<td>5.15629e-16</td>
+</tr>
+<tr class="even">
+<td>IPS.e.max.CAD.HT</td>
+<td>d</td>
+<td>0.8101295</td>
+<td>150.0542</td>
+<td>726.4554</td>
+<td>0.003852139</td>
+</tr>
+<tr class="odd">
+<td>\</td>
+<td>d^2</td>
+<td>***</td>
+<td>-451.8887</td>
+<td>253.5316</td>
+<td>0.572543383</td>
+</tr>
+<tr class="even">
+<td>IPS.e.max.CAD.MT</td>
+<td>d</td>
+<td>0.7981414</td>
+<td>0.002548354</td>
+<td>0.00352154</td>
+<td>2.413599e-15</td>
+</tr>
+<tr class="odd">
+<td>IPS.e.max.CAD.MT</td>
+<td>d</td>
+<td>0.9246016</td>
+<td>5.524282e-03</td>
+<td>0.0073060321</td>
+<td>3.813585e-17</td>
+</tr>
+<tr class="even">
+<td>\</td>
+<td>d^2</td>
+<td>***</td>
+<td>-1.461409e-05</td>
+<td>-0.0000087982</td>
+<td>7.262220e-10</td>
+</tr>
+<tr class="odd">
+<td>GC.Initial.HT.LiSi.blocksÂ</td>
+<td>d</td>
+<td>0.831656</td>
+<td>241.2785</td>
+<td>322.1442</td>
+<td>6.869752e-17</td>
+</tr>
+<tr class="even">
+<td>GC.Initial.HT.LiSi.blocksÂ</td>
+<td>d</td>
+<td>0.8333107</td>
+<td>183.7196</td>
+<td>642.4280</td>
+<td>0.0007946215</td>
+</tr>
+<tr class="odd">
+<td>\</td>
+<td>d^2</td>
+<td>***</td>
+<td>-468.2044</td>
+<td>123.7901</td>
+<td>0.2462141043</td>
+</tr>
+<tr class="even">
+<td>GC.Initial.LT.LiSi</td>
+<td>d</td>
+<td>0.8108168</td>
+<td>0.003434933</td>
+<td>0.004685802</td>
+<td>6.766023e-16</td>
+</tr>
+<tr class="odd">
+<td>GC.Initial.LT.LiSi</td>
+<td>d</td>
+<td>0.9524138</td>
+<td>7.339576e-03</td>
+<td>9.000841e-03</td>
+<td>1.052441e-21</td>
+</tr>
+<tr class="even">
+<td>\</td>
+<td>d^2</td>
+<td>***</td>
+<td>-2.315732e-05</td>
+<td>-1.585707e-05</td>
+<td>3.662766e-13</td>
+</tr>
+<tr class="odd">
+<td>Vita.Suprinity.PC</td>
+<td>d</td>
+<td>0.8434779</td>
+<td>193.2889</td>
+<td>254.8913</td>
+<td>1.650096e-17</td>
+</tr>
+<tr class="even">
+<td>Vita.Suprinity.PC</td>
+<td>d</td>
+<td>0.8435104</td>
+<td>135.9108</td>
+<td>480.3343</td>
+<td>0.0008511375</td>
+</tr>
+<tr class="odd">
+<td>\</td>
+<td>d^2</td>
+<td>***</td>
+<td>-364.8881</td>
+<td>122.9402</td>
+<td>0.3217115154</td>
+</tr>
+<tr class="even">
+<td>Celtra.Duo</td>
+<td>d</td>
+<td>0.8393648</td>
+<td>0.002181179</td>
+<td>0.002995183</td>
+<td>4.61217e-14</td>
+</tr>
+<tr class="odd">
+<td>Celtra.Duo</td>
+<td>d</td>
+<td>0.9489159</td>
+<td>4.746469e-03</td>
+<td>6.269245e-03</td>
+<td>2.624311e-15</td>
+</tr>
+<tr class="even">
+<td>\</td>
+<td>d^2</td>
+<td>***</td>
+<td>-1.252505e-05</td>
+<td>-7.537278e-06</td>
+<td>3.604572e-09</td>
+</tr>
+</tbody>
+</table>
+<p>Note <span class="math inline">\(e-16=10^{-16}\)</span>.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -848,13 +1165,13 @@ attached base packages:
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.8       whisker_0.4      knitr_1.37       magrittr_2.0.1  
  [5] workflowr_1.7.0  R6_2.5.1         rlang_0.4.12     fastmap_1.1.0   
- [9] fansi_1.0.2      stringr_1.4.0    tools_4.1.2      xfun_0.29       
-[13] utf8_1.2.2       git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2 
-[17] ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.2       digest_0.6.29   
-[21] tibble_3.1.6     lifecycle_1.0.1  crayon_1.4.2     later_1.3.0     
-[25] vctrs_0.3.8      promises_1.2.0.1 fs_1.5.2         glue_1.6.0      
-[29] evaluate_0.14    rmarkdown_2.11   stringi_1.7.6    compiler_4.1.2  
-[33] pillar_1.6.5     httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
+ [9] fansi_1.0.2      highr_0.9        stringr_1.4.0    tools_4.1.2     
+[13] xfun_0.29        utf8_1.2.2       git2r_0.29.0     jquerylib_0.1.4 
+[17] htmltools_0.5.2  ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.2      
+[21] digest_0.6.29    tibble_3.1.6     lifecycle_1.0.1  crayon_1.4.2    
+[25] later_1.3.0      vctrs_0.3.8      promises_1.2.0.1 fs_1.5.2        
+[29] glue_1.6.0       evaluate_0.14    rmarkdown_2.11   stringi_1.7.6   
+[33] compiler_4.1.2   pillar_1.6.5     httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>
 
