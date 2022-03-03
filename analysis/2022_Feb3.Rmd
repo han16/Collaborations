@@ -73,7 +73,10 @@ These are other summary statistics in Table 3
 ```{r, echo=F}
 lower=numeric(); upper=numeric(); mean_difference=numeric(); pvalue=numeric() 
 k=0
+group1=numeric(); group2=numeric()
 for (i in 1:(length(groups)-1))
+{
+  
   for (j in (i+1):length(groups))
    {
     k=k+1
@@ -81,9 +84,11 @@ for (i in 1:(length(groups)-1))
     mean_difference[k]=mean(translucency[translucency$materials==groups[i],]$td)-mean(translucency[translucency$materials==groups[j],]$td)
     lower[k]=test$conf.int[1];upper[k]=test$conf.int[2] 
     pvalue[k]=test$p.value
-    
-  }
-confidence_interval=data.frame(group1=groups[1:(length(groups)-1)], group2=groups[2:length(groups)], mean_difference=mean_difference, p_value=pvalue, Lower=lower, Upper=upper)
+    group1[k]=groups[i]; group2[k]=groups[j]
+  } # end of j
+}
+
+confidence_interval=data.frame(group1=group1, group2=group2, mean_difference=mean_difference, p_value=pvalue, Lower=lower, Upper=upper)
 colnames(confidence_interval)=c("(I) Group", "(J) Group", "Mean Differences", "P", "95% CI Lower", "95% CI Upper")
 knitr::kable(confidence_interval, "pipe")
 ```
