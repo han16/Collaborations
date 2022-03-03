@@ -93,52 +93,58 @@ knitr::kable(confidence_interval, "pipe")
 
 
 
-```{r, echo=F, eval=F}
+```{r, echo=F, eval=T}
 
 data2=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\CopyofEdge-chippingtest_Last.csv", header=T)
 groups=colnames(data2)[seq(1, 12, b=2)]
 adjust_rsquare_d=numeric(); adjust_rsquare_dsquare=numeric() 
 confidence_interval_d=list(); confidence_interval_dsquare=list()
 p_value_d=list(); p_value_dsquare=list()
+rsquare_d=numeric(); rsquare_dsquare=numeric()
+parameter_estimate_d=list(); parameter_estimate_dsquare=list()
 for (i in 1:6)
 {
-  material=data2[,c(i, i+1)] # extract response and predictor 
+  resp=(i-1)*2+1; pred=(i-1)*2+2
+  material=data2[,c(resp, pred)] # extract response and predictor 
   material=cbind(material, material[,2]^2)
   material=material[complete.cases(material), ] # 
   reg_d=lm(material[,1]~0+material[,2]) # enforce intercept to 0 
   reg_dsquare=lm(material[,1]~0+material[,2]+material[,3]) # enforce intercept to 0
   
+  parameter_estimate_d[[i]]=reg_d$coefficients
+  parameter_estimate_dsquare[[i]]=reg_dsquare$coefficients
+  
   adjust_rsquare_d[i]=summary(reg_d)$adj.r.squared  # extract adjusted R^2
   adjust_rsquare_dsquare[i]=summary(reg_dsquare)$adj.r.squared
+  rsquare_d[i]=summary(reg_d)$r.squared
+  rsquare_dsquare[i]=summary(reg_dsquare)$r.squared
+  
   p_value_d[[i]]=summary(reg_d)$coefficients[,4]    # extract p value for coefficients 
   p_value_dsquare[[i]]=summary(reg_dsquare)$coefficients[,4]
   confidence_interval_d[[i]]=confint(reg_d)   # extract confidence interval 
   confidence_interval_dsquare[[i]]=confint(reg_dsquare)
 }
+Group=paste(rep(c("IPS.e.max.CAD.HT", "IPS.e.max.CAD.MT", "GC.Initial.HT.LiSi.blocks", "GC.Initial.LT.LiSi", "Vita.Suprinity.PC", "Celtra.Duo"), each=3), c("model1", "model2", "model2"), sep="_") 
+predictor=rep(c("d", "d", "d^2"), 6)
+adjust_rsquare=numeric(); rsquare=numeric()
+parameter_estimate=numeric()
+CI_lower=numeric(); CI_upper=numeric()
+p_value=numeric()
+for (i in 1:6)
+{  
+rsquare=c(rsquare, rsquare_d[i], rsquare_dsquare[i], "***")  
+adjust_rsquare=c(adjust_rsquare, adjust_rsquare_d[i], adjust_rsquare_dsquare[i], "***")
 
+parameter_estimate=c(parameter_estimate, parameter_estimate_d[[i]][1], parameter_estimate_dsquare[[i]][1], parameter_estimate_dsquare[[i]][2])
+
+CI_lower=c(CI_lower, confidence_interval_d[[i]][1], confidence_interval_dsquare[[i]][1,1],confidence_interval_dsquare[[i]][2,1] )
+CI_upper=c(CI_upper, confidence_interval_d[[i]][2], confidence_interval_dsquare[[i]][1,2],confidence_interval_dsquare[[i]][2,2] )
+p_value=c(p_value, p_value_d[[i]][1], p_value_dsquare[[i]][1], p_value_dsquare[[i]][2])
+}
+summary=data.frame(Group=Group, predictor=predictor, rsquare=rsquare, adjust_rsquare=adjust_rsquare, parameter_estimate=parameter_estimate,  CI_lower=CI_lower, CI_upper=CI_upper, p_value=p_value)
+knitr::kable(summary, "pipe")
 ```
 
-
-|Group              | predictor  |adjusted R^2 | CI_2.5% | CI_97.5% | P value 
-------------------|-------------|-------------|----------|---------|---------------
-|IPS.e.max.CAD.HT |     d        | 0.8134205      |  303.9338|  413.5111 | 5.15629e-16
-|IPS.e.max.CAD.HT |     d        | 0.8101295     |   150.0542| 726.4554 | 0.003852139
-| \                | d^2          | ***        | -451.8887  | 253.5316 | 0.572543383
-| IPS.e.max.CAD.MT | d           | 0.7981414   | 0.002548354 |  0.00352154 | 2.413599e-15
-| IPS.e.max.CAD.MT | d          | 0.9246016    | 5.524282e-03 |  0.0073060321 | 3.813585e-17
-| \                | d^2        | ***          | -1.461409e-05 |  -0.0000087982 | 7.262220e-10 
-| GC.Initial.HT.LiSi.blocksÂ | d |  0.831656 | 241.2785 | 322.1442 | 6.869752e-17
-| GC.Initial.HT.LiSi.blocksÂ | d | 0.8333107 | 183.7196 | 642.4280 | 0.0007946215
-| \                          | d^2 | ***     | -468.2044 |  123.7901 | 0.2462141043
-| GC.Initial.LT.LiSi | d       | 0.8108168    | 0.003434933 | 0.004685802 | 6.766023e-16
-| GC.Initial.LT.LiSi | d       | 0.9524138   |  7.339576e-03 |  9.000841e-03 | 1.052441e-21
-| \                  | d^2     |  ***        | -2.315732e-05 | -1.585707e-05 | 3.662766e-13
-| Vita.Suprinity.PC | d        | 0.8434779  | 193.2889 |  254.8913 | 1.650096e-17
-| Vita.Suprinity.PC | d        | 0.8435104  | 135.9108 | 480.3343  | 0.0008511375
-| \                 | d^2     |  ***        | -364.8881 | 122.9402 | 0.3217115154
-| Celtra.Duo        | d        | 0.8393648 | 0.002181179|  0.002995183 | 4.61217e-14
-| Celtra.Duo        | d       | 0.9489159  | 4.746469e-03 |   6.269245e-03 |  2.624311e-15
-| \                 | d^2     | ***        | -1.252505e-05 |  -7.537278e-06 | 3.604572e-09
 
 
 
