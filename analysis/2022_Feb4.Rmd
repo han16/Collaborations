@@ -16,6 +16,7 @@ set.seed(123)
 library(tidyverse)
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Soni\\data_2021-09-27_4.csv"))
 cat("there are", nrow(data), "rows and ", ncol(data), "variables", "\n")
+colnames(data)
 variables=colnames(data); variables_missing_prop=numeric()
 for (i in 1:length(variables))
   variables_missing_prop[i]=sum(data[,i]=="N_A")/nrow(data) # missing variables are coded as "N_A"
@@ -29,5 +30,5 @@ ggplot(data.frame(variables=variables, missing_prop=variables_missing_prop), aes
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size=1))
 
-knitr::kable(data.frame(variaable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]))
+knitr::kable(data.frame(variable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]))
 ```
