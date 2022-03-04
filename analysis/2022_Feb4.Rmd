@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-*  
+* missing variables are coded as `N_A`
 
 ```{r, echo=F, message=F}
 R.version
@@ -27,8 +27,7 @@ variables=as.character(seq(1, ncol(data)))
 
 ggplot(data.frame(variables=variables, missing_prop=variables_missing_prop), aes(x=variables, y=variables_missing_prop, fill=variables)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size=1))+
-  xlab("")
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size=1))
 
 knitr::kable(data.frame(variaable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]))
 ```
