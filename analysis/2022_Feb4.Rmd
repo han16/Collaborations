@@ -8,9 +8,27 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+*  
+
 ```{r, echo=F, message=F}
+R.version
+set.seed(123)
 library(tidyverse)
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Soni\\data_2021-09-27_4.csv"))
-dim(data)
-colnames(data)
+cat("there are", nrow(data), "rows and ", ncol(data), "variables", "\n")
+variables=colnames(data); variables_missing_prop=numeric()
+for (i in 1:length(variables))
+  variables_missing_prop[i]=sum(data[,i]=="N_A")/nrow(data) # missing variables are coded as "N_A"
+
+miss_var_index=which(variables_missing_prop!=0)
+miss_var=variables[miss_var_index]
+variables=as.character(seq(1, ncol(data)))
+#variables[miss_var_index]=miss_var
+
+ggplot(data.frame(variables=variables, missing_prop=variables_missing_prop), aes(x=variables, y=variables_missing_prop, fill=variables)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size=1))+
+  xlab("")
+
+knitr::kable(data.frame(variaable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]))
 ```
