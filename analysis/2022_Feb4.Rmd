@@ -20,7 +20,7 @@ library(tidyverse)
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Soni\\data_2021-09-27_4.csv"))
 cat("there are", nrow(data), "rows and ", ncol(data), "variables", "\n")
 
-kable(colnames(data))%>%  ## display all variables in columns 
+kable(colnames(data), caption="all factors in column")%>%  ## display all variables in columns 
 kable_styling() %>%
 scroll_box(height = "200px")
 
@@ -48,4 +48,19 @@ ggplot(data.frame(variables=miss_var, missing_prop=miss_var_prop), aes(x=miss_va
 knitr::kable(data.frame(variable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]), Index=miss_var_index)%>%
 kable_styling() %>%
 scroll_box(height = "500px")
+```
+
+
+### split by county 
+
+```{r, echo=F, message=F}
+knitr::kable(data %>% count(county) %>%mutate(prop=n/nrow(data)), caption = "Patients disctribution by county")%>%
+kable_styling() %>%
+scroll_box(height = "500px")
+
+ggplot(data %>% count(county) %>%mutate(prop=n/nrow(data)), aes(x=county, y=prop, fill=county)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=6))+
+  ggtitle("proportion of patients by county")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 ```
