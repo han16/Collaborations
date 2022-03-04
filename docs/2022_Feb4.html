@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -472,16 +474,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed5dfad3b6d41064fda591a6eb8d56f59fd18fe97targetblankd5dfad3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/d5dfad3b6d41064fda591a6eb8d56f59fd18fe97" target="_blank">d5dfad3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3496e53a89d29cebf9f8211c1dcf88e30388fe24targetblank3496e53a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/3496e53a89d29cebf9f8211c1dcf88e30388fe24" target="_blank">3496e53</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed5dfad3b6d41064fda591a6eb8d56f59fd18fe97targetblankd5dfad3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3496e53a89d29cebf9f8211c1dcf88e30388fe24targetblank3496e53a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/d5dfad3b6d41064fda591a6eb8d56f59fd18fe97" target="_blank">d5dfad3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/3496e53a89d29cebf9f8211c1dcf88e30388fe24" target="_blank">3496e53</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +532,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/3496e53a89d29cebf9f8211c1dcf88e30388fe24/analysis/2022_Feb4.Rmd" target="_blank">3496e53</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-03-04
+</td>
+<td>
+3/4/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/3496e53a89d29cebf9f8211c1dcf88e30388fe24/docs/2022_Feb4.html" target="_blank">3496e53</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-03-04
+</td>
+<td>
+3/4/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -673,145 +709,724 @@ Han
 </div>
 </div>
 </div>
+<div id="data-quality-mar4" class="section level2">
+<h2>Data Quality (Mar4)</h2>
 <ul>
 <li>missing variables are coded as <code>N_A</code></li>
+<li>In med history columns with Yes/No answers, if the answer is Yes, it is marked as 1. If the answer is No, then it’s marked as 0. If its not available, it’s marked as 2.</li>
 </ul>
-<pre><code>               _                           
-platform       x86_64-w64-mingw32          
-arch           x86_64                      
-os             mingw32                     
-system         x86_64, mingw32             
-status                                     
-major          4                           
-minor          1.2                         
-year           2021                        
-month          11                          
-day            01                          
-svn rev        81115                       
-language       R                           
-version.string R version 4.1.2 (2021-11-01)
-nickname       Bird Hippie                 </code></pre>
 <pre><code>there are 5876 rows and  93 variables </code></pre>
-<pre><code> [1] &quot;Postal&quot;                                                           
- [2] &quot;Sex&quot;                                                              
- [3] &quot;TreatmentDate&quot;                                                    
- [4] &quot;Age_at_exam&quot;                                                      
- [5] &quot;Age_at_report&quot;                                                    
- [6] &quot;study_id&quot;                                                         
- [7] &quot;permanent_teeth_present&quot;                                          
- [8] &quot;permanent_teeth_missing&quot;                                          
- [9] &quot;teeth_affected_caries&quot;                                            
-[10] &quot;teeth_surfaces_affected_caries&quot;                                   
-[11] &quot;number_of_teeth_with_fixed_restorations&quot;                          
-[12] &quot;number_of_direct_restorations_surfaces&quot;                           
-[13] &quot;number_of_indirect_restorations&quot;                                  
-[14] &quot;restored_teeth&quot;                                                   
-[15] &quot;number_of_implants&quot;                                               
-[16] &quot;number_of_removable_dentures&quot;                                     
-[17] &quot;number_caries_preventive&quot;                                         
-[18] &quot;DMFT&quot;                                                             
-[19] &quot;treatment_plan_exists&quot;                                            
-[20] &quot;insurance&quot;                                                        
-[21] &quot;caries_risk&quot;                                                      
-[22] &quot;number_of_teeth_direct_restorations_without_caries&quot;               
-[23] &quot;med_history_past_year_under_care_of_physician&quot;                    
-[24] &quot;med_history_radiation&quot;                                            
-[25] &quot;med_history_chemotherapy&quot;                                         
-[26] &quot;med_history_oral_bisphonates&quot;                                     
-[27] &quot;med_history_intravenous_bisphonates&quot;                              
-[28] &quot;med_history_tobacco&quot;                                              
-[29] &quot;alcoholic_beverages_med_history&quot;                                  
-[30] &quot;prescription_or_street_drugs_med_history&quot;                         
-[31] &quot;have_you_been_to_the_dentist_before&quot;                              
-[32] &quot;dent_history_extractions&quot;                                         
-[33] &quot;dent_history_implants&quot;                                            
-[34] &quot;dent_history_tmj_surgery&quot;                                         
-[35] &quot;dent_history_periodontal_gum_treatments&quot;                          
-[36] &quot;dent_history_bridges&quot;                                             
-[37] &quot;dent_history_dentures&quot;                                            
-[38] &quot;dent_history_partials&quot;                                            
-[39] &quot;dent_history_root_canal_treatment&quot;                                
-[40] &quot;dent_history_orthodontic_braces&quot;                                  
-[41] &quot;dent_history_currently_experiencing_dental_pain_or_discomfort&quot;    
-[42] &quot;dent_history_clicking&quot;                                            
-[43] &quot;dent_history_popping&quot;                                             
-[44] &quot;dent_history_discomfort_jaw_opening&quot;                              
-[45] &quot;dent_history_limited_opening&quot;                                     
-[46] &quot;dent_history_how_often_do_you_brush_your_teeth&quot;                   
-[47] &quot;dent_history_how_often_do_you_floss_your_teeth&quot;                   
-[48] &quot;dent_history_clench&quot;                                              
-[49] &quot;dent_history_brux_grind&quot;                                          
-[50] &quot;med_history_high_blood_pressure&quot;                                  
-[51] &quot;med_history_sleep_apnea&quot;                                          
-[52] &quot;med_history_diabetes_type1&quot;                                       
-[53] &quot;med_history_diabetes_type2&quot;                                       
-[54] &quot;med_history_hypothyroidism&quot;                                       
-[55] &quot;med_history_hyperthyroidism&quot;                                      
-[56] &quot;med_history_dementia_alzheimers_memory_loss&quot;                      
-[57] &quot;med_history_depression&quot;                                           
-[58] &quot;med_history_bleeding_disorders&quot;                                   
-[59] &quot;med_history_acid_reflux_gerd&quot;                                     
-[60] &quot;med_history_arthritis&quot;                                            
-[61] &quot;med_history_osteoporosis&quot;                                         
-[62] &quot;dent_history_temporomandibular_joint_disorder&quot;                    
-[63] &quot;med_history_bulimia&quot;                                              
-[64] &quot;med_history_premedication_prior_dental_rx&quot;                        
-[65] &quot;dent_history_do_you_brush_with_fluoride_toothpaste&quot;               
-[66] &quot;dent_history_is_there_fluoride_in_your_drinking_water&quot;            
-[67] &quot;dent_history_do_you_snack_between_meals&quot;                          
-[68] &quot;dent_history_do_you_feel_you_have_too_little_saliva_in_your_mouth&quot;
-[69] &quot;med_history_are_you_using_tobacco_products_now&quot;                   
-[70] &quot;city&quot;                                                             
-[71] &quot;county&quot;                                                           
-[72] &quot;county_health_outcomes_rank&quot;                                      
-[73] &quot;county_health_factors_rank&quot;                                       
-[74] &quot;county_dentist_rate&quot;                                              
-[75] &quot;county_percent_uninsured&quot;                                         
-[76] &quot;county_primary_care_physicians_rate&quot;                              
-[77] &quot;county_percent_completed_high_school&quot;                             
-[78] &quot;county_percent_some_college&quot;                                      
-[79] &quot;county_percent_unemployed&quot;                                        
-[80] &quot;county_percent_fair_or_poor_health&quot;                               
-[81] &quot;county_percent_smokers&quot;                                           
-[82] &quot;county_food_environment_index&quot;                                    
-[83] &quot;county_excessive_drinking&quot;                                        
-[84] &quot;county_population_count&quot;                                          
-[85] &quot;county_life_expectancy_rate&quot;                                      
-[86] &quot;county_percent_black&quot;                                             
-[87] &quot;county_percent_american_indian_alaska_native&quot;                     
-[88] &quot;county_percent_asian&quot;                                             
-[89] &quot;county_percent_native_hawaiian_other_pacific_islander&quot;            
-[90] &quot;county_percent_hispanic&quot;                                          
-[91] &quot;county_percent_non_hispanic_white&quot;                                
-[92] &quot;county_percent_female&quot;                                            
-[93] &quot;county_percent_rural&quot;                                             </code></pre>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<table>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">variable_with_missing_variable</th>
-<th align="right">proportion_of_missing_variable</th>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+x
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">insurance</td>
-<td align="right">0.8618108</td>
+<tr>
+<td style="text-align:left;">
+Postal
+</td>
 </tr>
-<tr class="even">
-<td align="left">caries_risk</td>
-<td align="right">0.2249830</td>
+<tr>
+<td style="text-align:left;">
+Sex
+</td>
 </tr>
-<tr class="odd">
-<td align="left">dent_history_how_often_do_you_brush_your_teeth</td>
-<td align="right">0.0253574</td>
+<tr>
+<td style="text-align:left;">
+TreatmentDate
+</td>
 </tr>
-<tr class="even">
-<td align="left">dent_history_how_often_do_you_floss_your_teeth</td>
-<td align="right">0.0299523</td>
+<tr>
+<td style="text-align:left;">
+Age_at_exam
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age_at_report
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+study_id
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+permanent_teeth_present
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+permanent_teeth_missing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+teeth_affected_caries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+teeth_surfaces_affected_caries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_of_teeth_with_fixed_restorations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_of_direct_restorations_surfaces
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_of_indirect_restorations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+restored_teeth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_of_implants
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_of_removable_dentures
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_caries_preventive
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DMFT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+treatment_plan_exists
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+insurance
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+caries_risk
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+number_of_teeth_direct_restorations_without_caries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_past_year_under_care_of_physician
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_radiation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_chemotherapy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_oral_bisphonates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_intravenous_bisphonates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_tobacco
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alcoholic_beverages_med_history
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prescription_or_street_drugs_med_history
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+have_you_been_to_the_dentist_before
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_extractions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_implants
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_tmj_surgery
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_periodontal_gum_treatments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_bridges
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_dentures
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_partials
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_root_canal_treatment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_orthodontic_braces
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_currently_experiencing_dental_pain_or_discomfort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_clicking
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_popping
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_discomfort_jaw_opening
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_limited_opening
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_how_often_do_you_brush_your_teeth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_how_often_do_you_floss_your_teeth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_clench
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_brux_grind
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_high_blood_pressure
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_sleep_apnea
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_diabetes_type1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_diabetes_type2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_hypothyroidism
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_hyperthyroidism
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_dementia_alzheimers_memory_loss
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_depression
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_bleeding_disorders
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_acid_reflux_gerd
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_arthritis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_osteoporosis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_temporomandibular_joint_disorder
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_bulimia
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_premedication_prior_dental_rx
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_do_you_brush_with_fluoride_toothpaste
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_is_there_fluoride_in_your_drinking_water
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_do_you_snack_between_meals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_do_you_feel_you_have_too_little_saliva_in_your_mouth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_are_you_using_tobacco_products_now
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+city
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_health_outcomes_rank
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_health_factors_rank
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_dentist_rate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_uninsured
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_primary_care_physicians_rate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_completed_high_school
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_some_college
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_unemployed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_fair_or_poor_health
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_smokers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_food_environment_index
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_excessive_drinking
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_population_count
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_life_expectancy_rate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_black
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_american_indian_alaska_native
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_asian
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_native_hawaiian_other_pacific_islander
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_hispanic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_non_hispanic_white
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_female
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+county_percent_rural
+</td>
 </tr>
 </tbody>
 </table>
+</div>
+<img src="figure/2022_Feb4.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+variable_with_missing_variable
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+proportion_of_missing_variable
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+insurance
+</td>
+<td style="text-align:right;">
+0.8618108
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+caries_risk
+</td>
+<td style="text-align:right;">
+0.2249830
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_past_year_under_care_of_physician
+</td>
+<td style="text-align:right;">
+0.0073179
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_radiation
+</td>
+<td style="text-align:right;">
+0.9176310
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_chemotherapy
+</td>
+<td style="text-align:right;">
+0.9176310
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_oral_bisphonates
+</td>
+<td style="text-align:right;">
+0.0066372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_intravenous_bisphonates
+</td>
+<td style="text-align:right;">
+0.0066372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_tobacco
+</td>
+<td style="text-align:right;">
+0.0040844
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alcoholic_beverages_med_history
+</td>
+<td style="text-align:right;">
+0.0166780
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prescription_or_street_drugs_med_history
+</td>
+<td style="text-align:right;">
+0.0137849
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_how_often_do_you_brush_your_teeth
+</td>
+<td style="text-align:right;">
+0.0253574
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dent_history_how_often_do_you_floss_your_teeth
+</td>
+<td style="text-align:right;">
+0.0299523
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_high_blood_pressure
+</td>
+<td style="text-align:right;">
+0.5687543
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_sleep_apnea
+</td>
+<td style="text-align:right;">
+0.6780123
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_diabetes_type1
+</td>
+<td style="text-align:right;">
+0.9824711
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_diabetes_type2
+</td>
+<td style="text-align:right;">
+0.8788291
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_hypothyroidism
+</td>
+<td style="text-align:right;">
+0.9440095
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_hyperthyroidism
+</td>
+<td style="text-align:right;">
+0.9853642
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_dementia_alzheimers_memory_loss
+</td>
+<td style="text-align:right;">
+0.6271273
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_depression
+</td>
+<td style="text-align:right;">
+0.9041865
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_bleeding_disorders
+</td>
+<td style="text-align:right;">
+0.8875085
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_acid_reflux_gerd
+</td>
+<td style="text-align:right;">
+0.7668482
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_arthritis
+</td>
+<td style="text-align:right;">
+0.7180054
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_osteoporosis
+</td>
+<td style="text-align:right;">
+0.7180054
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_bulimia
+</td>
+<td style="text-align:right;">
+0.9560926
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_premedication_prior_dental_rx
+</td>
+<td style="text-align:right;">
+0.0107216
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+med_history_are_you_using_tobacco_products_now
+</td>
+<td style="text-align:right;">
+0.8289653
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -837,27 +1452,29 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
-[5] readr_2.1.1     tidyr_1.1.4     tibble_3.1.6    ggplot2_3.3.5  
-[9] tidyverse_1.3.1
+ [1] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.7      purrr_0.3.4     
+ [5] readr_2.1.1      tidyr_1.1.4      tibble_3.1.6     ggplot2_3.3.5   
+ [9] tidyverse_1.3.1  kableExtra_1.3.4
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
- [5] digest_0.6.29    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
- [9] backports_1.4.1  reprex_2.0.1     evaluate_0.14    highr_0.9       
-[13] httr_1.4.2       pillar_1.6.5     rlang_0.4.12     readxl_1.3.1    
-[17] rstudioapi_0.13  whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11  
-[21] labeling_0.4.2   munsell_0.5.0    broom_0.7.11     compiler_4.1.2  
-[25] httpuv_1.6.5     modelr_0.1.8     xfun_0.29        pkgconfig_2.0.3 
-[29] htmltools_0.5.2  tidyselect_1.1.1 workflowr_1.7.0  fansi_1.0.2     
-[33] crayon_1.4.2     tzdb_0.2.0       dbplyr_2.1.1     withr_2.4.3     
-[37] later_1.3.0      grid_4.1.2       jsonlite_1.7.3   gtable_0.3.0    
-[41] lifecycle_1.0.1  DBI_1.1.2        git2r_0.29.0     magrittr_2.0.1  
-[45] scales_1.1.1     cli_3.1.1        stringi_1.7.6    farver_2.1.0    
-[49] fs_1.5.2         promises_1.2.0.1 xml2_1.3.3       ellipsis_0.3.2  
-[53] generics_0.1.1   vctrs_0.3.8      tools_4.1.2      glue_1.6.0      
-[57] hms_1.1.1        fastmap_1.1.0    yaml_2.2.2       colorspace_2.0-2
-[61] rvest_1.0.2      knitr_1.37       haven_2.4.3     </code></pre>
+ [1] Rcpp_1.0.8        svglite_2.0.0     lubridate_1.8.0   assertthat_0.2.1 
+ [5] rprojroot_2.0.2   digest_0.6.29     utf8_1.2.2        cellranger_1.1.0 
+ [9] R6_2.5.1          backports_1.4.1   reprex_2.0.1      evaluate_0.14    
+[13] highr_0.9         httr_1.4.2        pillar_1.6.5      rlang_0.4.12     
+[17] readxl_1.3.1      rstudioapi_0.13   whisker_0.4       jquerylib_0.1.4  
+[21] rmarkdown_2.11    labeling_0.4.2    webshot_0.5.2     munsell_0.5.0    
+[25] broom_0.7.11      compiler_4.1.2    httpuv_1.6.5      modelr_0.1.8     
+[29] xfun_0.29         pkgconfig_2.0.3   systemfonts_1.0.3 htmltools_0.5.2  
+[33] tidyselect_1.1.1  workflowr_1.7.0   fansi_1.0.2       viridisLite_0.4.0
+[37] withr_2.4.3       crayon_1.4.2      tzdb_0.2.0        dbplyr_2.1.1     
+[41] later_1.3.0       grid_4.1.2        jsonlite_1.7.3    gtable_0.3.0     
+[45] lifecycle_1.0.1   DBI_1.1.2         git2r_0.29.0      magrittr_2.0.1   
+[49] scales_1.1.1      cli_3.1.1         stringi_1.7.6     farver_2.1.0     
+[53] fs_1.5.2          promises_1.2.0.1  xml2_1.3.3        ellipsis_0.3.2   
+[57] generics_0.1.1    vctrs_0.3.8       tools_4.1.2       glue_1.6.0       
+[61] hms_1.1.1         fastmap_1.1.0     yaml_2.2.2        colorspace_2.0-2 
+[65] rvest_1.0.2       knitr_1.37        haven_2.4.3      </code></pre>
+</div>
 </div>
 
 

@@ -5,30 +5,47 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
 ```
 
+## Data Quality (Mar4)
 
 * missing variables are coded as `N_A`
+* In med history columns with Yes/No answers, if the answer is Yes, it is marked as 1. If the answer is No, then it's marked as 0. If its not available, it's marked as 2.
 
 ```{r, echo=F, message=F}
-R.version
+#R.version  # call R versions 
 set.seed(123)
 library(tidyverse)
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Soni\\data_2021-09-27_4.csv"))
 cat("there are", nrow(data), "rows and ", ncol(data), "variables", "\n")
-colnames(data)
+
+kable(colnames(data))%>%  ## display all variables in columns 
+kable_styling() %>%
+scroll_box(height = "200px")
+
+
 variables=colnames(data); variables_missing_prop=numeric()
 for (i in 1:length(variables))
-  variables_missing_prop[i]=sum(data[,i]=="N_A")/nrow(data) # missing variables are coded as "N_A"
+{
+  if (grepl("med",variables[i], fixed = TRUE)==T) # in med columns, missing variables are marked as 2
+    variables_missing_prop[i]=sum(data[,i]==2)/nrow(data) # missing variables are coded as  2
+  if (grepl("med",variables[i], fixed = TRUE)==F) # in non med columns, missing variables are marked as "N_A"
+    variables_missing_prop[i]=sum(data[,i]=="N_A")/nrow(data) 
+}
 
 miss_var_index=which(variables_missing_prop!=0)
 miss_var=variables[miss_var_index]
-variables=as.character(seq(1, ncol(data)))
-#variables[miss_var_index]=miss_var
+miss_var_prop=variables_missing_prop[miss_var_index]
 
-ggplot(data.frame(variables=variables, missing_prop=variables_missing_prop), aes(x=variables, y=variables_missing_prop, fill=variables)) +geom_bar(stat="identity")+
+
+ggplot(data.frame(variables=miss_var, missing_prop=miss_var_prop), aes(x=miss_var, y=miss_var_prop, fill=variables)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size=1))
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=6))+
+  ggtitle("Variables with missing values and their proportions")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
-knitr::kable(data.frame(variable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]))
+knitr::kable(data.frame(variable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]), Index=miss_var_index)%>%
+kable_styling() %>%
+scroll_box(height = "500px")
 ```
