@@ -47,20 +47,46 @@ ggplot(data.frame(variables=miss_var, missing_prop=miss_var_prop), aes(x=miss_va
 
 knitr::kable(data.frame(variable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]), Index=miss_var_index)%>%
 kable_styling() %>%
-scroll_box(height = "500px")
+scroll_box(height = "300px")
 ```
 
 
 ### split by county 
 
 ```{r, echo=F, message=F}
-knitr::kable(data %>% count(county) %>%mutate(prop=n/nrow(data)), caption = "Patients disctribution by county")%>%
+knitr::kable(data %>% count(county) %>%mutate(prop=n/nrow(data)), caption = "Patients distribution by county")%>%
 kable_styling() %>%
-scroll_box(height = "500px")
+scroll_box(height = "300px")
 
 ggplot(data %>% count(county) %>%mutate(prop=n/nrow(data)), aes(x=county, y=prop, fill=county)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=6))+
   ggtitle("proportion of patients by county")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
+
+### split by age 
+
+```{r, echo=F}
+
+age_group=c("<50", "50-60", "61-70", "71-80", "81-90", ">91")
+count_group=numeric()
+count_group[1]=data%>%filter(Age_at_exam<50)%>%nrow()
+count_group[2]=data%>%filter(Age_at_exam>=50 & Age_at_exam<=60)%>%nrow()
+count_group[3]=data%>%filter(Age_at_exam>=61 & Age_at_exam<=70)%>%nrow()
+count_group[4]=data%>%filter(Age_at_exam>=71 & Age_at_exam<=80)%>%nrow()
+count_group[5]=data%>%filter(Age_at_exam>=81 & Age_at_exam<=90)%>%nrow()
+count_group[6]=data%>%filter(Age_at_exam>=91)%>%nrow()
+
+ggplot(data.frame(age_group=age_group, count=count_group), aes(x=age_group, y=count, fill=age_group)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=12))+
+  ggtitle("number of patients by age")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+knitr::kable(data.frame(age_group=age_group, count=count_group), caption = "Patients distribution by age")%>%
+kable_styling() %>%
+scroll_box(height = "200px")
 ```
