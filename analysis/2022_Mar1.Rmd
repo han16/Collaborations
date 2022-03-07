@@ -1,0 +1,12 @@
+---
+title: "3/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 
+
+Each individual has 5 measurements alignment, marginal ridge, buccolingual, occlusal relationship and overjet, measured manually and digitally and end up with one final score. (1) sample size needed to detect the difference between manual and digital measurements (2) if there is difference, which factor of 5 measurements drives the difference? 

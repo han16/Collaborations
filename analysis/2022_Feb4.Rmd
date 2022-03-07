@@ -49,6 +49,9 @@ knitr::kable(data.frame(variable_with_missing_variable=miss_var, proportion_of_m
 kable_styling() %>%
 scroll_box(height = "300px")
 ```
+it appears that `med_history_depression`, `med_history_diabetes_type1`, `med_history_hypothyroidism`, `med_history_hyperthyroidism` have missing values as high as `>90%`. 
+
+
 
 
 ### split by county 
