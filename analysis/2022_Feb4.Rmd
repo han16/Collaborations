@@ -73,7 +73,7 @@ ggplot(data %>% count(county) %>%mutate(prop=n/nrow(data)), aes(x=county, y=prop
 
 ```{r, echo=F}
 
-age_group=c("<50", "50-60", "61-70", "71-80", "81-90", ">91")
+age_group=c("(1) <50", "(2) 50-60", "(3) 61-70", "(4) 71-80", "(5) 81-90", "(6) >91")
 count_group=numeric()
 count_group[1]=data%>%filter(Age_at_exam<50)%>%nrow()
 count_group[2]=data%>%filter(Age_at_exam>=50 & Age_at_exam<=60)%>%nrow()
