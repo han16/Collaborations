@@ -9,4 +9,33 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Problem 
 
-Each individual has 5 measurements alignment, marginal ridge, buccolingual, occlusal relationship and overjet, measured manually and digitally and end up with one final score. (1) sample size needed to detect the difference between manual and digital measurements (2) if there is difference, which factor of 5 measurements drives the difference? 
+Each individual has 5 measurements alignment, marginal ridge, buccolingual, occlusal relationship and overjet, measured manually and digitally and end up with one final score. (1) sample size needed to detect the difference between manual and digital measurements (2) if there is difference, which factor of 5 measurements drives the difference? All those observations are numeric numbers. 
+
+## paired two sample t test by  package `power.t.test`
+
+[power.t.test](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/power.t.test.html)
+
+* use `power.t.test` with option `alternative = "two.sided"`, `type="paired"`
+* when mean difference is 0.1, standard deviation is 0.2, 33 subjects are required to achieve 80% power. 
+
+
+```{r, echo=F}
+library(ggplot2)
+d=seq(0.1, 1, by=0.02); SD=0.2
+sample_size=numeric()
+for (i in 1:length(d))
+{
+  test=power.t.test(power = .80, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="paired") # paired two sample t test 
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  geom_hline(yintercept=0.8, linetype="dashed", color = "blue")+
+  geom_point()+
+  xlab("d:mean difference")+
+  ylab("n:sample size")+
+  ggtitle("power=0.8; SD=0.2")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+```
+
