@@ -93,3 +93,32 @@ knitr::kable(data.frame(age_group=age_group, count=count_group), caption = "Pati
 kable_styling() %>%
 scroll_box(height = "200px")
 ```
+
+
+
+### merge disease status 
+
+
+0:No; 1:yes; 2:missing
+
+
+```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| disease 1     | disease 2     | disease 1 + disease 2|
+|---------------|:-------------:|---------------------:|
+| 0             | 0             | 0                    |
+| 0             | 1             | 1                    |
+| 0             | 2             | 0 ?                  |
+| 1             | 0             | 1                    |
+| 1             | 1             | 1                    |
+| 1             | 2             | 1                    |
+| 2             | 0             | 0 ?                  |
+| 2             | 1             | 1                    |
+| 2             | 2             | 2                    |
+
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+
