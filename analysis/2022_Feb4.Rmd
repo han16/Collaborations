@@ -95,6 +95,27 @@ scroll_box(height = "200px")
 ```
 
 
+### split by gender 
+
+```{r, echo=F, message=F, warning=F}
+gender_group=c("1", "2")
+
+count_group=numeric()
+count_group[1]=data%>%filter(Sex==1)%>%nrow()
+count_group[2]=data%>%filter(Sex==2)%>%nrow()
+
+ggplot(data.frame(gender=gender_group, count=count_group), aes(x=gender, y=count, fill=gender)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=12))+
+  ggtitle("number of patients by gender")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+knitr::kable(data.frame(gender=gender_group, count=count_group), caption = "Patients distribution by age")%>%
+kable_styling() %>%
+scroll_box(height = "200px")
+```
+
 
 ### merge disease status 
 
@@ -108,11 +129,11 @@ tabl <- "
 |---------------|:-------------:|---------------------:|
 | 0             | 0             | 0                    |
 | 0             | 1             | 1                    |
-| 0             | 2             | 0 ?                  |
+| 0             | 2             | 0                    |
 | 1             | 0             | 1                    |
 | 1             | 1             | 1                    |
 | 1             | 2             | 1                    |
-| 2             | 0             | 0 ?                  |
+| 2             | 0             | 0                    |
 | 2             | 1             | 1                    |
 | 2             | 2             | 2                    |
 
@@ -121,4 +142,61 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 
+```{r, echo=F, message=F, warning=F}
+Diabetes=numeric(); cancer_treatment=numeric(); thyroid_diseases=numeric()
+for (i in 1:nrow(data))
+{
+  if (data$med_history_diabetes_type1[i] ==1 | data$med_history_diabetes_type2[i] ==1) # combine diabetes1, diabetes2 
+    Diabetes[i]=1
+  if (data$med_history_diabetes_type1[i] !=1 & data$med_history_diabetes_type2[i]!=1)
+    { 
+     if (data$med_history_diabetes_type1[i]+data$med_history_diabetes_type2[i]<=2)
+       Diabetes[i]=0
+     if (data$med_history_diabetes_type1[i]+data$med_history_diabetes_type2[i]>2)
+       Diabetes[i]=2
+  }
+  
+   if (data$med_history_radiation[i] ==1 | data$med_history_chemotherapy[i] ==1) # combine radiation and chemotherapy 
+    cancer_treatment[i]=1
+  if (data$med_history_radiation[i] !=1 & data$med_history_chemotherapy[i]!=1)
+    { 
+     if (data$med_history_radiation[i]+data$med_history_chemotherapy[i]<=2)
+       cancer_treatment[i]=0
+     if (data$med_history_radiation[i]+data$med_history_chemotherapy[i]>2)
+       cancer_treatment[i]=2
+  }
+   
+   
+   if (data$med_history_hyperthyroidism[i] ==1 | data$med_history_hypothyroidism[i] ==1) # combine hyper and hypo 
+    thyroid_diseases[i]=1
+  if (data$med_history_hyperthyroidism[i] !=1 & data$med_history_hypothyroidism[i]!=1)
+    { 
+     if (data$med_history_hyperthyroidism[i]+data$med_history_hypothyroidism[i]<=2)
+       thyroid_diseases[i]=0
+     if (data$med_history_hyperthyroidism[i]+data$med_history_hypothyroidism[i]>2)
+       thyroid_diseases[i]=2
+  }  
+}
+
+data_merge=data%>%mutate(diabetes=Diabetes, cancer_treatment=cancer_treatment, thyroid_diseases=thyroid_diseases)
+
+variables=c("med_history_diabetes_type1", "med_history_diabetes_type2", "diabetes", "med_history_radiation", "med_history_chemotherapy", "cancer_treatment", "med_history_hyperthyroidism", "med_history_hypothyroidism", "thyroid_diseases")
+
+variables_missing_prop=numeric()
+for (i in 1:length(variables))
+  variables_missing_prop[i]=sum(data_merge %>% select(variables[i])%>%pull()==2)/nrow(data_merge)
+
+
+ggplot(data.frame(variables=paste(seq(1,9), variables, sep="_"), missing_prop=variables_missing_prop), aes(x=variables, y=variables_missing_prop, fill=variables)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=8))+
+  #ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+knitr::kable(data.frame(variables=paste(seq(1,9), variables, sep="_"), proportion_of_missing_variable=variables_missing_prop), Index=miss_var_index)%>%
+kable_styling() %>%
+scroll_box(height = "300px")
+```
+
+* combing diseases doesn't seem to improve too much 
 
