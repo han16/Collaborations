@@ -199,4 +199,5 @@ scroll_box(height = "300px")
 ```
 
 * combing diseases doesn't seem to improve too much 
+* radiation and chemotherapy appears  both to patients 
 
