@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Since this is a balanced study design. R fucntion  [aov](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/aov) could be used to perform one way anova.  
+Since this is a balanced study design. R function  [aov](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/aov) could be used to perform one way anova.  
 
 ```{r, echo=F}
 set.seed(123)
@@ -52,7 +52,7 @@ knitr::kable(anova)
 In this able p value is `<0.001` because it's $<10^{-16}$. 
 
 
-### pairwise t test with Bonferroni Adjustment
+## pairwise t test with Bonferroni Adjustment
 
 These are p values in pairwise two sample tests, as in Table 3
 
@@ -63,7 +63,7 @@ pairwise_test=pairwise.t.test(translucency$td, translucency$materials, p.adjust.
 ```
 
 
-### two sample t test with confidence interval 
+## two sample t test with confidence interval 
 
 $H_0:\mu_I=\mu_J$  vs $Ha: \mu_I \neq \mu_J$. Below is the 95% confidence interval for mean difference $\mu_I-\mu_J$. $\mu_I$ is the sample mean in group $I$. 
 
@@ -156,7 +156,11 @@ knitr::kable(summary, "pipe")
 Note $e-16=10^{-16}$. 
 
 
+## software 
 
+```{r, echo=F}
+R.version
+```
 
 
 
