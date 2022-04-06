@@ -7,6 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
 library(tidyverse)
+library(ggpubr) # combine and arrange multiple 
 set.seed(123)
 ```
 
@@ -39,14 +40,17 @@ miss_var_prop=variables_missing_prop[miss_var_index]
 
 
 ggplot(data.frame(variables=miss_var, missing_prop=miss_var_prop), aes(x=miss_var, y=miss_var_prop, fill=variables)) +geom_bar(stat="identity")+
+  ylim(c(0, 1.2))+
+  ylab("missing value (%)")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=6))+
+  geom_text(aes(label=round(miss_var_prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
   ggtitle("Variables with missing values and their proportions")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
-knitr::kable(data.frame(variable_with_missing_variable=miss_var, proportion_of_missing_variable=variables_missing_prop[miss_var_index]), Index=miss_var_index)%>%
-kable_styling() %>%
-scroll_box(height = "300px")
+#knitr::kable(data.frame(variable_with_missing_variable=miss_var, #proportion_of_missing_variable=variables_missing_prop[miss_var_index]), Index=miss_var_index)%>%
+#kable_styling() %>%
+#scroll_box(height = "300px")
 ```
 it appears that `med_history_depression`, `med_history_diabetes_type1`, `med_history_hypothyroidism`, `med_history_hyperthyroidism` have missing values as high as `>90%`. 
 
@@ -56,22 +60,28 @@ it appears that `med_history_depression`, `med_history_diabetes_type1`, `med_his
 ### split by county 
 
 ```{r, echo=F, message=F}
-knitr::kable(data %>% count(county) %>%mutate(prop=n/nrow(data)), caption = "Patients distribution by county")%>%
-kable_styling() %>%
-scroll_box(height = "300px")
+#knitr::kable(data %>% count(county) %>%mutate(prop=n/nrow(data)), caption = "Patients distribution by county")%>%
+#kable_styling() %>%
+#scroll_box(height = "300px")
 
 ggplot(data %>% count(county) %>%mutate(prop=n/nrow(data)), aes(x=county, y=prop, fill=county)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=6))+
+  ylab("Patients (%)")+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("proportion of patients by county")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 ```
 
+* use column `county`
+* some `0`'s are not exactly zero, but close to 0. 
 
-### split by age 
+
+### split by age and gender 
+
+
 
 ```{r, echo=F}
-
 age_group=c("(1) <50", "(2) 50-60", "(3) 61-70", "(4) 71-80", "(5) 81-90", "(6) >91")
 count_group=numeric()
 count_group[1]=data%>%filter(Age_at_exam<50)%>%nrow()
@@ -81,40 +91,39 @@ count_group[4]=data%>%filter(Age_at_exam>=71 & Age_at_exam<=80)%>%nrow()
 count_group[5]=data%>%filter(Age_at_exam>=81 & Age_at_exam<=90)%>%nrow()
 count_group[6]=data%>%filter(Age_at_exam>=91)%>%nrow()
 
-ggplot(data.frame(age_group=age_group, count=count_group), aes(x=age_group, y=count, fill=age_group)) +geom_bar(stat="identity")+
+g1=ggplot(data.frame(age_group=age_group, count=count_group), aes(x=age_group, y=count, fill=age_group)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
+  ylab("Patients")+xlab("")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=12))+
-  ggtitle("number of patients by age")+
+  geom_text(aes(label=count_group), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  ggtitle("patients by age")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-
-knitr::kable(data.frame(age_group=age_group, count=count_group), caption = "Patients distribution by age")%>%
-kable_styling() %>%
-scroll_box(height = "200px")
-```
-
-
-### split by gender 
-
-```{r, echo=F, message=F, warning=F}
+##############################
 gender_group=c("1", "2")
 
-count_group=numeric()
-count_group[1]=data%>%filter(Sex==1)%>%nrow()
-count_group[2]=data%>%filter(Sex==2)%>%nrow()
+gender_count=numeric()
+gender_count[1]=data%>%filter(Sex==1)%>%nrow()
+gender_count[2]=data%>%filter(Sex==2)%>%nrow()
 
-ggplot(data.frame(gender=gender_group, count=count_group), aes(x=gender, y=count, fill=gender)) +geom_bar(stat="identity")+
+g2=ggplot(data.frame(gender=gender_group, count=gender_count), aes(x=gender, y=count, fill=gender)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=12))+
-  ggtitle("number of patients by gender")+
-  geom_text(aes(label=count_group), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("Patients")+
+  ggtitle("patients by gender")+
+  geom_text(aes(label=gender_count), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-
-#knitr::kable(data.frame(gender=gender_group, count=count_group), caption = "Patients distribution by age")%>%
-#kable_styling() %>%
-#scroll_box(height = "200px")
+# ggarrange doesn't work when g1 g2 share same variable name 
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
 ```
+
+
+* use `Age_at_exam` as age variable 
+
+
 
 
 ### merge disease status 
@@ -190,8 +199,9 @@ for (i in 1:length(variables))
 ggplot(data.frame(variables=paste(seq(1,9), variables, sep="_"), missing_prop=variables_missing_prop), aes(x=variables, y=variables_missing_prop, fill=variables)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   ylim(c(0, 1.1))+
+  ylab("missing value (%)")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=8))+
-  geom_text(aes(label=round(variables_missing_prop,4)), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  geom_text(aes(label=round(variables_missing_prop,4)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
 #knitr::kable(data.frame(variables=paste(seq(1,9), variables, sep="_"), proportion_of_missing_variable=variables_missing_prop), Index=miss_var_index)%>%
@@ -202,16 +212,11 @@ ggplot(data.frame(variables=paste(seq(1,9), variables, sep="_"), missing_prop=va
 * combing diseases doesn't seem to improve too much 
 * radiation and chemotherapy appears  both to patients 
 
-```
-1) natural dentition graph and natural dentition with age brackets graph on our patient demographic  (similar to slides 14 and 15 of the UIC presentation we shared with you). 
-2) Information on active caries a) by age and by b)county
-3) Medical conditions (predictors) by age, and by county
-4) smoking/tobacco- effect on number of missing teeth in our patient population
-```
 
 
 
 ## natural dentition
+
 
 ```{r, echo=F, warning=F, message=F}
 teeth_group=c("(1):21 teeth or more", "(2):20 teeth or less", "(3):Edentulous (no teeth)")
@@ -219,18 +224,284 @@ teeth_count=numeric()
 teeth_count[1]=data%>%filter(permanent_teeth_present>=21)%>%nrow()
 teeth_count[2]=data%>%filter(permanent_teeth_present<21 & permanent_teeth_present>=1)%>%nrow()
 teeth_count[3]=data%>%filter(permanent_teeth_present==0)%>%nrow()
+ 
+f1=ggplot(data.frame(dentition=teeth_group, proportion=teeth_count/nrow(data)), aes(x=dentition, y=proportion, fill=dentition)) +geom_bar(stat="identity")+
+   #theme(legend.position="none")+
+   xlab("")+ylab("Patients(%)")+
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())+ # remove x axis labels 
+   ylim(c(0,1))+
+   ggtitle("natural dentition")+
+   geom_text(aes(label=round(teeth_count/nrow(data),2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ 
+###############################################
+age_group=c("(1) <50", "(2) 50-60", "(3) 61-70", "(4) 71-80", "(5) 81-90", "(6) >91")
+prop_group=numeric()
+sub_data=data%>%filter(Age_at_exam<50)
+n=nrow(sub_data)
+prop_group[1]=sub_data%>%filter(permanent_teeth_present>=21)%>%nrow()/n
+prop_group[2]=sub_data%>%filter(permanent_teeth_present<21 & permanent_teeth_present>=1)%>%nrow()/n
+prop_group[3]=data%>%filter(Age_at_exam<50)%>%filter(permanent_teeth_present==0)%>%nrow()/n
 
-ggplot(data.frame(teeth=teeth_group, proportion=teeth_count/nrow(data)), aes(x=teeth, y=proportion, fill=teeth)) +geom_bar(stat="identity")+
-  theme(legend.position="none")+
+sub_data=data%>%filter(Age_at_exam>=50 & Age_at_exam<=60)
+n=nrow(sub_data)
+prop_group[4]=sub_data%>%filter(permanent_teeth_present>=21)%>%nrow()/n
+prop_group[5]=sub_data%>%filter(permanent_teeth_present<21 & permanent_teeth_present>=1)%>%nrow()/n
+prop_group[6]=sub_data%>%filter(permanent_teeth_present==0)%>%nrow()/n
+
+cutoff=c(61, 71, 81,91)
+for (i in 1:(length(cutoff)-1))
+{
+  sub_data=data%>%filter(Age_at_exam>=cutoff[i] & Age_at_exam<=(cutoff[i+1]-1))
+  n=nrow(sub_data)
+  prop_group[6+(i-1)*3+1]=sub_data%>%filter(permanent_teeth_present>=21)%>%nrow()/n
+  prop_group[6+(i-1)*3+2]=sub_data%>%filter(permanent_teeth_present<21 & permanent_teeth_present>=1)%>%nrow()/n
+prop_group[6+(i-1)*3+3]=sub_data%>%filter(permanent_teeth_present==0)%>%nrow()/n
+  
+} 
+i=length(cutoff)
+  sub_data=data%>%filter(Age_at_exam>=cutoff[i])
+  n=nrow(sub_data)
+  prop_group[6+(i-1)*3+1]=sub_data%>%filter(permanent_teeth_present>=21)%>%nrow()/n
+  prop_group[6+(i-1)*3+2]=sub_data%>%filter(permanent_teeth_present<21 &           permanent_teeth_present>=1)%>%nrow()/n
+  prop_group[6+(i-1)*3+3]=sub_data%>%filter(permanent_teeth_present==0)%>%nrow()/n
+
+prop_age_dentition=tibble(prop=prop_group, age=rep(age_group, each=3), dentition=rep(teeth_group, 6))  
+  
+#group=paste(rep(age_group, each=3), c("21 teeth or more", "20 teeth or less", "Edentulous (no teeth)"), sep="&")
+
+f2=ggplot(prop_age_dentition, aes(x=age, y=prop, fill=dentition)) +   
+  geom_bar( position = "dodge", stat="identity")+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
   xlab("")+ylab("Patients(%)")+
   ylim(c(0,1))+
-  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=12))+
-  ggtitle("natural dentition")+
-  geom_text(aes(label=round(teeth_count/nrow(data),4)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ggtitle("natural dentition per age brackets")+
+theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title  
+
+figure <- ggarrange(f1, f2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 1, nrow = 2)
+figure 
 
 ```
 
+* use `permanent_teeth_present` to count the number of teeth. 
+
+
+## caries 
+
+
+```{r, echo=F, warning=F, message=F}
+teeth_with_caries=seq(0,11)
+patient_with_caries=numeric()
+for ( i in 1:(length(teeth_with_caries)-1))
+  patient_with_caries[i]=data%>%filter(teeth_affected_caries==teeth_with_caries[i])%>%nrow()
+patient_with_caries[i+1]=data%>%filter(teeth_affected_caries>=teeth_with_caries[i+1])%>%nrow()
+
+teeth_with_caries[1:10]=paste("0", seq(0,9), sep="")
+teeth_with_caries[12]=c("AC >=11")
+#teeth_with_caries=c(seq(1,11),c("more than 11"))
+
+f1=ggplot(data.frame(patient=patient_with_caries, teeth_with_caries=teeth_with_caries), aes(x=teeth_with_caries, y=patient, fill=teeth_with_caries)) +geom_bar(stat="identity")+
+   theme(legend.position="none")+
+   xlab("")+ylab("Patient")+
+  ylim(c(0, 1500))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=12))+
+   ggtitle("active caries")+
+   geom_text(aes(label=patient), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ 
+
+
+teeth_with_caries=seq(0,11)
+patient_with_caries=numeric()
+for ( i in 1:(length(teeth_with_caries)-1))
+  {
+  sub_data=data%>%filter(teeth_affected_caries==teeth_with_caries[i])
+  n=nrow(sub_data)
+  patient_with_caries[(i-1)*2+1]=sub_data%>%filter(county=="Milwaukee")%>%nrow()/n
+  patient_with_caries[(i-1)*2+2]=sub_data%>%filter(county!="Milwaukee")%>%nrow()/n
+}
+sub_data=data%>%filter(teeth_affected_caries==teeth_with_caries[i+1])
+n=nrow(sub_data)
+patient_with_caries[i*2+1]=sub_data%>%filter(county=="Milwaukee")%>%nrow()/n
+patient_with_caries[i*2+2]=sub_data%>%filter(county!="Milwaukee")%>%nrow()/n
+
+teeth_with_caries[1:10]=paste("0", seq(0,9), sep="")
+teeth_with_caries[12]=c("AC >=11")
+#teeth_with_caries=c(seq(1,11),c("more than 11"))
+
+f2=ggplot(data.frame(patient=patient_with_caries, teeth_with_caries=rep(teeth_with_caries, each=2), county=rep(c("Milwaukee", "Non-Milwaukee"), 12)), aes(x=teeth_with_caries, y=patient, fill=county))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("Patient (%)")+
+  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=12))+
+   ggtitle("active caries by county")+
+   geom_text(aes(label=round(patient,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ 
+figure <- ggarrange(f1, f2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 1, nrow = 2)
+figure 
+
+```
+
+
+* use column `teeth_affected_caries` to count number of teeth effected by caries 
+
+
+
+
+
+```{r, echo=F, warning=F, message=F}
+age_group=c("(1) <50", "(2) 50-60", "(3) 61-70", "(4) 71-80", "(5) 81-90", "(6) >91")
+caries_group=numeric()
+sub_data=data%>%filter(Age_at_exam<50)
+n=nrow(sub_data)
+caries_group[1]=sub_data%>%filter(teeth_affected_caries==0)%>%nrow()/n
+caries_group[2]=sub_data%>%filter(teeth_affected_caries>=1)%>%nrow()/n
+
+sub_data=data%>%filter(Age_at_exam>=50 & Age_at_exam<=60)
+n=nrow(sub_data)
+caries_group[3]=sub_data%>%filter(teeth_affected_caries==0)%>%nrow()/n
+caries_group[4]=sub_data%>%filter(teeth_affected_caries>=1)%>%nrow()/n
+cutoff=c(61, 71, 81,91)
+for (i in 1:(length(cutoff)-1))
+{
+  sub_data=data%>%filter(Age_at_exam>=cutoff[i] & Age_at_exam<=(cutoff[i+1]-1))
+  n=nrow(sub_data)
+  
+  caries_group[4+(i-1)*2+1]=sub_data%>%filter(teeth_affected_caries==0)%>%nrow()/n
+  caries_group[4+(i-1)*2+2]=sub_data%>%filter(teeth_affected_caries>=1)%>%nrow()/n
+} 
+i=length(cutoff)
+  sub_data=data%>%filter(Age_at_exam>=cutoff[i])
+  n=nrow(sub_data)
+  
+  caries_group[4+(i-1)*2+1]=sub_data%>%filter(teeth_affected_caries==0)%>%nrow()/n
+  caries_group[4+(i-1)*2+2]=sub_data%>%filter(teeth_affected_caries>=1)%>%nrow()/n
+
+caries_age=tibble(prop=caries_group, age=rep(age_group, each=2), caries=rep(c("no caries", "one or more teeth"), 6))  
+  
+
+ggplot(caries_age, aes(x=age, y=prop, fill=caries)) +   ### putting aes in ggplot will position numbers over bar more precisely 
+  geom_bar(position = "dodge", stat="identity")+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  xlab("")+ylab("Patients (%)")+
+ggtitle("caries by age group")+
+theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title  
+
+
+```
+
+
+
+
+* Comparison between Milwaukee and non-Milwaukee may not be fair due to dominating population from Milwaukee 
+
+
+## Medical conditions 
+
+```{r, echo=F, message=F, warning=F}
+medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")
+medical_condition_prop=numeric()
+medical_condition_count=numeric()
+for (i in 1:length(medical_condition))
+ {
+  medical_condition_count[i]=data%>%filter(get(medical_condition[i])!=2)%>%nrow() # use get to pass string variable to filter function 
+  medical_condition_prop[i]=data%>%filter(get(medical_condition[i])==1)%>%nrow()/medical_condition_count[i] 
+}
+
+f1=ggplot(data.frame(disease=medical_condition, patient=medical_condition_count), aes(x=disease, y=patient, fill=disease)) +geom_bar(stat="identity")+
+   theme(legend.position="none")+
+   xlab("")+ylab("Patient (total)")+
+   theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=7))+
+   ggtitle("medical conditions")+
+   geom_text(aes(label=patient), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ 
+
+f2=ggplot(data.frame(disease=medical_condition, patient=medical_condition_prop), aes(x=disease, y=patient, fill=disease)) +geom_bar(stat="identity")+
+   theme(legend.position="none")+
+   xlab("")+ylab("Patient (yes %)")+
+   theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=7))+
+   ggtitle("medical conditions")+
+   geom_text(aes(label=round(patient,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ 
+
+figure <- ggarrange(f1, f2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure 
+```
+
+```{r, echo=F, message=F, warning=F}
+medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")
+medical_condition_prop=numeric()
+medical_condition_count=numeric()
+
+age_group=c("(1) <50", "(2) 50-60", "(3) 61-70", "(4) 71-80", "(5) 81-90", "(6) >91")
+prop_group=numeric()
+
+for (i in 1:length(medical_condition))
+ {
+ #  i=2
+  sub_data=data%>%filter(get(medical_condition[i])==1)
+  n=nrow(sub_data)
+prop_group[(i-1)*length(age_group)+1]=sub_data%>%filter(Age_at_exam<50)%>%nrow()/n
+prop_group[(i-1)*length(age_group)+2]=sub_data%>%filter(Age_at_exam>=50 & Age_at_exam<=60)%>%nrow()/n
+prop_group[(i-1)*length(age_group)+3]=sub_data%>%filter(Age_at_exam>=61 & Age_at_exam<=70)%>%nrow()/n
+prop_group[(i-1)*length(age_group)+4]=sub_data%>%filter(Age_at_exam>=71 & Age_at_exam<=80)%>%nrow()/n
+prop_group[(i-1)*length(age_group)+5]=sub_data%>%filter(Age_at_exam>=81 & Age_at_exam<=90)%>%nrow()/n
+prop_group[(i-1)*length(age_group)+6]=sub_data%>%filter(Age_at_exam>=91)%>%nrow()/n
+}
+
+
+ggplot(data.frame(medical_condition=rep(medical_condition, each=length(age_group)), prop=prop_group, age=rep(age_group, length(medical_condition))), aes(x=age, y=prop, fill=age)) +   ### putting aes in ggplot will position numbers over bar more precisely 
+  geom_bar(position = "dodge", stat="identity")+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  xlab("")+ylab("Patients (%)")+
+  ylim(c(0, 0.8))+
+   theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=7))+
+ggtitle("medical conditions by age group")+
+theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title  
+facet_wrap(~medical_condition)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")
+medical_condition_prop=numeric()
+medical_condition_count=numeric()
+
+prop_group=numeric()
+
+for (i in 1:length(medical_condition))
+ {
+ #  i=2
+  sub_data=data%>%filter(get(medical_condition[i])==1)
+  n=nrow(sub_data)
+prop_group[(i-1)*2+1]=sub_data%>%filter(county=="Milwaukee")%>%nrow()/n
+prop_group[(i-1)*2+2]=sub_data%>%filter(county!="Milwaukee")%>%nrow()/n
+}
+
+
+ggplot(data.frame(medical_condition=rep(medical_condition, each=2), prop=prop_group, age=rep(c("Milwaukee", "Non-Milwaukee"), length(medical_condition))), aes(x=age, y=prop, fill=age)) +   ### putting aes in ggplot will position numbers over bar more precisely 
+  geom_bar(position = "dodge", stat="identity")+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  xlab("")+ylab("Patients (%)")+
+  ylim(c(0, 0.9))+
+   theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=10))+
+ggtitle("medical conditions by county")+
+theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title  
+facet_wrap(~medical_condition)
+```
 
 
 ## statistical software 
