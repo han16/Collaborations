@@ -64,13 +64,29 @@ it appears that `med_history_depression`, `med_history_diabetes_type1`, `med_his
 #kable_styling() %>%
 #scroll_box(height = "300px")
 
-ggplot(data %>% count(county) %>%mutate(prop=n/nrow(data)), aes(x=county, y=prop, fill=county)) +geom_bar(stat="identity")+
+g1=ggplot(data %>% count(county) %>%mutate(prop=n/nrow(data)), aes(x=county, y=prop, fill=county)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=6))+
-  ylab("Patients (%)")+
+  ylab("Patients (%)")+ylim(c(0,1))+
   geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
-  ggtitle("proportion of patients by county")+
+  ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+#g1
+
+g2=ggplot(data %>% count(county) %>%mutate(count=n), aes(x=county, y=count, fill=county)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=6))+
+  ylab("Patients")+ylim(c(0, 4000))+
+  geom_text(aes(label=count), position=position_dodge(width=0.6), vjust=-0.25, size=2.2)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+#g2
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 1, nrow = 2)
+figure
+
 ```
 
 * use column `county`
@@ -437,6 +453,9 @@ figure <- ggarrange(f1, f2,
                     ncol = 2, nrow = 1)
 figure 
 ```
+
+* use `get(medical_condition[i])!=2` to count number of patients, i.e. without missing values  
+
 
 ```{r, echo=F, message=F, warning=F}
 medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")

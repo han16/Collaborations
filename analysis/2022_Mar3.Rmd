@@ -5,4 +5,61 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggpubr) # combine and arrange multiple 
+library(rstatix) # use anova_test function 
+set.seed(123)
 ```
+
+```{r, echo=F, echo=F, message=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Kate\\FullDataSAI.csv", header=T))
+```
+
+
+## response and potential predictors 
+
+### PBI (papillary bleeding index)
+
+* measurements are taken at 2 time points, `PBI.Screening`, `PBI.8.wk`, and are longitudinal data 
+
+```{r, echo=F, message=F, warning=F}
+data_long=data.frame(PBI=c(data$PBI.Screening, data$PBI.8.wk), time=rep(c("screening", "week 8"), each=nrow(data)), individual=rep(seq(1, nrow(data)),2))
+
+g1=ggplot(data=data_long,aes(x=time, y=PBI, group=individual))+
+  geom_line(color="red")+
+  geom_point()
+
+
+g2=ggplot(data.frame(PBI_mean=c(mean(data$PBI.Screening),mean(data$PBI.8.wk)), time=c("screening", "week 8")), aes(x=time, y=PBI_mean, group=1))+
+  ylim(c(min(data$PBI.8.wk, data$PBI.Screening), max(data$PBI.8.wk, data$PBI.Screening)))+
+  geom_line(color="red")+
+  geom_point()
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure 
+```
+
+```{r, echo=F, message=F, warning=F}
+data_long %>%
+  group_by(time) %>%
+  get_summary_stats(PBI, type = "mean_sd")
+```
+
+```{r, echo=F, warning=F, message=F}
+bxp <- ggboxplot(data_long, x = "time", y = "PBI", add = "point")
+bxp
+```
+
+```{r, echo=F, message=F, warning=F}
+res.aov <- anova_test(data = data_long, dv = PBI, wid = individual, within = time)
+get_anova_table(res.aov)
+```
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```
+
