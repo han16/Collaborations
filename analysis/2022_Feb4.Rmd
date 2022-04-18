@@ -522,6 +522,31 @@ theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
 facet_wrap(~medical_condition)
 ```
 
+### `med_history_arthritis`
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data%>%filter(med_history_arthritis!=2)
+glm_fit=glm( med_history_arthritis~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+```
+
+* use 1657 patients with arthritis by `med_history_arthritis!=2`
+
+* all predictors are assumed to be independent, without interactions 
+
+* by default, R treats the lowest level group as reference category  
+
+* `Sex=1` is the reference group among gender 
+
+* county `Adams` as baseline, reference age group  
+
+* when increase age by one year (unit), while with other covariates fixed, the odds of having arthritis for older individual is 1.06 times the odds for young individual. 
+
+* only age is significant 
+
+
+
 
 ## statistical software 
 
