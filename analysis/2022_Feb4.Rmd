@@ -16,7 +16,7 @@ set.seed(123)
 * missing variables are coded as `N_A`
 * In med history columns with Yes/No answers, if the answer is Yes, it is marked as 1. If the answer is No, then it's marked as 0. If its not available, it's marked as 2.
 
-```{r, echo=F, message=F}
+```{r, echo=F, message=F, warning=F}
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Soni\\data_2021-09-27_4.csv"))
 cat("there are", nrow(data), "rows and ", ncol(data), "variables", "\n")
 
@@ -169,6 +169,8 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 
 ```{r, echo=F, message=F, warning=F}
 Diabetes=numeric(); cancer_treatment=numeric(); thyroid_diseases=numeric()
+Bulimia_acid_reflux_sleep_apnea=numeric()
+
 for (i in 1:nrow(data))
 {
   if (data$med_history_diabetes_type1[i] ==1 | data$med_history_diabetes_type2[i] ==1) # combine diabetes1, diabetes2 
@@ -180,6 +182,7 @@ for (i in 1:nrow(data))
      if (data$med_history_diabetes_type1[i]+data$med_history_diabetes_type2[i]>2)
        Diabetes[i]=2
   }
+  ###############################
   
    if (data$med_history_radiation[i] ==1 | data$med_history_chemotherapy[i] ==1) # combine radiation and chemotherapy 
     cancer_treatment[i]=1
@@ -191,7 +194,7 @@ for (i in 1:nrow(data))
        cancer_treatment[i]=2
   }
    
-   
+  ##################################################### 
    if (data$med_history_hyperthyroidism[i] ==1 | data$med_history_hypothyroidism[i] ==1) # combine hyper and hypo 
     thyroid_diseases[i]=1
   if (data$med_history_hyperthyroidism[i] !=1 & data$med_history_hypothyroidism[i]!=1)
@@ -201,9 +204,21 @@ for (i in 1:nrow(data))
      if (data$med_history_hyperthyroidism[i]+data$med_history_hypothyroidism[i]>2)
        thyroid_diseases[i]=2
   }  
+   
+   ################################################
+    if (data$med_history_bulimia[i]==1 | data$med_history_acid_reflux_gerd[i]==1 | data$med_history_sleep_apnea[i]==1) # combine Bulimia+ acid reflux + sleep apnea
+    Bulimia_acid_reflux_sleep_apnea[i]=1
+    if (data$med_history_bulimia[i]!=1 & data$med_history_acid_reflux_gerd[i]!=1 & data$med_history_sleep_apnea[i]!=1)
+      {
+      if (data$med_history_bulimia[i]+ data$med_history_acid_reflux_gerd[i]+ data$med_history_sleep_apnea[i]==6)
+        Bulimia_acid_reflux_sleep_apnea[i]=2
+      
+      if (data$med_history_bulimia[i]+ data$med_history_acid_reflux_gerd[i]+ data$med_history_sleep_apnea[i]<6)
+        Bulimia_acid_reflux_sleep_apnea[i]=0
+    }
 }
 
-data_merge=data%>%mutate(diabetes=Diabetes, cancer_treatment=cancer_treatment, thyroid_diseases=thyroid_diseases)
+data_merge=data%>%mutate(diabetes=Diabetes, cancer_treatment=cancer_treatment, thyroid_diseases=thyroid_diseases, Bulimia_acid_reflux_sleep_apnea=Bulimia_acid_reflux_sleep_apnea)
 
 variables=c("med_history_diabetes_type1", "med_history_diabetes_type2", "diabetes", "med_history_radiation", "med_history_chemotherapy", "cancer_treatment", "med_history_hyperthyroidism", "med_history_hypothyroidism", "thyroid_diseases")
 
@@ -526,12 +541,12 @@ facet_wrap(~medical_condition)
 
 ```{r, echo=F, message=F, warning=F}
 sub_data=data%>%filter(med_history_arthritis!=2)
-glm_fit=glm( med_history_arthritis~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
+glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
 
-* use 1657 patients with arthritis by `med_history_arthritis!=2`
+* use 1160/1657 patients with arthritis by `med_history_arthritis!=2`
 
 * all predictors are assumed to be independent, without interactions 
 
@@ -546,6 +561,89 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 * only age is significant 
 
 
+### `Bulimia_acid_reflux_sleep_apnea`
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data_merge%>%filter(Bulimia_acid_reflux_sleep_apnea!=2)
+glm_fit=glm(as.factor(Bulimia_acid_reflux_sleep_apnea)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+```
+
+* 1046/2507 have `Bulimia_acid_reflux_sleep_apnea==1`
+
+
+* only age is significant 
+
+
+### `med_history_depression`
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data%>%filter(med_history_depression!=2)
+glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+```
+
+* 553/563 patients have depression 
+
+* no predictors are statistically significant 
+
+
+### `med_history_diabetes_type1+med_history_diabetes_type2`
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data_merge%>%filter(diabetes!=2)
+glm_fit=glm(as.factor(diabetes)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+```
+
+
+* 773/777 has DB
+
+* none variable is significant 
+
+ 
+
+
+### `med_history_hyperthyroidism+med_history_hypothyroidism:thyroid disease`
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data_merge%>%filter(thyroid_diseases!=2)
+glm_fit=glm(as.factor(thyroid_diseases)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+```
+* 373/374 have thyroid diseases
+
+* none variable is significant 
+
+
+### `med_history_radiation+med_history_chemotherapy`
+
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data_merge%>%filter(cancer_treatment!=2)
+glm_fit=glm(as.factor(cancer_treatment)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+```
+
+* 317/484 receive either radiation or chemotherapy
+
+* only age is significant 
+
+
+### `med_history_tobacco`
+
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data_merge%>%filter(med_history_tobacco!=2)
+glm_fit=glm(as.factor(med_history_tobacco)~permanent_teeth_missing  + teeth_affected_caries , data = sub_data, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+```
+* 2582/5852 patients are tobacco users 
+
+* both predictors are significant 
 
 
 ## statistical software 
