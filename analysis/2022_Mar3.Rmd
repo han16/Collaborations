@@ -98,6 +98,9 @@ get_anova_table(res.aov)
  
  * PBI: dependent variable 
  
+ * PIB are statistical different between screening and week 8 by small p value of 0.032. 
+ 
+ 
  
 ```{r, echo=F, message=F, warning=F}
 pwc=data_long %>% pairwise_t_test(PBI ~ time, paired=T, p.adjust.method = "bonferroni")
