@@ -20,6 +20,8 @@ data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203
 
 ### PBI (papillary bleeding index)
 
+#### trajectory plot 
+
 * measurements are taken at 2 time points, `PBI.Screening`, `PBI.8.wk`, and are longitudinal data 
 
 ```{r, echo=F, message=F, warning=F}
@@ -41,21 +43,72 @@ figure <- ggarrange(g1, g2,
 figure 
 ```
 
+
+#### summary statistics 
+
 ```{r, echo=F, message=F, warning=F}
 data_long %>%
   group_by(time) %>%
   get_summary_stats(PBI, type = "mean_sd")
 ```
 
+#### boxplot 
+
+
 ```{r, echo=F, warning=F, message=F}
 bxp <- ggboxplot(data_long, x = "time", y = "PBI", add = "point")
 bxp
 ```
 
+#### outlier detection 
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_long %>% 
+  group_by(time) %>% 
+  identify_outliers(PBI)
+```
+
+#### normality assumption 
+
+```{r, echo=F, message=F, warning=F}
+data_long %>% group_by(time) %>% shapiro_test(PBI)
+```
+
+* all p values are bigger than 0.05, suggesting they are normally distributed. 
+
+```{r, echo=F, message=F, warning=F}
+ggqqplot(data_long, "PBI", facet.by="time")
+```
+
+
+* most points fall along reference line, normality assumption is reasonable. 
+
+
+
+
+
 ```{r, echo=F, message=F, warning=F}
 res.aov <- anova_test(data = data_long, dv = PBI, wid = individual, within = time)
+
 get_anova_table(res.aov)
 ```
+ * [anova_test](https://search.r-project.org/CRAN/refmans/rstatix/html/anova_test.html) repeated measures ANOVA 
+ 
+ * PBI: dependent variable 
+ 
+ 
+```{r, echo=F, message=F, warning=F}
+pwc=data_long %>% pairwise_t_test(PBI ~ time, paired=T, p.adjust.method = "bonferroni")
+pwc=pwc %>%add_xy_position(x="time")
+
+bxp+
+  stat_pvalue_manual(pwc)+
+  labs(subtitle=get_test_label(res.aov, detailed = T), caption=get_pwc_label(pwc))
+
+```
+ 
 
 ## statistical software 
 
