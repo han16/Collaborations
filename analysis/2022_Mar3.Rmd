@@ -4,6 +4,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggpubr) # combine and arrange multiple 
@@ -25,7 +26,9 @@ data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203
 * measurements are taken at 2 time points, `PBI.Screening`, `PBI.8.wk`, and are longitudinal data 
 
 ```{r, echo=F, message=F, warning=F}
-data_long=data.frame(PBI=c(data$PBI.Screening, data$PBI.8.wk), time=rep(c("screening", "week 8"), each=nrow(data)), individual=rep(seq(1, nrow(data)),2))
+#data_long=data.frame(PBI=c(data$PBI.Screening, data$PBI.8.wk), time=rep(c("screening", "week 8"), each=nrow(data)), individual=rep(seq(1, nrow(data)),2))
+
+data_long=data.frame(PBI=c(data$PBI.Screening, data$PBI.8.wk), time=rep(c("screening", "week 8"), each=nrow(data)), individual=rep(data$Patient.ID.Number,2))
 
 g1=ggplot(data=data_long,aes(x=time, y=PBI, group=individual))+
   geom_line(color="red")+
@@ -112,6 +115,78 @@ bxp+
 
 ```
  
+
+### SAI (sleep apnea index) - two way repeated anova 
+
+
+Each individual has one single SAI for both before and after the screening. 
+
+
+```{r, echo=F, warning=F, message=F}
+sai_group1=data%>%filter(SAI<5)  # split sample into 3 groups by SAI 
+sai_group2=data%>%filter(SAI>=5 & SAI<=15)
+sai_group3=data%>%filter(SAI>15)
+                         
+data_long_sai_group1=data.frame(PBI=c(sai_group1$PBI.Screening, sai_group1$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sai_group1)), individual=rep(sai_group1$Patient.ID.Number,2), group=rep("SAI<5", 2*nrow(sai_group1)))
+data_long_sai_group2=data.frame(PBI=c(sai_group2$PBI.Screening, sai_group2$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sai_group2)), individual=rep(sai_group2$Patient.ID.Number,2), group=rep("SAI>=5, SAI<=15", 2*nrow(sai_group2)))
+data_long_sai_group3=data.frame(PBI=c(sai_group3$PBI.Screening, sai_group3$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sai_group3)), individual=rep(sai_group3$Patient.ID.Number,2), group=rep("SAI>15", 2*nrow(sai_group3)))
+data_long_sai=rbind(data_long_sai_group1, data_long_sai_group2, data_long_sai_group3)
+
+
+```
+
+
+#### summary statistics 
+
+```{r, echo=F, message=F, warning=F}
+data_long_sai %>% group_by(group, time) %>% get_summary_stats(PBI, type="mean_sd")
+```
+
+```{r, echo=F, message=F, warning=F}
+bxp=ggboxplot(data_long_sai, x="time", y="PBI", color="group", palette="jco")
+bxp
+```
+
+
+#### outliers 
+
+```{r, echo=F, message=F, warning=F}
+data_long_sai %>% group_by(group, time) %>% identify_outliers(PBI)
+```
+no outliers 
+
+#### normality assumption 
+
+```{r, echo=F, warning=F, message=F}
+data_long_sai %>% group_by(group, time) %>% shapiro_test(PBI)
+```
+
+Normal distribution is a reasonable by large p values 
+
+```{r, echo=F, message=F, warning=F}
+ggqqplot(data_long_sai, "PBI", ggtheme=theme_bw())+
+  facet_grid(time ~ group, labeller="label_both")
+```
+
+#### results 
+
+```{r, echo=F, warning=F, message=F, eval=T}
+#data_long_sai_two=data_long_sai%>% filter(group!="SAI>15")
+#res.aov=anova_test(data=data_long_sai_two, dv=PBI, wid=individual, within=c(time, group))
+#get_anova_table(res.aov)
+
+res.aov = anova_test(
+  data = data_long_sai, 
+  PBI ~ group * time,
+  wid = individual
+)
+get_anova_table(res.aov)
+
+```
+
+* big p values (>0.05) indicate no main or interaction effects 
+
+
 
 ## statistical software 
 
