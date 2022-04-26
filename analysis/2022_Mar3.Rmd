@@ -187,6 +187,33 @@ get_anova_table(res.aov)
 * big p values (>0.05) indicate no main or interaction effects 
 
 
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_sai_screeing=data_long_sai %>% filter(time=="screening")
+res.aov <- aov(PBI ~ group, data = data_long_sai_screeing)
+# Summary of the analysis
+summary(res.aov)
+```
+* no PBI difference among 3 groups at screening 
+
+
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_sai_screeing=data_long_sai %>% filter(time=="week 8")
+res.aov <- aov(PBI ~ group, data = data_long_sai_screeing)
+# Summary of the analysis
+summary(res.aov)
+```
+
+* no difference among 3 groups at week 8 
+
+
+```{r, echo=F, message=F, warning=F}
+#data_long_sai %>% pairwise_t_test(PBI~group, paired = T, p.adjust.method = "bonferroni")
+data_long_sai %>% pairwise_t_test(PBI~time, paired = T, p.adjust.method = "bonferroni") # comparison for time variables 
+```
+
+* there is difference between screening and week 8. 
 
 ## statistical software 
 
