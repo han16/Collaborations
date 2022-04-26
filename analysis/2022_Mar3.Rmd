@@ -17,11 +17,10 @@ data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203
 ```
 
 
-## response and potential predictors 
 
-### PBI (papillary bleeding index)
+## PBI (papillary bleeding index)
 
-#### trajectory plot 
+### trajectory plot 
 
 * measurements are taken at 2 time points, `PBI.Screening`, `PBI.8.wk`, and are longitudinal data 
 
@@ -47,7 +46,7 @@ figure
 ```
 
 
-#### summary statistics 
+### summary statistics 
 
 ```{r, echo=F, message=F, warning=F}
 data_long %>%
@@ -55,7 +54,7 @@ data_long %>%
   get_summary_stats(PBI, type = "mean_sd")
 ```
 
-#### boxplot 
+### boxplot 
 
 
 ```{r, echo=F, warning=F, message=F}
@@ -63,7 +62,7 @@ bxp <- ggboxplot(data_long, x = "time", y = "PBI", add = "point")
 bxp
 ```
 
-#### outlier detection 
+### outlier detection 
 
 
 
@@ -73,7 +72,7 @@ data_long %>%
   identify_outliers(PBI)
 ```
 
-#### normality assumption 
+### normality assumption 
 
 ```{r, echo=F, message=F, warning=F}
 data_long %>% group_by(time) %>% shapiro_test(PBI)
@@ -116,7 +115,7 @@ bxp+
 ```
  
 
-### SAI (sleep apnea index) - two way repeated anova 
+## SAI (sleep apnea index) & PBI - two way repeated anova 
 
 
 Each individual has one single SAI for both before and after the screening. 
@@ -136,7 +135,7 @@ data_long_sai=rbind(data_long_sai_group1, data_long_sai_group2, data_long_sai_gr
 ```
 
 
-#### summary statistics 
+### summary statistics 
 
 ```{r, echo=F, message=F, warning=F}
 data_long_sai %>% group_by(group, time) %>% get_summary_stats(PBI, type="mean_sd")
@@ -148,14 +147,14 @@ bxp
 ```
 
 
-#### outliers 
+### outliers 
 
 ```{r, echo=F, message=F, warning=F}
 data_long_sai %>% group_by(group, time) %>% identify_outliers(PBI)
 ```
 no outliers 
 
-#### normality assumption 
+### normality assumption 
 
 ```{r, echo=F, warning=F, message=F}
 data_long_sai %>% group_by(group, time) %>% shapiro_test(PBI)
@@ -168,7 +167,7 @@ ggqqplot(data_long_sai, "PBI", ggtheme=theme_bw())+
   facet_grid(time ~ group, labeller="label_both")
 ```
 
-#### results 
+### results 
 
 ```{r, echo=F, warning=F, message=F, eval=T}
 #data_long_sai_two=data_long_sai%>% filter(group!="SAI>15")
@@ -214,6 +213,25 @@ data_long_sai %>% pairwise_t_test(PBI~time, paired = T, p.adjust.method = "bonfe
 ```
 
 * there is difference between screening and week 8. 
+
+
+## sRDI & PBI ? 
+
+
+
+```{r, echo=F, message=F, warning=F}
+miss_var="sRDI"; 
+miss_var_prop=sum(is.na(data$sRDI)==T)/nrow(data)
+ggplot(data.frame(variables=miss_var, missing_prop=miss_var_prop), aes(x=miss_var, y=miss_var_prop, fill=variables)) +geom_bar(stat="identity")+
+  ylim(c(0, 1.2))+
+  ylab("missing value (%)")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=10))+
+  geom_text(aes(label=round(miss_var_prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+ # ggtitle("Variables with missing values and their proportions")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
 
 ## statistical software 
 
