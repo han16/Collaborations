@@ -8,6 +8,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggpubr) # combine and arrange multiple 
 library(rstatix) # use anova_test function 
+library(nlme) # use gls function 
+library(foreign) # use interaction.plot 
 set.seed(123)
 ```
 
@@ -80,6 +82,108 @@ knitr::kable(t_test_result, "pipe", caption="p values by two sample t test")
 * for each material, different conditions, DD vs GG are compared with two sample t test. 
 
 
+## response profile analysis 
+
+### No Background, (No)Cling Wrap-L
+
+```{r, echo=F, warning=F, message=F}
+# transform wide format to long format 
+occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # corresponds to columns 2, 5 11, 20 
+obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
+id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
+
+y=numeric(); col_index=c(2,5,11,20); ii=0 # for each subject, extract measurements at different time points/occasions 
+for (i in 1:nrow(Research_Measurements))
+ for (j in 1:length(col_index))
+ {
+   ii=ii+1
+   y[ii]=Research_Measurements[i,col_index[j]] %>% pull
+   
+ }
+
+group=rep(material, each=length(occasion))
+time=rep(occasion, nrow(Research_Measurements))
+  
+Research_Measurements_L=data.frame(obs=obs, id=id, group=group, y=y, time=time)
+
+interaction.plot(time, group, y, type="b", pch=c(1,2, 3,4), xlab="Time", ylab="L", main="No Background, (No)Cling Wrap-L", col=c("blue", "green", "orange", "red"))
+
+
+#model <- gls(y ~ time*group, Research_Measurements_L,  corr=corSymm(,form= ~ 1 | id), weights = varIdent(form = ~ 1 | factor(time)))
+
+#model <- gls(y ~ time*group, Research_Measurements_L,  weights = varIdent(form = ~ 1 | time))
+
+model <- gls(y ~ time*group, Research_Measurements_L)
+
+summary(model)
+anova(model)
+ 
+
+```
+
+* small p value for `time:group` suggests the change pattern after 0 (pre-poly) are different across material groups. 
+
+
+### No Background, (No)Cling Wrap-a
+
+```{r, echo=F, warning=F, message=F}
+# transform wide format to long format 
+occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # a corresponds to columns 3, 6 12, 21 
+obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
+id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
+
+y=numeric(); col_index=c(3,6,12,21); ii=0 # for each subject, extract measurements at different time points/occasions 
+for (i in 1:nrow(Research_Measurements))
+ for (j in 1:length(col_index))
+ {
+   ii=ii+1
+   y[ii]=Research_Measurements[i,col_index[j]] %>% pull
+   
+ }
+
+group=rep(material, each=length(occasion))
+time=rep(occasion, nrow(Research_Measurements))  
+  
+Research_Measurements_a=data.frame(obs=obs, id=id, group=group, y=y, time=time)
+
+interaction.plot(time, group, y, type="b", pch=c(1,2, 3,4), xlab="Time", ylab="a", main="No Background, (No)Cling Wrap-a", col=c("blue", "green", "orange", "red"))
+
+model <- gls(y ~ time*group, Research_Measurements_a)
+
+#summary(model)
+anova(model)
+```
+### No Background, (No)Cling Wrap-b
+
+
+```{r, echo=F, warning=F, message=F}
+# transform wide format to long format 
+occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # b corresponds to columns 4, 7 13, 22 
+obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
+id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
+
+y=numeric(); col_index=c(4,7,13,22); ii=0 # for each subject, extract measurements at different time points/occasions 
+for (i in 1:nrow(Research_Measurements))
+ for (j in 1:length(col_index))
+ {
+   ii=ii+1
+   y[ii]=Research_Measurements[i,col_index[j]] %>% pull
+   
+ }
+
+group=rep(material, each=length(occasion))
+time=rep(occasion, nrow(Research_Measurements))  
+  
+Research_Measurements_b=data.frame(obs=obs, id=id, group=group, y=y, time=time)
+
+interaction.plot(time, group, y, type="b", pch=c(1,2, 3,4), xlab="Time", ylab="b", main="No Background, (No)Cling Wrap-b", col=c("blue", "green", "orange", "red"))
+
+model <- gls(y ~ time*group, Research_Measurements_b)
+
+#summary(model)
+anova(model)
+
+```
 
 
 
