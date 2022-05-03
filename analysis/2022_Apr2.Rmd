@@ -124,7 +124,7 @@ anova(model)
 * small p value for `time:group` suggests the change pattern after 0 (pre-poly) are different across material groups. 
 
 * four conditions are `Pre-Polymerization-No Background, Cling Wrap-L`, 
-`30 Minutes Post-Polymerization-No Background, No Cling Wrap-L`, `7 Days Post-Polymerization-No Background, No Cling Wrap-L`, `8 Days Post-Polymerization-No Background, No Cling Wrap-L`, so in addition to time difference, Cling warp is also different as only `Cling wrap` happens at Pre-Polymerization. 
+`30 Minutes Post-Polymerization-No Background, No Cling Wrap-L`, `7 Days Post-Polymerization-No Background, No Cling Wrap-L`, `8 Days Post-Polymerization-No Background, No Cling Wrap-L`, so in addition to time difference, Cling wrap is also different as only `Cling wrap` happens at Pre-Polymerization. 
 
 
 
