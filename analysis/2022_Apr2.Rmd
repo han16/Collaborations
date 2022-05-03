@@ -92,7 +92,7 @@ occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # corresponds to co
 obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
 id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
 
-y=numeric(); col_index=c(2,5,11,20); ii=0 # for each subject, extract measurements at different time points/occasions 
+y=numeric(); col_index=c(2,8,11,20); ii=0 # for each subject, extract measurements at different time points/occasions 
 for (i in 1:nrow(Research_Measurements))
  for (j in 1:length(col_index))
  {
@@ -115,13 +115,17 @@ interaction.plot(time, group, y, type="b", pch=c(1,2, 3,4), xlab="Time", ylab="L
 
 model <- gls(y ~ time*group, Research_Measurements_L)
 
-summary(model)
+#summary(model)
 anova(model)
  
 
 ```
 
 * small p value for `time:group` suggests the change pattern after 0 (pre-poly) are different across material groups. 
+
+* four conditions are `Pre-Polymerization-No Background, Cling Wrap-L`, 
+`30 Minutes Post-Polymerization-No Background, No Cling Wrap-L`, `7 Days Post-Polymerization-No Background, No Cling Wrap-L`, `8 Days Post-Polymerization-No Background, No Cling Wrap-L`, so in addition to time difference, Cling warp is also different as only `Cling wrap` happens at Pre-Polymerization. 
+
 
 
 ### No Background, (No)Cling Wrap-a
@@ -132,7 +136,7 @@ occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # a corresponds to 
 obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
 id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
 
-y=numeric(); col_index=c(3,6,12,21); ii=0 # for each subject, extract measurements at different time points/occasions 
+y=numeric(); col_index=c(3,9,12,21); ii=0 # for each subject, extract measurements at different time points/occasions 
 for (i in 1:nrow(Research_Measurements))
  for (j in 1:length(col_index))
  {
@@ -162,7 +166,7 @@ occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # b corresponds to 
 obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
 id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
 
-y=numeric(); col_index=c(4,7,13,22); ii=0 # for each subject, extract measurements at different time points/occasions 
+y=numeric(); col_index=c(4,10,13,22); ii=0 # for each subject, extract measurements at different time points/occasions 
 for (i in 1:nrow(Research_Measurements))
  for (j in 1:length(col_index))
  {
