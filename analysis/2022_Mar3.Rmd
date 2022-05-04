@@ -129,7 +129,8 @@ sai_group3=data%>%filter(SAI>15)
 data_long_sai_group1=data.frame(PBI=c(sai_group1$PBI.Screening, sai_group1$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sai_group1)), individual=rep(sai_group1$Patient.ID.Number,2), group=rep("SAI<5", 2*nrow(sai_group1)))
 data_long_sai_group2=data.frame(PBI=c(sai_group2$PBI.Screening, sai_group2$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sai_group2)), individual=rep(sai_group2$Patient.ID.Number,2), group=rep("SAI>=5, SAI<=15", 2*nrow(sai_group2)))
 data_long_sai_group3=data.frame(PBI=c(sai_group3$PBI.Screening, sai_group3$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sai_group3)), individual=rep(sai_group3$Patient.ID.Number,2), group=rep("SAI>15", 2*nrow(sai_group3)))
-data_long_sai=rbind(data_long_sai_group1, data_long_sai_group2, data_long_sai_group3)
+
+data_long_sai=rbind(data_long_sai_group1, data_long_sai_group2, data_long_sai_group3)   # combine sub-groups together 
 
 
 ```
@@ -198,8 +199,8 @@ summary(res.aov)
 
 ```{r, echo=F, message=F, warning=F}
 # anova test at every time point 
-data_long_sai_screeing=data_long_sai %>% filter(time=="week 8")
-res.aov <- aov(PBI ~ group, data = data_long_sai_screeing)
+data_long_sai_week8=data_long_sai %>% filter(time=="week 8")
+res.aov <- aov(PBI ~ group, data = data_long_sai_week8)
 # Summary of the analysis
 summary(res.aov)
 ```
@@ -231,6 +232,290 @@ ggplot(data.frame(variables=miss_var, missing_prop=miss_var_prop), aes(x=miss_va
  # ggtitle("Variables with missing values and their proportions")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 ```
+
+
+## SQI (sleep quality index) vs PBI 
+
+
+Each individual has one SQI  for both before and after the screening. 
+
+
+```{r, echo=F, warning=F, message=F}
+sqi_group1=data%>%filter(SQI>55)  # split sample into 2 groups by SQI 
+sqi_group2=data%>%filter(SQI<=55)
+                         
+data_long_sqi_group1=data.frame(PBI=c(sqi_group1$PBI.Screening, sqi_group1$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sqi_group1)), individual=rep(sqi_group1$Patient.ID.Number,2), group=rep("SQI>55", 2*nrow(sqi_group1)))
+data_long_sqi_group2=data.frame(PBI=c(sqi_group2$PBI.Screening, sqi_group2$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(sqi_group2)), individual=rep(sqi_group2$Patient.ID.Number,2), group=rep("SQI<=55", 2*nrow(sqi_group2)))
+
+data_long_sqi=rbind(data_long_sqi_group1, data_long_sqi_group2)   # combine sub-groups together 
+
+```
+
+
+### summary statistics 
+
+```{r, echo=F, message=F, warning=F}
+data_long_sqi %>% group_by(group, time) %>% get_summary_stats(PBI, type="mean_sd")
+```
+
+```{r, echo=F, message=F, warning=F}
+bxp=ggboxplot(data_long_sqi, x="time", y="PBI", color="group", palette="jco")
+bxp
+```
+
+
+
+
+### outliers 
+
+```{r, echo=F, message=F, warning=F}
+data_long_sqi %>% group_by(group, time) %>% identify_outliers(PBI)
+```
+no outliers 
+
+### normality assumption 
+
+```{r, echo=F, warning=F, message=F}
+data_long_sqi %>% group_by(group, time) %>% shapiro_test(PBI)
+```
+
+Normal distribution is a reasonable by large p values 
+
+```{r, echo=F, message=F, warning=F}
+ggqqplot(data_long_sqi, "PBI", ggtheme=theme_bw())+
+  facet_grid(time ~ group, labeller="label_both")
+```
+
+### results 
+
+```{r, echo=F, warning=F, message=F, eval=T}
+#data_long_sai_two=data_long_sai%>% filter(group!="SAI>15")
+#res.aov=anova_test(data=data_long_sai_two, dv=PBI, wid=individual, within=c(time, group))
+#get_anova_table(res.aov)
+
+res.aov = anova_test(
+  data = data_long_sqi, 
+  PBI ~ group * time,
+  wid = individual
+)
+get_anova_table(res.aov)
+
+```
+
+* big p values (>0.05) indicate no main or interaction effects 
+
+
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_sqi_screeing=data_long_sqi %>% filter(time=="screening")
+res.aov <- aov(PBI ~ group, data = data_long_sqi_screeing)
+# Summary of the analysis
+summary(res.aov)
+```
+* no PBI difference among 2 groups at screening 
+
+
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_sqi_week8=data_long_sqi %>% filter(time=="week 8")
+res.aov <- aov(PBI ~ group, data = data_long_sqi_week8)
+# Summary of the analysis
+summary(res.aov)
+```
+
+* there is difference between two groups at week 8 
+
+## Fragmentation vs PBI 
+
+
+```{r, echo=F, warning=F, message=F}
+fragmentation_group1=data%>%filter(Fragmentation<5)  # split sample into 3 groups by SAI 
+fragmentation_group2=data%>%filter(Fragmentation>=5 & Fragmentation<=15)
+fragmentation_group3=data%>%filter(Fragmentation>15)
+                         
+data_long_fragmentation_group1=data.frame(PBI=c(fragmentation_group1$PBI.Screening, fragmentation_group1$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(fragmentation_group1)), individual=rep(fragmentation_group1$Patient.ID.Number,2), group=rep("fragmentation<5", 2*nrow(fragmentation_group1)))
+data_long_fragmentation_group2=data.frame(PBI=c(fragmentation_group2$PBI.Screening, fragmentation_group2$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(fragmentation_group2)), individual=rep(fragmentation_group2$Patient.ID.Number,2), group=rep("fragmentation>=5, fragmentation<=15", 2*nrow(fragmentation_group2)))
+data_long_fragmentation_group3=data.frame(PBI=c(fragmentation_group3$PBI.Screening, fragmentation_group3$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(fragmentation_group3)), individual=rep(fragmentation_group3$Patient.ID.Number,2), group=rep("fragmentation>15", 2*nrow(fragmentation_group3)))
+
+data_long_fragmentation=rbind(data_long_fragmentation_group1, data_long_fragmentation_group2, data_long_fragmentation_group3)   # combine sub-groups together 
+
+
+```
+
+
+
+
+### summary statistics 
+
+```{r, echo=F, message=F, warning=F}
+data_long_fragmentation%>% group_by(group, time) %>% get_summary_stats(PBI, type="mean_sd")
+```
+
+```{r, echo=F, message=F, warning=F}
+bxp=ggboxplot(data_long_fragmentation, x="time", y="PBI", color="group", palette="jco")
+bxp
+```
+
+
+
+### outliers 
+
+```{r, echo=F, message=F, warning=F}
+data_long_fragmentation %>% group_by(group, time) %>% identify_outliers(PBI)
+```
+no outliers 
+
+### normality assumption 
+
+```{r, echo=F, warning=F, message=F}
+data_long_fragmentation %>% group_by(group, time) %>% shapiro_test(PBI)
+```
+
+Normal distribution is a reasonable by large p values 
+
+```{r, echo=F, message=F, warning=F}
+ggqqplot(data_long_fragmentation, "PBI", ggtheme=theme_bw())+
+  facet_grid(time ~ group, labeller="label_both")
+```
+
+
+
+### results 
+
+```{r, echo=F, warning=F, message=F, eval=T}
+#data_long_sai_two=data_long_sai%>% filter(group!="SAI>15")
+#res.aov=anova_test(data=data_long_sai_two, dv=PBI, wid=individual, within=c(time, group))
+#get_anova_table(res.aov)
+
+res.aov = anova_test(
+  data = data_long_fragmentation, 
+  PBI ~ group * time,
+  wid = individual
+)
+get_anova_table(res.aov)
+
+```
+
+* big p values (>0.05) indicate no main or interaction effects 
+
+
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_fragmentation_screeing=data_long_fragmentation %>% filter(time=="screening")
+res.aov <- aov(PBI ~ group, data = data_long_fragmentation_screeing)
+# Summary of the analysis
+summary(res.aov)
+```
+* no PBI difference among  groups at screening 
+
+
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_fragmentation_week8=data_long_fragmentation %>% filter(time=="week 8")
+res.aov <- aov(PBI ~ group, data = data_long_fragmentation_week8)
+# Summary of the analysis
+summary(res.aov)
+```
+* no difference among groups at week 8. 
+
+
+## BMI vs PBI 
+
+
+```{r, echo=F, warning=F, message=F}
+bmi_group1=data%>%filter(BMI.kg.m2<18.5)  # split sample into subgroups
+bmi_group2=data%>%filter(BMI.kg.m2>=18.5 & BMI.kg.m2<24.9)
+bmi_group3=data%>%filter(BMI.kg.m2>=24.9  & BMI.kg.m2<29.9)
+bmi_group4=data%>%filter(BMI.kg.m2>=29.9  & BMI.kg.m2<34.9)
+bmi_group5=data%>%filter(BMI.kg.m2>=34.9)
+                         
+data_long_bmi_group1=data.frame(PBI=c(bmi_group1$PBI.Screening,bmi_group1$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(bmi_group1)), individual=rep(bmi_group1$Patient.ID.Number,2), group=rep("(1):BMI<18.5", 2*nrow(bmi_group1)))
+
+data_long_bmi_group2=data.frame(PBI=c(bmi_group2$PBI.Screening,bmi_group2$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(bmi_group2)), individual=rep(bmi_group2$Patient.ID.Number,2), group=rep("(2):18.5<=BMI<24.9", 2*nrow(bmi_group2)))
+
+data_long_bmi_group3=data.frame(PBI=c(bmi_group3$PBI.Screening,bmi_group3$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(bmi_group3)), individual=rep(bmi_group3$Patient.ID.Number,2), group=rep("(3):24.9<=BMI<29.9", 2*nrow(bmi_group3)))
+
+data_long_bmi_group4=data.frame(PBI=c(bmi_group4$PBI.Screening,bmi_group4$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(bmi_group4)), individual=rep(bmi_group4$Patient.ID.Number,2), group=rep("(4)29.9<=BMI<34.9", 2*nrow(bmi_group4)))
+
+data_long_bmi_group5=data.frame(PBI=c(bmi_group5$PBI.Screening,bmi_group5$PBI.8.wk),  time=rep(c("screening", "week 8"), each=nrow(bmi_group5)), individual=rep(bmi_group5$Patient.ID.Number,2), group=rep("(5):BMI>=34.9", 2*nrow(bmi_group5)))
+
+data_long_bmi=rbind(data_long_bmi_group1, data_long_bmi_group2, data_long_bmi_group3, data_long_bmi_group4, data_long_bmi_group5)   # combine sub-groups together 
+
+
+```
+
+
+### summary statistics 
+
+```{r, echo=F, message=F, warning=F}
+data_long_bmi%>% group_by(group, time) %>% get_summary_stats(PBI, type="mean_sd")
+```
+
+```{r, echo=F, message=F, warning=F}
+bxp=ggboxplot(data_long_bmi, x="time", y="PBI", color="group", palette="jco")
+bxp
+```
+
+
+### outliers 
+
+```{r, echo=F, message=F, warning=F}
+data_long_bmi %>% group_by(group, time) %>% identify_outliers(PBI)
+```
+one outlier 
+
+### normality assumption 
+
+```{r, echo=F, warning=F, message=F, eval=F}
+data_long_bmi %>% group_by(group, time) %>% shapiro_test(PBI)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+ggqqplot(data_long_bmi, "PBI", ggtheme=theme_bw())+
+  facet_grid(time ~ group, labeller="label_both")
+```
+
+
+
+### results 
+
+```{r, echo=F, warning=F, message=F, eval=T}
+#data_long_sai_two=data_long_sai%>% filter(group!="SAI>15")
+#res.aov=anova_test(data=data_long_sai_two, dv=PBI, wid=individual, within=c(time, group))
+#get_anova_table(res.aov)
+
+res.aov = anova_test(
+  data = data_long_bmi, 
+  PBI ~ group * time,
+  wid = individual
+)
+get_anova_table(res.aov)
+
+```
+
+* big p values (>0.05) indicate no main or interaction effects 
+
+
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_bmi_screeing=data_long_bmi %>% filter(time=="screening")
+res.aov <- aov(PBI ~ group, data = data_long_bmi_screeing)
+# Summary of the analysis
+summary(res.aov)
+```
+* no PBI difference among  groups at screening 
+
+
+```{r, echo=F, message=F, warning=F}
+# anova test at every time point 
+data_long_bmi_week8=data_long_bmi %>% filter(time=="week 8")
+res.aov <- aov(PBI ~ group, data = data_long_bmi_week8)
+# Summary of the analysis
+summary(res.aov)
+```
+* no difference 
 
 
 ## statistical software 

@@ -381,7 +381,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-26
+<strong>Last updated:</strong> 2022-05-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8f12ba7ff620b592ea54bc81e5e30572d8d5ca1ftargetblank8f12ba7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/8f12ba7ff620b592ea54bc81e5e30572d8d5ca1f" target="_blank">8f12ba7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree261f387cee753d8516ccf01fd4056c6f5c880e26targetblank261f387a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/261f387cee753d8516ccf01fd4056c6f5c880e26" target="_blank">261f387</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8f12ba7ff620b592ea54bc81e5e30572d8d5ca1ftargetblank8f12ba7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree261f387cee753d8516ccf01fd4056c6f5c880e26targetblank261f387a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/8f12ba7ff620b592ea54bc81e5e30572d8d5ca1f" target="_blank">8f12ba7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/261f387cee753d8516ccf01fd4056c6f5c880e26" target="_blank">261f387</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,6 +530,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/b3f5e7e056ef6c6909200d8c5aa48252d3fa0560/analysis/2022_Mar3.Rmd" target="_blank">b3f5e7e</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-04-26
+</td>
+<td>
+4/26/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/b3f5e7e056ef6c6909200d8c5aa48252d3fa0560/docs/2022_Mar3.html" target="_blank">b3f5e7e</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-04-26
+</td>
+<td>
+4/26/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -864,6 +898,181 @@ Residuals   99  41592   420.1               </code></pre>
 <div id="srdi-pbi" class="section level2">
 <h2>sRDI &amp; PBI ?</h2>
 <p><img src="figure/2022_Mar3.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sqi-sleep-quality-index-vs-pbi" class="section level2">
+<h2>SQI (sleep quality index) vs PBI</h2>
+<p>Each individual has one SQI for both before and after the screening.</p>
+<div id="summary-statistics-2" class="section level3">
+<h3>summary statistics</h3>
+<pre><code># A tibble: 4 x 6
+  time      group   variable     n  mean    sd
+  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 screening SQI&lt;=55 PBI         59  68.7  19.2
+2 week 8    SQI&lt;=55 PBI         59  63    19.6
+3 screening SQI&gt;55  PBI         43  71.7  19.9
+4 week 8    SQI&gt;55  PBI         43  71.1  21.3</code></pre>
+<p><img src="figure/2022_Mar3.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="outliers-1" class="section level3">
+<h3>outliers</h3>
+<pre><code>[1] time       group      PBI        individual is.outlier is.extreme
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>no outliers</p>
+</div>
+<div id="normality-assumption-2" class="section level3">
+<h3>normality assumption</h3>
+<pre><code># A tibble: 4 x 5
+  time      group   variable statistic     p
+  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+1 screening SQI&lt;=55 PBI          0.982 0.522
+2 week 8    SQI&lt;=55 PBI          0.972 0.191
+3 screening SQI&gt;55  PBI          0.986 0.878
+4 week 8    SQI&gt;55  PBI          0.970 0.327</code></pre>
+<p>Normal distribution is a reasonable by large p values</p>
+<p><img src="figure/2022_Mar3.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="results-1" class="section level3">
+<h3>results</h3>
+<pre><code>ANOVA Table (type II tests)
+
+      Effect DFn DFd     F     p p&lt;.05   ges
+1      group   1 200 3.882 0.050       0.019
+2       time   1 200 1.613 0.206       0.008
+3 group:time   1 200 0.821 0.366       0.004</code></pre>
+<ul>
+<li>big p values (&gt;0.05) indicate no main or interaction effects</li>
+</ul>
+<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)
+group         1    224   224.3    0.59  0.444
+Residuals   100  37988   379.9               </code></pre>
+<ul>
+<li>no PBI difference among 2 groups at screening</li>
+</ul>
+<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+group         1   1638  1638.5   3.975 0.0489 *
+Residuals   100  41220   412.2                 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>there is difference between two groups at week 8</li>
+</ul>
+</div>
+</div>
+<div id="fragmentation-vs-pbi" class="section level2">
+<h2>Fragmentation vs PBI</h2>
+<div id="summary-statistics-3" class="section level3">
+<h3>summary statistics</h3>
+<pre><code># A tibble: 6 x 6
+  time      group                               variable     n  mean    sd
+  &lt;chr&gt;     &lt;chr&gt;                               &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 screening fragmentation&lt;5                     PBI         12  75.1  21.0
+2 week 8    fragmentation&lt;5                     PBI         12  72.4  17.0
+3 screening fragmentation&gt;=5, fragmentation&lt;=15 PBI         36  70.9  18.5
+4 week 8    fragmentation&gt;=5, fragmentation&lt;=15 PBI         36  69.8  21.4
+5 screening fragmentation&gt;15                    PBI         54  68.2  19.8
+6 week 8    fragmentation&gt;15                    PBI         54  62.8  20.5</code></pre>
+<p><img src="figure/2022_Mar3.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="outliers-2" class="section level3">
+<h3>outliers</h3>
+<pre><code>[1] time       group      PBI        individual is.outlier is.extreme
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>no outliers</p>
+</div>
+<div id="normality-assumption-3" class="section level3">
+<h3>normality assumption</h3>
+<pre><code># A tibble: 6 x 5
+  time      group                               variable statistic      p
+  &lt;chr&gt;     &lt;chr&gt;                               &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+1 screening fragmentation&lt;5                     PBI          0.981 0.988 
+2 week 8    fragmentation&lt;5                     PBI          0.940 0.496 
+3 screening fragmentation&gt;=5, fragmentation&lt;=15 PBI          0.989 0.973 
+4 week 8    fragmentation&gt;=5, fragmentation&lt;=15 PBI          0.986 0.909 
+5 screening fragmentation&gt;15                    PBI          0.982 0.611 
+6 week 8    fragmentation&gt;15                    PBI          0.961 0.0797</code></pre>
+<p>Normal distribution is a reasonable by large p values</p>
+<p><img src="figure/2022_Mar3.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="results-2" class="section level3">
+<h3>results</h3>
+<pre><code>ANOVA Table (type II tests)
+
+      Effect DFn DFd     F     p p&lt;.05   ges
+1      group   2 198 2.303 0.103       0.023
+2       time   1 198 1.601 0.207       0.008
+3 group:time   2 198 0.261 0.771       0.003</code></pre>
+<ul>
+<li>big p values (&gt;0.05) indicate no main or interaction effects</li>
+</ul>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+group        2    507   253.6   0.666  0.516
+Residuals   99  37705   380.9               </code></pre>
+<ul>
+<li>no PBI difference among groups at screening</li>
+</ul>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+group        2   1539   769.4   1.843  0.164
+Residuals   99  41320   417.4               </code></pre>
+<ul>
+<li>no difference among groups at week 8.</li>
+</ul>
+</div>
+</div>
+<div id="bmi-vs-pbi" class="section level2">
+<h2>BMI vs PBI</h2>
+<div id="summary-statistics-4" class="section level3">
+<h3>summary statistics</h3>
+<pre><code># A tibble: 10 x 6
+   time      group              variable     n  mean    sd
+   &lt;chr&gt;     &lt;chr&gt;              &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 screening (1):BMI&lt;18.5       PBI          1  71    NA  
+ 2 week 8    (1):BMI&lt;18.5       PBI          1  55    NA  
+ 3 screening (2):18.5&lt;=BMI&lt;24.9 PBI         44  68.4  19.1
+ 4 week 8    (2):18.5&lt;=BMI&lt;24.9 PBI         44  63    19.8
+ 5 screening (3):24.9&lt;=BMI&lt;29.9 PBI         36  68.1  21.6
+ 6 week 8    (3):24.9&lt;=BMI&lt;29.9 PBI         36  64.7  20.7
+ 7 screening (4)29.9&lt;=BMI&lt;34.9  PBI         14  77.2  17.4
+ 8 week 8    (4)29.9&lt;=BMI&lt;34.9  PBI         14  77.7  16.2
+ 9 screening (5):BMI&gt;=34.9      PBI          7  74.7  13.8
+10 week 8    (5):BMI&gt;=34.9      PBI          7  76    26.7</code></pre>
+<p><img src="figure/2022_Mar3.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="outliers-3" class="section level3">
+<h3>outliers</h3>
+<pre><code># A tibble: 1 x 6
+  time      group               PBI individual is.outlier is.extreme
+  &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt;      &lt;int&gt; &lt;lgl&gt;      &lt;lgl&gt;     
+1 screening (4)29.9&lt;=BMI&lt;34.9    45         73 TRUE       FALSE     </code></pre>
+<p>one outlier</p>
+</div>
+<div id="normality-assumption-4" class="section level3">
+<h3>normality assumption</h3>
+<p><img src="figure/2022_Mar3.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="results-3" class="section level3">
+<h3>results</h3>
+<pre><code>ANOVA Table (type II tests)
+
+      Effect DFn DFd     F     p p&lt;.05   ges
+1      group   4 194 2.504 0.044     * 0.049
+2       time   1 194 1.615 0.205       0.008
+3 group:time   4 194 0.221 0.926       0.005</code></pre>
+<ul>
+<li>big p values (&gt;0.05) indicate no main or interaction effects</li>
+</ul>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+group        4   1129   282.2   0.738  0.568
+Residuals   97  37083   382.3               </code></pre>
+<ul>
+<li>no PBI difference among groups at screening</li>
+</ul>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+group        4   3184     796   1.946  0.109
+Residuals   97  39675     409               </code></pre>
+<ul>
+<li>no difference</li>
+</ul>
+</div>
 </div>
 <div id="statistical-software" class="section level2">
 <h2>statistical software</h2>
