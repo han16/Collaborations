@@ -363,7 +363,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -372,7 +372,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -381,10 +381,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-21
+<strong>Last updated:</strong> 2022-05-05
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -400,12 +400,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee4cf46d8e9765a8059e9f57c79d47e05b83e9643targetblanke4cf46da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/e4cf46d8e9765a8059e9f57c79d47e05b83e9643" target="_blank">e4cf46d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9cb4ac584783b45b76db8ad13688d7e18c175ba2targetblank9cb4ac5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/9cb4ac584783b45b76db8ad13688d7e18c175ba2" target="_blank">9cb4ac5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee4cf46d8e9765a8059e9f57c79d47e05b83e9643targetblanke4cf46da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9cb4ac584783b45b76db8ad13688d7e18c175ba2targetblank9cb4ac5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/e4cf46d8e9765a8059e9f57c79d47e05b83e9643" target="_blank">e4cf46d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/9cb4ac584783b45b76db8ad13688d7e18c175ba2" target="_blank">9cb4ac5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -489,6 +489,9 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    analysis/.Rhistory
+
+Unstaged changes:
+    Modified:   analysis/2022_Apr1.Rmd
 
 </code></pre>
 <p>
@@ -527,6 +530,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/73930e906d558d0b941380f42ef2acbf11701443/docs/2022_Apr1.html" target="_blank">73930e9</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-04-22
+</td>
+<td>
+4/22/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -568,21 +588,43 @@ Han
 </div>
 </div>
 </div>
-<div id="sample-size-calculation" class="section level2">
-<h2>sample size calculation</h2>
+<div id="study-1" class="section level2">
+<h2>study 1</h2>
 <div id="problem-setting" class="section level3">
+<h3>Problem setting:</h3>
+<p>there are 3 groups and bone width will be measured before surgery and 4 months after. It aims to test if there is change between pro-surgery and post surgery within each group and across different groups</p>
+</div>
+<div id="two-paired-sample-t-test-to-test-within-group-different" class="section level3">
+<h3>two paired sample t test to test within group different</h3>
+<p><img src="figure/2022_Apr1.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>use <code>power.t.test</code> with option <code>alternative = "two.sided"</code>, <code>type="paired"</code></li>
+</ul>
+</div>
+<div id="two-sample-t-test-to-test-between-group-different" class="section level3">
+<h3>two sample t test to test between group different</h3>
+<p><img src="figure/2022_Apr1.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>use <code>power.t.test</code> with option <code>alternative = "two.sided"</code>, <code>type="two.sample"</code></li>
+</ul>
+</div>
+</div>
+<div id="study-3-sample-size-calculation" class="section level2">
+<h2>study 3: sample size calculation</h2>
+<div id="problem-setting-1" class="section level3">
 <h3>Problem setting</h3>
-<p>two samples: group 1 and 2. Observed samples are pain evaluations, numerical number between 0 and 100. Individuals are measured at multiple occasions, before surgery, during surgery, 1-day, 2-day, 3-day, 4-day, 5-day, 6-day, 7-day, and 14-day.</p>
+<p>two samples: group 1 and 2 are matched, like case control sample. Observed samples are pain evaluations, numerical number between 0 and 100. Individuals are measured at multiple occasions, before surgery, during surgery, 1-day, 2-day, 3-day, 4-day, 5-day, 6-day, 7-day, and 14-day.</p>
 </div>
 <div id="paired-two-sample-t-test-by-function-power.t.test" class="section level3">
 <h3>paired two sample t test by function <code>power.t.test</code></h3>
-<p>When look at one single occasion, two sample t test could be used.</p>
+<p>When look at one single occasion, two sample paired t test could be used.</p>
 <p><a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/power.t.test.html">power.t.test</a></p>
+<p>two paired sample t-test works for case-control studies or repeated-measures designs, e.g. before and after an experiment.</p>
 <ul>
 <li>use <code>power.t.test</code> with option <code>alternative = "two.sided"</code>, <code>type="paired"</code></li>
 <li>when mean difference is 0.13, standard deviation is 0.2, 21 subjects are required to achieve 80% power.</li>
 </ul>
-<p><img src="figure/2022_Apr1.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Apr1.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="statistical-software" class="section level2">
@@ -631,18 +673,19 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.8       highr_0.9        pillar_1.6.5     compiler_4.1.2  
- [5] later_1.3.0      jquerylib_0.1.4  git2r_0.29.0     workflowr_1.7.0 
- [9] tools_4.1.2      digest_0.6.29    evaluate_0.14    lifecycle_1.0.1 
-[13] tibble_3.1.6     gtable_0.3.0     pkgconfig_2.0.3  rlang_0.4.12    
-[17] DBI_1.1.2        yaml_2.2.2       xfun_0.29        fastmap_1.1.0   
-[21] withr_2.4.3      stringr_1.4.0    dplyr_1.0.7      knitr_1.37      
-[25] generics_0.1.1   fs_1.5.2         vctrs_0.3.8      tidyselect_1.1.1
-[29] rprojroot_2.0.2  grid_4.1.2       glue_1.6.0       R6_2.5.1        
-[33] fansi_1.0.2      rmarkdown_2.11   farver_2.1.0     purrr_0.3.4     
-[37] magrittr_2.0.1   whisker_0.4      scales_1.1.1     promises_1.2.0.1
-[41] ellipsis_0.3.2   htmltools_0.5.2  assertthat_0.2.1 colorspace_2.0-2
-[45] httpuv_1.6.5     labeling_0.4.2   utf8_1.2.2       stringi_1.7.6   
-[49] munsell_0.5.0    crayon_1.4.2    </code></pre>
+ [5] bslib_0.3.1      later_1.3.0      jquerylib_0.1.4  git2r_0.29.0    
+ [9] workflowr_1.7.0  tools_4.1.2      digest_0.6.29    jsonlite_1.7.3  
+[13] evaluate_0.14    lifecycle_1.0.1  tibble_3.1.6     gtable_0.3.0    
+[17] pkgconfig_2.0.3  rlang_0.4.12     DBI_1.1.2        yaml_2.2.2      
+[21] xfun_0.29        fastmap_1.1.0    withr_2.4.3      dplyr_1.0.7     
+[25] stringr_1.4.0    knitr_1.37       generics_0.1.1   fs_1.5.2        
+[29] vctrs_0.3.8      sass_0.4.1       tidyselect_1.1.1 rprojroot_2.0.2 
+[33] grid_4.1.2       glue_1.6.0       R6_2.5.1         fansi_1.0.2     
+[37] rmarkdown_2.11   farver_2.1.0     purrr_0.3.4      magrittr_2.0.1  
+[41] whisker_0.4      scales_1.1.1     promises_1.2.0.1 ellipsis_0.3.2  
+[45] htmltools_0.5.2  assertthat_0.2.1 colorspace_2.0-2 httpuv_1.6.5    
+[49] labeling_0.4.2   utf8_1.2.2       stringi_1.7.6    munsell_0.5.0   
+[53] crayon_1.4.2    </code></pre>
 </div>
 </div>
 
