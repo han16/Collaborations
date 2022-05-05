@@ -4,6 +4,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
 library(tidyverse)
@@ -15,6 +16,7 @@ set.seed(123)
 
 * missing variables are coded as `N_A`
 * In med history columns with Yes/No answers, if the answer is Yes, it is marked as 1. If the answer is No, then it's marked as 0. If its not available, it's marked as 2.
+* for gender, 0=Unknown, 1=Male, 2=Female
 
 ```{r, echo=F, message=F, warning=F}
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Soni\\data_2021-09-27_4.csv"))
@@ -93,6 +95,40 @@ figure
 * some `0`'s are not exactly zero, but close to 0. 
 
 
+```{r, echo=F, message=F}
+data_county_split=data %>% count(county) %>%mutate(prop=n/nrow(data)) %>% arrange(desc(prop)) %>% filter(prop>0.02) # extract counties with population of 2% or above to standalone 
+
+data_county_split=data_county_split%>%add_row(county="Others", n=5876-data_county_split%>%select(n)%>%sum(), prop=1-data_county_split%>%select(prop)%>%sum()) 
+
+g1=ggplot(data_county_split, aes(x=county, y=prop, fill=county)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=8))+
+  ylab("Patients (%)")+ylim(c(0,1))+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+#g1
+
+
+g2=ggplot(data_county_split, aes(x=county, y=n, fill=county)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=8))+
+  ylab("Patients")+ylim(c(0, 4000))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3.2)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+#g2
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 1, nrow = 2)
+figure
+
+```
+
+* pick the top 7 counties and the rest as others 
+
+
 ### split by age and gender 
 
 
@@ -115,7 +151,7 @@ g1=ggplot(data.frame(age_group=age_group, count=count_group), aes(x=age_group, y
   ggtitle("patients by age")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 ##############################
-gender_group=c("1", "2")
+gender_group=c("Male", "Female") # 1=male; 2=female 
 
 gender_count=numeric()
 gender_count[1]=data%>%filter(Sex==1)%>%nrow()
@@ -328,6 +364,7 @@ teeth_with_caries=seq(0,11)
 patient_with_caries=numeric()
 for ( i in 1:(length(teeth_with_caries)-1))
   patient_with_caries[i]=data%>%filter(teeth_affected_caries==teeth_with_caries[i])%>%nrow()
+
 patient_with_caries[i+1]=data%>%filter(teeth_affected_caries>=teeth_with_caries[i+1])%>%nrow()
 
 teeth_with_caries[1:10]=paste("0", seq(0,9), sep="")
@@ -354,7 +391,7 @@ for ( i in 1:(length(teeth_with_caries)-1))
   patient_with_caries[(i-1)*2+1]=sub_data%>%filter(county=="Milwaukee")%>%nrow()/n
   patient_with_caries[(i-1)*2+2]=sub_data%>%filter(county!="Milwaukee")%>%nrow()/n
 }
-sub_data=data%>%filter(teeth_affected_caries==teeth_with_caries[i+1])
+sub_data=data%>%filter(teeth_affected_caries>teeth_with_caries[i+1])
 n=nrow(sub_data)
 patient_with_caries[i*2+1]=sub_data%>%filter(county=="Milwaukee")%>%nrow()/n
 patient_with_caries[i*2+2]=sub_data%>%filter(county!="Milwaukee")%>%nrow()/n
@@ -384,6 +421,47 @@ figure
 
 
 
+
+
+```{r, echo=F, message=F, warning=F}
+teeth_with_caries=seq(0,11)
+patient_with_caries=numeric()
+selected_county=c("Milwaukee","Waukesha","Racine","Ozaukee","Washington","Walworth","Kenosha")
+for ( i in 1:(length(teeth_with_caries)-1))
+  {
+  sub_data=data%>%filter(teeth_affected_caries==teeth_with_caries[i])
+  n=nrow(sub_data)
+  for (j in 1:length(selected_county)) # for each cary, count how many from each county 
+  patient_with_caries[(i-1)*8+j]=sub_data%>%filter(county==selected_county[j])%>%nrow()/n
+ 
+  patient_with_caries[(i-1)*8+j+1]=sub_data%>%filter(county%in%selected_county==F)%>%nrow()/n 
+
+} # end of for ( i in 1:(length(teeth_with_caries)-1))
+
+sub_data=data%>%filter(teeth_affected_caries>teeth_with_caries[i+1])
+n=nrow(sub_data)
+for (j in 1:length(selected_county)) # for each caries, count how many from each county 
+  patient_with_caries[i*8+j]=sub_data%>%filter(county==selected_county[j])%>%nrow()/n
+ 
+  patient_with_caries[i*8+j+1]=sub_data%>%filter(county%in%selected_county==F)%>%nrow()/n 
+
+teeth_with_caries[1:10]=paste("0", seq(0,9), sep="")
+teeth_with_caries[12]=c("AC >=11")
+#teeth_with_caries=c(seq(1,11),c("more than 11"))
+
+f3=ggplot(data.frame(patient=patient_with_caries, teeth_with_caries=rep(teeth_with_caries, each=(length(selected_county)+1)), county=rep(c(selected_county, "Others"),12)), aes(x=county, y=patient, fill=county))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("Patient (%)")+
+  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=8))+
+   ggtitle("active caries by county")+
+   geom_text(aes(label=round(patient,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+ facet_wrap(~teeth_with_caries)
+
+f3
+
+```
 
 
 ```{r, echo=F, warning=F, message=F}

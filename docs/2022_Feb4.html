@@ -383,7 +383,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-21
+<strong>Last updated:</strong> 2022-05-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -474,16 +474,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree428f429208b0e31647ed97d9f7ab4d627f12fc3btargetblank428f429a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/428f429208b0e31647ed97d9f7ab4d627f12fc3b" target="_blank">428f429</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1c75adbdba96a4ea09a4c856df35df5e6f998a68targetblank1c75adba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/1c75adbdba96a4ea09a4c856df35df5e6f998a68" target="_blank">1c75adb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree428f429208b0e31647ed97d9f7ab4d627f12fc3btargetblank428f429a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1c75adbdba96a4ea09a4c856df35df5e6f998a68targetblank1c75adba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/428f429208b0e31647ed97d9f7ab4d627f12fc3b" target="_blank">428f429</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/1c75adbdba96a4ea09a4c856df35df5e6f998a68" target="_blank">1c75adb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -532,6 +532,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e4cf46d8e9765a8059e9f57c79d47e05b83e9643/analysis/2022_Feb4.Rmd" target="_blank">e4cf46d</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-04-21
+</td>
+<td>
+4/21/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/e4cf46d8e9765a8059e9f57c79d47e05b83e9643/docs/2022_Feb4.html" target="_blank">e4cf46d</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-04-21
+</td>
+<td>
+4/21/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1122,6 +1156,7 @@ Han
 <ul>
 <li>missing variables are coded as <code>N_A</code></li>
 <li>In med history columns with Yes/No answers, if the answer is Yes, it is marked as 1. If the answer is No, then it’s marked as 0. If its not available, it’s marked as 2.</li>
+<li>for gender, 0=Unknown, 1=Male, 2=Female</li>
 </ul>
 <pre><code>there are 5876 rows and  93 variables </code></pre>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
@@ -1613,10 +1648,14 @@ county_percent_rural
 <li>use column <code>county</code></li>
 <li>some <code>0</code>’s are not exactly zero, but close to 0.</li>
 </ul>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>pick the top 7 counties and the rest as others</li>
+</ul>
 </div>
 <div id="split-by-age-and-gender" class="section level3">
 <h3>split by age and gender</h3>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>use <code>Age_at_exam</code> as age variable</li>
 </ul>
@@ -1680,7 +1719,7 @@ county_percent_rural
 </tr>
 </tbody>
 </table>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>combing diseases doesn’t seem to improve too much</li>
 <li>radiation and chemotherapy appears both to patients</li>
@@ -1689,30 +1728,31 @@ county_percent_rural
 </div>
 <div id="natural-dentition" class="section level2">
 <h2>natural dentition</h2>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>use <code>permanent_teeth_present</code> to count the number of teeth.</li>
 </ul>
 </div>
 <div id="caries" class="section level2">
 <h2>caries</h2>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>use column <code>teeth_affected_caries</code> to count number of teeth effected by caries</li>
 </ul>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Comparison between Milwaukee and non-Milwaukee may not be fair due to dominating population from Milwaukee</li>
 </ul>
 </div>
 <div id="medical-conditions" class="section level2">
 <h2>Medical conditions</h2>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>use <code>get(medical_condition[i])!=2</code> to count number of patients, i.e. without missing values</li>
 </ul>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="med_history_arthritis" class="section level3">
 <h3><code>med_history_arthritis</code></h3>
 <pre><code>                            OR         2.5 %        97.5 %      p_value
@@ -2029,25 +2069,25 @@ other attached packages:
  [9] ggplot2_3.3.5    tidyverse_1.3.1  kableExtra_1.3.4
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.2        jsonlite_1.7.3    viridisLite_0.4.0 carData_3.0-5    
- [5] modelr_0.1.8      assertthat_0.2.1  highr_0.9         cellranger_1.1.0 
- [9] yaml_2.2.2        pillar_1.6.5      backports_1.4.1   glue_1.6.0       
-[13] digest_0.6.29     promises_1.2.0.1  ggsignif_0.6.3    rvest_1.0.2      
-[17] colorspace_2.0-2  cowplot_1.1.1     htmltools_0.5.2   httpuv_1.6.5     
-[21] pkgconfig_2.0.3   broom_0.7.11      haven_2.4.3       scales_1.1.1     
-[25] webshot_0.5.2     svglite_2.0.0     whisker_0.4       later_1.3.0      
-[29] tzdb_0.2.0        git2r_0.29.0      generics_0.1.1    farver_2.1.0     
-[33] car_3.0-12        ellipsis_0.3.2    withr_2.4.3       cli_3.1.1        
-[37] magrittr_2.0.1    crayon_1.4.2      readxl_1.3.1      evaluate_0.14    
-[41] fs_1.5.2          fansi_1.0.2       MASS_7.3-54       rstatix_0.7.0    
-[45] xml2_1.3.3        tools_4.1.2       hms_1.1.1         lifecycle_1.0.1  
-[49] munsell_0.5.0     reprex_2.0.1      compiler_4.1.2    jquerylib_0.1.4  
-[53] systemfonts_1.0.3 rlang_0.4.12      grid_4.1.2        rstudioapi_0.13  
-[57] labeling_0.4.2    rmarkdown_2.11    gtable_0.3.0      abind_1.4-5      
-[61] DBI_1.1.2         R6_2.5.1          lubridate_1.8.0   knitr_1.37       
-[65] fastmap_1.1.0     utf8_1.2.2        workflowr_1.7.0   rprojroot_2.0.2  
-[69] stringi_1.7.6     Rcpp_1.0.8        vctrs_0.3.8       dbplyr_2.1.1     
-[73] tidyselect_1.1.1  xfun_0.29        </code></pre>
+ [1] httr_1.4.2        sass_0.4.1        jsonlite_1.7.3    viridisLite_0.4.0
+ [5] carData_3.0-5     modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1 
+ [9] highr_0.9         cellranger_1.1.0  yaml_2.2.2        pillar_1.6.5     
+[13] backports_1.4.1   glue_1.6.0        digest_0.6.29     promises_1.2.0.1 
+[17] ggsignif_0.6.3    rvest_1.0.2       colorspace_2.0-2  cowplot_1.1.1    
+[21] htmltools_0.5.2   httpuv_1.6.5      pkgconfig_2.0.3   broom_0.7.11     
+[25] haven_2.4.3       scales_1.1.1      webshot_0.5.2     svglite_2.0.0    
+[29] whisker_0.4       later_1.3.0       tzdb_0.2.0        git2r_0.29.0     
+[33] generics_0.1.1    farver_2.1.0      car_3.0-12        ellipsis_0.3.2   
+[37] withr_2.4.3       cli_3.1.1         magrittr_2.0.1    crayon_1.4.2     
+[41] readxl_1.3.1      evaluate_0.14     fs_1.5.2          fansi_1.0.2      
+[45] MASS_7.3-54       rstatix_0.7.0     xml2_1.3.3        tools_4.1.2      
+[49] hms_1.1.1         lifecycle_1.0.1   munsell_0.5.0     reprex_2.0.1     
+[53] compiler_4.1.2    jquerylib_0.1.4   systemfonts_1.0.3 rlang_0.4.12     
+[57] grid_4.1.2        rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.11   
+[61] gtable_0.3.0      abind_1.4-5       DBI_1.1.2         R6_2.5.1         
+[65] lubridate_1.8.0   knitr_1.37        fastmap_1.1.0     utf8_1.2.2       
+[69] workflowr_1.7.0   rprojroot_2.0.2   stringi_1.7.6     Rcpp_1.0.8       
+[73] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.29        </code></pre>
 </div>
 </div>
 
