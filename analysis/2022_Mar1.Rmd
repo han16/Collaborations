@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Each individual has 5 measurements alignment, marginal ridge, buccolingual, occlusal relationship and overjet, measured manually and digitally and end up with one final score. (1) sample size needed to detect the difference between manual and digital measurements (2) if there is difference, which factor of 5 measurements drives the difference? All those observations are numeric numbers. 
 
-## paired two sample t test by  package `power.t.test`
+## sample size calculation-paired two sample t test by  package `power.t.test`
 
 [power.t.test](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/power.t.test.html)
 
@@ -38,4 +38,22 @@ ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
   theme(plot.title = element_text(hjust = 0.5, size=15))
 
 ```
+
+## test the difference-two sample t test 
+
+```{r, echo=F, message=F, warning=F}
+data1=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Lisa\\ABO Model Scores from digital CR-E through Ortho Share 360.csv")
+data2=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Lisa\\ABO Model Scores from Manual Measurement using ABO Gauge.csv")
+colnames(data2)=colnames(data1)
+data=rbind(data1, data2)
+```
+
+```{r, echo=F, message=F, warning=F}
+two_sample_ttest=t.test(data1$Total[1:13], data2$Total[1:13], paired=T)
+two_sample_ttest
+```
+
+* there is significant difference between digital `total` and manual 
+
+* on average  digital `Total` is bigger than manual 
 
