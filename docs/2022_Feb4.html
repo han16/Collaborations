@@ -383,7 +383,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-05
+<strong>Last updated:</strong> 2022-05-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -474,16 +474,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1c75adbdba96a4ea09a4c856df35df5e6f998a68targetblank1c75adba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/1c75adbdba96a4ea09a4c856df35df5e6f998a68" target="_blank">1c75adb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6477439e44af33362bec80626f8e6d81c7b391e6targetblank6477439a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/6477439e44af33362bec80626f8e6d81c7b391e6" target="_blank">6477439</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1c75adbdba96a4ea09a4c856df35df5e6f998a68targetblank1c75adba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6477439e44af33362bec80626f8e6d81c7b391e6targetblank6477439a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/1c75adbdba96a4ea09a4c856df35df5e6f998a68" target="_blank">1c75adb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/6477439e44af33362bec80626f8e6d81c7b391e6" target="_blank">6477439</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -532,6 +532,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/81f6a86ca6f78a92813b153c460ecb8816520be1/analysis/2022_Feb4.Rmd" target="_blank">81f6a86</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-05
+</td>
+<td>
+5/5/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/81f6a86ca6f78a92813b153c460ecb8816520be1/docs/2022_Feb4.html" target="_blank">81f6a86</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-05
+</td>
+<td>
+5/5/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1722,6 +1756,7 @@ county_percent_rural
 <p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>combing diseases doesn’t seem to improve too much</li>
+<li><code>med_history_diabetes_type1+med_history_diabetes_type2=diabetes</code>, <code>med_history_hyperthyroidism+med_history_hypothyroidism=thyroid_diseases</code></li>
 <li>radiation and chemotherapy appears both to patients</li>
 </ul>
 </div>
@@ -1747,157 +1782,69 @@ county_percent_rural
 </div>
 <div id="medical-conditions" class="section level2">
 <h2>Medical conditions</h2>
-<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>use <code>get(medical_condition[i])!=2</code> to count number of patients, i.e. without missing values</li>
-</ul>
 <p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>use <code>get(medical_condition[i])!=2</code> to count number of patients, i.e. without missing values</p></li>
+<li><p><code>med_history_diabetes_type1+med_history_diabetes_type2=diabetes</code>, <code>med_history_hyperthyroidism+med_history_hypothyroidism=thyroid_diseases</code></p></li>
+</ul>
 <p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="med_history_arthritis" class="section level3">
 <h3><code>med_history_arthritis</code></h3>
-<pre><code>                            OR         2.5 %        97.5 %      p_value
-(Intercept)       2.003730e-01  2.334843e-02  4.330388e+00 1.851299e-01
-Age_at_exam       1.057258e+00  1.048421e+00  1.066425e+00 1.160783e-37
-Sex               1.106255e+00  8.714650e-01  1.402933e+00 4.055399e-01
-countyBrown       2.071577e-01  7.557389e-03  2.853641e+00 2.646750e-01
-countyCalumet     2.512518e+06  1.897830e-93            NA 9.894416e-01
-countyColumbia    4.531543e-01  1.371214e-02  1.512914e+01 6.231637e-01
-countyCrawford    1.693322e+06           Inf           Inf 9.952310e-01
-countyDane        4.408577e-01  1.997475e-02  3.939762e+00 5.060210e-01
-countyDodge       4.290600e-01  1.804649e-02  4.534147e+00 5.145127e-01
-countyDoor        2.267259e-01  5.970635e-03  5.055870e+00 3.643209e-01
-countyFond du Lac 1.517853e-01  6.249469e-03  1.622566e+00 1.506780e-01
-countyForest      3.156717e+06 8.186618e-187            NA 9.950239e-01
-countyGreen       1.958965e+06           Inf           Inf 9.931783e-01
-countyGreen Lake  1.992838e-01  5.094076e-03  7.428286e+00 3.426336e-01
-countyJefferson   2.125806e-01  9.204703e-03  2.076962e+00 2.229454e-01
-countyJuneau      1.084657e+06 3.725255e-183            NA 9.953791e-01
-countyKenosha     2.341254e-01  1.058106e-02  2.096853e+00 2.391277e-01
-countyKewaunee    1.719371e+06           Inf           Inf 9.902525e-01
-countyLafayette   9.226695e-09            NA 3.119112e+203 9.938481e-01
-countyLanglade    8.258543e+05           Inf           Inf 9.935912e-01
-countyManitowoc   4.010268e-01  1.301970e-02  7.354919e+00 5.456893e-01
-countyMarathon    1.084657e+06 2.272052e-160            NA 9.953791e-01
-countyMarquette   9.465338e-08            NA 3.070209e+204 9.946223e-01
-countyMilwaukee   3.918446e-01  1.884817e-02  3.082484e+00 4.264159e-01
-countyMonroe      1.979835e+06           Inf 2.181339e+286 9.916449e-01
-countyOconto      1.095971e+06 2.256348e-160            NA 9.953757e-01
-countyOneida      1.601617e+06 5.058509e-200            NA 9.952495e-01
-countyOutagamie   1.618838e-01  5.916357e-03  2.223190e+00 1.965667e-01
-countyOzaukee     3.383637e-01  1.560181e-02  2.906436e+00 3.727173e-01
-countyPortage     7.333295e-02  1.388518e-03  1.795680e+00 1.313452e-01
-countyRacine      2.895601e-01  1.365092e-02  2.373939e+00 3.000437e-01
-countyRichland    8.169170e-09            NA 2.745712e+203 9.938077e-01
-countyRock        3.310678e-01  1.341471e-02  3.801293e+00 4.061856e-01
-countySauk        3.337463e+06           Inf           Inf 9.950054e-01
-countySawyer      9.754995e-09            NA 3.299702e+203 9.938667e-01
-countySheboygan   3.880083e-01  1.705718e-02  3.700614e+00 4.518518e-01
-countyWalworth    2.618176e-01  1.203923e-02  2.261077e+00 2.712381e-01
-countyWashington  4.665998e-01  2.138209e-02  4.067214e+00 5.325411e-01
-countyWaukesha    2.788559e-01  1.328544e-02  2.237159e+00 2.818194e-01
-countyWaupaca     9.178041e+05  1.053825e-34           Inf 9.954347e-01
-countyWaushara    1.684716e+06           Inf 2.029233e+271 9.911156e-01
-countyWinnebago   2.149418e+06           Inf 2.442486e+234 9.895895e-01
-countyWood        1.593361e+06           Inf           Inf 9.932210e-01</code></pre>
+<pre><code>                                 OR     2.5 %    97.5 %      p_value
+(Intercept)              0.04655585 0.0171179 0.1283036 2.111169e-09
+Age_at_exam              1.05755378 1.0488105 1.0666213 7.799257e-39
+Sex                      1.09955761 0.8691284 1.3897116 4.277566e-01
+county_regroupMilwaukee  1.67632465 0.7745724 3.4553227 1.720949e-01
+county_regroupOthers     1.55964337 0.6897035 3.3833026 2.700033e-01
+county_regroupOzaukee    1.44462771 0.5573171 3.7020447 4.437915e-01
+county_regroupRacine     1.23747728 0.5224096 2.8339457 6.192948e-01
+county_regroupWalworth   1.11888558 0.4254608 2.8990908 8.175851e-01
+county_regroupWashington 1.99533771 0.7461325 5.3198472 1.656483e-01
+county_regroupWaukesha   1.19210663 0.5268974 2.5861656 6.628893e-01</code></pre>
 <ul>
 <li><p>use 1160/1657 patients with arthritis by <code>med_history_arthritis!=2</code></p></li>
 <li><p>all predictors are assumed to be independent, without interactions</p></li>
 <li><p>by default, R treats the lowest level group as reference category</p></li>
-<li><p><code>Sex=1</code> is the reference group among gender</p></li>
-<li><p>county <code>Adams</code> as baseline, reference age group</p></li>
+<li><p><code>Sex=1</code> is the reference group among gender, 1=male; 2=female</p></li>
+<li><p>county <code>Kenosha</code> as baseline, reference group</p></li>
 <li><p>when increase age by one year (unit), while with other covariates fixed, the odds of having arthritis for older individual is 1.06 times the odds for young individual.</p></li>
 <li><p>only age is significant</p></li>
 </ul>
 </div>
 <div id="bulimia_acid_reflux_sleep_apnea" class="section level3">
 <h3><code>Bulimia_acid_reflux_sleep_apnea</code></h3>
-<pre><code>                            OR         2.5 %        97.5 %      p_value
-(Intercept)       7.943580e-02  3.923606e-03  5.796654e-01 2.768904e-02
-Age_at_exam       1.023359e+00  1.018018e+00  1.028798e+00 8.267788e-18
-Sex               9.026311e-01  7.641973e-01  1.066322e+00 2.279773e-01
-countyBrown       4.214305e+00  4.319011e-01  9.810118e+01 2.587434e-01
-countyCalumet     2.148758e+07 4.862708e+267           Inf 9.811354e-01
-countyChippewa    2.361839e+07 1.043638e-121            NA 9.906927e-01
-countyColumbia    6.677733e+00  5.096769e-01  1.950369e+02 1.834004e-01
-countyCrawford    1.709461e+07 7.557974e-122            NA 9.908699e-01
-countyDane        2.628562e+00  3.475687e-01  5.399945e+01 4.066108e-01
-countyDodge       3.992730e+00  5.014929e-01  8.404242e+01 2.433957e-01
-countyDoor        1.210152e+00  3.590698e-02  4.132900e+01 9.064967e-01
-countyFond du Lac 8.540304e-01  7.665453e-02  2.031040e+01 9.036328e-01
-countyGrant       1.142015e-06            NA 4.522849e+102 9.924989e-01
-countyGreen       2.041726e+00  5.695834e-02  7.722963e+01 6.700871e-01
-countyGreen Lake  1.001533e+01  5.645007e-01  4.582618e+02 1.539965e-01
-countyIowa        1.832074e+07 8.096917e-122            NA 9.908319e-01
-countyJefferson   3.361177e+00  4.204200e-01  7.083834e+01 3.075739e-01
-countyJuneau      5.642305e+00  2.614508e-01  2.748298e+02 3.007078e-01
-countyKenosha     6.063390e+00  8.107373e-01  1.240541e+02 1.204044e-01
-countyKewaunee    2.842199e+00  1.622869e-01  9.089806e+01 4.893719e-01
-countyLa Crosse   1.558646e+07 6.896339e-122            NA 9.909206e-01
-countyLanglade    1.435535e+07 6.364227e-122            NA 9.909657e-01
-countyManitowoc   7.791787e-07 2.608984e-199 2.648451e-178 9.777404e-01
-countyMarathon    4.613819e+07 2.057073e-121            NA 9.903256e-01
-countyMarinette   1.491520e-06            NA 5.854171e+102 9.926453e-01
-countyMarquette   8.666629e+00  4.048294e-01  4.200011e+02 1.954791e-01
-countyMilwaukee   2.599511e+00  3.716002e-01  5.158982e+01 3.986865e-01
-countyMonroe      9.331261e+00  5.244478e-01  4.276282e+02 1.673521e-01
-countyOconto      1.531554e+07  7.121562e-63            NA 9.871592e-01
-countyOneida      5.038673e-07            NA 1.998135e+102 9.920504e-01
-countyOutagamie   5.334292e+00  3.725429e-01  1.605450e+02 2.497101e-01
-countyOzaukee     3.097684e+00  4.164136e-01  6.318190e+01 3.287731e-01
-countyPortage     2.023406e+00  5.706718e-02  7.564742e+01 6.726166e-01
-countyPrice       5.526217e-07            NA 2.204268e+102 9.921010e-01
-countyRacine      3.734015e+00  5.188902e-01  7.504215e+01 2.493915e-01
-countyRichland    3.332279e+00  8.043369e-02  1.866085e+02 5.064037e-01
-countyRock        2.482185e+00  2.763644e-01  5.516083e+01 4.618372e-01
-countySauk        1.200677e+00  3.580193e-02  4.079229e+01 9.101423e-01
-countySawyer      6.871591e-07            NA 2.752328e+102 9.922204e-01
-countySheboygan   3.872446e+00  4.899255e-01  8.122574e+01 2.527249e-01
-countyVernon      6.961572e-07            NA 2.775549e+102 9.922276e-01
-countyVilas       1.359933e-06            NA 5.376616e+102 9.925947e-01
-countyWalworth    4.210081e+00  5.662841e-01  8.587176e+01 2.143537e-01
-countyWashington  2.420369e+00  3.204195e-01  4.969185e+01 4.476271e-01
-countyWaukesha    2.787168e+00  3.941342e-01  5.557670e+01 3.670777e-01
-countyWaupaca     8.075564e+00  6.017281e-01  2.393973e+02 1.464650e-01
-countyWaushara    2.823716e+00  1.599580e-01  9.078351e+01 4.932155e-01
-countyWinnebago   4.979688e+00  4.831444e-01  1.208655e+02 2.183098e-01
-countyWood        8.601040e+00  3.952887e-01  4.212395e+02 1.991368e-01</code></pre>
+<pre><code>                                OR     2.5 %    97.5 %      p_value
+(Intercept)              0.4665010 0.2426345 0.9039011 2.274406e-02
+Age_at_exam              1.0237744 1.0184891 1.0291572 9.397743e-19
+Sex                      0.9076071 0.7701591 1.0697755 2.474229e-01
+county_regroupMilwaukee  0.4289007 0.2513432 0.7193046 1.521706e-03
+county_regroupOthers     0.5328077 0.3006392 0.9297863 2.826098e-02
+county_regroupOzaukee    0.5108217 0.2495158 1.0319529 6.298455e-02
+county_regroupRacine     0.6154773 0.3301361 1.1328186 1.217920e-01
+county_regroupWalworth   0.6939359 0.3400583 1.4050121 3.114831e-01
+county_regroupWashington 0.3991114 0.1869654 0.8354105 1.587854e-02
+county_regroupWaukesha   0.4594605 0.2599151 0.7994706 6.469811e-03</code></pre>
 <ul>
 <li><p>1046/2507 have <code>Bulimia_acid_reflux_sleep_apnea==1</code></p></li>
-<li><p>only age is significant</p></li>
+<li><p>age is significant</p></li>
+<li><p>several counties are significant, comparing to Kenosha</p></li>
 </ul>
 </div>
 <div id="med_history_depression" class="section level3">
 <h3><code>med_history_depression</code></h3>
-<pre><code>                            OR        2.5 %        97.5 %   p_value
-(Intercept)       4.821350e+07 0.000000e+00            NA 0.9964321
-Age_at_exam       1.003716e+00 9.877416e-01  1.019937e+00 0.6495280
-Sex               8.435858e-01 4.778537e-01  1.452254e+00 0.5469735
-countyBrown       1.018832e+00 2.652887e-16  3.419093e+18 0.9999967
-countyCalumet     9.707660e-01 1.196613e-33  5.337636e+32 0.9999958
-countyChippewa    8.593749e-01 2.440008e-23  1.922911e+19 0.9999784
-countyColumbia    8.919285e-01 7.391099e-26  2.365448e+25 0.9999812
-countyDane        8.933253e-01 7.506396e-17  4.252346e+13 0.9999781
-countyDodge       1.229491e-07           NA 2.973761e+119 0.9967910
-countyFond du Lac 2.216716e-08           NA           Inf 0.9964455
-countyForest      1.014946e+00 9.644249e-26  1.066651e+22 0.9999979
-countyJefferson   9.359234e-08           NA           Inf 0.9967359
-countyKenosha     3.025115e-07           NA 5.877140e+299 0.9969726
-countyKewaunee    9.143662e-01 2.550339e-30  3.278253e+29 0.9999853
-countyMarquette   9.962981e-01 2.043713e-32  8.047008e+30 0.9999995
-countyMilwaukee   1.517536e-07           NA           Inf 0.9968334
-countyOutagamie   1.037784e+00 4.018479e-25  7.693388e+26 0.9999947
-countyOzaukee     1.538505e-07           NA           Inf 0.9968362
-countyPortage     5.545203e-16           NA           Inf 0.9949904
-countyRacine      1.618855e-07           NA           Inf 0.9968465
-countyRock        9.926100e-01 2.192473e-33  5.808728e+32 0.9999989
-countySauk        1.018717e+00 2.162357e-33  1.782712e+33 0.9999974
-countySheboygan   7.689925e-08           NA           Inf 0.9966963
-countyWalworth    3.797622e-08           NA           Inf 0.9965540
-countyWashington  1.008374e-07           NA           Inf 0.9967510
-countyWaukesha    4.384677e-07           NA           Inf 0.9970474
-countyWaupaca     1.076995e+00 3.737662e-32  7.871655e+31 0.9999894
-countyWinnebago   1.004701e+00 1.234790e-19  6.691308e+15 0.9999992
-countyWood        1.003716e+00 1.163288e-33  8.660320e+32 0.9999995</code></pre>
+<pre><code>                                 OR      2.5 %      97.5 %    p_value
+(Intercept)              11.5234049 1.30103873 266.2252251 0.05203274
+Age_at_exam               1.0062587 0.99042933   1.0223616 0.43974566
+Sex                       0.8896981 0.51332133   1.5065192 0.66922130
+county_regroupMilwaukee   0.5101156 0.02770366   2.6697837 0.52213702
+county_regroupOthers      0.4277235 0.02214251   2.6049292 0.44031005
+county_regroupOzaukee     0.5130335 0.02217904   6.0199062 0.60397315
+county_regroupRacine      0.5452360 0.02537777   4.8168462 0.61625147
+county_regroupWalworth    0.1271118 0.00628223   0.8716221 0.07152678
+county_regroupWashington  0.3389843 0.01557707   3.0598683 0.37561280
+county_regroupWaukesha    1.4694053 0.06952791  12.5997435 0.74761256</code></pre>
 <ul>
 <li><p>553/563 patients have depression</p></li>
 <li><p>no predictors are statistically significant</p></li>
@@ -1905,32 +1852,17 @@ countyWood        1.003716e+00 1.163288e-33  8.660320e+32 0.9999995</code></pre>
 </div>
 <div id="med_history_diabetes_type1med_history_diabetes_type2" class="section level3">
 <h3><code>med_history_diabetes_type1+med_history_diabetes_type2</code></h3>
-<pre><code>                            OR       2.5 %   97.5 %   p_value
-(Intercept)       1.333172e+10 0.000000000       NA 0.9991001
-Age_at_exam       1.002023e+00 0.908103542 1.099085 0.9662946
-Sex               1.537216e-01 0.006551221 1.436910 0.1382162
-countyBrown       3.516986e+00 0.000000000      Inf 0.9999650
-countyColumbia    9.799464e-01 0.000000000      Inf 0.9999994
-countyDane        3.323424e+00 0.000000000      Inf 0.9999563
-countyDodge       2.864682e+00 0.000000000      Inf 0.9999633
-countyFond du Lac 7.052701e+00 0.000000000      Inf 0.9999565
-countyGreen Lake  3.459619e+00 0.000000000      Inf 0.9999655
-countyIowa        9.959078e-01 0.000000000      Inf 0.9999999
-countyJefferson   4.941803e+00 0.000000000      Inf 0.9999493
-countyKenosha     3.643837e+00 0.000000000      Inf 0.9999524
-countyManitowoc   6.544459e+00 0.000000000      Inf 0.9999581
-countyMilwaukee   8.527526e-07          NA      Inf 0.9994606
-countyOzaukee     3.105501e+00 0.000000000      Inf 0.9999583
-countyPortage     6.570971e+00 0.000000000      Inf 0.9999580
-countyRacine      7.593507e-08          NA      Inf 0.9993672
-countyRock        4.897357e+00 0.000000000      Inf 0.9999496
-countySauk        3.551737e+00 0.000000000      Inf 0.9999648
-countySheboygan   5.771699e-09          NA      Inf 0.9992677
-countyWalworth    3.963886e+00 0.000000000      Inf 0.9999495
-countyWashington  3.351028e+00 0.000000000      Inf 0.9999554
-countyWaukesha    3.257057e+00 0.000000000       NA 0.9999550
-countyWaupaca     3.391991e+00 0.000000000      Inf 0.9999660
-countyWinnebago   1.023905e+00 0.000000000      Inf 0.9999994</code></pre>
+<pre><code>                                   OR         2.5 %        97.5 %   p_value
+(Intercept)              3.962797e+10 2.941271e-275            NA 0.9970300
+Age_at_exam              9.910611e-01  9.041590e-01  1.069238e+00 0.8319407
+Sex                      2.493822e-01  1.190849e-02  2.071445e+00 0.2413959
+county_regroupMilwaukee  2.323095e-07            NA           Inf 0.9981409
+county_regroupOthers     1.192183e-08            NA           Inf 0.9977795
+county_regroupOzaukee    1.015537e+00 2.411894e-254 4.275954e+253 0.9999987
+county_regroupRacine     2.135906e-08            NA           Inf 0.9978505
+county_regroupWalworth   1.115262e+00 2.981770e-236 3.510964e+222 0.9999909
+county_regroupWashington 9.389886e-01 2.785055e-251 3.165825e+250 0.9999946
+county_regroupWaukesha   9.673984e-01 2.242055e-201 4.174116e+200 0.9999964</code></pre>
 <ul>
 <li><p>773/777 has DB</p></li>
 <li><p>none variable is significant</p></li>
@@ -1938,34 +1870,17 @@ countyWinnebago   1.023905e+00 0.000000000      Inf 0.9999994</code></pre>
 </div>
 <div id="med_history_hyperthyroidismmed_history_hypothyroidismthyroid-disease" class="section level3">
 <h3><code>med_history_hyperthyroidism+med_history_hypothyroidism:thyroid disease</code></h3>
-<pre><code>                            OR     2.5 %   97.5 %   p_value
-(Intercept)       8.649743e+03 0.0000000      Inf 0.9999449
-Age_at_exam       9.400186e-01 0.7574231 1.103138 0.4582574
-Sex               3.850256e+08 0.0000000       NA 0.9977515
-countyDane        2.195415e-01 0.0000000      Inf 0.9999911
-countyDodge       3.308581e-02 0.0000000      Inf 0.9999806
-countyDoor        3.326328e-09 0.0000000      Inf 0.9999160
-countyFond du Lac 7.118882e-01 0.0000000      Inf 0.9999983
-countyGrant       3.588202e-10 0.0000000      Inf 0.9999064
-countyGreen Lake  2.157348e-09 0.0000000      Inf 0.9999141
-countyJefferson   2.013478e-09 0.0000000      Inf 0.9998941
-countyJuneau      4.319839e-10 0.0000000      Inf 0.9999072
-countyKenosha     1.206315e-01 0.0000000      Inf 0.9999874
-countyKewaunee    1.236368e-09 0.0000000      Inf 0.9999117
-countyManitowoc   3.126807e-09 0.0000000      Inf 0.9999157
-countyMarquette   2.130156e-01 0.0000000      Inf 0.9999933
-countyMilwaukee   8.240365e-10        NA      Inf 0.9998726
-countyOconto      1.563485e-01 0.0000000      Inf 0.9999920
-countyOzaukee     5.617005e-02 0.0000000      Inf 0.9999828
-countyPortage     1.236368e-09 0.0000000      Inf 0.9999117
-countyRacine      7.356854e-02 0.0000000      Inf 0.9999843
-countyRock        2.186461e-09 0.0000000      Inf 0.9999007
-countySheboygan   1.179916e-01 0.0000000      Inf 0.9999882
-countyWalworth    1.333241e-01 0.0000000      Inf 0.9999881
-countyWashington  6.141787e-02 0.0000000      Inf 0.9999835
-countyWaukesha    2.154158e-01 0.0000000      Inf 0.9999907
-countyWinnebago   2.358705e-01 0.0000000      Inf 0.9999921
-countyWood        4.319844e-10 0.0000000      Inf 0.9999072</code></pre>
+<pre><code>                                   OR     2.5 %   97.5 %   p_value
+(Intercept)              1.100749e+03 0.0000000      Inf 0.9997885
+Age_at_exam              9.400186e-01 0.7574231 1.103138 0.4582574
+Sex                      3.650071e+08 0.0000000       NA 0.9976969
+county_regroupMilwaukee  6.830454e-09        NA      Inf 0.9994122
+county_regroupOthers     1.146076e+00 0.0000000      Inf 0.9999965
+county_regroupOzaukee    4.651622e-01 0.0000000      Inf 0.9999836
+county_regroupRacine     6.096735e-01 0.0000000      Inf 0.9999883
+county_regroupWalworth   1.105497e+00 0.0000000      Inf 0.9999980
+county_regroupWashington 5.086766e-01 0.0000000      Inf 0.9999872
+county_regroupWaukesha   1.786385e+00 0.0000000      Inf 0.9999842</code></pre>
 <ul>
 <li><p>373/374 have thyroid diseases</p></li>
 <li><p>none variable is significant</p></li>
@@ -1973,38 +1888,17 @@ countyWood        4.319844e-10 0.0000000      Inf 0.9999072</code></pre>
 </div>
 <div id="med_history_radiationmed_history_chemotherapy" class="section level3">
 <h3><code>med_history_radiation+med_history_chemotherapy</code></h3>
-<pre><code>                            OR        2.5 %       97.5 %      p_value
-(Intercept)       6.986804e-10           NA          Inf 9.957482e-01
-Age_at_exam       1.086107e+00 1.068412e+00 1.105629e+00 2.592187e-21
-Sex               1.158569e+00 8.400364e-01 8.322809e-01 5.571482e-01
-countyBrown       1.582435e+07 0.000000e+00           NA 9.966567e-01
-countyCalumet     3.137225e+14 0.000000e+00           NA 9.952398e-01
-countyColumbia    1.791681e+14 0.000000e+00           NA 9.953197e-01
-countyDane        5.767606e+06 0.000000e+00           NA 9.968603e-01
-countyDodge       2.152216e-01 1.211280e-38 5.773861e+28 9.997152e-01
-countyFond du Lac 1.475103e+07 0.000000e+00           NA 9.966709e-01
-countyGrant       2.135199e+15 0.000000e+00           NA 9.949663e-01
-countyGreen Lake  1.851778e+14 8.946772e-56          Inf 9.945897e-01
-countyJefferson   1.245003e+07 0.000000e+00           NA 9.967051e-01
-countyKenosha     7.576868e+06 0.000000e+00           NA 9.968053e-01
-countyManitowoc   1.494530e+00 4.810525e-24 5.621855e+23 9.999338e-01
-countyMarquette   3.469297e+14 0.000000e+00           NA 9.952254e-01
-countyMilwaukee   2.428822e+07 0.000000e+00           NA 9.965703e-01
-countyOutagamie   1.287569e+14 0.000000e+00           NA 9.953668e-01
-countyOzaukee     9.245134e+06 0.000000e+00           NA 9.967651e-01
-countyPortage     4.092481e+14 0.000000e+00           NA 9.952019e-01
-countyRacine      6.943073e+06 0.000000e+00           NA 9.968229e-01
-countyRichland    1.469289e-01 5.612380e-29 6.758854e+25 9.997265e-01
-countyRock        5.736316e+14 8.057135e-49          Inf 9.937281e-01
-countySauk        5.694781e+14 0.000000e+00           NA 9.951548e-01
-countySawyer      1.916674e-01 3.905668e-30 1.025834e+28 9.997644e-01
-countySheboygan   2.265328e+07 0.000000e+00           NA 9.965844e-01
-countyVernon      2.941009e+14 0.000000e+00           NA 9.952490e-01
-countyWalworth    2.401707e+07 0.000000e+00           NA 9.965726e-01
-countyWashington  1.781569e+07 0.000000e+00           NA 9.966328e-01
-countyWaukesha    1.835004e+07 0.000000e+00           NA 9.966269e-01
-countyWaupaca     2.113518e+14 0.000000e+00           NA 9.952961e-01
-countyWaushara    9.482841e+13          Inf          Inf 9.946381e-01</code></pre>
+<pre><code>                                  OR        2.5 %      97.5 %      p_value
+(Intercept)              0.005079416 0.0007475775  0.03205994 2.788058e-08
+Age_at_exam              1.085456754 1.0682512942  1.10436549 3.358702e-22
+Sex                      1.224568431 0.7637719977  1.96334289 3.993116e-01
+county_regroupMilwaukee  3.144985833 0.7489611616 13.43822383 1.128902e-01
+county_regroupOthers     1.703209804 0.3806898010  7.71983722 4.809851e-01
+county_regroupOzaukee    1.196467714 0.1859641947  7.81037839 8.493041e-01
+county_regroupRacine     0.905737877 0.1880299464  4.39692018 9.006954e-01
+county_regroupWalworth   3.173598150 0.4399784107 31.05474159 2.737079e-01
+county_regroupWashington 2.326020171 0.3543848525 15.93815645 3.798928e-01
+county_regroupWaukesha   2.394329804 0.5336159972 10.90504849 2.491551e-01</code></pre>
 <ul>
 <li><p>317/484 receive either radiation or chemotherapy</p></li>
 <li><p>only age is significant</p></li>

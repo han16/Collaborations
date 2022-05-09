@@ -104,7 +104,7 @@ g1=ggplot(data_county_split, aes(x=county, y=prop, fill=county)) +geom_bar(stat=
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=8))+
   ylab("Patients (%)")+ylim(c(0,1))+
-  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 #g1
@@ -277,6 +277,7 @@ ggplot(data.frame(variables=paste(seq(1,9), variables, sep="_"), missing_prop=va
 ```
 
 * combing diseases doesn't seem to improve too much 
+* `med_history_diabetes_type1+med_history_diabetes_type2=diabetes`, `med_history_hyperthyroidism+med_history_hypothyroidism=thyroid_diseases`
 * radiation and chemotherapy appears  both to patients 
 
 
@@ -299,7 +300,7 @@ f1=ggplot(data.frame(dentition=teeth_group, proportion=teeth_count/nrow(data)), 
         axis.ticks.x=element_blank())+ # remove x axis labels 
    ylim(c(0,1))+
    ggtitle("natural dentition")+
-   geom_text(aes(label=round(teeth_count/nrow(data),2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   geom_text(aes(label=round(teeth_count/nrow(data),4)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
    theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
  
 ###############################################
@@ -513,7 +514,8 @@ theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 ## Medical conditions 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
+########### do not run this one with separate disese subtypes 
 medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")
 medical_condition_prop=numeric()
 medical_condition_count=numeric()
@@ -547,11 +549,49 @@ figure <- ggarrange(f1, f2,
 figure 
 ```
 
+```{r, echo=F, message=F, warning=F, eval=T}
+########### run this one with combined disease subtypes 
+medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "diabetes", "thyroid_diseases", "med_history_arthritis", "med_history_bulimia")
+medical_condition_prop=numeric()
+medical_condition_count=numeric()
+for (i in 1:length(medical_condition))
+ {
+  medical_condition_count[i]=data_merge%>%filter(get(medical_condition[i])!=2)%>%nrow() # use get to pass string variable to filter function 
+  medical_condition_prop[i]=data_merge%>%filter(get(medical_condition[i])==1)%>%nrow()/medical_condition_count[i] 
+}
+
+f1=ggplot(data.frame(disease=medical_condition, patient=medical_condition_count), aes(x=disease, y=patient, fill=disease)) +geom_bar(stat="identity")+
+   theme(legend.position="none")+
+   xlab("")+ylab("Patient (total)")+
+   theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=7))+
+   ggtitle("medical conditions")+
+   geom_text(aes(label=patient), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ 
+
+f2=ggplot(data.frame(disease=medical_condition, patient=medical_condition_prop), aes(x=disease, y=patient, fill=disease)) +geom_bar(stat="identity")+
+   theme(legend.position="none")+
+   xlab("")+ylab("Patient (yes %)")+
+   theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=7))+
+   ggtitle("medical conditions")+
+   geom_text(aes(label=round(patient,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ 
+
+figure <- ggarrange(f1, f2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure 
+```
+
 * use `get(medical_condition[i])!=2` to count number of patients, i.e. without missing values  
+
+*  `med_history_diabetes_type1+med_history_diabetes_type2=diabetes`, `med_history_hyperthyroidism+med_history_hypothyroidism=thyroid_diseases`
+
 
 
 ```{r, echo=F, message=F, warning=F}
-medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")
+medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "diabetes", "thyroid_diseases", "med_history_arthritis", "med_history_bulimia")
 medical_condition_prop=numeric()
 medical_condition_count=numeric()
 
@@ -561,7 +601,7 @@ prop_group=numeric()
 for (i in 1:length(medical_condition))
  {
  #  i=2
-  sub_data=data%>%filter(get(medical_condition[i])==1)
+  sub_data=data_merge%>%filter(get(medical_condition[i])==1)
   n=nrow(sub_data)
 prop_group[(i-1)*length(age_group)+1]=sub_data%>%filter(Age_at_exam<50)%>%nrow()/n
 prop_group[(i-1)*length(age_group)+2]=sub_data%>%filter(Age_at_exam>=50 & Age_at_exam<=60)%>%nrow()/n
@@ -574,7 +614,7 @@ prop_group[(i-1)*length(age_group)+6]=sub_data%>%filter(Age_at_exam>=91)%>%nrow(
 
 ggplot(data.frame(medical_condition=rep(medical_condition, each=length(age_group)), prop=prop_group, age=rep(age_group, length(medical_condition))), aes(x=age, y=prop, fill=age)) +   ### putting aes in ggplot will position numbers over bar more precisely 
   geom_bar(position = "dodge", stat="identity")+
-  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
   xlab("")+ylab("Patients (%)")+
   ylim(c(0, 0.8))+
    theme(legend.position="none")+
@@ -587,7 +627,7 @@ facet_wrap(~medical_condition)
 
 
 ```{r, echo=F, message=F, warning=F}
-medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")
+medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "diabetes", "thyroid_diseases", "med_history_arthritis", "med_history_bulimia")
 medical_condition_prop=numeric()
 medical_condition_count=numeric()
 
@@ -596,7 +636,7 @@ prop_group=numeric()
 for (i in 1:length(medical_condition))
  {
  #  i=2
-  sub_data=data%>%filter(get(medical_condition[i])==1)
+  sub_data=data_merge%>%filter(get(medical_condition[i])==1)
   n=nrow(sub_data)
 prop_group[(i-1)*2+1]=sub_data%>%filter(county=="Milwaukee")%>%nrow()/n
 prop_group[(i-1)*2+2]=sub_data%>%filter(county!="Milwaukee")%>%nrow()/n
@@ -605,7 +645,7 @@ prop_group[(i-1)*2+2]=sub_data%>%filter(county!="Milwaukee")%>%nrow()/n
 
 ggplot(data.frame(medical_condition=rep(medical_condition, each=2), prop=prop_group, age=rep(c("Milwaukee", "Non-Milwaukee"), length(medical_condition))), aes(x=age, y=prop, fill=age)) +   ### putting aes in ggplot will position numbers over bar more precisely 
   geom_bar(position = "dodge", stat="identity")+
-  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
   xlab("")+ylab("Patients (%)")+
   ylim(c(0, 0.9))+
    theme(legend.position="none")+
@@ -615,11 +655,64 @@ theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
 facet_wrap(~medical_condition)
 ```
 
+
+
+```{r, echo=F, message=F, warning=F}
+medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "diabetes", "thyroid_diseases", "med_history_arthritis", "med_history_bulimia")
+medical_condition_prop=numeric()
+medical_condition_count=numeric()
+
+prop_group=numeric()
+
+selected_county=c("Milwaukee","Waukesha","Racine","Ozaukee","Washington","Walworth","Kenosha")
+
+for (i in 1:length(medical_condition))
+ {
+ #  i=2
+  sub_data=data_merge%>%filter(get(medical_condition[i])==1)
+  n=nrow(sub_data)
+  for (j in 1:length(selected_county)) # for each cary, count how many from each county 
+  prop_group[(i-1)*8+j]=sub_data%>%filter(county==selected_county[j])%>%nrow()/n
+ 
+  prop_group[(i-1)*8+j+1]=sub_data%>%filter(county%in%selected_county==F)%>%nrow()/n 
+
+}
+
+
+ggplot(data.frame(medical_condition=rep(medical_condition, each=(length(selected_county)+1)), prop=prop_group, age=rep(c(selected_county, "Others"), length(medical_condition))), aes(x=age, y=prop, fill=age)) +   ### putting aes in ggplot will position numbers over bar more precisely 
+  geom_bar(position = "dodge", stat="identity")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  xlab("")+ylab("Patients (%)")+
+  ylim(c(0, 0.9))+
+   theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=10))+
+ggtitle("medical conditions by county")+
+theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title  
+facet_wrap(~medical_condition)
+```
+
+
+
+
+
 ### `med_history_arthritis`
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data%>%filter(med_history_arthritis!=2)
-glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
+selected_county=c("Milwaukee","Waukesha","Racine","Ozaukee","Washington","Walworth","Kenosha")
+county_regroup=numeric()
+for (i in 1:nrow(data_merge))
+{
+  if (data_merge$county[i] %in% selected_county==T)
+  county_regroup[i]=data_merge$county[i]
+  if (data_merge$county[i] %in% selected_county==F)
+  county_regroup[i]="Others"
+}
+data_merge=data_merge %>%mutate(county_regroup=county_regroup)  
+```
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data_merge%>%filter(med_history_arthritis!=2)
+glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial")
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
@@ -630,9 +723,9 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 * by default, R treats the lowest level group as reference category  
 
-* `Sex=1` is the reference group among gender 
+* `Sex=1` is the reference group among gender,   1=male; 2=female
 
-* county `Adams` as baseline, reference age group  
+* county `Kenosha` as baseline, reference group  
 
 * when increase age by one year (unit), while with other covariates fixed, the odds of having arthritis for older individual is 1.06 times the odds for young individual. 
 
@@ -643,7 +736,7 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 ```{r, echo=F, message=F, warning=F}
 sub_data=data_merge%>%filter(Bulimia_acid_reflux_sleep_apnea!=2)
-glm_fit=glm(as.factor(Bulimia_acid_reflux_sleep_apnea)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
+glm_fit=glm(as.factor(Bulimia_acid_reflux_sleep_apnea)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial")
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
@@ -651,14 +744,16 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 * 1046/2507 have `Bulimia_acid_reflux_sleep_apnea==1`
 
 
-* only age is significant 
+*  age is significant 
+
+* several counties are significant, comparing to Kenosha 
 
 
 ### `med_history_depression`
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data%>%filter(med_history_depression!=2)
-glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial")
+sub_data=data_merge%>%filter(med_history_depression!=2)
+glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial")
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
@@ -672,7 +767,7 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 ```{r, echo=F, message=F, warning=F}
 sub_data=data_merge%>%filter(diabetes!=2)
-glm_fit=glm(as.factor(diabetes)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial") # response variable need to be factor 
+glm_fit=glm(as.factor(diabetes)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
@@ -689,7 +784,7 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 ```{r, echo=F, message=F, warning=F}
 sub_data=data_merge%>%filter(thyroid_diseases!=2)
-glm_fit=glm(as.factor(thyroid_diseases)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial") # response variable need to be factor 
+glm_fit=glm(as.factor(thyroid_diseases)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 ```
 * 373/374 have thyroid diseases
@@ -702,7 +797,7 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 ```{r, echo=F, message=F, warning=F}
 sub_data=data_merge%>%filter(cancer_treatment!=2)
-glm_fit=glm(as.factor(cancer_treatment)~Age_at_exam  + Sex + county, data = sub_data, family = "binomial") # response variable need to be factor 
+glm_fit=glm(as.factor(cancer_treatment)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 ```
 
