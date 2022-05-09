@@ -341,7 +341,7 @@ prop_age_dentition=tibble(prop=prop_group, age=rep(age_group, each=3), dentition
 
 f2=ggplot(prop_age_dentition, aes(x=age, y=prop, fill=dentition)) +   
   geom_bar( position = "dodge", stat="identity")+
-  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
   xlab("")+ylab("Patients(%)")+
   ylim(c(0,1))+
 ggtitle("natural dentition per age brackets")+
@@ -407,7 +407,7 @@ geom_bar(position = "dodge",stat="identity")+
   ylim(c(0,1))+
    theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=12))+
    ggtitle("active caries by county")+
-   geom_text(aes(label=round(patient,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   geom_text(aes(label=round(patient,3)*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars 
    theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
  
 figure <- ggarrange(f1, f2,
@@ -498,7 +498,7 @@ caries_age=tibble(prop=caries_group, age=rep(age_group, each=2), caries=rep(c("n
 
 ggplot(caries_age, aes(x=age, y=prop, fill=caries)) +   ### putting aes in ggplot will position numbers over bar more precisely 
   geom_bar(position = "dodge", stat="identity")+
-  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars
   xlab("")+ylab("Patients (%)")+
 ggtitle("caries by age group")+
 theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title  
@@ -574,7 +574,7 @@ f2=ggplot(data.frame(disease=medical_condition, patient=medical_condition_prop),
    xlab("")+ylab("Patient (yes %)")+
    theme(axis.text.x = element_text(angle =60, vjust = 0.5, size=7))+
    ggtitle("medical conditions")+
-   geom_text(aes(label=round(patient,2)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   geom_text(aes(label=round(patient,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
    theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
  
 
