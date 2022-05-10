@@ -5,6 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
 library(tidyverse)
 library(ggpubr) # combine and arrange multiple 
 library(rstatix) # use anova_test function 
@@ -31,6 +32,7 @@ colnames(Research_Measurements)=col_names
 
 
 
+
 ## material comparisons-annova test 
 
 ```{r, echo=F, message=F, warning=F}
@@ -52,6 +54,27 @@ knitr::kable(anova_result, "pipe")
 * each row is one condition, under which anova test is performed to test the equality among 5 materials 
 
 * small p value (0) indicates that they are not all equal 
+
+
+## pairwise comparison of each material to control for Translucency
+
+```{r, echo=F, message=F, warning=F}
+material_group=unique(material)
+p_value=numeric()
+control=Research_Measurements%>%filter(Material==material_group[length(material_group)]) %>% select(colnames(Research_Measurements)[26]) %>%pull
+for (i in 1:(length(material_group)-1))
+{
+ case=Research_Measurements%>%filter(Material==material_group[i]) %>% select(colnames(Research_Measurements)[26]) %>%pull
+ two_sample_ttest=t.test(case, control, paired=F)
+ p_value[i]=two_sample_ttest$p.value
+}
+
+Translucency_comparison=data.frame(comparison=paste(material_group[1:4], " vs ", material_group[5]), p_value=p_value)
+knitr::kable(Translucency_comparison, "pipe")
+```
+
+* for column `Translucency_of each at_37C_EE-FF_DE`, compare with different materials 
+
 
 
 ## DD vs GG 
@@ -84,15 +107,19 @@ knitr::kable(t_test_result, "pipe", caption="p values by two sample t test")
 
 ## response profile analysis 
 
-### No Background, (No)Cling Wrap-L
+```{r, echo=F, message=F, warning=F}
+pre_poly_adjusted_values=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202204\\Megan\\pre-poly adjusted values.csv", header=F))
+```
+
+### No Background, No Cling Wrap-L
 
 ```{r, echo=F, warning=F, message=F}
 # transform wide format to long format 
-occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # corresponds to columns 2, 5 11, 20 
+occasion=c("0 (pre-poly)", "30 min post-poly", "8 days post-poly") # corresponds to columns 2, 5, 20 
 obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
 id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
 
-y=numeric(); col_index=c(2,8,11,20); ii=0 # for each subject, extract measurements at different time points/occasions 
+y=numeric(); col_index=c(2,8,20); ii=0 # for each subject, extract measurements at different time points/occasions 
 for (i in 1:nrow(Research_Measurements))
  for (j in 1:length(col_index))
  {
@@ -106,7 +133,9 @@ time=rep(occasion, nrow(Research_Measurements))
   
 Research_Measurements_L=data.frame(obs=obs, id=id, group=group, y=y, time=time)
 
-interaction.plot(time, group, y, type="b", pch=c(1,2, 3,4), xlab="Time", ylab="L", main="No Background, (No)Cling Wrap-L", col=c("blue", "green", "orange", "red"))
+Research_Measurements_L$y[which(Research_Measurements_L$time=="0 (pre-poly)")]=pre_poly_adjusted_values[,1]%>%pull() # replace L at 0 with adjusted value 
+
+interaction.plot(time, group, y, type="b", pch=c(1,2,3,4,5), xlab="Time", ylab="L", main="L* Values Before and After Polymerization", col=c("blue", "green", "orange", "red", "black"))
 
 
 #model <- gls(y ~ time*group, Research_Measurements_L,  corr=corSymm(,form= ~ 1 | id), weights = varIdent(form = ~ 1 | factor(time)))
@@ -124,19 +153,19 @@ anova(model)
 * small p value for `time:group` suggests the change pattern after 0 (pre-poly) are different across material groups. 
 
 * four conditions are `Pre-Polymerization-No Background, Cling Wrap-L`, 
-`30 Minutes Post-Polymerization-No Background, No Cling Wrap-L`, `7 Days Post-Polymerization-No Background, No Cling Wrap-L`, `8 Days Post-Polymerization-No Background, No Cling Wrap-L`, so in addition to time difference, Cling wrap is also different as only `Cling wrap` happens at Pre-Polymerization. 
+`30 Minutes Post-Polymerization-No Background, No Cling Wrap-L`, `8 Days Post-Polymerization-No Background, No Cling Wrap-L`, while at 0, use adjusted values  
 
 
 
-### No Background, (No)Cling Wrap-a
+### No Background, No Cling Wrap-a
 
 ```{r, echo=F, warning=F, message=F}
 # transform wide format to long format 
-occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # a corresponds to columns 3, 6 12, 21 
+occasion=c("0 (pre-poly)", "30 min post-poly", "8 days post-poly") # a corresponds to columns 3, 6 12, 21 
 obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
 id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
 
-y=numeric(); col_index=c(3,9,12,21); ii=0 # for each subject, extract measurements at different time points/occasions 
+y=numeric(); col_index=c(3,9,21); ii=0 # for each subject, extract measurements at different time points/occasions 
 for (i in 1:nrow(Research_Measurements))
  for (j in 1:length(col_index))
  {
@@ -149,8 +178,9 @@ group=rep(material, each=length(occasion))
 time=rep(occasion, nrow(Research_Measurements))  
   
 Research_Measurements_a=data.frame(obs=obs, id=id, group=group, y=y, time=time)
+Research_Measurements_a$y[which(Research_Measurements_a$time=="0 (pre-poly)")]=pre_poly_adjusted_values[,2]%>%pull() # replace L at 0 with adjusted value
 
-interaction.plot(time, group, y, type="b", pch=c(1,2, 3,4), xlab="Time", ylab="a", main="No Background, (No)Cling Wrap-a", col=c("blue", "green", "orange", "red"))
+interaction.plot(time, group, y, type="b", pch=c(1,2,3,4,5), xlab="Time", ylab="a", main="a* Values Before and After Polymerization", col=c("blue", "green", "orange", "red", "black"))
 
 model <- gls(y ~ time*group, Research_Measurements_a)
 
@@ -162,11 +192,11 @@ anova(model)
 
 ```{r, echo=F, warning=F, message=F}
 # transform wide format to long format 
-occasion=c("0 (pre-poly)", "30 minutes", "7 days", "8 days") # b corresponds to columns 4, 7 13, 22 
+occasion=c("0 (pre-poly)", "30 min post-poly", "8 days post-poly") # b corresponds to columns 4, 7, 22 
 obs=seq(1, nrow(Research_Measurements)*length(occasion)) # all subjects in long format 
 id=rep(seq(1, nrow(Research_Measurements)), each=length(occasion))
 
-y=numeric(); col_index=c(4,10,13,22); ii=0 # for each subject, extract measurements at different time points/occasions 
+y=numeric(); col_index=c(4,10,22); ii=0 # for each subject, extract measurements at different time points/occasions 
 for (i in 1:nrow(Research_Measurements))
  for (j in 1:length(col_index))
  {
@@ -179,8 +209,9 @@ group=rep(material, each=length(occasion))
 time=rep(occasion, nrow(Research_Measurements))  
   
 Research_Measurements_b=data.frame(obs=obs, id=id, group=group, y=y, time=time)
+Research_Measurements_b$y[which(Research_Measurements_b$time=="0 (pre-poly)")]=pre_poly_adjusted_values[,3]%>%pull() # replace L at 0 with adjusted value
 
-interaction.plot(time, group, y, type="b", pch=c(1,2, 3,4), xlab="Time", ylab="b", main="No Background, (No)Cling Wrap-b", col=c("blue", "green", "orange", "red"))
+interaction.plot(time, group, y, type="b", pch=c(1,2,3,4,5), xlab="Time", ylab="b", main="b* Values Before and After Polymerization", col=c("blue", "green", "orange", "red", "black"))
 
 model <- gls(y ~ time*group, Research_Measurements_b)
 
