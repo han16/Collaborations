@@ -4,7 +4,11 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
+set.seed(123)
+library(tidyverse)
+library(kableExtra)
 ```
 
 ## study 1
@@ -14,12 +18,12 @@ knitr::opts_chunk$set(echo = TRUE)
 there are 3 groups and bone width will be measured before surgery and 4 months after. It aims to test if there is change between pro-surgery and post surgery within each group and across different groups 
 
 
-### two paired sample  t test to test within group different 
+### two paired sample  t test to test within group difference 
 
 
 ```{r, echo=F, message=F, warning=F}
 library(ggplot2)
-d=seq(0.1, 1, by=0.01); SD=0.2
+d=seq(0.1, 2, by=0.1); SD=1.5
 sample_size=numeric()
 for (i in 1:length(d))
 {
@@ -34,21 +38,27 @@ ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
   geom_point()+
   xlab("d:mean difference")+
   ylab("n:sample size")+
-  ggtitle("power=0.8; SD=0.2")+
+  ggtitle("power=0.8; SD=1.5")+
   theme(plot.title = element_text(hjust = 0.5, size=15))
 
+knitr::kable(data.frame(d, sample_size))%>%
+kable_styling() %>%
+scroll_box(height = "300px")
 ```
 
 * use `power.t.test` with option `alternative = "two.sided"`, `type="paired"`
 
+* sample size of 10 will be needed with SD of 1.5 and mean difference 1.5, as indicated in Table 2 [Eskow](https://pubmed.ncbi.nlm.nih.gov/23725026/)
 
-### two sample t test to test between group different
+
+
+### two sample t test to test between group difference
 
 
 
 ```{r, echo=F, message=F, warning=F}
 library(ggplot2)
-d=seq(0.1, 1, by=0.01); SD=0.2
+d=seq(0.1, 2, by=0.1); SD=1.5
 sample_size=numeric()
 for (i in 1:length(d))
 {
@@ -63,13 +73,20 @@ ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
   geom_point()+
   xlab("d:mean difference")+
   ylab("n:sample size")+
-  ggtitle("power=0.8; SD=0.2")+
+  ggtitle("power=0.8; SD=1.5")+
   theme(plot.title = element_text(hjust = 0.5, size=15))
+
+knitr::kable(data.frame(d, sample_size))%>%
+kable_styling() %>%
+scroll_box(height = "300px")
 
 ```
 
 
 * use `power.t.test` with option `alternative = "two.sided"`, `type="two.sample"`
+
+* sample size of 36 will be needed with SD of 1.5 and mean difference of 1.  
+
 
 
 ## study 3: sample size calculation 
