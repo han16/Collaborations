@@ -188,7 +188,7 @@ model <- gls(y ~ time*group, Research_Measurements_a)
 #summary(model)
 anova(model)
 ```
-### No Background, (No)Cling Wrap-b
+### No Background, No Cling Wrap-b
 
 
 ```{r, echo=F, warning=F, message=F}
