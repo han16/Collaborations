@@ -74,6 +74,7 @@ knitr::kable(Translucency_comparison, "pipe")
 ```
 
 * for column `Translucency_of each at_37C_EE-FF_DE`, compare with different materials 
+* with significance level of 5%, all comparisons are significantly different  
 
 
 

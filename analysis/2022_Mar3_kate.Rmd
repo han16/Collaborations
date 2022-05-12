@@ -215,6 +215,49 @@ data_long_sai %>% pairwise_t_test(PBI~time, paired = T, p.adjust.method = "bonfe
 
 * there is difference between screening and week 8. 
 
+## Cluster PBI by change direction 
+
+
+```{r, echo=F, message=F, warning=F}
+PBI_increase_indi=data%>%filter(Change.PBI_Screening.PBI.8.wk<0) %>% select(Patient.ID.Number) %>% pull
+PBI_decrease_indi=data%>%filter(Change.PBI_Screening.PBI.8.wk>0) %>% select(Patient.ID.Number) %>% pull
+data_long_increase=data_long%>%filter(individual %in% PBI_increase_indi==T)
+data_long_decrease=data_long%>%filter(individual %in% PBI_decrease_indi==T)
+
+```
+
+
+### trajectory plot 
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data=data_long_increase,aes(x=time, y=PBI, group=individual))+
+  geom_line(color="red")+
+  geom_point()
+
+
+g2=ggplot(data.frame(PBI_mean=c(mean(data[data$Patient.ID.Number%in% PBI_increase_indi, ]$PBI.Screening),mean(data[data$Patient.ID.Number%in% PBI_increase_indi,]$PBI.8.wk)), time=c("screening", "week 8")), aes(x=time, y=PBI_mean, group=1))+
+  ylim(c(min(data$PBI.8.wk, data$PBI.Screening), max(data$PBI.8.wk, data$PBI.Screening)))+
+  geom_line(color="red")+
+  geom_point()
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure 
+```
+
+```{r, echo=F, message=F, warning=F}
+data_long_increase %>%
+  group_by(time) %>%
+  get_summary_stats(PBI, type = "mean_sd")
+```
+
+```{r, echo=F, message=F, warning=F}
+res.aov <- anova_test(data = data_long_increase, dv = PBI, wid = individual, within = time)
+
+get_anova_table(res.aov)
+```
+
 
 ## sRDI & PBI ? 
 
