@@ -23,7 +23,7 @@ there are 3 groups and bone width will be measured before surgery and 4 months a
 
 ```{r, echo=F, message=F, warning=F}
 library(ggplot2)
-d=seq(0.1, 2, by=0.1); SD=1.5
+d=seq(0.1, 2, by=0.1); SD=1.55
 sample_size=numeric()
 for (i in 1:length(d))
 {
@@ -38,7 +38,7 @@ ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
   geom_point()+
   xlab("d:mean difference")+
   ylab("n:sample size")+
-  ggtitle("power=0.8; SD=1.5")+
+  ggtitle("power=0.8; SD=1.55")+
   theme(plot.title = element_text(hjust = 0.5, size=15))
 
 knitr::kable(data.frame(d, sample_size))%>%
@@ -48,7 +48,7 @@ scroll_box(height = "300px")
 
 * use `power.t.test` with option `alternative = "two.sided"`, `type="paired"`
 
-* sample size of 10 will be needed with SD of 1.5 and mean difference 1.5, as indicated in Table 2 [Eskow](https://pubmed.ncbi.nlm.nih.gov/23725026/)
+* sample size of 45 will be needed with SD of 1.55 and mean difference 0.66, as indicated in Table 2 [Whetman](https://pubmed.ncbi.nlm.nih.gov/27133791/#:~:text=Conclusion%3A%20This%20study%20indicates%20significantly,prior%20to%20dental%20implant%20placement.)
 
 
 
@@ -62,7 +62,7 @@ d=seq(0.1, 2, by=0.1); SD=1.5
 sample_size=numeric()
 for (i in 1:length(d))
 {
-  test=power.t.test(power = .80, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="two.sample") # two sample t test 
+  test=power.t.test(power = .80, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="paired") # two sample t test 
   sample_size[i]=round(test$n)
 }
 ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
@@ -83,9 +83,44 @@ scroll_box(height = "300px")
 ```
 
 
-* use `power.t.test` with option `alternative = "two.sided"`, `type="two.sample"`
+* use `power.t.test` with option `alternative = "two.sided"`, `type="paired"`
 
-* sample size of 36 will be needed with SD of 1.5 and mean difference of 1.  
+* sample size of 20 in each group will be needed with SD of 1.5 and mean difference of 1.  
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(ggplot2)
+d=seq(0.1, 2, by=0.1); SD=1
+sample_size=numeric()
+for (i in 1:length(d))
+{
+  test=power.t.test(power = .80, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="paired") # two sample t test 
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  #geom_vline(xintercept=0.13, colour="blue") +
+  #geom_text(aes(x=0.13, label="d=0.13", y=10), colour="blue", angle=90, vjust = 1.2, text=element_text(size=11))+
+  #geom_hline(yintercept=21, colour="blue") +
+  geom_point()+
+  xlab("d:mean difference")+
+  ylab("n:sample size")+
+  ggtitle("power=0.8; SD=1")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+knitr::kable(data.frame(d, sample_size))%>%
+kable_styling() %>%
+scroll_box(height = "300px")
+
+```
+
+* use `power.t.test` with option `alternative = "two.sided"`, `type="paired"`
+
+* sample size of 10 in each group will be needed with SD of 1 and mean difference of 1.  
+
 
 
 
