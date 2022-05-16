@@ -7,3 +7,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```

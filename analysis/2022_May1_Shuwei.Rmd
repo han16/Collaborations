@@ -1,0 +1,50 @@
+---
+title: "5/16/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(tidyverse)
+library(ggpubr) # combine and arrange multiple 
+set.seed(123)
+```
+
+## Condition v Control DEG
+
+* top 20 genes in `ST_DEGs`
+
+
+```{r, echo=F, message=F, warning=F}
+ST_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_ST_DEGs.csv", header=T))
+ST_DEGs_top=ST_DEGs %>% arrange(padj) %>% print(n=20)
+```
+
+* top 20 genes in `ST_plus_DEGs`
+
+```{r, echo=F, message=F, warning=F}
+ST_plus_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_ST_plus_DEGs.csv", header=T))
+ST_plus_DEGs%>%arrange(padj) %>% print(n=20)
+```
+* top 20 genes in `SV_DEGs`
+
+```{r, echo=F, message=F, warning=F}
+SV_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_SV_DEGs.csv", header=T))
+SV_DEGs%>%arrange(padj) %>% print(n=20)
+```
+
+* top 20 genes in `V_DEGs`
+
+```{r, echo=F, message=F, warning=F}
+V_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_V_DEGs.csv", header=T))
+V_DEGs %>% arrange(padj) %>% print(n=20)
+```
+
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```
