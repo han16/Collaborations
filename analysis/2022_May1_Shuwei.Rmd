@@ -14,6 +14,9 @@ set.seed(123)
 
 ## Condition v Control DEG
 
+
+* interesting genes:  "SOST", "VEGFA", "TNFSF11", "TNFRSF11B", 
+
 * top 20 genes in `ST_DEGs`
 
 

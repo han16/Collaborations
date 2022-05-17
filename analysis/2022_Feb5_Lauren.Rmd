@@ -4,7 +4,16 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+set.seed(123)
+```
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Mohamed\\D3_ENDO_Clicker_Survey_(Responses)_coded.csv", header=T))
+
 ```
 
 
