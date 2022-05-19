@@ -62,11 +62,12 @@ for (i in 1:length(target_genes))
 target_genes_info[[i]]=ST_DEGs %>% filter(X==target_genes[i]) %>% add_row(ST_plus_DEGs %>% filter(X==target_genes[i])) %>%add_row(SV_DEGs %>% filter(X==target_genes[i])) %>% add_row(V_DEGs %>% filter(X==target_genes[i])) # put gene  across 4 conditions together 
 
 target_genes_info[[i]]$X=paste(target_genes_info[[i]]$X, condition, sep="&")
-#write.csv(target_genes_info[[i]], file=paste("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\",target_gene[i], ".csv", sep=""))
+write.csv(target_genes_info[[i]], file=paste("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\",target_genes[i], ".csv", sep=""))
 }
 target_genes_info
 
 ```
+
 
 
 
