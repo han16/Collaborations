@@ -15,7 +15,7 @@ set.seed(123)
 ## Condition v Control DEG
 
 
-* interesting genes:  "SOST", "VEGFA", "TNFSF11", "TNFRSF11B", 
+* interesting genes:  "SOST", "VEGFA", "TNFSF11", "TNFRSF11B"
 
 * top 20 genes in `ST_DEGs`
 
@@ -23,27 +23,52 @@ set.seed(123)
 ```{r, echo=F, message=F, warning=F}
 ST_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_ST_DEGs.csv", header=T))
 ST_DEGs_top=ST_DEGs %>% arrange(padj) %>% print(n=20)
+#write.csv(ST_DEGs_top, file="C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\ST_DEGs_top.csv")
 ```
 
 * top 20 genes in `ST_plus_DEGs`
 
 ```{r, echo=F, message=F, warning=F}
 ST_plus_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_ST_plus_DEGs.csv", header=T))
-ST_plus_DEGs%>%arrange(padj) %>% print(n=20)
+ST_plus_DEGs_top=ST_plus_DEGs%>%arrange(padj) %>% print(n=20)
+
+#write.csv(ST_plus_DEGs_top, file="C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\ST_plus_DEGs_top.csv")
 ```
 * top 20 genes in `SV_DEGs`
 
 ```{r, echo=F, message=F, warning=F}
 SV_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_SV_DEGs.csv", header=T))
-SV_DEGs%>%arrange(padj) %>% print(n=20)
+SV_DEGs_top=SV_DEGs%>%arrange(padj) %>% print(n=20)
+#write.csv(SV_DEGs_top, file="C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\SV_DEGs_top.csv")
 ```
 
 * top 20 genes in `V_DEGs`
 
 ```{r, echo=F, message=F, warning=F}
 V_DEGs=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\04_V_DEGs.csv", header=T))
-V_DEGs %>% arrange(padj) %>% print(n=20)
+V_DEGs_top=V_DEGs %>% arrange(padj) %>% print(n=20)
+#write.csv(V_DEGs_top, file="C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\V_DEGs_top.csv")
 ```
+
+
+## target genes:  "SOST", "VEGFA", "TNFSF11", "TNFRSF11B"
+
+```{r, echo=F, warning=F, message=F}
+condition=c("ST", "ST_plus", "SV", "V")
+target_genes=c("SOST", "VEGFA", "TNFSF11", "TNFRSF11B")
+target_genes_info=list()
+for (i in 1:length(target_genes))
+{
+target_genes_info[[i]]=ST_DEGs %>% filter(X==target_genes[i]) %>% add_row(ST_plus_DEGs %>% filter(X==target_genes[i])) %>%add_row(SV_DEGs %>% filter(X==target_genes[i])) %>% add_row(V_DEGs %>% filter(X==target_genes[i])) # put gene  across 4 conditions together 
+
+target_genes_info[[i]]$X=paste(target_genes_info[[i]]$X, condition, sep="&")
+#write.csv(target_genes_info[[i]], file=paste("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202205\\shuwei\\OneDrive_1_5-12-2022\\Differential analysis RNA sequencing\\Condition v Control DEG\\",target_gene[i], ".csv", sep=""))
+}
+target_genes_info
+
+```
+
+
 
 
 ## statistical software 
