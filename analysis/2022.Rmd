@@ -29,7 +29,7 @@ bp.x <- ggplot(data = project_progress, aes(x = factor(project), y = progress)) 
     geom_bar(stat = "identity", aes(fill = progress)) + theme_gray() +
   geom_text(aes(label=progress), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars+
     labs(x = "project")+
-   labs(y="% (estimated)")+
+   labs(y="progress (% approx)")+
   scale_fill_distiller(name = "progress", palette = "Reds", direction = 1, na.value = "transparent") +
     scale_x_discrete(breaks = seq(1,11), labels = seq(1,11)) + # list all x labels 
     theme(legend.position = "right", legend.direction = "vertical",
