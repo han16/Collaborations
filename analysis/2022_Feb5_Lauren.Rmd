@@ -39,7 +39,7 @@ for (i in 1:length(questions))
     g1=ggplot(response_by_group, aes(x=response_cate, y=prop, fill=response_cate)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
-  ylab("")+ylim(c(0,1))+
+  ylab("%")+ylim(c(0,1))+
     xlab("")+
   geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
   #ggtitle(paste(questions[i]))+
@@ -85,7 +85,7 @@ if (i<=4)
   {   g1=ggplot(response_by_group, aes(x=response_cate, y=prop, fill=response_cate)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
-  ylab("")+ylim(c(0,1))+
+  ylab("%")+ylim(c(0,1))+
     xlab("")+
   geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
 
@@ -149,7 +149,7 @@ for (i in 1:length(questions))
     g1=ggplot(response_by_group, aes(x=response_cate, y=prop, fill=response_cate)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
-  ylab("")+ylim(c(0,1))+
+  ylab("%")+ylim(c(0,1))+
     xlab("")+
   geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)  # add numbers over bars
    
@@ -193,7 +193,7 @@ for (i in 1:length(questions))
   g1=ggplot(response_by_group, aes(x=response_cate, y=prop, fill=response_cate)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
-  ylab("")+ylim(c(0,1))+
+  ylab("%")+ylim(c(0,1))+
     xlab("")+
   geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)  # add numbers over bars
   
