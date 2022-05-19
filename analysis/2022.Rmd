@@ -8,6 +8,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+## projects 
+
+
 1. [Feb-Cem](2022_Feb.html)
 2. [Feb-Lobat](2022_Feb2.html)
 3. [Feb-Essa](2022_Feb3.html)
@@ -20,9 +23,9 @@ library(tidyverse)
 10. [Apr-Megan](2022_Apr2_Megan.html)
 11. [May-shuwei](2022_May1_Shuwei.html)
 
-## project progress 
+##  progress 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 project_progress=data.frame(project=seq(1,11), progress=c(100, 100, 100, 90, 10, 50, 100, 60, 60, 90, 70))
 
 bp.x <- ggplot(data = project_progress, aes(x = factor(project), y = progress)) + 
@@ -42,23 +45,27 @@ bp.x
 
 
 
-```{r, echo=F, message=F, warning=F, eval=F}
 
+
+
+```{r, echo=F, message=F, warning=F}
 ###### https://rstudio-pubs-static.s3.amazonaws.com/215319_ac67755c296b441dac7b24b48fc30156.html
-
 project_progress=data.frame(project=seq(1,11), progress=c(100, 100, 100, 90, 10, 50, 100, 60, 60, 90, 70))
-
-bp.x <- ggplot(data = project_progress, aes(y = factor(project), x = progress)) + 
-    geom_bar(stat = "identity", aes(fill = project)) + coord_flip()+theme_gray() +
-  #geom_text(aes(label=progress), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars+
-    labs(x = "project")+
-   labs(y="% (estimated)")+
-  scale_fill_distiller(name = "progress", palette = "Reds", direction = 1, na.value = "transparent") +
-    scale_y_discrete(breaks = seq(1,10), labels = seq(1,10)) 
-    theme(legend.position = "bottom", legend.direction = "horizontal",
+bp.y <- ggplot(data =project_progress, aes(x = factor(project), y = progress)) + 
+    geom_bar(stat = "identity", aes(fill = progress))+ 
+  labs(x = "project")+
+  geom_text(aes(label=progress), position=position_dodge(width=0.8), vjust=0.25, color="blue")+  # add numbers over bars+
+coord_flip()+ 
+ theme_gray() +
+    theme(axis.title.x = element_blank(), axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(), axis.text.y = element_text(size = 13), 
+          axis.title.y = element_text(size = 12, margin = margin(0,10,0,0), angle =90 ), # this adjusts "project" on y axis 
+          legend.position="none") + 
+    scale_fill_distiller(name = "progress", palette = "Reds", direction = 1) + 
+  theme(legend.position = "right", legend.direction = "vertical",
           legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
           legend.text = element_text(size = 7))+
   ggtitle("as of 5/19/2022")+
-  theme(plot.title = element_text(hjust = 0.5, size=15)) #center the title 
-bp.x
+  theme(plot.title = element_text(hjust = 0.5, size=15)) #center the title
+bp.y
 ```
