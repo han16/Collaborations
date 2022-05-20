@@ -4,8 +4,14 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
+set.seed(123)
 ```
+
+
+
+
 
 ## Problem 
 
@@ -49,7 +55,7 @@ data=rbind(data1, data2)
 ```
 
 ```{r, echo=F, message=F, warning=F}
-two_sample_ttest=t.test(data1$Total[1:13], data2$Total[1:13], paired=T)
+two_sample_ttest=t.test(data1$Total, data2$Total, paired=T)
 two_sample_ttest
 ```
 
