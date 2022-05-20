@@ -63,3 +63,10 @@ two_sample_ttest
 
 * on average  digital `Total` is bigger than manual 
 
+
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```

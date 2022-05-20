@@ -405,7 +405,7 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -472,16 +472,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree17f38c5ad6a3355b0b7230e632d2770f50ea8a07targetblank17f38c5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/17f38c5ad6a3355b0b7230e632d2770f50ea8a07" target="_blank">17f38c5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree762e9331865f0b98958afa8becf815314928fb18targetblank762e933a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/han16/Collaborations/tree/762e9331865f0b98958afa8becf815314928fb18" target="_blank">762e933</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree17f38c5ad6a3355b0b7230e632d2770f50ea8a07targetblank17f38c5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree762e9331865f0b98958afa8becf815314928fb18targetblank762e933a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/17f38c5ad6a3355b0b7230e632d2770f50ea8a07" target="_blank">17f38c5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/han16/Collaborations/tree/762e9331865f0b98958afa8becf815314928fb18" target="_blank">762e933</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -490,11 +490,8 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/2022_Mar1_Lisa.Rmd
-
 Unstaged changes:
-    Deleted:    analysis/2022_Mar1.Rmd
+    Modified:   analysis/2022_Mar1_Lisa.Rmd
 
 </code></pre>
 <p>
@@ -507,9 +504,69 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/2022_Mar1_Lisa.Rmd</code>) and HTML (<code>docs/2022_Mar1_Lisa.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/762e9331865f0b98958afa8becf815314928fb18/analysis/2022_Mar1_Lisa.Rmd" target="_blank">762e933</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-20
+</td>
+<td>
+5/20/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/762e9331865f0b98958afa8becf815314928fb18/docs/2022_Mar1_Lisa.html" target="_blank">762e933</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-20
+</td>
+<td>
+5/20/2022
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -544,6 +601,24 @@ mean of the differences
 <li><p>there is significant difference between digital <code>total</code> and manual</p></li>
 <li><p>on average digital <code>Total</code> is bigger than manual</p></li>
 </ul>
+</div>
+<div id="statistical-software" class="section level2">
+<h2>statistical software</h2>
+<pre><code>               _                           
+platform       x86_64-w64-mingw32          
+arch           x86_64                      
+os             mingw32                     
+system         x86_64, mingw32             
+status                                     
+major          4                           
+minor          1.2                         
+year           2021                        
+month          11                          
+day            01                          
+svn rev        81115                       
+language       R                           
+version.string R version 4.1.2 (2021-11-01)
+nickname       Bird Hippie                 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -582,9 +657,10 @@ loaded via a namespace (and not attached):
 [29] vctrs_0.3.8      sass_0.4.1       tidyselect_1.1.1 rprojroot_2.0.2 
 [33] grid_4.1.2       glue_1.6.0       R6_2.5.1         fansi_1.0.2     
 [37] rmarkdown_2.11   farver_2.1.0     purrr_0.3.4      magrittr_2.0.1  
-[41] scales_1.1.1     promises_1.2.0.1 ellipsis_0.3.2   htmltools_0.5.2 
-[45] assertthat_0.2.1 colorspace_2.0-2 httpuv_1.6.5     labeling_0.4.2  
-[49] utf8_1.2.2       stringi_1.7.6    munsell_0.5.0    crayon_1.4.2    </code></pre>
+[41] whisker_0.4      scales_1.1.1     promises_1.2.0.1 ellipsis_0.3.2  
+[45] htmltools_0.5.2  assertthat_0.2.1 colorspace_2.0-2 httpuv_1.6.5    
+[49] labeling_0.4.2   utf8_1.2.2       stringi_1.7.6    munsell_0.5.0   
+[53] crayon_1.4.2    </code></pre>
 </div>
 </div>
 
