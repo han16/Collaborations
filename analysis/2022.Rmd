@@ -25,8 +25,32 @@ library(tidyverse)
 
 ##  progress 
 
+
+```{r, echo=F, message=F, warning=F}
+###### https://rstudio-pubs-static.s3.amazonaws.com/215319_ac67755c296b441dac7b24b48fc30156.html
+project_progress=data.frame(project=seq(1,11), progress=c(100, 100, 100, 90, 50, 80, 100, 60, 60, 90, 70))
+bp.y <- ggplot(data =project_progress, aes(x = factor(project), y = progress)) + 
+    geom_bar(stat = "identity", aes(fill = progress))+ 
+  labs(x = "project")+
+  geom_text(aes(label=progress), position=position_dodge(width=0.8), vjust=0.25, color="black")+  # add numbers over bars+
+coord_flip()+ 
+ theme_gray() +
+    theme(axis.title.x = element_blank(), axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(), axis.text.y = element_text(size = 13), 
+          axis.title.y = element_text(size = 12, margin = margin(0,10,0,0), angle =90 ), # this adjusts "project" on y axis 
+          legend.position="none") + 
+    scale_fill_distiller(name = "progress", palette = "Reds", direction = 1) + 
+  theme(legend.position = "right", legend.direction = "vertical",
+          legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
+          legend.text = element_text(size = 7))+
+  ggtitle("as of 5/20/2022")+
+  theme(plot.title = element_text(hjust = 0.5, size=15)) #center the title
+bp.y
+```
+
+
 ```{r, echo=F, message=F, warning=F, eval=F}
-project_progress=data.frame(project=seq(1,11), progress=c(100, 100, 100, 90, 10, 50, 100, 60, 60, 90, 70))
+project_progress=data.frame(project=seq(1,11), progress=c(100, 100, 100, 90, 50, 80, 100, 60, 60, 90, 70))
 
 bp.x <- ggplot(data = project_progress, aes(x = factor(project), y = progress)) + 
     geom_bar(stat = "identity", aes(fill = progress)) + theme_gray() +
@@ -48,24 +72,3 @@ bp.x
 
 
 
-```{r, echo=F, message=F, warning=F}
-###### https://rstudio-pubs-static.s3.amazonaws.com/215319_ac67755c296b441dac7b24b48fc30156.html
-project_progress=data.frame(project=seq(1,11), progress=c(100, 100, 100, 90, 10, 50, 100, 60, 60, 90, 70))
-bp.y <- ggplot(data =project_progress, aes(x = factor(project), y = progress)) + 
-    geom_bar(stat = "identity", aes(fill = progress))+ 
-  labs(x = "project")+
-  geom_text(aes(label=progress), position=position_dodge(width=0.8), vjust=0.25, color="blue")+  # add numbers over bars+
-coord_flip()+ 
- theme_gray() +
-    theme(axis.title.x = element_blank(), axis.text.x = element_blank(),
-          axis.ticks.x = element_blank(), axis.text.y = element_text(size = 13), 
-          axis.title.y = element_text(size = 12, margin = margin(0,10,0,0), angle =90 ), # this adjusts "project" on y axis 
-          legend.position="none") + 
-    scale_fill_distiller(name = "progress", palette = "Reds", direction = 1) + 
-  theme(legend.position = "right", legend.direction = "vertical",
-          legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
-          legend.text = element_text(size = 7))+
-  ggtitle("as of 5/19/2022")+
-  theme(plot.title = element_text(hjust = 0.5, size=15)) #center the title
-bp.y
-```
