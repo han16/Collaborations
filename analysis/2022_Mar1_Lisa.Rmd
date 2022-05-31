@@ -61,8 +61,24 @@ two_sample_ttest
 
 * there is significant difference between digital `total` and manual 
 
-* on average  digital `Total` is bigger than manual 
+* on average  digital `Total` is bigger than manual, digital total-manual total=5.27 
 
+
+## individual pairwise test 
+
+```{r, echo=F, warning=F, message=F}
+variable=colnames(data1)[2:7]
+p_value=numeric(); mean_diff=numeric()
+for (i in 1:length(variable))
+{
+  two_sample_ttest=t.test(data1[,i+1], data2[,i+1], paired=T)
+  p_value[i]=two_sample_ttest$p.value
+  mean_diff[i]=two_sample_ttest$estimate
+}
+knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, p_value=p_value))
+```
+* mean difference=digital-manual 
+* `A` drives the difference most, followed by `MR`, `BLI`, `OR`, `O`.  
 
 
 ## statistical software 
