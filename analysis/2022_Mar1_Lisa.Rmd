@@ -80,6 +80,17 @@ knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, p_value=p_v
 * mean difference=digital-manual 
 * `A` drives the difference most, followed by `MR`, `BLI`, `OR`, `O`.  
 
+## intro rater reliability 
+
+Use standard deviation to measure reliability. Standard deviations for both manual and digital is 0.58.  
+
+```{r, echo=F, eval=F, message=F}
+manual=c(30,29,30)
+sd(manual)
+digital=c(33,33,32)
+sd(digital)
+```
+
 
 ## statistical software 
 
