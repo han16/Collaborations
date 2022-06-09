@@ -22,7 +22,7 @@ library(tidyverse)
 9. [Apr-Kofina](2022_Apr1_Kofina.html)
 10. [Apr-Megan](2022_Apr2_Megan.html)
 11. [May-shuwei](2022_May1_Shuwei.html)
-12. [May-Mariana](2022-May2_Mariana.html)
+12. [May-Mariana](2022_May2_Mariana.html)
 
 ##  progress 
 
@@ -44,7 +44,7 @@ coord_flip()+
   theme(legend.position = "right", legend.direction = "vertical",
           legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
           legend.text = element_text(size = 7))+
-  ggtitle("as of 6/3/2022")+
+  ggtitle("as of 6/6/2022")+
   theme(plot.title = element_text(hjust = 0.5, size=15)) #center the title
 bp.y
 ```

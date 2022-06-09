@@ -694,7 +694,25 @@ theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
 facet_wrap(~medical_condition)
 ```
 
+## logistic regression 
 
+
+### `teeth_affected_caries`
+
+```{r, echo=F, message=F, warning=F}
+glm_fit=glm(teeth_affected_caries ~ med_history_arthritis+Bulimia_acid_reflux_sleep_apnea+med_history_depression+med_history_dementia_alzheimers_memory_loss+diabetes+thyroid_diseases+cancer_treatment+med_history_tobacco, data=data_merge, family="poisson")
+
+cbind(cbind(estimate = coef(glm_fit), confint(glm_fit)), p_value=coef(summary(glm_fit))[,4])
+
+
+############### visualize ods ratio # https://rpubs.com/mbounthavong/forest_plots_r 
+
+
+```
+
+* poisson regression is used 
+
+* for continuous predictor, expected log count increase by  $\widehat{\beta}$ and for categorical predictors, it is the expected log count between different groups.  
 
 
 
@@ -714,13 +732,18 @@ data_merge=data_merge %>%mutate(county_regroup=county_regroup)
 ```
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data_merge%>%filter(med_history_arthritis!=2)
-glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial")
+#sub_data=data_merge%>%filter(med_history_arthritis!=2)
+data_merge$med_history_arthritis[data_merge$med_history_arthritis==2]=0 # replace NA with 0 
+glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial")
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
 
-* use 1160/1657 patients with arthritis by `med_history_arthritis!=2`
+* logistic regression is used 
+
+* NA is replaced with No, 0
+
+* use 1160/5876 patients with arthritis 
 
 * all predictors are assumed to be independent, without interactions 
 
@@ -738,14 +761,15 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 ### `Bulimia_acid_reflux_sleep_apnea`
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data_merge%>%filter(Bulimia_acid_reflux_sleep_apnea!=2)
-glm_fit=glm(as.factor(Bulimia_acid_reflux_sleep_apnea)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial")
+#sub_data=data_merge%>%filter(Bulimia_acid_reflux_sleep_apnea!=2)
+data_merge$Bulimia_acid_reflux_sleep_apnea[Bulimia_acid_reflux_sleep_apnea==2]=0 # replace NA with 0
+glm_fit=glm(as.factor(Bulimia_acid_reflux_sleep_apnea)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial")
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
 
-* 1046/2507 have `Bulimia_acid_reflux_sleep_apnea==1`
-
+* 1046/5876 have `Bulimia_acid_reflux_sleep_apnea==1`
+* NA is replaced with 0, No 
 
 *  age is significant 
 
@@ -755,30 +779,33 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 ### `med_history_depression`
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data_merge%>%filter(med_history_depression!=2)
-glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial")
+#sub_data=data_merge%>%filter(med_history_depression!=2)
+data_merge$med_history_depression[data_merge$med_history_depression==2]=0 # replace NA with 0
+glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial")
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
 
-* 553/563 patients have depression 
+* 553/5876 patients have depression 
 
-* no predictors are statistically significant 
+
 
 
 ### `med_history_diabetes_type1+med_history_diabetes_type2`
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data_merge%>%filter(diabetes!=2)
-glm_fit=glm(as.factor(diabetes)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial") # response variable need to be factor 
+#sub_data=data_merge%>%filter(diabetes!=2)
+data_merge$diabetes[data_merge$diabetes==2]=0 # replace NA with 0
+
+glm_fit=glm(as.factor(diabetes)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 ```
 
 
-* 773/777 has DB
+* 773/5876 has DB
 
-* none variable is significant 
+
 
  
 
