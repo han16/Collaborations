@@ -8,6 +8,8 @@ rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
 library(tidyverse)
+library(gridExtra)
+library(ggplot2)
 library(ggpubr) # combine and arrange multiple 
 set.seed(123)
 ```
@@ -702,11 +704,78 @@ facet_wrap(~medical_condition)
 ```{r, echo=F, message=F, warning=F}
 glm_fit=glm(teeth_affected_caries ~ med_history_arthritis+Bulimia_acid_reflux_sleep_apnea+med_history_depression+med_history_dementia_alzheimers_memory_loss+diabetes+thyroid_diseases+cancer_treatment+med_history_tobacco, data=data_merge, family="poisson")
 
-cbind(cbind(estimate = coef(glm_fit), confint(glm_fit)), p_value=coef(summary(glm_fit))[,4])
+#cbind(cbind(estimate = coef(glm_fit), confint(glm_fit)), p_value=coef(summary(glm_fit))[,4])
 
 
-############### visualize ods ratio # https://rpubs.com/mbounthavong/forest_plots_r 
+############### visualize odds ratio # https://rpubs.com/mbounthavong/forest_plots_r 
+no_cova=8
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("med_history_arthritis","Bulimia_acid_reflux_sleep_apnea", "med_history_depression", "med_history_dementia_alzheimers_memory_loss", "diabetes", "thyroid_diseases", "cancer_treatment", "med_history_tobacco"),
+  Mean_Ratio=exp(round(coef(glm_fit)[2:9],2)),
+  #Mean_Ratio=c("1.12(0)", "1.02(0.004)", "0.84(0)", "0.95(0)", "1.08(0)", "1.25(0)", "0.94(0.001)", "1.20(0)"),
+  LL=exp(round(confint(glm_fit)[2:9,1],2)),
+  UL=exp(round(confint(glm_fit)[2:9,2],2)),
+  CI=c("1.08, 1.14", "1.01, 1.04", "0.80, 0.87", "0.93, 0.96", "1.05, 1.13", "1.19, 1.31", "0.91, 0.98", "1.17, 1.23"),
+  p_value=round(coef(summary(glm_fit))[2:9,4],3)
+)
 
+plot1 <- ggplot(dat, aes(y = Index, x = Mean_Ratio)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("Mean Ratio (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(Mean_Ratio, digits = 2))), size = 4) + ## decimal places
+  ggtitle("Mean Ratio")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 
 ```
 
@@ -735,7 +804,79 @@ data_merge=data_merge %>%mutate(county_regroup=county_regroup)
 #sub_data=data_merge%>%filter(med_history_arthritis!=2)
 data_merge$med_history_arthritis[data_merge$med_history_arthritis==2]=0 # replace NA with 0 
 glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial")
-cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+
+no_cova=8
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("med_history_arthritis","Bulimia_acid_reflux_sleep_apnea", "med_history_depression", "med_history_dementia_alzheimers_memory_loss", "diabetes", "thyroid_diseases", "cancer_treatment", "med_history_tobacco"),
+  Mean_Ratio=exp(round(coef(glm_fit)[2:9],2)),
+  #Mean_Ratio=c("1.12(0)", "1.02(0.004)", "0.84(0)", "0.95(0)", "1.08(0)", "1.25(0)", "0.94(0.001)", "1.20(0)"),
+  LL=exp(round(confint(glm_fit)[2:9,1],2)),
+  UL=exp(round(confint(glm_fit)[2:9,2],2)),
+  CI=c("1.08, 1.14", "1.01, 1.04", "0.80, 0.87", "0.93, 0.96", "1.05, 1.13", "1.19, 1.31", "0.91, 0.98", "1.17, 1.23"),
+  p_value=round(coef(summary(glm_fit))[2:9,4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = Mean_Ratio)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("Mean Ratio (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(Mean_Ratio, digits = 2))), size = 4) + ## decimal places
+  ggtitle("Mean Ratio")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
 
 ```
 
