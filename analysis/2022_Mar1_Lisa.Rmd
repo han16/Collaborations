@@ -69,13 +69,20 @@ two_sample_ttest
 ```{r, echo=F, warning=F, message=F}
 variable=colnames(data1)[2:7]
 p_value=numeric(); mean_diff=numeric()
+SD=numeric()
+Range_min=numeric()
+Range_max=numeric()
 for (i in 1:length(variable))
 {
   two_sample_ttest=t.test(data1[,i+1], data2[,i+1], paired=T)
   p_value[i]=two_sample_ttest$p.value
   mean_diff[i]=two_sample_ttest$estimate
+  
+  SD[i]=sd(data1[,i+1]-data2[,i+1])
+  Range_min[i]=min(data1[,i+1]-data2[,i+1])
+  Range_max[i]=max(data1[,i+1]-data2[,i+1])
 }
-knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, p_value=p_value))
+knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, SD=SD, p_value=p_value, Range_min=Range_min, Range_max=Range_max))
 ```
 * mean difference=digital-manual 
 * `A` drives the difference most, followed by `MR`, `BLI`, `OR`, `O`.  
@@ -89,8 +96,10 @@ manual=c(30,29,30)
 sd(manual)
 digital=c(33,33,32)
 sd(digital)
-```
 
+cor.test(x=manual, y=digital, method = 'spearman')
+```
+The Spearman rank correlation coefficient is $r=-0.5$. 
 
 ## statistical software 
 
