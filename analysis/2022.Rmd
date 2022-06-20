@@ -24,13 +24,14 @@ library(tidyverse)
 11. [May-shuwei](2022_May1_Shuwei.html)
 12. [May-Mariana](2022_May2_Mariana.html)
 13. [Jun-Jacob](2022_Jun1_Jacob.html)
+14. [Jun-Scott](2022_Jun2_Scott.html)
 
 ##  progress 
 
 
 ```{r, echo=F, message=F, warning=F}
 ###### https://rstudio-pubs-static.s3.amazonaws.com/215319_ac67755c296b441dac7b24b48fc30156.html
-project_progress=data.frame(project=seq(1,13), progress=c(100, 100, 100, 90, 50, 100, 100, 60, 100, 100, 70, 60,0))
+project_progress=data.frame(project=seq(1,14), progress=c(100, 100, 100, 90, 100, 90, 100, 60, 100, 100, 70, 60,0,0))
 bp.y <- ggplot(data =project_progress, aes(x = factor(project), y = progress)) + 
     geom_bar(stat = "identity", aes(fill = progress))+ 
   labs(x = "project")+
@@ -45,7 +46,7 @@ coord_flip()+
   theme(legend.position = "right", legend.direction = "vertical",
           legend.title = element_text(size = 15), legend.key.size = unit(1,"cm"),
           legend.text = element_text(size = 7))+
-  ggtitle("as of 6/10/2022")+
+  ggtitle("as of 6/20/2022")+
   theme(plot.title = element_text(hjust = 0.5, size=15)) #center the title
 bp.y
 ```
