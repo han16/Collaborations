@@ -84,8 +84,12 @@ for (i in 1:length(variable))
 }
 knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, SD=SD, p_value=p_value, Range_min=Range_min, Range_max=Range_max))
 ```
+
+
 * mean difference=digital-manual 
 * `A` drives the difference most, followed by `MR`, `BLI`, `OR`, `O`.  
+* range is (Range_min, Range_max)
+
 
 ## intro rater reliability 
 
