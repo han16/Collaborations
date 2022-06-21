@@ -8,3 +8,183 @@ date: '2022-06-10'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r, echo=F, warning=F, message=F}
+Arch_Length=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Jacob\\Arch_Length.csv", header=T)
+
+Extraction_Space=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Jacob\\Extraction_Space.csv", header=T)
+
+Incisor_Proclination=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Jacob\\Incisor_Proclination.csv", header=T)
+
+Intercanine_Width=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Jacob\\Intercanine_Width.csv", header=T)
+
+Interincisal_Spacing=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Jacob\\Interincisal_Spacing.csv", header=T)
+
+Intermolar_Width=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Jacob\\Intermolar_Width.csv", header=T)
+
+```
+
+## Arch Length 
+
+```{r, echo=F, warning=F, message=F}
+upper_difference_damon=Arch_Length[2,2:5]-Arch_Length[1,2:5]
+upper_difference_mbt=Arch_Length[2,6:9]-Arch_Length[1,6:9]
+
+upper_difference_test=t.test(upper_difference_damon, upper_difference_mbt)
+result=data.frame(pvalue=upper_difference_test$p.value, CI_lower=upper_difference_test$conf.int[1], CI_upper=upper_difference_test$conf.int[2])
+result
+```
+
+* test upper difference `Damon(post-pre)-MBT(post-pre)`
+* use two sample t test 
+
+```{r, echo=F, warning=F, message=F}
+lower_difference_damon=Arch_Length[4,2:5]-Arch_Length[3,2:5]
+lower_difference_mbt=Arch_Length[4,6:9]-Arch_Length[3,6:9]
+
+lower_difference_test=t.test(lower_difference_damon, lower_difference_mbt)
+result=data.frame(pvalue=lower_difference_test$p.value, CI_lower=lower_difference_test$conf.int[1], CI_upper=lower_difference_test$conf.int[2])
+result
+```
+
+
+* test lower difference `Damon(post-pre)-MBT(post-pre)`
+
+
+
+## Extraction Space
+
+```{r, echo=F, warning=F, message=F}
+upper_difference_damon=Extraction_Space[2,2:5]-Extraction_Space[1,2:5]
+upper_difference_mbt=Extraction_Space[2,6:9]-Extraction_Space[1,6:9]
+
+upper_difference_test=t.test(upper_difference_damon, upper_difference_mbt)
+result=data.frame(pvalue=upper_difference_test$p.value, CI_lower=upper_difference_test$conf.int[1], CI_upper=upper_difference_test$conf.int[2])
+result
+```
+
+* test upper difference `Damon(post-pre)-MBT(post-pre)`
+* use two sample t test 
+
+```{r, echo=F, warning=F, message=F}
+lower_difference_damon=Extraction_Space[4,2:5]-Extraction_Space[3,2:5]
+lower_difference_mbt=Extraction_Space[4,6:9]-Extraction_Space[3,6:9]
+
+lower_difference_test=t.test(lower_difference_damon, lower_difference_mbt)
+result=data.frame(pvalue=lower_difference_test$p.value, CI_lower=lower_difference_test$conf.int[1], CI_upper=lower_difference_test$conf.int[2])
+result
+```
+
+
+* test lower difference `Damon(post-pre)-MBT(post-pre)`
+
+
+## Incisor Proclination
+
+```{r, echo=F, warning=F, message=F}
+upper_difference_damon=Incisor_Proclination[2,2:5]-Incisor_Proclination[1,2:5]
+upper_difference_mbt=Incisor_Proclination[2,6:9]-Incisor_Proclination[1,6:9]
+
+upper_difference_test=t.test(upper_difference_damon, upper_difference_mbt)
+result=data.frame(pvalue=upper_difference_test$p.value, CI_lower=upper_difference_test$conf.int[1], CI_upper=upper_difference_test$conf.int[2])
+result
+```
+
+* test upper difference `Damon(post-pre)-MBT(post-pre)`
+* use two sample t test 
+
+```{r, echo=F, warning=F, message=F}
+lower_difference_damon=Incisor_Proclination[4,2:5]-Incisor_Proclination[3,2:5]
+lower_difference_mbt=Incisor_Proclination[4,6:9]-Incisor_Proclination[3,6:9]
+
+lower_difference_test=t.test(lower_difference_damon, lower_difference_mbt)
+result=data.frame(pvalue=lower_difference_test$p.value, CI_lower=lower_difference_test$conf.int[1], CI_upper=lower_difference_test$conf.int[2])
+result
+```
+
+
+* test lower difference `Damon(post-pre)-MBT(post-pre)`
+
+
+
+## Intercanine Width
+
+```{r, echo=F, warning=F, message=F}
+upper_difference_damon=Intercanine_Width[2,2:5]-Intercanine_Width[1,2:5]
+upper_difference_mbt=Intercanine_Width[2,6:9]-Intercanine_Width[1,6:9]
+
+upper_difference_test=t.test(upper_difference_damon, upper_difference_mbt)
+result=data.frame(pvalue=upper_difference_test$p.value, CI_lower=upper_difference_test$conf.int[1], CI_upper=upper_difference_test$conf.int[2])
+result
+```
+
+* test upper difference `Damon(post-pre)-MBT(post-pre)`
+* use two sample t test 
+
+```{r, echo=F, warning=F, message=F}
+lower_difference_damon=Intercanine_Width[4,2:5]-Intercanine_Width[3,2:5]
+lower_difference_mbt=Intercanine_Width[4,6:9]-Intercanine_Width[3,6:9]
+
+lower_difference_test=t.test(lower_difference_damon, lower_difference_mbt)
+result=data.frame(pvalue=lower_difference_test$p.value, CI_lower=lower_difference_test$conf.int[1], CI_upper=lower_difference_test$conf.int[2])
+result
+```
+
+
+* test lower difference `Damon(post-pre)-MBT(post-pre)`
+
+
+## Interincisal Spacing
+
+```{r, echo=F, warning=F, message=F}
+upper_difference_test=t.test(Interincisal_Spacing[1,2:5], Interincisal_Spacing[1,6:9])
+result=data.frame(pvalue=upper_difference_test$p.value, CI_lower=upper_difference_test$conf.int[1], CI_upper=upper_difference_test$conf.int[2])
+result
+```
+
+* test upper difference `Damon(post-pre)-MBT(post-pre)`
+* use two sample t test 
+
+```{r, echo=F, warning=F, message=F}
+lower_difference_test=t.test(Interincisal_Spacing[2,2:5], Interincisal_Spacing[2,6:9])
+result=data.frame(pvalue=lower_difference_test$p.value, CI_lower=lower_difference_test$conf.int[1], CI_upper=lower_difference_test$conf.int[2])
+result
+```
+
+
+* test lower difference `Damon(post-pre)-MBT(post-pre)`
+
+
+## Intermolar Width
+
+```{r, echo=F, warning=F, message=F}
+upper_difference_damon=Intermolar_Width[2,2:5]-Intermolar_Width[1,2:5]
+upper_difference_mbt=Intermolar_Width[2,6:9]-Intermolar_Width[1,6:9]
+
+upper_difference_test=t.test(upper_difference_damon, upper_difference_mbt)
+result=data.frame(pvalue=upper_difference_test$p.value, CI_lower=upper_difference_test$conf.int[1], CI_upper=upper_difference_test$conf.int[2])
+result
+```
+
+* test upper difference `Damon(post-pre)-MBT(post-pre)`
+* use two sample t test 
+
+```{r, echo=F, warning=F, message=F}
+lower_difference_damon=Intermolar_Width[4,2:5]-Intermolar_Width[3,2:5]
+lower_difference_mbt=Intermolar_Width[4,6:9]-Intermolar_Width[3,6:9]
+
+lower_difference_test=t.test(lower_difference_damon, lower_difference_mbt)
+result=data.frame(pvalue=lower_difference_test$p.value, CI_lower=lower_difference_test$conf.int[1], CI_upper=lower_difference_test$conf.int[2])
+result
+```
+
+
+* test lower difference `Damon(post-pre)-MBT(post-pre)`
+
+## p value Summary 
+
+
+| \      | Arch length |   Extraction Space    | Incisor Proclination | Intercanine Width | Interincisal Spacing | Intermolar Width |
+| :---        |    :----:   |          ---: |       ---:  |       ---:  |           ---:  |                                    ---:  |
+| Upper       | 0.0155      | 0.0004   |    0.0609         |  0.0266           |   0.0009              |       0.0071                                   |
+| Lower   | 0.0052       | 0.8697      |    0.0013         |   0.0118          |   0.0002              |            1.0000                              |

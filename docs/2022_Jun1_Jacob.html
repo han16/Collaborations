@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-06-10
+<strong>Last updated:</strong> 2022-06-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -425,10 +425,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree78cfd00579ffe4b9c49709e6993b1090d96fc0c5targetblank78cfd00a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6e504339bcb8180f991f4ecc16b15d4b2cca58a6targetblank6e50433a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/78cfd00579ffe4b9c49709e6993b1090d96fc0c5" target="_blank">78cfd00</a>
+<a href="https://github.com/han16/Collaborations/tree/6e504339bcb8180f991f4ecc16b15d4b2cca58a6" target="_blank">6e50433</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree78cfd00579ffe4b9c49709e6993b1090d96fc0c5targetblank78cfd00a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6e504339bcb8180f991f4ecc16b15d4b2cca58a6targetblank6e50433a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/78cfd00579ffe4b9c49709e6993b1090d96fc0c5" target="_blank">78cfd00</a>.
+<a href="https://github.com/han16/Collaborations/tree/6e504339bcb8180f991f4ecc16b15d4b2cca58a6" target="_blank">6e50433</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -556,11 +556,8 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/2022_Jun1_Jacob.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
+    Modified:   analysis/2022_Jun1_Jacob.Rmd
 
 </code></pre>
 <p>
@@ -575,14 +572,218 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2022_Jun1_Jacob.Rmd</code>) and
+HTML (<code>docs/2022_Jun1_Jacob.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/3fff321b2b07d5c210a90cf910dd4ee80aadaf8c/analysis/2022_Jun1_Jacob.Rmd" target="_blank">3fff321</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-14
+</td>
+<td>
+6/14/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/3fff321b2b07d5c210a90cf910dd4ee80aadaf8c/docs/2022_Jun1_Jacob.html" target="_blank">3fff321</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-14
+</td>
+<td>
+6/14/2022
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
+<div id="arch-length" class="section level2">
+<h2>Arch Length</h2>
+<pre><code>      pvalue  CI_lower   CI_upper
+1 0.01547259 -3.787105 -0.7128953</code></pre>
+<ul>
+<li>test upper difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+<li>use two sample t test</li>
+</ul>
+<pre><code>       pvalue CI_lower   CI_upper
+1 0.005159569 -1.45262 -0.3973795</code></pre>
+<ul>
+<li>test lower difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+</ul>
+</div>
+<div id="extraction-space" class="section level2">
+<h2>Extraction Space</h2>
+<pre><code>        pvalue  CI_lower   CI_upper
+1 0.0003521298 -1.586179 -0.7888212</code></pre>
+<ul>
+<li>test upper difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+<li>use two sample t test</li>
+</ul>
+<pre><code>     pvalue   CI_lower  CI_upper
+1 0.8697324 -0.6792497 0.7742497</code></pre>
+<ul>
+<li>test lower difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+</ul>
+</div>
+<div id="incisor-proclination" class="section level2">
+<h2>Incisor Proclination</h2>
+<pre><code>      pvalue  CI_lower  CI_upper
+1 0.06087071 -8.235741 0.2857406</code></pre>
+<ul>
+<li>test upper difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+<li>use two sample t test</li>
+</ul>
+<pre><code>       pvalue  CI_lower  CI_upper
+1 0.001272889 -5.309473 -2.140527</code></pre>
+<ul>
+<li>test lower difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+</ul>
+</div>
+<div id="intercanine-width" class="section level2">
+<h2>Intercanine Width</h2>
+<pre><code>      pvalue  CI_lower   CI_upper
+1 0.02655529 -2.043546 -0.2064544</code></pre>
+<ul>
+<li>test upper difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+<li>use two sample t test</li>
+</ul>
+<pre><code>      pvalue  CI_lower   CI_upper
+1 0.01176483 -2.106429 -0.3935712</code></pre>
+<ul>
+<li>test lower difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+</ul>
+</div>
+<div id="interincisal-spacing" class="section level2">
+<h2>Interincisal Spacing</h2>
+<pre><code>        pvalue  CI_lower   CI_upper
+1 0.0008788768 -2.082794 -0.8922064</code></pre>
+<ul>
+<li>test upper difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+<li>use two sample t test</li>
+</ul>
+<pre><code>        pvalue  CI_lower  CI_upper
+1 0.0001705371 -2.265351 -1.234649</code></pre>
+<ul>
+<li>test lower difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+</ul>
+</div>
+<div id="intermolar-width" class="section level2">
+<h2>Intermolar Width</h2>
+<pre><code>       pvalue   CI_lower   CI_upper
+1 0.007118978 -0.6446912 -0.1553088</code></pre>
+<ul>
+<li>test upper difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+<li>use two sample t test</li>
+</ul>
+<pre><code>  pvalue   CI_lower  CI_upper
+1      1 -0.5750033 0.5750033</code></pre>
+<ul>
+<li>test lower difference
+<code>Damon(post-pre)-MBT(post-pre)</code></li>
+</ul>
+</div>
+<div id="p-value-summary" class="section level2">
+<h2>p value Summary</h2>
+<table style="width:100%;">
+<colgroup>
+<col width="13%" />
+<col width="20%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">\</th>
+<th align="center">Arch length</th>
+<th align="right">Extraction Space</th>
+<th align="right">Incisor Proclination</th>
+<th align="right">Intercanine Width</th>
+<th align="right">Interincisal Spacing</th>
+<th align="right">Intermolar Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Upper</td>
+<td align="center">0.0155</td>
+<td align="right">0.0004</td>
+<td align="right">0.0609</td>
+<td align="right">0.0266</td>
+<td align="right">0.0009</td>
+<td align="right">0.0071</td>
+</tr>
+<tr class="even">
+<td align="left">Lower</td>
+<td align="center">0.0052</td>
+<td align="right">0.8697</td>
+<td align="right">0.0013</td>
+<td align="right">0.0118</td>
+<td align="right">0.0002</td>
+<td align="right">1.0000</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -609,16 +810,17 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8       knitr_1.37       magrittr_2.0.1   workflowr_1.7.0 
- [5] R6_2.5.1         rlang_0.4.12     fastmap_1.1.0    fansi_1.0.2     
- [9] stringr_1.4.0    tools_4.1.2      xfun_0.29        utf8_1.2.2      
-[13] git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2  
-[17] rprojroot_2.0.2  yaml_2.2.2       digest_0.6.29    tibble_3.1.6    
-[21] lifecycle_1.0.1  crayon_1.4.2     later_1.3.0      sass_0.4.1      
-[25] vctrs_0.3.8      promises_1.2.0.1 fs_1.5.2         glue_1.6.0      
-[29] evaluate_0.14    rmarkdown_2.11   stringi_1.7.6    bslib_0.3.1     
-[33] compiler_4.1.2   pillar_1.6.5     jsonlite_1.7.3   httpuv_1.6.5    
-[37] pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.8       whisker_0.4      knitr_1.37       magrittr_2.0.1  
+ [5] workflowr_1.7.0  R6_2.5.1         rlang_0.4.12     fastmap_1.1.0   
+ [9] fansi_1.0.2      stringr_1.4.0    tools_4.1.2      xfun_0.29       
+[13] utf8_1.2.2       git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2 
+[17] ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.2       digest_0.6.29   
+[21] tibble_3.1.6     lifecycle_1.0.1  crayon_1.4.2     later_1.3.0     
+[25] sass_0.4.1       vctrs_0.3.8      promises_1.2.0.1 fs_1.5.2        
+[29] glue_1.6.0       evaluate_0.14    rmarkdown_2.11   stringi_1.7.6   
+[33] bslib_0.3.1      compiler_4.1.2   pillar_1.6.5     jsonlite_1.7.3  
+[37] httpuv_1.6.5     pkgconfig_2.0.3 </code></pre>
+</div>
 </div>
 
 
