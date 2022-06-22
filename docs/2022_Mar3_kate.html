@@ -385,7 +385,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-06-09
+<strong>Last updated:</strong> 2022-06-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -519,15 +519,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree38a3565918f4a133dc551e705d2136b609ffec11targetblank38a3565a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree88ccebc0558982e7b4d6782e2cac98d74bad43e4targetblank88ccebca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/38a3565918f4a133dc551e705d2136b609ffec11" target="_blank">38a3565</a>
+<a href="https://github.com/han16/Collaborations/tree/88ccebc0558982e7b4d6782e2cac98d74bad43e4" target="_blank">88ccebc</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree38a3565918f4a133dc551e705d2136b609ffec11targetblank38a3565a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree88ccebc0558982e7b4d6782e2cac98d74bad43e4targetblank88ccebca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/38a3565918f4a133dc551e705d2136b609ffec11" target="_blank">38a3565</a>.
+<a href="https://github.com/han16/Collaborations/tree/88ccebc0558982e7b4d6782e2cac98d74bad43e4" target="_blank">88ccebc</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -553,13 +553,9 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    analysis/.Rhistory
-    Ignored:    analysis/figure/
 
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
-    Modified:   analysis/2022_Feb4.Rmd
     Modified:   analysis/2022_Mar3_kate.Rmd
-    Modified:   analysis/2022_May1_Shuwei.Rmd
 
 </code></pre>
 <p>
@@ -605,6 +601,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/78cfd00579ffe4b9c49709e6993b1090d96fc0c5/analysis/2022_Mar3_kate.Rmd" target="_blank">78cfd00</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-09
+</td>
+<td>
+6/9/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/78cfd00579ffe4b9c49709e6993b1090d96fc0c5/docs/2022_Mar3_kate.html" target="_blank">78cfd00</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-09
+</td>
+<td>
+6/9/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -756,64 +786,31 @@ small p value of 0.017.</p></li>
 <p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="clinical-successful-cluster" class="section level2">
-<h2>clinical successful cluster</h2>
+<div id="clusters" class="section level2">
+<h2>3 clusters</h2>
+<pre><code>                   group num_individual
+1 PBI &lt;=2 post-treatment             34
+2   PBI&gt;2 post-treatment             68
+3  PBI &gt;3 post-treatment             24</code></pre>
 </div>
-<div id="sai-sleep-apnea-index-pbi---two-way-repeated-anova"
-class="section level2">
-<h2>SAI (sleep apnea index) &amp; PBI - two way repeated anova</h2>
-<p>Each individual has one single SAI for both before and after the
-screening.</p>
+<div id="difference-at-week-8" class="section level2">
+<h2>difference at week 8</h2>
+<pre><code>       covariates      pvalue
+1             SAI 0.306622550
+2            sRDI 0.454962136
+3             SQI 0.106890523
+4   Fragmentation 0.106070502
+5      Cortisol.1 0.188600752
+6      Cortisol.2 0.164954925
+7      Cortisol.3 0.033610535
+8      Cortisol.4 0.009159739
+9  Total.Cortisol 0.024430413
+10      BMI.kg.m2 0.340663335</code></pre>
 <ul>
-<li><p>no PBI difference among 3 groups at screening</p></li>
-<li><p>no difference among 3 groups at week 8</p></li>
-<li><p>there is difference between screening and week 8.</p></li>
+<li>compare PBI &lt;=2 post-treatment vs PBI &gt;2 post-treatment at
+week 8</li>
+<li>two sample t test is used</li>
 </ul>
-</div>
-<div id="srdi-pbi" class="section level2">
-<h2>sRDI &amp; PBI</h2>
-</div>
-<div id="sqi-sleep-quality-index-vs-pbi" class="section level2">
-<h2>SQI (sleep quality index) vs PBI</h2>
-<p>Each individual has one SQI for both before and after the
-screening.</p>
-<ul>
-<li><p>big p values (&gt;0.05) indicate no main or interaction
-effects</p></li>
-<li><p>no PBI difference among 2 groups at screening</p></li>
-<li><p>there is difference between two groups at week 8</p></li>
-</ul>
-</div>
-<div id="fragmentation-vs-pbi" class="section level2">
-<h2>Fragmentation vs PBI</h2>
-<ul>
-<li><p>big p values (&gt;0.05) indicate no main or interaction
-effects</p></li>
-<li><p>no PBI difference among groups at screening</p></li>
-<li><p>no difference among groups at week 8.</p></li>
-</ul>
-</div>
-<div id="bmi-vs-pbi" class="section level2">
-<h2>BMI vs PBI</h2>
-<div id="summary-statistics-1" class="section level3">
-<h3>summary statistics</h3>
-</div>
-<div id="outliers" class="section level3">
-<h3>outliers</h3>
-<p>one outlier</p>
-</div>
-<div id="normality-assumption-1" class="section level3">
-<h3>normality assumption</h3>
-</div>
-<div id="results" class="section level3">
-<h3>results</h3>
-<ul>
-<li><p>big p values (&gt;0.05) indicate no main or interaction
-effects</p></li>
-<li><p>no PBI difference among groups at screening</p></li>
-<li><p>no difference</p></li>
-</ul>
-</div>
 </div>
 <div id="statistical-software" class="section level2">
 <h2>statistical software</h2>
