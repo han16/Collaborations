@@ -207,6 +207,7 @@ cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```{r, echo=F, message=F, warning=F}
 Diabetes=numeric(); cancer_treatment=numeric(); thyroid_diseases=numeric()
 Bulimia_acid_reflux_sleep_apnea=numeric()
+Osteoporosis_Bisphosphonates=numeric()
 
 for (i in 1:nrow(data))
 {
@@ -253,9 +254,22 @@ for (i in 1:nrow(data))
       if (data$med_history_bulimia[i]+ data$med_history_acid_reflux_gerd[i]+ data$med_history_sleep_apnea[i]<6)
         Bulimia_acid_reflux_sleep_apnea[i]=0
     }
+    
+    
+   ##################################################### 
+   if (data$med_history_osteoporosis[i]==1 | data$med_history_oral_bisphonates[i]==1) # combine hyper and hypo 
+    Osteoporosis_Bisphosphonates[i]=1
+  if (data$med_history_osteoporosis[i] !=1 & data$med_history_oral_bisphonates[i]!=1)
+    { 
+     if (data$med_history_osteoporosis[i]+data$med_history_oral_bisphonates[i]<=2)
+       Osteoporosis_Bisphosphonates[i]=0
+     if (data$med_history_osteoporosis[i]+data$med_history_oral_bisphonates[i]>2)
+       Osteoporosis_Bisphosphonates[i]=2
+  }     
+      
 }
 
-data_merge=data%>%mutate(diabetes=Diabetes, cancer_treatment=cancer_treatment, thyroid_diseases=thyroid_diseases, Bulimia_acid_reflux_sleep_apnea=Bulimia_acid_reflux_sleep_apnea)
+data_merge=data%>%mutate(diabetes=Diabetes, cancer_treatment=cancer_treatment, thyroid_diseases=thyroid_diseases, Bulimia_acid_reflux_sleep_apnea=Bulimia_acid_reflux_sleep_apnea,Osteoporosis_Bisphosphonates=Osteoporosis_Bisphosphonates)
 
 variables=c("med_history_diabetes_type1", "med_history_diabetes_type2", "diabetes", "med_history_radiation", "med_history_chemotherapy", "cancer_treatment", "med_history_hyperthyroidism", "med_history_hypothyroidism", "thyroid_diseases")
 
@@ -520,7 +534,7 @@ theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 ## Medical conditions 
 
 ```{r, echo=F, message=F, warning=F, eval=F}
-########### do not run this one with separate disese subtypes 
+########### do not run this one with separate disease subtypes 
 medical_condition=c("med_history_tobacco", "alcoholic_beverages_med_history", "med_history_high_blood_pressure", "med_history_diabetes_type1", "med_history_diabetes_type2", "med_history_hypothyroidism", "med_history_hyperthyroidism", "med_history_arthritis", "med_history_bulimia")
 medical_condition_prop=numeric()
 medical_condition_count=numeric()
@@ -906,16 +920,87 @@ grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 #sub_data=data_merge%>%filter(Bulimia_acid_reflux_sleep_apnea!=2)
 data_merge$Bulimia_acid_reflux_sleep_apnea[Bulimia_acid_reflux_sleep_apnea==2]=0 # replace NA with 0
 glm_fit=glm(as.factor(Bulimia_acid_reflux_sleep_apnea)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial")
-cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.03, 1.04", "1.03, 1.36", "0.32, 0.71", "0.45, 1.08", "0.28, 0.87", "0.41, 1.06", "0.45, 1.39", "0.21, 0.69", "0.36, 0.87", "1.00, 1.03", "1.00, 1.01"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+      
 
 ```
 
 * 1046/5876 have `Bulimia_acid_reflux_sleep_apnea==1`
+
 * NA is replaced with 0, No 
 
-*  age is significant 
 
-* several counties are significant, comparing to Kenosha 
 
 
 ### `med_history_depression`
@@ -924,11 +1009,173 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 #sub_data=data_merge%>%filter(med_history_depression!=2)
 data_merge$med_history_depression[data_merge$med_history_depression==2]=0 # replace NA with 0
 glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial")
-cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.06, 1.07", "1.82, 2.44", "0.82, 2.18", "1.08, 3.06", "1.00, 3.42", "0.90, 2.75", "0.80, 2.92", "1.00, 3.46", "0.66, 1.90", "1.00, 1.03", "1.00, 1.03"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+      
+
 
 ```
 
 * 553/5876 patients have depression 
+
+
+
+### `med_history_dementia_alzheimers_memory_loss`
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+# sub_data=data_merge%>%filter(cancer_treatment!=2) # remove missing values 
+data_merge$med_history_dementia_alzheimers_memory_loss[data_merge$med_history_dementia_alzheimers_memory_loss==2]=0 # replace NA with 0
+glm_fit=glm(as.factor(med_history_dementia_alzheimers_memory_loss)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.09, 1.15", "0.78, 1.00", "0.79, 1.84", "0.51, 1.26", "0.70, 2.12", "0.63, 1.67", "0.68, 2.14", "0.63, 1.90", "0.55, 1.36", "0.99, 1.01", "1.01, 1.03"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+
+```
+
+* 53/5876 has med_history_dementia_alzheimers_memory_loss after replacing NA with 0. 
+
+* this result is not reliable due to huge wide CI. 
+
 
 
 
@@ -940,12 +1187,83 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 data_merge$diabetes[data_merge$diabetes==2]=0 # replace NA with 0
 
 glm_fit=glm(as.factor(diabetes)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial") # response variable need to be factor 
-cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.04, 1.05", "0.76, 1.04", "0.71, 2.01", "0.39, 1.26", "0.37, 1.56", "0.76, 2.48", "0.43, 1.88", "0.43, 1.77", "0.38, 1.17", "1.00, 1.04", "1.02, 1.04"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+ 
 ```
 
 
-* 773/5876 has DB
+* 773/5876 has DB after replacing replacing NA with 0. 
 
 
 
@@ -954,42 +1272,444 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 ### `med_history_hyperthyroidism+med_history_hypothyroidism:thyroid disease`
 
-```{r, echo=F, message=F, warning=F}
-sub_data=data_merge%>%filter(thyroid_diseases!=2)
-glm_fit=glm(as.factor(thyroid_diseases)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial") # response variable need to be factor 
-cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
-```
-* 373/374 have thyroid diseases
+```{r, echo=F, message=F, warning=F, eval=T}
+#sub_data=data_merge%>%filter(thyroid_diseases!=2)
+data_merge$thyroid_diseases[data_merge$thyroid_diseases==2]=0 # replace NA with 0
+glm_fit=glm(as.factor(thyroid_diseases)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial") # response variable need to be factor 
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
-* none variable is significant 
+
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.03, 1.04", "3.13, 5.26", "0.21, 0.62", "0.24, 0.83", "0.29, 1.31", "0.26, 1.03", "0.25, 1.25", "0.21, 1.07", "0.31, 1.02", "0.96, 1.01", "0.96, 1.00"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+```
+* 373/5876 have thyroid diseases after replacing NA with 0
+
+
 
 
 ### `med_history_radiation+med_history_chemotherapy`
 
 
-```{r, echo=F, message=F, warning=F}
-sub_data=data_merge%>%filter(cancer_treatment!=2)
-glm_fit=glm(as.factor(cancer_treatment)~Age_at_exam  + Sex + county_regroup, data = sub_data, family = "binomial") # response variable need to be factor 
-cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+```{r, echo=F, message=F, warning=F, eval=T}
+# sub_data=data_merge%>%filter(cancer_treatment!=2) # remove missing values 
+data_merge$cancer_treatment[data_merge$cancer_treatment==2]=0 # replace NA with 0
+glm_fit=glm(as.factor(cancer_treatment)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial") # response variable need to be factor 
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.05, 1.07", "1.51, 2.44", "0.68, 4.48", "0.96, 6.82", "0.34, 3.86", "0.64, 5.26", "0.81, 7.85", "0.50, 5.42", "0.91, 6.42", "1.00, 1.05", "0.98, 1.02"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+
 ```
 
-* 317/484 receive either radiation or chemotherapy
-
-* only age is significant 
+* 317/5876 receive either radiation or chemotherapy after replacing NA with 0. 
 
 
-### `med_history_tobacco`
+
+
+
+### `med_history_high_blood_pressure`
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+# sub_data=data_merge%>%filter(cancer_treatment!=2) # remove missing values 
+data_merge$med_history_high_blood_pressure[data_merge$med_history_high_blood_pressure==2]=0 # replace NA with 0
+glm_fit=glm(as.factor(med_history_high_blood_pressure)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial") # response variable need to be factor 
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.06, 1.07", "0.78, 1.00", "0.79, 1.84", "0.51, 1.26", "0.70, 2.12", "0.63, 1.67", "0.68, 2.14", "0.63, 1.90", "0.55, 1.36", "0.99, 1.01", "1.01, 1.03"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+
+```
+
+* 1812/5876 has high blood pressure after replacing NA with 0. 
+
+
+### `med_history_osteoporosis+med_history_oral_bisphonates`
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+# sub_data=data_merge%>%filter(cancer_treatment!=2) # remove missing values 
+data_merge$Osteoporosis_Bisphosphonates[data_merge$Osteoporosis_Bisphosphonates==2]=0 # replace NA with 0
+glm_fit=glm(as.factor(Osteoporosis_Bisphosphonates)~Age_at_exam  + Sex + county_regroup+teeth_affected_caries+permanent_teeth_missing, data = data_merge, family = "binomial") # response variable need to be factor 
+#cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+##############################################
+no_cova=11
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.06, 1.08", "5.10, 11.94", "0.20, 0.90", "0.25, 1.35", "0.39, 2.72", "0.26, 1.62", "0.18, 1.79", "0.03, 0.76", "0.30, 1.52", "0.95, 1.02", "0.98, 1.03"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+
+```
+
+* 199/5876 has osteoporosis + bisphosphonates after replacing NA with 0. 
+
+
+
+
+### `permanent_teeth_missing`
 
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data_merge%>%filter(med_history_tobacco!=2)
-glm_fit=glm(as.factor(med_history_tobacco)~permanent_teeth_missing  + teeth_affected_caries , data = sub_data, family = "binomial") # response variable need to be factor 
-cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+glm_fit=glm(permanent_teeth_missing~med_history_tobacco, data = data_merge, family="poisson") # response variable need to be factor 
+cbind(exp(cbind(Mean_Ratio = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+
+##############################################
+no_cova=1
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("tobacco"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.39, 1.45"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("OR (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
 ```
-* 2582/5852 patients are tobacco users 
 
-* both predictors are significant 
 
+ * Poisson regression is used 
+ 
+ * smoking will results in increased number of missing teeth by 10%
+
+
+### `teeth_surfaces_affected_caries`
+
+
+```{r, echo=F, message=F, warning=F}
+
+glm_fit=glm(teeth_surfaces_affected_caries~med_history_tobacco, data = data_merge, family="poisson") # response variable need to be factor 
+cbind(exp(cbind(Mean_Ratio = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+```
 
 ## statistical software 
 

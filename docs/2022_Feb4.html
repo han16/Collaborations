@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-06-22
+<strong>Last updated:</strong> 2022-06-27
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9e112227fd690b45b3ba3ddbc44cd7e6bc5550bctargetblank9e11222a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeaa15c6de3ebb51970f595d3c49b79e259ed57cdctargetblankaa15c6da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/9e112227fd690b45b3ba3ddbc44cd7e6bc5550bc" target="_blank">9e11222</a>
+<a href="https://github.com/han16/Collaborations/tree/aa15c6de3ebb51970f595d3c49b79e259ed57cdc" target="_blank">aa15c6d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9e112227fd690b45b3ba3ddbc44cd7e6bc5550bctargetblank9e11222a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeaa15c6de3ebb51970f595d3c49b79e259ed57cdctargetblankaa15c6da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/9e112227fd690b45b3ba3ddbc44cd7e6bc5550bc" target="_blank">9e11222</a>.
+<a href="https://github.com/han16/Collaborations/tree/aa15c6de3ebb51970f595d3c49b79e259ed57cdc" target="_blank">aa15c6d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/aa15c6de3ebb51970f595d3c49b79e259ed57cdc/analysis/2022_Feb4.Rmd" target="_blank">aa15c6d</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-27
+</td>
+<td>
+6/27/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/aa15c6de3ebb51970f595d3c49b79e259ed57cdc/docs/2022_Feb4.html" target="_blank">aa15c6d</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-27
+</td>
+<td>
+6/27/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2081,120 +2115,103 @@ category</p></li>
 <li><p>when increase age by one year (unit), while with other covariates
 fixed, the odds of having arthritis for older individual is 1.06 times
 the odds for young individual.</p></li>
-<li><p>only age is significant</p></li>
 </ul>
 </div>
 <div id="bulimia_acid_reflux_sleep_apnea" class="section level3">
 <h3><code>Bulimia_acid_reflux_sleep_apnea</code></h3>
-<pre><code>                                OR      2.5 %     97.5 %      p_value
-(Intercept)              0.0424605 0.02440215 0.07291707 1.002672e-29
-Age_at_exam              1.0357619 1.03080737 1.04079796 2.747675e-46
-Sex                      1.1832079 1.02947164 1.36062668 1.802719e-02
-county_regroupMilwaukee  0.4718951 0.31776186 0.71190524 2.529907e-04
-county_regroupOthers     0.6959310 0.45124204 1.08616553 1.049882e-01
-county_regroupOzaukee    0.4943566 0.27912962 0.86814295 1.468736e-02
-county_regroupRacine     0.6564597 0.40723810 1.06536603 8.563317e-02
-county_regroupWalworth   0.7951968 0.45389775 1.38880617 4.208257e-01
-county_regroupWashington 0.3802090 0.20541008 0.68951667 1.681633e-03
-county_regroupWaukesha   0.5599707 0.36374452 0.87239417 9.213469e-03
-teeth_affected_caries    1.0174433 1.00290548 1.03197800 1.763501e-02
-permanent_teeth_missing  0.9986710 0.98660771 1.01064918 8.284868e-01</code></pre>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>1046/5876 have
 <code>Bulimia_acid_reflux_sleep_apnea==1</code></p></li>
 <li><p>NA is replaced with 0, No</p></li>
-<li><p>age is significant</p></li>
-<li><p>several counties are significant, comparing to Kenosha</p></li>
 </ul>
 </div>
 <div id="med_history_depression" class="section level3">
 <h3><code>med_history_depression</code></h3>
-<pre><code>                                  OR        2.5 %      97.5 %       p_value
-(Intercept)              0.001089065 0.0005504835 0.002095733  3.062537e-89
-Age_at_exam              1.068492516 1.0626406517 1.074508207 5.589255e-121
-Sex                      2.100485616 1.8152173875 2.433863542  3.345353e-23
-county_regroupMilwaukee  1.310949382 0.8176894691 2.175062038  2.761623e-01
-county_regroupOthers     1.800848479 1.0868608193 3.073804018  2.605300e-02
-county_regroupOzaukee    1.832537575 0.9987746837 3.416457664  5.290195e-02
-county_regroupRacine     1.550847834 0.8962207521 2.747169882  1.235339e-01
-county_regroupWalworth   1.521240249 0.8015954312 2.914071859  2.013164e-01
-county_regroupWashington 1.843265584 0.9971094639 3.455097080  5.307509e-02
-county_regroupWaukesha   1.107296087 0.6661171227 1.894524366  7.013469e-01
-teeth_affected_caries    1.014060772 0.9984571581 1.029703804  7.558977e-02
-permanent_teeth_missing  1.013864674 1.0023011206 1.025468018  1.812932e-02</code></pre>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>553/5876 patients have depression</li>
+</ul>
+</div>
+<div id="med_history_dementia_alzheimers_memory_loss"
+class="section level3">
+<h3><code>med_history_dementia_alzheimers_memory_loss</code></h3>
+<pre><code>                                   OR         2.5 %        97.5 %      p_value
+(Intercept)              6.988687e-13 3.030371e-144  2.686149e+02 9.741316e-01
+Age_at_exam              1.118336e+00  1.089807e+00  1.149688e+00 2.257020e-16
+Sex                      1.399814e+00  7.916783e-01  2.515755e+00 2.515961e-01
+county_regroupMilwaukee  4.116291e+06  9.070767e-08 1.157165e+143 9.859219e-01
+county_regroupOthers     1.163391e+06  1.547282e-10 2.236362e+130 9.870898e-01
+county_regroupOzaukee    1.048861e+00  2.094417e-08  5.252576e+07 9.999669e-01
+county_regroupRacine     2.150306e+06  2.859855e-10 4.133491e+130 9.865221e-01
+county_regroupWalworth   2.781195e+06  2.470825e-08 5.378323e+140 9.862843e-01
+county_regroupWashington 4.759893e+06  1.020938e-08 3.807946e+137 9.857876e-01
+county_regroupWaukesha   1.232367e+06  1.639025e-10 2.368877e+130 9.870366e-01
+teeth_affected_caries    1.008177e+00  9.322367e-01  1.080510e+00 8.277143e-01
+permanent_teeth_missing  1.052424e+00  1.015787e+00  1.090033e+00 4.363102e-03</code></pre>
+<ul>
+<li><p>53/5876 has med_history_dementia_alzheimers_memory_loss after
+replacing NA with 0.</p></li>
+<li><p>this result is not reliable due to huge wide CI.</p></li>
 </ul>
 </div>
 <div id="med_history_diabetes_type1med_history_diabetes_type2"
 class="section level3">
 <h3><code>med_history_diabetes_type1+med_history_diabetes_type2</code></h3>
-<pre><code>                                 OR       2.5 %    97.5 %      p_value
-(Intercept)              0.01234564 0.006152474 0.0239273 5.113443e-37
-Age_at_exam              1.04283046 1.036974721 1.0488099 1.394908e-47
-Sex                      0.89033241 0.759837073 1.0432576 1.507628e-01
-county_regroupMilwaukee  1.17065594 0.714530466 2.0165213 5.495691e-01
-county_regroupOthers     0.69247247 0.396176405 1.2553809 2.095424e-01
-county_regroupOzaukee    0.75980811 0.369543557 1.5567477 4.513708e-01
-county_regroupRacine     1.34499621 0.755544141 2.4763861 3.255980e-01
-county_regroupWalworth   0.90298279 0.433116897 1.8702983 7.832361e-01
-county_regroupWashington 0.86898540 0.426639291 1.7694492 6.971596e-01
-county_regroupWaukesha   0.65315010 0.376048511 1.1782697 1.418857e-01
-teeth_affected_caries    1.01891871 1.001985529 1.0358030 2.680228e-02
-permanent_teeth_missing  1.03039925 1.017645758 1.0431507 2.091159e-06</code></pre>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
-<li>773/5876 has DB</li>
+<li>773/5876 has DB after replacing replacing NA with 0.</li>
 </ul>
 </div>
 <div
 id="med_history_hyperthyroidismmed_history_hypothyroidismthyroid-disease"
 class="section level3">
 <h3><code>med_history_hyperthyroidism+med_history_hypothyroidism:thyroid disease</code></h3>
-<pre><code>                                   OR     2.5 %   97.5 %   p_value
-(Intercept)              1.100749e+03 0.0000000      Inf 0.9997885
-Age_at_exam              9.400186e-01 0.7574231 1.103138 0.4582574
-Sex                      3.650071e+08 0.0000000       NA 0.9976969
-county_regroupMilwaukee  6.830454e-09        NA      Inf 0.9994122
-county_regroupOthers     1.146076e+00 0.0000000      Inf 0.9999965
-county_regroupOzaukee    4.651622e-01 0.0000000      Inf 0.9999836
-county_regroupRacine     6.096735e-01 0.0000000      Inf 0.9999883
-county_regroupWalworth   1.105497e+00 0.0000000      Inf 0.9999980
-county_regroupWashington 5.086766e-01 0.0000000      Inf 0.9999872
-county_regroupWaukesha   1.786385e+00 0.0000000      Inf 0.9999842</code></pre>
-<ul>
-<li><p>373/374 have thyroid diseases</p></li>
-<li><p>none variable is significant</p></li>
-</ul>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
+* 373/5876 have thyroid diseases after replacing NA with 0</p>
 </div>
 <div id="med_history_radiationmed_history_chemotherapy"
 class="section level3">
 <h3><code>med_history_radiation+med_history_chemotherapy</code></h3>
-<pre><code>                                  OR        2.5 %      97.5 %      p_value
-(Intercept)              0.005079416 0.0007475775  0.03205994 2.788058e-08
-Age_at_exam              1.085456754 1.0682512942  1.10436549 3.358702e-22
-Sex                      1.224568431 0.7637719977  1.96334289 3.993116e-01
-county_regroupMilwaukee  3.144985833 0.7489611616 13.43822383 1.128902e-01
-county_regroupOthers     1.703209804 0.3806898010  7.71983722 4.809851e-01
-county_regroupOzaukee    1.196467714 0.1859641947  7.81037839 8.493041e-01
-county_regroupRacine     0.905737877 0.1880299464  4.39692018 9.006954e-01
-county_regroupWalworth   3.173598150 0.4399784107 31.05474159 2.737079e-01
-county_regroupWashington 2.326020171 0.3543848525 15.93815645 3.798928e-01
-county_regroupWaukesha   2.394329804 0.5336159972 10.90504849 2.491551e-01</code></pre>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
-<li><p>317/484 receive either radiation or chemotherapy</p></li>
-<li><p>only age is significant</p></li>
+<li>317/5876 receive either radiation or chemotherapy after replacing NA
+with 0.</li>
 </ul>
 </div>
-<div id="med_history_tobacco" class="section level3">
-<h3><code>med_history_tobacco</code></h3>
-<pre><code>                               OR     2.5 %   97.5 %      p_value
-(Intercept)             0.4147412 0.3763832 0.456697 3.522860e-71
-permanent_teeth_missing 1.0706733 1.0605688 1.081034 1.339797e-44
-teeth_affected_caries   1.0528640 1.0418741 1.064036 8.311928e-22</code></pre>
+<div id="med_history_high_blood_pressure" class="section level3">
+<h3><code>med_history_high_blood_pressure</code></h3>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
-<li><p>2582/5852 patients are tobacco users</p></li>
-<li><p>both predictors are significant</p></li>
+<li>1812/5876 has high blood pressure after replacing NA with 0.</li>
 </ul>
+</div>
+<div id="med_history_osteoporosismed_history_oral_bisphonates"
+class="section level3">
+<h3><code>med_history_osteoporosis+med_history_oral_bisphonates</code></h3>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>199/5876 has osteoporosis + bisphosphonates after replacing NA with
+0.</li>
+</ul>
+</div>
+<div id="permanent_teeth_missing" class="section level3">
+<h3><code>permanent_teeth_missing</code></h3>
+<pre><code>                    Mean_Ratio    2.5 %   97.5 %       p_value
+(Intercept)           4.768355 4.694419 4.843073  0.000000e+00
+med_history_tobacco   1.416188 1.386782 1.446218 9.460594e-232</code></pre>
+<p><img src="figure/2022_Feb4.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Poisson regression is used</p></li>
+<li><p>smoking will results in increased number of missing teeth by
+10%</p></li>
+</ul>
+</div>
+<div id="teeth_surfaces_affected_caries" class="section level3">
+<h3><code>teeth_surfaces_affected_caries</code></h3>
+<pre><code>                    Mean_Ratio    2.5 %   97.5 % p_value
+(Intercept)           7.931483 7.835982 8.027766       0
+med_history_tobacco   1.380828 1.358393 1.403633       0</code></pre>
 </div>
 </div>
 <div id="statistical-software" class="section level2">
