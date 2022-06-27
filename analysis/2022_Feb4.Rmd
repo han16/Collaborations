@@ -781,7 +781,8 @@ grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 
 * poisson regression is used 
 
-* for continuous predictor, expected log count increase by  $\widehat{\beta}$ and for categorical predictors, it is the expected log count between different groups.  
+
+* for continuous predictor, expected log count increase by  $\widehat{\beta}$ and for categorical predictors, it is the expected log count between different groups.  For instance, having arthritis will results in increased caries by 10%. 
 
 
 
@@ -807,24 +808,24 @@ glm_fit=glm(as.factor(med_history_arthritis)~Age_at_exam  + Sex + county_regroup
 #cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 
-no_cova=8
+no_cova=11
 dat=data.frame( 
   Index=seq(1,no_cova),
-  label=c("med_history_arthritis","Bulimia_acid_reflux_sleep_apnea", "med_history_depression", "med_history_dementia_alzheimers_memory_loss", "diabetes", "thyroid_diseases", "cancer_treatment", "med_history_tobacco"),
-  Mean_Ratio=exp(round(coef(glm_fit)[2:9],2)),
+  label=c("Age_at_exam","Sex", "county_regroupMilwaukee", "county_regroupOthers", "county_regroupOzaukee", "county_regroupRacine", "county_regroupWalworth", "county_regroupWashington", "county_regroupWaukesha", "teeth_affected_caries", "permanent_teeth_missing"),
+  OR=exp(round(coef(glm_fit)[2:(no_cova+1)],2)),
   #Mean_Ratio=c("1.12(0)", "1.02(0.004)", "0.84(0)", "0.95(0)", "1.08(0)", "1.25(0)", "0.94(0.001)", "1.20(0)"),
-  LL=exp(round(confint(glm_fit)[2:9,1],2)),
-  UL=exp(round(confint(glm_fit)[2:9,2],2)),
-  CI=c("1.08, 1.14", "1.01, 1.04", "0.80, 0.87", "0.93, 0.96", "1.05, 1.13", "1.19, 1.31", "0.91, 0.98", "1.17, 1.23"),
-  p_value=round(coef(summary(glm_fit))[2:9,4],3)
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("1.06, 1.07", "1.82, 2.43", "0.82, 2.18", "1.08, 3.06", "1.00, 3.42", "0.90, 2.75", "0.80, 2.92", "1.00, 3.46", "0.66, 1.90", "1.00, 1.03", "1.00, 1.03"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
 )
 
-plot1 <- ggplot(dat, aes(y = Index, x = Mean_Ratio)) +
+plot1 <- ggplot(dat, aes(y = Index, x = OR)) +
   geom_point(shape = 18, size = 3) +  
   geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
   geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
   scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
-  xlab("Mean Ratio (95% CI)") + 
+  xlab("OR (95% CI)") + 
   ylab(" ") + 
   theme_bw() +
   theme(panel.border = element_blank(),
@@ -855,8 +856,8 @@ table_base <- ggplot(dat, aes(y=label)) +
 ## OR point estimate table
 tab1 <- table_base + 
   labs(title = "space") +
-  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(Mean_Ratio, digits = 2))), size = 4) + ## decimal places
-  ggtitle("Mean Ratio")
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(OR, digits = 2))), size = 4) + ## decimal places
+  ggtitle("OR")
 
 ## 95% CI table
 tab2 <- table_base +
@@ -896,7 +897,7 @@ grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 
 * when increase age by one year (unit), while with other covariates fixed, the odds of having arthritis for older individual is 1.06 times the odds for young individual. 
 
-* only age is significant 
+
 
 
 ### `Bulimia_acid_reflux_sleep_apnea`
