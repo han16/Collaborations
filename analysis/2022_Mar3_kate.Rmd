@@ -261,6 +261,78 @@ get_anova_table(res.aov)
 ```
 
 
+## Cortisol 
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Kate\\June_2022_Final_Data.csv", header=T)) # this is newly corrected data
+
+data=data %>% mutate(Cortisol.1_normalized=(Cortisol.1-mean(Cortisol.1))/sd(Cortisol.1)) %>% mutate(Cortisol.2_normalized=(Cortisol.2-mean(Cortisol.2))/sd(Cortisol.2))  %>% mutate(Cortisol.3_normalized=(Cortisol.3-mean(Cortisol.3))/sd(Cortisol.3)) #%>% mutate(Cortisol.4_normalized=(Cortisol.4-mean(Cortisol.4))/sd(Cortisol.4))
+Cortisol.4=as.numeric(data$Cortisol.4) # convert to numeric values 
+Cortisol.4[is.na(Cortisol.4)] <- 0 # replace NA with 0 
+
+data=data %>% add_column(Cortisol.4_normalized=(Cortisol.4-mean(Cortisol.4))/sd(Cortisol.4))
+
+data_Cortisol=data %>% select(Patient.ID.Number, Cortisol.1_normalized, Cortisol.2_normalized, Cortisol.3_normalized, Cortisol.4_normalized) 
+
+data_Cortisol_long=data.frame(Patient.ID.Number=c(data_Cortisol$Patient.ID.Number, data_Cortisol$Patient.ID.Number, data_Cortisol$Patient.ID.Number, data_Cortisol$Patient.ID.Number), Cortisol=c(data_Cortisol$Cortisol.1_normalized, data_Cortisol$Cortisol.2_normalized, data_Cortisol$Cortisol.3_normalized, data_Cortisol$Cortisol.4_normalized), time=rep(c("Cortisol.1", "Cortisol.2", "Cortisol.3", "Cortisol.4"), each=102))
+
+g1=ggplot(data=data_Cortisol_long %>% filter(Patient.ID.Number %in% PBI_group1),aes(x=time, y=Cortisol, group=Patient.ID.Number))+
+  geom_line(color="red")+
+  geom_point()+
+  ggtitle("PBI_week8<=2")
+
+
+g2=ggplot(data=data_Cortisol_long %>% filter(Patient.ID.Number %in% PBI_group2),aes(x=time, y=Cortisol, group=Patient.ID.Number))+
+  geom_line(color="red")+
+  geom_point()+
+  ggtitle("PBI_week8>2")
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+```
+
+### `C.1-->C.2`
+
+```{r, echo=F, message=F, warning=F}
+diff_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.1_normalized) 
+
+diff_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.1_normalized)
+
+two_sample_ttest=t.test(diff_group1, diff_group2)
+two_sample_ttest
+
+```
+
+### `C.2-->C.3`
+
+```{r, echo=F, message=F, warning=F}
+diff_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2_normalized) 
+
+diff_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2_normalized)
+
+two_sample_ttest=t.test(diff_group1, diff_group2)
+two_sample_ttest
+
+```
+
+
+### `C.3-->C.4`
+
+```{r, echo=F, message=F, warning=F}
+diff_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.4_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3_normalized) 
+
+diff_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.4_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3_normalized)
+
+two_sample_ttest=t.test(diff_group1, diff_group2)
+two_sample_ttest
+
+```
+
+* first calculate Z scores for cortisol 
+
+* then use two sample t test to compare the change difference between two groups PBI <=2 post-treatment vs PBI >2 post-treatment. 
 
 
 ## statistical software 
