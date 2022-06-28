@@ -335,6 +335,13 @@ two_sample_ttest
 * then use two sample t test to compare the change difference between two groups PBI <=2 post-treatment vs PBI >2 post-treatment. 
 
 
+### Reponse profile analysis 
+
+try [this](https://content.sph.harvard.edu/fitzmaur/ala2e/)
+
+
+
+
 ## statistical software 
 
 ```{r, echo=F}
