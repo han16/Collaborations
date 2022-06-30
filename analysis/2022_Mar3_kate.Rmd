@@ -293,40 +293,110 @@ figure <- ggarrange(g1, g2,
 figure
 ```
 
-### `C.1-->C.2`
+
+### individual C.1, C.2, C.3, C.4
+
+
+
+| \      | C.1 |   C.2    | C.3 | C.4 | 
+| :---        |    :----:   |          ---: |       ---:  |       ---:  |          
+| p value       | 0.189      | 0.165  |    0.034         |  0.006           |   
+
+
+
 
 ```{r, echo=F, message=F, warning=F}
+
+#### C.1
+group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.1_normalized) %>% pull 
+
+group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.1_normalized) %>% pull
+
+two_sample_ttest=t.test(group1, group2)
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+#### C.2 
+
+group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2_normalized) %>% pull 
+
+group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2_normalized) %>% pull
+
+two_sample_ttest=t.test(group1, group2)
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+#### C.3 
+group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3_normalized) %>% pull 
+
+group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3_normalized) %>% pull
+
+two_sample_ttest=t.test(group1, group2)
+
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+#### C.4
+group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.4_normalized) %>% pull 
+
+group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.4_normalized) %>% pull
+
+two_sample_ttest=t.test(group1, group2)
+
+```
+
+
+### C.i-->C.i+1
+
+
+| \      | C.1-->C.2 |   C.2-->C.3    | C.3-->C.4 | 
+| :---        |    :----:   |          ---: |       ---:  |                
+| p value       | 0.939      | 0.486  |    0.800         |  
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+### `C.1-->C.2`
 diff_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.1_normalized) 
 
 diff_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.1_normalized)
 
 two_sample_ttest=t.test(diff_group1, diff_group2)
-two_sample_ttest
+
 
 ```
 
-### `C.2-->C.3`
+
 
 ```{r, echo=F, message=F, warning=F}
+### `C.2-->C.3`
 diff_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2_normalized) 
 
 diff_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2_normalized)
 
 two_sample_ttest=t.test(diff_group1, diff_group2)
-two_sample_ttest
+
 
 ```
 
 
-### `C.3-->C.4`
+
 
 ```{r, echo=F, message=F, warning=F}
+### `C.3-->C.4`
 diff_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.4_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3_normalized) 
 
 diff_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.4_normalized) %>% pull-data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3_normalized)
 
 two_sample_ttest=t.test(diff_group1, diff_group2)
-two_sample_ttest
+
 
 ```
 
@@ -335,10 +405,40 @@ two_sample_ttest
 * then use two sample t test to compare the change difference between two groups PBI <=2 post-treatment vs PBI >2 post-treatment. 
 
 
-### Reponse profile analysis 
+### Response profile analysis 
 
-try [this](https://content.sph.harvard.edu/fitzmaur/ala2e/)
+ [Response profile analysis](https://content.sph.harvard.edu/fitzmaur/ala2e/)
 
+
+```{r, echo=F, message=F, warning=F}
+library(foreign)
+############ prepare the data 
+Patient.ID.Number=data_Cortisol$Patient.ID.Number
+trt=Patient.ID.Number
+trt[trt%in%PBI_group1]="group1"
+trt[trt%in%PBI_group2]="group2"
+trt=factor(trt)
+
+data_Cortisol_update=data.frame(id=Patient.ID.Number, treatment=trt, y0=data_Cortisol$Cortisol.1_normalized, y1=data_Cortisol$Cortisol.2_normalized, y2=data_Cortisol$Cortisol.3_normalized, y3=data_Cortisol$Cortisol.4_normalized)
+
+######## convert into long format 
+data_Cortisol_update_long <- reshape(data_Cortisol_update, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
+attach(data_Cortisol_update_long) # when attaching variables, DO not use same variable names multiple times 
+
+######### plot mean curve 
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="Cortisol", main="", col=c(2,4))
+
+
+
+library(nlme)
+model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
+summary(model)
+
+ anova(model)
+```
+
+
+* p value of 0.3702 for treatment X time interaction indicates lack of interaction. 
 
 
 
