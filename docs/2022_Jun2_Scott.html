@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-06-20
+<strong>Last updated:</strong> 2022-06-30
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -425,10 +425,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeee233a8da19f4f6a5764daa50ce5b022fcadfdcctargetblankee233a8a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee9cf183f749153b8e59a8f3856c44529aa1e0da6targetblanke9cf183a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/ee233a8da19f4f6a5764daa50ce5b022fcadfdcc" target="_blank">ee233a8</a>
+<a href="https://github.com/han16/Collaborations/tree/e9cf183f749153b8e59a8f3856c44529aa1e0da6" target="_blank">e9cf183</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeee233a8da19f4f6a5764daa50ce5b022fcadfdcctargetblankee233a8a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee9cf183f749153b8e59a8f3856c44529aa1e0da6targetblanke9cf183a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/ee233a8da19f4f6a5764daa50ce5b022fcadfdcc" target="_blank">ee233a8</a>.
+<a href="https://github.com/han16/Collaborations/tree/e9cf183f749153b8e59a8f3856c44529aa1e0da6" target="_blank">e9cf183</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -556,11 +556,8 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/2022_Jun2_Scott.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
+    Modified:   analysis/2022_Jun2_Scott.Rmd
 
 </code></pre>
 <p>
@@ -575,14 +572,110 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2022_Jun2_Scott.Rmd</code>) and
+HTML (<code>docs/2022_Jun2_Scott.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6e504339bcb8180f991f4ecc16b15d4b2cca58a6/analysis/2022_Jun2_Scott.Rmd" target="_blank">6e50433</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-20
+</td>
+<td>
+6/20/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/6e504339bcb8180f991f4ecc16b15d4b2cca58a6/docs/2022_Jun2_Scott.html" target="_blank">6e50433</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-20
+</td>
+<td>
+6/20/2022
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
+<div id="paired-two-sample-t-test" class="section level2">
+<h2>paired two sample t test</h2>
+<pre><code>                 variable       pvalue
+1              U1_NA_MaxD 4.717488e-05
+2              U1_SN_MaxD 3.763772e-10
+3          APT_Yline_MaxD 3.417247e-01
+4        U1_tipYline_MaxD 4.335414e-06
+5           U1_rootY_MaxD 6.636062e-06
+6         U1_display_MaxD 5.064637e-06
+7            L1_NB_Mand_D 3.273821e-06
+8            L1_MO_Mand_D 1.049776e-08
+9  Inter_ang_U1_L1_Mand_D 8.398430e-11
+10       Bpt_Yline_Mand_D 9.451980e-01
+11         LiTip_Y_Mand_D 3.679002e-05
+12    LT_root_line_Mand_D 5.378957e-03
+13        Overbite_Mand_D 5.466080e-08
+14         Orverjet_Man_D 6.346223e-01
+15     Upper_lip_Yline_LP 3.009719e-01
+16    lowver_lip_Yline_LP 1.039501e-01
+17     Upper_lip_Thick_LP 6.778808e-02
+18     lower_lip_Thick_LP 2.685231e-03
+19              Sn_stm_LL 5.736750e-04
+20           Upper_lip_LL 4.734913e-04
+21           lower_lip_LL 2.404552e-01
+22         Upper_PrepY_LR 6.169771e-01
+23               Upper_LR 3.153908e-01
+24         Lower_PrepY_LR 1.393012e-01
+25               Lower_LR 5.854478e-02
+26         Lower_lip_E_PC 6.964474e-02
+27         Upper_lip_E_PC 8.788472e-01
+28           Nasol_ang_PC 2.922340e-01
+29           Labio_Sul_PC 1.388673e-02</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -608,17 +701,29 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
+[5] readr_2.1.1     tidyr_1.1.4     tibble_3.1.6    ggplot2_3.3.5  
+[9] tidyverse_1.3.1
+
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8       knitr_1.37       magrittr_2.0.1   workflowr_1.7.0 
- [5] R6_2.5.1         rlang_0.4.12     fastmap_1.1.0    fansi_1.0.2     
- [9] stringr_1.4.0    tools_4.1.2      xfun_0.29        utf8_1.2.2      
-[13] git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2  
-[17] rprojroot_2.0.2  yaml_2.2.2       digest_0.6.29    tibble_3.1.6    
-[21] lifecycle_1.0.1  crayon_1.4.2     later_1.3.0      sass_0.4.1      
-[25] vctrs_0.3.8      promises_1.2.0.1 fs_1.5.2         glue_1.6.0      
-[29] evaluate_0.14    rmarkdown_2.11   stringi_1.7.6    bslib_0.3.1     
-[33] compiler_4.1.2   pillar_1.6.5     jsonlite_1.7.3   httpuv_1.6.5    
-[37] pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.8       lubridate_1.8.0  assertthat_0.2.1 rprojroot_2.0.2 
+ [5] digest_0.6.29    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
+ [9] backports_1.4.1  reprex_2.0.1     evaluate_0.14    httr_1.4.2      
+[13] pillar_1.6.5     rlang_0.4.12     readxl_1.3.1     rstudioapi_0.13 
+[17] whisker_0.4      jquerylib_0.1.4  rmarkdown_2.11   munsell_0.5.0   
+[21] broom_0.7.11     compiler_4.1.2   httpuv_1.6.5     modelr_0.1.8    
+[25] xfun_0.29        pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.1.1
+[29] workflowr_1.7.0  fansi_1.0.2      crayon_1.4.2     tzdb_0.2.0      
+[33] dbplyr_2.1.1     withr_2.4.3      later_1.3.0      grid_4.1.2      
+[37] jsonlite_1.7.3   gtable_0.3.0     lifecycle_1.0.1  DBI_1.1.2       
+[41] git2r_0.29.0     magrittr_2.0.1   scales_1.1.1     cli_3.1.1       
+[45] stringi_1.7.6    fs_1.5.2         promises_1.2.0.1 xml2_1.3.3      
+[49] bslib_0.3.1      ellipsis_0.3.2   generics_0.1.1   vctrs_0.3.8     
+[53] tools_4.1.2      glue_1.6.0       hms_1.1.1        fastmap_1.1.0   
+[57] yaml_2.2.2       colorspace_2.0-2 rvest_1.0.2      knitr_1.37      
+[61] haven_2.4.3      sass_0.4.1      </code></pre>
+</div>
 </div>
 
 

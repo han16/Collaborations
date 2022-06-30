@@ -6,5 +6,26 @@ date: '2022-06-20'
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
+
+```{r, echo=F, message=F, warning=F}
+prior_treatment=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Scott\\prior_treatment.csv", header=T))
+
+post_treatment=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202206\\Scott\\post_treatment.csv", header=T))
+```
+
+
+## paired two sample t test 
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+for (i in 2:ncol(prior_treatment))
+{
+  test=t.test(prior_treatment[,i]%>%pull, post_treatment[,i]%>%pull, paired = T)
+  pvalue[i-1]=test$p.value
+  
+}
+data.frame(variable=colnames(prior_treatment)[2:ncol(prior_treatment)], pvalue=pvalue)
+```
