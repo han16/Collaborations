@@ -29,3 +29,6 @@ for (i in 2:ncol(prior_treatment))
 }
 data.frame(variable=colnames(prior_treatment)[2:ncol(prior_treatment)], pvalue=pvalue)
 ```
+
+
+* note `e-01` means $10^{-1}$. 
