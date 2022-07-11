@@ -71,24 +71,28 @@ variable=colnames(data1)[2:7]
 p_value=numeric(); mean_diff=numeric()
 SD=numeric()
 Range_min=numeric()
+LL=numeric()
+UL=numeric()
 Range_max=numeric()
 for (i in 1:length(variable))
 {
   two_sample_ttest=t.test(data1[,i+1], data2[,i+1], paired=T)
   p_value[i]=two_sample_ttest$p.value
   mean_diff[i]=two_sample_ttest$estimate
-  
+  LL[i]=two_sample_ttest$conf.int[1]
+  UL[i]=two_sample_ttest$conf.int[2]
   SD[i]=sd(data1[,i+1]-data2[,i+1])
   Range_min[i]=min(data1[,i+1]-data2[,i+1])
   Range_max[i]=max(data1[,i+1]-data2[,i+1])
 }
-knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, SD=SD, p_value=p_value, Range_min=Range_min, Range_max=Range_max))
+knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, SD=SD, p_value=p_value, Range_min=Range_min, Range_max=Range_max, Lower_limit=LL, Upper_limit=UL))
 ```
 
 
 * mean difference=digital-manual 
 * `A` drives the difference most, followed by `MR`, `BLI`, `OR`, `O`.  
 * range is (Range_min, Range_max)
+* 95% confidence interval is (Lower_limit, Upper_limit). 
 
 
 ## intro rater reliability 
