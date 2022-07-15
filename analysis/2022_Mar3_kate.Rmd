@@ -273,7 +273,9 @@ Cortisol.4[is.na(Cortisol.4)] <- 0 # replace NA with 0
 
 data=data %>% add_column(Cortisol.4_normalized=(Cortisol.4-mean(Cortisol.4))/sd(Cortisol.4))
 
-data_Cortisol=data %>% select(Patient.ID.Number, Cortisol.1_normalized, Cortisol.2_normalized, Cortisol.3_normalized, Cortisol.4_normalized) 
+data_Cortisol=data %>% select(Patient.ID.Number,Cortisol.1_normalized, Cortisol.2_normalized, Cortisol.3_normalized, Cortisol.4_normalized) 
+
+data_Cortisol=data_Cortisol %>% add_column(Cortisol.1=data$Cortisol.1, Cortisol.2=data$Cortisol.2,Cortisol.3=data$Cortisol.3,Cortisol.4=Cortisol.4)
 
 data_Cortisol_long=data.frame(Patient.ID.Number=c(data_Cortisol$Patient.ID.Number, data_Cortisol$Patient.ID.Number, data_Cortisol$Patient.ID.Number, data_Cortisol$Patient.ID.Number), Cortisol=c(data_Cortisol$Cortisol.1_normalized, data_Cortisol$Cortisol.2_normalized, data_Cortisol$Cortisol.3_normalized, data_Cortisol$Cortisol.4_normalized), time=rep(c("Cortisol.1", "Cortisol.2", "Cortisol.3", "Cortisol.4"), each=102))
 
@@ -406,7 +408,7 @@ two_sample_ttest=t.test(diff_group1, diff_group2)
 * then use two sample t test to compare the change difference between two groups PBI <=2 post-treatment vs PBI >2 post-treatment. 
 
 
-### C.i+1/C.i
+### C.i+1/C.i for normalized cortisol 
 
 
 
@@ -455,7 +457,56 @@ two_sample_ttest=t.test(ratio_group1, ratio_group2)
 
 
 * first calculate Z scores for cortisol 
-* compute the ratio of C.i+1/C.i, this ratio could be negative due to normlization step 
+* compute the ratio of C.i+1/C.i, this ratio could be negative due to normalization step 
+
+* then use two sample t test to compare the change ratio between two groups PBI <2 post-treatment vs PBI >=2 post-treatment. 
+
+
+### C.i+1/C.i for raw cortisol 
+
+
+
+| \      | C.2/C.1 |   C.3/C.2    | C.4/C.3 | 
+| :---        |    :----:   |          ---: |       ---:  |                
+| p value       | 0.725      | 0.228  |    0.006         |  
+
+
+```{r, echo=F, message=F, warning=F}
+### `C.2/C.1`
+ratio_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.1) %>% pull 
+
+ratio_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.1) %>% pull
+
+two_sample_ttest=t.test(ratio_group1, ratio_group2)
+
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+### `C.3/C.2`
+ratio_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2) %>% pull 
+
+ratio_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2) %>% pull
+
+two_sample_ttest=t.test(ratio_group1, ratio_group2)
+
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+### `C.4/C.3`
+ratio_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.4) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3) %>% pull 
+
+ratio_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.4) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3) %>% pull
+
+two_sample_ttest=t.test(ratio_group1, ratio_group2)
+
+
+```
+
+* compute the ratio of C.i+1/C.i for raw data, a number between 0 and 1. 
 
 * then use two sample t test to compare the change ratio between two groups PBI <2 post-treatment vs PBI >=2 post-treatment. 
 

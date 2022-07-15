@@ -519,15 +519,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2feebabdff2b0e187ba67d3a5f8caedb3d47da9ftargetblank2feebaba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeed1fdb92a94f0ce5adad35320975f9e4697154dctargetblanked1fdb9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/2feebabdff2b0e187ba67d3a5f8caedb3d47da9f" target="_blank">2feebab</a>
+<a href="https://github.com/han16/Collaborations/tree/ed1fdb92a94f0ce5adad35320975f9e4697154dc" target="_blank">ed1fdb9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2feebabdff2b0e187ba67d3a5f8caedb3d47da9ftargetblank2feebaba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeed1fdb92a94f0ce5adad35320975f9e4697154dctargetblanked1fdb9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/2feebabdff2b0e187ba67d3a5f8caedb3d47da9f" target="_blank">2feebab</a>.
+<a href="https://github.com/han16/Collaborations/tree/ed1fdb92a94f0ce5adad35320975f9e4697154dc" target="_blank">ed1fdb9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,7 +555,6 @@ Ignored files:
     Ignored:    analysis/.Rhistory
 
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
     Modified:   analysis/2022_Mar3_kate.Rmd
 
 </code></pre>
@@ -602,6 +601,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ed1fdb92a94f0ce5adad35320975f9e4697154dc/analysis/2022_Mar3_kate.Rmd" target="_blank">ed1fdb9</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-07-15
+</td>
+<td>
+7/15/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ed1fdb92a94f0ce5adad35320975f9e4697154dc/docs/2022_Mar3_kate.html" target="_blank">ed1fdb9</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-07-15
+</td>
+<td>
+7/15/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1009,8 +1042,8 @@ between two groups PBI &lt;=2 post-treatment vs PBI &gt;2
 post-treatment.</p></li>
 </ul>
 </div>
-<div id="c.i1c.i" class="section level3">
-<h3>C.i+1/C.i</h3>
+<div id="c.i1c.i-for-normalized-cortisol" class="section level3">
+<h3>C.i+1/C.i for normalized cortisol</h3>
 <table>
 <thead>
 <tr class="header">
@@ -1032,7 +1065,35 @@ post-treatment.</p></li>
 <ul>
 <li><p>first calculate Z scores for cortisol</p></li>
 <li><p>compute the ratio of C.i+1/C.i, this ratio could be negative due
-to normlization step</p></li>
+to normalization step</p></li>
+<li><p>then use two sample t test to compare the change ratio between
+two groups PBI &lt;2 post-treatment vs PBI &gt;=2
+post-treatment.</p></li>
+</ul>
+</div>
+<div id="c.i1c.i-for-raw-cortisol" class="section level3">
+<h3>C.i+1/C.i for raw cortisol</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">\</th>
+<th align="center">C.2/C.1</th>
+<th align="right">C.3/C.2</th>
+<th align="right">C.4/C.3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">p value</td>
+<td align="center">0.725</td>
+<td align="right">0.228</td>
+<td align="right">0.006</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>compute the ratio of C.i+1/C.i for raw data, a number between 0
+and 1.</p></li>
 <li><p>then use two sample t test to compare the change ratio between
 two groups PBI &lt;2 post-treatment vs PBI &gt;=2
 post-treatment.</p></li>
@@ -1060,7 +1121,7 @@ measurements</a></p></li>
 <h3>Response profile analysis</h3>
 <p><a href="https://content.sph.harvard.edu/fitzmaur/ala2e/">Response
 profile analysis</a></p>
-<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Generalized least squares fit by REML
   Model: y ~ treatment * time 
   Data: NULL 
