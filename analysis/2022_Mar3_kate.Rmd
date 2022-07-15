@@ -174,14 +174,14 @@ bxp+
 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
-PBI_group1=data%>%filter(Average.PBI.Score.8.week <=2 ) %>% select(Patient.ID.Number) %>% pull
-PBI_group2=data%>%filter( Average.PBI.Score.8.week >2 ) %>% select(Patient.ID.Number) %>% pull
+PBI_group1=data%>%filter(Average.PBI.Score.8.week <2 ) %>% select(Patient.ID.Number) %>% pull
+PBI_group2=data%>%filter( Average.PBI.Score.8.week >=2 ) %>% select(Patient.ID.Number) %>% pull
 PBI_group3=data%>%filter( Average.PBI.Score.8.week >3 ) %>% select(Patient.ID.Number) %>% pull
 
 data_long_group1=data_long%>%filter(individual %in% PBI_group1==T)
 data_long_group2=data_long%>%filter(individual %in% PBI_group2==T)
 data_long_group3=data_long%>%filter(individual %in% PBI_group3==T)
-data.frame(group=c("PBI <=2 post-treatment", "PBI>2 post-treatment", "PBI >3 post-treatment"), num_individual=c(nrow(data_long_group1)/2, nrow(data_long_group2)/2, nrow(data_long_group3)/2))
+data.frame(group=c("PBI <2 post-treatment", "PBI>=2 post-treatment", "PBI >3 post-treatment"), num_individual=c(nrow(data_long_group1)/2, nrow(data_long_group2)/2, nrow(data_long_group3)/2))
 ```
 
 
@@ -193,10 +193,10 @@ covariates=c("SAI", "sRDI", "SQI", "Fragmentation", "Cortisol.1", "Cortisol.2", 
 pvalue=numeric()
 for (i in 1:length(covariates))
 {
-  group1=as.numeric(data%>%filter(Average.PBI.Score.8.week<=2) %>% select(covariates[i]) %>% pull())
+  group1=as.numeric(data%>%filter(Average.PBI.Score.8.week<2) %>% select(covariates[i]) %>% pull())
   group1=group1[!is.na(group1)] # remove na's 
   
-  group2=as.numeric(data%>%filter(Average.PBI.Score.8.week>2) %>% select(covariates[i]) %>% pull())
+  group2=as.numeric(data%>%filter(Average.PBI.Score.8.week>=2) %>% select(covariates[i]) %>% pull())
   group2=group2[!is.na(group2)]
   
   two.sample.ttest=t.test(group1, group2)
@@ -205,8 +205,9 @@ for (i in 1:length(covariates))
 data.frame(covariates=covariates, pvalue=pvalue)
 ```
 
-* compare PBI <=2 post-treatment vs PBI >2 post-treatment at week 8 
+* compare PBI <2 post-treatment vs PBI >=2 post-treatment at week 8 
 * two sample t test is used 
+
 
 
 
@@ -279,13 +280,13 @@ data_Cortisol_long=data.frame(Patient.ID.Number=c(data_Cortisol$Patient.ID.Numbe
 g1=ggplot(data=data_Cortisol_long %>% filter(Patient.ID.Number %in% PBI_group1),aes(x=time, y=Cortisol, group=Patient.ID.Number))+
   geom_line(color="red")+
   geom_point()+
-  ggtitle("PBI_week8<=2")
+  ggtitle("PBI_week8<2")
 
 
 g2=ggplot(data=data_Cortisol_long %>% filter(Patient.ID.Number %in% PBI_group2),aes(x=time, y=Cortisol, group=Patient.ID.Number))+
   geom_line(color="red")+
   geom_point()+
-  ggtitle("PBI_week8>2")
+  ggtitle("PBI_week8>=2")
 
 figure <- ggarrange(g1, g2,
                    # labels = c("A", "B", "C"),
@@ -403,6 +404,73 @@ two_sample_ttest=t.test(diff_group1, diff_group2)
 * first calculate Z scores for cortisol 
 
 * then use two sample t test to compare the change difference between two groups PBI <=2 post-treatment vs PBI >2 post-treatment. 
+
+
+### C.i+1/C.i
+
+
+
+| \      | C.2/C.1 |   C.3/C.2    | C.4/C.3 | 
+| :---        |    :----:   |          ---: |       ---:  |                
+| p value       | 0.347      | 0.149  |    0.136         |  
+
+
+```{r, echo=F, message=F, warning=F}
+### `C.2/C.1`
+ratio_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2_normalized) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.1_normalized) %>% pull 
+
+ratio_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2_normalized) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.1_normalized) %>% pull
+
+two_sample_ttest=t.test(ratio_group1, ratio_group2)
+
+
+```
+
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+### `C.3/C.2`
+ratio_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3_normalized) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.2_normalized) %>% pull 
+
+ratio_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3_normalized) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.2_normalized) %>% pull
+
+two_sample_ttest=t.test(ratio_group1, ratio_group2)
+
+
+```
+
+```{r, echo=F, message=F, warning=F}
+### `C.4/C.3`
+ratio_group1=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.4_normalized) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group1) %>% select(Cortisol.3_normalized) %>% pull 
+
+ratio_group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.4_normalized) %>% pull/data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Cortisol.3_normalized) %>% pull
+
+two_sample_ttest=t.test(ratio_group1, ratio_group2)
+
+
+```
+
+
+* first calculate Z scores for cortisol 
+* compute the ratio of C.i+1/C.i, this ratio could be negative due to normlization step 
+
+* then use two sample t test to compare the change ratio between two groups PBI <2 post-treatment vs PBI >=2 post-treatment. 
+
+
+
+#### relevant studies 
+
+* [Salivary cortisol as a diagnostic tool for Cushing's syndrome and adrenal insufficiency: improved screening by an automatic immunoassay](https://eje.bioscientifica.com/view/journals/eje/166/4/613.xml)
+
+
+* [Association of Diurnal Patterns in Salivary Cortisol with All-Cause and Cardiovascular Mortality: Findings from the Whitehall II Study](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3085201/)
+
+* [Area under the curve and other summary indicators of repeated waking cortisol measurements](https://pubmed.ncbi.nlm.nih.gov/17766693/)
+
+
 
 
 ### Response profile analysis 
