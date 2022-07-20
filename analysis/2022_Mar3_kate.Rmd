@@ -236,6 +236,7 @@ res.aov <- anova_test(data = data_long_increase, dv = PBI, wid = individual, wit
 get_anova_table(res.aov)
 ```
 
+
 ```{r, echo=F, message=F, warning=F, eval=F}
 g1=ggplot(data=data_long_decrease,aes(x=time, y=PBI, group=individual))+
   geom_line(color="red")+
@@ -353,6 +354,21 @@ group2=data_Cortisol %>% filter(Patient.ID.Number %in% PBI_group2) %>% select(Co
 two_sample_ttest=t.test(group1, group2)
 
 ```
+
+
+#### normal vs abnormal at each C.i
+
+
+individuals in normal and abnormal group  
+
+| \      | C.1 (5.1 - 11.1) |   C.2 (2.3 - 5.3)    | C.3 (1.0 - 2.4) | C.4 (0.4 - 2.1) | 
+| :---        |    :----:   |          ---: |       ---:  |       ---:  |          
+| normal      | 50      | 67  |    42         |  77          |   
+| abnormal    | 72      | 35  |    60         |  25           | 
+
+
+there are 4 individuals with normal cortisols across 4 timepoints. 
+
 
 
 ### C.i-->C.i+1
