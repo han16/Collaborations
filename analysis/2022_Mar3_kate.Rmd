@@ -8,6 +8,7 @@ rm(list=ls())
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggpubr) # combine and arrange multiple 
+library(kableExtra)
 library(rstatix) # use anova_test function 
 set.seed(123)
 ```
@@ -358,16 +359,48 @@ two_sample_ttest=t.test(group1, group2)
 
 #### normal vs abnormal at each C.i
 
+```{r, echo=F, warning=F, message=F}
+knitr::kable(data_Cortisol %>% filter(Cortisol.1>=5.1 & Cortisol.1<=11.1) %>% select(Patient.ID.Number, Cortisol.1), caption = "C.1 (5.1 - 11.1) ")%>%
+kable_styling() %>%
+scroll_box(height = "300px")
+```
+
+```{r, echo=F, warning=F, message=F}
+knitr::kable(data_Cortisol %>% filter(Cortisol.2>=2.3 & Cortisol.2<=5.3) %>% select(Patient.ID.Number, Cortisol.2), caption = "C.2 (2.3 - 5.3) ")%>%
+kable_styling() %>%
+scroll_box(height = "300px")
+```
+
+```{r, echo=F, warning=F, message=F}
+knitr::kable(data_Cortisol %>% filter(Cortisol.3>=1.0 & Cortisol.3<=2.4) %>% select(Patient.ID.Number, Cortisol.3), caption = "C.3 (1.0 - 2.4) ")%>%
+kable_styling() %>%
+scroll_box(height = "300px")
+```
+
+```{r, echo=F, warning=F, message=F}
+knitr::kable(data_Cortisol %>% filter(Cortisol.4>=0.4 & Cortisol.4<=2.1) %>% select(Patient.ID.Number, Cortisol.4), caption = "C.4 (0.4 - 2.1) ")%>%
+kable_styling() %>%
+scroll_box(height = "300px")
+```
+
+
+```{r, echo=F, warning=F, message=F}
+knitr::kable(data_Cortisol %>% filter(Cortisol.1>=5.1 & Cortisol.1<=11.1 & Cortisol.2>=2.3 & Cortisol.2<=5.3 & Cortisol.3>=1.0 & Cortisol.3<=2.4 & Cortisol.4>=0.4 & Cortisol.4<=2.1) %>% select(Patient.ID.Number, Cortisol.1, Cortisol.2, Cortisol.3, Cortisol.4), caption = "C.1 (5.1 - 11.1) & C.2 (2.3 - 5.3) & C.3 (1.0 - 2.4) & C.4 (0.4 - 2.1)")%>%
+kable_styling() %>%
+scroll_box(height = "300px")
+```
+
+
 
 individuals in normal and abnormal group  
 
 | \      | C.1 (5.1 - 11.1) |   C.2 (2.3 - 5.3)    | C.3 (1.0 - 2.4) | C.4 (0.4 - 2.1) | 
 | :---        |    :----:   |          ---: |       ---:  |       ---:  |          
-| normal      | 50      | 67  |    42         |  77          |   
-| abnormal    | 72      | 35  |    60         |  25           | 
+| normal      | 50      | 69  |    46         |  81          |   
+| abnormal    | 72      | 33  |    56         |  21           | 
 
 
-there are 4 individuals with normal cortisols across 4 timepoints. 
+there are 14 individuals with normal cortisols across 4 timepoints. 
 
 
 
