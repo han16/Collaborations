@@ -385,7 +385,7 @@ scroll_box(height = "300px")
 
 
 ```{r, echo=F, warning=F, message=F}
-knitr::kable(data_Cortisol %>% filter(Cortisol.1>=5.1 & Cortisol.1<=11.1 & Cortisol.2>=2.3 & Cortisol.2<=5.3 & Cortisol.3>=1.0 & Cortisol.3<=2.4 & Cortisol.4>=0.4 & Cortisol.4<=2.1) %>% select(Patient.ID.Number, Cortisol.1, Cortisol.2, Cortisol.3, Cortisol.4), caption = "C.1 (5.1 - 11.1) & C.2 (2.3 - 5.3) & C.3 (1.0 - 2.4) & C.4 (0.4 - 2.1)")%>%
+knitr::kable(data_Cortisol %>% filter(Cortisol.1>=5.1 & Cortisol.1<=11.6 & Cortisol.2>=2.3 & Cortisol.2<=5.3 & Cortisol.3>=1.0 & Cortisol.3<=2.4 & Cortisol.4>=0.4 & Cortisol.4<=2.1) %>% select(Patient.ID.Number, Cortisol.1, Cortisol.2, Cortisol.3, Cortisol.4), caption = "C.1 (5.1 - 11.1) & C.2 (2.3 - 5.3) & C.3 (1.0 - 2.4) & C.4 (0.4 - 2.1)")%>%
 kable_styling() %>%
 scroll_box(height = "300px")
 ```
