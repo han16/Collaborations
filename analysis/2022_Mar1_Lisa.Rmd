@@ -66,6 +66,8 @@ two_sample_ttest
 
 ## individual pairwise test 
 
+### two sample t test 
+
 ```{r, echo=F, warning=F, message=F}
 variable=colnames(data1)[2:7]
 p_value=numeric(); mean_diff=numeric()
@@ -93,6 +95,37 @@ knitr::kable(data.frame(variable=variable,mean_difference=mean_diff, SD=SD, p_va
 * `A` drives the difference most, followed by `MR`, `BLI`, `OR`, `O`.  
 * range is (Range_min, Range_max)
 * 95% confidence interval is (Lower_limit, Upper_limit). 
+
+
+
+### two sample proportion test 
+
+```{r, echo=F, warning=F, message=F}
+variable=colnames(data1)[2:7]
+p_value=numeric(); mean_diff=numeric()
+SD=numeric()
+Range_min=numeric()
+LL=numeric()
+UL=numeric()
+Range_max=numeric()
+for (i in 1:length(variable))
+{
+  two_sample_ttest=t.test(data1[,i+1]/data1$Total, data2[,i+1]/data2$Total,paired = T)
+  p_value[i]=two_sample_ttest$p.value
+  mean_diff[i]=two_sample_ttest$estimate
+  LL[i]=two_sample_ttest$conf.int[1]
+  UL[i]=two_sample_ttest$conf.int[2]
+  #SD[i]=sd(data1[,i+1]-data2[,i+1])
+  #Range_min[i]=min(data1[,i+1]-data2[,i+1])
+  #Range_max[i]=max(data1[,i+1]-data2[,i+1])
+}
+knitr::kable(data.frame(variable=variable,ratio_difference=mean_diff,  p_value=p_value, Lower_limit=LL, Upper_limit=UL))
+```
+
+
+* ratio difference=digital_ratio-manual_ratio 
+* 95% confidence interval is (Lower_limit, Upper_limit). 
+
 
 
 ## intro rater reliability 
