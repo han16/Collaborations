@@ -609,7 +609,7 @@ summary(model)
 * p value of 0.3702 for treatment X time interaction indicates lack of interaction. 
 
 
-## Figues 
+## Figures 
 
 ### Figure 3 
 
@@ -637,6 +637,39 @@ knitr::kable(data.frame(Epworth_score=c("0-5", "6-10", "11-12", "13-15", "16-24"
 
 * ID>=40
 * boundary value are included, e.g. `Epworth.Score>=0 & Epworth.Score<=5`
+
+
+
+
+```{r, echo=F, warning=F, message=F}
+num_participants=numeric()
+average_sAHI=numeric()
+num_participants[1]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=0 & STOP.BANG.total<=2) %>%nrow 
+average_sAHI[1]=mean(data%>%filter(Patient.ID.Number>=40 &STOP.BANG.total>=0 & STOP.BANG.total<=2) %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[2]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4) %>%nrow 
+average_sAHI[2]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4) %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[3]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8) %>%nrow 
+average_sAHI[3]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8) %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[4]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & Remarks.A..Gender=="M" ) %>%nrow 
+average_sAHI[4]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & Remarks.A..Gender=="M") %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[5]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & BMI.kg.m2 >35) %>%nrow 
+average_sAHI[5]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & BMI.kg.m2 >35) %>% select(sAHI) %>% pull, na.rm=T)
+
+
+
+knitr::kable(data.frame(Epworth_score=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), sleepiness_severity=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), "pipe")
+
+```
+
+* ID>=40
+*  boundary value are included
+* don't see `neck` information in the data 
+
+
 
 ### Figure 4
 
@@ -687,6 +720,35 @@ average_BMI[4]=mean(data%>%filter(Patient.ID.Number>=40 & sAHI>=15) %>% select(B
 knitr::kable(data.frame(Epworth_score=c(" all participants", "sAHI<5", "sAHI>=5", "sAHI>=15"), num_participants=num_participants, Average_BMI=round(average_BMI,2)), "pipe")
 
 ```
+
+### Figure 8 
+
+```{r, echo=T, warning=F, message=F}
+data%>%filter(Patient.ID.Number>=40 ) %>%nrow # No. participants 
+```
+```{r, echo=T, warning=F, message=F}
+data%>%filter(Patient.ID.Number>=40 & sAHI>=5 ) %>%nrow # No. participants with sAHI>=5
+```
+```{r, echo=T, warning=F, message=F}
+data%>%filter(Patient.ID.Number>=40 & sAHI>=5 & Average.PBI.Score.8.week >2) %>%nrow # No. participants with sAHI>=5 & high risk individual with PBI>2
+```
+
+
+```{r, echo=T, warning=F, message=F}
+data%>%filter(Patient.ID.Number>=40 & sAHI>=5 & STOP.BANG.total>=5) %>%nrow # No. participants with sAHI>=5 & high risk individual with STOP-BANG>=5
+```
+
+### BMI comparison 
+
+```{r, echo=F, message=F, warning=F}
+BMI_group1=data %>% filter(sAHI<5) %>% select(BMI.kg.m2) %>% pull
+BMI_group2=data %>% filter(sAHI>=5) %>% select(BMI.kg.m2) %>% pull
+t.test(BMI_group1, BMI_group2)
+```
+* the BMI difference between `sAHI<5` and `sAHI>=5` is significant  with p value of 0.02
+* the mean of `sAHI<5` is 24.52 and `sAHI>=5` is 27.32. 
+
+
 
 ## statistical software 
 
