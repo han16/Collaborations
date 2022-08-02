@@ -611,7 +611,7 @@ summary(model)
 
 ## Figures 
 
-### Figure 3 
+### Figure 3 Epworth Scale Scoring (ESS) and STOP-BANG results compared with sAHI scores.
 
 ```{r, echo=F, warning=F, message=F}
 num_participants=numeric()
@@ -661,7 +661,7 @@ average_sAHI[5]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & 
 
 
 
-knitr::kable(data.frame(Epworth_score=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), sleepiness_severity=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), "pipe")
+knitr::kable(data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), STOP_BANG_OSA_risk=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), "pipe")
 
 ```
 
@@ -671,7 +671,7 @@ knitr::kable(data.frame(Epworth_score=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER
 
 
 
-### Figure 4
+### Figure 4 sAHI and Epworth Sleepiness Score averages and comparison.
 
 ```{r, echo=F, warning=F, message=F}
 num_participants=numeric()
@@ -698,7 +698,40 @@ knitr::kable(data.frame(Epworth_score=c("0-5", "6-10", "11-12", "13-15", "16-24"
 * boundary value are included
 
 
-### Fgure 6 
+### Figure 5 STOP-BANG scoring for patients with an sAHI >=5. 27/33 (81.81%) patients were not correctly flagged for a “High Risk” of OSA.
+
+
+
+
+```{r, echo=F, warning=F, message=F}
+num_participants=numeric()
+average_sAHI=numeric()
+num_participants[1]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=0 & STOP.BANG.total<=2 & sAHI>=5) %>%nrow 
+average_sAHI[1]=mean(data%>%filter(Patient.ID.Number>=40 &STOP.BANG.total>=0 & STOP.BANG.total<=2 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[2]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & sAHI>=5) %>%nrow 
+average_sAHI[2]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[3]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>%nrow 
+average_sAHI[3]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[4]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & Remarks.A..Gender=="M" & sAHI>=5 ) %>%nrow 
+average_sAHI[4]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & Remarks.A..Gender=="M" & sAHI>=5 ) %>% select(sAHI) %>% pull, na.rm=T)
+
+num_participants[5]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & BMI.kg.m2 >35 & sAHI>=5) %>%nrow 
+average_sAHI[5]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total==2 & BMI.kg.m2 >35 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+
+
+
+knitr::kable(data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), STOP_BANG_OSA_risk=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), "pipe")
+
+```
+
+* ID>=40
+* boundary value are included
+* `sAHI>=5`
+
+### Figure 6 BMI compared with sAHI.
 
 
 

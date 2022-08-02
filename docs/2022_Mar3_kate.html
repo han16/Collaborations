@@ -366,7 +366,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -377,8 +377,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,9 +391,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -416,18 +416,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -518,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0f1670e58ef34bc0475978c810b8682cf788b5c7targetblank0f1670ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree791264448b1a34831bc9b45ef47ccf169f042741targetblank7912644a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/0f1670e58ef34bc0475978c810b8682cf788b5c7" target="_blank">0f1670e</a>
+<a href="https://github.com/han16/Collaborations/tree/791264448b1a34831bc9b45ef47ccf169f042741" target="_blank">7912644</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0f1670e58ef34bc0475978c810b8682cf788b5c7targetblank0f1670ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree791264448b1a34831bc9b45ef47ccf169f042741targetblank7912644a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/0f1670e58ef34bc0475978c810b8682cf788b5c7" target="_blank">0f1670e</a>.
+<a href="https://github.com/han16/Collaborations/tree/791264448b1a34831bc9b45ef47ccf169f042741" target="_blank">7912644</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -552,6 +555,9 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    analysis/.Rhistory
+
+Unstaged changes:
+    Modified:   analysis/2022_Mar3_kate.Rmd
 
 </code></pre>
 <p>
@@ -597,6 +603,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/791264448b1a34831bc9b45ef47ccf169f042741/docs/2022_Mar3_kate.html" target="_blank">7912644</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-02
+</td>
+<td>
+8/2/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -3783,8 +3806,11 @@ interaction.</li>
 </div>
 <div id="figures" class="section level2">
 <h2>Figures</h2>
-<div id="figure-3" class="section level3">
-<h3>Figure 3</h3>
+<div
+id="figure-3-epworth-scale-scoring-ess-and-stop-bang-results-compared-with-sahi-scores."
+class="section level3">
+<h3>Figure 3 Epworth Scale Scoring (ESS) and STOP-BANG results compared
+with sAHI scores.</h3>
 <table>
 <thead>
 <tr class="header">
@@ -3834,15 +3860,15 @@ e.g. <code>Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5</code></li>
 </ul>
 <table>
 <colgroup>
-<col width="27%" />
-<col width="28%" />
-<col width="24%" />
+<col width="31%" />
+<col width="26%" />
+<col width="23%" />
 <col width="18%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Epworth_score</th>
-<th align="left">sleepiness_severity</th>
+<th align="left">Number_of_yes_response</th>
+<th align="left">STOP_BANG_OSA_risk</th>
 <th align="right">num_participants</th>
 <th align="right">Average_sAHI</th>
 </tr>
@@ -3886,8 +3912,11 @@ e.g. <code>Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5</code></li>
 <li>don’t see <code>neck</code> information in the data</li>
 </ul>
 </div>
-<div id="figure-4" class="section level3">
-<h3>Figure 4</h3>
+<div
+id="figure-4-sahi-and-epworth-sleepiness-score-averages-and-comparison."
+class="section level3">
+<h3>Figure 4 sAHI and Epworth Sleepiness Score averages and
+comparison.</h3>
 <table>
 <colgroup>
 <col width="17%" />
@@ -3941,8 +3970,68 @@ e.g. <code>Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5</code></li>
 <li>boundary value are included</li>
 </ul>
 </div>
-<div id="fgure-6" class="section level3">
-<h3>Fgure 6</h3>
+<div
+id="figure-5-stop-bang-scoring-for-patients-with-an-sahi-5.-2733-81.81-patients-were-not-correctly-flagged-for-a-high-risk-of-osa."
+class="section level3">
+<h3>Figure 5 STOP-BANG scoring for patients with an sAHI &gt;=5. 27/33
+(81.81%) patients were not correctly flagged for a “High Risk” of
+OSA.</h3>
+<table>
+<colgroup>
+<col width="31%" />
+<col width="26%" />
+<col width="23%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Number_of_yes_response</th>
+<th align="left">STOP_BANG_OSA_risk</th>
+<th align="right">num_participants</th>
+<th align="right">Average_sAHI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0-2</td>
+<td align="left">low</td>
+<td align="right">23</td>
+<td align="right">13.61</td>
+</tr>
+<tr class="even">
+<td align="left">3-4</td>
+<td align="left">intermediate</td>
+<td align="right">7</td>
+<td align="right">14.29</td>
+</tr>
+<tr class="odd">
+<td align="left">5-8</td>
+<td align="left">high</td>
+<td align="right">3</td>
+<td align="right">11.00</td>
+</tr>
+<tr class="even">
+<td align="left">2 STOP+MALE GENDER</td>
+<td align="left">high</td>
+<td align="right">6</td>
+<td align="right">11.33</td>
+</tr>
+<tr class="odd">
+<td align="left">2 STOP+bmi&gt;35</td>
+<td align="left">high</td>
+<td align="right">0</td>
+<td align="right">NaN</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ID&gt;=40</li>
+<li>boundary value are included</li>
+<li><code>sAHI&gt;=5</code></li>
+</ul>
+</div>
+<div id="figure-6-bmi-compared-with-sahi." class="section level3">
+<h3>Figure 6 BMI compared with sAHI.</h3>
 <table>
 <thead>
 <tr class="header">
