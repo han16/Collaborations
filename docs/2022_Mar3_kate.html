@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-02
+<strong>Last updated:</strong> 2022-08-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree791264448b1a34831bc9b45ef47ccf169f042741targetblank7912644a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef540ea7996a9aa117f73ae7304b92a6fcca7e34atargetblankf540ea7a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/791264448b1a34831bc9b45ef47ccf169f042741" target="_blank">7912644</a>
+<a href="https://github.com/han16/Collaborations/tree/f540ea7996a9aa117f73ae7304b92a6fcca7e34a" target="_blank">f540ea7</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree791264448b1a34831bc9b45ef47ccf169f042741targetblank7912644a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef540ea7996a9aa117f73ae7304b92a6fcca7e34atargetblankf540ea7a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/791264448b1a34831bc9b45ef47ccf169f042741" target="_blank">7912644</a>.
+<a href="https://github.com/han16/Collaborations/tree/f540ea7996a9aa117f73ae7304b92a6fcca7e34a" target="_blank">f540ea7</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f540ea7996a9aa117f73ae7304b92a6fcca7e34a/analysis/2022_Mar3_kate.Rmd" target="_blank">f540ea7</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-02
+</td>
+<td>
+8/2/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/f540ea7996a9aa117f73ae7304b92a6fcca7e34a/docs/2022_Mar3_kate.html" target="_blank">f540ea7</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-02
+</td>
+<td>
+8/2/2022
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -3811,6 +3845,24 @@ id="figure-3-epworth-scale-scoring-ess-and-stop-bang-results-compared-with-sahi-
 class="section level3">
 <h3>Figure 3 Epworth Scale Scoring (ESS) and STOP-BANG results compared
 with sAHI scores.</h3>
+<pre class="r"><code>num_participants=numeric()
+average_sAHI=numeric()
+num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5) %&gt;%nrow 
+average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=6 &amp; Epworth.Score&lt;=10) %&gt;%nrow 
+average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=6 &amp; Epworth.Score&lt;=10) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=11 &amp; Epworth.Score&lt;=12) %&gt;%nrow 
+average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=11 &amp; Epworth.Score&lt;=12) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15) %&gt;%nrow 
+average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24) %&gt;%nrow 
+average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+knitr::kable(data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot;11-12&quot;, &quot;13-15&quot;, &quot;16-24&quot;), sleepiness_severity=c(&quot;lower normal&quot;, &quot;higher normal&quot;, &quot;mild excessive&quot;, &quot;moderate excessive&quot;, &quot;severe&quot;), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -3854,10 +3906,30 @@ with sAHI scores.</h3>
 </tbody>
 </table>
 <ul>
-<li>ID&gt;=40</li>
+<li>ID&gt;=40, 71 participates in total.</li>
 <li>boundary value are included,
 e.g. <code>Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5</code></li>
 </ul>
+<pre class="r"><code>num_participants=numeric()
+average_sAHI=numeric()
+num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2) %&gt;%nrow 
+average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4) %&gt;%nrow 
+average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8) %&gt;%nrow 
+average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot; ) %&gt;%nrow 
+average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot;) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35) %&gt;%nrow 
+average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+
+
+knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot;, &quot;5-8&quot;, &quot;2 STOP+MALE GENDER&quot;, &quot;2 STOP+bmi&gt;35&quot;), STOP_BANG_OSA_risk=c(&quot;low&quot;, &quot;intermediate&quot;, &quot;high&quot;, &quot;high&quot;, &quot;high&quot;), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
 <table>
 <colgroup>
 <col width="31%" />
@@ -3917,6 +3989,24 @@ id="figure-4-sahi-and-epworth-sleepiness-score-averages-and-comparison."
 class="section level3">
 <h3>Figure 4 sAHI and Epworth Sleepiness Score averages and
 comparison.</h3>
+<pre class="r"><code>num_participants=numeric()
+average_sAHI=numeric()
+num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=6 &amp; Epworth.Score&lt;=10 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=6 &amp; Epworth.Score&lt;=10 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=11 &amp; Epworth.Score&lt;=12 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=11 &amp; Epworth.Score&lt;=12 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+knitr::kable(data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot;11-12&quot;, &quot;13-15&quot;, &quot;16-24&quot;), sleepiness_severity=c(&quot;lower normal&quot;, &quot;higher normal&quot;, &quot;mild excessive&quot;, &quot;moderate excessive&quot;, &quot;severe&quot;), num_participants_sAHI_larger_than5=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
 <table>
 <colgroup>
 <col width="17%" />
@@ -3969,6 +4059,22 @@ comparison.</h3>
 <li>ID&gt;=40</li>
 <li>boundary value are included</li>
 </ul>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Epworth1 and Epworth2
+t = 2.144, df = 43.567, p-value = 0.03765
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.1165816 3.7861298
+sample estimates:
+mean of x mean of y 
+ 6.030303  4.078947 </code></pre>
+<ul>
+<li>p value of 0.038&lt; 5% indicates Epworth between group
+<code>sAHI&gt;=5</code> and <code>sAHI&lt;5</code> are statistically
+different.</li>
+</ul>
 </div>
 <div
 id="figure-5-stop-bang-scoring-for-patients-with-an-sahi-5.-2733-81.81-patients-were-not-correctly-flagged-for-a-high-risk-of-osa."
@@ -3976,6 +4082,26 @@ class="section level3">
 <h3>Figure 5 STOP-BANG scoring for patients with an sAHI &gt;=5. 27/33
 (81.81%) patients were not correctly flagged for a “High Risk” of
 OSA.</h3>
+<pre class="r"><code>num_participants=numeric()
+average_sAHI=numeric()
+num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;%nrow 
+average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+
+
+
+knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot;, &quot;5-8&quot;, &quot;2 STOP+MALE GENDER&quot;, &quot;2 STOP+bmi&gt;35&quot;), STOP_BANG_OSA_risk=c(&quot;low&quot;, &quot;intermediate&quot;, &quot;high&quot;, &quot;high&quot;, &quot;high&quot;), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
 <table>
 <colgroup>
 <col width="31%" />
@@ -4032,6 +4158,21 @@ OSA.</h3>
 </div>
 <div id="figure-6-bmi-compared-with-sahi." class="section level3">
 <h3>Figure 6 BMI compared with sAHI.</h3>
+<pre class="r"><code>num_participants=numeric()
+average_BMI=numeric()
+num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 ) %&gt;%nrow 
+average_BMI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&lt;5) %&gt;%nrow 
+average_BMI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&lt;5) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+
+num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_BMI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=5) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+
+num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=15) %&gt;%nrow 
+average_BMI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=15) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+
+knitr::kable(data.frame(Epworth_score=c(&quot; all participants&quot;, &quot;sAHI&lt;5&quot;, &quot;sAHI&gt;=5&quot;, &quot;sAHI&gt;=15&quot;), num_participants=num_participants, Average_BMI=round(average_BMI,2)), &quot;pipe&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
