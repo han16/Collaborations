@@ -366,7 +366,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -377,8 +377,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -387,13 +387,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-03
+<strong>Last updated:</strong> 2022-08-12
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -416,18 +416,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -518,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9409a988343fa05edd77266ce098db80f06e118etargetblank9409a98a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefa9131b9603eccd6604b8e35b02c3ce59c2d6817targetblankfa9131ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/9409a988343fa05edd77266ce098db80f06e118e" target="_blank">9409a98</a>
+<a href="https://github.com/han16/Collaborations/tree/fa9131b9603eccd6604b8e35b02c3ce59c2d6817" target="_blank">fa9131b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9409a988343fa05edd77266ce098db80f06e118etargetblank9409a98a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefa9131b9603eccd6604b8e35b02c3ce59c2d6817targetblankfa9131ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/9409a988343fa05edd77266ce098db80f06e118e" target="_blank">9409a98</a>.
+<a href="https://github.com/han16/Collaborations/tree/fa9131b9603eccd6604b8e35b02c3ce59c2d6817" target="_blank">fa9131b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -552,6 +555,9 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    analysis/.Rhistory
+
+Unstaged changes:
+    Modified:   analysis/2022_Mar3_kate.Rmd
 
 </code></pre>
 <p>
@@ -597,6 +603,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/fa9131b9603eccd6604b8e35b02c3ce59c2d6817/docs/2022_Mar3_kate.html" target="_blank">fa9131b</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-03
+</td>
+<td>
+8/3/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1241,8 +1264,8 @@ small p value of 0.017.</p></li>
 <p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="clusters" class="section level2">
-<h2>3 clusters</h2>
+<div id="clusters-by-pbi" class="section level2">
+<h2>3 clusters by PBI</h2>
 <pre><code>                  group num_individual
 1 PBI &lt;2 post-treatment             32
 2 PBI&gt;=2 post-treatment             70
@@ -3861,9 +3884,81 @@ treatment          1 6.301579  0.0125
 time               1 0.000000  1.0000
 treatment:time     1 0.528258  0.4678</code></pre>
 <ul>
+<li>group 1: <code>Average.PBI.Score.8.week &lt;2</code> and group 2:
+<code>Average.PBI.Score.8.week&gt;=2</code></li>
 <li>p value of 0.3702 for treatment X time interaction indicates lack of
 interaction.</li>
 </ul>
+</div>
+<div id="three-groups-by-sai" class="section level3">
+<h3>three groups by SAI</h3>
+<ul>
+<li>three groups: group 1: <code>SAI&lt;5</code>; group 2:
+<code>SAI&gt;=5 &amp; SAI&lt;=14</code>; group 3:
+<code>SAI&gt;14</code></li>
+</ul>
+<div id="test-group-by-time-interaction" class="section level4">
+<h4>test group by time interaction</h4>
+<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Generalized least squares fit by REML
+  Model: y ~ treatment * time 
+  Data: NULL 
+       AIC      BIC   logLik
+  1160.984 1224.927 -564.492
+
+Correlation Structure: General
+ Formula: ~time | id 
+ Parameter estimate(s):
+ Correlation: 
+  1     2     3    
+2 0.374            
+3 0.044 0.251      
+4 0.292 0.153 0.190
+Variance function:
+ Structure: Different standard deviations per stratum
+ Formula: ~1 | time 
+ Parameter estimates:
+        1         2         3         4 
+1.0000000 0.9888675 1.0070402 1.0101993 
+
+Coefficients:
+                          Value  Std.Error    t-value p-value
+(Intercept)           0.3555207 0.20594132  1.7263201  0.0851
+treatmentgroup2      -0.3675030 0.29590523 -1.2419617  0.2150
+treatmentgroup3      -0.6544872 0.28150160 -2.3249858  0.0206
+time                 -0.0655679 0.06852303 -0.9568735  0.3392
+treatmentgroup2:time  0.0353624 0.09845679  0.3591670  0.7197
+treatmentgroup3:time  0.1471497 0.09366426  1.5710332  0.1170
+
+ Correlation: 
+                     (Intr) trtmn2 trtmn3 time   trtm2:
+treatmentgroup2      -0.696                            
+treatmentgroup3      -0.732  0.509                     
+time                 -0.844  0.587  0.617              
+treatmentgroup2:time  0.587 -0.844 -0.430 -0.696       
+treatmentgroup3:time  0.617 -0.430 -0.844 -0.732  0.509
+
+Standardized residuals:
+      Min        Q1       Med        Q3       Max 
+-1.439227 -0.531345 -0.212848  0.227395  7.858261 
+
+Residual standard error: 0.9907455 
+Degrees of freedom: 408 total; 402 residual</code></pre>
+<pre><code>Denom. DF: 402 
+               numDF  F-value p-value
+(Intercept)        1 0.000000  1.0000
+treatment          2 2.165388  0.1160
+time               1 0.000000  1.0000
+treatment:time     2 1.365189  0.2565</code></pre>
+<ul>
+<li>use normalized cortisol values and no overall group by time
+interaction</li>
+</ul>
+</div>
+<div id="test-group-difference-at-every-time-point"
+class="section level4">
+<h4>test group difference at every time point</h4>
+</div>
 </div>
 </div>
 <div id="figures" class="section level2">
@@ -3938,23 +4033,32 @@ knitr::kable(data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot
 <li>boundary value are included,
 e.g. <code>Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5</code></li>
 </ul>
-<pre class="r"><code>num_participants=numeric()
+<pre class="r"><code>ID40_plus_SB=data=as_tibble(read.csv(&quot;C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Kate\\ID40+SB.csv&quot;, header=T))
+
+num_participants=numeric()
 average_sAHI=numeric()
 num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2) %&gt;%nrow 
 average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4) %&gt;%nrow 
-average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2 &lt;35) %&gt;%nrow 
+average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2 &lt;35) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
 num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8) %&gt;%nrow 
 average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot; ) %&gt;%nrow 
-average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot;) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; STOP==2 &amp; Remarks.A..Gender==&quot;M&quot; ) %&gt;%nrow 
+average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; STOP==2 &amp; Remarks.A..Gender==&quot;M&quot;) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35) %&gt;%nrow 
-average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; STOP==2 &amp; BMI.kg.m2 &gt;35) %&gt;%nrow 
+average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; STOP==2 &amp; BMI.kg.m2 &gt;35) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
+################
+# check the patient set 
+# all=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4) %&gt;% select(Patient.ID.Number, STOP, STOP.BANG.total, Remarks.A..Gender, BMI.kg.m2) %&gt;% select(Patient.ID.Number) %&gt;% pull()
+# x1=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2 &lt;35) %&gt;% select(Patient.ID.Number) %&gt;% pull
+# x2=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; STOP==2 &amp; Remarks.A..Gender==&quot;M&quot; )%&gt;% select(Patient.ID.Number) %&gt;% pull
+# x3=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; STOP==2 &amp; BMI.kg.m2 &gt;35) %&gt;% select(Patient.ID.Number) %&gt;% pull
+# setdiff(all, union(union(x1, x2), x3)) 
 
 
 knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot;, &quot;5-8&quot;, &quot;2 STOP+MALE GENDER&quot;, &quot;2 STOP+bmi&gt;35&quot;), STOP_BANG_OSA_risk=c(&quot;low&quot;, &quot;intermediate&quot;, &quot;high&quot;, &quot;high&quot;, &quot;high&quot;), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
@@ -3977,14 +4081,14 @@ knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot
 <tr class="odd">
 <td align="left">0-2</td>
 <td align="left">low</td>
-<td align="right">59</td>
-<td align="right">6.36</td>
+<td align="right">57</td>
+<td align="right">6.33</td>
 </tr>
 <tr class="even">
 <td align="left">3-4</td>
 <td align="left">intermediate</td>
-<td align="right">9</td>
-<td align="right">11.44</td>
+<td align="right">4</td>
+<td align="right">13.25</td>
 </tr>
 <tr class="odd">
 <td align="left">5-8</td>
@@ -3995,21 +4099,24 @@ knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot
 <tr class="even">
 <td align="left">2 STOP+MALE GENDER</td>
 <td align="left">high</td>
-<td align="right">12</td>
-<td align="right">6.50</td>
+<td align="right">3</td>
+<td align="right">11.67</td>
 </tr>
 <tr class="odd">
 <td align="left">2 STOP+bmi&gt;35</td>
 <td align="left">high</td>
-<td align="right">0</td>
-<td align="right">NaN</td>
+<td align="right">2</td>
+<td align="right">7.00</td>
 </tr>
 </tbody>
 </table>
 <ul>
 <li>ID&gt;=40</li>
 <li>boundary value are included</li>
-<li>don’t see <code>neck</code> information in the data</li>
+<li>low:
+<code>STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2</code></li>
+<li>intermediate:
+<code>STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender=="F" &amp; BMI.kg.m2 &lt;35</code></li>
 </ul>
 </div>
 <div
@@ -4112,20 +4219,20 @@ class="section level3">
 OSA.</h3>
 <pre class="r"><code>num_participants=numeric()
 average_sAHI=numeric()
-num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP&gt;=0 &amp; STOP&lt;=2 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP&gt;=0 &amp; STOP&lt;=2 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP&gt;=3 &amp; STOP&lt;=4 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP&gt;=3 &amp; STOP&lt;=4 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP&gt;=5 &amp; STOP&lt;=8 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP&gt;=5 &amp; STOP&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;%nrow 
-average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;%nrow 
+average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total==2 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;%nrow 
+average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
 
 
@@ -4149,32 +4256,32 @@ knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot
 <tr class="odd">
 <td align="left">0-2</td>
 <td align="left">low</td>
-<td align="right">23</td>
-<td align="right">13.61</td>
+<td align="right">28</td>
+<td align="right">13.46</td>
 </tr>
 <tr class="even">
 <td align="left">3-4</td>
 <td align="left">intermediate</td>
-<td align="right">7</td>
-<td align="right">14.29</td>
+<td align="right">5</td>
+<td align="right">13.80</td>
 </tr>
 <tr class="odd">
 <td align="left">5-8</td>
 <td align="left">high</td>
-<td align="right">3</td>
-<td align="right">11.00</td>
+<td align="right">0</td>
+<td align="right">NaN</td>
 </tr>
 <tr class="even">
 <td align="left">2 STOP+MALE GENDER</td>
 <td align="left">high</td>
-<td align="right">6</td>
-<td align="right">11.33</td>
+<td align="right">3</td>
+<td align="right">13.67</td>
 </tr>
 <tr class="odd">
 <td align="left">2 STOP+bmi&gt;35</td>
 <td align="left">high</td>
-<td align="right">0</td>
-<td align="right">NaN</td>
+<td align="right">3</td>
+<td align="right">9.33</td>
 </tr>
 </tbody>
 </table>
