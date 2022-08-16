@@ -600,22 +600,22 @@ interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="
 
 library(nlme)
 model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
-summary(model)
+#summary(model)
 
  anova(model)
 ```
 
 
 * group 1: `Average.PBI.Score.8.week <2` and group 2: `Average.PBI.Score.8.week>=2`
-* p value of 0.3702 for treatment X time interaction indicates lack of interaction. 
+* p value of 0.4678 for treatment X time interaction indicates lack of interaction. 
 
 
-### three groups by SAI 
+## three groups by SAI 
 
 * three groups: group 1: `SAI<5`; group 2: `SAI>=5 & SAI<=14`; group 3: `SAI>14`
 
 
-#### test group by time interaction 
+### test cortisol group by time interaction 
 
 ```{r, echo=F, message=F, warning=F}
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Kate\\June_2022_Final_Data.csv", header=T)) # this is newly corrected data
@@ -632,7 +632,7 @@ trt[trt%in%SAI_group2]="group2"
 trt[trt%in%SAI_group3]="group3"
 trt=factor(trt)
 
-data_Cortisol_update=data.frame(id=Patient.ID.Number, treatment=trt, y0=data_Cortisol$Cortisol.1_normalized, y1=data_Cortisol$Cortisol.2_normalized, y2=data_Cortisol$Cortisol.3_normalized, y3=data_Cortisol$Cortisol.4_normalized)
+data_Cortisol_update=data.frame(id=Patient.ID.Number, treatment=trt, y0=data_Cortisol$Cortisol.1, y1=data_Cortisol$Cortisol.2, y2=data_Cortisol$Cortisol.3, y3=data_Cortisol$Cortisol.4)
 
 ######## convert into long format 
 data_Cortisol_update_long <- reshape(data_Cortisol_update, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
@@ -645,24 +645,157 @@ interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="
 
 library(nlme)
 model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
-summary(model)
+#summary(model)
 
  anova(model)
 ```
-* use normalized cortisol values and no overall group by time interaction 
+* use normalized cortisol values and no overall group by time interaction due to p value of 0.0903
+* use cortisol raw values 
 
 
-#### test group difference at every time point
+### test cortisol group difference at every time point
 
 ```{r, echo=F, message=F, warning=F}
+annova_pvalue=numeric()
 for (i in 1:4)
 {
   Cortisol_group1=data_Cortisol_update[which(data_Cortisol_update$treatment=="group1"),(i+2)]
   Cortisol_group2=data_Cortisol_update[which(data_Cortisol_update$treatment=="group2"),(i+2)]
   Cortisol_group3=data_Cortisol_update[which(data_Cortisol_update$treatment=="group3"),(i+2)]
-  
+  annova_data=data.frame(cortisol=c(Cortisol_group1, Cortisol_group2, Cortisol_group3), groups=c(rep("group1", length(Cortisol_group1)), rep("group2", length(Cortisol_group2)), rep("group3", length(Cortisol_group3))))
+  LM=lm(cortisol~ groups, data=annova_data)
+  annova_pvalue[i]=anova(LM)[1,5]
 }
+annova_pvalue
 ```
+* use cortisol raw values 
+* no statistical difference at every time point from above p values 
+
+### PBI at week 8 for three groups 
+
+```{r, echo=F, warning=F, message=F}
+PBI_week8_group1=data%>%filter(Patient.ID.Number %in% SAI_group1) %>% select(Average.PBI.Score.8.week) %>% pull
+PBI_week8_group2=data%>%filter(Patient.ID.Number %in% SAI_group2) %>% select(Average.PBI.Score.8.week) %>% pull
+PBI_week8_group3=data%>%filter(Patient.ID.Number %in% SAI_group3) %>% select(Average.PBI.Score.8.week) %>% pull
+annova_data=data.frame(PBI_week8=c(PBI_week8_group1, PBI_week8_group2, PBI_week8_group3), groups=c(rep("group1", length(PBI_week8_group1)), rep("group2", length(PBI_week8_group2)), rep("group3", length(PBI_week8_group3))))
+  LM=lm(PBI_week8~ groups, data=annova_data)
+  anova(LM)
+
+```
+* use average PBI 
+* group averages are group 1: 2.58; group 2: 2.34; group3: 2.33
+* p value of 0.2728 indicates no statistical difference 
+
+### SQI for 3 groups 
+
+
+
+```{r, echo=F, warning=F, message=F}
+SQI_group1=data%>%filter(Patient.ID.Number %in% SAI_group1) %>% select(SQI) %>% pull
+SQI_group2=data%>%filter(Patient.ID.Number %in% SAI_group2) %>% select(SQI) %>% pull
+SQI_group3=data%>%filter(Patient.ID.Number %in% SAI_group3) %>% select(SQI) %>% pull
+annova_data=data.frame(SQI=c(SQI_group1, SQI_group2, SQI_group3), groups=c(rep("group1", length(SQI_group1)), rep("group2", length(SQI_group2)), rep("group3", length(SQI_group3))))
+  LM=lm(SQI~ groups, data=annova_data)
+  anova(LM)
+
+```
+* average SQI: group 1: 67.21; group 2: 51.39; group 3: 38.18
+
+* p value of `3.463e-16` indicates strong evidence of group difference  
+
+## two groups by sAHI
+
+* two groups: group 1: `sAHI<5`; group 2: `sAHI>=5`
+
+### test cortisol group by time interaction 
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Kate\\June_2022_Final_Data.csv", header=T)) # this is newly corrected data
+library(foreign)
+############ define groups 
+sAHI_group1=data %>% filter(sAHI<5) %>% select(Patient.ID.Number) %>% pull
+sAHI_group2=data %>% filter(sAHI>=5) %>% select(Patient.ID.Number) %>% pull
+############ prepare the data 
+Patient.ID.Number=data$Patient.ID.Number
+trt=Patient.ID.Number
+trt[trt%in%sAHI_group1]="group1"
+trt[trt%in%sAHI_group2]="group2"
+trt=factor(trt)
+data_Cortisol_update=data.frame(id=Patient.ID.Number[32:102], treatment=trt[32:102], y0=data_Cortisol$Cortisol.1[32:102], y1=data_Cortisol$Cortisol.2[32:102], y2=data_Cortisol$Cortisol.3[32:102], y3=data_Cortisol$Cortisol.4[32:102]) 
+#%>% filter(Patient.ID.Number>=40) # remove rows with NA sAHI
+
+#data_Cortisol_update=data_Cortisol_update %>% filter(Patient.ID.Number>=40) # remove rows with NA sAHI
+######## convert into long format 
+data_Cortisol_update_long <- reshape(data_Cortisol_update, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
+attach(data_Cortisol_update_long) # when attaching variables, DO not use same variable names multiple times 
+
+######### plot mean curve 
+#interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="Cortisol", main="", col=c(2,4))
+
+
+
+library(nlme)
+model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
+#summary(model)
+
+ anova(model)
+```
+
+* use normalized cortisol values and no overall group by time interaction due to p value of 0.7137
+* use cortisol raw values 
+
+
+### test cortisol group difference at every time point
+
+```{r, echo=F, message=F, warning=F}
+annova_pvalue=numeric()
+for (i in 1:4)
+{
+  Cortisol_group1=data_Cortisol_update[which(data_Cortisol_update$treatment=="group1"),(i+2)]
+  Cortisol_group2=data_Cortisol_update[which(data_Cortisol_update$treatment=="group2"),(i+2)]
+  annova_data=data.frame(cortisol=c(Cortisol_group1, Cortisol_group2), groups=c(rep("group1", length(Cortisol_group1)), rep("group2", length(Cortisol_group2))))
+  LM=lm(cortisol~ groups, data=annova_data)
+  annova_pvalue[i]=anova(LM)[1,5]
+}
+annova_pvalue
+```
+* use cortisol raw values 
+* no statistical difference at every time point from above p values 
+
+
+
+### PBI at week 8 for 2 groups 
+
+```{r, echo=F, warning=F, message=F}
+PBI_week8_group1=data%>%filter(Patient.ID.Number %in% sAHI_group1) %>% select(Average.PBI.Score.8.week) %>% pull
+PBI_week8_group2=data%>%filter(Patient.ID.Number %in% sAHI_group2) %>% select(Average.PBI.Score.8.week) %>% pull
+annova_data=data.frame(PBI_week8=c(PBI_week8_group1, PBI_week8_group2), groups=c(rep("group1", length(PBI_week8_group1)), rep("group2", length(PBI_week8_group2))))
+  LM=lm(PBI_week8~ groups, data=annova_data)
+  anova(LM)
+
+```
+* use average PBI 
+* group averages are group 1: 2.29; group 2: 2.34; group3: 2.33
+* p value of 0.7947 indicates no statistical difference 
+
+
+### SQI for 2 groups 
+
+
+
+```{r, echo=F, warning=F, message=F}
+SQI_group1=data%>%filter(Patient.ID.Number %in% sAHI_group1) %>% select(SQI) %>% pull
+SQI_group2=data%>%filter(Patient.ID.Number %in% sAHI_group2) %>% select(SQI) %>% pull
+annova_data=data.frame(SQI=c(SQI_group1, SQI_group2), groups=c(rep("group1", length(SQI_group1)), rep("group2", length(SQI_group2))))
+  LM=lm(SQI~ groups, data=annova_data)
+  anova(LM)
+
+```
+* average SQI: group 1: 54.82; group 2: 51.39; group 3: 42.88
+
+* p value of `0.0028` indicates strong evidence of group difference  
+
+
 
 
 ## Figures 
@@ -705,8 +838,8 @@ average_sAHI=numeric()
 num_participants[1]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=0 & STOP.BANG.total<=2) %>%nrow 
 average_sAHI[1]=mean(data%>%filter(Patient.ID.Number>=40 &STOP.BANG.total>=0 & STOP.BANG.total<=2) %>% select(sAHI) %>% pull, na.rm=T)
 
-num_participants[2]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="F" & BMI.kg.m2 <35) %>%nrow 
-average_sAHI[2]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="F" & BMI.kg.m2 <35) %>% select(sAHI) %>% pull, na.rm=T)
+num_participants[2]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP!=2 &  STOP.BANG.total<=4 &  BMI.kg.m2 <35) %>%nrow 
+average_sAHI[2]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP!=2 &  STOP.BANG.total<=4  & BMI.kg.m2 <35) %>% select(sAHI) %>% pull, na.rm=T)
 
 num_participants[3]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8) %>%nrow 
 average_sAHI[3]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8) %>% select(sAHI) %>% pull, na.rm=T)
@@ -733,7 +866,7 @@ knitr::kable(data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MA
 * ID>=40
 *  boundary value are included
 * low:  `STOP.BANG.total>=0 & STOP.BANG.total<=2`
-* intermediate: `STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="F" & BMI.kg.m2 <35`
+* intermediate: `STOP.BANG.total>=3 & STOP.BANG.total<=4 & STOP!=2 & BMI.kg.m2 <35`
  
 
 

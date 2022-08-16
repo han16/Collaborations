@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-12
+<strong>Last updated:</strong> 2022-08-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefa9131b9603eccd6604b8e35b02c3ce59c2d6817targetblankfa9131ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef19ea74d6cddc7a3e8a55bee74298c51e8620e5atargetblankf19ea74a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/fa9131b9603eccd6604b8e35b02c3ce59c2d6817" target="_blank">fa9131b</a>
+<a href="https://github.com/han16/Collaborations/tree/f19ea74d6cddc7a3e8a55bee74298c51e8620e5a" target="_blank">f19ea74</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefa9131b9603eccd6604b8e35b02c3ce59c2d6817targetblankfa9131ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef19ea74d6cddc7a3e8a55bee74298c51e8620e5atargetblankf19ea74a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/fa9131b9603eccd6604b8e35b02c3ce59c2d6817" target="_blank">fa9131b</a>.
+<a href="https://github.com/han16/Collaborations/tree/f19ea74d6cddc7a3e8a55bee74298c51e8620e5a" target="_blank">f19ea74</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f19ea74d6cddc7a3e8a55bee74298c51e8620e5a/analysis/2022_Mar3_kate.Rmd" target="_blank">f19ea74</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-12
+</td>
+<td>
+8/12/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/f19ea74d6cddc7a3e8a55bee74298c51e8620e5a/docs/2022_Mar3_kate.html" target="_blank">f19ea74</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-12
+</td>
+<td>
+8/12/2022
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -3837,46 +3871,6 @@ measurements</a></p></li>
 <p><a href="https://content.sph.harvard.edu/fitzmaur/ala2e/">Response
 profile analysis</a></p>
 <p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>Generalized least squares fit by REML
-  Model: y ~ treatment * time 
-  Data: NULL 
-       AIC      BIC   logLik
-  1152.488 1208.508 -562.244
-
-Correlation Structure: General
- Formula: ~time | id 
- Parameter estimate(s):
- Correlation: 
-  1     2     3    
-2 0.387            
-3 0.043 0.258      
-4 0.268 0.140 0.156
-Variance function:
- Structure: Different standard deviations per stratum
- Formula: ~1 | time 
- Parameter estimates:
-        1         2         3         4 
-1.0000000 1.0026110 0.9932557 0.9835582 
-
-Coefficients:
-                           Value  Std.Error    t-value p-value
-(Intercept)          -0.12055744 0.21316739 -0.5655529  0.5720
-treatmentgroup2       0.17566942 0.25731899  0.6826912  0.4952
-time                 -0.04214447 0.06999523 -0.6021048  0.5474
-treatmentgroup2:time  0.06141051 0.08449276  0.7268138  0.4678
-
- Correlation: 
-                     (Intr) trtmn2 time  
-treatmentgroup2      -0.828              
-time                 -0.855  0.708       
-treatmentgroup2:time  0.708 -0.855 -0.828
-
-Standardized residuals:
-       Min         Q1        Med         Q3        Max 
--1.5369592 -0.5259696 -0.1975538  0.2522228  8.0493757 
-
-Residual standard error: 0.9940039 
-Degrees of freedom: 408 total; 404 residual</code></pre>
 <pre><code>Denom. DF: 404 
                numDF  F-value p-value
 (Intercept)        1 0.000000  1.0000
@@ -3886,79 +3880,137 @@ treatment:time     1 0.528258  0.4678</code></pre>
 <ul>
 <li>group 1: <code>Average.PBI.Score.8.week &lt;2</code> and group 2:
 <code>Average.PBI.Score.8.week&gt;=2</code></li>
-<li>p value of 0.3702 for treatment X time interaction indicates lack of
+<li>p value of 0.4678 for treatment X time interaction indicates lack of
 interaction.</li>
 </ul>
 </div>
-<div id="three-groups-by-sai" class="section level3">
-<h3>three groups by SAI</h3>
+</div>
+<div id="three-groups-by-sai" class="section level2">
+<h2>three groups by SAI</h2>
 <ul>
 <li>three groups: group 1: <code>SAI&lt;5</code>; group 2:
 <code>SAI&gt;=5 &amp; SAI&lt;=14</code>; group 3:
 <code>SAI&gt;14</code></li>
 </ul>
-<div id="test-group-by-time-interaction" class="section level4">
-<h4>test group by time interaction</h4>
+<div id="test-cortisol-group-by-time-interaction"
+class="section level3">
+<h3>test cortisol group by time interaction</h3>
 <p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>Generalized least squares fit by REML
-  Model: y ~ treatment * time 
-  Data: NULL 
-       AIC      BIC   logLik
-  1160.984 1224.927 -564.492
-
-Correlation Structure: General
- Formula: ~time | id 
- Parameter estimate(s):
- Correlation: 
-  1     2     3    
-2 0.374            
-3 0.044 0.251      
-4 0.292 0.153 0.190
-Variance function:
- Structure: Different standard deviations per stratum
- Formula: ~1 | time 
- Parameter estimates:
-        1         2         3         4 
-1.0000000 0.9888675 1.0070402 1.0101993 
-
-Coefficients:
-                          Value  Std.Error    t-value p-value
-(Intercept)           0.3555207 0.20594132  1.7263201  0.0851
-treatmentgroup2      -0.3675030 0.29590523 -1.2419617  0.2150
-treatmentgroup3      -0.6544872 0.28150160 -2.3249858  0.0206
-time                 -0.0655679 0.06852303 -0.9568735  0.3392
-treatmentgroup2:time  0.0353624 0.09845679  0.3591670  0.7197
-treatmentgroup3:time  0.1471497 0.09366426  1.5710332  0.1170
-
- Correlation: 
-                     (Intr) trtmn2 trtmn3 time   trtm2:
-treatmentgroup2      -0.696                            
-treatmentgroup3      -0.732  0.509                     
-time                 -0.844  0.587  0.617              
-treatmentgroup2:time  0.587 -0.844 -0.430 -0.696       
-treatmentgroup3:time  0.617 -0.430 -0.844 -0.732  0.509
-
-Standardized residuals:
-      Min        Q1       Med        Q3       Max 
--1.439227 -0.531345 -0.212848  0.227395  7.858261 
-
-Residual standard error: 0.9907455 
-Degrees of freedom: 408 total; 402 residual</code></pre>
 <pre><code>Denom. DF: 402 
-               numDF  F-value p-value
-(Intercept)        1 0.000000  1.0000
-treatment          2 2.165388  0.1160
-time               1 0.000000  1.0000
-treatment:time     2 1.365189  0.2565</code></pre>
+               numDF   F-value p-value
+(Intercept)        1 278.40184  &lt;.0001
+treatment          2   0.76101  0.4679
+time               1 107.96648  &lt;.0001
+treatment:time     2   2.41870  0.0903</code></pre>
 <ul>
 <li>use normalized cortisol values and no overall group by time
-interaction</li>
+interaction due to p value of 0.0903</li>
+<li>use cortisol raw values</li>
 </ul>
 </div>
-<div id="test-group-difference-at-every-time-point"
-class="section level4">
-<h4>test group difference at every time point</h4>
+<div id="test-cortisol-group-difference-at-every-time-point"
+class="section level3">
+<h3>test cortisol group difference at every time point</h3>
+<pre><code>[1] 0.19138209 0.07793339 0.49658197 0.54966145</code></pre>
+<ul>
+<li>use cortisol raw values</li>
+<li>no statistical difference at every time point from above p
+values</li>
+</ul>
 </div>
+<div id="pbi-at-week-8-for-three-groups" class="section level3">
+<h3>PBI at week 8 for three groups</h3>
+<pre><code>Analysis of Variance Table
+
+Response: PBI_week8
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+groups     2  1.389 0.69448  1.3163 0.2728
+Residuals 99 52.231 0.52758               </code></pre>
+<ul>
+<li>use average PBI</li>
+<li>group averages are group 1: 2.58; group 2: 2.34; group3: 2.33</li>
+<li>p value of 0.2728 indicates no statistical difference</li>
+</ul>
+</div>
+<div id="sqi-for-3-groups" class="section level3">
+<h3>SQI for 3 groups</h3>
+<pre><code>Analysis of Variance Table
+
+Response: SQI
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+groups     2  14911  7455.5  52.111 3.463e-16 ***
+Residuals 99  14164   143.1                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>average SQI: group 1: 67.21; group 2: 51.39; group 3:
+38.18</p></li>
+<li><p>p value of <code>3.463e-16</code> indicates strong evidence of
+group difference</p></li>
+</ul>
+</div>
+</div>
+<div id="two-groups-by-sahi" class="section level2">
+<h2>two groups by sAHI</h2>
+<ul>
+<li>two groups: group 1: <code>sAHI&lt;5</code>; group 2:
+<code>sAHI&gt;=5</code></li>
+</ul>
+<div id="test-cortisol-group-by-time-interaction-1"
+class="section level3">
+<h3>test cortisol group by time interaction</h3>
+<pre><code>Denom. DF: 280 
+               numDF   F-value p-value
+(Intercept)        1 232.38839  &lt;.0001
+treatment          1   1.89271  0.1700
+time               1  31.67358  &lt;.0001
+treatment:time     1   0.13492  0.7137</code></pre>
+<ul>
+<li>use normalized cortisol values and no overall group by time
+interaction due to p value of 0.7137</li>
+<li>use cortisol raw values</li>
+</ul>
+</div>
+<div id="test-cortisol-group-difference-at-every-time-point-1"
+class="section level3">
+<h3>test cortisol group difference at every time point</h3>
+<pre><code>[1] 0.7940903 0.1569729 0.9382148 0.2776449</code></pre>
+<ul>
+<li>use cortisol raw values</li>
+<li>no statistical difference at every time point from above p
+values</li>
+</ul>
+</div>
+<div id="pbi-at-week-8-for-2-groups" class="section level3">
+<h3>PBI at week 8 for 2 groups</h3>
+<pre><code>Analysis of Variance Table
+
+Response: PBI_week8
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+groups     1  0.033 0.03336  0.0682 0.7947
+Residuals 69 33.737 0.48894               </code></pre>
+<ul>
+<li>use average PBI</li>
+<li>group averages are group 1: 2.29; group 2: 2.34; group3: 2.33</li>
+<li>p value of 0.7947 indicates no statistical difference</li>
+</ul>
+</div>
+<div id="sqi-for-2-groups" class="section level3">
+<h3>SQI for 2 groups</h3>
+<pre><code>Analysis of Variance Table
+
+Response: SQI
+          Df  Sum Sq Mean Sq F value   Pr(&gt;F)   
+groups     1  2527.8 2527.80  9.5852 0.002834 **
+Residuals 69 18196.6  263.72                    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>average SQI: group 1: 54.82; group 2: 51.39; group 3:
+42.88</p></li>
+<li><p>p value of <code>0.0028</code> indicates strong evidence of group
+difference</p></li>
+</ul>
 </div>
 </div>
 <div id="figures" class="section level2">
@@ -4040,8 +4092,8 @@ average_sAHI=numeric()
 num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2) %&gt;%nrow 
 average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2 &lt;35) %&gt;%nrow 
-average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2 &lt;35) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP!=2 &amp;  STOP.BANG.total&lt;=4 &amp;  BMI.kg.m2 &lt;35) %&gt;%nrow 
+average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP!=2 &amp;  STOP.BANG.total&lt;=4  &amp; BMI.kg.m2 &lt;35) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
 num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8) %&gt;%nrow 
 average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
@@ -4087,8 +4139,8 @@ knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot
 <tr class="even">
 <td align="left">3-4</td>
 <td align="left">intermediate</td>
-<td align="right">4</td>
-<td align="right">13.25</td>
+<td align="right">6</td>
+<td align="right">11.33</td>
 </tr>
 <tr class="odd">
 <td align="left">5-8</td>
@@ -4116,7 +4168,7 @@ knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot
 <li>low:
 <code>STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2</code></li>
 <li>intermediate:
-<code>STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender=="F" &amp; BMI.kg.m2 &lt;35</code></li>
+<code>STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; STOP!=2 &amp; BMI.kg.m2 &lt;35</code></li>
 </ul>
 </div>
 <div
