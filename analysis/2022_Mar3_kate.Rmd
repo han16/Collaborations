@@ -187,7 +187,7 @@ data.frame(group=c("PBI <2 post-treatment", "PBI>=2 post-treatment", "PBI >3 pos
 
 
 
-## difference at week 8 
+## feature difference at week 8 
 
 ```{r, echo=F, message=F, warning=F}
 covariates=c("SAI", "sRDI", "SQI", "Fragmentation", "Cortisol.1", "Cortisol.2", "Cortisol.3", "Cortisol.4", "Total.Cortisol", "BMI.kg.m2")
@@ -298,6 +298,8 @@ figure <- ggarrange(g1, g2,
 figure
 ```
 
+* use normalized cortisol 
+
 
 ### individual C.1, C.2, C.3, C.4
 
@@ -307,6 +309,9 @@ figure
 | :---        |    :----:   |          ---: |       ---:  |       ---:  |          
 | p value       | 0.189      | 0.165  |    0.034         |  0.006           |   
 
+
+* group 1: `Average.PBI.Score.8.week <2`; group 2: `Average.PBI.Score.8.week >=2`
+* group difference at each time point 
 
 
 
@@ -454,7 +459,7 @@ two_sample_ttest=t.test(diff_group1, diff_group2)
 
 * first calculate Z scores for cortisol 
 
-* then use two sample t test to compare the change difference between two groups PBI <=2 post-treatment vs PBI >2 post-treatment. 
+* then use two sample t test to compare the change difference between two groups PBI <2 post-treatment vs PBI >=2 post-treatment. 
 
 
 ### C.i+1/C.i for normalized cortisol 
