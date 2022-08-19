@@ -623,7 +623,22 @@ model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = va
 ### test cortisol group by time interaction 
 
 ```{r, echo=F, message=F, warning=F}
+##### read into data 
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Kate\\June_2022_Final_Data.csv", header=T)) # this is newly corrected data
+
+data=data %>% mutate(Cortisol.1_normalized=(Cortisol.1-mean(Cortisol.1))/sd(Cortisol.1)) %>% mutate(Cortisol.2_normalized=(Cortisol.2-mean(Cortisol.2))/sd(Cortisol.2))  %>% mutate(Cortisol.3_normalized=(Cortisol.3-mean(Cortisol.3))/sd(Cortisol.3)) #%>% mutate(Cortisol.4_normalized=(Cortisol.4-mean(Cortisol.4))/sd(Cortisol.4))
+Cortisol.4=as.numeric(data$Cortisol.4) # convert to numeric values 
+Cortisol.4[is.na(Cortisol.4)] <- 0 # replace NA with 0 
+
+data=data %>% add_column(Cortisol.4_normalized=(Cortisol.4-mean(Cortisol.4))/sd(Cortisol.4))
+
+data_Cortisol=data %>% select(Patient.ID.Number,Cortisol.1_normalized, Cortisol.2_normalized, Cortisol.3_normalized, Cortisol.4_normalized) 
+
+data_Cortisol=data_Cortisol %>% add_column(Cortisol.1=data$Cortisol.1, Cortisol.2=data$Cortisol.2,Cortisol.3=data$Cortisol.3,Cortisol.4=Cortisol.4)
+#############################
+
+
+
 library(foreign)
 ############ define groups 
 SAI_group1=data %>% filter(SAI<5) %>% select(Patient.ID.Number) %>% pull
@@ -637,14 +652,14 @@ trt[trt%in%SAI_group2]="group2"
 trt[trt%in%SAI_group3]="group3"
 trt=factor(trt)
 
-data_Cortisol_update=data.frame(id=Patient.ID.Number, treatment=trt, y0=data_Cortisol$Cortisol.1, y1=data_Cortisol$Cortisol.2, y2=data_Cortisol$Cortisol.3, y3=data_Cortisol$Cortisol.4)
+data_Cortisol_update1=data.frame(id=Patient.ID.Number, treatment=trt, y0=data_Cortisol$Cortisol.1, y1=data_Cortisol$Cortisol.2, y2=data_Cortisol$Cortisol.3, y3=data_Cortisol$Cortisol.4)
 
 ######## convert into long format 
-data_Cortisol_update_long <- reshape(data_Cortisol_update, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
+data_Cortisol_update_long <- reshape(data_Cortisol_update1, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
 attach(data_Cortisol_update_long) # when attaching variables, DO not use same variable names multiple times 
 
 ######### plot mean curve 
-interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="Cortisol", main="", col=c(2,4))
+interaction.plot(time, treatment, y, type="b", pch=c(1,2,3), xlab="Time", ylab="Raw cortisol", main="", col=c("black", "blue", "red"))
 
 
 
@@ -654,9 +669,31 @@ model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = va
 
  anova(model)
 ```
-* use normalized cortisol values and no overall group by time interaction due to p value of 0.0903
+*  no overall group by time interaction due to p value of 0.0903
 * use cortisol raw values 
 
+
+```{r, echo=F, warning=F, message=F}
+data_Cortisol_update2=data.frame(id=Patient.ID.Number, treatment=trt, y0=data_Cortisol$Cortisol.1_normalized, y1=data_Cortisol$Cortisol.2_normalized, y2=data_Cortisol$Cortisol.3_normalized, y3=data_Cortisol$Cortisol.4_normalized)
+
+######## convert into long format 
+data_Cortisol_update_long <- reshape(data_Cortisol_update2, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
+attach(data_Cortisol_update_long) # when attaching variables, DO not use same variable names multiple times 
+
+######### plot mean curve 
+interaction.plot(time, treatment, y, type="b", pch=c(1,2,3), xlab="Time", ylab="Normalized cortisol", main="", col=c("black", "blue", "red"))
+
+
+
+library(nlme)
+model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
+#summary(model)
+
+ anova(model)
+```
+
+*  no overall group by time interaction due to p value of 0.0903
+* use cortisol normalized values 
 
 ### test cortisol group difference at every time point
 
