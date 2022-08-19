@@ -759,20 +759,21 @@ sAHI_group1=data %>% filter(sAHI<5) %>% select(Patient.ID.Number) %>% pull
 sAHI_group2=data %>% filter(sAHI>=5) %>% select(Patient.ID.Number) %>% pull
 ############ prepare the data 
 Patient.ID.Number=data$Patient.ID.Number
-trt=Patient.ID.Number
+trt=Patient.ID.Number[32:102]
 trt[trt%in%sAHI_group1]="group1"
 trt[trt%in%sAHI_group2]="group2"
 trt=factor(trt)
-data_Cortisol_update=data.frame(id=Patient.ID.Number[32:102], treatment=trt[32:102], y0=data_Cortisol$Cortisol.1[32:102], y1=data_Cortisol$Cortisol.2[32:102], y2=data_Cortisol$Cortisol.3[32:102], y3=data_Cortisol$Cortisol.4[32:102]) 
+data_Cortisol_update3=data.frame(id=Patient.ID.Number[32:102], treatment=trt, y0=data_Cortisol$Cortisol.1[32:102], y1=data_Cortisol$Cortisol.2[32:102], y2=data_Cortisol$Cortisol.3[32:102], y3=data_Cortisol$Cortisol.4[32:102]) 
 #%>% filter(Patient.ID.Number>=40) # remove rows with NA sAHI
 
 #data_Cortisol_update=data_Cortisol_update %>% filter(Patient.ID.Number>=40) # remove rows with NA sAHI
 ######## convert into long format 
-data_Cortisol_update_long <- reshape(data_Cortisol_update, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
+detach(data_Cortisol_update_long)
+data_Cortisol_update_long <- reshape(data_Cortisol_update3, idvar="id", varying=c("y0","y1","y2","y3"), v.names="y", timevar="time", time=1:4, direction="long")
 attach(data_Cortisol_update_long) # when attaching variables, DO not use same variable names multiple times 
 
 ######### plot mean curve 
-#interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="Cortisol", main="", col=c(2,4))
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="Raw cortisol", main="", col=c(2,4))
 
 
 
@@ -783,6 +784,7 @@ model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = va
  anova(model)
 ```
 
+* only 71 individuals are included as others have `NA` sAHI. 
 * use normalized cortisol values and no overall group by time interaction due to p value of 0.7137
 * use cortisol raw values 
 
