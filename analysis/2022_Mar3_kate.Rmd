@@ -1031,18 +1031,22 @@ knitr::kable(data.frame(Epworth_score=c(" all participants", "sAHI<5", "sAHI>=5"
 ```{r, echo=T, warning=F, message=F}
 data%>%filter(Patient.ID.Number>=40 ) %>%nrow # No. participants 
 ```
+
 ```{r, echo=T, warning=F, message=F}
 data%>%filter(Patient.ID.Number>=40 & sAHI>=5 ) %>%nrow # No. participants with sAHI>=5
 ```
+
+```{r, echo=T, warning=F, message=F}
+data%>%filter(Patient.ID.Number>=40 & sAHI>=5 & Epworth.Score==1) %>% select(Patient.ID.Number, sAHI, Epworth.Score, Average.PBI.Score.8.week) # No. participants with sAHI>=5
+```
+
 ```{r, echo=T, warning=F, message=F}
 data%>%filter(Patient.ID.Number>=40 & sAHI>=5 & Average.PBI.Score.8.week >2) %>%nrow # No. participants with sAHI>=5 & high risk individual with PBI>2
 ```
 
+* From Figure 5, there are 6 STOP-BANG "high risk". 
 
-```{r, echo=T, warning=F, message=F}
-data%>%filter(Patient.ID.Number>=40 & sAHI>=5 & STOP.BANG.total>=5) %>%nrow # No. participants with sAHI>=5 & high risk individual with STOP-BANG>=5
-```
-From Figure 5, there are 6 STOP-BANG "high risk". 
+* ESS; `Epworth.Score`
 
 ### BMI comparison 
 
