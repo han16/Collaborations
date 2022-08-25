@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-24
+<strong>Last updated:</strong> 2022-08-25
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree445df25e60f564f3d142281cc37c0b70925f397ctargetblank445df25a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef8af3b2c9d90ceed789754b2a7df0ba2a4a82d7dtargetblankf8af3b2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/445df25e60f564f3d142281cc37c0b70925f397c" target="_blank">445df25</a>
+<a href="https://github.com/han16/Collaborations/tree/f8af3b2c9d90ceed789754b2a7df0ba2a4a82d7d" target="_blank">f8af3b2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree445df25e60f564f3d142281cc37c0b70925f397ctargetblank445df25a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef8af3b2c9d90ceed789754b2a7df0ba2a4a82d7dtargetblankf8af3b2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/445df25e60f564f3d142281cc37c0b70925f397c" target="_blank">445df25</a>.
+<a href="https://github.com/han16/Collaborations/tree/f8af3b2c9d90ceed789754b2a7df0ba2a4a82d7d" target="_blank">f8af3b2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f8af3b2c9d90ceed789754b2a7df0ba2a4a82d7d/analysis/2022_Mar3_kate.Rmd" target="_blank">f8af3b2</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-24
+</td>
+<td>
+8/24/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/f8af3b2c9d90ceed789754b2a7df0ba2a4a82d7d/docs/2022_Mar3_kate.html" target="_blank">f8af3b2</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-24
+</td>
+<td>
+8/24/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -4422,7 +4456,13 @@ average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Sco
 num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15 &amp; sAHI&gt;=5) %&gt;%nrow 
 average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;%nrow 
+data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;% select(Patient.ID.Number, Epworth.Score, sAHI)</code></pre>
+<pre><code># A tibble: 2 x 3
+  Patient.ID.Number Epworth.Score  sAHI
+              &lt;int&gt;         &lt;int&gt; &lt;int&gt;
+1                49            18     5
+2                52            17    11</code></pre>
+<pre class="r"><code>num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;%nrow 
 average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
 knitr::kable(data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot;11-12&quot;, &quot;13-15&quot;, &quot;16-24&quot;), sleepiness_severity=c(&quot;lower normal&quot;, &quot;higher normal&quot;, &quot;mild excessive&quot;, &quot;moderate excessive&quot;, &quot;severe&quot;), num_participants_sAHI_larger_than5=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
@@ -4509,13 +4549,31 @@ average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP&gt;=0 &
 num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4  &amp; sAHI&gt;=5) %&gt;% filter(Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2&lt;35 |Remarks.A..Gender==&quot;M&quot; &amp; STOP&lt;2 ) %&gt;%nrow 
 average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4  &amp; sAHI&gt;=5) %&gt;% filter(Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2&lt;35 |Remarks.A..Gender==&quot;M&quot; &amp; STOP&lt;2 ) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;%nrow 
+data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(Patient.ID.Number, STOP.BANG.total, sAHI)</code></pre>
+<pre><code># A tibble: 3 x 3
+  Patient.ID.Number STOP.BANG.total  sAHI
+              &lt;int&gt;           &lt;int&gt; &lt;int&gt;
+1                62               5     6
+2                63               5    11
+3               101               5    16</code></pre>
+<pre class="r"><code>num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;%nrow 
 average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;%nrow 
+data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 )%&gt;% select(Patient.ID.Number, STOP.BANG.total, Remarks.A..Gender, sAHI)</code></pre>
+<pre><code># A tibble: 2 x 4
+  Patient.ID.Number STOP.BANG.total Remarks.A..Gender  sAHI
+              &lt;int&gt;           &lt;int&gt; &lt;chr&gt;             &lt;int&gt;
+1               100               4 M                     9
+2               108               3 M                    26</code></pre>
+<pre class="r"><code>num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;%nrow 
 average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp;  STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
-num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp;  BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;%nrow 
+data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp;  BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5)%&gt;% select(Patient.ID.Number, STOP.BANG.total, BMI.kg.m2, sAHI)</code></pre>
+<pre><code># A tibble: 1 x 4
+  Patient.ID.Number STOP.BANG.total BMI.kg.m2  sAHI
+              &lt;int&gt;           &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
+1                87               3      36.3    11</code></pre>
+<pre class="r"><code>num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp;  BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;%nrow 
 average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
 
 

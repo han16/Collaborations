@@ -941,6 +941,7 @@ average_sAHI[3]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=11 & E
 num_participants[4]=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=13 & Epworth.Score<=15 & sAHI>=5) %>%nrow 
 average_sAHI[4]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=13 & Epworth.Score<=15 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
 
+data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=16 & Epworth.Score<=24 & sAHI>=5) %>% select(Patient.ID.Number, Epworth.Score, sAHI)
 num_participants[5]=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=16 & Epworth.Score<=24 & sAHI>=5) %>%nrow 
 average_sAHI[5]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=16 & Epworth.Score<=24 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
 
@@ -978,12 +979,15 @@ average_sAHI[1]=mean(data%>%filter(Patient.ID.Number>=40 &STOP>=0 & STOP<=2 & sA
 num_participants[2]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4  & sAHI>=5) %>% filter(Remarks.A..Gender=="F" & BMI.kg.m2<35 |Remarks.A..Gender=="M" & STOP<2 ) %>%nrow 
 average_sAHI[2]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4  & sAHI>=5) %>% filter(Remarks.A..Gender=="F" & BMI.kg.m2<35 |Remarks.A..Gender=="M" & STOP<2 ) %>% select(sAHI) %>% pull, na.rm=T)
 
+data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>% select(Patient.ID.Number, STOP.BANG.total, sAHI)
 num_participants[3]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>%nrow 
 average_sAHI[3]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
 
+data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="M" & sAHI>=5 )%>% select(Patient.ID.Number, STOP.BANG.total, Remarks.A..Gender, sAHI)
 num_participants[4]=data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="M" & sAHI>=5 ) %>%nrow 
 average_sAHI[4]=mean(data%>%filter(Patient.ID.Number>=40 & STOP==2 &  STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="M" & sAHI>=5 ) %>% select(sAHI) %>% pull, na.rm=T)
 
+data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 &  BMI.kg.m2 >35 & sAHI>=5)%>% select(Patient.ID.Number, STOP.BANG.total, BMI.kg.m2, sAHI)
 num_participants[5]=data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 &  BMI.kg.m2 >35 & sAHI>=5) %>%nrow 
 average_sAHI[5]=mean(data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & BMI.kg.m2 >35 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
 
