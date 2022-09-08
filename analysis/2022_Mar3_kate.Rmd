@@ -408,6 +408,15 @@ individuals in normal and abnormal group
 there are 17 individuals with normal cortisols across 4 timepoints. 
 
 
+```{r, echo=T, warning=F, message=F}
+prop.test(17,102, p=0.15)
+```
+
+* test the the rate of normal cortisol is 15%, the population rate or not. 
+
+* p value of 0.74 indicates no difference 
+
+
 
 ### C.i-->C.i+1
 

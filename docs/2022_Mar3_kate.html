@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-25
+<strong>Last updated:</strong> 2022-09-08
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef8af3b2c9d90ceed789754b2a7df0ba2a4a82d7dtargetblankf8af3b2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedf41868452b5096e6367543bb3a079c42dc5f11ftargetblankdf41868a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/f8af3b2c9d90ceed789754b2a7df0ba2a4a82d7d" target="_blank">f8af3b2</a>
+<a href="https://github.com/han16/Collaborations/tree/df41868452b5096e6367543bb3a079c42dc5f11f" target="_blank">df41868</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef8af3b2c9d90ceed789754b2a7df0ba2a4a82d7dtargetblankf8af3b2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedf41868452b5096e6367543bb3a079c42dc5f11ftargetblankdf41868a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/f8af3b2c9d90ceed789754b2a7df0ba2a4a82d7d" target="_blank">f8af3b2</a>.
+<a href="https://github.com/han16/Collaborations/tree/df41868452b5096e6367543bb3a079c42dc5f11f" target="_blank">df41868</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/df41868452b5096e6367543bb3a079c42dc5f11f/analysis/2022_Mar3_kate.Rmd" target="_blank">df41868</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-25
+</td>
+<td>
+8/25/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/df41868452b5096e6367543bb3a079c42dc5f11f/docs/2022_Mar3_kate.html" target="_blank">df41868</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-08-25
+</td>
+<td>
+8/25/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -4008,6 +4042,23 @@ Cortisol.4
 </table>
 <p>there are 17 individuals with normal cortisols across 4
 timepoints.</p>
+<pre class="r"><code>prop.test(17,102, p=0.15)</code></pre>
+<pre><code>
+    1-sample proportions test with continuity correction
+
+data:  17 out of 102, null probability 0.15
+X-squared = 0.11073, df = 1, p-value = 0.7393
+alternative hypothesis: true p is not equal to 0.15
+95 percent confidence interval:
+ 0.102822 0.256295
+sample estimates:
+        p 
+0.1666667 </code></pre>
+<ul>
+<li><p>test the the rate of normal cortisol is 15%, the population rate
+or not.</p></li>
+<li><p>p value of 0.74 indicates no difference</p></li>
+</ul>
 </div>
 </div>
 <div id="c.ic.i1" class="section level3">
@@ -4116,7 +4167,7 @@ measurements</a></p></li>
 <h3>Response profile analysis</h3>
 <p><a href="https://content.sph.harvard.edu/fitzmaur/ala2e/">Response
 profile analysis</a></p>
-<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Denom. DF: 404 
                numDF  F-value p-value
 (Intercept)        1 0.000000  1.0000
@@ -4141,7 +4192,7 @@ interaction.</li>
 <div id="test-cortisol-group-by-time-interaction"
 class="section level3">
 <h3>test cortisol group by time interaction</h3>
-<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Denom. DF: 402 
                numDF   F-value p-value
 (Intercept)        1 278.40184  &lt;.0001
@@ -4152,7 +4203,7 @@ treatment:time     2   2.41870  0.0903</code></pre>
 <li>no overall group by time interaction due to p value of 0.0903</li>
 <li>use cortisol raw values</li>
 </ul>
-<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Denom. DF: 402 
                numDF  F-value p-value
 (Intercept)        1 0.000000  1.0000
@@ -4221,7 +4272,7 @@ group difference</p></li>
 <div id="test-cortisol-group-by-time-interaction-1"
 class="section level3">
 <h3>test cortisol group by time interaction</h3>
-<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2022_Mar3_kate.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Denom. DF: 280 
                numDF   F-value p-value
 (Intercept)        1 232.38839  &lt;.0001
