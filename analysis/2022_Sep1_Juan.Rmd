@@ -1,0 +1,83 @@
+---
+title: "9/14/2022"
+output: html_document
+date: '2022-09-14'
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+set.seed(123)
+```
+
+
+```{r, echo=F, warning=F, message=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Juan\\Research Valencia-Kofina implants.csv"))
+```
+
+## Age 
+
+```{r, echo=F, message=F, warning=F}
+p=ggplot(data.frame(var=rep("Age", 23), Age=data$Age), aes(x=var, y=Age))+
+  geom_boxplot()
+p+geom_dotplot(binaxis='y', stackdir='center', dotsize=0.6)+
+  ggtitle("boxplot of Age")+
+  theme(plot.title = element_text(hjust = 0.5, size=15)) # center the title
+
+
+round(mean(data$Age),2) # mean 
+round(sd(data$Age),2)  # sd 
+round(sd(data$Age)/sqrt(nrow(data)),2) # se
+min(data$Age) # minimum 
+max(data$Age) # maximum 
+```
+
+
+
+
+| Mean      | SD |   SE    | Range
+| :---        |    :----:   |   :----:   |        ---: |
+| 59.39    | 13.17   | 2.75   | (32, 73) |
+
+
+
+## Gender 
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Gender) %>%mutate(prop=n/nrow(data)), aes(x=as.factor(Gender), y=prop, fill=as.factor(Gender))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("Gender (%)")+ylim(c(0,1))+
+  xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+g1
+
+gender_count=data %>% count(Gender) %>% select(n) %>% pull
+binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+* large p value of 0.4 suggests no difference between gender. 
+
+
+## Race 
+
+
+```{r, echo=F, warning=F, message=F}
+g1=ggplot(data %>% count(Race) %>%mutate(prop=n/nrow(data)), aes(x=as.factor(Race), y=prop, fill=as.factor(Race))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("Race (%)")+ylim(c(0,1))+
+  xlab("Race: 1=white, 2=Hispanic, 5=African American")+
+  geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+g1
+data %>% count(Race)
+```
+
+* sample size is not large enough to test the difference 

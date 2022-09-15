@@ -25,13 +25,14 @@ library(tidyverse)
 12. [May-Mariana](2022_May2_Mariana.html)
 13. [Jun-Jacob](2022_Jun1_Jacob.html)
 14. [Jun-Scott](2022_Jun2_Scott.html)
+15. [Sep-Juan](2022_Sep1_Juan.html)
 
 ##  progress 
 
 
 ```{r, echo=F, message=F, warning=F}
 ###### https://rstudio-pubs-static.s3.amazonaws.com/215319_ac67755c296b441dac7b24b48fc30156.html
-project_progress=data.frame(project=seq(1,14), progress=c(100, 100, 100, 100, 100, 100, 100, 60, 100, 100, 100, 100,100,100))
+project_progress=data.frame(project=seq(1,15), progress=c(100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,100,100,0))
 bp.y <- ggplot(data =project_progress, aes(x = factor(project), y = progress)) + 
     geom_bar(stat = "identity", aes(fill = progress))+ 
   labs(x = "project")+
