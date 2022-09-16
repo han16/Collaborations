@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-09-15
+<strong>Last updated:</strong> 2022-09-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -425,10 +425,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree27eca5d352f0f9b0a762d0307b0b9dacd4191281targetblank27eca5da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5a2fa8cda10a34e6531be3a4c740ac5c56328331targetblank5a2fa8ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/27eca5d352f0f9b0a762d0307b0b9dacd4191281" target="_blank">27eca5d</a>
+<a href="https://github.com/han16/Collaborations/tree/5a2fa8cda10a34e6531be3a4c740ac5c56328331" target="_blank">5a2fa8c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree27eca5d352f0f9b0a762d0307b0b9dacd4191281targetblank27eca5da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5a2fa8cda10a34e6531be3a4c740ac5c56328331targetblank5a2fa8ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/27eca5d352f0f9b0a762d0307b0b9dacd4191281" target="_blank">27eca5d</a>.
+<a href="https://github.com/han16/Collaborations/tree/5a2fa8cda10a34e6531be3a4c740ac5c56328331" target="_blank">5a2fa8c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -556,11 +556,8 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/2022_Sep1_Juan.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
+    Modified:   analysis/2022_Sep1_Juan.Rmd
 
 </code></pre>
 <p>
@@ -575,10 +572,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2022_Sep1_Juan.Rmd</code>) and
+HTML (<code>docs/2022_Sep1_Juan.html</code>) files. If you’ve configured
+a remote Git repository (see <code>?wflow_git_remote</code>), click on
+the hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/5a2fa8cda10a34e6531be3a4c740ac5c56328331/analysis/2022_Sep1_Juan.Rmd" target="_blank">5a2fa8c</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-09-15
+</td>
+<td>
+9/15/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/5a2fa8cda10a34e6531be3a4c740ac5c56328331/docs/2022_Sep1_Juan.html" target="_blank">5a2fa8c</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-09-15
+</td>
+<td>
+9/15/2022
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -631,14 +692,40 @@ probability of success
 <div id="race" class="section level2">
 <h2>Race</h2>
 <p><img src="figure/2022_Sep1_Juan.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code># A tibble: 3 x 2
-   Race     n
-  &lt;int&gt; &lt;int&gt;
-1     1    19
-2     2     3
-3     5     1</code></pre>
 <ul>
 <li>sample size is not large enough to test the difference</li>
+</ul>
+</div>
+<div id="t1-_t2-_t3-_t4-_t5-and-_t6" class="section level2">
+<h2>_T1, _T2, _T3, _T4, _T5 and _T6</h2>
+<div id="trajectory-plot" class="section level3">
+<h3>trajectory plot</h3>
+<p><img src="figure/2022_Sep1_Juan.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="test-difference-between-current-time-and-the-next-one"
+class="section level3">
+<h3>test difference between current time and the next one</h3>
+<pre><code># A tibble: 5 x 2
+  comparison p_value
+  &lt;chr&gt;        &lt;dbl&gt;
+1 T1 vs T2      0   
+2 T2 vs T3      0   
+3 T3 vs T4      0.03
+4 T4 vs T5      0.03
+5 T5 vs T6      0.08</code></pre>
+<ul>
+<li>use paired two sample t test</li>
+</ul>
+</div>
+<div id="test-different-across-all-time-points" class="section level3">
+<h3>test different across all time points</h3>
+<pre><code>ANOVA Table (type III tests)
+
+  Effect  DFn   DFd      F        p p&lt;.05   ges
+1   time 2.61 57.34 15.532 5.39e-07     * 0.365</code></pre>
+<ul>
+<li><p>use repeated anova test</p></li>
+<li><p>small p value indicates significant change over time</p></li>
 </ul>
 <br>
 <p>
@@ -666,30 +753,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] ggpubr_0.4.0     kableExtra_1.3.4 forcats_0.5.1    stringr_1.4.0   
- [5] dplyr_1.0.7      purrr_0.3.4      readr_2.1.1      tidyr_1.1.4     
- [9] tibble_3.1.6     ggplot2_3.3.5    tidyverse_1.3.1 
+ [1] rstatix_0.7.0    ggpubr_0.4.0     kableExtra_1.3.4 forcats_0.5.1   
+ [5] stringr_1.4.0    dplyr_1.0.7      purrr_0.3.4      readr_2.1.1     
+ [9] tidyr_1.1.4      tibble_3.1.6     ggplot2_3.3.5    tidyverse_1.3.1 
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.2        sass_0.4.1        jsonlite_1.7.3    viridisLite_0.4.0
  [5] carData_3.0-5     modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1 
  [9] highr_0.9         cellranger_1.1.0  yaml_2.2.2        pillar_1.6.5     
 [13] backports_1.4.1   glue_1.6.0        digest_0.6.29     promises_1.2.0.1 
-[17] ggsignif_0.6.3    rvest_1.0.2       colorspace_2.0-2  htmltools_0.5.2  
-[21] httpuv_1.6.5      pkgconfig_2.0.3   broom_0.7.11      haven_2.4.3      
-[25] scales_1.1.1      webshot_0.5.2     svglite_2.0.0     later_1.3.0      
-[29] tzdb_0.2.0        git2r_0.29.0      generics_0.1.1    farver_2.1.0     
-[33] car_3.0-12        ellipsis_0.3.2    withr_2.4.3       cli_3.1.1        
-[37] magrittr_2.0.1    crayon_1.4.2      readxl_1.3.1      evaluate_0.14    
-[41] fs_1.5.2          fansi_1.0.2       rstatix_0.7.0     xml2_1.3.3       
-[45] tools_4.1.2       hms_1.1.1         lifecycle_1.0.1   munsell_0.5.0    
-[49] reprex_2.0.1      compiler_4.1.2    jquerylib_0.1.4   systemfonts_1.0.3
-[53] rlang_0.4.12      grid_4.1.2        rstudioapi_0.13   labeling_0.4.2   
-[57] rmarkdown_2.11    gtable_0.3.0      abind_1.4-5       DBI_1.1.2        
-[61] R6_2.5.1          lubridate_1.8.0   knitr_1.37        fastmap_1.1.0    
-[65] utf8_1.2.2        workflowr_1.7.0   rprojroot_2.0.2   stringi_1.7.6    
-[69] Rcpp_1.0.8        vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1 
-[73] xfun_0.29        </code></pre>
+[17] ggsignif_0.6.3    rvest_1.0.2       colorspace_2.0-2  cowplot_1.1.1    
+[21] htmltools_0.5.2   httpuv_1.6.5      pkgconfig_2.0.3   broom_0.7.11     
+[25] haven_2.4.3       scales_1.1.1      webshot_0.5.2     svglite_2.0.0    
+[29] whisker_0.4       later_1.3.0       tzdb_0.2.0        git2r_0.29.0     
+[33] generics_0.1.1    farver_2.1.0      car_3.0-12        ellipsis_0.3.2   
+[37] withr_2.4.3       cli_3.1.1         magrittr_2.0.1    crayon_1.4.2     
+[41] readxl_1.3.1      evaluate_0.14     fs_1.5.2          fansi_1.0.2      
+[45] xml2_1.3.3        tools_4.1.2       hms_1.1.1         lifecycle_1.0.1  
+[49] munsell_0.5.0     reprex_2.0.1      compiler_4.1.2    jquerylib_0.1.4  
+[53] systemfonts_1.0.3 rlang_0.4.12      grid_4.1.2        rstudioapi_0.13  
+[57] labeling_0.4.2    rmarkdown_2.11    gtable_0.3.0      abind_1.4-5      
+[61] DBI_1.1.2         R6_2.5.1          lubridate_1.8.0   knitr_1.37       
+[65] fastmap_1.1.0     utf8_1.2.2        workflowr_1.7.0   rprojroot_2.0.2  
+[69] stringi_1.7.6     Rcpp_1.0.8        vctrs_0.3.8       dbplyr_2.1.1     
+[73] tidyselect_1.1.1  xfun_0.29        </code></pre>
+</div>
 </div>
 </div>
 

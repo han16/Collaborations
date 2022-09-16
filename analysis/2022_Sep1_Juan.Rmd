@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(kableExtra)
 library(ggpubr)
+library(rstatix) # use anova_test function 
 set.seed(123)
 ```
 
@@ -55,7 +56,20 @@ g1=ggplot(data %>% count(Gender) %>%mutate(prop=n/nrow(data)), aes(x=as.factor(G
   geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
-g1
+
+g2=ggplot(data %>% count(Gender), aes(x=as.factor(Gender), y=n, fill=as.factor(Gender))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("Gender")+
+  xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
 
 gender_count=data %>% count(Gender) %>% select(n) %>% pull
 binom.test(gender_count[1], sum(gender_count), p = 0.5)
@@ -76,8 +90,77 @@ g1=ggplot(data %>% count(Race) %>%mutate(prop=n/nrow(data)), aes(x=as.factor(Rac
   geom_text(aes(label=round(prop,2)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
-g1
-data %>% count(Race)
+
+g2=ggplot(data %>% count(Race), aes(x=as.factor(Race), y=n, fill=as.factor(Race))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("Race")+
+  xlab("Race: 1=white, 2=Hispanic, 5=African American")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
 ```
 
 * sample size is not large enough to test the difference 
+
+
+## _T1, _T2, _T3, _T4, _T5 and _T6
+
+
+### trajectory plot 
+
+```{r, echo=F, message=F, warning=F}
+data_long=data.frame(Width_3mm=c(data$Width_3mm_T1, data$Width_3mm_T2, data$width_3mm_T3, data$Width_3mm_T4, data$Width_3mm_T5, data$Width_3mm_T6), time=rep(c("T1", "T2", "T3", "T4", "T5", "T6"), each=nrow(data)), individual=rep(data$Subject,6))
+
+g1=ggplot(data=data_long,aes(x=time, y=Width_3mm, group=individual))+
+  geom_line(color="red")+
+  geom_point() # look at total PBI 
+
+
+g2=ggplot(data.frame(Width_3mm_mean=c(mean(data$Width_3mm_T1),mean(data$Width_3mm_T2), mean(data$width_3mm_T3), mean(data$Width_3mm_T4), mean(data$Width_3mm_T5), mean(data$Width_3mm_T6)), time=c("T1", "T2", "T3", "T4", "T5", "T6")), aes(x=time, y=Width_3mm_mean, group=1))+
+  ylim(c(min(data_long$Width_3mm), max(data_long$Width_3mm)))+
+  geom_line(color="red")+
+  geom_point()
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure 
+```
+
+### test difference between current time and the next one 
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric()
+for (i in 1:5)
+{
+  current=data[,(5+i)] %>% pull
+  current_next=data[,(5+i+1)] %>% pull
+  test=t.test(current, current_next, paired=T)
+  p_value[i]=test$p.value
+}
+data_frame(comparison=c("T1 vs T2", "T2 vs T3", "T3 vs T4", "T4 vs T5", "T5 vs T6"), p_value=round(p_value,2))  
+```
+
+* use paired two sample t test 
+
+
+### test different across all time points 
+
+```{r, echo=F, message=F, warning=F}
+
+res.aov <- anova_test(data = data_long, dv =Width_3mm , wid = individual, within = time)
+get_anova_table(res.aov)
+```
+
+
+* use repeated anova test 
+
+* small p value indicates significant change over time 
