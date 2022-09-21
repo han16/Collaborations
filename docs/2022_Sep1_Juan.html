@@ -387,7 +387,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-09-16
+<strong>Last updated:</strong> 2022-09-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -521,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5a2fa8cda10a34e6531be3a4c740ac5c56328331targetblank5a2fa8ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3537d34532974f9397930ca3f0a185278c47a9dctargetblank3537d34a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/5a2fa8cda10a34e6531be3a4c740ac5c56328331" target="_blank">5a2fa8c</a>
+<a href="https://github.com/han16/Collaborations/tree/3537d34532974f9397930ca3f0a185278c47a9dc" target="_blank">3537d34</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5a2fa8cda10a34e6531be3a4c740ac5c56328331targetblank5a2fa8ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3537d34532974f9397930ca3f0a185278c47a9dctargetblank3537d34a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -539,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/5a2fa8cda10a34e6531be3a4c740ac5c56328331" target="_blank">5a2fa8c</a>.
+<a href="https://github.com/han16/Collaborations/tree/3537d34532974f9397930ca3f0a185278c47a9dc" target="_blank">3537d34</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/3537d34532974f9397930ca3f0a185278c47a9dc/analysis/2022_Sep1_Juan.Rmd" target="_blank">3537d34</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-09-16
+</td>
+<td>
+9/16/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/3537d34532974f9397930ca3f0a185278c47a9dc/docs/2022_Sep1_Juan.html" target="_blank">3537d34</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-09-16
+</td>
+<td>
+9/16/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -705,14 +739,14 @@ probability of success
 <div id="test-difference-between-current-time-and-the-next-one"
 class="section level3">
 <h3>test difference between current time and the next one</h3>
-<pre><code># A tibble: 5 x 2
-  comparison p_value
-  &lt;chr&gt;        &lt;dbl&gt;
-1 T1 vs T2      0   
-2 T2 vs T3      0   
-3 T3 vs T4      0.03
-4 T4 vs T5      0.03
-5 T5 vs T6      0.08</code></pre>
+<pre><code># A tibble: 5 x 5
+  parameter estimate CI_lower CI_upper p_value
+  &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 T1-T2        -1.5     -1.93    -1.06    0   
+2 T2-T3        -1.73    -2.24    -1.22    0   
+3 T3-T4         4.96     0.42     9.5     0.03
+4 T4-T5         6.81     0.57    13.1     0.03
+5 T5-T6         5.84    -0.76    12.4     0.08</code></pre>
 <ul>
 <li>use paired two sample t test</li>
 </ul>
@@ -727,6 +761,67 @@ class="section level3">
 <li><p>use repeated anova test</p></li>
 <li><p>small p value indicates significant change over time</p></li>
 </ul>
+</div>
+</div>
+<div id="t2-t1-t3-t2-t4-t2-t5-t2-and-t6-t2" class="section level2">
+<h2>_T2-T1, T3-T2, T4-T2, T5-T2 and T6-T2</h2>
+<div id="width_diff_3mm" class="section level3">
+<h3>Width_diff_3mm</h3>
+<pre><code># A tibble: 5 x 5
+  parameter            estimate CI_lower CI_upper p_value
+  &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 Width_diff_3mm_T2.T1     1.31     1        1.62   0    
+2 Width_diff_3mm_T3.T2     1.95     1.36     2.55   0    
+3 Width_diff_3mm_T4.T2    -3.24    -8        1.52   0.172
+4 Width_diff_3mm_T5.T2   -10.1    -16       -4.12   0.002
+5 width_diff_3mm_T6.T2   -15.7    -20.7    -10.7    0    </code></pre>
+<ul>
+<li>use one sample t test</li>
+</ul>
+</div>
+<div id="buccal_3mm" class="section level3">
+<h3>Buccal_3mm</h3>
+<pre><code># A tibble: 5 x 5
+  parameter        estimate CI_lower CI_upper p_value
+  &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 Buccal_3mm_T2.T1     0.86     0.4      1.33  0.0009
+2 Buccal_3mm_T2.T3     1.31     0.89     1.74  0     
+3 Buccal_3mm_T2.T4    -0.04    -1.57     1.48  0.953 
+4 Buccal_3mm_T2.T5     0.15    -0.19     0.49  0.379 
+5 Buccal_3mm_T2.T6    -0.56    -0.97    -0.16  0.0085</code></pre>
+</div>
+<div id="lingual_3mm" class="section level3">
+<h3>Lingual_3mm</h3>
+<pre><code># A tibble: 5 x 5
+  parameter         estimate CI_lower CI_upper p_value
+  &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 Lingual_3mm_T2.T1     0.63     0.44     0.83  0     
+2 Lingual_3mm_T2.T3     0.47     0.33     0.61  0     
+3 Lingual_3mm_T2.T4     0.27     0.14     0.4   0.0002
+4 Lingual_3mm_T2.T5    -0.1     -0.31     0.1   0.312 
+5 Lingual_3mm_T2.T6    -0.55    -0.83    -0.26  0.0007</code></pre>
+</div>
+<div id="vertical_mid" class="section level3">
+<h3>Vertical_mid</h3>
+<pre><code># A tibble: 5 x 5
+  parameter          estimate CI_lower CI_upper p_value
+  &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 Vertical_mid_T2.T1     0.36     0.23     0.5   0     
+2 Vertical_mid_T2.T3     1.22     1        1.43  0     
+3 Vertical_mid_T2.T4     0.83     0.45     1.22  0.0002
+4 Vertical_mid_T2.T5     0.33     0.01     0.66  0.0464
+5 Vertical_mid_T2.T6    -0.24    -0.54     0.05  0.104 </code></pre>
+</div>
+<div id="vertical_max" class="section level3">
+<h3>Vertical_max</h3>
+<pre><code># A tibble: 5 x 5
+  parameter          estimate CI_lower CI_upper p_value
+  &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 Vertical_max_T2.T1     0.6      0.47     0.73  0     
+2 Vertical_max_T2.T3     1.41     1.17     1.65  0     
+3 Vertical_max_T2.T4     1.34     0.94     1.73  0     
+4 Vertical_max_T2.T5     0.6      0.24     0.97  0.0022
+5 Vertical_max_T2.T6    -0.52    -0.93    -0.11  0.015 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

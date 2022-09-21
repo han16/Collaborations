@@ -138,15 +138,18 @@ figure
 
 
 ```{r, echo=F, message=F, warning=F}
-p_value=numeric()
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 for (i in 1:5)
 {
   current=data[,(5+i)] %>% pull
   current_next=data[,(5+i+1)] %>% pull
   test=t.test(current, current_next, paired=T)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
   p_value[i]=test$p.value
 }
-data_frame(comparison=c("T1 vs T2", "T2 vs T3", "T3 vs T4", "T4 vs T5", "T5 vs T6"), p_value=round(p_value,2))  
+data_frame(parameter=c("T1-T2", "T2-T3", "T3-T4", "T4-T5", "T5-T6"), estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
 ```
 
 * use paired two sample t test 
@@ -164,3 +167,97 @@ get_anova_table(res.aov)
 * use repeated anova test 
 
 * small p value indicates significant change over time 
+
+## _T2-T1, T3-T2, T4-T2,  T5-T2 and T6-T2
+
+### Width_diff_3mm
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+for (i in 1:5)
+{
+  current=data[,(11+i)] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+}
+data_frame(parameter=colnames(data)[12:16], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+```
+
+* use one sample t test 
+
+### Buccal_3mm
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+for (i in 1:5)
+{
+  current=data[,(16+i)] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+}
+data_frame(parameter=colnames(data)[17:21], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+```
+
+
+
+### Lingual_3mm
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+for (i in 1:5)
+{
+  current=data[,(21+i)] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+}
+data_frame(parameter=colnames(data)[22:26], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+```
+
+
+###  Vertical_mid
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+for (i in 1:5)
+{
+  current=data[,(26+i)] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+}
+data_frame(parameter=colnames(data)[27:31], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+```
+
+
+
+###  Vertical_max
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+for (i in 1:5)
+{
+  current=data[,(31+i)] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+}
+data_frame(parameter=colnames(data)[32:36], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+```
