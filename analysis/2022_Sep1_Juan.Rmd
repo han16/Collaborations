@@ -29,11 +29,11 @@ p+geom_dotplot(binaxis='y', stackdir='center', dotsize=0.6)+
   theme(plot.title = element_text(hjust = 0.5, size=15)) # center the title
 
 
-round(mean(data$Age),2) # mean 
-round(sd(data$Age),2)  # sd 
-round(sd(data$Age)/sqrt(nrow(data)),2) # se
-min(data$Age) # minimum 
-max(data$Age) # maximum 
+#round(mean(data$Age),2) # mean 
+#round(sd(data$Age),2)  # sd 
+#round(sd(data$Age)/sqrt(nrow(data)),2) # se
+#min(data$Age) # minimum 
+#max(data$Age) # maximum 
 ```
 
 
@@ -132,24 +132,57 @@ figure <- ggarrange(g1, g2,
                    # labels = c("A", "B", "C"),
                     ncol = 2, nrow = 1)
 figure 
+
+# data_long %>% filter(time=="T1") %>% summarise(mean=round(mean(Width_3mm),4), SD=round(sd(Width_3mm),4), se=round(SD/23,4), min=round(min(Width_3mm),4), max=round(max(Width_3mm), 4)) 
 ```
 
-### test difference between current time and the next one 
+
+
+
+| Time | Mean      | SD |   SE    | Range
+| :---        |    :----:   |   :----:   |        ---: |  :----:   |
+|T1|     11.4351 |  1.7104|  0.0744|  (8.355, 14.7525)
+|T2| 12.931 | 1.9366 | 0.0842 |  (8.7887, 17.1403)
+|T3| 14.6584 |  1.83 | 0.0796 |  (11.3884, 19.5114)
+|T4| 13.6529 | 1.8681 | 0.0812 | (9.4339, 18.0086)
+|T5| 13.0122 | 1.9005 |0.0826 | (9.05, 17.1613)
+|T6| 11.6519 | 1.6879 | 0.0734 | (8.7593, 14.8067)
+
+
+
+
+
+
+### pairwise comparisons
+
+
 
 
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-for (i in 1:5)
+ii=0
+for (i in 1:6)
+ for (j in 1:6)
 {
-  current=data[,(5+i)] %>% pull
-  current_next=data[,(5+i+1)] %>% pull
-  test=t.test(current, current_next, paired=T)
-  estimate[i]=test$estimate
-  CI_lower[i]=test$conf.int[1]
-  CI_upper[i]=test$conf.int[2]
-  p_value[i]=test$p.value
+  ii=ii+1
+  samplei=data[,(5+i)] %>% pull
+  samplej=data[,(5+j)] %>% pull
+  test=t.test(samplei, samplej, paired=T)
+  estimate[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
 }
-data_frame(parameter=c("T1-T2", "T2-T3", "T3-T4", "T4-T5", "T5-T6"), estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
+result=data_frame(group1_vs_group2=paste(rep(colnames(data)[6:11], each=6), colnames(data)[6:11], sep="-"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
+#knitr::kable(result)
+
+#result %>%
+#  kbl() %>%
+#  kable_minimal()
+
+result %>%
+  kbl() %>%
+  kable_styling()
 ```
 
 * use paired two sample t test 
@@ -174,8 +207,10 @@ get_anova_table(res.aov)
 
 
 
+
+
 ```{r, echo=F, message=F, warning=F}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 for (i in 1:5)
 {
   current=data[,(11+i)] %>% pull
@@ -184,11 +219,18 @@ for (i in 1:5)
   CI_lower[i]=test$conf.int[1]
   CI_upper[i]=test$conf.int[2]
   p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[12:16], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4)) %>%
+  kbl() %>%
+  kable_styling()
 ```
 
-* use one sample t test 
+* use one sample t test to test each paramert is equal to 0 or not
 
 ### Buccal_3mm
 
