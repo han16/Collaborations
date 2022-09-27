@@ -172,6 +172,8 @@ for (i in 1:6)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+  
 }
 result=data_frame(group1=rep(colnames(data)[6:11], each=6), group2=rep(colnames(data)[6:11],6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
 result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
