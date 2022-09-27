@@ -173,16 +173,13 @@ for (i in 1:6)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1_vs_group2=paste(rep(colnames(data)[6:11], each=6), colnames(data)[6:11], sep="-"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
-#knitr::kable(result)
-
-#result %>%
-#  kbl() %>%
-#  kable_minimal()
+result=data_frame(group1=rep(colnames(data)[6:11], each=6), group2=rep(colnames(data)[6:11],6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
 
 result %>%
   kbl() %>%
-  kable_styling()
+  kable_styling()%>%
+scroll_box(height = "300px")
 ```
 
 * use paired two sample t test 
@@ -210,7 +207,8 @@ get_anova_table(res.aov)
 
 
 ```{r, echo=F, message=F, warning=F}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); 
+SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 for (i in 1:5)
 {
   current=data[,(11+i)] %>% pull
@@ -232,10 +230,39 @@ data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=ro
 
 * use one sample t test to test each paramert is equal to 0 or not
 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+{
+  ii=ii+1
+  group1=data[,(11+i)] %>% pull
+  group2=data[,(11+j)] %>% pull
+  test=t.test(group1, group2, paired=T)
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[12:16],each=5), group2=rep(colnames(data)[12:16],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
+
+
 ### Buccal_3mm
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 for (i in 1:5)
 {
   current=data[,(16+i)] %>% pull
@@ -244,10 +271,41 @@ for (i in 1:5)
   CI_lower[i]=test$conf.int[1]
   CI_upper[i]=test$conf.int[2]
   p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[17:21], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+  kbl() %>%
+  kable_styling()
 ```
 
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+{
+  ii=ii+1
+  group1=data[,(16+i)] %>% pull
+  group2=data[,(16+j)] %>% pull
+  test=t.test(group1, group2, paired=T)
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[17:21],each=5), group2=rep(colnames(data)[17:21],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
 
 
 ### Lingual_3mm
@@ -255,6 +313,8 @@ data_frame(parameter=colnames(data)[17:21], estimate=round(estimate,2),  CI_lowe
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+
 for (i in 1:5)
 {
   current=data[,(21+i)] %>% pull
@@ -263,9 +323,42 @@ for (i in 1:5)
   CI_lower[i]=test$conf.int[1]
   CI_upper[i]=test$conf.int[2]
   p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[22:26], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+  kbl() %>%
+  kable_styling()
 ```
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+{
+  ii=ii+1
+  group1=data[,(21+i)] %>% pull
+  group2=data[,(21+j)] %>% pull
+  test=t.test(group1, group2, paired=T)
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[22:26],each=5), group2=rep(colnames(data)[22:26],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
+
 
 
 ###  Vertical_mid
@@ -273,6 +366,7 @@ data_frame(parameter=colnames(data)[22:26], estimate=round(estimate,2),  CI_lowe
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 for (i in 1:5)
 {
   current=data[,(26+i)] %>% pull
@@ -281,8 +375,42 @@ for (i in 1:5)
   CI_lower[i]=test$conf.int[1]
   CI_upper[i]=test$conf.int[2]
   p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[27:31], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+  kbl() %>%
+  kable_styling()  
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+{
+  ii=ii+1
+  group1=data[,(26+i)] %>% pull
+  group2=data[,(26+j)] %>% pull
+  test=t.test(group1, group2, paired=T)
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[27:31],each=5), group2=rep(colnames(data)[27:31],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
 ```
 
 
@@ -292,6 +420,7 @@ data_frame(parameter=colnames(data)[27:31], estimate=round(estimate,2),  CI_lowe
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 for (i in 1:5)
 {
   current=data[,(31+i)] %>% pull
@@ -300,6 +429,39 @@ for (i in 1:5)
   CI_lower[i]=test$conf.int[1]
   CI_upper[i]=test$conf.int[2]
   p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[32:36], estimate=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4))  
+data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+  kbl() %>%
+  kable_styling()  
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+{
+  ii=ii+1
+  group1=data[,(31+i)] %>% pull
+  group2=data[,(31+j)] %>% pull
+  test=t.test(group1, group2, paired=T)
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[32:36],each=5), group2=rep(colnames(data)[32:36],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
 ```
