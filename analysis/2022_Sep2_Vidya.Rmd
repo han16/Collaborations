@@ -1,0 +1,39 @@
+---
+title: "9/28/2022"
+output: html_document
+date: '2022-09-28'
+---
+
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+set.seed(123)
+```
+
+## mean and standard deviation
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Vidya\\Vidya-saline stats.csv", header = T))
+brands=unique(data$File)
+mean_OCP=numeric(); SD_Icorr=numeric()
+mean_Icorr=numeric(); SD_OCP=numeric()
+for (i in 1:length(brands))
+{
+  sub_data=data %>% filter(File==brands[i])
+  mean_OCP[i]=sub_data%>%summarise(mean=mean(OCP..mV..1.hr))%>% pull()
+  SD_OCP[i]=sub_data%>%summarise(SD=sd(OCP..mV..1.hr)) %>% pull()
+  
+  mean_Icorr[i]=sub_data%>%summarise(mean=mean(Icorr..nA.))%>% pull()
+  SD_Icorr[i]=sub_data%>%summarise(SD=sd(Icorr..nA.))%>% pull()
+}
+
+data.frame(File=brands, mean_OCP=round(mean_OCP,4),  SD_OCP=round(SD_OCP,4), mean_Icorr=round(mean_Icorr,4),  SD_Icorr=round(SD_Icorr,4))%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
