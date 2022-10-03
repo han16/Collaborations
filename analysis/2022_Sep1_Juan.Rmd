@@ -467,3 +467,150 @@ result%>%
   kable_styling()%>%
 scroll_box(height = "300px")
 ```
+
+
+
+### T2-T1 
+
+```{r, echo=F, message=F, warning=F}
+T2.T1=data %>% select(ends_with("T2.T1"))
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+  {
+  ii=ii+1
+  #  i=1; j=1
+  group1=T2.T1[,i] %>% pull
+  group2=T2.T1[,j] %>% pull
+  test=t.test(group1, group2, paired=T) 
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(T2.T1),each=5), group2=rep(colnames(T2.T1),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
+
+
+### T3-T2 
+
+```{r, echo=F, message=F, warning=F}
+T3.T2=data %>% select(ends_with("T3.T2") | ends_with("T2.T3"))
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+  {
+  ii=ii+1
+  #  i=1; j=1
+  group1=T3.T2[,i] %>% pull
+  group2=T3.T2[,j] %>% pull
+  test=t.test(group1, group2, paired=T) 
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(T3.T2),each=5), group2=rep(colnames(T3.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
+
+
+
+### T4-T2 
+
+```{r, echo=F, message=F, warning=F}
+T4.T2=data %>% select(ends_with("T4.T2") | ends_with("T2.T4"))
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+  {
+  ii=ii+1
+  #  i=1; j=1
+  group1=T4.T2[,i] %>% pull
+  group2=T4.T2[,j] %>% pull
+  test=t.test(group1, group2, paired=T) 
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(T4.T2),each=5), group2=rep(colnames(T4.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
+
+
+### T5-T2 
+
+```{r, echo=F, message=F, warning=F}
+T5.T2=data %>% select(ends_with("T5.T2") | ends_with("T2.T5"))
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+  {
+  ii=ii+1
+  #  i=1; j=1
+  group1=T5.T2[,i] %>% pull
+  group2=T5.T2[,j] %>% pull
+  test=t.test(group1, group2, paired=T) 
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(T5.T2),each=5), group2=rep(colnames(T5.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
+
+
+### T6-T2 
+
+```{r, echo=F, message=F, warning=F}
+T6.T2=data %>% select(ends_with("T6.T2") | ends_with("T2.T6"))
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+  {
+  ii=ii+1
+  #  i=1; j=1
+  group1=T6.T2[,i] %>% pull
+  group2=T6.T2[,j] %>% pull
+  test=t.test(group1, group2, paired=T) 
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(T6.T2),each=5), group2=rep(colnames(T6.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+  kbl() %>%
+  kable_styling()%>%
+scroll_box(height = "300px")
+```
