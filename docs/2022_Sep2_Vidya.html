@@ -36,6 +36,22 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.25/datatables.js"></script>
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.11.3/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.11.3/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.11.3/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.11.3/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.11.3/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.11.3/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.11.3/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -389,7 +405,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-09-28
+<strong>Last updated:</strong> 2022-10-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -427,10 +443,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -523,15 +539,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree33511333ccd4cd9a96389c386038eddc341d5749targetblank3351133a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2e635c3ac64844303c8b1db343bf89bb7d9a1878targetblank2e635c3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/33511333ccd4cd9a96389c386038eddc341d5749" target="_blank">3351133</a>
+<a href="https://github.com/han16/Collaborations/tree/2e635c3ac64844303c8b1db343bf89bb7d9a1878" target="_blank">2e635c3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree33511333ccd4cd9a96389c386038eddc341d5749targetblank3351133a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2e635c3ac64844303c8b1db343bf89bb7d9a1878targetblank2e635c3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -541,7 +557,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/33511333ccd4cd9a96389c386038eddc341d5749" target="_blank">3351133</a>.
+<a href="https://github.com/han16/Collaborations/tree/2e635c3ac64844303c8b1db343bf89bb7d9a1878" target="_blank">2e635c3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -558,11 +574,8 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/2022_Sep2_Vidya.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2022.Rmd
+    Modified:   analysis/2022_Sep2_Vidya.Rmd
 
 </code></pre>
 <p>
@@ -577,35 +590,109 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2022_Sep2_Vidya.Rmd</code>) and
+HTML (<code>docs/2022_Sep2_Vidya.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/d53aab077ec753165d9dc7926a96bdd6f219a537/analysis/2022_Sep2_Vidya.Rmd" target="_blank">d53aab0</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-09-28
+</td>
+<td>
+9/28/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/d53aab077ec753165d9dc7926a96bdd6f219a537/docs/2022_Sep2_Vidya.html" target="_blank">d53aab0</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-09-28
+</td>
+<td>
+9/28/2022
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
 <div id="mean-and-standard-deviation" class="section level2">
 <h2>mean and standard deviation</h2>
+<div id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["K3","K3 XF","Twisted","Endosequence","Endosequence CM","HyFlex CM","HyFlex EDM","Vortex","Vortex Blue","Profile"],[-47.032,-104.369,-218.77,37.3687,-1.4925,-88.1821,-110.716,60.189,-99.52,-13.7423],[23.3976,30.0116,23.696,36.8965,34.9494,66.4085,48.4509,73.289,62.7823,97.1224],[2.798,1.697,1.1102,7.1971,1.2349,2.971,13.426,13.966,6.7769,15.216],[1.2046,0.4581,0.3702,3.023,0.7369,2.3584,12.5885,25.2133,7.2272,16.5563]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>File<\/th>\n      <th>mean_OCP<\/th>\n      <th>SD_OCP<\/th>\n      <th>mean_Icorr<\/th>\n      <th>SD_Icorr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="pairwise-comparisons" class="section level2">
+<h2>pairwise comparisons</h2>
+<div id="ocp" class="section level3">
+<h3>OCP</h3>
 <div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; ">
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-File
+group1
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+group2
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-mean_OCP
+mean_difference
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-SD_OCP
+CI_lower
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-mean_Icorr
+CI_upper
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-SD_Icorr
+p_value
 </th>
 </tr>
 </thead>
@@ -614,170 +701,4032 @@ SD_Icorr
 <td style="text-align:left;">
 K3
 </td>
-<td style="text-align:right;">
--47.0320
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-23.3976
+0.00
 </td>
 <td style="text-align:right;">
-2.7980
+NaN
 </td>
 <td style="text-align:right;">
-1.2046
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+57.34
+</td>
+<td style="text-align:right;">
+30.46
+</td>
+<td style="text-align:right;">
+84.22
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+171.74
+</td>
+<td style="text-align:right;">
+141.04
+</td>
+<td style="text-align:right;">
+202.44
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-84.40
+</td>
+<td style="text-align:right;">
+-106.67
+</td>
+<td style="text-align:right;">
+-62.13
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-45.54
+</td>
+<td style="text-align:right;">
+-75.10
+</td>
+<td style="text-align:right;">
+-15.98
+</td>
+<td style="text-align:right;">
+0.0069
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+41.15
+</td>
+<td style="text-align:right;">
+2.35
+</td>
+<td style="text-align:right;">
+79.95
+</td>
+<td style="text-align:right;">
+0.0400
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+63.68
+</td>
+<td style="text-align:right;">
+36.00
+</td>
+<td style="text-align:right;">
+91.37
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-107.22
+</td>
+<td style="text-align:right;">
+-155.37
+</td>
+<td style="text-align:right;">
+-59.07
+</td>
+<td style="text-align:right;">
+0.0007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+52.49
+</td>
+<td style="text-align:right;">
+2.28
+</td>
+<td style="text-align:right;">
+102.70
+</td>
+<td style="text-align:right;">
+0.0423
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-33.29
+</td>
+<td style="text-align:right;">
+-108.16
+</td>
+<td style="text-align:right;">
+41.58
+</td>
+<td style="text-align:right;">
+0.3408
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 K3 XF
 </td>
-<td style="text-align:right;">
--104.3690
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-30.0116
+-57.34
 </td>
 <td style="text-align:right;">
-1.6970
+-84.22
 </td>
 <td style="text-align:right;">
-0.4581
+-30.46
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+114.40
+</td>
+<td style="text-align:right;">
+85.30
+</td>
+<td style="text-align:right;">
+143.50
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-141.74
+</td>
+<td style="text-align:right;">
+-177.81
+</td>
+<td style="text-align:right;">
+-105.66
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-102.88
+</td>
+<td style="text-align:right;">
+-131.63
+</td>
+<td style="text-align:right;">
+-74.13
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-16.19
+</td>
+<td style="text-align:right;">
+-73.86
+</td>
+<td style="text-align:right;">
+41.49
+</td>
+<td style="text-align:right;">
+0.5413
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+6.35
+</td>
+<td style="text-align:right;">
+-27.10
+</td>
+<td style="text-align:right;">
+39.80
+</td>
+<td style="text-align:right;">
+0.6778
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-164.56
+</td>
+<td style="text-align:right;">
+-228.71
+</td>
+<td style="text-align:right;">
+-100.41
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-4.85
+</td>
+<td style="text-align:right;">
+-44.63
+</td>
+<td style="text-align:right;">
+34.93
+</td>
+<td style="text-align:right;">
+0.7890
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-90.63
+</td>
+<td style="text-align:right;">
+-174.08
+</td>
+<td style="text-align:right;">
+-7.17
+</td>
+<td style="text-align:right;">
+0.0364
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Twisted
 </td>
-<td style="text-align:right;">
--218.7700
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-23.6960
+-171.74
 </td>
 <td style="text-align:right;">
-1.1102
+-202.44
 </td>
 <td style="text-align:right;">
-0.3702
+-141.04
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+-114.40
+</td>
+<td style="text-align:right;">
+-143.50
+</td>
+<td style="text-align:right;">
+-85.30
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-256.14
+</td>
+<td style="text-align:right;">
+-290.57
+</td>
+<td style="text-align:right;">
+-221.70
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-217.28
+</td>
+<td style="text-align:right;">
+-245.02
+</td>
+<td style="text-align:right;">
+-189.54
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-130.59
+</td>
+<td style="text-align:right;">
+-187.88
+</td>
+<td style="text-align:right;">
+-73.29
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-108.05
+</td>
+<td style="text-align:right;">
+-152.12
+</td>
+<td style="text-align:right;">
+-63.99
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-278.96
+</td>
+<td style="text-align:right;">
+-336.50
+</td>
+<td style="text-align:right;">
+-221.42
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-119.25
+</td>
+<td style="text-align:right;">
+-166.66
+</td>
+<td style="text-align:right;">
+-71.84
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-205.03
+</td>
+<td style="text-align:right;">
+-268.90
+</td>
+<td style="text-align:right;">
+-141.15
+</td>
+<td style="text-align:right;">
+0.0000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Endosequence
 </td>
-<td style="text-align:right;">
-37.3687
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-36.8965
+84.40
 </td>
 <td style="text-align:right;">
-7.1971
+62.13
 </td>
 <td style="text-align:right;">
-3.0230
+106.67
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+141.74
+</td>
+<td style="text-align:right;">
+105.66
+</td>
+<td style="text-align:right;">
+177.81
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+256.14
+</td>
+<td style="text-align:right;">
+221.70
+</td>
+<td style="text-align:right;">
+290.57
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+38.86
+</td>
+<td style="text-align:right;">
+-5.00
+</td>
+<td style="text-align:right;">
+82.72
+</td>
+<td style="text-align:right;">
+0.0760
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+125.55
+</td>
+<td style="text-align:right;">
+73.51
+</td>
+<td style="text-align:right;">
+177.59
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+148.08
+</td>
+<td style="text-align:right;">
+110.98
+</td>
+<td style="text-align:right;">
+185.19
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-22.82
+</td>
+<td style="text-align:right;">
+-84.34
+</td>
+<td style="text-align:right;">
+38.70
+</td>
+<td style="text-align:right;">
+0.4231
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+136.89
+</td>
+<td style="text-align:right;">
+79.43
+</td>
+<td style="text-align:right;">
+194.35
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+51.11
+</td>
+<td style="text-align:right;">
+-16.14
+</td>
+<td style="text-align:right;">
+118.36
+</td>
+<td style="text-align:right;">
+0.1197
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Endosequence CM
 </td>
-<td style="text-align:right;">
--1.4925
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-34.9494
+45.54
 </td>
 <td style="text-align:right;">
-1.2349
+15.98
 </td>
 <td style="text-align:right;">
-0.7369
+75.10
+</td>
+<td style="text-align:right;">
+0.0069
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+102.88
+</td>
+<td style="text-align:right;">
+74.13
+</td>
+<td style="text-align:right;">
+131.63
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+217.28
+</td>
+<td style="text-align:right;">
+189.54
+</td>
+<td style="text-align:right;">
+245.02
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-38.86
+</td>
+<td style="text-align:right;">
+-82.72
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+0.0760
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+86.69
+</td>
+<td style="text-align:right;">
+37.70
+</td>
+<td style="text-align:right;">
+135.68
+</td>
+<td style="text-align:right;">
+0.0031
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+109.22
+</td>
+<td style="text-align:right;">
+66.16
+</td>
+<td style="text-align:right;">
+152.29
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-61.68
+</td>
+<td style="text-align:right;">
+-104.57
+</td>
+<td style="text-align:right;">
+-18.80
+</td>
+<td style="text-align:right;">
+0.0099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+98.03
+</td>
+<td style="text-align:right;">
+40.98
+</td>
+<td style="text-align:right;">
+155.08
+</td>
+<td style="text-align:right;">
+0.0037
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+12.25
+</td>
+<td style="text-align:right;">
+-66.74
+</td>
+<td style="text-align:right;">
+91.24
+</td>
+<td style="text-align:right;">
+0.7338
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 HyFlex CM
 </td>
-<td style="text-align:right;">
--88.1821
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-66.4085
+-41.15
 </td>
 <td style="text-align:right;">
-2.9710
+-79.95
 </td>
 <td style="text-align:right;">
-2.3584
+-2.35
+</td>
+<td style="text-align:right;">
+0.0400
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+16.19
+</td>
+<td style="text-align:right;">
+-41.49
+</td>
+<td style="text-align:right;">
+73.86
+</td>
+<td style="text-align:right;">
+0.5413
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+130.59
+</td>
+<td style="text-align:right;">
+73.29
+</td>
+<td style="text-align:right;">
+187.88
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-125.55
+</td>
+<td style="text-align:right;">
+-177.59
+</td>
+<td style="text-align:right;">
+-73.51
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-86.69
+</td>
+<td style="text-align:right;">
+-135.68
+</td>
+<td style="text-align:right;">
+-37.70
+</td>
+<td style="text-align:right;">
+0.0031
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+22.53
+</td>
+<td style="text-align:right;">
+-33.44
+</td>
+<td style="text-align:right;">
+78.51
+</td>
+<td style="text-align:right;">
+0.3862
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-148.37
+</td>
+<td style="text-align:right;">
+-203.86
+</td>
+<td style="text-align:right;">
+-92.89
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+11.34
+</td>
+<td style="text-align:right;">
+-64.34
+</td>
+<td style="text-align:right;">
+87.01
+</td>
+<td style="text-align:right;">
+0.7424
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-74.44
+</td>
+<td style="text-align:right;">
+-152.86
+</td>
+<td style="text-align:right;">
+3.98
+</td>
+<td style="text-align:right;">
+0.0603
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 HyFlex EDM
 </td>
-<td style="text-align:right;">
--110.7160
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-48.4509
+-63.68
 </td>
 <td style="text-align:right;">
-13.4260
+-91.37
 </td>
 <td style="text-align:right;">
-12.5885
+-36.00
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+-6.35
+</td>
+<td style="text-align:right;">
+-39.80
+</td>
+<td style="text-align:right;">
+27.10
+</td>
+<td style="text-align:right;">
+0.6778
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+108.05
+</td>
+<td style="text-align:right;">
+63.99
+</td>
+<td style="text-align:right;">
+152.12
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-148.08
+</td>
+<td style="text-align:right;">
+-185.19
+</td>
+<td style="text-align:right;">
+-110.98
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-109.22
+</td>
+<td style="text-align:right;">
+-152.29
+</td>
+<td style="text-align:right;">
+-66.16
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-22.53
+</td>
+<td style="text-align:right;">
+-78.51
+</td>
+<td style="text-align:right;">
+33.44
+</td>
+<td style="text-align:right;">
+0.3862
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-170.90
+</td>
+<td style="text-align:right;">
+-230.59
+</td>
+<td style="text-align:right;">
+-111.22
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-11.20
+</td>
+<td style="text-align:right;">
+-51.16
+</td>
+<td style="text-align:right;">
+28.77
+</td>
+<td style="text-align:right;">
+0.5420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-96.97
+</td>
+<td style="text-align:right;">
+-189.59
+</td>
+<td style="text-align:right;">
+-4.35
+</td>
+<td style="text-align:right;">
+0.0420
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Vortex
 </td>
-<td style="text-align:right;">
-60.1890
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-73.2890
+107.22
 </td>
 <td style="text-align:right;">
-13.9660
+59.07
 </td>
 <td style="text-align:right;">
-25.2133
+155.37
+</td>
+<td style="text-align:right;">
+0.0007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+164.56
+</td>
+<td style="text-align:right;">
+100.41
+</td>
+<td style="text-align:right;">
+228.71
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+278.96
+</td>
+<td style="text-align:right;">
+221.42
+</td>
+<td style="text-align:right;">
+336.50
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+22.82
+</td>
+<td style="text-align:right;">
+-38.70
+</td>
+<td style="text-align:right;">
+84.34
+</td>
+<td style="text-align:right;">
+0.4231
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+61.68
+</td>
+<td style="text-align:right;">
+18.80
+</td>
+<td style="text-align:right;">
+104.57
+</td>
+<td style="text-align:right;">
+0.0099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+148.37
+</td>
+<td style="text-align:right;">
+92.89
+</td>
+<td style="text-align:right;">
+203.86
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+170.90
+</td>
+<td style="text-align:right;">
+111.22
+</td>
+<td style="text-align:right;">
+230.59
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+159.71
+</td>
+<td style="text-align:right;">
+75.22
+</td>
+<td style="text-align:right;">
+244.20
+</td>
+<td style="text-align:right;">
+0.0021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+73.93
+</td>
+<td style="text-align:right;">
+-18.06
+</td>
+<td style="text-align:right;">
+165.93
+</td>
+<td style="text-align:right;">
+0.1024
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Vortex Blue
 </td>
-<td style="text-align:right;">
--99.5200
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-62.7823
+-52.49
 </td>
 <td style="text-align:right;">
-6.7769
+-102.70
 </td>
 <td style="text-align:right;">
-7.2272
+-2.28
+</td>
+<td style="text-align:right;">
+0.0423
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+-34.93
+</td>
+<td style="text-align:right;">
+44.63
+</td>
+<td style="text-align:right;">
+0.7890
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+119.25
+</td>
+<td style="text-align:right;">
+71.84
+</td>
+<td style="text-align:right;">
+166.66
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-136.89
+</td>
+<td style="text-align:right;">
+-194.35
+</td>
+<td style="text-align:right;">
+-79.43
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-98.03
+</td>
+<td style="text-align:right;">
+-155.08
+</td>
+<td style="text-align:right;">
+-40.98
+</td>
+<td style="text-align:right;">
+0.0037
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-11.34
+</td>
+<td style="text-align:right;">
+-87.01
+</td>
+<td style="text-align:right;">
+64.34
+</td>
+<td style="text-align:right;">
+0.7424
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+11.20
+</td>
+<td style="text-align:right;">
+-28.77
+</td>
+<td style="text-align:right;">
+51.16
+</td>
+<td style="text-align:right;">
+0.5420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-159.71
+</td>
+<td style="text-align:right;">
+-244.20
+</td>
+<td style="text-align:right;">
+-75.22
+</td>
+<td style="text-align:right;">
+0.0021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-85.78
+</td>
+<td style="text-align:right;">
+-186.01
+</td>
+<td style="text-align:right;">
+14.46
+</td>
+<td style="text-align:right;">
+0.0849
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Profile
 </td>
-<td style="text-align:right;">
--13.7423
+<td style="text-align:left;">
+K3
 </td>
 <td style="text-align:right;">
-97.1224
+33.29
 </td>
 <td style="text-align:right;">
-15.2160
+-41.58
 </td>
 <td style="text-align:right;">
-16.5563
+108.16
+</td>
+<td style="text-align:right;">
+0.3408
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+90.63
+</td>
+<td style="text-align:right;">
+7.17
+</td>
+<td style="text-align:right;">
+174.08
+</td>
+<td style="text-align:right;">
+0.0364
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+205.03
+</td>
+<td style="text-align:right;">
+141.15
+</td>
+<td style="text-align:right;">
+268.90
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-51.11
+</td>
+<td style="text-align:right;">
+-118.36
+</td>
+<td style="text-align:right;">
+16.14
+</td>
+<td style="text-align:right;">
+0.1197
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-12.25
+</td>
+<td style="text-align:right;">
+-91.24
+</td>
+<td style="text-align:right;">
+66.74
+</td>
+<td style="text-align:right;">
+0.7338
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+74.44
+</td>
+<td style="text-align:right;">
+-3.98
+</td>
+<td style="text-align:right;">
+152.86
+</td>
+<td style="text-align:right;">
+0.0603
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+96.97
+</td>
+<td style="text-align:right;">
+4.35
+</td>
+<td style="text-align:right;">
+189.59
+</td>
+<td style="text-align:right;">
+0.0420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-73.93
+</td>
+<td style="text-align:right;">
+-165.93
+</td>
+<td style="text-align:right;">
+18.06
+</td>
+<td style="text-align:right;">
+0.1024
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+85.78
+</td>
+<td style="text-align:right;">
+-14.46
+</td>
+<td style="text-align:right;">
+186.01
+</td>
+<td style="text-align:right;">
+0.0849
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="icorr" class="section level3">
+<h3>Icorr</h3>
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+group1
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+group2
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mean_difference
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+CI_lower
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+CI_upper
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+p_value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+1.10
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+2.09
+</td>
+<td style="text-align:right;">
+0.0326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+1.69
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+2.64
+</td>
+<td style="text-align:right;">
+0.0031
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-4.40
+</td>
+<td style="text-align:right;">
+-6.44
+</td>
+<td style="text-align:right;">
+-2.36
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+1.56
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+2.69
+</td>
+<td style="text-align:right;">
+0.0122
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+-1.99
+</td>
+<td style="text-align:right;">
+1.65
+</td>
+<td style="text-align:right;">
+0.8346
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-10.63
+</td>
+<td style="text-align:right;">
+-19.04
+</td>
+<td style="text-align:right;">
+-2.22
+</td>
+<td style="text-align:right;">
+0.0188
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-11.17
+</td>
+<td style="text-align:right;">
+-28.95
+</td>
+<td style="text-align:right;">
+6.61
+</td>
+<td style="text-align:right;">
+0.1890
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-3.98
+</td>
+<td style="text-align:right;">
+-9.29
+</td>
+<td style="text-align:right;">
+1.33
+</td>
+<td style="text-align:right;">
+0.1243
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-12.42
+</td>
+<td style="text-align:right;">
+-24.17
+</td>
+<td style="text-align:right;">
+-0.67
+</td>
+<td style="text-align:right;">
+0.0405
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+-1.10
+</td>
+<td style="text-align:right;">
+-2.09
+</td>
+<td style="text-align:right;">
+-0.11
+</td>
+<td style="text-align:right;">
+0.0326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+0.0089
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-5.50
+</td>
+<td style="text-align:right;">
+-7.45
+</td>
+<td style="text-align:right;">
+-3.55
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+0.1788
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-1.27
+</td>
+<td style="text-align:right;">
+-3.03
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0.1343
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-11.73
+</td>
+<td style="text-align:right;">
+-20.84
+</td>
+<td style="text-align:right;">
+-2.62
+</td>
+<td style="text-align:right;">
+0.0172
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-12.27
+</td>
+<td style="text-align:right;">
+-30.11
+</td>
+<td style="text-align:right;">
+5.57
+</td>
+<td style="text-align:right;">
+0.1542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-5.08
+</td>
+<td style="text-align:right;">
+-10.43
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.0601
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-13.52
+</td>
+<td style="text-align:right;">
+-25.50
+</td>
+<td style="text-align:right;">
+-1.54
+</td>
+<td style="text-align:right;">
+0.0311
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+-1.69
+</td>
+<td style="text-align:right;">
+-2.64
+</td>
+<td style="text-align:right;">
+-0.73
+</td>
+<td style="text-align:right;">
+0.0031
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+-0.59
+</td>
+<td style="text-align:right;">
+-0.99
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+0.0089
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-6.09
+</td>
+<td style="text-align:right;">
+-8.29
+</td>
+<td style="text-align:right;">
+-3.88
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+-0.12
+</td>
+<td style="text-align:right;">
+-0.66
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.6120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-1.86
+</td>
+<td style="text-align:right;">
+-3.42
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+0.0247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-12.32
+</td>
+<td style="text-align:right;">
+-21.38
+</td>
+<td style="text-align:right;">
+-3.25
+</td>
+<td style="text-align:right;">
+0.0133
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-12.86
+</td>
+<td style="text-align:right;">
+-30.86
+</td>
+<td style="text-align:right;">
+5.15
+</td>
+<td style="text-align:right;">
+0.1408
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-5.67
+</td>
+<td style="text-align:right;">
+-10.76
+</td>
+<td style="text-align:right;">
+-0.58
+</td>
+<td style="text-align:right;">
+0.0329
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-14.11
+</td>
+<td style="text-align:right;">
+-26.00
+</td>
+<td style="text-align:right;">
+-2.21
+</td>
+<td style="text-align:right;">
+0.0251
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+4.40
+</td>
+<td style="text-align:right;">
+2.36
+</td>
+<td style="text-align:right;">
+6.44
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+5.50
+</td>
+<td style="text-align:right;">
+3.55
+</td>
+<td style="text-align:right;">
+7.45
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+6.09
+</td>
+<td style="text-align:right;">
+3.88
+</td>
+<td style="text-align:right;">
+8.29
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+5.96
+</td>
+<td style="text-align:right;">
+3.65
+</td>
+<td style="text-align:right;">
+8.28
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+4.23
+</td>
+<td style="text-align:right;">
+1.12
+</td>
+<td style="text-align:right;">
+7.33
+</td>
+<td style="text-align:right;">
+0.0132
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-6.23
+</td>
+<td style="text-align:right;">
+-14.96
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+0.1409
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-6.77
+</td>
+<td style="text-align:right;">
+-23.35
+</td>
+<td style="text-align:right;">
+9.81
+</td>
+<td style="text-align:right;">
+0.3798
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+-5.93
+</td>
+<td style="text-align:right;">
+6.77
+</td>
+<td style="text-align:right;">
+0.8843
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-8.02
+</td>
+<td style="text-align:right;">
+-20.05
+</td>
+<td style="text-align:right;">
+4.01
+</td>
+<td style="text-align:right;">
+0.1657
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+-1.56
+</td>
+<td style="text-align:right;">
+-2.69
+</td>
+<td style="text-align:right;">
+-0.43
+</td>
+<td style="text-align:right;">
+0.0122
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+-0.46
+</td>
+<td style="text-align:right;">
+-1.18
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.1788
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+-0.41
+</td>
+<td style="text-align:right;">
+0.66
+</td>
+<td style="text-align:right;">
+0.6120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-5.96
+</td>
+<td style="text-align:right;">
+-8.28
+</td>
+<td style="text-align:right;">
+-3.65
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+-1.74
+</td>
+<td style="text-align:right;">
+-3.62
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.0669
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-12.19
+</td>
+<td style="text-align:right;">
+-21.37
+</td>
+<td style="text-align:right;">
+-3.02
+</td>
+<td style="text-align:right;">
+0.0148
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-12.73
+</td>
+<td style="text-align:right;">
+-30.85
+</td>
+<td style="text-align:right;">
+5.38
+</td>
+<td style="text-align:right;">
+0.1463
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-5.54
+</td>
+<td style="text-align:right;">
+-10.32
+</td>
+<td style="text-align:right;">
+-0.76
+</td>
+<td style="text-align:right;">
+0.0277
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-13.98
+</td>
+<td style="text-align:right;">
+-25.80
+</td>
+<td style="text-align:right;">
+-2.16
+</td>
+<td style="text-align:right;">
+0.0254
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+-1.65
+</td>
+<td style="text-align:right;">
+1.99
+</td>
+<td style="text-align:right;">
+0.8346
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+1.27
+</td>
+<td style="text-align:right;">
+-0.48
+</td>
+<td style="text-align:right;">
+3.03
+</td>
+<td style="text-align:right;">
+0.1343
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+1.86
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+3.42
+</td>
+<td style="text-align:right;">
+0.0247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-4.23
+</td>
+<td style="text-align:right;">
+-7.33
+</td>
+<td style="text-align:right;">
+-1.12
+</td>
+<td style="text-align:right;">
+0.0132
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+1.74
+</td>
+<td style="text-align:right;">
+-0.15
+</td>
+<td style="text-align:right;">
+3.62
+</td>
+<td style="text-align:right;">
+0.0669
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-10.46
+</td>
+<td style="text-align:right;">
+-19.80
+</td>
+<td style="text-align:right;">
+-1.11
+</td>
+<td style="text-align:right;">
+0.0322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-11.00
+</td>
+<td style="text-align:right;">
+-28.89
+</td>
+<td style="text-align:right;">
+6.90
+</td>
+<td style="text-align:right;">
+0.1979
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+-3.81
+</td>
+<td style="text-align:right;">
+-9.49
+</td>
+<td style="text-align:right;">
+1.88
+</td>
+<td style="text-align:right;">
+0.1645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-12.24
+</td>
+<td style="text-align:right;">
+-24.49
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.0500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+10.63
+</td>
+<td style="text-align:right;">
+2.22
+</td>
+<td style="text-align:right;">
+19.04
+</td>
+<td style="text-align:right;">
+0.0188
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+11.73
+</td>
+<td style="text-align:right;">
+2.62
+</td>
+<td style="text-align:right;">
+20.84
+</td>
+<td style="text-align:right;">
+0.0172
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+12.32
+</td>
+<td style="text-align:right;">
+3.25
+</td>
+<td style="text-align:right;">
+21.38
+</td>
+<td style="text-align:right;">
+0.0133
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+6.23
+</td>
+<td style="text-align:right;">
+-2.50
+</td>
+<td style="text-align:right;">
+14.96
+</td>
+<td style="text-align:right;">
+0.1409
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+12.19
+</td>
+<td style="text-align:right;">
+3.02
+</td>
+<td style="text-align:right;">
+21.37
+</td>
+<td style="text-align:right;">
+0.0148
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+10.46
+</td>
+<td style="text-align:right;">
+1.11
+</td>
+<td style="text-align:right;">
+19.80
+</td>
+<td style="text-align:right;">
+0.0322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-0.54
+</td>
+<td style="text-align:right;">
+-21.39
+</td>
+<td style="text-align:right;">
+20.31
+</td>
+<td style="text-align:right;">
+0.9546
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+6.65
+</td>
+<td style="text-align:right;">
+-4.61
+</td>
+<td style="text-align:right;">
+17.91
+</td>
+<td style="text-align:right;">
+0.2144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-1.79
+</td>
+<td style="text-align:right;">
+-12.52
+</td>
+<td style="text-align:right;">
+8.94
+</td>
+<td style="text-align:right;">
+0.7147
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+11.17
+</td>
+<td style="text-align:right;">
+-6.61
+</td>
+<td style="text-align:right;">
+28.95
+</td>
+<td style="text-align:right;">
+0.1890
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+12.27
+</td>
+<td style="text-align:right;">
+-5.57
+</td>
+<td style="text-align:right;">
+30.11
+</td>
+<td style="text-align:right;">
+0.1542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+12.86
+</td>
+<td style="text-align:right;">
+-5.15
+</td>
+<td style="text-align:right;">
+30.86
+</td>
+<td style="text-align:right;">
+0.1408
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+6.77
+</td>
+<td style="text-align:right;">
+-9.81
+</td>
+<td style="text-align:right;">
+23.35
+</td>
+<td style="text-align:right;">
+0.3798
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+12.73
+</td>
+<td style="text-align:right;">
+-5.38
+</td>
+<td style="text-align:right;">
+30.85
+</td>
+<td style="text-align:right;">
+0.1463
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+11.00
+</td>
+<td style="text-align:right;">
+-6.90
+</td>
+<td style="text-align:right;">
+28.89
+</td>
+<td style="text-align:right;">
+0.1979
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+-20.31
+</td>
+<td style="text-align:right;">
+21.39
+</td>
+<td style="text-align:right;">
+0.9546
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+7.19
+</td>
+<td style="text-align:right;">
+-12.77
+</td>
+<td style="text-align:right;">
+27.14
+</td>
+<td style="text-align:right;">
+0.4361
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-1.25
+</td>
+<td style="text-align:right;">
+-23.80
+</td>
+<td style="text-align:right;">
+21.30
+</td>
+<td style="text-align:right;">
+0.9030
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+3.98
+</td>
+<td style="text-align:right;">
+-1.33
+</td>
+<td style="text-align:right;">
+9.29
+</td>
+<td style="text-align:right;">
+0.1243
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+5.08
+</td>
+<td style="text-align:right;">
+-0.27
+</td>
+<td style="text-align:right;">
+10.43
+</td>
+<td style="text-align:right;">
+0.0601
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+5.67
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+10.76
+</td>
+<td style="text-align:right;">
+0.0329
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+<td style="text-align:right;">
+-6.77
+</td>
+<td style="text-align:right;">
+5.93
+</td>
+<td style="text-align:right;">
+0.8843
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+5.54
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+10.32
+</td>
+<td style="text-align:right;">
+0.0277
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+3.81
+</td>
+<td style="text-align:right;">
+-1.88
+</td>
+<td style="text-align:right;">
+9.49
+</td>
+<td style="text-align:right;">
+0.1645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+-6.65
+</td>
+<td style="text-align:right;">
+-17.91
+</td>
+<td style="text-align:right;">
+4.61
+</td>
+<td style="text-align:right;">
+0.2144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+-7.19
+</td>
+<td style="text-align:right;">
+-27.14
+</td>
+<td style="text-align:right;">
+12.77
+</td>
+<td style="text-align:right;">
+0.4361
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+-8.44
+</td>
+<td style="text-align:right;">
+-21.22
+</td>
+<td style="text-align:right;">
+4.35
+</td>
+<td style="text-align:right;">
+0.1696
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+K3
+</td>
+<td style="text-align:right;">
+12.42
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+24.17
+</td>
+<td style="text-align:right;">
+0.0405
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+K3 XF
+</td>
+<td style="text-align:right;">
+13.52
+</td>
+<td style="text-align:right;">
+1.54
+</td>
+<td style="text-align:right;">
+25.50
+</td>
+<td style="text-align:right;">
+0.0311
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Twisted
+</td>
+<td style="text-align:right;">
+14.11
+</td>
+<td style="text-align:right;">
+2.21
+</td>
+<td style="text-align:right;">
+26.00
+</td>
+<td style="text-align:right;">
+0.0251
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Endosequence
+</td>
+<td style="text-align:right;">
+8.02
+</td>
+<td style="text-align:right;">
+-4.01
+</td>
+<td style="text-align:right;">
+20.05
+</td>
+<td style="text-align:right;">
+0.1657
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Endosequence CM
+</td>
+<td style="text-align:right;">
+13.98
+</td>
+<td style="text-align:right;">
+2.16
+</td>
+<td style="text-align:right;">
+25.80
+</td>
+<td style="text-align:right;">
+0.0254
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+HyFlex CM
+</td>
+<td style="text-align:right;">
+12.24
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+24.49
+</td>
+<td style="text-align:right;">
+0.0500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+HyFlex EDM
+</td>
+<td style="text-align:right;">
+1.79
+</td>
+<td style="text-align:right;">
+-8.94
+</td>
+<td style="text-align:right;">
+12.52
+</td>
+<td style="text-align:right;">
+0.7147
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Vortex
+</td>
+<td style="text-align:right;">
+1.25
+</td>
+<td style="text-align:right;">
+-21.30
+</td>
+<td style="text-align:right;">
+23.80
+</td>
+<td style="text-align:right;">
+0.9030
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Vortex Blue
+</td>
+<td style="text-align:right;">
+8.44
+</td>
+<td style="text-align:right;">
+-4.35
+</td>
+<td style="text-align:right;">
+21.22
+</td>
+<td style="text-align:right;">
+0.1696
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:left;">
+Profile
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
+</td>
+<td style="text-align:right;">
+NaN
 </td>
 </tr>
 </tbody>
@@ -809,29 +4758,32 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] rstatix_0.7.0    ggpubr_0.4.0     kableExtra_1.3.4 forcats_0.5.1   
- [5] stringr_1.4.0    dplyr_1.0.7      purrr_0.3.4      readr_2.1.1     
- [9] tidyr_1.1.4      tibble_3.1.6     ggplot2_3.3.5    tidyverse_1.3.1 
+ [1] DT_0.25          rstatix_0.7.0    ggpubr_0.4.0     kableExtra_1.3.4
+ [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.7      purrr_0.3.4     
+ [9] readr_2.1.1      tidyr_1.1.4      tibble_3.1.6     ggplot2_3.3.5   
+[13] tidyverse_1.3.1 
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8        svglite_2.0.0     lubridate_1.8.0   assertthat_0.2.1 
- [5] rprojroot_2.0.2   digest_0.6.29     utf8_1.2.2        R6_2.5.1         
- [9] cellranger_1.1.0  backports_1.4.1   reprex_2.0.1      evaluate_0.14    
-[13] highr_0.9         httr_1.4.2        pillar_1.6.5      rlang_0.4.12     
-[17] readxl_1.3.1      rstudioapi_0.13   car_3.0-12        jquerylib_0.1.4  
-[21] rmarkdown_2.11    webshot_0.5.2     munsell_0.5.0     broom_0.7.11     
-[25] compiler_4.1.2    httpuv_1.6.5      modelr_0.1.8      xfun_0.29        
-[29] systemfonts_1.0.3 pkgconfig_2.0.3   htmltools_0.5.2   tidyselect_1.1.1 
-[33] workflowr_1.7.0   viridisLite_0.4.0 fansi_1.0.2       crayon_1.4.2     
-[37] tzdb_0.2.0        dbplyr_2.1.1      withr_2.4.3       later_1.3.0      
-[41] grid_4.1.2        jsonlite_1.7.3    gtable_0.3.0      lifecycle_1.0.1  
-[45] DBI_1.1.2         git2r_0.29.0      magrittr_2.0.1    scales_1.1.1     
-[49] carData_3.0-5     cli_3.1.1         stringi_1.7.6     ggsignif_0.6.3   
-[53] fs_1.5.2          promises_1.2.0.1  xml2_1.3.3        bslib_0.3.1      
-[57] ellipsis_0.3.2    generics_0.1.1    vctrs_0.3.8       tools_4.1.2      
-[61] glue_1.6.0        hms_1.1.1         abind_1.4-5       fastmap_1.1.0    
-[65] yaml_2.2.2        colorspace_2.0-2  rvest_1.0.2       knitr_1.37       
-[69] haven_2.4.3       sass_0.4.1       </code></pre>
+ [1] httr_1.4.2        sass_0.4.1        jsonlite_1.7.3    viridisLite_0.4.0
+ [5] carData_3.0-5     modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1 
+ [9] highr_0.9         cellranger_1.1.0  yaml_2.2.2        pillar_1.6.5     
+[13] backports_1.4.1   glue_1.6.0        digest_0.6.29     promises_1.2.0.1 
+[17] ggsignif_0.6.3    rvest_1.0.2       colorspace_2.0-2  htmltools_0.5.2  
+[21] httpuv_1.6.5      pkgconfig_2.0.3   broom_0.7.11      haven_2.4.3      
+[25] scales_1.1.1      webshot_0.5.2     svglite_2.0.0     whisker_0.4      
+[29] later_1.3.0       tzdb_0.2.0        git2r_0.29.0      generics_0.1.1   
+[33] car_3.0-12        ellipsis_0.3.2    withr_2.4.3       cli_3.1.1        
+[37] magrittr_2.0.1    crayon_1.4.2      readxl_1.3.1      evaluate_0.14    
+[41] fs_1.5.2          fansi_1.0.2       xml2_1.3.3        tools_4.1.2      
+[45] hms_1.1.1         lifecycle_1.0.1   munsell_0.5.0     reprex_2.0.1     
+[49] compiler_4.1.2    jquerylib_0.1.4   systemfonts_1.0.3 rlang_0.4.12     
+[53] grid_4.1.2        rstudioapi_0.13   htmlwidgets_1.5.4 crosstalk_1.2.0  
+[57] rmarkdown_2.11    gtable_0.3.0      abind_1.4-5       DBI_1.1.2        
+[61] R6_2.5.1          lubridate_1.8.0   knitr_1.37        fastmap_1.1.0    
+[65] utf8_1.2.2        workflowr_1.7.0   rprojroot_2.0.2   stringi_1.7.6    
+[69] Rcpp_1.0.8        vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1 
+[73] xfun_0.29        </code></pre>
+</div>
 </div>
 </div>
 

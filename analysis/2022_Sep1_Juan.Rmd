@@ -11,6 +11,7 @@ library(tidyverse)
 library(kableExtra)
 library(ggpubr)
 library(rstatix) # use anova_test function 
+library(DT)
 set.seed(123)
 ```
 
@@ -178,10 +179,17 @@ for (i in 1:6)
 result=data_frame(group1=rep(colnames(data)[6:11], each=6), group2=rep(colnames(data)[6:11],6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
 result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
 
-result %>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 * use paired two sample t test 
@@ -225,9 +233,16 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4)) %>%
-  kbl() %>%
-  kable_styling()
+data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()
 ```
 
 * use one sample t test to test each paramert is equal to 0 or not
@@ -254,9 +269,16 @@ for (i in 1:5)
 result=data_frame(group1=rep(colnames(data)[12:16],each=5), group2=rep(colnames(data)[12:16],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -280,8 +302,15 @@ for (i in 1:5)
   maximum[i]=max(current)
 }
 data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
-  kbl() %>%
-  kable_styling()
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()
 ```
 
 
@@ -304,9 +333,16 @@ result=data_frame(group1=rep(colnames(data)[17:21],each=5), group2=rep(colnames(
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -332,8 +368,15 @@ for (i in 1:5)
   maximum[i]=max(current)
 }
 data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
-  kbl() %>%
-  kable_styling()
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()
 ```
 
 
@@ -356,9 +399,16 @@ result=data_frame(group1=rep(colnames(data)[22:26],each=5), group2=rep(colnames(
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -384,8 +434,15 @@ for (i in 1:5)
   maximum[i]=max(current)
 }
 data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
-  kbl() %>%
-  kable_styling()  
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()  
 ```
 
 
@@ -410,9 +467,16 @@ result=data_frame(group1=rep(colnames(data)[27:31],each=5), group2=rep(colnames(
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -438,8 +502,15 @@ for (i in 1:5)
   maximum[i]=max(current)
 }
 data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
-  kbl() %>%
-  kable_styling()  
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()  
 ```
 
 
@@ -463,9 +534,16 @@ result=data_frame(group1=rep(colnames(data)[32:36],each=5), group2=rep(colnames(
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -493,9 +571,16 @@ result=data_frame(group1=rep(colnames(T2.T1),each=5), group2=rep(colnames(T2.T1)
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -522,9 +607,16 @@ result=data_frame(group1=rep(colnames(T3.T2),each=5), group2=rep(colnames(T3.T2)
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -552,9 +644,16 @@ result=data_frame(group1=rep(colnames(T4.T2),each=5), group2=rep(colnames(T4.T2)
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -581,9 +680,16 @@ result=data_frame(group1=rep(colnames(T5.T2),each=5), group2=rep(colnames(T5.T2)
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
 
 
@@ -610,7 +716,14 @@ result=data_frame(group1=rep(colnames(T6.T2),each=5), group2=rep(colnames(T6.T2)
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "300px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#%>%
+#  kbl() %>%
+#  kable_styling()%>%
+#scroll_box(height = "300px")
 ```
