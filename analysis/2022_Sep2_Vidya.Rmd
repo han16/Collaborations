@@ -20,6 +20,24 @@ set.seed(123)
 
 ```{r, echo=F, message=F, warning=F}
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Vidya\\Vidya-saline stats.csv", header = T))
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+```
+
+```{r, echo=F, message=F, warning=F}
+
 brands=unique(data$File)
 mean_OCP=numeric(); SD_Icorr=numeric()
 mean_Icorr=numeric(); SD_OCP=numeric()
@@ -71,13 +89,15 @@ for (i in 1:length(brands))
   p_value[ii]=test$p.value
  }
 
-result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
-result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50)]="---"
+result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50, 52:60, 62:70, 72:80, 82:90, 92:100)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "500px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
@@ -104,12 +124,40 @@ for (i in 1:length(brands))
   p_value[ii]=test$p.value
  }
 
-result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
-result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50)]="---"
+result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50, 52:60, 62:70, 72:80, 82:90, 92:100)]="---"
 result%>%
-  kbl() %>%
-  kable_styling()%>%
-scroll_box(height = "500px")
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
+
+## anova 
+
+### OCP
+
+
+```{r, echo=F, message=F, warning=F}
+data1=data.frame(OCP=c(data$OCP..mV..1.hr), file=as.factor(data$File))
+LM <- lm(OCP ~ file, data=data1)
+anova(LM)
+```
+
+* small p value suggests OCP are not all equal across 10 brands 
+
+
+### Icorr
+
+
+```{r, echo=F, message=F, warning=F}
+data2=data.frame(OCP=c(data$Icorr..nA.), file=as.factor(data$File))
+LM <- lm(OCP ~ file, data=data2)
+anova(LM)
+```
+
+
+* p value, 0.6%<0.05  suggests Icorr are not all equal across 10 brands 
