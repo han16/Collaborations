@@ -1,0 +1,16 @@
+---
+title: "10/4/2022"
+output: html_document
+date: '2022-10-04'
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(DT)
+set.seed(123)
+```
