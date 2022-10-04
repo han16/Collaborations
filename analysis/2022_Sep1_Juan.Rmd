@@ -17,6 +17,20 @@ set.seed(123)
 
 
 ```{r, echo=F, warning=F, message=F}
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Juan\\Research Valencia-Kofina implants.csv"))
 ```
 
@@ -175,8 +189,10 @@ for (i in 1:6)
   p_value[ii]=test$p.value
   
   
-}
-result=data_frame(group1=rep(colnames(data)[6:11], each=6), group2=rep(colnames(data)[6:11],6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,2))  
+ }
+
+
+result=data_frame(group1=rep(colnames(data)[6:11], each=6), group2=rep(colnames(data)[6:11],6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
 
 result%>%
@@ -233,7 +249,7 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -266,7 +282,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(data)[12:16],each=5), group2=rep(colnames(data)[12:16],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(data)[12:16],each=5), group2=rep(colnames(data)[12:16],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
 datatable(extensions = 'Buttons',
@@ -301,7 +317,7 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -329,7 +345,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(data)[17:21],each=5), group2=rep(colnames(data)[17:21],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(data)[17:21],each=5), group2=rep(colnames(data)[17:21],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -367,7 +383,7 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -395,7 +411,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(data)[22:26],each=5), group2=rep(colnames(data)[22:26],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(data)[22:26],each=5), group2=rep(colnames(data)[22:26],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -433,7 +449,7 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -463,7 +479,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(data)[27:31],each=5), group2=rep(colnames(data)[27:31],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(data)[27:31],each=5), group2=rep(colnames(data)[27:31],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -501,7 +517,7 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
-data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -530,7 +546,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(data)[32:36],each=5), group2=rep(colnames(data)[32:36],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(data)[32:36],each=5), group2=rep(colnames(data)[32:36],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -567,7 +583,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(T2.T1),each=5), group2=rep(colnames(T2.T1),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(T2.T1),each=5), group2=rep(colnames(T2.T1),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -603,7 +619,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(T3.T2),each=5), group2=rep(colnames(T3.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(T3.T2),each=5), group2=rep(colnames(T3.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -640,7 +656,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(T4.T2),each=5), group2=rep(colnames(T4.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(T4.T2),each=5), group2=rep(colnames(T4.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -676,7 +692,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(T5.T2),each=5), group2=rep(colnames(T5.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(T5.T2),each=5), group2=rep(colnames(T5.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -712,7 +728,7 @@ for (i in 1:5)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
 }
-result=data_frame(group1=rep(colnames(T6.T2),each=5), group2=rep(colnames(T6.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=round(p_value,4)) 
+result=data_frame(group1=rep(colnames(T6.T2),each=5), group2=rep(colnames(T6.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
