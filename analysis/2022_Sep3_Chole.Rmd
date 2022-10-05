@@ -14,3 +14,74 @@ library(rstatix) # use anova_test function
 library(DT)
 set.seed(123)
 ```
+
+
+```{r, echo=F, warning=F, message=F}
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+Grades_Results=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Grades - Results .csv", header=T)[,-5])
+```
+
+## pairwise comparisons 
+
+
+```{r, echo=F, message=F, warning=F}
+control=Grades_Results %>% select(No.Music...Control)%>%pull %>% as.numeric()
+control=control[-1]
+
+classical=Grades_Results %>% select(Variable.1...Classical)%>%pull %>% as.numeric()
+classical=classical[-1]
+
+hip_hop=Grades_Results %>% select(Variable.2...Hip.Hop)%>%pull %>% as.numeric()
+hip_hop=hip_hop[-1]
+
+student_playlist=Grades_Results %>% select(Varible.3...Student.playlist)%>%pull %>% as.numeric()
+student_playlist=student_playlist[-1]
+
+
+pvalue=numeric();CI_low=numeric(); CI_upper=numeric(); mean_difference=numeric()
+t_test=t.test(classical, control, paired=T)
+pvalue[1]=t_test$p.value
+CI_low[1]=t_test$conf.int[1]
+CI_upper[1]=t_test$conf.int[2]
+mean_difference[1]=t_test$estimate
+
+
+t_test=t.test(hip_hop, control, paired=T)
+pvalue[2]=t_test$p.value
+CI_low[2]=t_test$conf.int[1]
+CI_upper[2]=t_test$conf.int[2]
+mean_difference[2]=t_test$estimate
+
+
+t_test=t.test(student_playlist/60, control/100, paired=T)
+pvalue[3]=t_test$p.value
+CI_low[3]=t_test$conf.int[1]*100
+CI_upper[3]=t_test$conf.int[2]*100
+mean_difference[3]=t_test$estimate*100
+
+data.frame(group1=c("classical", "hip hop", "student playlist"), group2=c("control-no music", "---", "---"), mean_difference=round(mean_difference,4),  CI_low=round(CI_low,4),  CI_upper=round(CI_upper,4), p_value= pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* for student playlist, I normalized the score by dividing the total score, to make them in the same scale 
