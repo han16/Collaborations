@@ -382,7 +382,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -393,8 +393,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -403,13 +403,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-10-05
+<strong>Last updated:</strong> 2022-10-07
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -432,18 +432,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -534,15 +537,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0751aa4c69d30760d94296c0aa4d24da549cdd4ctargetblank0751aa4a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3beae16582c3d51504964be4e9f2ff87addee383targetblank3beae16a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/0751aa4c69d30760d94296c0aa4d24da549cdd4c" target="_blank">0751aa4</a>
+<a href="https://github.com/han16/Collaborations/tree/3beae16582c3d51504964be4e9f2ff87addee383" target="_blank">3beae16</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0751aa4c69d30760d94296c0aa4d24da549cdd4ctargetblank0751aa4a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3beae16582c3d51504964be4e9f2ff87addee383targetblank3beae16a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +555,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/0751aa4c69d30760d94296c0aa4d24da549cdd4c" target="_blank">0751aa4</a>.
+<a href="https://github.com/han16/Collaborations/tree/3beae16582c3d51504964be4e9f2ff87addee383" target="_blank">3beae16</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -568,6 +571,9 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    analysis/.Rhistory
+
+Unstaged changes:
+    Modified:   analysis/2022_Sep3_Chole.Rmd
 
 </code></pre>
 <p>
@@ -613,6 +619,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/3beae16582c3d51504964be4e9f2ff87addee383/docs/2022_Sep3_Chole.html" target="_blank">3beae16</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-10-05
+</td>
+<td>
+10/5/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -688,14 +711,46 @@ Han
 </div>
 </div>
 </div>
-<div id="pairwise-comparisons" class="section level2">
-<h2>pairwise comparisons</h2>
+<div id="grades-pairwise-comparisons" class="section level2">
+<h2>grades-pairwise comparisons</h2>
 <div id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["classical","hip hop","student playlist"],["control-no music","---","---"],[4.0396,5.9901,2.8845],[2.5187,4.5037,1.3362],[5.5606,7.4765,4.4328],["&lt;0.0001","&lt;0.0001","4e-04"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group1<\/th>\n      <th>group2<\/th>\n      <th>mean_difference<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n      <th>p_value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
-<li>for student playlist, I normalized the score by dividing the total
-score, to make them in the same scale</li>
+<li><p>use paired two sample t tests</p></li>
+<li><p>for student playlist, I normalized the score by dividing the
+total score, to make them in the same scale</p></li>
 </ul>
+</div>
+<div
+id="questionnaire-given-after-each-of-the-4-sessions-were-completed"
+class="section level2">
+<h2>Questionnaire given after each of the 4 sessions were completed</h2>
+<p><img src="figure/2022_Sep3_Chole.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>1.  How did not having music impact your energy level during class?
+ a. It kept my energy level up and refreshed.
+ b. It did not impact my energy level.
+ c. It drained and ran down my energy level.
+</code></pre>
+<p><img src="figure/2022_Sep3_Chole.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>2.  How easy was it to focus during class periods without music?
+a.  Very easy 
+b.  Somewhat easy 
+c.  Somewhat difficult 
+d.  Very difficult 
+
+</code></pre>
+<p><img src="figure/2022_Sep3_Chole.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>3.  How did not having music played during today’s session impact your concentration when performing root canal treatments of #9 and/or #4? 
+a.  The music increased my concentration in class.
+b.  The music neither increased nor decreased my concentration in class.
+c.  The music decreased my concentration in class.
+</code></pre>
+<p><img src="figure/2022_Sep3_Chole.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>4.  Did not having music today interfere with your ability to complete the root canal treatment on #9 and/or #4?
+a.  Yes 
+b.  No 
+
+</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -730,22 +785,24 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] httr_1.4.2        sass_0.4.1        jsonlite_1.7.3    viridisLite_0.4.0
  [5] carData_3.0-5     modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1 
- [9] cellranger_1.1.0  yaml_2.2.2        pillar_1.6.5      backports_1.4.1  
-[13] glue_1.6.0        digest_0.6.29     promises_1.2.0.1  ggsignif_0.6.3   
-[17] rvest_1.0.2       colorspace_2.0-2  htmltools_0.5.2   httpuv_1.6.5     
-[21] pkgconfig_2.0.3   broom_0.7.11      haven_2.4.3       scales_1.1.1     
-[25] webshot_0.5.2     svglite_2.0.0     whisker_0.4       later_1.3.0      
-[29] tzdb_0.2.0        git2r_0.29.0      generics_0.1.1    car_3.0-12       
-[33] ellipsis_0.3.2    withr_2.4.3       cli_3.1.1         magrittr_2.0.1   
-[37] crayon_1.4.2      readxl_1.3.1      evaluate_0.14     fs_1.5.2         
-[41] fansi_1.0.2       xml2_1.3.3        tools_4.1.2       hms_1.1.1        
-[45] lifecycle_1.0.1   munsell_0.5.0     reprex_2.0.1      compiler_4.1.2   
-[49] jquerylib_0.1.4   systemfonts_1.0.3 rlang_0.4.12      grid_4.1.2       
-[53] rstudioapi_0.13   htmlwidgets_1.5.4 crosstalk_1.2.0   rmarkdown_2.11   
-[57] gtable_0.3.0      abind_1.4-5       DBI_1.1.2         R6_2.5.1         
-[61] lubridate_1.8.0   knitr_1.37        fastmap_1.1.0     utf8_1.2.2       
-[65] workflowr_1.7.0   rprojroot_2.0.2   stringi_1.7.6     Rcpp_1.0.8       
-[69] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.29        </code></pre>
+ [9] highr_0.9         cellranger_1.1.0  yaml_2.2.2        pillar_1.6.5     
+[13] backports_1.4.1   glue_1.6.0        digest_0.6.29     promises_1.2.0.1 
+[17] ggsignif_0.6.3    rvest_1.0.2       colorspace_2.0-2  cowplot_1.1.1    
+[21] htmltools_0.5.2   httpuv_1.6.5      pkgconfig_2.0.3   broom_0.7.11     
+[25] haven_2.4.3       scales_1.1.1      webshot_0.5.2     svglite_2.0.0    
+[29] whisker_0.4       later_1.3.0       tzdb_0.2.0        git2r_0.29.0     
+[33] farver_2.1.0      generics_0.1.1    car_3.0-12        ellipsis_0.3.2   
+[37] withr_2.4.3       cli_3.1.1         magrittr_2.0.1    crayon_1.4.2     
+[41] readxl_1.3.1      evaluate_0.14     fs_1.5.2          fansi_1.0.2      
+[45] xml2_1.3.3        tools_4.1.2       hms_1.1.1         lifecycle_1.0.1  
+[49] munsell_0.5.0     reprex_2.0.1      compiler_4.1.2    jquerylib_0.1.4  
+[53] systemfonts_1.0.3 rlang_0.4.12      grid_4.1.2        rstudioapi_0.13  
+[57] htmlwidgets_1.5.4 crosstalk_1.2.0   labeling_0.4.2    rmarkdown_2.11   
+[61] gtable_0.3.0      abind_1.4-5       DBI_1.1.2         R6_2.5.1         
+[65] gridExtra_2.3     lubridate_1.8.0   knitr_1.37        fastmap_1.1.0    
+[69] utf8_1.2.2        workflowr_1.7.0   rprojroot_2.0.2   stringi_1.7.6    
+[73] Rcpp_1.0.8        vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1 
+[77] xfun_0.29        </code></pre>
 </div>
 </div>
 

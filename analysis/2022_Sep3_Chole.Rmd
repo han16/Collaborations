@@ -38,7 +38,7 @@ for (i in 1:length(p_value))
 Grades_Results=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Grades - Results .csv", header=T)[,-5])
 ```
 
-## pairwise comparisons 
+## grades-pairwise comparisons 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -84,4 +84,384 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+* use paired two sample t tests 
+
 * for student playlist, I normalized the score by dividing the total score, to make them in the same scale 
+
+## Questionnaire given after each of the 4 sessions were completed  
+
+
+```{r, echo=F, message=F, warning=F}
+no_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\No Music (Control).csv", header=T))
+questions=colnames(no_music)[6:9]
+
+no_music_plot1=no_music %>% count(by=How.did.2t.having.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+no_music_plot2=no_music %>% count(by=How.easy.was.it.to.focus.during.class.periods.without.music.)%>% mutate(prop=n/nrow(no_music))
+no_music_plot3=no_music %>% count(by=How.did.2t.having.music.played.during.previous.sessions.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
+no_music_plot4=no_music %>% count(by=Did.2t.having.music.played.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
+
+```
+
+```{r, echo=F, message=F, warning=F, eval=F}
+################### question 1
+no_music_plot1=no_music %>% count(by=How.did.2t.having.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob(questions[1], color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+################### question 2
+no_music_plot2=no_music %>% count(by=How.easy.was.it.to.focus.during.class.periods.without.music.)%>% mutate(prop=n/nrow(no_music))
+g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob(questions[2], color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+
+################### question 3
+no_music_plot3=no_music %>% count(by=How.did.2t.having.music.played.during.previous.sessions.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
+g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob(questions[3], color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+################### question 4
+no_music_plot4=no_music %>% count(by=Did.2t.having.music.played.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
+g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob(questions[4], color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+classical_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Variable 1 - Classical Music.csv", header=T))
+questions=colnames(classical_music)[6:9]
+
+################### question 1
+classical_music_plot1=classical_music %>% count(by=How.did.the.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(classical_music))
+################### question 2
+classical_music_plot2=classical_music %>% count(by=How.easy.was.it.to.focus.during.this.class.period.)%>% mutate(prop=n/nrow(classical_music))
+################### question 3
+classical_music_plot3=classical_music %>% count(by=How.did.the.music.played.during.today.s.session.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(classical_music))
+
+################### question 4
+classical_music_plot4=classical_music %>% count(by=Did.the.music.selection.today.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(classical_music))
+
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+hip_hop_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Variable 2 - Hip-hop.csv", header=T))
+questions=colnames(hip_hop_music)[6:9]
+
+################### question 1
+hip_hop_music_plot1=hip_hop_music %>% count(by=How.did.the.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+################### question 2
+hip_hop_music_plot2=hip_hop_music %>% count(by=How.easy.was.it.to.focus.during.this.class.period.)%>% mutate(prop=n/nrow(hip_hop_music))  # should add one row 
+hip_hop_music_plot2=hip_hop_music_plot2 %>%add_row(by= 4, n= 0, prop=0)
+################### question 3
+hip_hop_music_plot3=hip_hop_music %>% count(by=How.did.the.music.played.during.today.s.session.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+
+################### question 4
+hip_hop_music_plot4=hip_hop_music %>% count(by=Did.the.music.selection.today.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+
+########################
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+student_playlist_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Variable 3 - Student Playlist.csv", header=T))
+questions=colnames(student_playlist_music)[6:9]
+
+################### question 1
+student_playlist_music_plot1=hip_hop_music %>% count(by=How.did.the.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+################### question 2
+student_playlist_music_plot2=student_playlist_music %>% count(by=How.easy.was.it.to.focus.during.this.class.period.)%>% mutate(prop=n/nrow(hip_hop_music))  # should add one row 
+student_playlist_music_plot2=student_playlist_music_plot2 %>%add_row(by= 4, n= 0, prop=0)
+################### question 3
+student_playlist_music_plot3=student_playlist_music %>% count(by=How.did.the.music.played.during.today.s.session.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+
+################### question 4
+student_playlist_music_plot4=student_playlist_music %>% count(by=Did.the.music.selection.today.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+
+########################
+```
+
+
+```{r, echo=F, message=F, warning=F}
+# combine all questions 
+combine=data.frame(response=c(no_music_plot1$by, no_music_plot2$by, no_music_plot3$by, no_music_plot4$by, classical_music_plot1$by, classical_music_plot2$by, classical_music_plot3$by, classical_music_plot4$by, hip_hop_music_plot1$by,hip_hop_music_plot2$by, hip_hop_music_plot3$by, hip_hop_music_plot4$by, student_playlist_music_plot1$by,student_playlist_music_plot2$by, student_playlist_music_plot3$by, student_playlist_music_plot4$by), 
+                   question=rep(c(rep("Q1", nrow(no_music_plot1)), rep("Q2", nrow(no_music_plot2)), rep("Q3", nrow(no_music_plot3)), rep("Q4", nrow(no_music_plot4))), 4), music_type=rep(c("no_music", "classical music", "hip hop", "student playlist"), each=12), 
+                   count=c(no_music_plot1$n, no_music_plot2$n, no_music_plot3$n, no_music_plot4$n, classical_music_plot1$n, classical_music_plot2$n, classical_music_plot3$n, classical_music_plot4$n, hip_hop_music_plot1$n,hip_hop_music_plot2$n, hip_hop_music_plot3$n, hip_hop_music_plot4$n, student_playlist_music_plot1$n,student_playlist_music_plot2$n, student_playlist_music_plot3$n, student_playlist_music_plot4$n), 
+                   prop=c(no_music_plot1$prop, no_music_plot2$prop, no_music_plot3$prop, no_music_plot4$prop, classical_music_plot1$prop, classical_music_plot2$prop, classical_music_plot3$prop, classical_music_plot4$prop, hip_hop_music_plot1$prop,hip_hop_music_plot2$prop, hip_hop_music_plot3$prop, hip_hop_music_plot4$prop, student_playlist_music_plot1$prop,student_playlist_music_plot2$prop, student_playlist_music_plot3$prop, student_playlist_music_plot4$prop))
+```
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(combine %>% filter(question=="Q1"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+ facet_wrap(~music_type)
+
+g2=ggplot(combine %>% filter(question=="Q1"), aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  guides(color = guide_legend(title = "Response"))+
+ facet_wrap(~music_type)
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("Q1", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+
+```
+
+```
+1.	How did not having music impact your energy level during class?
+ a.	It kept my energy level up and refreshed.
+ b.	It did not impact my energy level.
+ c.	It drained and ran down my energy level.
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(combine %>% filter(question=="Q2"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+ facet_wrap(~music_type)
+g2=ggplot(combine %>% filter(question=="Q2"), aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+ facet_wrap(~music_type)
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("Q2", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+
+```
+
+```
+2.	How easy was it to focus during class periods without music?
+a.	Very easy 
+b.	Somewhat easy 
+c.	Somewhat difficult 
+d.	Very difficult 
+
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(combine %>% filter(question=="Q3"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+ facet_wrap(~music_type)
+g2=ggplot(combine %>% filter(question=="Q3"), aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+ facet_wrap(~music_type)
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("Q3", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+
+```
+
+```
+3.	How did not having music played during today’s session impact your concentration when performing root canal treatments of #9 and/or #4?	
+a.	The music increased my concentration in class.
+b.	The music neither increased nor decreased my concentration in class.
+c.	The music decreased my concentration in class.
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(combine %>% filter(question=="Q4"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+ facet_wrap(~music_type)
+g2=ggplot(combine %>% filter(question=="Q4"), aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+ facet_wrap(~music_type)
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("Q4"
+, color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+
+```
+
+```
+4.	Did not having music today interfere with your ability to complete the root canal treatment on #9 and/or #4?
+a.	Yes 
+b.	No 
+
+
+```
