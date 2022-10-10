@@ -465,3 +465,250 @@ b.	No
 
 
 ```
+
+
+## Questionnaire given after 4 sessions have been completed (no music, classical, hip-hop, and student’s compilation)
+
+```{r, echo=F, message=F, warning=F}
+final_overall_survey=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Final - overall survey.csv", header=T))
+```
+
+### Q1 
+
+```{r, echo=F, message=F, warning=F}
+Q1=data.frame(count=final_overall_survey$Which.class.period.did.you.like.the.best.) %>% count(response=count) %>% mutate(prop=n/103)
+Q1=Q1%>%add_row(response= 1, n= 0, prop=0)
+
+g1=ggplot(Q1, aes(x=as.character(response), y=n, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+
+g2=ggplot(Q1, aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right")
+annotate_figure(figure,
+                top = text_grob("Q1"
+, color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+```
+1.	Which class period did you like the best?
+a.	When no music was played
+b.	When hip-hop music was played
+c.	When classical music was played
+d.	When our class’s compilation playlist was played.
+
+```
+
+
+### Q2 
+
+
+
+```{r, echo=F, message=F, warning=F}
+Q2=data.frame(count=final_overall_survey$During.which.class.period.were.you.able.to.concentrate.the.most.) %>% count(response=count) %>% mutate(prop=n/103)
+
+
+g1=ggplot(Q2, aes(x=as.character(response), y=n, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+
+g2=ggplot(Q2, aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right")
+annotate_figure(figure,
+                top = text_grob("Q2"
+, color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+```
+2.	During which class period were you able to concentrate the most?
+a.	When no music was played
+b.	When hip-hop music was played
+c.	When classical music was played
+d.	When our class’s compilation playlist was played
+
+```
+
+### Q3
+
+
+
+```{r, echo=F, message=F, warning=F}
+Q3=data.frame(count=final_overall_survey$Were.you.distracted.due.to.the.music.played.during.a.class.period..If.so..which.one.) %>% count(response=count) %>% mutate(prop=n/103)
+
+
+g1=ggplot(Q3, aes(x=as.character(response), y=n, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+
+g2=ggplot(Q3, aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right")
+annotate_figure(figure,
+                top = text_grob("Q3"
+, color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+```
+3.	Were you distracted due to the music played during a class period? If so, which one?
+a.	No I was not distracted in any of the sessions when music played.
+b.	Yes I was distracted in the session when hip-hop music played. 
+c.	Yes I was distracted in the session when classical music played.
+d.	Yes I was distracted in the session when the class’s playlist was played. 
+
+```
+
+### Q4
+
+
+
+```{r, echo=F, message=F, warning=F}
+Q4=data.frame(count=final_overall_survey$Would.you.like.music.to.be.played.during.the.final.exam.competencies.) %>% count(response=count) %>% mutate(prop=n/103)
+
+
+g1=ggplot(Q4, aes(x=as.character(response), y=n, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+
+g2=ggplot(Q4, aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right")
+annotate_figure(figure,
+                top = text_grob("Q4"
+, color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+```
+4.	Would you like music to be played during the final exam competencies?
+a.	Yes 
+b.	No 
+
+```
+
+
+### Q5
+
+
+
+```{r, echo=F, message=F, warning=F}
+Q5=data.frame(count=final_overall_survey$If.you.would.like.music.to.be.played.during.the.final.exam.competencies..what.genre.of.music.would.you.prefer.) %>% count(response=count) %>% mutate(prop=n/103)
+
+
+g1=ggplot(Q5, aes(x=as.character(response), y=n, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,110))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+
+g2=ggplot(Q5, aes(x=as.character(response), y=prop, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("proportion (%)")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+  # ggtitle("Response of Q1")+
+   geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="right")
+annotate_figure(figure,
+                top = text_grob("Q5"
+, color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+```
+5.	If you would like music to be played during the final exam competencies, what genera of music would you prefer?
+a.	Hip-hop 
+b.	Classical 
+c.	Student’s compilation playlist 
+
+```
