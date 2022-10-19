@@ -1,0 +1,95 @@
+---
+title: "10/17/2022"
+output: html_document
+date: '2022-10-17'
+---
+
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(DT)
+set.seed(123)
+```
+
+
+```{r, echo=F, warning=F, message=F}
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+```
+
+
+## trueness
+
+```{r, echo=F, message=F, warning=F}
+trueness=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202210\\Ajitesh\\Final RAW DATA ALL SAMPLES_AS_trueness.csv", header=T))
+methods2=c("FGAS_LS", "FGAS_IOS", "FGAS_CBCT", "FHAS_LS", "FHAS_IOS", "FHAS_CBCT")
+trueness=trueness %>% mutate(methods=rep(methods2, each=20)) # add new column with unique sample ID's 
+```
+
+### anova test 
+
+```{r, echo=F, message=F, warning=F}
+ggplot(trueness, aes(x=methods, y=Angle, fill=methods)) +
+  geom_boxplot()
+
+LM <- lm(Angle~ methods, data=trueness)
+anova(LM)
+
+#summary(LM)
+
+```
+
+* small p value, `2.097e-09` suggests `Angle` are not ALL equal across 6 methods
+
+
+### pairwise comparisons 
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% select(Angle)%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% select(Angle)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* non paired two sample t test is used 
