@@ -93,3 +93,65 @@ datatable(extensions = 'Buttons',
 ```
 
 * non paired two sample t test is used 
+
+
+## precision 
+
+
+
+```{r, echo=F, message=F, warning=F}
+precision=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202210\\Ajitesh\\Final RAW DATA ALL SAMPLES_AS_precision.csv", header=T))
+
+precision_angle=precision %>%  select(ends_with("Angle")) %>% slice_tail(n = 191) # the last 191 rows as precision 
+methods3=colnames(precision_angle)
+precision_angle_long=data.frame(vs_distance=c(precision_angle$FG.LS.Angle, precision_angle$FG.IOS.Angle, precision_angle$FG.CBCT.Angle, precision_angle$FH.LS.Angle, precision_angle$FH.IOS.Angle, precision_angle$FH.CBCT.Angle), methods=rep(methods3, each=191))
+```
+
+
+
+### anova test 
+
+```{r, echo=F, message=F, warning=F}
+ggplot(precision_angle_long, aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()
+
+LM <- lm(vs_distance~ methods, data=precision_angle_long)
+anova(LM)
+
+#summary(LM)
+
+```
+
+
+### pairwise comparisons 
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_angle_long %>% filter(methods==methods3[i])%>% select(vs_distance)%>% pull
+  samplej=precision_angle_long %>% filter(methods==methods3[j])%>% select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
