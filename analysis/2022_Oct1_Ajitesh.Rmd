@@ -124,6 +124,8 @@ anova(LM)
 
 ```
 
+* p value `7.445e-12` indicates strong evidence of non-equal vs distance across 6 methods. 
+
 
 ### pairwise comparisons 
 
