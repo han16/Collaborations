@@ -94,6 +94,8 @@ datatable(extensions = 'Buttons',
 
 * non paired two sample t test is used 
 
+* `mean_difference` is mean difference of `group1-group2`
+
 
 ## precision 
 
@@ -155,3 +157,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+* two sample t test is used 
+* `mean_difference` is mean difference of `group1-group2`
