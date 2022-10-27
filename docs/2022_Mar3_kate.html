@@ -403,7 +403,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-10-26
+<strong>Last updated:</strong> 2022-10-27
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -537,15 +537,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree856e7a0ae8fd1f334eb752df508ea251d471b46dtargetblank856e7a0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60e3134d391d33004f45074747862dc2a39ad02ftargetblank60e3134a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/856e7a0ae8fd1f334eb752df508ea251d471b46d" target="_blank">856e7a0</a>
+<a href="https://github.com/han16/Collaborations/tree/60e3134d391d33004f45074747862dc2a39ad02f" target="_blank">60e3134</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree856e7a0ae8fd1f334eb752df508ea251d471b46dtargetblank856e7a0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60e3134d391d33004f45074747862dc2a39ad02ftargetblank60e3134a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -555,7 +555,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/856e7a0ae8fd1f334eb752df508ea251d471b46d" target="_blank">856e7a0</a>.
+<a href="https://github.com/han16/Collaborations/tree/60e3134d391d33004f45074747862dc2a39ad02f" target="_blank">60e3134</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -619,6 +619,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/60e3134d391d33004f45074747862dc2a39ad02f/analysis/2022_Mar3_kate.Rmd" target="_blank">60e3134</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-10-26
+</td>
+<td>
+10/26/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/60e3134d391d33004f45074747862dc2a39ad02f/docs/2022_Mar3_kate.html" target="_blank">60e3134</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-10-26
+</td>
+<td>
+10/26/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -4513,76 +4547,51 @@ class="section level3">
 comparison.</h3>
 <pre class="r"><code>num_participants=numeric()
 average_sAHI=numeric()
+SD=numeric()
+CI_low=numeric()
+CI_upper=numeric()
 num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data1=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=0 &amp; Epworth.Score&lt;=5 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[1]=mean(data1, na.rm=T)
+SD[1]=sd(data1, na.rm=T)
+CI_low[1]=t.test(data1)$conf.int[1]
+CI_upper[1]=t.test(data1)$conf.int[2]
 
 num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=6 &amp; Epworth.Score&lt;=10 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=6 &amp; Epworth.Score&lt;=10 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data2=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=6 &amp; Epworth.Score&lt;=10 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[2]=mean(data2, na.rm=T)
+SD[2]=sd(data2, na.rm=T)
+CI_low[2]=t.test(data2)$conf.int[1]
+CI_upper[2]=t.test(data2)$conf.int[2]
 
 num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=11 &amp; Epworth.Score&lt;=12 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=11 &amp; Epworth.Score&lt;=12 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data3=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=11 &amp; Epworth.Score&lt;=12 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[3]=mean(data3, na.rm=T)
+SD[3]=sd(data3, na.rm=T)
+CI_low[3]=t.test(data3)$conf.int[1]
+CI_upper[3]=t.test(data3)$conf.int[2]
 
 num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data4=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=13 &amp; Epworth.Score&lt;=15 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[4]=mean(data4, na.rm=T)
+SD[4]=NA
+CI_low[4]=NA
+CI_upper[4]=NA
 
-data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;% select(Patient.ID.Number, Epworth.Score, sAHI)</code></pre>
-<pre><code># A tibble: 2 x 3
-  Patient.ID.Number Epworth.Score  sAHI
-              &lt;int&gt;         &lt;int&gt; &lt;int&gt;
-1                49            18     5
-2                52            17    11</code></pre>
-<pre class="r"><code>num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;%nrow 
+data5=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; Epworth.Score&gt;=16 &amp; Epworth.Score&lt;=24 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[5]=mean(data5, na.rm=T)
+SD[5]=sd(data5, na.rm=T)
+CI_low[5]=t.test(data5)$conf.int[1]
+CI_upper[5]=t.test(data5)$conf.int[2]
 
-knitr::kable(data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot;11-12&quot;, &quot;13-15&quot;, &quot;16-24&quot;), sleepiness_severity=c(&quot;lower normal&quot;, &quot;higher normal&quot;, &quot;mild excessive&quot;, &quot;moderate excessive&quot;, &quot;severe&quot;), num_participants_sAHI_larger_than5=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
-<table>
-<colgroup>
-<col width="17%" />
-<col width="24%" />
-<col width="42%" />
-<col width="15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Epworth_score</th>
-<th align="left">sleepiness_severity</th>
-<th align="right">num_participants_sAHI_larger_than5</th>
-<th align="right">Average_sAHI</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">0-5</td>
-<td align="left">lower normal</td>
-<td align="right">16</td>
-<td align="right">10.69</td>
-</tr>
-<tr class="even">
-<td align="left">6-10</td>
-<td align="left">higher normal</td>
-<td align="right">9</td>
-<td align="right">21.11</td>
-</tr>
-<tr class="odd">
-<td align="left">11-12</td>
-<td align="left">mild excessive</td>
-<td align="right">6</td>
-<td align="right">11.50</td>
-</tr>
-<tr class="even">
-<td align="left">13-15</td>
-<td align="left">moderate excessive</td>
-<td align="right">0</td>
-<td align="right">NaN</td>
-</tr>
-<tr class="odd">
-<td align="left">16-24</td>
-<td align="left">severe</td>
-<td align="right">2</td>
-<td align="right">8.00</td>
-</tr>
-</tbody>
-</table>
+data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot;11-12&quot;, &quot;13-15&quot;, &quot;16-24&quot;), sleepiness_severity=c(&quot;lower normal&quot;, &quot;higher normal&quot;, &quot;mild excessive&quot;, &quot;moderate excessive&quot;, &quot;severe&quot;), num_participants_sAHI_larger_than5=num_participants, Average_sAHI=round(average_sAHI,2), SD=round(SD,2), CI_low=round(CI_low,2), CI_upper=round(CI_upper, 2))%&gt;% datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["0-5","6-10","11-12","13-15","16-24"],["lower normal","higher normal","mild excessive","moderate excessive","severe"],[16,9,6,0,2],[10.69,21.11,11.5,null,8],[7.64,23.21,7.29,null,4.24],[6.62,3.27,3.85,null,-30.12],[14.76,38.95,19.15,null,46.12]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Epworth_score<\/th>\n      <th>sleepiness_severity<\/th>\n      <th>num_participants_sAHI_larger_than5<\/th>\n      <th>Average_sAHI<\/th>\n      <th>SD<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>ID&gt;=40 <code>Patient.ID.Number&gt;=40</code></li>
 <li>boundary value are included</li>
@@ -4612,11 +4621,22 @@ class="section level3">
 OSA.</h3>
 <pre class="r"><code>num_participants=numeric()
 average_sAHI=numeric()
+SD=numeric()
+CI_low=numeric()
+CI_upper=numeric()
 num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=0 &amp; STOP.BANG.total&lt;=2 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP&gt;=0 &amp; STOP&lt;=2 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data1=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp;STOP&gt;=0 &amp; STOP&lt;=2 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[1]=mean(data1, na.rm=T)
+SD[1]=sd(data1, na.rm=T)
+CI_low[1]=t.test(data1)$conf.int[1]
+CI_upper[1]=t.test(data1)$conf.int[2]
 
 num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4  &amp; sAHI&gt;=5) %&gt;% filter(Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2&lt;35 |Remarks.A..Gender==&quot;M&quot; &amp; STOP&lt;2 ) %&gt;%nrow 
-average_sAHI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4  &amp; sAHI&gt;=5) %&gt;% filter(Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2&lt;35 |Remarks.A..Gender==&quot;M&quot; &amp; STOP&lt;2 ) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data2=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4  &amp; sAHI&gt;=5) %&gt;% filter(Remarks.A..Gender==&quot;F&quot; &amp; BMI.kg.m2&lt;35 |Remarks.A..Gender==&quot;M&quot; &amp; STOP&lt;2 ) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[2]=mean(data2, na.rm=T)
+SD[2]=sd(data2, na.rm=T)
+CI_low[2]=t.test(data2)$conf.int[1]
+CI_upper[2]=t.test(data2)$conf.int[2]
 
 data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(Patient.ID.Number, STOP.BANG.total, sAHI)</code></pre>
 <pre><code># A tibble: 3 x 3
@@ -4626,7 +4646,11 @@ data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP
 2                63               5    11
 3               101               5    16</code></pre>
 <pre class="r"><code>num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data3=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[3]=mean(data3, na.rm=T)
+SD[3]=sd(data3, na.rm=T)
+CI_low[3]=t.test(data3)$conf.int[1]
+CI_upper[3]=t.test(data3)$conf.int[2]
 
 data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 )%&gt;% select(Patient.ID.Number, STOP.BANG.total, Remarks.A..Gender, sAHI)</code></pre>
 <pre><code># A tibble: 2 x 4
@@ -4635,7 +4659,11 @@ data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt
 1               100               4 M                     9
 2               108               3 M                    26</code></pre>
 <pre class="r"><code>num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;%nrow 
-average_sAHI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp;  STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data4=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp;  STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 ) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[4]=mean(data4, na.rm=T)
+SD[4]=sd(data4, na.rm=T)
+CI_low[4]=t.test(data4)$conf.int[1]
+CI_upper[4]=t.test(data4)$conf.int[2]
 
 data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp;  BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5)%&gt;% select(Patient.ID.Number, STOP.BANG.total, BMI.kg.m2, sAHI)</code></pre>
 <pre><code># A tibble: 1 x 4
@@ -4643,59 +4671,20 @@ data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt
               &lt;int&gt;           &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
 1                87               3      36.3    11</code></pre>
 <pre class="r"><code>num_participants[5]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp;  BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_sAHI[5]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull, na.rm=T)
+data5=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5) %&gt;% select(sAHI) %&gt;% pull
+average_sAHI[5]=mean(data5, na.rm=T)
+SD[5]=sd(data5, na.rm=T)
+#CI_low[5]=t.test(data5)$conf.int[1]
+#CI_upper[5]=t.test(data5)$conf.int[2]
 
 
-
-knitr::kable(data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot;, &quot;5-8&quot;, &quot;2 STOP+MALE GENDER&quot;, &quot;2 STOP+bmi&gt;35&quot;), STOP_BANG_OSA_risk=c(&quot;low&quot;, &quot;intermediate&quot;, &quot;high&quot;, &quot;high&quot;, &quot;high&quot;), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), &quot;pipe&quot;)</code></pre>
-<table>
-<colgroup>
-<col width="31%" />
-<col width="26%" />
-<col width="23%" />
-<col width="18%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Number_of_yes_response</th>
-<th align="left">STOP_BANG_OSA_risk</th>
-<th align="right">num_participants</th>
-<th align="right">Average_sAHI</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">0-2</td>
-<td align="left">low</td>
-<td align="right">21</td>
-<td align="right">13.46</td>
-</tr>
-<tr class="even">
-<td align="left">3-4</td>
-<td align="left">intermediate</td>
-<td align="right">6</td>
-<td align="right">11.33</td>
-</tr>
-<tr class="odd">
-<td align="left">5-8</td>
-<td align="left">high</td>
-<td align="right">3</td>
-<td align="right">11.00</td>
-</tr>
-<tr class="even">
-<td align="left">2 STOP+MALE GENDER</td>
-<td align="left">high</td>
-<td align="right">2</td>
-<td align="right">17.50</td>
-</tr>
-<tr class="odd">
-<td align="left">2 STOP+bmi&gt;35</td>
-<td align="left">high</td>
-<td align="right">1</td>
-<td align="right">11.00</td>
-</tr>
-</tbody>
-</table>
+data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot;, &quot;5-8&quot;, &quot;2 STOP+MALE GENDER&quot;, &quot;2 STOP+bmi&gt;35&quot;), STOP_BANG_OSA_risk=c(&quot;low&quot;, &quot;intermediate&quot;, &quot;high&quot;, &quot;high&quot;, &quot;high&quot;), num_participants=num_participants, Average_sAHI=round(average_sAHI,2))%&gt;% datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["0-2","3-4","5-8","2 STOP+MALE GENDER","2 STOP+bmi&gt;35"],["low","intermediate","high","high","high"],[21,6,3,2,1],[13.46,11.33,11,17.5,11]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Number_of_yes_response<\/th>\n      <th>STOP_BANG_OSA_risk<\/th>\n      <th>num_participants<\/th>\n      <th>Average_sAHI<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li><p>ID&gt;=40</p></li>
 <li><p>boundary value are included</p></li>
@@ -4718,50 +4707,44 @@ and
 <h3>Figure 6 BMI compared with sAHI.</h3>
 <pre class="r"><code>num_participants=numeric()
 average_BMI=numeric()
+SD=numeric()
+CI_low=numeric()
+CI_upper=numeric()
 num_participants[1]=data%&gt;%filter(Patient.ID.Number&gt;=40 ) %&gt;%nrow 
-average_BMI[1]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+data1=data%&gt;%filter(Patient.ID.Number&gt;=40) %&gt;% select(BMI.kg.m2) %&gt;% pull
+average_BMI[1]=mean(data1, na.rm=T)
+SD[1]=sd(data1, na.rm=T)
+CI_low[1]=t.test(data1)$conf.int[1]
+CI_upper[1]=t.test(data1)$conf.int[2]
 
 num_participants[2]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&lt;5) %&gt;%nrow 
-average_BMI[2]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&lt;5) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+data2=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&lt;5) %&gt;% select(BMI.kg.m2) %&gt;% pull
+average_BMI[2]=mean(data2, na.rm=T)
+SD[2]=sd(data2, na.rm=T)
+CI_low[2]=t.test(data2)$conf.int[1]
+CI_upper[2]=t.test(data2)$conf.int[2]
 
 num_participants[3]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=5) %&gt;%nrow 
-average_BMI[3]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=5) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+data3=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=5) %&gt;% select(BMI.kg.m2) %&gt;% pull
+average_BMI[3]=mean(data3, na.rm=T)
+SD[3]=sd(data3, na.rm=T)
+CI_low[3]=t.test(data3)$conf.int[1]
+CI_upper[3]=t.test(data3)$conf.int[2]
 
 num_participants[4]=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=15) %&gt;%nrow 
-average_BMI[4]=mean(data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=15) %&gt;% select(BMI.kg.m2) %&gt;% pull, na.rm=T)
+data4=data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=15) %&gt;% select(BMI.kg.m2) %&gt;% pull
+average_BMI[4]=mean(data4, na.rm=T)
+SD[4]=sd(data4, na.rm=T)
+CI_low[4]=t.test(data4)$conf.int[1]
+CI_upper[4]=t.test(data4)$conf.int[2]
 
-knitr::kable(data.frame(Epworth_score=c(&quot; all participants&quot;, &quot;sAHI&lt;5&quot;, &quot;sAHI&gt;=5&quot;, &quot;sAHI&gt;=15&quot;), num_participants=num_participants, Average_BMI=round(average_BMI,2)), &quot;pipe&quot;)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Epworth_score</th>
-<th align="right">num_participants</th>
-<th align="right">Average_BMI</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">all participants</td>
-<td align="right">71</td>
-<td align="right">25.82</td>
-</tr>
-<tr class="even">
-<td align="left">sAHI&lt;5</td>
-<td align="right">38</td>
-<td align="right">24.52</td>
-</tr>
-<tr class="odd">
-<td align="left">sAHI&gt;=5</td>
-<td align="right">33</td>
-<td align="right">27.31</td>
-</tr>
-<tr class="even">
-<td align="left">sAHI&gt;=15</td>
-<td align="right">9</td>
-<td align="right">27.68</td>
-</tr>
-</tbody>
-</table>
+data.frame(Epworth_score=c(&quot; all participants&quot;, &quot;sAHI&lt;5&quot;, &quot;sAHI&gt;=5&quot;, &quot;sAHI&gt;=15&quot;), num_participants=num_participants, Average_BMI=round(average_BMI,2), SD=round(SD,2), CI_low=round(CI_low,2), CI_upper=round(CI_upper, 2))%&gt;% datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],[" all participants","sAHI&lt;5","sAHI&gt;=5","sAHI&gt;=15"],[71,38,33,9],[25.82,24.52,27.31,27.68],[5.21,4.7,5.43,3.66],[24.58,22.97,25.39,24.87],[27.05,26.06,29.24,30.49]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Epworth_score<\/th>\n      <th>num_participants<\/th>\n      <th>Average_BMI<\/th>\n      <th>SD<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="figure-8" class="section level3">
 <h3>Figure 8</h3>

@@ -993,23 +993,49 @@ data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "
 ```{r, echo=T, warning=F, message=F}
 num_participants=numeric()
 average_sAHI=numeric()
+SD=numeric()
+CI_low=numeric()
+CI_upper=numeric()
 num_participants[1]=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=0 & Epworth.Score<=5 & sAHI>=5) %>%nrow 
-average_sAHI[1]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=0 & Epworth.Score<=5 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data1=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=0 & Epworth.Score<=5 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[1]=mean(data1, na.rm=T)
+SD[1]=sd(data1, na.rm=T)
+CI_low[1]=t.test(data1)$conf.int[1]
+CI_upper[1]=t.test(data1)$conf.int[2]
 
 num_participants[2]=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=6 & Epworth.Score<=10 & sAHI>=5) %>%nrow 
-average_sAHI[2]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=6 & Epworth.Score<=10 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data2=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=6 & Epworth.Score<=10 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[2]=mean(data2, na.rm=T)
+SD[2]=sd(data2, na.rm=T)
+CI_low[2]=t.test(data2)$conf.int[1]
+CI_upper[2]=t.test(data2)$conf.int[2]
 
 num_participants[3]=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=11 & Epworth.Score<=12 & sAHI>=5) %>%nrow 
-average_sAHI[3]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=11 & Epworth.Score<=12 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data3=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=11 & Epworth.Score<=12 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[3]=mean(data3, na.rm=T)
+SD[3]=sd(data3, na.rm=T)
+CI_low[3]=t.test(data3)$conf.int[1]
+CI_upper[3]=t.test(data3)$conf.int[2]
 
 num_participants[4]=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=13 & Epworth.Score<=15 & sAHI>=5) %>%nrow 
-average_sAHI[4]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=13 & Epworth.Score<=15 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data4=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=13 & Epworth.Score<=15 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[4]=mean(data4, na.rm=T)
+SD[4]=NA
+CI_low[4]=NA
+CI_upper[4]=NA
 
-data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=16 & Epworth.Score<=24 & sAHI>=5) %>% select(Patient.ID.Number, Epworth.Score, sAHI)
 num_participants[5]=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=16 & Epworth.Score<=24 & sAHI>=5) %>%nrow 
-average_sAHI[5]=mean(data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=16 & Epworth.Score<=24 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data5=data%>%filter(Patient.ID.Number>=40 & Epworth.Score>=16 & Epworth.Score<=24 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[5]=mean(data5, na.rm=T)
+SD[5]=sd(data5, na.rm=T)
+CI_low[5]=t.test(data5)$conf.int[1]
+CI_upper[5]=t.test(data5)$conf.int[2]
 
-knitr::kable(data.frame(Epworth_score=c("0-5", "6-10", "11-12", "13-15", "16-24"), sleepiness_severity=c("lower normal", "higher normal", "mild excessive", "moderate excessive", "severe"), num_participants_sAHI_larger_than5=num_participants, Average_sAHI=round(average_sAHI,2)), "pipe")
+data.frame(Epworth_score=c("0-5", "6-10", "11-12", "13-15", "16-24"), sleepiness_severity=c("lower normal", "higher normal", "mild excessive", "moderate excessive", "severe"), num_participants_sAHI_larger_than5=num_participants, Average_sAHI=round(average_sAHI,2), SD=round(SD,2), CI_low=round(CI_low,2), CI_upper=round(CI_upper, 2))%>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 * ID>=40 `Patient.ID.Number>=40`
@@ -1037,27 +1063,53 @@ ID40_SB_sAHI5=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\202
 ```{r, echo=T, warning=F, message=F}
 num_participants=numeric()
 average_sAHI=numeric()
+SD=numeric()
+CI_low=numeric()
+CI_upper=numeric()
 num_participants[1]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=0 & STOP.BANG.total<=2 & sAHI>=5) %>%nrow 
-average_sAHI[1]=mean(data%>%filter(Patient.ID.Number>=40 &STOP>=0 & STOP<=2 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data1=data%>%filter(Patient.ID.Number>=40 &STOP>=0 & STOP<=2 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[1]=mean(data1, na.rm=T)
+SD[1]=sd(data1, na.rm=T)
+CI_low[1]=t.test(data1)$conf.int[1]
+CI_upper[1]=t.test(data1)$conf.int[2]
 
 num_participants[2]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4  & sAHI>=5) %>% filter(Remarks.A..Gender=="F" & BMI.kg.m2<35 |Remarks.A..Gender=="M" & STOP<2 ) %>%nrow 
-average_sAHI[2]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4  & sAHI>=5) %>% filter(Remarks.A..Gender=="F" & BMI.kg.m2<35 |Remarks.A..Gender=="M" & STOP<2 ) %>% select(sAHI) %>% pull, na.rm=T)
+data2=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=3 & STOP.BANG.total<=4  & sAHI>=5) %>% filter(Remarks.A..Gender=="F" & BMI.kg.m2<35 |Remarks.A..Gender=="M" & STOP<2 ) %>% select(sAHI) %>% pull
+average_sAHI[2]=mean(data2, na.rm=T)
+SD[2]=sd(data2, na.rm=T)
+CI_low[2]=t.test(data2)$conf.int[1]
+CI_upper[2]=t.test(data2)$conf.int[2]
 
 data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>% select(Patient.ID.Number, STOP.BANG.total, sAHI)
 num_participants[3]=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>%nrow 
-average_sAHI[3]=mean(data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data3=data%>%filter(Patient.ID.Number>=40 & STOP.BANG.total>=5 & STOP.BANG.total<=8 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[3]=mean(data3, na.rm=T)
+SD[3]=sd(data3, na.rm=T)
+CI_low[3]=t.test(data3)$conf.int[1]
+CI_upper[3]=t.test(data3)$conf.int[2]
 
 data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="M" & sAHI>=5 )%>% select(Patient.ID.Number, STOP.BANG.total, Remarks.A..Gender, sAHI)
 num_participants[4]=data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="M" & sAHI>=5 ) %>%nrow 
-average_sAHI[4]=mean(data%>%filter(Patient.ID.Number>=40 & STOP==2 &  STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="M" & sAHI>=5 ) %>% select(sAHI) %>% pull, na.rm=T)
+data4=data%>%filter(Patient.ID.Number>=40 & STOP==2 &  STOP.BANG.total>=3 & STOP.BANG.total<=4 & Remarks.A..Gender=="M" & sAHI>=5 ) %>% select(sAHI) %>% pull
+average_sAHI[4]=mean(data4, na.rm=T)
+SD[4]=sd(data4, na.rm=T)
+CI_low[4]=t.test(data4)$conf.int[1]
+CI_upper[4]=t.test(data4)$conf.int[2]
 
 data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 &  BMI.kg.m2 >35 & sAHI>=5)%>% select(Patient.ID.Number, STOP.BANG.total, BMI.kg.m2, sAHI)
 num_participants[5]=data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 &  BMI.kg.m2 >35 & sAHI>=5) %>%nrow 
-average_sAHI[5]=mean(data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & BMI.kg.m2 >35 & sAHI>=5) %>% select(sAHI) %>% pull, na.rm=T)
+data5=data%>%filter(Patient.ID.Number>=40 & STOP==2 & STOP.BANG.total>=3 & STOP.BANG.total<=4 & BMI.kg.m2 >35 & sAHI>=5) %>% select(sAHI) %>% pull
+average_sAHI[5]=mean(data5, na.rm=T)
+SD[5]=sd(data5, na.rm=T)
+#CI_low[5]=t.test(data5)$conf.int[1]
+#CI_upper[5]=t.test(data5)$conf.int[2]
 
 
-
-knitr::kable(data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), STOP_BANG_OSA_risk=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2)), "pipe")
+data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), STOP_BANG_OSA_risk=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2))%>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
@@ -1078,19 +1130,42 @@ knitr::kable(data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MA
 ```{r, echo=T, warning=F, message=F}
 num_participants=numeric()
 average_BMI=numeric()
+SD=numeric()
+CI_low=numeric()
+CI_upper=numeric()
 num_participants[1]=data%>%filter(Patient.ID.Number>=40 ) %>%nrow 
-average_BMI[1]=mean(data%>%filter(Patient.ID.Number>=40) %>% select(BMI.kg.m2) %>% pull, na.rm=T)
+data1=data%>%filter(Patient.ID.Number>=40) %>% select(BMI.kg.m2) %>% pull
+average_BMI[1]=mean(data1, na.rm=T)
+SD[1]=sd(data1, na.rm=T)
+CI_low[1]=t.test(data1)$conf.int[1]
+CI_upper[1]=t.test(data1)$conf.int[2]
 
 num_participants[2]=data%>%filter(Patient.ID.Number>=40 & sAHI<5) %>%nrow 
-average_BMI[2]=mean(data%>%filter(Patient.ID.Number>=40 & sAHI<5) %>% select(BMI.kg.m2) %>% pull, na.rm=T)
+data2=data%>%filter(Patient.ID.Number>=40 & sAHI<5) %>% select(BMI.kg.m2) %>% pull
+average_BMI[2]=mean(data2, na.rm=T)
+SD[2]=sd(data2, na.rm=T)
+CI_low[2]=t.test(data2)$conf.int[1]
+CI_upper[2]=t.test(data2)$conf.int[2]
 
 num_participants[3]=data%>%filter(Patient.ID.Number>=40 & sAHI>=5) %>%nrow 
-average_BMI[3]=mean(data%>%filter(Patient.ID.Number>=40 & sAHI>=5) %>% select(BMI.kg.m2) %>% pull, na.rm=T)
+data3=data%>%filter(Patient.ID.Number>=40 & sAHI>=5) %>% select(BMI.kg.m2) %>% pull
+average_BMI[3]=mean(data3, na.rm=T)
+SD[3]=sd(data3, na.rm=T)
+CI_low[3]=t.test(data3)$conf.int[1]
+CI_upper[3]=t.test(data3)$conf.int[2]
 
 num_participants[4]=data%>%filter(Patient.ID.Number>=40 & sAHI>=15) %>%nrow 
-average_BMI[4]=mean(data%>%filter(Patient.ID.Number>=40 & sAHI>=15) %>% select(BMI.kg.m2) %>% pull, na.rm=T)
+data4=data%>%filter(Patient.ID.Number>=40 & sAHI>=15) %>% select(BMI.kg.m2) %>% pull
+average_BMI[4]=mean(data4, na.rm=T)
+SD[4]=sd(data4, na.rm=T)
+CI_low[4]=t.test(data4)$conf.int[1]
+CI_upper[4]=t.test(data4)$conf.int[2]
 
-knitr::kable(data.frame(Epworth_score=c(" all participants", "sAHI<5", "sAHI>=5", "sAHI>=15"), num_participants=num_participants, Average_BMI=round(average_BMI,2)), "pipe")
+data.frame(Epworth_score=c(" all participants", "sAHI<5", "sAHI>=5", "sAHI>=15"), num_participants=num_participants, Average_BMI=round(average_BMI,2), SD=round(SD,2), CI_low=round(CI_low,2), CI_upper=round(CI_upper, 2))%>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
