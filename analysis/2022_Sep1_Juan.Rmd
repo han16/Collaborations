@@ -1254,6 +1254,151 @@ datatable(extensions = 'Buttons',
 * `mean_difference` means the proportion of `Y` between group1 and group 2  
 
 
+### Bleeding
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bleeding_T3) %>%mutate(prop=n/nrow(data)), aes(x=Bleeding_T3, y=prop, fill=Bleeding_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bleeding_T3), aes(x=Bleeding_T3, y=n, fill=Bleeding_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bleeding_T4) %>%mutate(prop=n/nrow(data)), aes(x=Bleeding_T4, y=prop, fill=Bleeding_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bleeding_T4), aes(x=Bleeding_T4, y=n, fill=Bleeding_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bleeding_T5) %>%mutate(prop=n/nrow(data)), aes(x=Bleeding_T5, y=prop, fill=Bleeding_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bleeding_T5), aes(x=Bleeding_T5, y=n, fill=Bleeding_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bleeding_T6) %>%mutate(prop=n/nrow(data)), aes(x=Bleeding_T6, y=prop, fill=Bleeding_T6)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bleeding_T6), aes(x=Bleeding_T6, y=n, fill=Bleeding_T6)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:4)
+  for (j in 1:4)
+{
+  ii=ii+1
+  n1=sum(data[,(77+i)]=="Y") # No of yes 
+  n2=sum(data[,(77+j)]=="Y")
+  test=prop.test(x=c(n1,n2), n=c(26,26))
+  mean_difference[ii]=test$estimate[1]-test$estimate[2]
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[78:81],each=4), group2=rep(colnames(data)[78:81],4), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:4, 6:8, 10:12, 14:16)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* `mean_difference` means the proportion difference of `Y` between group 1 and group 2  
+
+
+
 ### T2-T1 
 
 ```{r, echo=F, message=F, warning=F}
