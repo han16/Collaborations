@@ -1399,6 +1399,443 @@ datatable(extensions = 'Buttons',
 
 
 
+
+
+### Bruising
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bruising_T2) %>%mutate(prop=n/nrow(data)), aes(x=Bruising_T2, y=prop, fill=Bruising_T2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bruising_T2), aes(x=Bruising_T2, y=n, fill=Bruising_T2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bruising_T3) %>%mutate(prop=n/nrow(data)), aes(x=Bruising_T3, y=prop, fill=Bruising_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bruising_T3), aes(x=Bruising_T3, y=n, fill=Bruising_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bruising_T4) %>%mutate(prop=n/nrow(data)), aes(x=Bruising_T4, y=prop, fill=Bruising_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bruising_T4), aes(x=Bruising_T4, y=n, fill=Bruising_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bruising_T5) %>%mutate(prop=n/nrow(data)), aes(x=Bruising_T5, y=prop, fill=Bruising_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bruising_T5), aes(x=Bruising_T5, y=n, fill=Bruising_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Bruising_T6) %>%mutate(prop=n/nrow(data)), aes(x=Bruising_T6, y=prop, fill=Bruising_T6)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Bruising_T6), aes(x=Bruising_T6, y=n, fill=Bruising_T6)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:5)
+  for (j in 1:5)
+{
+  ii=ii+1
+  n1=sum(data[,(81+i)]=="Y") # No of yes 
+  n2=sum(data[,(81+j)]=="Y")
+  test=prop.test(x=c(n1,n2), n=c(26,26))
+  mean_difference[ii]=test$estimate[1]-test$estimate[2]
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[82:86],each=5), group2=rep(colnames(data)[82:86],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* `mean_difference` means the proportion difference of `Y` between group 1 and group 2 
+
+
+
+
+### Flap_necrosis 
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Flap_necrosis_T3) %>%mutate(prop=n/nrow(data)), aes(x=Flap_necrosis_T3, y=prop, fill=Flap_necrosis_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Flap_necrosis_T3), aes(x=Flap_necrosis_T3, y=n, fill=Flap_necrosis_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Flap_necrosis_T4) %>%mutate(prop=n/nrow(data)), aes(x=Flap_necrosis_T4, y=prop, fill=Flap_necrosis_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Flap_necrosis_T4), aes(x=Flap_necrosis_T4, y=n, fill=Flap_necrosis_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Flap_necrosis_T5) %>%mutate(prop=n/nrow(data)), aes(x=Flap_necrosis_T5, y=prop, fill=Flap_necrosis_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Flap_necrosis_T5), aes(x=Flap_necrosis_T5, y=n, fill=Flap_necrosis_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Flap_necrosis_T6) %>%mutate(prop=n/nrow(data)), aes(x=Flap_necrosis_T6, y=prop, fill=Flap_necrosis_T6)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Flap_necrosis_T6), aes(x=Flap_necrosis_T6, y=n, fill=Flap_necrosis_T6)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:4)
+  for (j in 1:4)
+{
+  ii=ii+1
+  n1=sum(data[,(86+i)]=="Y") # No of yes 
+  n2=sum(data[,(86+j)]=="Y")
+  test=prop.test(x=c(n1,n2), n=c(26,26))
+  mean_difference[ii]=test$estimate[1]-test$estimate[2]
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[87:90],each=4), group2=rep(colnames(data)[87:90],4), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:4, 6:8, 10:12, 14:16)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* `mean_difference` means the proportion difference of `Y` between group 1 and group 2  
+
+
+
+
+
+### Flap_necrosis 
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Loose_Sutures_T3) %>%mutate(prop=n/nrow(data)), aes(x=Loose_Sutures_T3, y=prop, fill=Loose_Sutures_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Loose_Sutures_T3), aes(x=Loose_Sutures_T3, y=n, fill=Loose_Sutures_T3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
+```
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Loose_sutures_T4) %>%mutate(prop=n/nrow(data)), aes(x=Loose_sutures_T4, y=prop, fill=Loose_sutures_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Loose_sutures_T4), aes(x=Loose_sutures_T4, y=n, fill=Loose_sutures_T4)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+g1=ggplot(data %>% count(Loose_sutures_T5) %>%mutate(prop=n/nrow(data)), aes(x=Loose_sutures_T5, y=prop, fill=Loose_sutures_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("proportion (%)")+ylim(c(0,1))+
+  #xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=round(prop,3)*100), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+g2=ggplot(data %>% count(Loose_sutures_T5), aes(x=Loose_sutures_T5, y=n, fill=Loose_sutures_T5)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+ # xlab("Gender: 1=male, 2=female")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+figure <- ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+figure
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:3)
+  for (j in 1:3)
+{
+  ii=ii+1
+  n1=sum(data[,(90+i)]=="Y") # No of yes 
+  n2=sum(data[,(90+j)]=="Y")
+  test=prop.test(x=c(n1,n2), n=c(26,26))
+  mean_difference[ii]=test$estimate[1]-test$estimate[2]
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+}
+result=data_frame(group1=rep(colnames(data)[91:93],each=3), group2=rep(colnames(data)[91:93],3), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:3, 5:6, 8:9)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
 ### T2-T1 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1578,3 +2015,62 @@ datatable(extensions = 'Buttons',
 #  kable_styling()%>%
 #scroll_box(height = "300px")
 ```
+
+## correlation matrix 
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data.frame(Ging_width_T1=data$Ging_width_T1, Ging_width_T6=data$Ging_width_T6, Ging_thick=data$Ging_thick, Muc_thick=data$Muc_thick,Wound_open_bl_T3=data$Wound_open_bl_T3, Wound_open_bl_T4=data$Wound_open_bl_T4, Wound_open_bl_T5=data$Wound_open_bl_T5, Wound_open_bl_T6=data$Wound_open_bl_T6,Width_3mm_T1=data$Width_3mm_T1
+,Width_3mm_T2=data$Width_3mm_T2, Width_3mm_T3=data$width_3mm_T3, Width_3mm_T4=data$Width_3mm_T4,
+Width_3mm_T5=data$Width_3mm_T5, Width_3mm_T6=data$Width_3mm_T6, Width_diff_3mm_T2_T1=data$Width_diff_3mm_T2.T1, Width_diff_3mm_T3_T2=data$Width_diff_3mm_T3.T2, Width_diff_3mm_T4_T2=data$Width_diff_3mm_T4.T2, Width_diff_3mm_T5_T2=data$Width_diff_3mm_T5.T2, Width_diff_3mm_T6_T2=data$width_diff_3mm_T6.T2, Buccal_3mm_T2_T1=data$Buccal_3mm_T2.T1, Buccal_3mm_T3_T2=-data$Buccal_3mm_T2.T3, Buccal_3mm_T4_T2=-data$Buccal_3mm_T2.T4, Buccal_3mm_T5_T2=-data$Buccal_3mm_T2.T5, Buccal_3mm_T6_T2=-data$Buccal_3mm_T2.T6, Lingual_3mm_T2_T1=data$Lingual_3mm_T2.T1, Lingual_3mm_T3_T2=-data$Lingual_3mm_T2.T3, Lingual_3mm_T4_T2=-data$Lingual_3mm_T2.T4, Lingual_3mm_T5_T2=-data$Lingual_3mm_T2.T5, Lingual_3mm_T6_T2=-data$Lingual_3mm_T2.T6, Vertical_mid_T2_T1=data$Vertical_max_T2.T1, Vertical_mid_T3_T2=-data$Vertical_max_T2.T3, Vertical_mid_T4_T2=-data$Vertical_max_T2.T4, Vertical_mid_T5_T2=-data$Vertical_max_T2.T5, Vertical_mid_T6_T2=-data$Vertical_max_T2.T6, Vertical_max_T2_T1=data$Vertical_mid_T2.T1, Vertical_max_T3_T2=-data$Vertical_mid_T2.T3, Vertical_max_T4_T2=-data$Vertical_mid_T2.T4, Vertical_max_T5_T2=-data$Vertical_mid_T2.T5, Vertical_max_T6_T2=-data$Vertical_mid_T2.T6, X.Vol_T2.T1.T1=data$X.Vol_T2.T1.T1, X.Vol_T3.T2.T2=data$X.Vol_T3.T2.T2, X.Vol_T4.T2.T2=data$X.Vol_T4.T2.T2,  X.Vol_T5.T2.T2=data$X.Vol_T5.T2.T2,  X.Vol_T6.T2.T2=data$X.Vol_T6.T2.T2, VAS_pain_T1=data$VAS_pain_T1, VAS_pain_T3=data$VAS_pain_T3, VAS_pain_T4=data$VAS_pain_T4, VAS_pain_T5=data$VAS_pain_T5, VAS_pain_T6=data$VAS_pain_T6, VAS_swell_T1=data$VAS_swell_T1,VAS_swell_T3=data$VAS_swell_T3, VAS_swell_T4=data$VAS_swell_T4, VAS_swell_T5=data$VAS_swell_T5, VAS_swell_T6=data$VAS_swell_T6, VAS_mouth_open_T1=data$VAS_mouth_open_T1, VAS_mouth_open_T3=data$VAS_mouth_open_T3, VAS_mouth_open_T4=data$VAS_mouth_open_T4, VAS_mouth_open_T5=data$VAS_mouth_open_T5, VAS_mouth_open_T6=data$VAS_mouth_open_T6, OHIP_T1=data$OHIP_T1, OHIP_T3=data$OHIP_T3, OHIP_T4=data$OHIP_T4, OHIP_T5=data$OHIP.T5, OHIP_T6=data$OHIP_T6)
+ 
+cormat2=round(cor(sub_data),2)
+sub_data_col_names=colnames(sub_data)
+colnames(sub_data)=seq(1:length(sub_data_col_names))
+  cormat <- round(cor(sub_data),2)
+  
+  # Get upper triangle of the correlation matrix
+  get_upper_tri <- function(cormat){
+    cormat[lower.tri(cormat)]<- NA
+    return(cormat)
+  }
+  
+  upper_tri <- get_upper_tri(cormat)
+  
+  library(reshape2)
+melted_cormat <- melt(cormat)
+
+# Melt the correlation matrix
+library(reshape2)
+melted_cormat <- melt(upper_tri, na.rm = TRUE)
+# Heatmap
+var_index=1:length(sub_data_col_names)
+ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
+ geom_tile(color = "white")+
+ scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+   midpoint = 0, limit = c(-1,1), space = "Lab", 
+   name="Pearson\nCorrelation") +
+  theme_minimal()+ 
+ theme(axis.text.x = element_text(angle = 0, vjust = 1, 
+    size = 7, hjust = 1))+
+  scale_x_continuous("var_index", labels = as.character(var_index), breaks = var_index)+
+ coord_fixed()
+
+cormat2%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+data.frame(var_index=var_index, variables=sub_data_col_names)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
