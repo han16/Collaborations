@@ -2043,7 +2043,8 @@ melted_cormat <- melt(cormat)
 library(reshape2)
 melted_cormat <- melt(upper_tri, na.rm = TRUE)
 # Heatmap
-var_index=1:length(sub_data_col_names)
+var_index=seq(1,length(sub_data_col_names), by=5)
+var_index2=1:length(sub_data_col_names)
 ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
  geom_tile(color = "white")+
  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
@@ -2051,7 +2052,7 @@ ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
    name="Pearson\nCorrelation") +
   theme_minimal()+ 
  theme(axis.text.x = element_text(angle = 0, vjust = 1, 
-    size = 7, hjust = 1))+
+    size = 10, hjust = 1))+
   scale_x_continuous("var_index", labels = as.character(var_index), breaks = var_index)+
  coord_fixed()
 
@@ -2062,7 +2063,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-data.frame(var_index=var_index, variables=sub_data_col_names)%>%
+data.frame(var_index=var_index2, variables=sub_data_col_names)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
