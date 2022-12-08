@@ -89,8 +89,8 @@ figure <- ggarrange(g1, g2,
                     ncol = 2, nrow = 1)
 figure
 
-gender_count=data %>% count(Gender) %>% select(n) %>% pull
-binom.test(gender_count[1], sum(gender_count), p = 0.5)
+#gender_count=data %>% count(Gender) %>% select(n) %>% pull
+#binom.test(gender_count[1], sum(gender_count), p = 0.5)
 ```
 
 * large p value of 0.845 suggests no difference between gender. 
