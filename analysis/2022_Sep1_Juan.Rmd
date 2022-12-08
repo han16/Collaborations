@@ -253,10 +253,10 @@ datatable(extensions = 'Buttons',
 * p value of 0.7824 suggests no difference between `Ging_width_T1` and `Ging_width_T6`
 
 
-## _T1, _T2, _T3, _T4, _T5 and _T6
+## Width_3mm
 
 
-### trajectory plot 
+### trajectory plot
 
 ```{r, echo=F, message=F, warning=F}
 data_long=data.frame(Width_3mm=c(data$Width_3mm_T1, data$Width_3mm_T2, data$width_3mm_T3, data$Width_3mm_T4, data$Width_3mm_T5, data$Width_3mm_T6), time=rep(c("T1", "T2", "T3", "T4", "T5", "T6"), each=nrow(data)), individual=rep(data$Subject,6))
@@ -343,11 +343,6 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 * use paired two sample t test 
@@ -707,7 +702,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### %vol 
+## %vol 
 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
@@ -734,9 +729,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
 ```
 
 
@@ -766,14 +758,10 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
-### VAS_pain 
+## VAS_pain 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
@@ -799,9 +787,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
 ```
 
 
@@ -831,15 +816,11 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
 
-### VAS_swell
+## VAS_swell
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
@@ -903,7 +884,7 @@ datatable(extensions = 'Buttons',
 #scroll_box(height = "300px")
 ```
 
-### VAS_mouth_open 
+## VAS_mouth_open 
 
 
 
@@ -970,7 +951,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### OHIP 
+## OHIP 
 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
@@ -1035,7 +1016,7 @@ datatable(extensions = 'Buttons',
 #scroll_box(height = "300px")
 ```
 
-### Wound_open_bl 
+## Wound_open_bl 
 
 
 
@@ -1102,7 +1083,7 @@ datatable(extensions = 'Buttons',
 #scroll_box(height = "300px")
 ```
 
-### Wound_open 
+## Wound_open 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1254,7 +1235,7 @@ datatable(extensions = 'Buttons',
 * `mean_difference` means the proportion of `Y` between group1 and group 2  
 
 
-### Bleeding
+## Bleeding
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1401,7 +1382,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Bruising
+## Bruising
 
 ```{r, echo=F, message=F, warning=F}
 g1=ggplot(data %>% count(Bruising_T2) %>%mutate(prop=n/nrow(data)), aes(x=Bruising_T2, y=prop, fill=Bruising_T2)) +geom_bar(stat="identity")+
@@ -1575,7 +1556,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Flap_necrosis 
+## Flap_necrosis 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1722,7 +1703,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Flap_necrosis 
+## Flap_necrosis 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1836,7 +1817,7 @@ datatable(extensions = 'Buttons',
 
 ```
 
-### T2-T1 
+## T2-T1 
 
 ```{r, echo=F, message=F, warning=F}
 T2.T1=data %>% select(ends_with("T2.T1"))
@@ -1872,7 +1853,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### T3-T2 
+## T3-T2 
 
 ```{r, echo=F, message=F, warning=F}
 T3.T2=data %>% select(ends_with("T3.T2") | ends_with("T2.T3"))
@@ -1909,7 +1890,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### T4-T2 
+## T4-T2 
 
 ```{r, echo=F, message=F, warning=F}
 T4.T2=data %>% select(ends_with("T4.T2") | ends_with("T2.T4"))
@@ -1945,7 +1926,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### T5-T2 
+## T5-T2 
 
 ```{r, echo=F, message=F, warning=F}
 T5.T2=data %>% select(ends_with("T5.T2") | ends_with("T2.T5"))
@@ -1981,7 +1962,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### T6-T2 
+## T6-T2 
 
 ```{r, echo=F, message=F, warning=F}
 T6.T2=data %>% select(ends_with("T6.T2") | ends_with("T2.T6"))
@@ -2043,7 +2024,7 @@ melted_cormat <- melt(cormat)
 library(reshape2)
 melted_cormat <- melt(upper_tri, na.rm = TRUE)
 # Heatmap
-var_index=seq(1,length(sub_data_col_names), by=5)
+var_index=seq(1,length(sub_data_col_names), by=3)
 var_index2=1:length(sub_data_col_names)
 ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
  geom_tile(color = "white")+
@@ -2051,27 +2032,34 @@ ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
    midpoint = 0, limit = c(-1,1), space = "Lab", 
    name="Pearson\nCorrelation") +
   theme_minimal()+ 
- theme(axis.text.x = element_text(angle = 0, vjust = 1, 
+ theme(axis.text.x = element_text(angle = 45, vjust = 1, 
     size = 10, hjust = 1))+
   scale_x_continuous("var_index", labels = as.character(var_index), breaks = var_index)+
+  scale_y_continuous("var_index", labels = as.character(var_index), breaks = var_index)+
  coord_fixed()
 
-cormat2%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
+#write.csv(cormat2, file="../../2022/202209/Juan/Juan_correlation_matrix_1208_2022.csv")
 
-data.frame(var_index=var_index2, variables=sub_data_col_names)%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
+#cormat2%>%
+#datatable(extensions = 'Buttons',
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
+
+#data.frame(var_index=var_index2, variables=sub_data_col_names)%>%
+#datatable(extensions = 'Buttons',
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
 ```
 
 
 
+* [correlation matrix](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/EfpEh3VJeJhFgYkJTeVyAgcBmknvYsk0OB4FpzeNS8r2ag?e=fTyVm0) 
 
+* `NA` in the correlation matrix means one of variables is constant, no variations leading to meaningless correlation. 
+
+* `var_index` corresponds to row/column index in the correlation matrix 
 
