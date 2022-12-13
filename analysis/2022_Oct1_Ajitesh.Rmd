@@ -50,7 +50,7 @@ ggplot(trueness, aes(x=methods, y=Angle, fill=methods)) +
   geom_boxplot()
 
 LM <- lm(Angle~ methods, data=trueness)
-anova(LM)
+#anova(LM)
 
 #summary(LM)
 
@@ -80,19 +80,44 @@ library(ltm)
 FGAS_Angle=data.frame(FGAS_CBCT=trueness %>% filter(methods=="FGAS_CBCT") %>% dplyr::select(Angle) %>% pull, FGAS_IOS=trueness %>% filter(methods=="FGAS_IOS") %>% dplyr::select(Angle) %>% pull, FGAS_LS=trueness %>% filter(methods=="FGAS_LS") %>% dplyr::select(Angle) %>% pull) # dplyr::select  use select function from package dplyr 
 #FGAS_Angle=data.frame(FGAS_CBCT=trueness$Angle[41:60], FGAS_IOS=trueness$Angle[21:40], FGAS_LS=trueness$Angle[1:20])
 FGAS_alpha=cronbach.alpha(FGAS_Angle)
-FGAS_alpha$alpha
+#round(FGAS_alpha$alpha,4)
 
 FHAS_Angle=data.frame(FHAS_CBCT=trueness %>% filter(methods=="FHAS_CBCT") %>% dplyr::select(Angle) %>% pull, FHAS_IOS=trueness %>% filter(methods=="FHAS_IOS") %>% dplyr::select(Angle) %>% pull, FHAS_LS=trueness %>% filter(methods=="FHAS_LS") %>% dplyr::select(Angle) %>% pull) # dplyr::select  use select function from package dplyr
 #FHAS_Angle=data.frame(FHAS_CBCT=trueness$Angle[101:120], FHAS_IOS=trueness$Angle[81:100], FHAS_LS=trueness$Angle[61:80])
 
 FHAS_alpha=cronbach.alpha(FHAS_Angle)
-FHAS_alpha$alpha
+#round(FHAS_alpha$alpha,4) 
 
 ########################
 #library(psych)
 #alpha(FGAS_Angle)
 #alpha(FHAS_Angle)
 ```
+
+* `FGAS` has alpha 0.70 and FHAS has 0.91. 
+
+
+#### an example to show anova vs Cronbach’s Alpha 
+
+```{r, echo=F, message=F, warning=F}
+library(psych)
+x=runif(20)
+test_data=data.frame(X1=x, X2=x+1, X3=x+2)
+#cronbach.alpha(test_data)
+test_data_long=data.frame(group=rep(c("X1", "X2", "X3"), each=20),x=c(x, x+1, x+2))
+#anova(lm(x~ group, data=test_data_long))
+
+ggplot(test_data_long, aes(x=group, y=x, fill=group)) +
+  geom_boxplot()
+
+#ICC(test_data)
+```
+
+* in this example, x2=x1+1; x3=x1+2
+
+* anova test suggests mean varies across 3 groups 
+
+* Cronbach’s Alpha=1 indicates high reliability.  
 
 
 ### pairwise comparisons 
