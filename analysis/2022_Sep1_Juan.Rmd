@@ -2081,3 +2081,10 @@ heatmaply_cor(
 
 * `var_index` corresponds to row/column index in the correlation matrix 
 
+
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```
