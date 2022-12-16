@@ -31,13 +31,14 @@ library(tidyverse)
 18. [Oct-Ajitesh](2022_Oct1_Ajitesh.html)
 19. [Dec-Teerarat](2022_DEc1_Teerarat.html)
 20. [Dec-Kelley](2022_Dec2_Kelley.html)
+21. [Dec-Arndt](2022_Dec3_Arndt.html)
 
 ##  progress 
 
 
 ```{r, echo=F, message=F, warning=F}
 ###### https://rstudio-pubs-static.s3.amazonaws.com/215319_ac67755c296b441dac7b24b48fc30156.html
-project_progress=data.frame(project=seq(1,20), progress=c(100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,100,100,100, 100,90, 70,0,0))
+project_progress=data.frame(project=seq(1,21), progress=c(100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,100,100,100, 100,90, 70,0,0,0))
 bp.y <- ggplot(data =project_progress, aes(x = factor(project), y = progress)) + 
     geom_bar(stat = "identity", aes(fill = progress))+ 
   labs(x = "project")+
