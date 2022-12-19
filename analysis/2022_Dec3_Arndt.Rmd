@@ -4,3 +4,104 @@ output: html_document
 date: '2022-12-16'
 ---
 
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggpubr) # combine and arrange multiple 
+library(kableExtra)
+library(rstatix) # use anova_test function 
+library(DT)
+set.seed(123)
+```
+
+```{r, echo=F, warning=F, message=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Arndt\\Trueness_CompareStudies_2022_ALL DATA.csv", header=T))
+# based on sleeveheight, split into 3 different balanced groups, low mediam, high, and then for each group, regress angle to sleeveheight and drillguidance   
+```
+
+
+## SleeveHeight
+
+
+```{r, echo=F, message=F, warning=F}
+  
+
+p=ggplot(data.frame(var=rep("SleeveHeight", 140), SleeveHeight=data$SleeveHeight), aes(x=var, y=SleeveHeight))+
+  geom_boxplot()
+p+geom_dotplot(binaxis='y', stackdir='center', dotsize=0.6)+
+  ggtitle("boxplot of SleeveHeight")+
+  theme(plot.title = element_text(hjust = 0.5, size=15)) # center the title
+
+quantile(data$SleeveHeight, probs=c(0, 0.33, 0.66,1))
+```
+### SleeveHeight<=3.5
+
+* based on `SleeveHeight`, split into 3 groups (1) `SleeveHeight<=3.5`, 60 observations (2) `SleeveHeight>3.5 & SleeveHeight<=5`, 40 observations (3) `SleeveHeight>5`, 40 observations 
+
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data%>%filter(SleeveHeight<=3.5)
+reg=lm(Angle~SleeveHeight+DrillGuidance, sub_data)
+SleeveHeight=sub_data%>%select(SleeveHeight) %>% pull()
+DrillGuidance=sub_data%>% select(DrillGuidance) %>% pull()
+cor(SleeveHeight,DrillGuidance)
+summary(reg)
+
+ggplot(sub_data, aes(x=SleeveHeight, y=Angle)) +   # add regression line 
+  geom_point()+
+  geom_smooth(method=lm)
+
+```
+* SleeveHeight=DrillGuidance, only one variable is effective 
+
+
+
+### SleeveHeight>3.5 & SleeveHeight<=5
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data%>%filter(SleeveHeight>3.5 & SleeveHeight<=5)
+reg=lm(Angle~SleeveHeight+DrillGuidance, sub_data)
+SleeveHeight=sub_data%>%select(SleeveHeight) %>% pull()
+DrillGuidance=sub_data%>% select(DrillGuidance) %>% pull()
+cor(SleeveHeight,DrillGuidance)
+summary(reg)
+
+
+ggplot(sub_data, aes(x=SleeveHeight, y=Angle)) +   # add regression line 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+* correlation between SleeveHeight and DrillGuidance is 1. 
+
+### SleeveHeight>5 
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data%>%filter(SleeveHeight>5)
+reg=lm(Angle~SleeveHeight+DrillGuidance, sub_data)
+SleeveHeight=sub_data %>% select(SleeveHeight) %>% pull()
+DrillGuidance=sub_data %>% select(DrillGuidance) %>% pull()
+cor(SleeveHeight,DrillGuidance)
+summary(reg)
+
+ggplot(sub_data, aes(x=SleeveHeight, y=Angle)) +   # add regression line 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+
+
+ggplot(data, aes(x=SleeveHeight, y=Angle, color=as.character(SleeveHeight), shape=as.character(SleeveHeight))) +
+  geom_point() + 
+  geom_smooth(method=lm)
+```
+
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```
