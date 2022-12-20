@@ -30,6 +30,7 @@ ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
   ylab("n:sample size")+
   ggtitle("power=0.8; SD=0.11")+
   theme(plot.title = element_text(hjust = 0.5, size=15))
+
 data.frame(mean_difference=d, sample_size=sample_size) %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -37,6 +38,38 @@ data.frame(mean_difference=d, sample_size=sample_size) %>% datatable(extensions 
                                              c(10,25,50,"All"))))
 
 ```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+library(ggplot2)
+d=1.24; SD=0.11
+sample_size=numeric()
+power=seq(0.8,0.999, by=0.01)
+for (i in 1:length(power))
+{
+  test=power.t.test(power = power[i], delta =d , alternative = "two.sided", sig.level=0.05, sd=SD, type="paired") # paired two sample t test 
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  #geom_vline(xintercept=1.24, colour="blue") +
+  geom_text(aes(x=1.24, label="d=1.24", y=10), colour="blue", angle=90, vjust = 1.2, text=element_text(size=11))+
+  #geom_hline(yintercept=2.009, colour="blue") +
+  geom_point()+
+  xlab("power")+
+  ylab("n:sample size")+
+  #ggtitle("power=0.8; SD=0.11")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+data.frame(power=power, sample_size=sample_size) %>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
 
 
 
