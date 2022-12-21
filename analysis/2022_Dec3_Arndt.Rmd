@@ -99,21 +99,25 @@ ggplot(sub_data, aes(x=SleeveHeight, y=Angle)) +   # add regression line
 
 ```{r, echo=F, message=F, warning=F}
 group=rep(NA, nrow(data))
-group[which(data$SleeveHeight<=3.5)]="SleeveHeight<=3.5"
-group[which(data$SleeveHeight>3.5 & data$SleeveHeight<=5)]="SleeveHeight>3.5 & SleeveHeight<=5"
-group[which(data$SleeveHeight>5)]="SleeveHeight>5"
+group[which(data$SleeveHeight<=3.5)]="Sleeve Height<=3.5"
+group[which(data$SleeveHeight>3.5 & data$SleeveHeight<=5)]="Sleeve Height>3.5 & Sleeve Height<=5"
+group[which(data$SleeveHeight>5)]="Sleeve Height>5"
 data_with_group=data%>%mutate(group=group)
 ggplot(data_with_group, aes(x=SleeveHeight, y=Angle, color=group, shape=group)) +
   geom_point() + 
+  xlab("Sleeve Height (mm)")+ylab("Angle (mm)")+
   geom_smooth(method=lm)+
   theme(legend.position="bottom")
 ```
+
+* "We use 3.5mm and 5mm as cutoff to split 140 data points to 3 groups. In each group, apply linear regression model with Angle as response and sleeve height as predictor. Coefficient estimates are presented in the Table and regression lines are shown in the graph. From parameter estimate in the table, when sleeve height is less than or equal to 3.5mm, 1mm increase in sleeve height will result in 3.57mm decrease for angle, however, when sleeve height is larger than 6mm, 1mm increase in sleeve height leads to 0.09mm increase in angle.  "
+
 
 ```{r, echo=F, message=F, warning=F}
 parameter_estimate=c(-3.57, -1.03, 0.09)
 confidence_low=c(-5.24, -1.72, -1.46)
 confidence_upper=c(-1.90, -0.34, 1.65)
-group=c("SleeveHeight<=3.5", "SleeveHeight>3.5 & SleeveHeight<=5","SleeveHeight>5")
+group=c("SleeveHeight<=3.5", "Sleeve Height>3.5 & Sleeve Height<=5","Sleeve Height>5")
 pvalue=c("7.06e-05", "0.004240", "0.903")
 
 data.frame(group=group, SleeveHeight_coefficient=parameter_estimate, CI_low=confidence_low, CI_upper=confidence_upper, pvalue=pvalue) %>% datatable(extensions = 'Buttons',
@@ -124,6 +128,76 @@ data.frame(group=group, SleeveHeight_coefficient=parameter_estimate, CI_low=conf
 
 ```
 
+
+### two groups 
+
+
+```{r, echo=F, message=F, warning=F}
+group=rep(NA, nrow(data))
+group[which(data$SleeveHeight<=4)]="Sleeve Height<=4"
+group[which(data$SleeveHeight>4)]="Sleeve Height>4"
+data_with_group=data%>%mutate(group=group)
+ggplot(data_with_group, aes(x=SleeveHeight, y=Angle, color=group, shape=group)) +
+  geom_point() + 
+  xlab("Sleeve Height (mm)")+ylab("Angle (mm)")+
+  geom_smooth(method=lm)+
+  theme(legend.position="bottom")
+```
+
+```{r, echo=F, message=F, warning=F}
+Angle_mean=numeric(); SleeveHeight_cutoff=c(3,3.5,4,5,6,6.25)
+Angle_se=numeric()
+for (i in 1:length(SleeveHeight_cutoff))
+{
+  obs=data %>% filter(SleeveHeight==SleeveHeight_cutoff[i]) %>% select(Angle) %>% pull()
+ Angle_mean[i]=mean(obs)
+ Angle_se[i]=sd(obs)/sqrt(length(obs))
+}
+
+ggplot(data, aes(x=SleeveHeight, y=Angle)) + geom_point() +
+  xlab("Sleeve Height (mm)")+ylab("Angle (mm)")+
+  stat_summary(aes(y = Angle,group=1), fun.y=mean, colour="red", geom="line",group=1)#+
+  #geom_errorbar(aes(ymin=Angle_mean-Angle_se, ymax=Angle_mean+Angle_se), width=.1)
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+sub_data=data%>%filter(SleeveHeight<=4)
+reg=lm(Angle~SleeveHeight, sub_data)
+SleeveHeight=sub_data %>% select(SleeveHeight) %>% pull()
+DrillGuidance=sub_data %>% select(DrillGuidance) %>% pull()
+#cor(SleeveHeight,DrillGuidance)
+summary(reg)
+confint(reg, 'SleeveHeight', level=0.95)
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+sub_data=data%>%filter(SleeveHeight>4)
+reg=lm(Angle~SleeveHeight, sub_data)
+SleeveHeight=sub_data %>% select(SleeveHeight) %>% pull()
+DrillGuidance=sub_data %>% select(DrillGuidance) %>% pull()
+#cor(SleeveHeight,DrillGuidance)
+summary(reg)
+confint(reg, 'SleeveHeight', level=0.95)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+parameter_estimate=c(-2.06, 0.30)
+confidence_low=c(-3.03, 0.04)
+confidence_upper=c(-1.09, 0.56)
+group=c("SleeveHeight<=4", "SleeveHeight>4")
+pvalue=c("6.63e-05", "0.0245")
+
+data.frame(group=group, SleeveHeight_coefficient=parameter_estimate, CI_low=confidence_low, CI_upper=confidence_upper, pvalue=pvalue) %>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 ## statistical software 
 
