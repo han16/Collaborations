@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-12-21
+<strong>Last updated:</strong> 2022-12-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed9e96e2a9cf062fee48b43fe4d27ef5c75de27a6targetblankd9e96e2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4fe5aca196b3af93a20be5b4ebde2b133405585dtargetblank4fe5acaa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/d9e96e2a9cf062fee48b43fe4d27ef5c75de27a6" target="_blank">d9e96e2</a>
+<a href="https://github.com/han16/Collaborations/tree/4fe5aca196b3af93a20be5b4ebde2b133405585d" target="_blank">4fe5aca</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed9e96e2a9cf062fee48b43fe4d27ef5c75de27a6targetblankd9e96e2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4fe5aca196b3af93a20be5b4ebde2b133405585dtargetblank4fe5acaa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/d9e96e2a9cf062fee48b43fe4d27ef5c75de27a6" target="_blank">d9e96e2</a>.
+<a href="https://github.com/han16/Collaborations/tree/4fe5aca196b3af93a20be5b4ebde2b133405585d" target="_blank">4fe5aca</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -574,7 +574,6 @@ Ignored files:
     Ignored:    analysis/.Rhistory
 
 Unstaged changes:
-    Modified:   analysis/2022_DEc1_Teerarat.Rmd
     Modified:   analysis/2022_Dec3_Arndt.Rmd
 
 </code></pre>
@@ -621,6 +620,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/c58cad321ff9aba44cceca89b198bb66f201fb17/analysis/2022_Dec3_Arndt.Rmd" target="_blank">c58cad3</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-12-21
+</td>
+<td>
+12/21/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/c58cad321ff9aba44cceca89b198bb66f201fb17/docs/2022_Dec3_Arndt.html" target="_blank">c58cad3</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-12-21
+</td>
+<td>
+12/21/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -780,6 +813,19 @@ increase in sleeve height leads to 0.09mm increase in angle.”</li>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["SleeveHeight&lt;=4","SleeveHeight&gt;4"],[-2.06,0.3],[-3.03,0.04],[-1.09,0.56],["6.63e-05","0.0245"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>SleeveHeight_coefficient<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+<div id="cam-vs-stm" class="section level2">
+<h2>CAM vs STM</h2>
+<ul>
+<li><p>CAM: Camlog, STM:Straumann</p></li>
+<li><p>power: when n=20, mean
+difference=mean(CAM_angle)-mean(STM_angle), sd=2, power=0.99 and when
+sd=0.4, power=1 =&gt; sample size of 20 is more than enough to have
+power 80%.</p></li>
+<li><p>effect size: Cohen’s d is 2.13, average angle deviation (AD) of
+CAM is 2.13 standard deviations greater than the average AD of
+STM.</p></li>
+</ul>
+</div>
 <div id="statistical-software" class="section level2">
 <h2>statistical software</h2>
 <pre><code>               _                                
@@ -824,10 +870,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] DT_0.26          rstatix_0.7.1    kableExtra_1.3.4 ggpubr_0.5.0    
- [5] forcats_0.5.2    stringr_1.5.0    dplyr_1.0.10     purrr_0.3.5     
- [9] readr_2.1.3      tidyr_1.2.1      tibble_3.1.8     ggplot2_3.4.0   
-[13] tidyverse_1.3.2 
+ [1] effsize_0.8.1    DT_0.26          rstatix_0.7.1    kableExtra_1.3.4
+ [5] ggpubr_0.5.0     forcats_0.5.2    stringr_1.5.0    dplyr_1.0.10    
+ [9] purrr_0.3.5      readr_2.1.3      tidyr_1.2.1      tibble_3.1.8    
+[13] ggplot2_3.4.0    tidyverse_1.3.2 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-160        fs_1.5.2            lubridate_1.9.0    

@@ -199,6 +199,27 @@ data.frame(group=group, SleeveHeight_coefficient=parameter_estimate, CI_low=conf
 
 ```
 
+
+## CAM vs STM 
+
+```{r, echo=F, message=F, warning=F}
+CAM_angle=data$Angle[81:100]
+STM_angle=data$Angle[101:120]
+
+######### calculate power 
+#power.t.test(delta =(mean(CAM_angle)-mean(STM_angle)), alternative = "two.sided", sig.level=0.05, sd=2, n=20, type="two.sample")
+
+########### calculate effect size 
+library(effsize)
+
+#cohen.d(CAM_angle, STM_angle)
+```
+
+* CAM: Camlog, STM:Straumann
+* power: when n=20, mean difference=mean(CAM_angle)-mean(STM_angle), sd=2, power=0.99 and when sd=0.4, power=1 => sample size of 20 is more than enough to have power 80%.  
+
+* effect size: Cohen's d is 2.13, average angle deviation (AD) of CAM is 2.13 standard deviations greater than the average AD of STM.
+
 ## statistical software 
 
 ```{r, echo=F}
