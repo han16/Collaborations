@@ -105,7 +105,7 @@ group[which(data$SleeveHeight>5)]="Sleeve Height>5"
 data_with_group=data%>%mutate(group=group)
 ggplot(data_with_group, aes(x=SleeveHeight, y=Angle, color=group, shape=group)) +
   geom_point() + 
-  xlab("Sleeve Height (mm)")+ylab("Angle (mm)")+
+  xlab("Sleeve Height (mm)")+ylab("Angle (degree)")+
   geom_smooth(method=lm)+
   theme(legend.position="bottom")
 ```
@@ -139,7 +139,7 @@ group[which(data$SleeveHeight>4)]="Sleeve Height>4"
 data_with_group=data%>%mutate(group=group)
 ggplot(data_with_group, aes(x=SleeveHeight, y=Angle, color=group, shape=group)) +
   geom_point() + 
-  xlab("Sleeve Height (mm)")+ylab("Angle (mm)")+
+  xlab("Sleeve Height (mm)")+ylab("Angle (degree)")+
   geom_smooth(method=lm)+
   theme(legend.position="bottom")
 ```
@@ -155,7 +155,7 @@ for (i in 1:length(SleeveHeight_cutoff))
 }
 
 ggplot(data, aes(x=SleeveHeight, y=Angle)) + geom_point() +
-  xlab("Sleeve Height (mm)")+ylab("Angle (mm)")+
+  xlab("Sleeve Height (mm)")+ylab("Angle (degree)")+
   stat_summary(aes(y = Angle,group=1), fun.y=mean, colour="red", geom="line",group=1)#+
   #geom_errorbar(aes(ymin=Angle_mean-Angle_se, ymax=Angle_mean+Angle_se), width=.1)
 ```
