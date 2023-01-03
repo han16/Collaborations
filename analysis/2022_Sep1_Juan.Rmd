@@ -394,7 +394,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -462,7 +462,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -528,7 +528,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -594,7 +594,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -662,7 +662,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -728,7 +728,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -786,7 +786,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -845,7 +845,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -911,7 +911,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -977,7 +977,7 @@ for (i in 1:5)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
@@ -1044,7 +1044,7 @@ for (i in 1:4)
   p_value[i]=test$p.value
   
   SD[i]=sd(current)
-  SE[i]=SD/length(current)
+  SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
 }
