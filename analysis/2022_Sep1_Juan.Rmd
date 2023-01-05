@@ -32,6 +32,8 @@ for (i in 1:length(p_value))
   return(p_value_adjust)
 }
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Juan\\Research Valencia-Kofina implants final n=26.csv"))
+data$Width_3mm_T5=abs(data$Width_3mm_T5) # all observations for "Width_3mm" must be positive 
+data$Width_3mm_T6=abs(data$Width_3mm_T6)
 old_data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Juan\\Research Valencia-Kofina implants.csv"))
 ```
 
