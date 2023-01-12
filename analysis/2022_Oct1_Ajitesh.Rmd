@@ -46,17 +46,98 @@ trueness=trueness %>% mutate(methods=rep(methods2, each=20)) # add new column wi
 ### anova test 
 
 ```{r, echo=F, message=F, warning=F}
-ggplot(trueness, aes(x=methods, y=Angle, fill=methods)) +
-  geom_boxplot()
+f1=ggplot(trueness, aes(x=methods, y=Angle, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f2=ggplot(trueness, aes(x=methods, y=Base.3D.offset, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f3=ggplot(trueness, aes(x=methods, y=Base.distal, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
 
-LM <- lm(Angle~ methods, data=trueness)
-#anova(LM)
+figure=ggarrange(f1, f2,f3, nrow=3)
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
 
-#summary(LM)
+f4=ggplot(trueness, aes(x=methods, y=Base.vestibular, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f5=ggplot(trueness, aes(x=methods, y=Base.3D.offset, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f6=ggplot(trueness, aes(x=methods, y=Base.apical, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+
+figure=ggarrange(f4, f5,f6, nrow=3)
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+
+f7=ggplot(trueness, aes(x=methods, y=Tip.3D.offset, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f8=ggplot(trueness, aes(x=methods, y=Tip.distal, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f9=ggplot(trueness, aes(x=methods, y=Tip.vestibular, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f10=ggplot(trueness, aes(x=methods, y=Tip.apical, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+
+figure=ggarrange(f7, f8,f9, f10, nrow=4)
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+#anova(lm(Angle~ methods, data=trueness))
+#anova(lm(Base.3D.offset~ methods, data=trueness))
+#anova(lm(Base.distal~ methods, data=trueness))
+#anova(lm(Base.vestibular~ methods, data=trueness))
+#anova(lm(Base.apical~ methods, data=trueness))
+#anova(lm(Tip.3D.offset~ methods, data=trueness))
+#anova(lm(Tip.distal~ methods, data=trueness))
+#anova(lm(Tip.vestibular~ methods, data=trueness))
+#anova(lm(Tip.apical~ methods, data=trueness))
+
+parameter=colnames(trueness)[3:11]
+p_value=c("2.097e-09", "1.648e-06", "1.669e-08", "0.003051", "0.00843", "3.852e-07", "4.413e-08", "0.0004085", "0.003966")
+data.frame(parameter=parameter, anova_p_value=p_value)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
-* small p value, `2.097e-09` suggests `Angle` are not ALL equal across 6 methods
+
+
+
 
 #### anova test for `FGAS`
 
@@ -123,6 +204,8 @@ ggplot(test_data_long, aes(x=group, y=x, fill=group)) +
 ### pairwise comparisons 
 
 ```{r, echo=F, message=F, warning=F}
+##################
+k=1
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
 for (i in 1:length(methods2))
@@ -130,8 +213,8 @@ for (i in 1:length(methods2))
 {
  #  i=1; j=2
   ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(Angle)%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(Angle)%>% pull
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
   test=t.test(samplei, samplej)  # non paired t test 
   estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
   CI_lower[ii]=test$conf.int[1]
@@ -141,16 +224,262 @@ for (i in 1:length(methods2))
   
  }
 
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+##################
+k=2
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
 
 result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
 result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
 
 result%>%
 datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+
+##################
+k=3
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+##################
+k=4
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+##################
+k=5
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+##################
+k=6
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+##################
+k=7
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+##################
+k=8
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+##################
+k=9
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+for (i in 1:length(methods2))
+ for (j in 1:length(methods2))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption = paste(colnames(trueness)[2+k]),
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 ```
 
 * non paired two sample t test is used 
@@ -158,34 +487,117 @@ datatable(extensions = 'Buttons',
 * `mean_difference` is mean difference of `group1-group2`
 
 
+
+
 ## precision 
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=T}
 precision=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202210\\Ajitesh\\Final RAW DATA ALL SAMPLES_AS_precision.csv", header=T))
+precision_data_all=list()
 
-precision_angle=precision %>%  dplyr::select(ends_with("Angle")) %>% slice_tail(n = 191) # the last 191 rows as precision 
-methods3=colnames(precision_angle)
-precision_angle_long=data.frame(vs_distance=c(precision_angle$FG.LS.Angle, precision_angle$FG.IOS.Angle, precision_angle$FG.CBCT.Angle, precision_angle$FH.LS.Angle, precision_angle$FH.IOS.Angle, precision_angle$FH.CBCT.Angle), methods=rep(methods3, each=191))
+parameters=c("Angle", "Base.3D.offset", "Base.distal", "Base.vestibular", "Base.apical", "Tip.3D.offset", "Tip.distal", "Tip.vestibular", "Tip.apical")
+for (i in 1:length(parameters))
+{
+precision_parameter=precision %>%  dplyr::select(ends_with(parameters[i])) %>% slice_tail(n = 191) # the last 191 rows as precision 
+methods3=colnames(precision_parameter)
+precision_parameter_long=data.frame(vs_distance=c(precision_parameter[,1] %>% pull, precision_parameter[,2] %>% pull, precision_parameter[,3] %>% pull, precision_parameter[,4] %>% pull, precision_parameter[,5] %>% pull, precision_parameter[,6] %>% pull), methods=rep(methods3, each=191))
+precision_data_all[[i]]=precision_parameter_long
+  
+}
+
 ```
 
 
 
 ### anova test 
 
+```{r, echo=F, message=F, warning=F, eval=T}
+
+f1=ggplot(precision_data_all[[1]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f2=ggplot(precision_data_all[[2]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f3=ggplot(precision_data_all[[3]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+
+figure=ggarrange(f1, f2,f3, nrow=3)
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+###################
+f4=ggplot(precision_data_all[[4]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f5=ggplot(precision_data_all[[5]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f6=ggplot(precision_data_all[[6]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+
+figure=ggarrange(f4, f5,f6, nrow=3)
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+###################
+f7=ggplot(precision_data_all[[7]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f8=ggplot(precision_data_all[[8]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f9=ggplot(precision_data_all[[9]], aes(x=methods, y=vs_distance, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+
+figure=ggarrange(f7, f8,f9, nrow=3)
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
 ```{r, echo=F, message=F, warning=F}
-ggplot(precision_angle_long, aes(x=methods, y=vs_distance, fill=methods)) +
-  geom_boxplot()
+p_value=numeric()
+for (i in 1:length(precision_data_all))
+  p_value[i]=pvalue_adjust(anova(lm(vs_distance~ methods, data=precision_data_all[[i]]))$"Pr(>F)"[1]) #extract p values only 
 
-LM <- lm(vs_distance~ methods, data=precision_angle_long)
-anova(LM)
+parameters=c("Angle", "Base.3D.offset", "Base.distal", "Base.vestibular", "Base.apical", "Tip.3D.offset", "Tip.distal", "Tip.vestibular", "Tip.apical")
+#p_value=c("7.445e-12", "< 2.2e-16", "1.669e-08", "0.003051", "0.00843", "3.852e-07", "4.413e-08", "0.0004085", "0.003966")
+data.frame(parameter=parameters, anova_p_value=p_value)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
-#summary(LM)
+
 
 ```
 
-* p value `7.445e-12` indicates strong evidence of non-equal vs distance across 6 methods. 
 
 
 ### pairwise comparisons 
@@ -193,13 +605,14 @@ anova(LM)
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+methods3=unique(precision_data_all[[1]]$methods)
 for (i in 1:length(methods3))
  for (j in 1:length(methods3))
 {
  #  i=1; j=2
   ii=ii+1
-  samplei=precision_angle_long %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_angle_long %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  samplei=precision_data_all[[1]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[1]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
   test=t.test(samplei, samplej)  # non paired t test 
   estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
   CI_lower[ii]=test$conf.int[1]
@@ -223,3 +636,264 @@ datatable(extensions = 'Buttons',
 
 * two sample t test is used 
 * `mean_difference` is mean difference of `group1-group2`
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[2]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[2]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[2]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[3]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[3]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[3]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[4]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[4]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[4]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[5]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[5]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[5]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[6]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[6]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[6]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[7]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[7]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[7]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[8]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[8]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[8]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+methods3=unique(precision_data_all[[9]]$methods)
+for (i in 1:length(methods3))
+ for (j in 1:length(methods3))
+{
+ #  i=1; j=2
+  ii=ii+1
+  samplei=precision_data_all[[9]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
+  samplej=precision_data_all[[9]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
+  test=t.test(samplei, samplej)  # non paired t test 
+  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+  
+  
+ }
+
+
+result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```

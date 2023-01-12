@@ -2084,6 +2084,15 @@ heatmaply_cor(
 * `var_index` corresponds to row/column index in the correlation matrix 
 
 
+## regression analysis 
+
+### % volume (Tx-T2/T2)
+
+```{r, echo=F, message=F, warning=F}
+response_var=c("X.Vol_T3.T2.T2", "X.Vol_T4.T2.T2", "X.Vol_T5.T2.T2", "X.Vol_T6.T2.T2")
+predictors=data.frame(vertical_mid=c("Vertical_mid_T2.T3", "Vertical_mid_T2.T4", "Vertical_mid_T2.T5", "Vertical_mid_T2.T5", "Vertical_mid_T2.T3"))
+```
+
 
 ## statistical software 
 
