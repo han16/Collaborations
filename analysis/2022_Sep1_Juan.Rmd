@@ -1968,10 +1968,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 ## correlation matrix 
@@ -2086,13 +2082,115 @@ heatmaply_cor(
 
 ## regression analysis 
 
-### % volume (Tx-T2/T2)
+### model 1 
 
 ```{r, echo=F, message=F, warning=F}
 response_var=c("X.Vol_T3.T2.T2", "X.Vol_T4.T2.T2", "X.Vol_T5.T2.T2", "X.Vol_T6.T2.T2")
-predictors=data.frame(vertical_mid=c("Vertical_mid_T2.T3", "Vertical_mid_T2.T4", "Vertical_mid_T2.T5", "Vertical_mid_T2.T5", "Vertical_mid_T2.T3"))
+predictors=data.frame(vertical_mid=c("Vertical_mid_T2.T3", "Vertical_mid_T2.T4", "Vertical_mid_T2.T5", "Vertical_mid_T2.T6"), width_diff=c("Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2", "Width_diff_3mm_T5.T2", "width_diff_3mm_T6.T2"))
+regression_coefficient=list()
+for (i in 1:length(response_var))
+{
+  regress_data=data.frame(response=data %>% select(response_var[i]) %>% pull(), vertical_mid=data %>% select(predictors$vertical_mid[i]) %>% pull(), width_diff=data %>% select(predictors$width_diff[i]) %>% pull())
+  regress_model=lm(response~vertical_mid+width_diff, data=regress_data)
+  regression_coefficient[[i]]=round(summary(regress_model)$coefficients,4)
+}
+regression_coefficient[[1]]%>%
+datatable(extensions = 'Buttons',
+          caption="T3-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+regression_coefficient[[2]]%>%
+datatable(extensions = 'Buttons',
+          caption="T4-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[3]]%>%
+datatable(extensions = 'Buttons',
+          caption="T5-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[4]]%>%
+datatable(extensions = 'Buttons',
+          caption="T6-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+######################
+#ggplot(data = regress_data, aes(x = vertical_mid+width_diff, y = response)) +
+#  stat_poly_line() +
+#  stat_poly_eq(aes(label = paste(after_stat(eq.label),
+#                                 after_stat(rr.label), sep = "*\", \"*"))) +
+#  geom_point()
 ```
 
+
+### model 2 
+
+
+```{r, echo=F, message=F, warning=F}
+response_var=c("X.Vol_T3.T2.T2", "X.Vol_T4.T2.T2", "X.Vol_T5.T2.T2", "X.Vol_T6.T2.T2")
+predictors=data.frame(vertical_max=c("Vertical_max_T2.T3", "Vertical_max_T2.T4", "Vertical_max_T2.T5", "Vertical_max_T2.T6"), width_diff=c("Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2", "Width_diff_3mm_T5.T2", "width_diff_3mm_T6.T2"))
+regression_coefficient=list()
+for (i in 1:length(response_var))
+{
+  regress_data=data.frame(response=data %>% select(response_var[i]) %>% pull(), vertical_max=data %>% select(predictors$vertical_max[i]) %>% pull(), width_diff=data %>% select(predictors$width_diff[i]) %>% pull())
+  regress_model=lm(response~vertical_max+width_diff, data=regress_data)
+  regression_coefficient[[i]]=round(summary(regress_model)$coefficients,4)
+}
+regression_coefficient[[1]]%>%
+datatable(extensions = 'Buttons',
+          caption="T3-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+regression_coefficient[[2]]%>%
+datatable(extensions = 'Buttons',
+          caption="T4-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[3]]%>%
+datatable(extensions = 'Buttons',
+          caption="T5-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[4]]%>%
+datatable(extensions = 'Buttons',
+          caption="T6-T2/T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+######################
+#ggplot(data = regress_data, aes(x = vertical_mid+width_diff, y = response)) +
+#  stat_poly_line() +
+#  stat_poly_eq(aes(label = paste(after_stat(eq.label),
+#                                 after_stat(rr.label), sep = "*\", \"*"))) +
+#  geom_point()
+```
 
 ## statistical software 
 

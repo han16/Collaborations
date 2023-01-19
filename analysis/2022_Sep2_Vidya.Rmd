@@ -16,7 +16,9 @@ library(DT)
 set.seed(123)
 ```
 
-## mean and standard deviation
+## Saline 
+
+### mean and standard deviation
 
 ```{r, echo=F, message=F, warning=F}
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Vidya\\Vidya-saline stats.csv", header = T))
@@ -65,10 +67,10 @@ datatable(extensions = 'Buttons',
 ```
 
 
-## pairwise comparisons 
+### pairwise comparisons 
 
 
-### OCP 
+#### OCP 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -103,7 +105,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Icorr 
+#### Icorr 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -136,9 +138,9 @@ datatable(extensions = 'Buttons',
 
 ```
 
-## anova 
+### anova 
 
-### OCP
+#### OCP
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -150,7 +152,7 @@ anova(LM)
 * small p value suggests OCP are not all equal across 10 brands 
 
 
-### Icorr
+#### Icorr
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -161,3 +163,204 @@ anova(LM)
 
 
 * p value, 0.6%<0.05  suggests Icorr are not all equal across 10 brands 
+
+## NaOCI 
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_NaOCI=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Vidya\\NaOCl for Stats.csv", header = T))
+
+```
+
+### Mean and standard deviation 
+
+```{r, echo=F, message=F, warning=F}
+
+brands=unique(data_NaOCI$File)
+mean_OCP=numeric(); SD_Icorr=numeric()
+mean_Icorr=numeric(); SD_OCP=numeric()
+for (i in 1:length(brands))
+{
+  sub_data=data_NaOCI %>% filter(File==brands[i])
+  mean_OCP[i]=sub_data%>%summarise(mean=mean(OCP..mV..1.hr))%>% pull()
+  SD_OCP[i]=sub_data%>%summarise(SD=sd(OCP..mV..1.hr)) %>% pull()
+  
+  mean_Icorr[i]=sub_data%>%summarise(mean=mean(Icorr..nA.))%>% pull()
+  SD_Icorr[i]=sub_data%>%summarise(SD=sd(Icorr..nA.))%>% pull()
+}
+
+data.frame(File=brands, mean_OCP=round(mean_OCP,4),  SD_OCP=round(SD_OCP,4), mean_Icorr=round(mean_Icorr,4),  SD_Icorr=round(SD_Icorr,4))%>%
+datatable(extensions = 'Buttons',
+          caption = "NaocI data",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+### pairwise comparisons 
+
+
+#### OCP 
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+ for (j in 1:length(brands))  
+{
+   ii=ii+1
+  group1=data_NaOCI %>% filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[j])%>% select(OCP..mV..1.hr) %>% pull
+  
+  test=t.test(group1-group2) 
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+ }
+
+result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50, 52:60, 62:70, 72:80, 82:90, 92:100)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+#### Icorr 
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+ for (j in 1:length(brands))  
+{
+   ii=ii+1
+  group1=data_NaOCI %>% filter(File==brands[i])%>% select(Icorr..nA.) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[j])%>% select(Icorr..nA.) %>% pull
+  
+  test=t.test(group1-group2) 
+  mean_difference[ii]=test$estimate
+  CI_lower[ii]=test$conf.int[1]
+  CI_upper[ii]=test$conf.int[2]
+  p_value[ii]=test$p.value
+ }
+
+result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50, 52:60, 62:70, 72:80, 82:90, 92:100)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+### anova 
+
+#### OCP
+
+
+```{r, echo=F, message=F, warning=F}
+data1=data.frame(OCP=c(data_NaOCI$OCP..mV..1.hr), file=as.factor(data_NaOCI$File))
+LM <- lm(OCP ~ file, data=data1)
+anova(LM)
+```
+
+* small p value suggests OCP are not all equal across 10 brands 
+
+
+#### Icorr
+
+
+```{r, echo=F, message=F, warning=F}
+data2=data.frame(OCP=c(data_NaOCI$Icorr..nA.), file=as.factor(data_NaOCI$File))
+LM <- lm(OCP ~ file, data=data2)
+anova(LM)
+```
+
+
+* p value, `1.525e-15`<0.05  suggests Icorr are not all equal across 10 brands 
+
+
+## saline vs naocI 
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+{
+  group1=data%>% filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull
+  
+  test=t.test(group1-group2) 
+  mean_difference[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+ }
+
+result=data_frame(group1=paste(brands,"Saline", sep="_"), group2=paste(brands,"NaOCI", sep="_"), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption="OCP",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
+ii=0
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+{
+  group1=data%>% filter(File==brands[i])%>% select(Icorr..nA.) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[i])%>% select(Icorr..nA.) %>% pull
+  
+  test=t.test(group1-group2) 
+  mean_difference[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+ }
+
+result=data_frame(group1=paste(brands,"Saline", sep="_"), group2=paste(brands,"NaOCI", sep="_"), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption="Icorr",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
