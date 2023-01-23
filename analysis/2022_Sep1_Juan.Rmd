@@ -2248,6 +2248,184 @@ datatable(extensions = 'Buttons',
 ```
 
 
+### model 4 
+
+
+```{r, echo=F, message=F, warning=F}
+response_var=c("Wound_open_bl_T3", "Wound_open_bl_T4", "Wound_open_bl_T5", "Wound_open_bl_T6")
+predictors=data.frame(vertical_mid=c("Vertical_mid_T2.T3", "Vertical_mid_T2.T4", "Vertical_mid_T2.T5", "Vertical_mid_T2.T6"), width_diff=c("Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2", "Width_diff_3mm_T5.T2", "width_diff_3mm_T6.T2"), Ging_thick=rep("Ging_thick", 4), Muc_thick=rep("Muc_thick", 4), Duration=rep("Duration.min.", 4))
+regression_coefficient=list()
+for (i in 1:length(response_var))
+{
+  regress_data=data.frame(response=data %>% select(response_var[i]) %>% pull(), vertical_mid=data %>% select(predictors$vertical_mid[i]) %>% pull(), width_diff=data %>% select(predictors$width_diff[i]) %>% pull(), Muc_thick=data%>% select(predictors$Muc_thick)%>%pull(), Ging_thick=data%>% select(predictors$Ging_thick)%>%pull(), Duration=data%>% select(predictors$Duration)%>%pull())
+  regress_model=lm(response~vertical_mid+width_diff+Muc_thick+Ging_thick+Duration, data=regress_data)
+  regression_coefficient[[i]]=round(summary(regress_model)$coefficients,4)
+}
+regression_coefficient[[1]]%>%
+datatable(extensions = 'Buttons',
+          caption="T3",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+regression_coefficient[[2]]%>%
+datatable(extensions = 'Buttons',
+          caption="T4",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[3]]%>%
+datatable(extensions = 'Buttons',
+          caption="T5",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[4]]%>%
+datatable(extensions = 'Buttons',
+          caption="T6",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+######################
+#ggplot(data = regress_data, aes(x = vertical_mid+width_diff, y = response)) +
+#  stat_poly_line() +
+#  stat_poly_eq(aes(label = paste(after_stat(eq.label),
+#                                 after_stat(rr.label), sep = "*\", \"*"))) +
+#  geom_point()
+```
+
+
+### model 5 
+
+
+```{r, echo=F, message=F, warning=F}
+response_var=c("Wound_open_bl_T3", "Wound_open_bl_T4", "Wound_open_bl_T5", "Wound_open_bl_T6")
+predictors=data.frame(volume=c("X.Vol_T3.T2.T2", "X.Vol_T4.T2.T2", "X.Vol_T5.T2.T2", "X.Vol_T6.T2.T2"), Ging_thick=rep("Ging_thick", 4), Muc_thick=rep("Muc_thick", 4), Duration=rep("Duration.min.", 4))
+regression_coefficient=list()
+for (i in 1:length(response_var))
+{
+  regress_data=data.frame(response=data %>% select(response_var[i]) %>% pull(), volume=data%>% select(predictors$volume[i])%>%pull(), Muc_thick=data%>% select(predictors$Muc_thick)%>%pull(), Ging_thick=data%>% select(predictors$Ging_thick)%>%pull(), Duration=data%>% select(predictors$Duration)%>%pull())
+  regress_model=lm(response~volume+Muc_thick+Ging_thick+Duration, data=regress_data)
+  regression_coefficient[[i]]=round(summary(regress_model)$coefficients,4)
+}
+regression_coefficient[[1]]%>%
+datatable(extensions = 'Buttons',
+          caption="T3",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+regression_coefficient[[2]]%>%
+datatable(extensions = 'Buttons',
+          caption="T4",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[3]]%>%
+datatable(extensions = 'Buttons',
+          caption="T5",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[4]]%>%
+datatable(extensions = 'Buttons',
+          caption="T6",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+######################
+#ggplot(data = regress_data, aes(x = vertical_mid+width_diff, y = response)) +
+#  stat_poly_line() +
+#  stat_poly_eq(aes(label = paste(after_stat(eq.label),
+#                                 after_stat(rr.label), sep = "*\", \"*"))) +
+#  geom_point()
+```
+
+
+## Multiple regression analysis - Swelling
+
+
+### model 1 
+
+```{r, echo=F, message=F, warning=F}
+response_var=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2", "Width_diff_3mm_T5.T2", "width_diff_3mm_T6.T2")
+predictors=data.frame( Ging_thick=rep("Ging_thick", 5), Muc_thick=rep("Muc_thick", 5), Duration=rep("Duration.min.", 5))
+regression_coefficient=list()
+for (i in 1:length(response_var))
+{
+  regress_data=data.frame(response=data %>% select(response_var[i]) %>% pull(),  Muc_thick=data%>% select(predictors$Muc_thick)%>%pull(), Ging_thick=data%>% select(predictors$Ging_thick)%>%pull(), Duration=data%>% select(predictors$Duration)%>%pull())
+  regress_model=lm(response~Muc_thick+Ging_thick+Duration, data=regress_data)
+  regression_coefficient[[i]]=round(summary(regress_model)$coefficients,4)
+}
+regression_coefficient[[1]]%>%
+datatable(extensions = 'Buttons',
+          caption="T2-T1",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+regression_coefficient[[2]]%>%
+datatable(extensions = 'Buttons',
+          caption="T3-T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[3]]%>%
+datatable(extensions = 'Buttons',
+          caption="T4-T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+regression_coefficient[[4]]%>%
+datatable(extensions = 'Buttons',
+          caption="T5-T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+regression_coefficient[[5]]%>%
+datatable(extensions = 'Buttons',
+          caption="T6-T2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+######################
+#ggplot(data = regress_data, aes(x = vertical_mid+width_diff, y = response)) +
+#  stat_poly_line() +
+#  stat_poly_eq(aes(label = paste(after_stat(eq.label),
+#                                 after_stat(rr.label), sep = "*\", \"*"))) +
+#  geom_point()
+```
+
+
 ## statistical software 
 
 ```{r, echo=F}

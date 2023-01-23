@@ -1,0 +1,78 @@
+---
+title: "1/23/2023"
+output: html_document
+date: "2023-01-23"
+---
+
+```{r, echo=F, message=F, warning=F}
+rm(list=ls())
+library(tidyverse)
+library(DT)
+library(ggplot2)
+```
+
+
+## sample size calculation 
+
+
+
+```{r, echo=F}
+d=seq(5, 20, by=1); SD=16
+sample_size=numeric()
+for (i in 1:length(d))
+{
+  test=power.t.test(power = .80, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="two.sample") #  two sample t test 
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  geom_vline(xintercept=16, colour="blue") +
+  geom_text(aes(x=16, label="d=16", y=40), colour="blue", angle=0, vjust = 1.2)+  # here x, y are coordinate 
+  geom_hline(yintercept=16.7, colour="blue") +
+  geom_text(aes(x=10, label="n=16.7", y=16.7), colour="red", angle=0, vjust = 1.2)+  # here x, y are coordinate 
+  geom_point()+
+  xlab("d:mean difference")+
+  ylab("n:sample size")+
+  ggtitle("power=0.8; SD=16")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+data.frame(mean_difference=d, sample_size=sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="power=0.8",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+d=seq(5, 20, by=1); SD=16
+sample_size=numeric()
+for (i in 1:length(d))
+{
+  test=power.t.test(power = .90, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="two.sample") #  two sample t test 
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  geom_vline(xintercept=16, colour="blue") +
+  geom_text(aes(x=16, label="d=16", y=40), colour="blue", angle=0, vjust = 1.2)+  # here x, y are coordinate 
+  geom_hline(yintercept=22.02, colour="blue") +
+  geom_text(aes(x=10, label="n=22.02", y=22), colour="red", angle=0, vjust = 1.2)+  # here x, y are coordinate 
+  geom_point()+
+  xlab("d:mean difference")+
+  ylab("n:sample size")+
+  ggtitle("power=0.9; SD=16")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+data.frame(mean_difference=d, sample_size=sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="power=0.8",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
