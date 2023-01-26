@@ -2082,7 +2082,7 @@ heatmaply_cor(
 
 ## regression analysis 
 
-### model 1 
+### model  1.	Dependent variables: % volume (Tx-T2/T2)
 
 ```{r, echo=F, message=F, warning=F}
 response_var=c("X.Vol_T3.T2.T2", "X.Vol_T4.T2.T2", "X.Vol_T5.T2.T2", "X.Vol_T6.T2.T2")
@@ -2137,7 +2137,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### model 2 
+### model 2.	Dependent variables: % volume (Tx-T2/T2)
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2192,7 +2192,7 @@ datatable(extensions = 'Buttons',
 #  geom_point()
 ```
 
-### model 3
+### model 3.	Dependent variables: wound opening T3, T4, T5, T6
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2248,7 +2248,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### model 4 
+### model 4.	Dependent variables: wound opening T3, T4, T5, T6
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2304,7 +2304,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### model 5 
+### model 5.	Dependent variables: wound opening T3, T4, T5, T6
 
 
 ```{r, echo=F, message=F, warning=F}
