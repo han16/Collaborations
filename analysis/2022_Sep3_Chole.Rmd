@@ -35,24 +35,19 @@ for (i in 1:length(p_value))
 
 
 ```{r, echo=F, message=F, warning=F}
-Grades_Results=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Grades - Results .csv", header=T)[,-5])
+Grades_Results_old=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Grades - Results .csv", header=T)[,-5])
+Grades_Results=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\GRADES 3456.csv", header=T))
 ```
 
 ## grades-pairwise comparisons 
 
 
 ```{r, echo=F, message=F, warning=F}
-control=Grades_Results %>% select(No.Music...Control)%>%pull %>% as.numeric()
-control=control[-1]
-
-classical=Grades_Results %>% select(Variable.1...Classical)%>%pull %>% as.numeric()
-classical=classical[-1]
-
-hip_hop=Grades_Results %>% select(Variable.2...Hip.Hop)%>%pull %>% as.numeric()
-hip_hop=hip_hop[-1]
-
-student_playlist=Grades_Results %>% select(Varible.3...Student.playlist)%>%pull %>% as.numeric()
-student_playlist=student_playlist[-1]
+music_type=colnames(Grades_Results)[2:5]
+control=Grades_Results %>% select(music_type[1])%>%pull %>% as.numeric()
+classical=Grades_Results %>% select(music_type[2])%>%pull %>% as.numeric()
+hip_hop=Grades_Results %>% select(music_type[3])%>%pull %>% as.numeric()
+student_playlist=Grades_Results %>% select(music_type[4])%>%pull %>% as.numeric()
 
 
 pvalue=numeric();CI_low=numeric(); CI_upper=numeric(); mean_difference=numeric()
@@ -70,14 +65,15 @@ CI_upper[2]=t_test$conf.int[2]
 mean_difference[2]=t_test$estimate
 
 
-t_test=t.test(student_playlist/60, control/100, paired=T)
+t_test=t.test(student_playlist, control, paired=T)
 pvalue[3]=t_test$p.value
-CI_low[3]=t_test$conf.int[1]*100
-CI_upper[3]=t_test$conf.int[2]*100
-mean_difference[3]=t_test$estimate*100
+CI_low[3]=t_test$conf.int[1]
+CI_upper[3]=t_test$conf.int[2]
+mean_difference[3]=t_test$estimate
 
 data.frame(group1=c("classical", "hip hop", "student playlist"), group2=c("control-no music", "---", "---"), mean_difference=round(mean_difference,4),  CI_low=round(CI_low,4),  CI_upper=round(CI_upper,4), p_value= pvalue_adjust(pvalue))%>%
 datatable(extensions = 'Buttons',
+          caption="music type vs control",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -87,7 +83,41 @@ datatable(extensions = 'Buttons',
 
 * use paired two sample t tests 
 
-* for student playlist, I normalized the score by dividing the total score, to make them in the same scale 
+
+
+```{r, echo=F, message=F, warning=F}
+
+
+pvalue=numeric();CI_low=numeric(); CI_upper=numeric(); mean_difference=numeric()
+t_test=t.test(classical, hip_hop, paired=T)
+pvalue[1]=t_test$p.value
+CI_low[1]=t_test$conf.int[1]
+CI_upper[1]=t_test$conf.int[2]
+mean_difference[1]=t_test$estimate
+
+
+t_test=t.test(classical, student_playlist, paired=T)
+pvalue[2]=t_test$p.value
+CI_low[2]=t_test$conf.int[1]
+CI_upper[2]=t_test$conf.int[2]
+mean_difference[2]=t_test$estimate
+
+
+t_test=t.test(hip_hop, student_playlist, paired=T)
+pvalue[3]=t_test$p.value
+CI_low[3]=t_test$conf.int[1]
+CI_upper[3]=t_test$conf.int[2]
+mean_difference[3]=t_test$estimate
+
+data.frame(group1=c("classical", "classical", "hip hop"), group2=c("hip hop", "student playlist", "student playlist"), mean_difference=round(mean_difference,4),  CI_low=round(CI_low,4),  CI_upper=round(CI_upper,4), p_value= pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="comaprison among music types",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
 
 ## Questionnaire given after each of the 4 sessions were completed  
 
@@ -103,9 +133,10 @@ no_music_plot4=no_music %>% count(by=Did.2t.having.music.played.interfere.with.y
 
 ```
 
-```{r, echo=F, message=F, warning=F, eval=F}
+```{r, echo=F, message=F, warning=F, eval=T}
 ################### question 1
-no_music_plot1=no_music %>% count(by=How.did.2t.having.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+no_music_plot=no_music %>% count(by=How.did.2t.having.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+
 g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
@@ -121,16 +152,19 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
   ylab("count")+
     xlab("")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
-
+questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
 annotate_figure(figure,
-                top = text_grob(questions[1], color = "red", face = "bold", size = 14),
+                top = text_grob("", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
 #                right = "I'm done, thanks :-)!",
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
+```
+
+```{r, echo=F, message=F, warning=F, eval=T}
 
 ################### question 2
 no_music_plot2=no_music %>% count(by=How.easy.was.it.to.focus.during.class.periods.without.music.)%>% mutate(prop=n/nrow(no_music))
@@ -149,18 +183,20 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
   ylab("count")+
     xlab("")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
-
+questions[2]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
 annotate_figure(figure,
-                top = text_grob(questions[2], color = "red", face = "bold", size = 14),
+                top = text_grob("", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
 #                right = "I'm done, thanks :-)!",
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
+```
 
 
+```{r, echo=F, message=F, warning=F}
 ################### question 3
 no_music_plot3=no_music %>% count(by=How.did.2t.having.music.played.during.previous.sessions.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
 g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
@@ -178,17 +214,19 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
   ylab("count")+
     xlab("")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
-
+questions[3]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
 annotate_figure(figure,
-                top = text_grob(questions[3], color = "red", face = "bold", size = 14),
+                top = text_grob("", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
 #                right = "I'm done, thanks :-)!",
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
+```
 
+```{r, echo=F, message=F, warning=F}
 ################### question 4
 no_music_plot4=no_music %>% count(by=Did.2t.having.music.played.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
 g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
@@ -207,6 +245,7 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
     xlab("")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
 
+questions[4]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
 annotate_figure(figure,
                 top = text_grob(questions[4], color = "red", face = "bold", size = 14),
@@ -221,18 +260,18 @@ annotate_figure(figure,
 
 
 ```{r, echo=F, message=F, warning=F}
-classical_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Variable 1 - Classical Music.csv", header=T))
-questions=colnames(classical_music)[6:9]
-
+classical_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Variable1-Classical Music.csv", header=T))
+#questions=colnames(classical_music)[6:9]
+questions=c("How did the music impact your energy level during class?", "How easy was it to focus during this class period?", "How did the music played during today’s session impact your concentration when performing root canal treatments of #9 and/or #4?", "Did the music selection today interfere with your ability to complete the root canal treatment on #9 and/or #4?")
 ################### question 1
-classical_music_plot1=classical_music %>% count(by=How.did.the.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(classical_music))
+classical_music_plot1=classical_music %>% count(by=Q1)%>% mutate(prop=n/nrow(classical_music))
 ################### question 2
-classical_music_plot2=classical_music %>% count(by=How.easy.was.it.to.focus.during.this.class.period.)%>% mutate(prop=n/nrow(classical_music))
+classical_music_plot2=classical_music %>% count(by=Q2)%>% mutate(prop=n/nrow(classical_music))
 ################### question 3
-classical_music_plot3=classical_music %>% count(by=How.did.the.music.played.during.today.s.session.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(classical_music))
+classical_music_plot3=classical_music %>% count(by=Q3)%>% mutate(prop=n/nrow(classical_music))
 
 ################### question 4
-classical_music_plot4=classical_music %>% count(by=Did.the.music.selection.today.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(classical_music))
+classical_music_plot4=classical_music %>% count(by=Q4)%>% mutate(prop=n/nrow(classical_music))
 
 
 ```
@@ -242,18 +281,19 @@ classical_music_plot4=classical_music %>% count(by=Did.the.music.selection.today
 
 ```{r, echo=F, message=F, warning=F}
 hip_hop_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Variable 2 - Hip-hop.csv", header=T))
-questions=colnames(hip_hop_music)[6:9]
-
+#questions=colnames(hip_hop_music)[6:9]
+questions=c("How did the music impact your energy level during class?", "How easy was it to focus during this class period?
+",  "How did the music played during today’s session impact your concentration when performing root canal treatments of #9 and/or #4?", "Did the music selection today interfere with your ability to complete the root canal treatment on #9 and/or #4?")
 ################### question 1
-hip_hop_music_plot1=hip_hop_music %>% count(by=How.did.the.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+hip_hop_music_plot1=hip_hop_music %>% count(by=Q1)%>% mutate(prop=n/nrow(no_music))
 ################### question 2
-hip_hop_music_plot2=hip_hop_music %>% count(by=How.easy.was.it.to.focus.during.this.class.period.)%>% mutate(prop=n/nrow(hip_hop_music))  # should add one row 
+hip_hop_music_plot2=hip_hop_music %>% count(by=Q2)%>% mutate(prop=n/nrow(hip_hop_music))  # should add one row 
 hip_hop_music_plot2=hip_hop_music_plot2 %>%add_row(by= 4, n= 0, prop=0)
 ################### question 3
-hip_hop_music_plot3=hip_hop_music %>% count(by=How.did.the.music.played.during.today.s.session.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+hip_hop_music_plot3=hip_hop_music %>% count(by=Q3)%>% mutate(prop=n/nrow(hip_hop_music))
 
 ################### question 4
-hip_hop_music_plot4=hip_hop_music %>% count(by=Did.the.music.selection.today.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+hip_hop_music_plot4=hip_hop_music %>% count(by=Q4)%>% mutate(prop=n/nrow(hip_hop_music))
 
 ########################
 ```
@@ -262,18 +302,19 @@ hip_hop_music_plot4=hip_hop_music %>% count(by=Did.the.music.selection.today.int
 
 ```{r, echo=F, message=F, warning=F}
 student_playlist_music=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Chloe\\Variable 3 - Student Playlist.csv", header=T))
-questions=colnames(student_playlist_music)[6:9]
-
+#questions=colnames(student_playlist_music)[6:9]
+questions=c("How did the music impact your energy level during class?
+", "How easy was it to focus during this class period?", "How.did.the.music.played.during.today.s.session.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.", "Did.the.music.selection.today.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.")
 ################### question 1
-student_playlist_music_plot1=hip_hop_music %>% count(by=How.did.the.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+student_playlist_music_plot1=hip_hop_music %>% count(by=Q1)%>% mutate(prop=n/nrow(no_music))
 ################### question 2
-student_playlist_music_plot2=student_playlist_music %>% count(by=How.easy.was.it.to.focus.during.this.class.period.)%>% mutate(prop=n/nrow(hip_hop_music))  # should add one row 
+student_playlist_music_plot2=student_playlist_music %>% count(by=Q2)%>% mutate(prop=n/nrow(hip_hop_music))  # should add one row 
 student_playlist_music_plot2=student_playlist_music_plot2 %>%add_row(by= 4, n= 0, prop=0)
 ################### question 3
-student_playlist_music_plot3=student_playlist_music %>% count(by=How.did.the.music.played.during.today.s.session.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+student_playlist_music_plot3=student_playlist_music %>% count(by=Q3)%>% mutate(prop=n/nrow(hip_hop_music))
 
 ################### question 4
-student_playlist_music_plot4=student_playlist_music %>% count(by=Did.the.music.selection.today.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(hip_hop_music))
+student_playlist_music_plot4=student_playlist_music %>% count(by=Q4)%>% mutate(prop=n/nrow(hip_hop_music))
 
 ########################
 ```
