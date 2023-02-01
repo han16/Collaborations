@@ -135,9 +135,9 @@ no_music_plot4=no_music %>% count(by=Did.2t.having.music.played.interfere.with.y
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 ################### question 1
-no_music_plot=no_music %>% count(by=How.did.2t.having.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
+no_music_plot1=no_music %>% count(by=How.did.2t.having.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
 
-g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+g1=ggplot(no_music_plot1, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("%")+ylim(c(0,1))+
@@ -146,7 +146,7 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
-  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  g2=ggplot(no_music_plot1, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("count")+
@@ -162,13 +162,27 @@ annotate_figure(figure,
 #                right = "I'm done, thanks :-)!",
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
+################
+p_value=numeric()
+count=no_music_plot1$n
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+p_value[2]=pvalue_adjust(binom.test(c(count[1],count[3]))$p.value)
+p_value[3]=pvalue_adjust(binom.test(c(count[2],count[3]))$p.value)
+data.frame(variables=c("1 vs 2", "1 vs 3", "2 vs 3"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
+
+
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 
 ################### question 2
 no_music_plot2=no_music %>% count(by=How.easy.was.it.to.focus.during.class.periods.without.music.)%>% mutate(prop=n/nrow(no_music))
-g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+g1=ggplot(no_music_plot2, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("%")+ylim(c(0,1))+
@@ -177,7 +191,7 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
-  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  g2=ggplot(no_music_plot2, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("count")+
@@ -193,13 +207,26 @@ annotate_figure(figure,
 #                right = "I'm done, thanks :-)!",
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
+
+################
+p_value=numeric()
+count=no_music_plot2$n
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+p_value[2]=pvalue_adjust(binom.test(c(count[1],count[3]))$p.value)
+p_value[3]=pvalue_adjust(binom.test(c(count[2],count[3]))$p.value)
+data.frame(variables=c("1 vs 2", "1 vs 3", "2 vs 3"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
 ################### question 3
 no_music_plot3=no_music %>% count(by=How.did.2t.having.music.played.during.previous.sessions.impact.your.concentration.when.performing.root.canal.treatments.of..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
-g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+g1=ggplot(no_music_plot3, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("%")+ylim(c(0,1))+
@@ -208,7 +235,7 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
-  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  g2=ggplot(no_music_plot3, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("count")+
@@ -224,12 +251,25 @@ annotate_figure(figure,
 #                right = "I'm done, thanks :-)!",
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
+
+################
+p_value=numeric()
+count=no_music_plot3$n
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+p_value[2]=pvalue_adjust(binom.test(c(count[1],count[3]))$p.value)
+p_value[3]=pvalue_adjust(binom.test(c(count[2],count[3]))$p.value)
+data.frame(variables=c("1 vs 2", "1 vs 3", "2 vs 3"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 ```{r, echo=F, message=F, warning=F}
 ################### question 4
 no_music_plot4=no_music %>% count(by=Did.2t.having.music.played.interfere.with.your.ability.to.complete.the.root.canal.treatment.on..9.and.or..4.)%>% mutate(prop=n/nrow(no_music))
-g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
+g1=ggplot(no_music_plot4, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("%")+ylim(c(0,1))+
@@ -238,7 +278,7 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
-  g2=ggplot(no_music_plot, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
+  g2=ggplot(no_music_plot4, aes(x=by, y=n, fill=as.character(by))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
   ylab("count")+
@@ -248,13 +288,24 @@ g1=ggplot(no_music_plot, aes(x=by, y=prop, fill=as.character(by))) +geom_bar(sta
 questions[4]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
 annotate_figure(figure,
-                top = text_grob(questions[4], color = "red", face = "bold", size = 14),
+                top = text_grob("", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
 #                right = "I'm done, thanks :-)!",
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
+
+################
+p_value=numeric()
+count=no_music_plot4$n
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+data.frame(variables=c("1 vs 2"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
