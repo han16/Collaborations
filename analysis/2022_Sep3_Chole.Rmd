@@ -662,6 +662,35 @@ d.	When our class’s compilation playlist was played
 
 ```
 
+### Q1 vs Q2 
+
+```{r, echo=F, message=F, warning=F}
+#Q1$n 
+popularity=c(0, 44, 7,52)
+# Q2$n
+concentration=c(2,34,22,45)
+#cor(popularity,concentration)
+#cor.test(popularity,concentration)
+```
+
+* correlation between popularity and concentration is 0.92 with p value of 0.07. 
+
+### grades vs Q2 
+
+```{r, echo=F, message=F, warning=F}
+#Q1$n 
+grades=c(mean(control), mean(hip_hop), mean(classical),mean(student_playlist))
+# Q2$n
+concentration=c(2,34,22,45)
+#cor(grades,concentration)
+#cor.test(grades,concentration)
+###########
+#regress_data=data.frame(grades=grades, concentration=concentration)
+#summary(lm(concentration~grades, data=regress_data))
+```
+
+* correlation between grades average and concentration is 0.89 with p value of 0.11. 
+
 ### Q3
 
 
