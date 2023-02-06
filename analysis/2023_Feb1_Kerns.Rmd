@@ -34,6 +34,59 @@ for (i in 1:length(p_value))
 ```
 
 
+```{r, echo=F, message=F, warning=F}
+Trueness=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202302\\Kerns\\Trueness.csv", header=T))
+JK_FH_Base.apical=as.numeric(Trueness %>% filter (str_detect(Sample, "JK_FH")) %>% select(Base.apical)%>%pull)
+JK_H2_Base.apical=as.numeric(Trueness %>% filter (str_detect(Sample, "JK_H2")) %>% select(Base.apical)%>%pull)
+JK_H4_Base.apical=as.numeric(Trueness %>% filter (str_detect(Sample, "JK_H4")) %>% select(Base.apical)%>%pull)
+JK_H6_Base.apical=as.numeric(Trueness %>% filter (str_detect(Sample, "JK_H6")) %>% select(Base.apical)%>%pull)
+Data_Base.apical=data.frame(methods=rep(c("JK_FH", "JK_H2", "JK_H4", "JK_H6"), each=20), Base.apical=c(JK_FH_Base.apical, JK_H2_Base.apical, JK_H4_Base.apical, JK_H6_Base.apical))
+
+```
+
+
+## anova test 
+
+### among 4 methods 
+
+```{r, echo=F, message=F, warning=F}
+f1=ggplot(Data_Base.apical, aes(x=methods, y=Base.apical, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f1
+anova(lm(Base.apical~ methods, data=Data_Base.apical))
+```
+* p value `< 2.2e-16` indicates at least one method is different from others
+
+
+### among 3 JK methods 
+
+```{r, echo=F, message=F, warning=F}
+f2=ggplot(Data_Base.apical[21:80,], aes(x=methods, y=Base.apical, fill=methods)) +
+  geom_boxplot()+
+  theme(legend.position = "none")
+f2
+anova(lm(Base.apical~ methods, data=Data_Base.apical[21:80,]))
+
+#################
+library(ltm) ##Cronbach’s Alpha test 
+
+cronbach.alpha(data.frame(JK_H2=JK_H2_Base.apical, JK_H4=JK_H4_Base.apical, JK_H6=JK_H6_Base.apical))
+```
+
+* p value `8.087e-05` indicates NOT all methods are the same. 
+
+* Cronbach’s Alpha is 0.489 
+
+
+## JK_HS vs JK_H2
+
+```{r, echo=F, message=F, warning=F}
+t.test(JK_FH_Base.apical, JK_H2_Base.apical)
+```
+* p value `8.316e-09`, JK_HS and JK_H2 are different 
+
+
 
 ## statistical software 
 

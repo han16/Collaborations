@@ -388,7 +388,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-02-02
+<strong>Last updated:</strong> 2023-02-06
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -426,10 +426,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreede7bc48930910d83fea594aa845edc87d4ae5125targetblankde7bc48a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree03c0ab16c87332697be06ec68cc9a9168b55be98targetblank03c0ab1a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/de7bc48930910d83fea594aa845edc87d4ae5125" target="_blank">de7bc48</a>
+<a href="https://github.com/han16/Collaborations/tree/03c0ab16c87332697be06ec68cc9a9168b55be98" target="_blank">03c0ab1</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreede7bc48930910d83fea594aa845edc87d4ae5125targetblankde7bc48a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree03c0ab16c87332697be06ec68cc9a9168b55be98targetblank03c0ab1a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/de7bc48930910d83fea594aa845edc87d4ae5125" target="_blank">de7bc48</a>.
+<a href="https://github.com/han16/Collaborations/tree/03c0ab16c87332697be06ec68cc9a9168b55be98" target="_blank">03c0ab1</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -557,11 +557,8 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/2023_Feb1_Kerns.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2023.Rmd
+    Modified:   analysis/2023_Feb1_Kerns.Rmd
 
 </code></pre>
 <p>
@@ -576,13 +573,136 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2023_Feb1_Kerns.Rmd</code>) and
+HTML (<code>docs/2023_Feb1_Kerns.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/b0110478e4165c049d2480e3bd08c350f50ee5c4/analysis/2023_Feb1_Kerns.Rmd" target="_blank">b011047</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-02-02
+</td>
+<td>
+2/2/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/b0110478e4165c049d2480e3bd08c350f50ee5c4/docs/2023_Feb1_Kerns.html" target="_blank">b011047</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-02-02
+</td>
+<td>
+2/2/2023
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
+</div>
+<div id="anova-test" class="section level2">
+<h2>anova test</h2>
+<div id="among-4-methods" class="section level3">
+<h3>among 4 methods</h3>
+<p><img src="figure/2023_Feb1_Kerns.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Analysis of Variance Table
+
+Response: Base.apical
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+methods    3 1.20858 0.40286  46.347 &lt; 2.2e-16 ***
+Residuals 76 0.66062 0.00869                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>p value <code>&lt; 2.2e-16</code> indicates at least one method is
+different from others</li>
+</ul>
+</div>
+<div id="among-3-jk-methods" class="section level3">
+<h3>among 3 JK methods</h3>
+<p><img src="figure/2023_Feb1_Kerns.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Analysis of Variance Table
+
+Response: Base.apical
+          Df  Sum Sq  Mean Sq F value    Pr(&gt;F)    
+methods    2 0.16182 0.080912  11.167 8.087e-05 ***
+Residuals 57 0.41299 0.007246                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>
+Cronbach&#39;s alpha for the &#39;data.frame(JK_H2 = JK_H2_Base.apical, JK_H4 = JK_H4_Base.apical, &#39; &#39;    JK_H6 = JK_H6_Base.apical)&#39; data-set
+
+Items: 3
+Sample units: 20
+alpha: 0.489</code></pre>
+<ul>
+<li><p>p value <code>8.087e-05</code> indicates NOT all methods are the
+same.</p></li>
+<li><p>Cronbach’s Alpha is 0.489</p></li>
+</ul>
+</div>
+</div>
+<div id="jk_hs-vs-jk_h2" class="section level2">
+<h2>JK_HS vs JK_H2</h2>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  JK_FH_Base.apical and JK_H2_Base.apical
+t = -8.078, df = 28.095, p-value = 8.316e-09
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.2895675 -0.1724325
+sample estimates:
+mean of x mean of y 
+    0.207     0.438 </code></pre>
+<ul>
+<li>p value <code>8.316e-09</code>, JK_HS and JK_H2 are different</li>
+</ul>
 </div>
 <div id="statistical-software" class="section level2">
 <h2>statistical software</h2>
@@ -628,37 +748,42 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] DT_0.26          rstatix_0.7.1    ggpubr_0.5.0     kableExtra_1.3.4
- [5] forcats_0.5.2    stringr_1.5.0    dplyr_1.0.10     purrr_0.3.5     
- [9] readr_2.1.3      tidyr_1.2.1      tibble_3.1.8     ggplot2_3.4.0   
-[13] tidyverse_1.3.2 
+ [1] ltm_1.2-0        polycor_0.8-1    msm_1.7          MASS_7.3-58.1   
+ [5] DT_0.26          rstatix_0.7.1    ggpubr_0.5.0     kableExtra_1.3.4
+ [9] forcats_0.5.2    stringr_1.5.0    dplyr_1.0.10     purrr_0.3.5     
+[13] readr_2.1.3      tidyr_1.2.1      tibble_3.1.8     ggplot2_3.4.0   
+[17] tidyverse_1.3.2 
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.4          sass_0.4.4          jsonlite_1.8.4     
- [4] viridisLite_0.4.1   carData_3.0-5       modelr_0.1.10      
- [7] bslib_0.4.2         assertthat_0.2.1    googlesheets4_1.0.1
-[10] cellranger_1.1.0    yaml_2.3.6          pillar_1.8.1       
-[13] backports_1.4.1     glue_1.6.2          digest_0.6.31      
-[16] promises_1.2.0.1    ggsignif_0.6.4      rvest_1.0.3        
-[19] colorspace_2.0-3    htmltools_0.5.4     httpuv_1.6.7       
-[22] pkgconfig_2.0.3     broom_1.0.2         haven_2.5.1        
-[25] scales_1.2.1        webshot_0.5.4       svglite_2.1.0      
-[28] later_1.3.0         tzdb_0.3.0          timechange_0.1.1   
-[31] git2r_0.30.1        googledrive_2.0.0   generics_0.1.3     
-[34] car_3.1-1           ellipsis_0.3.2      cachem_1.0.6       
-[37] withr_2.5.0         cli_3.4.1           magrittr_2.0.3     
-[40] crayon_1.5.2        readxl_1.4.1        evaluate_0.19      
-[43] fs_1.5.2            fansi_1.0.3         xml2_1.3.3         
-[46] tools_4.2.2         hms_1.1.2           gargle_1.2.1       
-[49] lifecycle_1.0.3     munsell_0.5.0       reprex_2.0.2       
-[52] compiler_4.2.2      jquerylib_0.1.4     systemfonts_1.0.4  
-[55] rlang_1.0.6         grid_4.2.2          rstudioapi_0.14    
-[58] htmlwidgets_1.6.0   rmarkdown_2.19      gtable_0.3.1       
-[61] abind_1.4-5         DBI_1.1.3           R6_2.5.1           
-[64] lubridate_1.9.0     knitr_1.41          fastmap_1.1.0      
-[67] utf8_1.2.2          workflowr_1.7.0     rprojroot_2.0.3    
-[70] stringi_1.7.8       Rcpp_1.0.9          vctrs_0.5.1        
-[73] dbplyr_2.2.1        tidyselect_1.2.0    xfun_0.35          </code></pre>
+ [1] fs_1.5.2            lubridate_1.9.0     webshot_0.5.4      
+ [4] httr_1.4.4          rprojroot_2.0.3     tools_4.2.2        
+ [7] backports_1.4.1     bslib_0.4.2         utf8_1.2.2         
+[10] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
+[13] withr_2.5.0         tidyselect_1.2.0    compiler_4.2.2     
+[16] git2r_0.30.1        cli_3.4.1           rvest_1.0.3        
+[19] expm_0.999-6        xml2_1.3.3          labeling_0.4.2     
+[22] sass_0.4.4          scales_1.2.1        mvtnorm_1.1-3      
+[25] systemfonts_1.0.4   digest_0.6.31       rmarkdown_2.19     
+[28] svglite_2.1.0       pkgconfig_2.0.3     htmltools_0.5.4    
+[31] dbplyr_2.2.1        fastmap_1.1.0       highr_0.9          
+[34] htmlwidgets_1.6.0   rlang_1.0.6         readxl_1.4.1       
+[37] rstudioapi_0.14     jquerylib_0.1.4     generics_0.1.3     
+[40] farver_2.1.1        jsonlite_1.8.4      car_3.1-1          
+[43] googlesheets4_1.0.1 magrittr_2.0.3      Matrix_1.5-1       
+[46] Rcpp_1.0.9          munsell_0.5.0       fansi_1.0.3        
+[49] abind_1.4-5         lifecycle_1.0.3     stringi_1.7.8      
+[52] whisker_0.4.1       yaml_2.3.6          carData_3.0-5      
+[55] grid_4.2.2          parallel_4.2.2      promises_1.2.0.1   
+[58] crayon_1.5.2        lattice_0.20-45     splines_4.2.2      
+[61] haven_2.5.1         hms_1.1.2           knitr_1.41         
+[64] pillar_1.8.1        ggsignif_0.6.4      admisc_0.30        
+[67] reprex_2.0.2        glue_1.6.2          evaluate_0.19      
+[70] modelr_0.1.10       vctrs_0.5.1         tzdb_0.3.0         
+[73] httpuv_1.6.7        cellranger_1.1.0    gtable_0.3.1       
+[76] assertthat_0.2.1    cachem_1.0.6        xfun_0.35          
+[79] broom_1.0.2         later_1.3.0         survival_3.4-0     
+[82] googledrive_2.0.0   viridisLite_0.4.1   gargle_1.2.1       
+[85] workflowr_1.7.0     timechange_0.1.1    ellipsis_0.3.2     </code></pre>
 </div>
 </div>
 
