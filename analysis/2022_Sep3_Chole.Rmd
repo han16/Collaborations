@@ -86,6 +86,26 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
+data_for_plot=data.frame(music=c("Yes", "Yes", "Yes", "No", "No", "No"), music_type=c("classical", "hip hop", "student playlist", "classical", "hip hop", "student playlist"), mean=c(mean(classical), mean(hip_hop), mean(student_playlist), mean(control), mean(control), mean(control)), sd=c(sd(classical), sd(hip_hop), sd(student_playlist), sd(control), sd(control), sd(control)))
+
+ggplot(data_for_plot, aes(x=music_type, y=mean, fill=music)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  ylim(c(0,120))+
+  ylab("Average grades")+xlab("")+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                 position=position_dodge(.9))+
+  geom_text(aes(label=round(mean,2)), position=position_dodge(width=0.8), vjust=3.5)+  # add numbers over bars; vjust: adjust the vertical position of numbers 
+geom_signif(annotations ="p<0.0001", y_position = 104  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3)+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p<0.0001", y_position = 102  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0)+
+geom_signif(annotations ="p<0.0001", y_position = 103  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0)+
+  geom_signif(annotations ="p=0.003", y_position = 110  ,xmin=2.35, xmax=3.3, size=1, vjust=-0.5, textsize=3.0)+
+   geom_signif(annotations ="p=0.127", y_position = 110  ,xmin=1.2, xmax=2.25, size=1, vjust=-0.5, textsize=3.0)+
+  geom_signif(annotations ="p=0.164", y_position = 117  ,xmin=1.2, xmax=3.3, size=1, vjust=-0.5, textsize=3.0)
+```
+
+
+```{r, echo=F, message=F, warning=F}
 
 
 pvalue=numeric();CI_low=numeric(); CI_upper=numeric(); mean_difference=numeric()
