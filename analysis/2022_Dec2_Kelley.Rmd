@@ -5,3 +5,119 @@ date: '2022-12-15'
 ---
 
 
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(DT)
+set.seed(123)
+```
+
+
+```{r, echo=F, warning=F, message=F}
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Kelley\\Results-2023-01-25 - Deidentified.csv", header=T))
+```
+
+## descriptive analysis 
+
+```{r, echo=F, message=F, warning=F}
+
+
+###########
+ggplot(data %>% count(Extraction) %>%mutate(prop=n/nrow(data)), aes(x=Extraction, y=n, fill=as.character(Extraction))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+#########
+p<-ggplot(data, aes(x=Age)) + 
+  geom_histogram(color="blue", fill="blue")
+p+geom_vline(aes(xintercept=mean(Age)),
+            color="red", linetype="dashed", size=1)
+
+###########
+ggplot(data %>% count(Sex) %>%mutate(prop=n/nrow(data)), aes(x=Sex, y=n, fill=as.character(Sex))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=15))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+###########
+ggplot(data %>% count(CustomCode1) %>%mutate(prop=n/nrow(data)), aes(x=CustomCode1, y=n, fill=as.character(CustomCode1))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+```
+
+```{r, echo=F, message=F, warning=F}
+data1=data%>%select(Extraction, Age, Sex,CustomCode1, Problem.List...Skeletal...Vertical, Model.Analysis...Maxillary.TSALD.in.mm, Model.Analysis...Mandibular.TSALD.in.mm, Problem.List...Soft.Tissues...A.P.Upper.lip.to.E.line, Problem.List...Soft.Tissues...A.P.Lower.lip.to.E.line) %>% drop_na() %>% filter(Extraction==0 | Extraction==1) %>% filter(Sex==1 | Sex==2) %>% filter(CustomCode1!="      ") %>% filter(Problem.List...Skeletal...Vertical!="N/A" & Model.Analysis...Maxillary.TSALD.in.mm!="N/A" & Model.Analysis...Mandibular.TSALD.in.mm!="N/A" & Problem.List...Soft.Tissues...A.P.Upper.lip.to.E.line!="N/A" & Problem.List...Soft.Tissues...A.P.Lower.lip.to.E.line!="N/A")
+data1 %>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+###########
+ggplot(data1 %>% count(Extraction), aes(x=Extraction, y=n, fill=as.character(Extraction))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+#########
+p<-ggplot(data1, aes(x=Age)) + 
+  geom_histogram(color="blue", fill="blue")
+p+geom_vline(aes(xintercept=mean(Age)),
+            color="red", linetype="dashed", size=1)
+
+###########
+ggplot(data1 %>% count(Sex), aes(x=Sex, y=n, fill=as.character(Sex))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=15))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+###########
+ggplot(data1 %>% count(CustomCode1), aes(x=CustomCode1, y=n, fill=as.character(CustomCode1))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+```
+
