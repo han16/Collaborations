@@ -42,6 +42,9 @@ data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212
 
 ## descriptive analysis 
 
+
+### raw data 
+
 ```{r, echo=F, message=F, warning=F}
 
 
@@ -75,6 +78,9 @@ ggplot(data %>% count(CustomCode1) %>%mutate(prop=n/nrow(data)), aes(x=CustomCod
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
 ```
+
+### data without missing values 
+
 
 ```{r, echo=F, message=F, warning=F}
 data1=data%>%select(Extraction, Age, Sex,CustomCode1, Problem.List...Skeletal...Vertical, Model.Analysis...Maxillary.TSALD.in.mm, Model.Analysis...Mandibular.TSALD.in.mm, Problem.List...Soft.Tissues...A.P.Upper.lip.to.E.line, Problem.List...Soft.Tissues...A.P.Lower.lip.to.E.line) %>% drop_na() %>% filter(Extraction==0 | Extraction==1) %>% filter(Sex==1 | Sex==2) %>% filter(CustomCode1!="      ") %>% filter(Problem.List...Skeletal...Vertical!="N/A" & Model.Analysis...Maxillary.TSALD.in.mm!="N/A" & Model.Analysis...Mandibular.TSALD.in.mm!="N/A" & Problem.List...Soft.Tissues...A.P.Upper.lip.to.E.line!="N/A" & Problem.List...Soft.Tissues...A.P.Lower.lip.to.E.line!="N/A")
