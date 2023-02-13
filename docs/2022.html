@@ -13,7 +13,7 @@
 
 <title>2022</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -75,6 +75,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -95,6 +96,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -152,11 +156,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -185,8 +193,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,16 +202,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -320,7 +321,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -385,7 +386,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-12-16
+<strong>Last updated:</strong> 2023-02-13
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -519,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree220f77f6684a4b684b399a9bef71a5bfcf20acactargetblank220f77fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec11359e7d0188de15b2edc3710b2ef9675c79c31targetblankc11359ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/220f77f6684a4b684b399a9bef71a5bfcf20acac" target="_blank">220f77f</a>
+<a href="https://github.com/han16/Collaborations/tree/c11359e7d0188de15b2edc3710b2ef9675c79c31" target="_blank">c11359e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree220f77f6684a4b684b399a9bef71a5bfcf20acactargetblank220f77fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec11359e7d0188de15b2edc3710b2ef9675c79c31targetblankc11359ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/220f77f6684a4b684b399a9bef71a5bfcf20acac" target="_blank">220f77f</a>.
+<a href="https://github.com/han16/Collaborations/tree/c11359e7d0188de15b2edc3710b2ef9675c79c31" target="_blank">c11359e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,10 +556,12 @@ Ignored files:
     Ignored:    analysis/.Rhistory
 
 Untracked files:
-    Untracked:  analysis/2022_Dec3_Arndt.Rmd
+    Untracked:  analysis/2022_Mar2_Marinho.Rmd
 
 Unstaged changes:
     Modified:   analysis/2022.Rmd
+    Modified:   analysis/2022_Dec2_Kelley.Rmd
+    Deleted:    analysis/2022_Mar2.Rmd
 
 </code></pre>
 <p>
@@ -603,6 +606,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/631a2eeb0afb01ed22ad7c01d396198738a4bf5c/analysis/2022.Rmd" target="_blank">631a2ee</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-12-16
+</td>
+<td>
+12/16/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/631a2eeb0afb01ed22ad7c01d396198738a4bf5c/docs/2022.html" target="_blank">631a2ee</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-12-16
+</td>
+<td>
+12/16/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1792,7 +1829,7 @@ Han
 <li><a href="2022_Feb4.html">Feb-Soni</a></li>
 <li><a href="2022_Feb5_Lauren.html">Feb-Mohamed</a></li>
 <li><a href="2022_Mar1_Lisa.html">Mar-Lisa</a></li>
-<li><a href="2022_Mar2.html">Mar-Marinho</a></li>
+<li><a href="2022_Mar2_Marinho.html">Mar-Marinho</a></li>
 <li><a href="2022_Mar3_kate.html">Mar-Kate</a></li>
 <li><a href="2022_Apr1_Kofina.html">Apr-Kofina</a></li>
 <li><a href="2022_Apr2_Megan.html">Apr-Megan</a></li>
@@ -1821,45 +1858,52 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.2.2 (2022-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 19044)
 
 Matrix products: default
 
 locale:
-[1] LC_COLLATE=English_United States.1252 
-[2] LC_CTYPE=English_United States.1252   
-[3] LC_MONETARY=English_United States.1252
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
 [4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.1252    
+[5] LC_TIME=English_United States.utf8    
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
-[5] readr_2.1.1     tidyr_1.1.4     tibble_3.1.6    ggplot2_3.3.5  
-[9] tidyverse_1.3.1
+[1] forcats_0.5.2   stringr_1.5.0   dplyr_1.0.10    purrr_0.3.5    
+[5] readr_2.1.3     tidyr_1.2.1     tibble_3.1.8    ggplot2_3.4.0  
+[9] tidyverse_1.3.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8         lubridate_1.8.0    assertthat_0.2.1   rprojroot_2.0.2   
- [5] digest_0.6.29      utf8_1.2.2         R6_2.5.1           cellranger_1.1.0  
- [9] backports_1.4.1    reprex_2.0.1       evaluate_0.14      highr_0.9         
-[13] httr_1.4.2         pillar_1.6.5       rlang_0.4.12       readxl_1.3.1      
-[17] rstudioapi_0.13    whisker_0.4        jquerylib_0.1.4    rmarkdown_2.11    
-[21] labeling_0.4.2     munsell_0.5.0      broom_0.7.11       compiler_4.1.2    
-[25] httpuv_1.6.5       modelr_0.1.8       xfun_0.29          pkgconfig_2.0.3   
-[29] htmltools_0.5.2    tidyselect_1.1.1   workflowr_1.7.0    fansi_1.0.2       
-[33] crayon_1.4.2       tzdb_0.2.0         dbplyr_2.1.1       withr_2.4.3       
-[37] later_1.3.0        grid_4.1.2         jsonlite_1.7.3     gtable_0.3.0      
-[41] lifecycle_1.0.1    DBI_1.1.2          git2r_0.29.0       magrittr_2.0.1    
-[45] scales_1.1.1       cli_3.1.1          stringi_1.7.6      farver_2.1.0      
-[49] fs_1.5.2           promises_1.2.0.1   xml2_1.3.3         bslib_0.3.1       
-[53] ellipsis_0.3.2     generics_0.1.1     vctrs_0.3.8        RColorBrewer_1.1-2
-[57] tools_4.1.2        glue_1.6.0         hms_1.1.1          fastmap_1.1.0     
-[61] yaml_2.2.2         colorspace_2.0-2   rvest_1.0.2        knitr_1.37        
-[65] haven_2.4.3        sass_0.4.1        </code></pre>
+ [1] Rcpp_1.0.9          lubridate_1.9.0     assertthat_0.2.1   
+ [4] rprojroot_2.0.3     digest_0.6.31       utf8_1.2.2         
+ [7] R6_2.5.1            cellranger_1.1.0    backports_1.4.1    
+[10] reprex_2.0.2        evaluate_0.19       highr_0.9          
+[13] httr_1.4.4          pillar_1.8.1        rlang_1.0.6        
+[16] googlesheets4_1.0.1 readxl_1.4.1        rstudioapi_0.14    
+[19] whisker_0.4.1       jquerylib_0.1.4     rmarkdown_2.19     
+[22] labeling_0.4.2      googledrive_2.0.0   munsell_0.5.0      
+[25] broom_1.0.2         compiler_4.2.2      httpuv_1.6.7       
+[28] modelr_0.1.10       xfun_0.35           pkgconfig_2.0.3    
+[31] htmltools_0.5.4     tidyselect_1.2.0    workflowr_1.7.0    
+[34] fansi_1.0.3         crayon_1.5.2        withr_2.5.0        
+[37] tzdb_0.3.0          dbplyr_2.2.1        later_1.3.0        
+[40] grid_4.2.2          jsonlite_1.8.4      gtable_0.3.1       
+[43] lifecycle_1.0.3     DBI_1.1.3           git2r_0.30.1       
+[46] magrittr_2.0.3      scales_1.2.1        cli_3.4.1          
+[49] stringi_1.7.8       cachem_1.0.6        farver_2.1.1       
+[52] fs_1.5.2            promises_1.2.0.1    xml2_1.3.3         
+[55] bslib_0.4.2         ellipsis_0.3.2      generics_0.1.3     
+[58] vctrs_0.5.1         RColorBrewer_1.1-3  tools_4.2.2        
+[61] glue_1.6.2          hms_1.1.2           fastmap_1.1.0      
+[64] yaml_2.3.6          timechange_0.1.1    colorspace_2.0-3   
+[67] gargle_1.2.1        rvest_1.0.3         knitr_1.41         
+[70] haven_2.5.1         sass_0.4.4         </code></pre>
 </div>
 </div>
 

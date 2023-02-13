@@ -1,0 +1,84 @@
+---
+title: "3/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(DT)
+set.seed(123)
+```
+
+
+```{r, echo=F, warning=F, message=F}
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Marinho\\total.csv", header=T))
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data %>% count(Malocclusion) %>%mutate(prop=n/nrow(data)), aes(x=Malocclusion, y=n, fill=as.character(Malocclusion))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+ggplot(data %>% count(ID) %>%mutate(prop=n/nrow(data)), aes(x=ID, y=n, fill=as.character(ID))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+
+###########
+g1=ggplot(data %>% count(SexNum) %>%mutate(prop=n/nrow(data)), aes(x=SexNum, y=n, fill=as.character(SexNum))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+g1
+#########
+g2=ggplot(data, aes(x=Age)) + 
+  geom_histogram(color="blue", fill="blue")+
+  geom_vline(aes(xintercept=mean(Age)),
+            color="red", linetype="dashed", size=1)
+g2
+
+
+```
+
+
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```
+
+

@@ -46,23 +46,21 @@ data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212
 ### raw data 
 
 ```{r, echo=F, message=F, warning=F}
-
-
 ###########
-ggplot(data %>% count(Extraction) %>%mutate(prop=n/nrow(data)), aes(x=Extraction, y=n, fill=as.character(Extraction))) +geom_bar(stat="identity")+
+g1=ggplot(data %>% count(Extraction) %>%mutate(prop=n/nrow(data)), aes(x=Extraction, y=n, fill=as.character(Extraction))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 #########
-p<-ggplot(data, aes(x=Age)) + 
-  geom_histogram(color="blue", fill="blue")
-p+geom_vline(aes(xintercept=mean(Age)),
+g2=ggplot(data, aes(x=Age)) + 
+  geom_histogram(color="blue", fill="blue")+
+  geom_vline(aes(xintercept=mean(Age)),
             color="red", linetype="dashed", size=1)
 
 ###########
-ggplot(data %>% count(Sex) %>%mutate(prop=n/nrow(data)), aes(x=Sex, y=n, fill=as.character(Sex))) +geom_bar(stat="identity")+
+g3=ggplot(data %>% count(Sex) %>%mutate(prop=n/nrow(data)), aes(x=Sex, y=n, fill=as.character(Sex))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=15))+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
@@ -70,13 +68,20 @@ ggplot(data %>% count(Sex) %>%mutate(prop=n/nrow(data)), aes(x=Sex, y=n, fill=as
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
 ###########
-ggplot(data %>% count(CustomCode1) %>%mutate(prop=n/nrow(data)), aes(x=CustomCode1, y=n, fill=as.character(CustomCode1))) +geom_bar(stat="identity")+
+g4=ggplot(data %>% count(CustomCode1) %>%mutate(prop=n/nrow(data)), aes(x=CustomCode1, y=n, fill=as.character(CustomCode1))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
+
+#figure=ggarrange(g1, g2, g3, g4, nrow=2)
+#figure
+g1
+g2
+g3
+g4
 ```
 
 ### data without missing values 
@@ -125,5 +130,22 @@ ggplot(data1 %>% count(CustomCode1), aes(x=CustomCode1, y=n, fill=as.character(C
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 
+```
+
+
+
+## logistic regression 
+
+
+
+```{r, echo=F, message=F, warning=F}
+glm_fit=glm(as.factor(Extraction)~Age+ Sex, data = data, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+```
+
+
+```{r, echo=F, message=F, warning=F}
+glm_fit=glm(as.factor(Extraction)~Age+ Sex+Problem.List...Skeletal...AP+Model.Analysis...Maxillary.TSALD.in.mm, data = data, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 ```
 
