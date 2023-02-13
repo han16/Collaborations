@@ -857,3 +857,9 @@ b.	Classical
 c.	Student’s compilation playlist 
 
 ```
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```
