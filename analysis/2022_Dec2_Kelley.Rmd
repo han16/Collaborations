@@ -144,7 +144,7 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F,eval=F}
 glm_fit=glm(as.factor(Extraction)~Age+ Sex+Problem.List...Skeletal...AP+Model.Analysis...Maxillary.TSALD.in.mm, data = data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 ```
