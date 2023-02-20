@@ -153,6 +153,8 @@ no_music_plot4=no_music %>% count(by=Did.2t.having.music.played.interfere.with.y
 
 ```
 
+
+
 ```{r, echo=F, message=F, warning=F, eval=T}
 ################### question 1
 no_music_plot1=no_music %>% count(by=How.did.2t.having.music.impact.your.energy.level.during.class.)%>% mutate(prop=n/nrow(no_music))
@@ -403,7 +405,147 @@ combine=data.frame(response=c(no_music_plot1$by, no_music_plot2$by, no_music_plo
                    prop=c(no_music_plot1$prop, no_music_plot2$prop, no_music_plot3$prop, no_music_plot4$prop, classical_music_plot1$prop, classical_music_plot2$prop, classical_music_plot3$prop, classical_music_plot4$prop, hip_hop_music_plot1$prop,hip_hop_music_plot2$prop, hip_hop_music_plot3$prop, hip_hop_music_plot4$prop, student_playlist_music_plot1$prop,student_playlist_music_plot2$prop, student_playlist_music_plot3$prop, student_playlist_music_plot4$prop))
 ```
 
+
+
 ```{r, echo=F, message=F, warning=F}
+############### compute p values 
+p_value=numeric()
+count=c(60,38,9)
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+p_value[2]=pvalue_adjust(binom.test(c(count[1],count[3]))$p.value)
+p_value[3]=pvalue_adjust(binom.test(c(count[2],count[3]))$p.value)
+data.frame(variables=c("1 vs 2", "1 vs 3", "2 vs 3"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=" comparison for classical music in Q1", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+############### compute p values 
+p_value=numeric()
+count=c(98,7,2)
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+p_value[2]=pvalue_adjust(binom.test(c(count[1],count[3]))$p.value)
+p_value[3]=pvalue_adjust(binom.test(c(count[2],count[3]))$p.value)
+data.frame(variables=c("1 vs 2", "1 vs 3", "2 vs 3"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=" comparison for hip hop in Q1", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+############### compute p values 
+p_value=numeric()
+count=c(3,62,44)
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+p_value[2]=pvalue_adjust(binom.test(c(count[1],count[3]))$p.value)
+p_value[3]=pvalue_adjust(binom.test(c(count[2],count[3]))$p.value)
+data.frame(variables=c("1 vs 2", "1 vs 3", "2 vs 3"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=" comparison for no music in Q1", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+############### compute p values 
+p_value=numeric()
+count=c(98,7,2)
+p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+p_value[2]=pvalue_adjust(binom.test(c(count[1],count[3]))$p.value)
+p_value[3]=pvalue_adjust(binom.test(c(count[2],count[3]))$p.value)
+data.frame(variables=c("1 vs 2", "1 vs 3", "2 vs 3"), pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=" comparison for student playlist in Q1", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+###############
+g1=ggplot(combine %>% filter(question=="Q1" & music_type=="classical music"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,90))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+   ggtitle("classical music in Q1")+
+   geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
+  geom_signif(annotations ="p=0.033", y_position = 64  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=2.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p<0.0001", y_position = 42  ,xmin=2, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="red")+
+  geom_signif(annotations ="p<0.0001", y_position = 75  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+
+
+###############
+g2=ggplot(combine %>% filter(question=="Q1" & music_type=="hip hop"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,135))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+   ggtitle("hip hop in Q1")+
+    geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=0.25)+  # add numbers over bars 
+  geom_signif(annotations ="p<0.0001", y_position = 110  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=2.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p=0.178", y_position = 25  ,xmin=2, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="black")+
+  geom_signif(annotations ="p<0.0001", y_position = 125  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+
+#################
+g3=ggplot(combine %>% filter(question=="Q1" & music_type=="no_music"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,100))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+   ggtitle("no music in Q1")+
+   geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=0.25)+  # add numbers over bars 
+  geom_signif(annotations ="p<0.0001", y_position = 70  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=2.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p=0.098", y_position = 75  ,xmin=2, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="black")+
+  geom_signif(annotations ="p<0.0001", y_position = 85  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+ 
+#################
+g4=ggplot(combine %>% filter(question=="Q1" & music_type=="student playlist"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("count")+
+   ylim(c(0,135))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+   ggtitle("student playlist in Q1")+
+   geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=0.25)+  # add numbers over bars 
+  geom_signif(annotations ="p<0.0001", y_position = 110  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=2.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p=0.178", y_position = 25  ,xmin=2, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="black")+
+  geom_signif(annotations ="p<0.0001", y_position = 125  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=2.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())
+#g4
+
+
+figure=ggarrange(g1, g2, g3, g4, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("Q1", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Datasource: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+
+```
+
+
+   
+```{r, echo=F, message=F, warn=F}
+###############
 g1=ggplot(combine %>% filter(question=="Q1"), aes(x=as.character(response), y=count, fill=as.character(response)))+ 
 geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("count")+
@@ -411,6 +553,8 @@ geom_bar(position = "dodge",stat="identity")+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
   # ggtitle("Response of Q1")+
    geom_text(aes(label=count), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+#  geom_signif(annotations ="p=0.033", y_position = 64  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3)+ # textsize is for text over the bar; size is for width of lines 
+#   geom_signif(annotations ="p<0.0001", y_position = 42  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0)+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
  facet_wrap(~music_type)
@@ -425,6 +569,7 @@ geom_bar(position = "dodge",stat="identity")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   guides(color = guide_legend(title = "Response"))+
  facet_wrap(~music_type)
+#g2
 
 figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
 annotate_figure(figure,
