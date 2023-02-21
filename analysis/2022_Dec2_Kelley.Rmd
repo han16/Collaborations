@@ -106,7 +106,7 @@ plot1 <- ggplot(dat, aes(y = Index, x = Mean_Ratio)) +
   geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
   geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
   scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
-  xlab("Mean Ratio (95% CI)") + 
+  xlab("Odds Ratio (95% CI)") + 
   ylab(" ") + 
   theme_bw() +
   theme(panel.border = element_blank(),
