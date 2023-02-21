@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(kableExtra)
 library(ggpubr)
+library(gridExtra)
 library(rstatix) # use anova_test function 
 library(DT)
 set.seed(123)
@@ -38,10 +39,128 @@ for (i in 1:length(p_value))
 
 ```{r, echo=F, message=F, warning=F}
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Kelley\\Results-2023-01-25 - Deidentified.csv", header=T))
+
+data2=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Kelley\\Copy of Results-2023-01-25 - Deidentified - working data - 2023-2-15 - on ext.csv", header=T))
 ```
 
-## descriptive analysis 
 
+
+## Extraction, Upper TSALD, and Lower TSALD
+
+
+```{r, echo=F, message=F, warning=F}
+data3=data2%>%select(Ext, Upper.TSALD, Lower.TSALD) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A")
+data3 %>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+data3$Lower.TSALD=as.numeric(data3$Lower.TSALD)
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+ggplot(data3 %>% count(Ext), aes(x=Ext, y=n, fill=as.character(Ext))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+#
+ggplot(data3, aes(x=Upper.TSALD)) + 
+  geom_histogram(color="blue", fill="blue")+
+geom_vline(aes(xintercept=mean(Upper.TSALD)),
+            color="red", linetype="dashed", size=1)
+
+ggplot(data3, aes(x=Lower.TSALD)) + 
+  geom_histogram(color="blue", fill="blue")+
+geom_vline(aes(xintercept=mean(Lower.TSALD)),
+            color="red", linetype="dashed", size=1)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD, data = data3, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+
+
+
+############### visualize odds ratio # https://rpubs.com/mbounthavong/forest_plots_r 
+no_cova=2
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Upper.TSALD", "Lower.TSALD"),
+  Mean_Ratio=exp(round(coef(glm_fit)[2:3],4)),
+  #Mean_Ratio=c("1.12(0)", "1.02(0.004)", "0.84(0)", "0.95(0)", "1.08(0)", "1.25(0)", "0.94(0.001)", "1.20(0)"),
+  LL=exp(round(confint(glm_fit)[2:3,1],2)),
+  UL=exp(round(confint(glm_fit)[2:3,2],2)),
+  CI=c("0.768, 0.952", "0.682, 0.836"),
+  p_value=round(coef(summary(glm_fit))[2:3,4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = Mean_Ratio)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("Mean Ratio (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.1f", round(Mean_Ratio, digits = 4))), size = 4) + ## decimal places
+  ggtitle("Odds Ratio")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+```
+
+
+## descriptive analysis 
 
 ### raw data 
 
