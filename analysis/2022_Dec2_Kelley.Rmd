@@ -58,6 +58,13 @@ data3 %>% datatable(extensions = 'Buttons',
 
 data3$Lower.TSALD=as.numeric(data3$Lower.TSALD)
 
+Upper.TSALD.group=numeric()   ## group into 3 groups 
+Upper.TSALD.group=data3$Upper.TSALD
+Upper.TSALD.group[which(abs(data3$Upper.TSALD)<4)]=1
+Upper.TSALD.group[which(abs(data3$Upper.TSALD)>=4 & abs(data3$Upper.TSALD)<8)]=2
+Upper.TSALD.group[which(abs(data3$Upper.TSALD)>8)]=3
+
+data3=data3%>%mutate(Upper.TSALD.group=Upper.TSALD.group)
 ```
 
 
@@ -160,7 +167,17 @@ grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 ```
 
 
+
+```{r, echo=F, message=F, warning=F}
+glm_fit=glm(as.factor(Ext)~as.factor(Upper.TSALD.group)+Lower.TSALD, data = data3, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+
+```
+
+
 ## descriptive analysis 
+
 
 ### raw data 
 

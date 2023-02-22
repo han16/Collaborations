@@ -1976,7 +1976,7 @@ datatable(extensions = 'Buttons',
 library(reshape2)
 sub_data=data.frame(Ging_width_T1=data$Ging_width_T1, Ging_width_T6=data$Ging_width_T6, Ging_thick=data$Ging_thick, Muc_thick=data$Muc_thick,Wound_open_bl_T3=data$Wound_open_bl_T3, Wound_open_bl_T4=data$Wound_open_bl_T4, Wound_open_bl_T5=data$Wound_open_bl_T5, Wound_open_bl_T6=data$Wound_open_bl_T6,Width_3mm_T1=data$Width_3mm_T1
 ,Width_3mm_T2=data$Width_3mm_T2, Width_3mm_T3=data$width_3mm_T3, Width_3mm_T4=data$Width_3mm_T4,
-Width_3mm_T5=data$Width_3mm_T5, Width_3mm_T6=data$Width_3mm_T6, Width_diff_3mm_T2_T1=data$Width_diff_3mm_T2.T1, Width_diff_3mm_T3_T2=data$Width_diff_3mm_T3.T2, Width_diff_3mm_T4_T2=data$Width_diff_3mm_T4.T2, Width_diff_3mm_T5_T2=data$Width_diff_3mm_T5.T2, Width_diff_3mm_T6_T2=data$width_diff_3mm_T6.T2, Buccal_3mm_T2_T1=data$Buccal_3mm_T2.T1, Buccal_3mm_T3_T2=-data$Buccal_3mm_T2.T3, Buccal_3mm_T4_T2=-data$Buccal_3mm_T2.T4, Buccal_3mm_T5_T2=-data$Buccal_3mm_T2.T5, Buccal_3mm_T6_T2=-data$Buccal_3mm_T2.T6, Lingual_3mm_T2_T1=data$Lingual_3mm_T2.T1, Lingual_3mm_T3_T2=-data$Lingual_3mm_T2.T3, Lingual_3mm_T4_T2=-data$Lingual_3mm_T2.T4, Lingual_3mm_T5_T2=-data$Lingual_3mm_T2.T5, Lingual_3mm_T6_T2=-data$Lingual_3mm_T2.T6, Vertical_mid_T2_T1=data$Vertical_max_T2.T1, Vertical_mid_T3_T2=-data$Vertical_max_T2.T3, Vertical_mid_T4_T2=-data$Vertical_max_T2.T4, Vertical_mid_T5_T2=-data$Vertical_max_T2.T5, Vertical_mid_T6_T2=-data$Vertical_max_T2.T6, Vertical_max_T2_T1=data$Vertical_mid_T2.T1, Vertical_max_T3_T2=-data$Vertical_mid_T2.T3, Vertical_max_T4_T2=-data$Vertical_mid_T2.T4, Vertical_max_T5_T2=-data$Vertical_mid_T2.T5, Vertical_max_T6_T2=-data$Vertical_mid_T2.T6, X.Vol_T2.T1.T1=data$X.Vol_T2.T1.T1, X.Vol_T3.T2.T2=data$X.Vol_T3.T2.T2, X.Vol_T4.T2.T2=data$X.Vol_T4.T2.T2,  X.Vol_T5.T2.T2=data$X.Vol_T5.T2.T2,  X.Vol_T6.T2.T2=data$X.Vol_T6.T2.T2, VAS_pain_T1=data$VAS_pain_T1, VAS_pain_T3=data$VAS_pain_T3, VAS_pain_T4=data$VAS_pain_T4, VAS_pain_T5=data$VAS_pain_T5, VAS_pain_T6=data$VAS_pain_T6, VAS_swell_T1=data$VAS_swell_T1,VAS_swell_T3=data$VAS_swell_T3, VAS_swell_T4=data$VAS_swell_T4, VAS_swell_T5=data$VAS_swell_T5, VAS_swell_T6=data$VAS_swell_T6, VAS_mouth_open_T1=data$VAS_mouth_open_T1, VAS_mouth_open_T3=data$VAS_mouth_open_T3, VAS_mouth_open_T4=data$VAS_mouth_open_T4, VAS_mouth_open_T5=data$VAS_mouth_open_T5, VAS_mouth_open_T6=data$VAS_mouth_open_T6, OHIP_T1=data$OHIP_T1, OHIP_T3=data$OHIP_T3, OHIP_T4=data$OHIP_T4, OHIP_T5=data$OHIP.T5, OHIP_T6=data$OHIP_T6)
+Width_3mm_T5=data$Width_3mm_T5, Width_3mm_T6=data$Width_3mm_T6, Width_diff_3mm_T2_T1=data$Width_diff_3mm_T2.T1, Width_diff_3mm_T3_T2=data$Width_diff_3mm_T3.T2, Width_diff_3mm_T4_T2=data$Width_diff_3mm_T4.T2, Width_diff_3mm_T5_T2=data$Width_diff_3mm_T5.T2, Width_diff_3mm_T6_T2=data$width_diff_3mm_T6.T2, Buccal_3mm_T2_T1=data$Buccal_3mm_T2.T1, Buccal_3mm_T2_T3=data$Buccal_3mm_T2.T3, Buccal_3mm_T2_T4=data$Buccal_3mm_T2.T4, Buccal_3mm_T2_T5=data$Buccal_3mm_T2.T5, Buccal_3mm_T2_T6=data$Buccal_3mm_T2.T6, Lingual_3mm_T2_T1=data$Lingual_3mm_T2.T1, Lingual_3mm_T2_T3=data$Lingual_3mm_T2.T3, Lingual_3mm_T2_T4=data$Lingual_3mm_T2.T4, Lingual_3mm_T2_T5=data$Lingual_3mm_T2.T5, Lingual_3mm_T2_T6=data$Lingual_3mm_T2.T6, Vertical_mid_T2_T1=data$Vertical_mid_T2.T1, Vertical_mid_T2_T3=data$Vertical_mid_T2.T3, Vertical_mid_T2_T4=data$Vertical_mid_T2.T4, Vertical_mid_T2_T5=data$Vertical_mid_T2.T5, Vertical_mid_T2_T6=data$Vertical_mid_T2.T6, Vertical_max_T2_T1=data$Vertical_max_T2.T1, Vertical_max_T2_T3=data$Vertical_max_T2.T3, Vertical_max_T2_T4=data$Vertical_max_T2.T4, Vertical_max_T2_T5=data$Vertical_max_T2.T5, Vertical_max_T2_T6=data$Vertical_max_T2.T6, X.Vol_T2.T1.T1=data$X.Vol_T2.T1.T1, X.Vol_T3.T2.T2=data$X.Vol_T3.T2.T2, X.Vol_T4.T2.T2=data$X.Vol_T4.T2.T2,  X.Vol_T5.T2.T2=data$X.Vol_T5.T2.T2,  X.Vol_T6.T2.T2=data$X.Vol_T6.T2.T2, VAS_pain_T1=data$VAS_pain_T1, VAS_pain_T3=data$VAS_pain_T3, VAS_pain_T4=data$VAS_pain_T4, VAS_pain_T5=data$VAS_pain_T5, VAS_pain_T6=data$VAS_pain_T6, VAS_swell_T1=data$VAS_swell_T1,VAS_swell_T3=data$VAS_swell_T3, VAS_swell_T4=data$VAS_swell_T4, VAS_swell_T5=data$VAS_swell_T5, VAS_swell_T6=data$VAS_swell_T6, VAS_mouth_open_T1=data$VAS_mouth_open_T1, VAS_mouth_open_T3=data$VAS_mouth_open_T3, VAS_mouth_open_T4=data$VAS_mouth_open_T4, VAS_mouth_open_T5=data$VAS_mouth_open_T5, VAS_mouth_open_T6=data$VAS_mouth_open_T6, OHIP_T1=data$OHIP_T1, OHIP_T3=data$OHIP_T3, OHIP_T4=data$OHIP_T4, OHIP_T5=data$OHIP.T5, OHIP_T6=data$OHIP_T6)
 ################ compute p values 
 cormat2=round(cor(sub_data),2)
 cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
@@ -2036,7 +2036,7 @@ colnames(correlation_pvalue)=row.names(cormat2)
 
 #write.csv(cormat2, file="../../2022/202209/Juan/Juan_correlation_matrix_1208_2022.csv")
 #write.csv(cormat2_pvalue, file="../../2022/202209/Juan/Juan_correlation_matrix_pvalue_1209_2022.csv")
-#write.csv(correlation_pvalue, file="../../2022/202209/Juan/Juan_correlation_matrix_pvalue_1212_2022.csv")
+#write.csv(correlation_pvalue, file="../../2022/202209/Juan/Juan_correlation_matrix_pvalue_0222_2023.csv")
 #cormat2%>%
 #datatable(extensions = 'Buttons',
 #            options = list(dom = 'Blfrtip',
@@ -2051,6 +2051,8 @@ colnames(correlation_pvalue)=row.names(cormat2)
 #                           lengthMenu = list(c(10,25,50,-1),
 #                                             c(10,25,50,"All"))))
 ```
+
+
 
 ```{r, echo=F, message=F, warning=F, eval=F}
 library(heatmaply)
@@ -2073,7 +2075,7 @@ heatmaply_cor(
 
 
 
-* [correlation matrix and p values](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/EWOTENWbDLBMmNTbeuRAL1wBAwrGqKFJv0EZMDS0Ts6uJw?e=uH1Iwy), i.e. `correlation_pvalue`. 
+* [correlation matrix and p values](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/EUHKs-fEVP5Nvq3zf7oc5ksBfpLMhRZnOExoQ5SwYrtq8g?e=WF8Vep), i.e. `correlation_pvalue`. 
 
 * `NA` in the correlation matrix means one of variables is constant, no variations leading to meaningless correlation. 
 
