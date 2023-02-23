@@ -212,3 +212,143 @@ ggplot(sub_data_mean, aes(x=time, y=Width_diff_3mm_mean, fill=methods)) +
   geom_signif(annotations ="p<0.0001", y_position = 0.8  ,xmin=4.7, xmax=5.3, size=1, vjust=-0.5, textsize=3.0, color="red")
 
 ```
+
+
+```{r, echo=F, message=F, warning=F}
+library(foreign)
+############ prepare the data 
+sub_data_juan=data.frame(y1=Data_Juan$Width_diff_3mm_T2.T1, y2=Data_Juan$Width_diff_3mm_T3.T2, y3=Data_Juan$Width_diff_3mm_T4.T2, y4=Data_Juan$Width_diff_3mm_T5.T2, y5=Data_Juan$width_diff_3mm_T6.T2)%>% drop_na()
+sub_data_mm25=data.frame(y1=Data_MM25$Width_diff_3mm_T2.T1, y2=Data_MM25$Width_diff_3mm_T3.T2, y3=Data_MM25$Width_diff_3mm_T4.T2, y4=Data_MM25$Width_diff_3mm_T5.T2, y5=Data_MM25$width_diff_3mm_T6.T2)%>% drop_na()
+
+
+Patient.ID.Number=1:(nrow(sub_data_juan)+nrow(sub_data_mm25))
+trt=Patient.ID.Number
+trt[1:nrow(sub_data_juan)]="Juan"
+trt[(nrow(sub_data_juan)+1):length(trt)]="MM25"
+trt=factor(trt)
+
+data_Width_3mm=data.frame(id=Patient.ID.Number, treatment=trt, y1=c(sub_data_juan$y1,sub_data_mm25$y1),y2=c(sub_data_juan$y2,sub_data_mm25$y2), y3=c(sub_data_juan$y3,sub_data_mm25$y3), y4=c(sub_data_juan$y4,sub_data_mm25$y4), y5=c(sub_data_juan$y5,sub_data_mm25$y5))
+
+######## convert into long format 
+data_Width_3mm_long <- reshape(data_Width_3mm, idvar="id", varying=c("y1","y2","y3","y4", "y5"), v.names="y", timevar="time", time=1:5, direction="long")
+attach(data_Width_3mm_long) # when attaching variables, DO not use same variable names multiple times 
+
+######### plot mean curve 
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="Width_3mm", main="", col=c(2,4))
+
+
+
+library(nlme)
+model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
+#summary(model)
+
+ anova(model)
+```
+
+
+
+## Buccal_3mm
+
+
+```{r, echo=F, message=F, warning=F}
+########## extract the data for variable of interest 
+sub_data=data.frame(time=c(rep(c("T2-T1", "T3-T2", "T4-T2", "T5-T2", "T6-T2"), each=27),rep(c("T2-T1", "T3-T2", "T4-T2", "T5-T2", "T6-T2"), each=26)), Buccal_3mm=c(Data_MM25$Buccal_3mm_T2.T1, Data_MM25$Buccal_3mm_T3.T2, Data_MM25$Buccal_3mm_T4.T2, Data_MM25$Buccal_3mm_T5.T2, Data_MM25$Buccal_3mm_T6.T2, Data_Juan$Buccal_3mm_T2.T1, Data_Juan$Buccal_3mm_T3.T2, Data_Juan$Buccal_3mm_T4.T2, Data_Juan$Buccal_3mm_T5.T2, Data_Juan$Buccal_3mm_T6.T2), methods=c(rep("MM25", 27*5), rep("Juan", 26*5))) %>% drop_na()
+
+######### calculate the mean 
+sub_data_mean=data.frame(time=rep(c("T2-T1", "T3-T2", "T4-T2", "T5-T2", "T6-T2"),2), 
+                         Buccal_3mm_mean=c(mean(sub_data %>% filter(time=="T2-T1" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), mean(sub_data %>% filter(time=="T3-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T4-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T5-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T6-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T2-T1" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T3-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T4-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T5-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+mean(sub_data %>% filter(time=="T6-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull)),
+Buccal_3mm_sd=c(sd(sub_data %>% filter(time=="T2-T1" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T3-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T4-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T5-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T6-T2" & methods=="MM25") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T2-T1" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T3-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T4-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T5-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull), 
+sd(sub_data %>% filter(time=="T6-T2" & methods=="Juan") %>% select(Buccal_3mm) %>% pull)), methods=rep(c("MM25", "Juan"), each=5))
+#################
+Time=c("T2-T1", "T3-T2", "T4-T2", "T5-T2", "T6-T2")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+for (i in 1:length(Time))
+{
+  group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(Buccal_3mm) %>% pull
+  group2=sub_data %>% filter(time==Time[i] & methods=="Juan") %>% select(Buccal_3mm) %>% pull
+  test=t.test(group1, group2)
+  p_value[i]=test$p.value
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  estimate[i]=mean(group1)-mean(group2)
+  ##############
+}
+
+
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#######################################
+#ggplot(sub_data_mean, aes(x=time, y=Width_3mm_mean, group=methods)) +
+#  geom_line(aes(color=methods))+
+#  geom_point(aes(color=methods))
+
+ggplot(sub_data_mean, aes(x=time, y=Buccal_3mm_mean, fill=methods)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=Buccal_3mm_mean-Buccal_3mm_sd, ymax=Buccal_3mm_mean+Buccal_3mm_sd), width=.2,
+                 position=position_dodge(.9))+
+  geom_text(aes(label=round(Buccal_3mm_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="red")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
+  #ylim(c(0,19))+
+  geom_signif(annotations ="p=0.424", y_position = 2  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3)+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p=0.353", y_position = 2  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0)+
+  geom_signif(annotations ="p=0.274", y_position = 2  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0)+
+  geom_signif(annotations ="p=0.331", y_position = 2  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0)+
+  geom_signif(annotations ="p=0.589", y_position = 2.3  ,xmin=4.7, xmax=5.3, size=1, vjust=-0.5, textsize=3.0, color="black")
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(foreign)
+############ prepare the data 
+sub_data_juan=data.frame(y1=Data_Juan$Buccal_3mm_T2.T1, y2=Data_Juan$Buccal_3mm_T2.T3, y3=Data_Juan$Buccal_3mm_T2.T4, y4=Data_Juan$Buccal_3mm_T2.T5, y5=Data_Juan$Buccal_3mm_T2.T6)%>% drop_na()
+sub_data_mm25=data.frame(y1=Data_MM25$Buccal_3mm_T2.T1, y2=Data_MM25$Buccal_3mm_T2.T3, y3=Data_MM25$Buccal_3mm_T2.T4, y4=Data_MM25$Buccal_3mm_T2.T5, y5=Data_MM25$Buccal_3mm_T2.T6)%>% drop_na()
+
+
+Patient.ID.Number=1:(nrow(sub_data_juan)+nrow(sub_data_mm25))
+trt=Patient.ID.Number
+trt[1:nrow(sub_data_juan)]="Juan"
+trt[(nrow(sub_data_juan)+1):length(trt)]="MM25"
+trt=factor(trt)
+
+data_Width_3mm=data.frame(id=Patient.ID.Number, treatment=trt, y1=c(sub_data_juan$y1,sub_data_mm25$y1),y2=c(sub_data_juan$y2,sub_data_mm25$y2), y3=c(sub_data_juan$y3,sub_data_mm25$y3), y4=c(sub_data_juan$y4,sub_data_mm25$y4), y5=c(sub_data_juan$y5,sub_data_mm25$y5))
+
+######## convert into long format 
+data_Width_3mm_long <- reshape(data_Width_3mm, idvar="id", varying=c("y1","y2","y3","y4", "y5"), v.names="y", timevar="time", time=1:5, direction="long")
+attach(data_Width_3mm_long) # when attaching variables, DO not use same variable names multiple times 
+
+######### plot mean curve 
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="Width_3mm", main="", col=c(2,4))
+
+
+
+library(nlme)
+model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
+#summary(model)
+
+ anova(model)
+```
