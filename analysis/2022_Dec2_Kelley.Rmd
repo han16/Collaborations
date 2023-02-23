@@ -196,25 +196,24 @@ HISP=as.character()
 HISP[which(data3$RACE=="HISP  ")]="Yes"; HISP[which(data3$RACE!="HISP  ")]="No"
 data3=data3%>% mutate(HISP=HISP)
 data3$Lower.TSALD=as.numeric(data3$Lower.TSALD)
-data3$Skeletal.AP=as.numeric(data3$Skeletal.AP)
 data3$Upper_lip=as.numeric(data3$Upper_lip)
 data3$Lower_lip=as.numeric(data3$Lower_lip)
 
-glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD+Upper_lip+Lower_lip+Age+Sex+HISP, data = data3, family = "binomial") # response variable need to be factor 
+glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD+Skeletal.AP+Upper_lip+Lower_lip+Age+Sex+HISP, data = data3, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 
 
 ############### visualize odds ratio # https://rpubs.com/mbounthavong/forest_plots_r 
-no_cova=7
+no_cova=9
 dat=data.frame( 
   Index=seq(1,no_cova),
-  label=c("Upper.TSALD", "Lower.TSALD", "Upper_lip", "Lower_lip", "Age", "Sex", "RACE"),
+  label=c("Upper.TSALD", "Lower.TSALD", "Skeletal.APClass II", "Skeletal.APClass III", "Upper_lip", "Lower_lip", "Age", "Sex", "HISPYes"),
   Mean_Ratio=exp(round(coef(glm_fit)[2:(1+no_cova)],4)),
   #Mean_Ratio=c("1.12(0)", "1.02(0.004)", "0.84(0)", "0.95(0)", "1.08(0)", "1.25(0)", "0.94(0.001)", "1.20(0)"),
   LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
   UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
-  CI=c("0.675, 0.923", "0.651, 0.883", "0.849, 1.261", "0.967, 1.429", "0.990, 1.112", "0.325, 2.104", "0.279, 1.956"),
+  CI=c("0.673, 0.925", "0.630, 0.867", "0.602, 5.715", "0.649, 15.782", "0.864, 1.306", "0.964, 1.417", "0.986, 1.116", "0.323, 2.244", "0.254, 1.865"),
   p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
 )
 
