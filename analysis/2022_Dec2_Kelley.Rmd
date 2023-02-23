@@ -168,10 +168,115 @@ grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 glm_fit=glm(as.factor(Ext)~as.factor(Upper.TSALD.group)+Lower.TSALD, data = data3, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
+
+```
+
+
+## Extraction, Upper TSALD, Lower TSALD, and others 
+
+
+```{r, echo=F, message=F, warning=F}
+data3=data2%>%select(Ext, Upper.TSALD, Lower.TSALD, Skeletal.AP, Upper.lip...E.line, Lower.lip...E.line, Age, Sex, RACE) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A") %>% filter(RACE!="      " & Upper.lip...E.line!="N/A" & Lower.lip...E.line!="N/A" & Skeletal.AP!="N/A")
+data3 %>% datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+colnames(data3)[5:6]=c("Upper_lip", "Lower_lip")
+HISP=as.character()
+HISP[which(data3$RACE=="HISP  ")]="Yes"; HISP[which(data3$RACE!="HISP  ")]="No"
+data3=data3%>% mutate(HISP=HISP)
+data3$Lower.TSALD=as.numeric(data3$Lower.TSALD)
+data3$Skeletal.AP=as.numeric(data3$Skeletal.AP)
+data3$Upper_lip=as.numeric(data3$Upper_lip)
+data3$Lower_lip=as.numeric(data3$Lower_lip)
+
+glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD+Upper_lip+Lower_lip+Age+Sex+HISP, data = data3, family = "binomial") # response variable need to be factor 
+cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
+
+
+
+############### visualize odds ratio # https://rpubs.com/mbounthavong/forest_plots_r 
+no_cova=7
+dat=data.frame( 
+  Index=seq(1,no_cova),
+  label=c("Upper.TSALD", "Lower.TSALD", "Upper_lip", "Lower_lip", "Age", "Sex", "RACE"),
+  Mean_Ratio=exp(round(coef(glm_fit)[2:(1+no_cova)],4)),
+  #Mean_Ratio=c("1.12(0)", "1.02(0.004)", "0.84(0)", "0.95(0)", "1.08(0)", "1.25(0)", "0.94(0.001)", "1.20(0)"),
+  LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
+  UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
+  CI=c("0.675, 0.923", "0.651, 0.883", "0.849, 1.261", "0.967, 1.429", "0.990, 1.112", "0.325, 2.104", "0.279, 1.956"),
+  p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
+)
+
+plot1 <- ggplot(dat, aes(y = Index, x = Mean_Ratio)) +
+  geom_point(shape = 18, size = 3) +  
+  geom_errorbarh(aes(xmin = LL, xmax = UL), height = 0.25) +
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 1, alpha = 0.5) +
+  scale_y_continuous(name = "", breaks=1:no_cova, labels = dat$label, trans = "reverse") +
+  xlab("Odds Ratio (95% CI)") + 
+  ylab(" ") + 
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+
+## Create the table-base pallete
+table_base <- ggplot(dat, aes(y=label)) +
+  ylab(NULL) + xlab("  ") + 
+  theme(plot.title = element_text(hjust = 0.5, size=12), 
+        axis.text.x = element_text(color="white", hjust = -3, size = 25), ## This is used to help with alignment
+        axis.line = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title.y = element_blank(), 
+        legend.position = "none",
+        panel.background = element_blank(), 
+        panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        plot.background = element_blank())
+
+## OR point estimate table
+tab1 <- table_base + 
+  labs(title = "space") +
+  geom_text(aes(y = rev(Index), x = 1, label = sprintf("%0.001f", round(Mean_Ratio, digits = 4))), size = 4) + ## decimal places
+  ggtitle("Odds Ratio")
+
+## 95% CI table
+tab2 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = CI), size = 4) + 
+  ggtitle("95% CI")
+
+## p value 
+tab3 <- table_base +
+  geom_text(aes(y = rev(Index), x = 1, label = p_value), size = 4) + 
+  ggtitle("p value")
+
+
+#lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+#grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+
+lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
+grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
+
+#######################
+cor(data3[,c(2,3,5,6)])
 
 ```
 
