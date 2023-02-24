@@ -38,9 +38,9 @@ for (i in 1:length(p_value))
 
 
 ```{r, echo=F, message=F, warning=F}
-data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Kelley\\Results-2023-01-25 - Deidentified.csv", header=T))
+#data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Kelley\\Results-2023-01-25 - Deidentified.csv", header=T))
 
-data2=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Kelley\\Copy of Results-2023-01-25 - Deidentified - working data - 2023-2-15 - on ext.csv", header=T))
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212\\Kelley\\Copy of Results-2023-01-25 - Deidentified - working data - 2023-2-15 - on ext.csv", header=T))
 ```
 
 
@@ -49,39 +49,41 @@ data2=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\20221
 
 
 ```{r, echo=F, message=F, warning=F}
-data3=data2%>%select(Ext, Upper.TSALD, Lower.TSALD) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A")
-data3 %>% datatable(extensions = 'Buttons',
+sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A")
+sub_data %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-data3$Lower.TSALD=as.numeric(data3$Lower.TSALD)
+sub_data$Lower.TSALD=as.numeric(sub_data$Lower.TSALD)
 
-Upper.TSALD.group=numeric()   ## group into 3 groups 
-Upper.TSALD.group=data3$Upper.TSALD
-Upper.TSALD.group[which(abs(data3$Upper.TSALD)<4)]=1
-Upper.TSALD.group[which(abs(data3$Upper.TSALD)>=4 & abs(data3$Upper.TSALD)<8)]=2
-Upper.TSALD.group[which(abs(data3$Upper.TSALD)>8)]=3
+#Upper.TSALD.group=numeric()   ## group into 3 groups 
+#Upper.TSALD.group=data3$Upper.TSALD
+#Upper.TSALD.group[which(abs(data3$Upper.TSALD)<4)]=1
+#Upper.TSALD.group[which(abs(data3$Upper.TSALD)>=4 & abs(data3$Upper.TSALD)<8)]=2
+#Upper.TSALD.group[which(abs(data3$Upper.TSALD)>8)]=3
 
-data3=data3%>%mutate(Upper.TSALD.group=Upper.TSALD.group)
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
-ggplot(data3 %>% count(Ext), aes(x=Ext, y=n, fill=as.character(Ext))) +geom_bar(stat="identity")+
+#sub_data$Ext=as.vector(sub_data$Ext)
+sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A")
+ggplot(sub_data %>% dplyr::count(Ext), aes(x=Ext, y=n, fill=as.character(Ext))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
 #
-ggplot(data3, aes(x=Upper.TSALD)) + 
+ggplot(sub_data, aes(x=Upper.TSALD)) + 
   geom_histogram(color="blue", fill="blue")+
 geom_vline(aes(xintercept=mean(Upper.TSALD)),
             color="red", linetype="dashed", size=1)
 
-ggplot(data3, aes(x=Lower.TSALD)) + 
+sub_data$Lower.TSALD=as.numeric(sub_data$Lower.TSALD)
+ggplot(sub_data, aes(x=Lower.TSALD)) + 
   geom_histogram(color="blue", fill="blue")+
 geom_vline(aes(xintercept=mean(Lower.TSALD)),
             color="red", linetype="dashed", size=1)
@@ -89,7 +91,7 @@ geom_vline(aes(xintercept=mean(Lower.TSALD)),
 
 
 ```{r, echo=F, message=F, warning=F}
-glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD, data = data3, family = "binomial") # response variable need to be factor 
+glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD, data = sub_data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 
@@ -169,7 +171,7 @@ grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 
 
 ```{r, echo=F, message=F, warning=F, eval=F}
-glm_fit=glm(as.factor(Ext)~as.factor(Upper.TSALD.group)+Lower.TSALD, data = data3, family = "binomial") # response variable need to be factor 
+glm_fit=glm(as.factor(Ext)~as.factor(Upper.TSALD.group)+Lower.TSALD, data = sub_data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 
@@ -180,26 +182,26 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 
 ```{r, echo=F, message=F, warning=F}
-data3=data2%>%select(Ext, Upper.TSALD, Lower.TSALD, Skeletal.AP, Upper.lip...E.line, Lower.lip...E.line, Age, Sex, RACE) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A") %>% filter(RACE!="      " & Upper.lip...E.line!="N/A" & Lower.lip...E.line!="N/A" & Skeletal.AP!="N/A")
-data3 %>% datatable(extensions = 'Buttons',
+sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD, Skeletal.AP, Upper.lip...E.line, Lower.lip...E.line, Age, Sex, RACE) %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A") %>% filter(RACE=="HISP  " | RACE=="AFRAM " |  RACE=="CAUC  " |  RACE=="OTHER " |  RACE=="UNKN  " |  RACE=="ASIAN ") %>% filter(Upper.lip...E.line!="N/A" & Lower.lip...E.line!="N/A" & Skeletal.AP!="N/A") %>% drop_na()
+sub_data %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
+####### be careful about filter for RACE 
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
-colnames(data3)[5:6]=c("Upper_lip", "Lower_lip")
+colnames(sub_data)[5:6]=c("Upper_lip", "Lower_lip")
 HISP=as.character()
-HISP[which(data3$RACE=="HISP  ")]="Yes"; HISP[which(data3$RACE!="HISP  ")]="No"
-data3=data3%>% mutate(HISP=HISP)
-data3$Lower.TSALD=as.numeric(data3$Lower.TSALD)
-data3$Upper_lip=as.numeric(data3$Upper_lip)
-data3$Lower_lip=as.numeric(data3$Lower_lip)
+HISP[which(sub_data$RACE=="HISP  ")]="Yes"; HISP[which(sub_data$RACE!="HISP  ")]="No"
+sub_data=sub_data%>% mutate(HISP=HISP)
+sub_data$Lower.TSALD=as.numeric(sub_data$Lower.TSALD)
+sub_data$Upper_lip=as.numeric(sub_data$Upper_lip)
+sub_data$Lower_lip=as.numeric(sub_data$Lower_lip)
 
-glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD+Skeletal.AP+Upper_lip+Lower_lip+Age+Sex+HISP, data = data3, family = "binomial") # response variable need to be factor 
+glm_fit=glm(as.factor(Ext)~Upper.TSALD+Lower.TSALD+Skeletal.AP+Upper_lip+Lower_lip+Age+Sex+HISP, data = sub_data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 
 
@@ -275,7 +277,7 @@ lay <-  matrix(c(1,1,1,1,1,1,1,1,1,1,2,3,3), nrow = 1)
 grid.arrange(plot1, tab1, tab2, layout_matrix = lay)
 
 #######################
-cor(data3[,c(2,3,5,6)])
+cor(sub_data[,c(2,3,5,6)])
 
 ```
 
@@ -285,7 +287,7 @@ cor(data3[,c(2,3,5,6)])
 
 ### raw data 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 ###########
 g1=ggplot(data %>% count(Extraction) %>%mutate(prop=n/nrow(data)), aes(x=Extraction, y=n, fill=as.character(Extraction))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -327,7 +329,7 @@ g4
 ### data without missing values 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 data1=data%>%select(Extraction, Age, Sex,CustomCode1, Problem.List...Skeletal...Vertical, Model.Analysis...Maxillary.TSALD.in.mm, Model.Analysis...Mandibular.TSALD.in.mm, Problem.List...Soft.Tissues...A.P.Upper.lip.to.E.line, Problem.List...Soft.Tissues...A.P.Lower.lip.to.E.line) %>% drop_na() %>% filter(Extraction==0 | Extraction==1) %>% filter(Sex==1 | Sex==2) %>% filter(CustomCode1!="      ") %>% filter(Problem.List...Skeletal...Vertical!="N/A" & Model.Analysis...Maxillary.TSALD.in.mm!="N/A" & Model.Analysis...Mandibular.TSALD.in.mm!="N/A" & Problem.List...Soft.Tissues...A.P.Upper.lip.to.E.line!="N/A" & Problem.List...Soft.Tissues...A.P.Lower.lip.to.E.line!="N/A")
 data1 %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
@@ -340,7 +342,7 @@ data1 %>% datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 ###########
 ggplot(data1 %>% count(Extraction), aes(x=Extraction, y=n, fill=as.character(Extraction))) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -378,7 +380,7 @@ ggplot(data1 %>% count(CustomCode1), aes(x=CustomCode1, y=n, fill=as.character(C
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 glm_fit=glm(as.factor(Extraction)~Age+ Sex, data = data, family = "binomial") # response variable need to be factor 
 cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm_fit))[,4])
 ```
