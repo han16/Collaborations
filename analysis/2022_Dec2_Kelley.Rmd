@@ -217,7 +217,7 @@ dat=data.frame(
   #Mean_Ratio=c("1.12(0)", "1.02(0.004)", "0.84(0)", "0.95(0)", "1.08(0)", "1.25(0)", "0.94(0.001)", "1.20(0)"),
   LL=exp(round(confint(glm_fit)[2:(1+no_cova),1],2)),
   UL=exp(round(confint(glm_fit)[2:(1+no_cova),2],2)),
-  CI=c("0.673, 0.925", "0.630, 0.867", "0.602, 5.715", "0.649, 15.782", "0.864, 1.306", "0.964, 1.417", "0.986, 1.116", "0.323, 2.244"),
+  CI=c("0.718, 0.923", "0.682, 0.859", "0.660, 3.305", "0.539, 5.671", "0.918, 1.257", "0.996, 1.324", "1.014, 1.106", "0.571, 2.305"),
   p_value=round(coef(summary(glm_fit))[2:(1+no_cova),4],3)
 )
 
@@ -388,10 +388,11 @@ cor(sub_data[,c(2,3,5,6)])
 ```
 
 
-## descriptive analysis 
+## v4: raw data 
 
 
-### raw data 
+### descriptive analysis 
+
 
 ```{r, echo=F, message=F, warning=F, eval=T}
 ###########
@@ -482,7 +483,7 @@ ggplot(data1 %>% dplyr::count(CustomCode1), aes(x=CustomCode1, y=n, fill=as.char
 
 
 
-## logistic regression 
+### logistic regression 
 
 
 
