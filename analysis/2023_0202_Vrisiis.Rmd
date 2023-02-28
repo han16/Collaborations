@@ -561,7 +561,7 @@ ggplot(sub_data_mean, aes(x=time, y=Vertical_mid_mean, fill=methods)) +
                  position=position_dodge(.9))+
   theme(legend.title=element_blank())+ # remove legend title
   geom_text(aes(label=round(Vertical_mid_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
-  #ylim(c(0,19))+
+  ylab("Vertical_mid")+
   geom_signif(annotations ="p<0.001", y_position = 3  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="red")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p=0.714", y_position = 3  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0)+
   geom_signif(annotations ="p=0.045", y_position = 3  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
@@ -668,7 +668,7 @@ ggplot(sub_data_mean, aes(x=time, y=Vertical_max_mean, fill=methods)) +
                  position=position_dodge(.9))+
   theme(legend.title=element_blank())+ # remove legend title
   geom_text(aes(label=round(Vertical_max_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
-  #ylim(c(0,19))+
+  ylab("Vertical_max")+
   geom_signif(annotations ="p<0.001", y_position = y_position  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="red")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p=0.075", y_position = y_position  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0)+
   geom_signif(annotations ="p=0.169", y_position = y_position  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0, color="black")+
@@ -773,14 +773,15 @@ datatable(extensions = 'Buttons',
 #ggplot(sub_data_mean, aes(x=time, y=Width_3mm_mean, group=methods)) +
 #  geom_line(aes(color=methods))+
 #  geom_point(aes(color=methods))
-y_position=68
+y_position=max(sub_data_mean$vol_mean+sub_data_mean$vol_sd)+0.5
 ggplot(sub_data_mean, aes(x=time, y=vol_mean, fill=methods)) + 
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
   geom_errorbar(aes(ymin=vol_mean-vol_sd, ymax=vol_mean+vol_sd), width=.2,
                  position=position_dodge(.9))+
+  theme(legend.title=element_blank())+ # remove legend title
   geom_text(aes(label=round(vol_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
-  #ylim(c(0,19))+
+  ylab("%vol")+
   geom_signif(annotations ="p=0.015", y_position = y_position  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="red")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p<0.001", y_position = y_position  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p<0.001", y_position = y_position  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
@@ -811,7 +812,7 @@ data_Width_3mm_long <- reshape(data_Width_3mm, idvar="id", varying=c("y1","y2","
 attach(data_Width_3mm_long) # when attaching variables, DO not use same variable names multiple times 
 
 ######### plot mean curve 
-interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="%vol", main="", col=c(2,4))
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="%vol", main="", col=c(2,4), trace.label = "")
 
 
 
@@ -891,12 +892,13 @@ ggplot(sub_data_mean, aes(x=time, y=VAS_pain_mean, fill=methods)) +
            position=position_dodge()) +
   geom_errorbar(aes(ymin=VAS_pain_mean-VAS_pain_sd, ymax=VAS_pain_mean+VAS_pain_sd), width=.2,
                  position=position_dodge(.9))+
+  theme(legend.title=element_blank())+ # remove legend title
   geom_text(aes(label=round(VAS_pain_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
-  #ylim(c(0,19))+
+  ylab("VAS_pain")+
   geom_signif(annotations ="p<0.001", y_position = y_position  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="red")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p=0.008", y_position = y_position  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p<0.001", y_position = y_position  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
-  geom_signif(annotations ="p=0.022", y_position = y_position  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0, color="black")+
+  geom_signif(annotations ="p=0.022", y_position = y_position  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p=0.185", y_position = y_position  ,xmin=4.7, xmax=5.3, size=1, vjust=-0.5, textsize=3.0, color="black")
 
 ```
@@ -922,7 +924,7 @@ data_Width_3mm_long <- reshape(data_Width_3mm, idvar="id", varying=c("y1","y2","
 attach(data_Width_3mm_long) # when attaching variables, DO not use same variable names multiple times 
 
 ######### plot mean curve 
-interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="%vol", main="", col=c(2,4))
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="%vol", main="", col=c(2,4), trace.label = "")
 
 
 
@@ -1000,12 +1002,13 @@ ggplot(sub_data_mean, aes(x=time, y=variable_mean, fill=methods)) +
            position=position_dodge()) +
   geom_errorbar(aes(ymin=variable_mean-variable_sd, ymax=variable_mean+variable_sd), width=.2,
                  position=position_dodge(.9))+
+  theme(legend.title=element_blank())+ # remove legend title
   geom_text(aes(label=round(variable_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
   ylab("VAS_swell")+
   geom_signif(annotations ="p=0.004", y_position = y_position  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="red")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p=0.002", y_position = y_position  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p<0.001", y_position = y_position  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
-  geom_signif(annotations ="p=0.045", y_position = y_position  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0, color="black")+
+  geom_signif(annotations ="p=0.045", y_position = y_position  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p=0.327", y_position = y_position  ,xmin=4.7, xmax=5.3, size=1, vjust=-0.5, textsize=3.0, color="black")
 
 ```
@@ -1032,7 +1035,7 @@ data_Width_3mm_long <- reshape(data_Width_3mm, idvar="id", varying=c("y1","y2","
 attach(data_Width_3mm_long) # when attaching variables, DO not use same variable names multiple times 
 
 ######### plot mean curve 
-interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="VAS_swell", main="", col=c(2,4))
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="VAS_swell", main="", col=c(2,4), trace.label = "")
 
 
 
@@ -1111,12 +1114,13 @@ ggplot(sub_data_mean, aes(x=time, y=variable_mean, fill=methods)) +
            position=position_dodge()) +
   geom_errorbar(aes(ymin=variable_mean-variable_sd, ymax=variable_mean+variable_sd), width=.2,
                  position=position_dodge(.9))+
+  theme(legend.title=element_blank())+ # remove legend title
   geom_text(aes(label=round(variable_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
   ylab("VAS_mouth_open")+
   geom_signif(annotations ="p=0.062", y_position = y_position  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="black")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p=0.002", y_position = y_position  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p=0.001", y_position = y_position  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
-  geom_signif(annotations ="p=0.010", y_position = y_position  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0, color="black")+
+  geom_signif(annotations ="p=0.010", y_position = y_position  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p=0.328", y_position = y_position  ,xmin=4.7, xmax=5.3, size=1, vjust=-0.5, textsize=3.0, color="black")
 
 ```
@@ -1142,7 +1146,7 @@ data_Width_3mm_long <- reshape(data_Width_3mm, idvar="id", varying=c("y1","y2","
 attach(data_Width_3mm_long) # when attaching variables, DO not use same variable names multiple times 
 
 ######### plot mean curve 
-interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="VAS_mouth_open", main="", col=c(2,4))
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="VAS_mouth_open", main="", col=c(2,4), trace.label = "")
 
 
 
@@ -1221,9 +1225,10 @@ ggplot(sub_data_mean, aes(x=time, y=variable_mean, fill=methods)) +
            position=position_dodge()) +
   geom_errorbar(aes(ymin=variable_mean-variable_sd, ymax=variable_mean+variable_sd), width=.2,
                  position=position_dodge(.9))+
+  theme(legend.title=element_blank())+ # remove legend title
   geom_text(aes(label=round(variable_mean,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
   ylab("OHIP")+
-  geom_signif(annotations ="p=0.038", y_position = y_position  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  geom_signif(annotations ="p=0.038", y_position = y_position  ,xmin=0.7, xmax=1.2, size=1, vjust=-0.5, textsize=3, color="red")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p=0.128", y_position = y_position  ,xmin=1.7, xmax=2.3, size=1, vjust=-0.5, textsize=3.0, color="black")+
   geom_signif(annotations ="p=0.009", y_position = y_position  ,xmin=2.7, xmax=3.3, size=1, vjust=-0.5, textsize=3.0, color="red")+
   geom_signif(annotations ="p=0.066", y_position = y_position  ,xmin=3.7, xmax=4.3, size=1, vjust=-0.5, textsize=3.0, color="black")+
@@ -1253,7 +1258,7 @@ data_Width_3mm_long <- reshape(data_Width_3mm, idvar="id", varying=c("y1","y2","
 attach(data_Width_3mm_long) # when attaching variables, DO not use same variable names multiple times 
 
 ######### plot mean curve 
-interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="OHIP", main="", col=c(2,4))
+interaction.plot(time, treatment, y, type="b", pch=c(19,21), xlab="Time", ylab="OHIP", main="", col=c(2,4), trace.label = "")
 
 
 
