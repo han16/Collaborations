@@ -1048,7 +1048,7 @@ model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = va
 
 
 
-## VAS_moth_open 
+## VAS_mouth_open 
 
 ```{r, echo=F, message=F, warning=F}
 ########## extract the data for variable of interest 
