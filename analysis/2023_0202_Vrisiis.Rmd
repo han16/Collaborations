@@ -165,6 +165,7 @@ model <- gls(y ~ treatment*time, corr=corSymm(, form= ~ time | id), weights = va
 ```
 
 
+* if p value of `treatment:time` is less than 5%, two samples are globally different, otherwise not. 
 
 ## Width_diff_3mm
 
