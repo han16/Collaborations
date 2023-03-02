@@ -38,7 +38,7 @@ for (i in 1:length(p_value))
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202203\\Marinho\\total.csv", header=T))
 ```
 
-
+## Summary statistics 
 
 ```{r, echo=F, message=F, warning=F}
 ggplot(data %>% count(Malocclusion) %>%mutate(prop=n/nrow(data)), aes(x=Malocclusion, y=n, fill=as.character(Malocclusion))) +geom_bar(stat="identity")+
@@ -70,6 +70,62 @@ g2=ggplot(data, aes(x=Age)) +
             color="red", linetype="dashed", size=1)
 g2
 
+
+```
+
+
+## discretize the  age 
+
+```{r, echo=T, message=F, warning=F}
+age_group=as.character()
+age_group[which(data$Age<=10)]="Phase_A"
+age_group[which(data$Age>10 & data$Age<=13)]="Phase_B"
+age_group[which(data$Age>13)]="Phase_C"
+data_with_age_group=data%>%mutate(age_group=age_group)
+
+ggplot(data_with_age_group %>% count(age_group) %>%mutate(prop=n/nrow(data_with_age_group)), aes(x=age_group, y=n, fill=as.character(age_group))) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title 
+```
+
+* Phase_A: `data$Age<=10`
+
+* Phase_B: `data$Age>10 & data$Age<=13`
+
+* Phase_C: `data$Age>13`
+
+```{r, echo=F, message=F, warning=F}
+unique_id=unique(data$ID)
+phase_a=matrix(nrow=length(unique_id), ncol=4)
+phase_b=matrix(nrow=length(unique_id), ncol=4)
+phase_c=matrix(nrow=length(unique_id), ncol=4)
+for (i in 1:length(unique_id))
+{
+  #cat(i, "is running", "\n")
+  data_id=data_with_age_group %>% filter(ID==unique_id[i]) %>% select(L1.GoMe.mm, L6.GoMe.mm, U6.SN7.mm, U1.SN7.mm, age_group)
+  #############
+  data_id_a=data_id %>% filter(age_group=="Phase_A")
+  if (nrow(data_id_a)>0)
+    for (j in 1:4)
+      phase_a[i,j]=mean(data_id_a[,j] %>% pull) # use the mean for that specific phase 
+   #############
+  data_id_b=data_id %>% filter(age_group=="Phase_B")
+  if (nrow(data_id_b)>0)
+    for (j in 1:4)
+      phase_b[i,j]=mean(data_id_b[,j] %>% pull) # use the mean for that specific phase
+  
+   #############
+  data_id_c=data_id %>% filter(age_group=="Phase_C")
+  if (nrow(data_id_c)>0)
+    for (j in 1:4)
+      phase_c[i,j]=mean(data_id_c[,j] %>% pull) # use the mean for that specific phase
+  
+}
+
+data_phase=data.frame(ID=rep(unique_id, 3), Malocclusion=rep(unique(data$Malocclusion), 3), Sex=rep(unique(data$Sex),3), L1.GoMe.mm=c(phase_a[,1], phase_b[,1], phase_c[,1]), L6.GoMe.mm=c(phase_a[,2], phase_b[,2], phase_c[,2]), U6.SN7.mm=c(phase_a[,3], phase_b[,3], phase_c[,3]), U1.SN7.mm=c(phase_a[,4], phase_b[,4], phase_c[,4]), time=rep(c("Phase_A", "Phase_B", "Phase_C"), each=nrow(phase_a))) %>% drop_na()
 
 ```
 
