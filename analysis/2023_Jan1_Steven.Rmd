@@ -18,6 +18,7 @@ set.seed(123)
 
 
 ```{r, echo=F, warning=F, message=F}
+######## adjust p values 
 pvalue_adjust=function(p_value)
 {
   p_value_adjust=numeric()
@@ -32,11 +33,59 @@ for (i in 1:length(p_value))
 }
   return(p_value_adjust)
 }
+############### summary statistics for continuous variable 
+summary_statistics=function(data)
+{  # each column is one variable, and row one subject 
+  
+  variables=colnames(data)
+num_sample=numeric()
+Mean=numeric()
+SD=numeric()
+SE=numeric()
+range_min=numeric()
+range_max=numeric()
+for (i in 1:ncol(data))
+{
+  observation=data[,i]
+  observation=observation[!is.na(observation)]
+  num_sample[i]=length(observation)
+  Mean[i]=round(mean(observation),4)
+  SD[i]=round(sd(observation),4)
+  SE[i]=round(SD[i]/sqrt(num_sample[i]),4)
+  range_min[i]=round(min(observation),4)
+  range_max[i]=round(max(observation),4)
+}
+
+summary_data=data.frame(materials=variables, num_sample=num_sample, Mean=Mean, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max)
+
+summary_data%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
+ return(summary_data) 
+}
+
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
 data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Steven\\Results_Final.csv", header=T)
+```
+
+
+## Summary statistics 
+
+```{r, echo=F, message=F, warning=F}
+data_summary=summary_statistics(data)
+data_summary%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -52,6 +101,7 @@ f1=ggplot(sub_data, aes(x=materials, y=MPA, fill=materials)) +
   theme(legend.position = "none")
 f1
 anova(lm(MPA~ materials, data=sub_data))
+
 ```
 
 * p value of `< 2.2e-16` suggests 3 materials are not all equal 
