@@ -48,7 +48,7 @@ data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202212
 ## v1: Extraction, Upper TSALD, and Lower TSALD
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=T, message=F, warning=F}
 sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A")
 sub_data %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
@@ -67,7 +67,7 @@ sub_data$Lower.TSALD=as.numeric(sub_data$Lower.TSALD)
 ```
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=T, message=F, warning=F}
 #sub_data$Ext=as.vector(sub_data$Ext)
 sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD) %>% drop_na() %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A")
 ggplot(sub_data %>% dplyr::count(Ext), aes(x=Ext, y=n, fill=as.character(Ext))) +geom_bar(stat="identity")+
@@ -184,7 +184,7 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=T, message=F, warning=F}
 sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD, Skeletal.AP, Upper.lip...E.line, Lower.lip...E.line, Age, Sex) %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A") %>% filter(Upper.lip...E.line!="N/A" & Lower.lip...E.line!="N/A" & Skeletal.AP!="N/A") %>% drop_na()
 sub_data %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
@@ -287,7 +287,7 @@ cor(sub_data[,c(2,3,5,6)])
 ## v3: Extraction, Upper TSALD, Lower TSALD, and others 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=T, message=F, warning=F}
 sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD, Skeletal.AP, Upper.lip...E.line, Lower.lip...E.line, Age, Sex, RACE) %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A") %>% filter(RACE=="HISP  " | RACE=="AFRAM " |  RACE=="CAUC  " |  RACE=="OTHER " |  RACE=="UNKN  " |  RACE=="ASIAN ") %>% filter(Upper.lip...E.line!="N/A" & Lower.lip...E.line!="N/A" & Skeletal.AP!="N/A") %>% drop_na()
 sub_data %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
@@ -502,7 +502,7 @@ cbind(exp(cbind(OR = coef(glm_fit), confint(glm_fit))), p_value=coef(summary(glm
 
 ## v5: 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=T, message=F, warning=F}
 sub_data=data%>%select(Ext, Upper.TSALD, Lower.TSALD, Skeletal.AP, Upper.lip...E.line, Lower.lip...E.line, Age, Sex, Skeletal.Ver) %>% filter(Ext==0 | Ext==1) %>% filter(Lower.TSALD!="N/A") %>% filter(Upper.lip...E.line!="N/A" & Lower.lip...E.line!="N/A" & Skeletal.AP!="N/A") %>% filter(Skeletal.Ver!="N/A") %>% drop_na()
 sub_data %>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
