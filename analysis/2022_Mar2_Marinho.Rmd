@@ -107,6 +107,8 @@ g2
 
 ```
 
+* in total there are 96 individuals 
+
 
 ## discretize the  age 
 
@@ -161,6 +163,8 @@ for (i in 1:length(unique_id))
 
 data_phase=data.frame(ID=rep(unique_id, 3), Malocclusion=rep(unique(data$Malocclusion), 3), Sex=rep(unique(data$Sex),3), L1.GoMe.mm=c(phase_a[,1], phase_b[,1], phase_c[,1]), L6.GoMe.mm=c(phase_a[,2], phase_b[,2], phase_c[,2]), U6.SN7.mm=c(phase_a[,3], phase_b[,3], phase_c[,3]), U1.SN7.mm=c(phase_a[,4], phase_b[,4], phase_c[,4]), time=rep(c("Phase_A", "Phase_B", "Phase_C"), each=nrow(phase_a))) %>% drop_na()
 
+common_id=intersect(intersect(data_phase%>% filter(time=="Phase_A") %>% select(ID) %>% pull, data_phase%>% filter(time=="Phase_B") %>% select(ID) %>% pull), data_phase%>% filter(time=="Phase_C") %>% select(ID) %>% pull )
+
 ```
 
 
@@ -171,6 +175,7 @@ data_phase=data.frame(ID=rep(unique_id, 3), Malocclusion=rep(unique(data$Maloccl
 
 
 ```{r, echo=F, message=F, warning=F}
+
 mean=numeric(); sd=numeric()
 phase=c("Phase_A", "Phase_B", "Phase_C"); gender=c("M", "F")
 variable="L1.GoMe.mm"
@@ -178,8 +183,8 @@ k=1
 for (i in 1:length(phase))
   for (j in 1:length(gender))
   {
-    mean[k]=round(mean(data_phase %>% filter(time==phase[i] & Sex==gender[j]) %>% select(variable) %>% pull),4) 
-    sd[k]=round(sd(data_phase %>% filter(time==phase[i] & Sex==gender[j]) %>% select(variable) %>% pull),4)
+    mean[k]=round(mean(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T) %>% select(variable) %>% pull),4) 
+    sd[k]=round(sd(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T ) %>% select(variable) %>% pull),4)
     k=k+1
   }
 sub_data=data.frame(time=rep(phase, each=length(gender)), sex=rep(gender, length(phase)), mean=mean, sd=sd)
@@ -201,11 +206,16 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+
+* in total, 57 individuals have complete data across phase A, B, C 
+
+
+
 #### response profile 
 
 
 ```{r, echo=F, message=F, warning=F}
-common_id=intersect(intersect(data_phase%>% filter(time=="Phase_A") %>% select(ID) %>% pull, data_phase%>% filter(time=="Phase_B") %>% select(ID) %>% pull), data_phase%>% filter(time=="Phase_C") %>% select(ID) %>% pull )
 
 
 Patient.ID.Number=1:length(common_id)
@@ -234,6 +244,8 @@ model <- gls(y ~ Gender*time, corr=corSymm(, form= ~ time | id), weights = varId
 
  anova(model)
 ```
+
+### L6.GoMe.mm
 
 
 
@@ -245,8 +257,8 @@ k=1
 for (i in 1:length(phase))
   for (j in 1:length(gender))
   {
-    mean[k]=round(mean(data_phase %>% filter(time==phase[i] & Sex==gender[j]) %>% select(variable) %>% pull),4) 
-    sd[k]=round(sd(data_phase %>% filter(time==phase[i] & Sex==gender[j]) %>% select(variable) %>% pull),4)
+    mean[k]=round(mean(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T) %>% select(variable) %>% pull),4) 
+    sd[k]=round(sd(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T) %>% select(variable) %>% pull),4)
     k=k+1
   }
 sub_data=data.frame(time=rep(phase, each=length(gender)), sex=rep(gender, length(phase)), mean=mean, sd=sd)
@@ -301,6 +313,147 @@ model <- gls(y ~ Gender*time, corr=corSymm(, form= ~ time | id), weights = varId
 
  anova(model)
 ```
+
+
+
+### U6.SN7.mm
+
+
+
+```{r, echo=F, message=F, warning=F}
+mean=numeric(); sd=numeric()
+phase=c("Phase_A", "Phase_B", "Phase_C"); gender=c("M", "F")
+variable="U6.SN7.mm"
+k=1
+for (i in 1:length(phase))
+  for (j in 1:length(gender))
+  {
+    mean[k]=round(mean(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T ) %>% select(variable) %>% pull),4) 
+    sd[k]=round(sd(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T) %>% select(variable) %>% pull),4)
+    k=k+1
+  }
+sub_data=data.frame(time=rep(phase, each=length(gender)), sex=rep(gender, length(phase)), mean=mean, sd=sd)
+
+###################
+ggplot(sub_data, aes(x=time, y=mean, group=sex, color=sex)) + 
+  geom_line() +
+  geom_point()+
+  ylab(variable)+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                 position=position_dodge(.05)) 
+###################
+sub_data%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+#### response profile 
+
+
+```{r, echo=F, message=F, warning=F}
+common_id=intersect(intersect(data_phase%>% filter(time=="Phase_A") %>% select(ID) %>% pull, data_phase%>% filter(time=="Phase_B") %>% select(ID) %>% pull), data_phase%>% filter(time=="Phase_C") %>% select(ID) %>% pull )
+
+
+Patient.ID.Number=1:length(common_id)
+
+#trt=Patient.ID.Number
+#trt[1:nrow(sub_data_juan)]="Juan"
+#trt[(nrow(sub_data_juan)+1):length(trt)]="MM25"
+#trt=factor(trt)
+
+sex=data_phase %>% filter(ID %in% common_id & time=="Phase_A") %>% select(Sex) %>% pull
+
+data_common_id=data.frame(id=Patient.ID.Number, Gender=sex, y1=data_phase %>% filter(ID %in% common_id & time=="Phase_A") %>% select(variable) %>% pull,y2=data_phase %>% filter(ID %in% common_id & time=="Phase_B") %>% select(variable) %>% pull, y3=data_phase %>% filter(ID %in% common_id & time=="Phase_C") %>% select(variable) %>% pull)
+
+######## convert into long format 
+data_common_id_long <- reshape(data_common_id, idvar="id", varying=c("y1","y2","y3"), v.names="y", timevar="time", time=1:3, direction="long")
+attach(data_common_id_long) # when attaching variables, DO not use same variable names multiple times 
+
+######### plot mean curve 
+interaction.plot(time, Gender, y, type="b", pch=c(19,21), xlab="Time", ylab=variable, main="", col=c(2,4), trace.label = "") # trace.plot: legend title 
+
+
+
+library(nlme)
+model <- gls(y ~ Gender*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
+#summary(model)
+
+ anova(model)
+```
+
+### U1.SN7.mm
+
+
+
+```{r, echo=F, message=F, warning=F}
+mean=numeric(); sd=numeric()
+phase=c("Phase_A", "Phase_B", "Phase_C"); gender=c("M", "F")
+variable="U1.SN7.mm"
+k=1
+for (i in 1:length(phase))
+  for (j in 1:length(gender))
+  {
+    mean[k]=round(mean(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T ) %>% select(variable) %>% pull),4) 
+    sd[k]=round(sd(data_phase %>% filter(time==phase[i] & Sex==gender[j] & ID %in% common_id==T) %>% select(variable) %>% pull),4)
+    k=k+1
+  }
+sub_data=data.frame(time=rep(phase, each=length(gender)), sex=rep(gender, length(phase)), mean=mean, sd=sd)
+
+###################
+ggplot(sub_data, aes(x=time, y=mean, group=sex, color=sex)) + 
+  geom_line() +
+  geom_point()+
+  ylab(variable)+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                 position=position_dodge(.05)) 
+###################
+sub_data%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+#### response profile 
+
+
+```{r, echo=F, message=F, warning=F}
+common_id=intersect(intersect(data_phase%>% filter(time=="Phase_A") %>% select(ID) %>% pull, data_phase%>% filter(time=="Phase_B") %>% select(ID) %>% pull), data_phase%>% filter(time=="Phase_C") %>% select(ID) %>% pull )
+
+
+Patient.ID.Number=1:length(common_id)
+
+#trt=Patient.ID.Number
+#trt[1:nrow(sub_data_juan)]="Juan"
+#trt[(nrow(sub_data_juan)+1):length(trt)]="MM25"
+#trt=factor(trt)
+
+sex=data_phase %>% filter(ID %in% common_id & time=="Phase_A") %>% select(Sex) %>% pull
+
+data_common_id=data.frame(id=Patient.ID.Number, Gender=sex, y1=data_phase %>% filter(ID %in% common_id & time=="Phase_A") %>% select(variable) %>% pull,y2=data_phase %>% filter(ID %in% common_id & time=="Phase_B") %>% select(variable) %>% pull, y3=data_phase %>% filter(ID %in% common_id & time=="Phase_C") %>% select(variable) %>% pull)
+
+######## convert into long format 
+data_common_id_long <- reshape(data_common_id, idvar="id", varying=c("y1","y2","y3"), v.names="y", timevar="time", time=1:3, direction="long")
+attach(data_common_id_long) # when attaching variables, DO not use same variable names multiple times 
+
+######### plot mean curve 
+interaction.plot(time, Gender, y, type="b", pch=c(19,21), xlab="Time", ylab=variable, main="", col=c(2,4), trace.label = "") # trace.plot: legend title 
+
+
+
+library(nlme)
+model <- gls(y ~ Gender*time, corr=corSymm(, form= ~ time | id), weights = varIdent(form = ~ 1 | time))
+#summary(model)
+
+ anova(model)
+```
+
 
 
 ## statistical software 
