@@ -168,6 +168,12 @@ common_id=intersect(intersect(data_phase%>% filter(time=="Phase_A") %>% select(I
 ```
 
 
+
+
+```{r, echo=F, message=F, warning=F}
+var_phase_group=data.frame(phase==c("Phase_A", "Phase_B", "Phase_C"), sd=c())
+```
+
 ### L1.GoMe.mm
 
 #### time plots 

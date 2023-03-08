@@ -1,0 +1,68 @@
+---
+title: "3/8/2023"
+output: html_document
+date: "2023-03-08"
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(DT)
+set.seed(123)
+```
+
+
+```{r, echo=F, warning=F, message=F}
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+############### summary statistics for continuous variable 
+summary_statistics=function(data)
+{  # each column is one variable, and row one subject 
+  
+  variables=colnames(data)
+num_sample=numeric()
+Mean=numeric()
+SD=numeric()
+SE=numeric()
+range_min=numeric()
+range_max=numeric()
+for (i in 1:ncol(data))
+{
+  observation=data[,i]
+  observation=observation[!is.na(observation)]
+  num_sample[i]=length(observation)
+  Mean[i]=round(mean(observation),4)
+  SD[i]=round(sd(observation),4)
+  SE[i]=round(SD[i]/sqrt(num_sample[i]),4)
+  range_min[i]=round(min(observation),4)
+  range_max[i]=round(max(observation),4)
+}
+
+summary_data=data.frame(materials=variables, num_sample=num_sample, Mean=Mean, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max)
+
+summary_data%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
+ return(summary_data) 
+}
+```
