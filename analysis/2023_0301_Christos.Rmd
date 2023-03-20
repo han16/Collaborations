@@ -66,3 +66,33 @@ datatable(extensions = 'Buttons',
  return(summary_data) 
 }
 ```
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Christos\\Data Collection sheet - Final.csv", header=T))
+```
+
+## use R package [BUGSnet](https://bugsnetsoftware.github.io/) 
+
+```{r, echo=F, message=F, warning=F, eval=F}
+#install.packages(c("remotes", "knitr"))
+remotes::install_github("audrey-b/BUGSnet@v1.1.0", upgrade = TRUE, build_vignettes = TRUE, dependencies = TRUE)
+
+#remotes::install_github("audrey-b/BUGSnet@v1.1.0", upgrade = TRUE, build_vignettes = TRUE, dependencies = TRUE)
+```
+## [MetaStan](https://cran.r-project.org/web/packages/MetaStan/MetaStan.pdf)
+
+## multinma 
+
+```{r, echo=F, message=F, warning=F}
+#install.packages("multinma")
+library(multinma)
+```
+
+
+## Reference 
+
+* [Network meta-analysis: application and practice using R software](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6635665/pdf/epih-41-e2019013.pdf)
+
+* [bayesmeta](https://cran.r-project.org/web/packages/bayesmeta/vignettes/Roever2020-bayesmeta.pdf)
+
+* [multinma](https://dmphillippo.github.io/multinma/articles/vignette_overview.html)
