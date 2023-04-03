@@ -60,10 +60,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
+
 ```
 
 
@@ -333,6 +330,13 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
+### power analysis 
+
+```{r, echo=F, warning=F, message=F}
+## use example of K3_Saline vs 	K3_NaOCI
+power.t.test(n=10, delta=230, sd=30)
+```
 
 
 ```{r, echo=F, message=F, warning=F}

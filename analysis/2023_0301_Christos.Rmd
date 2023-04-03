@@ -86,7 +86,56 @@ remotes::install_github("audrey-b/BUGSnet@v1.1.0", upgrade = TRUE, build_vignett
 ```{r, echo=F, message=F, warning=F}
 #install.packages("multinma")
 library(multinma)
+head(parkinsons)
+
 ```
+
+###  [Analysis of arm-based data](https://dmphillippo.github.io/multinma/articles/example_parkinsons.html)
+
+```{r, echo=F, message=F, warning=F}
+arm_net <- set_agd_arm(parkinsons, 
+                      study = studyn,
+                      trt = trtn,
+                      y = y, 
+                      se = se,
+                      sample_size = n)
+arm_net
+plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
+```
+
+```{r, echo=F, message=F, warning=F}
+summary(normal(scale = 100))
+
+arm_fit_FE <- nma(arm_net, 
+                  trt_effects = "fixed",
+                  prior_intercept = normal(scale = 100),
+                  prior_trt = normal(scale = 10))
+#> Note: Setting "4" as the network reference treatment.
+#> 
+#> 
+#> arm_fit_FE
+#> A fixed effects NMA with a normal likelihood (identity link).
+#> Inference for Stan model: normal.
+#> 4 chains, each with iter=2000; warmup=1000; thin=1; 
+#> post-warmup draws per chain=1000, total post-warmup draws=4000.
+#> 
+#>       mean se_mean   sd   2.5%   25%   50%   75% 97.5% n_eff Rhat
+#> d[1]  0.53    0.01 0.46  -0.38  0.21  0.53  0.84  1.42  1624    1
+#> d[2] -1.29    0.01 0.50  -2.27 -1.63 -1.29 -0.95 -0.30  1731    1
+#> d[3]  0.03    0.01 0.32  -0.60 -0.18  0.04  0.24  0.66  2253    1
+#> d[5] -0.30    0.00 0.21  -0.71 -0.44 -0.30 -0.17  0.10  2401    1
+#> lp__ -6.63    0.06 2.35 -12.04 -7.99 -6.28 -4.92 -3.10  1719    1
+#> 
+#> Samples were drawn using NUTS(diag_e) at Mon Aug 29 22:15:09 2022.
+#> For each parameter, n_eff is a crude measure of effective sample size,
+#> and Rhat is the potential scale reduction factor on split chains (at 
+#> convergence, Rhat=1).
+#> 
+
+print(arm_fit_FE, pars = c("d", "mu"))
+plot_prior_posterior(arm_fit_FE)
+```
+
 
 
 ## Reference 
