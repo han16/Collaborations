@@ -133,7 +133,7 @@ ggplot(data_with_age_group %>% count(age_group) %>%mutate(prop=n/nrow(data_with_
 
 * Phase_C: `data$Age>13`
 
-```{r, echo=F, message=F, warning=F, cache=T}
+```{r, echo=F, message=F, warning=F, cache=F}
 unique_id=unique(data$ID)
 mal_for_unique_id=numeric()
 sex_for_unique_id=character()
