@@ -170,7 +170,7 @@ data_phase=data.frame(ID=rep(unique_id, 3), Malocclusion=rep(mal_for_unique_id, 
 
 common_id=intersect(intersect(data_phase%>% filter(time=="Phase_A") %>% select(ID) %>% pull, data_phase%>% filter(time=="Phase_B") %>% select(ID) %>% pull), data_phase%>% filter(time=="Phase_C") %>% select(ID) %>% pull )
 
-data_phase%>%
+data_phase%>%filter(ID %in% common_id==T)%>% 
 datatable(extensions = 'Buttons',
           caption="", 
             options = list(dom = 'Blfrtip',
@@ -180,6 +180,9 @@ datatable(extensions = 'Buttons',
 
 ```
 
+* list all 57 individuals with observations in all 3 phases 
+
+
 
 ```{r, echo=F, message=F, warning=F}
 mal=c("1", "2"); sex=c("M", "F")
@@ -188,12 +191,12 @@ num=numeric(); k=1
 for (i in 1:length(mal))
   for (j in 1:length(sex))
      { 
-      num[k]=length(unique(data_phase %>% filter(Malocclusion==mal[i] & Sex==sex[j]) %>% select(ID) %>% pull))
+      num[k]=length(unique(data_phase %>% filter(ID %in% common_id==T) %>% filter(Malocclusion==mal[i] & Sex==sex[j]) %>% select(ID) %>% pull))
       k=k+1
      }
 data.frame(Malocclusion=rep(mal, each=2), Sex=rep(sex, 2), num=num)%>%
 datatable(extensions = 'Buttons',
-          caption="sample split by Malocclusion and Sex ", 
+          caption="57 samples split by Malocclusion and Sex ", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -239,7 +242,8 @@ ggplot(phase_variations, aes(x=variables, y=sd, fill=phase)) +
 ```
 
 * 92 individuals are phase A, 90 at phase B and 60 at phase C. 
-* randomly choose 60 individuals at each of 3 phases, to ensure same sample size for variations  
+* randomly choose 60 individuals at each of 3 phases, to ensure same sample size for variations. 
+* this result uses all 92 individuals, including 57 individuals having observations across 3 phases. 
 
 
 
