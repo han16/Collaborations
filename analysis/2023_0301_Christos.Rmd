@@ -98,10 +98,13 @@ arm_net <- set_agd_arm(parkinsons,
                       trt = trtn,
                       y = y, 
                       se = se,
-                      sample_size = n)
+                      sample_size = n) # use trt_ref to set reference treatment 
 arm_net
 plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
 ```
+
+#### fixed effect meta-analysis
+
 
 ```{r, echo=F, message=F, warning=F}
 summary(normal(scale = 100))
@@ -132,11 +135,63 @@ arm_fit_FE <- nma(arm_net,
 #> convergence, Rhat=1).
 #> 
 
-print(arm_fit_FE, pars = c("d", "mu"))
+print(arm_fit_FE, pars = c("d", "mu")) # mu: study specific intercept; d_k treatment effects 
 plot_prior_posterior(arm_fit_FE)
 ```
+* there are 7 studies and 5 treatments with 4 as reference 
 
 
+
+#### Random effects meta-analysis
+
+
+```{r, echo=F, message=F, warning=F}
+summary(normal(scale = 100))
+summary(half_normal(scale = 5))
+arm_fit_RE <- nma(arm_net, 
+                  seed = 379394727,
+                  trt_effects = "random",
+                  prior_intercept = normal(scale = 100),
+                  prior_trt = normal(scale = 100),
+                  prior_het = half_normal(scale = 5),
+                  adapt_delta = 0.99)
+
+
+pairs(arm_fit_RE, pars = c("mu[4]", "d[3]", "delta[4: 3]", "tau"))
+arm_fit_RE
+```
+
+## [metafor](https://www.wvbauer.com/lib/exe/fetch.php/talks:2019_viechtbauer_lsp_ma_longitudinal.pdf)
+
+```{r, echo=F, message=F, warning=F}
+ dat <- data.frame( 
+   study = c("Jones et al. (1998)", "Lewis et al. (2004)",
+ "Grant et al. (2006)", "Berry et al. (2013)",
+ "Nolan et al. (2015)", "Clark et al. (2016)"),
+ age1 = c( 20, 20, 20, 20, 20, 20),
+ age2 = c( 40, 40, 40, 40, 40, 40),
+ mean1 = c(13.4, 2.9, 55.8, 19.2, 6.6, 10.1),
+ mean2 = c(15.1, 3.6, 61.2, 18.8, 8.5, 10.2),
+ sd1 = c( 4.8, 1.2, 22.3, 2.9, 3.4, 3.8),
+ n = c( 78, 22, 188, 35, 54, 112),
+ r = c( .32, .29, .28, .41, .35, .19))
+
+library(metafor)
+ # calculate standardized mean changes (with raw score standardization)
+ dat <- escalc(measure="SMCR", m1i=mean2, m2i=mean1, # "SMCR" for the standardized mean change using raw score standardization
+ sd1i=sd1, ni=n, ri=r, data=dat, slab=study)
+
+ # fit random-effects model and examine results
+ res <- rma(yi, vi, data=dat)
+ res 
+ 
+ 
+  # create a forest and funnel plot side-by-side
+ # note: the plots below have been customized a bit
+ par(mfrow=c(1,2))
+ forest(res)
+ funnel(res)
+```
 
 ## Reference 
 
@@ -145,3 +200,5 @@ plot_prior_posterior(arm_fit_FE)
 * [bayesmeta](https://cran.r-project.org/web/packages/bayesmeta/vignettes/Roever2020-bayesmeta.pdf)
 
 * [multinma](https://dmphillippo.github.io/multinma/articles/vignette_overview.html)
+
+* [metafor](https://www.wvbauer.com/lib/exe/fetch.php/talks:2019_viechtbauer_lsp_ma_longitudinal.pdf); longitudinal meta analysis
