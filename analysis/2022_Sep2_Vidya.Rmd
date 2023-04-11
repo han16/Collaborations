@@ -206,6 +206,9 @@ datatable(extensions = 'Buttons',
 
 ```
 
+* wilcox.test was used. 
+
+
 
 ### anova 
 
@@ -245,7 +248,7 @@ anova(LM)
 data2=data.frame(OCP=c(data$Icorr..nA.), file=as.factor(data$File))
 kruskal.test(OCP ~ file, data=data2)
 ```
-* Kruskal-Wallis test was used 
+* Kruskal-Wallis test was used.  
 
 ## NaOCI 
 
@@ -323,6 +326,41 @@ datatable(extensions = 'Buttons',
 ```
 
 
+* two sample t test was used 
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); median_difference=numeric();
+ii=0
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+ for (j in 1:length(brands))  
+{
+   ii=ii+1
+  group1=data_NaOCI %>% filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[j])%>% select(OCP..mV..1.hr) %>% pull
+  
+  test=wilcox.test(group1, group2, alternative = "two.sided")
+  median_difference[ii]=median(group1)-median(group2)
+
+  p_value[ii]=test$p.value
+ }
+
+result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), median_difference=round(median_difference,2),  p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50, 52:60, 62:70, 72:80, 82:90, 92:100)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* wilcox.test was used 
+
 
 #### Icorr 
 
@@ -357,6 +395,40 @@ datatable(extensions = 'Buttons',
 
 ```
 
+* two sample t test was used 
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); median_difference=numeric()
+ii=0
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+ for (j in 1:length(brands))  
+{
+   ii=ii+1
+  group1=data_NaOCI %>% filter(File==brands[i])%>% select(Icorr..nA.) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[j])%>% select(Icorr..nA.) %>% pull
+  
+  test=wilcox.test(group1, group2, alternative = "two.sided")
+  median_difference[ii]=median(group1)-median(group2)
+  
+  p_value[ii]=test$p.value
+ }
+
+result=data_frame(group1=rep(brands,each=10), group2=rep(brands,10), median_difference=round(median_difference,2),  p_value=pvalue_adjust(p_value)) 
+
+result$group1[c(2:10, 12:20, 22:30, 32:40, 42:50, 52:60, 62:70, 72:80, 82:90, 92:100)]="---"
+result%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* wilcox.test was used 
+
 
 ### anova 
 
@@ -372,6 +444,11 @@ anova(LM)
 * small p value suggests OCP are not all equal across 10 brands 
 
 
+```{r, echo=F, message=F, warning=F}
+data1=data.frame(OCP=c(data_NaOCI$OCP..mV..1.hr), file=as.factor(data_NaOCI$File))
+kruskal.test(OCP ~ file, data=data1)
+
+```
 #### Icorr
 
 
@@ -383,6 +460,13 @@ anova(LM)
 
 
 * p value, `1.525e-15`<0.05  suggests Icorr are not all equal across 10 brands 
+
+
+
+```{r, echo=F, message=F, warning=F}
+data2=data.frame(OCP=c(data_NaOCI$Icorr..nA.), file=as.factor(data_NaOCI$File))
+kruskal.test(OCP ~ file, data=data2)
+```
 
 
 ## saline vs naocI 
@@ -415,6 +499,37 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+* two sample t test was used 
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); median_difference=numeric()
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+{
+  group1=data%>% filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull
+  
+   test=wilcox.test(group1, group2, alternative = "two.sided")
+  median_difference[i]=median(group1)-median(group2)
+ 
+  p_value[i]=test$p.value
+ }
+
+result=data_frame(group1=paste(brands,"Saline", sep="_"), group2=paste(brands,"NaOCI", sep="_"), median_difference=round(median_difference,2),   p_value=pvalue_adjust(p_value)) 
+
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption="OCP",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+*  wilcox.test was used 
 
 
 ### power analysis 
