@@ -37,26 +37,28 @@ for (i in 1:length(p_value))
 summary_statistics=function(data)
 {  # each column is one variable, and row one subject 
   
-  variables=colnames(data)
+variables=colnames(data)
 num_sample=numeric()
 Mean=numeric()
 SD=numeric()
 SE=numeric()
 range_min=numeric()
 range_max=numeric()
+normality_pvalue=numeric()
 for (i in 1:ncol(data))
 {
   observation=data[,i]
-  observation=observation[!is.na(observation)]
+  observation=observation[!is.na(observation)] # remove missing values 
   num_sample[i]=length(observation)
   Mean[i]=round(mean(observation),4)
   SD[i]=round(sd(observation),4)
   SE[i]=round(SD[i]/sqrt(num_sample[i]),4)
   range_min[i]=round(min(observation),4)
   range_max[i]=round(max(observation),4)
+  normality_pvalue[i]=round(shapiro.test(observation)$p.value,4)
 }
 
-summary_data=data.frame(materials=variables, num_sample=num_sample, Mean=Mean, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max)
+summary_data=data.frame(materials=variables, num_sample=num_sample, Mean=Mean, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max, normality_pvalue=normality_pvalue)
 
 summary_data%>%
 datatable(extensions = 'Buttons',
@@ -73,6 +75,7 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Steven\\Results_Final.csv", header=T)
+#colnames(data)
 ```
 
 
@@ -86,7 +89,21 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+ggqqplot(data$Integrity.24.Hours, main="QQ plot of Integrity.24.Hours")
+ggqqplot(data$Integrity.1.month, main="QQ plot of Integrity.1.month")
+ggqqplot(data$Integrity.Thermocycling, main="QQ plot of Integrity.Thermocycling")
+
+ggqqplot(data$Crown.tec.24.hours, main="QQ plot of Crown.tec.24.hours")
+ggqqplot(data$Crown.tec.1.month, main="QQ plot of Crown.tec.1.month")
+ggqqplot(data$Crowntec.Thermocycling, main="QQ plot of Crowntec.Thermocycling")
+
+ggqqplot(data$MFH.24.Hours, main="QQ plot of MFH.24.Hours")
+ggqqplot(data$MFH.1.Month, main="QQ plot of MFH.1.Month")
+ggqqplot(data$MFH.Thermocycling, main="QQ plot of MFH.Thermocycling")
 ```
+
+* `shapiro.test` was used to test normality and p values less than 0.05 is evidence against normal distribution. 
 
 
 ## anova test 
@@ -94,28 +111,34 @@ datatable(extensions = 'Buttons',
 ### 24 hours 
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data.frame(MPA=c(data$Integrity.24.Hours, data$Crown.tec.24.hours, data$MFH.24.Hours), materials=rep(c("Integrity", "Crown.tec", "MPH"), each=nrow(data)))
+sub_data=data.frame(MPA=c(data$Integrity.24.Hours, data$Crown.tec.24.hours, data$MFH.24.Hours), materials=rep(c("Integrity", "Crown.tec", "MFH"), each=nrow(data)))
 
 f1=ggplot(sub_data, aes(x=materials, y=MPA, fill=materials)) +
   geom_boxplot()+
   theme(legend.position = "none")
 f1
 anova(lm(MPA~ materials, data=sub_data))
-
+###############
+kruskal.test(MPA~ materials, data=sub_data)
 ```
 
 * p value of `< 2.2e-16` suggests 3 materials are not all equal 
 
+* nonparametric test `Kruskal-Wallis test` gives small p value of `1.8e-12`
+
 ### Thermocycling 
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data.frame(MPA=c(data$Integrity.Thermocycling, data$Crowntec.Thermocycling, data$MFH.Thermocycling), materials=rep(c("Integrity", "Crown.tec", "MPH"), each=nrow(data)))
+sub_data=data.frame(MPA=c(data$Integrity.Thermocycling, data$Crowntec.Thermocycling, data$MFH.Thermocycling), materials=rep(c("Integrity", "Crown.tec", "MFH"), each=nrow(data)))
 
 f1=ggplot(sub_data, aes(x=materials, y=MPA, fill=materials)) +
   geom_boxplot()+
   theme(legend.position = "none")
 f1
 anova(lm(MPA~ materials, data=sub_data))
+
+##############
+kruskal.test(MPA~ materials, data=sub_data)
 ```
 
 
@@ -125,13 +148,16 @@ anova(lm(MPA~ materials, data=sub_data))
 ### one month  
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data.frame(MPA=c(data$Integrity.1.month, data$Crown.tec.1.month, data$MFH.1.Month), materials=rep(c("Integrity", "Crown.tec", "MPH"), each=nrow(data)))
+sub_data=data.frame(MPA=c(data$Integrity.1.month, data$Crown.tec.1.month, data$MFH.1.Month), materials=rep(c("Integrity", "Crown.tec", "MFH"), each=nrow(data)))
 
 f1=ggplot(sub_data, aes(x=materials, y=MPA, fill=materials)) +
   geom_boxplot()+
   theme(legend.position = "none")
 f1
 anova(lm(MPA~ materials, data=sub_data))
+
+####################
+kruskal.test(MPA~ materials, data=sub_data)
 ```
 
 * p value of `< 2.2e-16` suggests 3 materials are not all equal 
@@ -145,7 +171,7 @@ anova(lm(MPA~ materials, data=sub_data))
 
 ```{r, echo=F, message=F, warning=F}
 #sub_data=data.frame(Integrity.24.Hours=data$Integrity.24.Hours, Integrity.1.month=data$Integrity.1.month, Integrity.Thermocycling=data$Integrity.Thermocycling)
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); p_value_wilcox=numeric()
 group2=data$Integrity.24.Hours
 group2<-group2[!is.na(group2)] # remove NA values 
 for (i in 1:2)
@@ -158,10 +184,11 @@ for (i in 1:2)
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=colnames(data)[2:3], group2=rep(colnames(data)[1], 2), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=colnames(data)[2:3], group2=rep(colnames(data)[1], 2), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -182,17 +209,19 @@ sub_data=data.frame(
   condition=colnames(data)[1:3])
 
 y_position=max(sub_data$MPA+sub_data$sd)+5
-
+sub_data$condition=c("(1) Integrity.24.Hours", "(3) Integrity.1.month", "(2) Integrity.Thermocycling")
 ggplot(sub_data, aes(x=condition, y=MPA, fill=condition)) + 
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
   geom_errorbar(aes(ymin=MPA-sd, ymax=MPA+sd), width=.2,
                  position=position_dodge(.9))+
   theme(legend.title=element_blank())+
+  xlab("")+
+  ylim(c(0,220))+
   geom_text(aes(label=round(MPA,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
   ylab("MPA")+
-  geom_signif(annotations ="p=0.569", y_position =y_position  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3, color="black")+
-  geom_signif(annotations ="p=0.999", y_position =y_position  ,xmin=2.1, xmax=3, size=1, vjust=-0.5, textsize=3, color="black")
+  geom_signif(annotations ="p=0.999", y_position =y_position  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3, color="black")+
+  geom_signif(annotations ="p=0.569", y_position =y_position+15  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3, color="black")
 ```
 
 
@@ -201,7 +230,7 @@ ggplot(sub_data, aes(x=condition, y=MPA, fill=condition)) +
 
 
 ```{r, echo=F, message=F, warning=F}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); p_value_wilcox=numeric()
 group2=data$Crown.tec.24.hours
 group2<-group2[!is.na(group2)] # remove NA values 
 for (i in 1:2)
@@ -214,10 +243,11 @@ for (i in 1:2)
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=colnames(data)[5:6], group2=rep(colnames(data)[4], 2), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=colnames(data)[5:6], group2=rep(colnames(data)[4], 2), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -239,24 +269,28 @@ sub_data=data.frame(
 
 y_position=max(sub_data$MPA+sub_data$sd)+5
 
+sub_data$condition=c("(1) Crown.tec.24.hours", "(3) Crown.tec.1.month",     "(2) Crown.tec.Thermocycling")
 ggplot(sub_data, aes(x=condition, y=MPA, fill=condition)) + 
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
   geom_errorbar(aes(ymin=MPA-sd, ymax=MPA+sd), width=.2,
                  position=position_dodge(.9))+
   theme(legend.title=element_blank())+
+  ylim(c(0,220))+
+  xlab("")+
   geom_text(aes(label=round(MPA,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
   ylab("MPA")+
-  geom_signif(annotations ="p=0.005", y_position =y_position  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3, color="red")+
-  geom_signif(annotations ="p=0.750", y_position =y_position  ,xmin=2.1, xmax=3, size=1, vjust=-0.5, textsize=3, color="black")
+  theme(axis.text.x = element_text(angle = 15, vjust = 0.5, size=10))+
+  geom_signif(annotations ="p=0.750", y_position =y_position  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3, color="black")+
+  geom_signif(annotations ="p=0.005", y_position =y_position+15  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3, color="red")
 ```
 
 
-### MPH
+### MFH
 
 
 ```{r, echo=F, message=F, warning=F}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); p_value_wilcox=numeric()
 group2=data$MFH.24.Hours
 group2<-group2[!is.na(group2)] # remove NA values 
 for (i in 1:2)
@@ -269,10 +303,11 @@ for (i in 1:2)
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=colnames(data)[8:9], group2=rep(colnames(data)[7], 2), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=colnames(data)[8:9], group2=rep(colnames(data)[7], 2), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -294,16 +329,19 @@ sub_data=data.frame(
 
 y_position=max(sub_data$MPA+sub_data$sd)+5
 
+sub_data$condition=c("(1) MFH.24.Hours", "(3) MFH.1.Month", "(2) MFH.Thermocycling")
 ggplot(sub_data, aes(x=condition, y=MPA, fill=condition)) + 
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
   geom_errorbar(aes(ymin=MPA-sd, ymax=MPA+sd), width=.2,
                  position=position_dodge(.9))+
   theme(legend.title=element_blank())+
+   ylim(c(0,220))+
+  xlab("")+
   geom_text(aes(label=round(MPA,2)), position=position_dodge(width=0.8), vjust=-0.5, color="blue")+  # add numbers over bars; vjust: adjust the vertical position of numbers 
   ylab("MPA")+
-  geom_signif(annotations ="p=0.272", y_position =y_position  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3, color="black")+
-  geom_signif(annotations ="p=0.681", y_position =y_position  ,xmin=2.1, xmax=3, size=1, vjust=-0.5, textsize=3, color="black")
+  geom_signif(annotations ="p=0.681", y_position =y_position  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3, color="black")+
+  geom_signif(annotations ="p=0.272", y_position =y_position+15  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3, color="black")
 ```
 
 
