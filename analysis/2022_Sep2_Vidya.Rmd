@@ -569,3 +569,37 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
+
+
+```{r, echo=F, message=F, warning=F}
+p_value=numeric(); median_difference=numeric(); CI_lower=numeric()
+ii=0
+brands=unique(data_NaOCI$File)
+for (i in 1:length(brands))
+{
+  group1=data%>% filter(File==brands[i])%>% select(Icorr..nA.) %>% pull
+  group2=data_NaOCI %>% filter(File==brands[i])%>% select(Icorr..nA.) %>% pull
+  
+   test=wilcox.test(group1, group2, alternative = "two.sided")
+  median_difference[i]=median(group1)-median(group2)
+ 
+  
+  p_value[i]=test$p.value
+ }
+
+result=data_frame(group1=paste(brands,"Saline", sep="_"), group2=paste(brands,"NaOCI", sep="_"), median_difference=round(median_difference,2), p_value=pvalue_adjust(p_value)) 
+
+
+result%>%
+datatable(extensions = 'Buttons',
+          caption="Icorr",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+*  wilcox.test was used 
+
