@@ -573,7 +573,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-p_value=numeric(); median_difference=numeric(); CI_lower=numeric()
+p_value=numeric(); median_difference=numeric(); 
 ii=0
 brands=unique(data_NaOCI$File)
 for (i in 1:length(brands))

@@ -251,6 +251,11 @@ ggplot(phase_variations, aes(x=variables, y=sd, fill=phase)) +
 ### L1.GoMe.mm
 
 
+
+
+#### repeated analysis 
+
+
 ```{r, echo=F, message=F, warning=F}
 
 mean=numeric(); sd=numeric()
@@ -307,6 +312,9 @@ model <- gls(y ~ Gender*time, corr=corSymm(, form= ~ time | id), weights = varId
 
 
 * in total, 57 individuals have complete data across phase A, B, C 
+
+
+
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -367,12 +375,70 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
 
 
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="L1.GoMe.mm"
+k=1
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
 
 
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="L1.GoMe.mm"
+k=1
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 ### L6.GoMe.mm
 
+
+#### repeated analysis 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -492,7 +558,71 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
  anova(model)
 ```
 
+
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="L6.GoMe.mm"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="L6.GoMe.mm"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 ### U6.SN7.mm
+
+
+#### repeated analysis 
 
 
 
@@ -611,12 +741,73 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+```
+
+
+
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="U6.SN7.mm"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="U6.SN7.mm"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 ```
 
 
 ### U1.SN7.mm
 
 
+#### repeated analysis 
 
 ```{r, echo=F, message=F, warning=F}
 mean=numeric(); sd=numeric()
@@ -735,11 +926,70 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
 
 
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="U1.SN7.mm"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="U1.SN7.mm"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 ### wits
 
 
+#### repeated analysis 
+
 
 ```{r, echo=F, message=F, warning=F}
 mean=numeric(); sd=numeric()
@@ -856,12 +1106,72 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
  anova(model)
 ```
 
+
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="Wits"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="Wits"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 ### Co.Go
 
 
 
+#### repeated analysis 
+
 ```{r, echo=F, message=F, warning=F}
 mean=numeric(); sd=numeric()
 phase=c("Phase_A", "Phase_B", "Phase_C"); gender=c("M", "F")
@@ -976,10 +1286,71 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
 ```
+
+
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="Co.Go"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="Co.Go"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
 
 
 ### N.Me
 
+#### repeated analysis 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1096,9 +1467,70 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
 ```
+
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="N.Me"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="N.Me"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
 
 ### S.Go.N.Me
 
+#### repeated analysis 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1216,11 +1648,68 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
  anova(model)
 ```
 
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="S.Go.N.Me"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="S.Go.N.Me"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 ### ANS.Me.N.Me
 
-
+#### repeated analysis 
 
 ```{r, echo=F, message=F, warning=F}
 mean=numeric(); sd=numeric()
@@ -1337,12 +1826,72 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
  anova(model)
 ```
 
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="ANS.Me.N.Me"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="ANS.Me.N.Me"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 
 ### ANB
 
 
+#### repeated analysis 
+
+
 
 ```{r, echo=F, message=F, warning=F}
 mean=numeric(); sd=numeric()
@@ -1460,6 +2009,63 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 ```
 
 
+
+#### individual phase analysis 
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="ANB"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Sex=="M" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Sex=="F" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, M_vs_F=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* two sample t test was used 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+phase=c("Phase_A", "Phase_B", "Phase_C")
+p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+variable="ANB"
+for (i in 1:length(phase))
+  {
+    sample1=data_phase %>% filter(time==phase[i] & Malocclusion=="1" & ID %in% common_id==T) %>% select(variable) %>% pull
+    sample2=data_phase %>% filter(time==phase[i] & Malocclusion=="2" & ID %in% 
+common_id==T ) %>% select(variable) %>% pull
+    test=t.test(sample1, sample2)
+    p_value[i]=test$p.value
+    estimate[i]=test$estimate[1]-test$estimate[2]
+    CI_lower[i]=test$conf.int[1]
+    CI_upper[i]=test$conf.int[2]
+}
+data.frame(phase=phase, Malocclusion1_vs_Malocclusion2=round(estimate,4), CI_lowe=round(CI_lower,4), CI_upper=round(CI_upper,4), p_value=pvalue_adjust(p_value))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 ## statistical software 
