@@ -513,6 +513,11 @@ sub_data %>% datatable(extensions = 'Buttons',
 ```
 
 
+* The model is $log\frac{P(Extraction)}{1-P(Extraction)}=\beta_0+\beta_1Upper.TSALD+\beta_2Lower.TSALD+\beta_3Skeletal.AP+\beta_4Upper\_lip+\beta_5Lower\_lip+\beta_6Age+\beta_7Sex+\beta_8Skeletal.Ver$
+
+
+* $\beta$ estimates are OR column in the following table.  
+
 
 ```{r, echo=F, message=F, warning=F}
 colnames(sub_data)[5:6]=c("Upper_lip", "Lower_lip")
