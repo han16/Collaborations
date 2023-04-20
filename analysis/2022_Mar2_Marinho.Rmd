@@ -370,7 +370,20 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ 
 ```
+
+
+
+
+
 
 
 
@@ -556,6 +569,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -741,6 +760,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -922,6 +947,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -1104,6 +1135,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -1285,6 +1322,13 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -1466,6 +1510,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -1646,6 +1696,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -1824,6 +1880,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
@@ -2006,6 +2068,12 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+ 
+ ################### repeated anova 
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
+ res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
+get_anova_table(res.aov)
 ```
 
 
