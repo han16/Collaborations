@@ -370,9 +370,14 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+```
  
  
- ################### repeated anova 
+#### repeated anova  within Mal groups
+
+ 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
@@ -380,8 +385,31 @@ get_anova_table(res.aov)
  
 ```
 
+#### paired two sample t tests 
 
 
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
 
 
 
@@ -570,12 +598,50 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
  
- ################### repeated anova 
+```
+
+
+
+
+
+#### repeated anova  within Mal groups
+
+ 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
 
 
 
@@ -760,13 +826,50 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+```
+
+
+
+
+
+#### repeated anova  within Mal groups
+
  
- ################### repeated anova 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
 
 
 
@@ -948,12 +1051,47 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
  
- ################### repeated anova 
+```
+
+
+#### repeated anova  within Mal groups
+
+ 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
 
 
 
@@ -1135,13 +1273,49 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+
+```
+
+
+
+#### repeated anova  within Mal groups
+
  
- ################### repeated anova 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
 
 
 
@@ -1323,13 +1497,50 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
  
+
+```
+
+
+
+#### repeated anova  within Mal groups
+
  
- ################### repeated anova 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
+
 
 
 
@@ -1511,12 +1722,50 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
  
- ################### repeated anova 
+```
+
+
+
+
+#### repeated anova  within Mal groups
+
+ 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
+
 
 
 #### individual phase analysis 
@@ -1696,13 +1945,51 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 #summary(model)
 
  anova(model)
+
+```
+
+
+#### repeated anova  within Mal groups
+
  
- ################### repeated anova 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
+
+
+
 
 
 #### individual phase analysis 
@@ -1881,12 +2168,50 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
  
- ################### repeated anova 
+```
+
+
+
+#### repeated anova  within Mal groups
+
+ 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
+
+
 
 
 #### individual phase analysis 
@@ -2069,12 +2394,49 @@ model <- gls(y ~ Malocclusion*time, corr=corSymm(, form= ~ time | id), weights =
 
  anova(model)
  
- ################### repeated anova 
+```
+
+
+
+#### repeated anova  within Mal groups
+
+ 
+```{r, echo=F, message=F, warning=F}
+################### repeated anova 
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==1), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
  res.aov <- anova_test(data = data_common_id_long %>% filter(Malocclusion==2), dv = y, wid = id, within = time)
 get_anova_table(res.aov)
+ 
 ```
+
+#### paired two sample t tests 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+
+  mal_group1=data_common_id %>% filter(Malocclusion==1)%>% select(y1, y2, y3)
+  pvalue[1]=t.test(mal_group1[,1], mal_group1[,2], paired=T)$p.value
+  pvalue[2]=t.test(mal_group1[,2], mal_group1[,3], paired=T)$p.value
+  
+  mal_group2=data_common_id %>% filter(Malocclusion==2)%>% select(y1, y2, y3)
+  pvalue[3]=t.test(mal_group2[,1], mal_group2[,2], paired=T)$p.value
+  pvalue[4]=t.test(mal_group2[,2], mal_group2[,3], paired=T)$p.value
+data.frame(Malocclusion=c("1", "2"), phaseA_vs_phaseB=pvalue_adjust(pvalue[c(1,3)]), phaseB_vs_phaseC=pvalue_adjust(pvalue[c(2,4)]))%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+  
+```
+
+* two sample paired t test was used. 
+
+
 
 
 
