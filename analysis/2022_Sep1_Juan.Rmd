@@ -81,6 +81,12 @@ data$Width_3mm_T5=abs(data$Width_3mm_T5) # all observations for "Width_3mm" must
 data$Width_3mm_T6=abs(data$Width_3mm_T6)
 old_data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Juan\\Research Valencia-Kofina implants.csv"))
 old_data2=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Juan\\Research Valencia-Kofina implants.csv"))
+wound_open_new=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Juan\\JV implants n=26.csv", header=T)
+###### update wound_open 
+data$Wound_open_T3_YN=wound_open_new$Wound_open_T3_YN
+data$Wound_open_T4_YN=wound_open_new$Wound_open_T4_YN
+data$Wound_open_T5_YN=wound_open_new$Wound_open_T5_YN
+data$Wound_open_T6_YN=wound_open_new$Wound_open_T6_YN
 ```
 
 
@@ -350,6 +356,7 @@ Width_3mm_data[,4]=data_long %>% filter(time=="T4") %>% select(Width_3mm) %>% pu
 Width_3mm_data[,5]=data_long %>% filter(time=="T5") %>% select(Width_3mm) %>% pull
 Width_3mm_data[,6]=data_long %>% filter(time=="T6") %>% select(Width_3mm) %>% pull
 Mean=numeric(); SD=numeric(); SE=numeric(); Range_low=numeric(); Range_upper=numeric()
+normality_pvalue=numeric()
 for (i in 1:6)
 {
   Mean[i]=round(mean(Width_3mm_data[,i]),4)
@@ -357,9 +364,10 @@ for (i in 1:6)
   SE[i]=round(SD[i]/sqrt(nrow(data)),4)
   Range_low[i]=round(min(Width_3mm_data[,i]),4)
   Range_upper[i]=round(max(Width_3mm_data[,i]),4)
+  normality_pvalue[i]=round(shapiro.test(Width_3mm_data[,i])$p.value,4)
 }
 
-data.frame(Time=c("T1", "T2", "T3", "T4", "T5", "T6"), Mean=Mean, SD=SD, SE=SE, Range_low=Range_low, Range_upper=Range_upper)%>%
+data.frame(Time=c("T1", "T2", "T3", "T4", "T5", "T6"), Mean=Mean, SD=SD, SE=SE, Range_low=Range_low, Range_upper=Range_upper, normality_pvalue= normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -368,7 +376,7 @@ datatable(extensions = 'Buttons',
 
 ```
 
-
+* use `shapiro.test` to test normality assumption and p values less than 0.05 indicates evidence against normal distribution. 
 
 
 ### pairwise comparisons
@@ -379,6 +387,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:6)
  for (j in 1:6)
 {
@@ -391,11 +400,13 @@ for (i in 1:6)
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
   
-  
+  #############
+  wilcox_test=wilcox.test(samplei, samplej, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=wilcox_test$p.value
  }
 
 
-result=data_frame(group1=rep(colnames(data)[6:11], each=6), group2=rep(colnames(data)[6:11],6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[6:11], each=6), group2=rep(colnames(data)[6:11],6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value),wilcox_test_pvalue=pvalue_adjust(wilcox_test_pvalue)) 
 result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
 
 result%>%
@@ -406,7 +417,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* use paired two sample t test 
+* use paired two sample t test and wilcox test 
+
 
 
 ### test different across all time points 
@@ -434,7 +446,7 @@ get_anova_table(res.aov)
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); 
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 # replace data[8,13]=5.4646 by referring to old sample 
-
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(11+i)] %>% pull
@@ -448,17 +460,16 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  normality_pvalue[i]=pvalue_adjust(shapiro.test(Width_3mm_data[,i])$p.value)
 }
-data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()
 ```
 
 * use one sample t test to test each parameter is equal to 0 or not
@@ -470,6 +481,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -481,8 +493,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+  #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
 }
-result=data_frame(group1=rep(colnames(data)[12:16],each=5), group2=rep(colnames(data)[12:16],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[12:16],each=5), group2=rep(colnames(data)[12:16],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
 datatable(extensions = 'Buttons',
@@ -490,11 +506,6 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -503,6 +514,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(16+i)] %>% pull
@@ -516,23 +528,24 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()
+
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -544,8 +557,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+  #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
 }
-result=data_frame(group1=rep(colnames(data)[17:21],each=5), group2=rep(colnames(data)[17:21],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[17:21],each=5), group2=rep(colnames(data)[17:21],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -555,10 +572,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -568,7 +581,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
-
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(21+i)] %>% pull
@@ -582,23 +595,24 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()
+
 ```
 
 
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -610,8 +624,13 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+   #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(data)[22:26],each=5), group2=rep(colnames(data)[22:26],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[22:26],each=5), group2=rep(colnames(data)[22:26],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -620,11 +639,6 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -635,6 +649,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(26+i)] %>% pull
@@ -648,17 +663,16 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
 ```
 
 
@@ -667,6 +681,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -678,8 +693,13 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+  #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(data)[27:31],each=5), group2=rep(colnames(data)[27:31],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[27:31],each=5), group2=rep(colnames(data)[27:31],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -689,10 +709,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -703,6 +719,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(31+i)] %>% pull
@@ -716,17 +733,17 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
+ 
 ```
 
 
@@ -734,6 +751,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -745,8 +763,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+   #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
 }
-result=data_frame(group1=rep(colnames(data)[32:36],each=5), group2=rep(colnames(data)[32:36],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[32:36],each=5), group2=rep(colnames(data)[32:36],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -756,10 +778,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
+
 ```
 
 
@@ -769,6 +788,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(44+i)] %>% pull
@@ -782,8 +802,10 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[45:49], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[45:49], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -797,6 +819,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -808,8 +831,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+   #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
 }
-result=data_frame(group1=rep(colnames(data)[45:49],each=5), group2=rep(colnames(data)[45:49],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[45:49],each=5), group2=rep(colnames(data)[45:49],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -827,6 +854,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(49+i)] %>% pull
@@ -840,8 +868,13 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[50:54], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[50:54], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -855,6 +888,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -866,8 +900,13 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+   #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(data)[50:54],each=5), group2=rep(colnames(data)[50:54],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[50:54],each=5), group2=rep(colnames(data)[50:54],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -886,6 +925,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(54+i)] %>% pull
@@ -899,17 +939,19 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+   if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[55:59], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[55:59], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
 ```
 
 
@@ -917,6 +959,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -928,8 +971,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+    #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
 }
-result=data_frame(group1=rep(colnames(data)[55:59],each=5), group2=rep(colnames(data)[55:59],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[55:59],each=5), group2=rep(colnames(data)[55:59],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -939,10 +986,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
+
 ```
 
 ## VAS_mouth_open 
@@ -952,6 +996,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(59+i)] %>% pull
@@ -965,17 +1010,21 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
+  
 }
-data_frame(parameter=colnames(data)[60:64], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[60:64], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
+
 ```
 
 
@@ -983,6 +1032,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -994,8 +1044,13 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+    #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(data)[60:64],each=5), group2=rep(colnames(data)[60:64],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[60:64],each=5), group2=rep(colnames(data)[60:64],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -1004,11 +1059,6 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -1018,6 +1068,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(64+i)] %>% pull
@@ -1031,17 +1082,20 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+  if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[65:69], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[65:69], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
+ 
 ```
 
 
@@ -1049,6 +1103,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
 {
@@ -1060,8 +1115,13 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+     #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(data)[65:69],each=5), group2=rep(colnames(data)[65:69],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[65:69],each=5), group2=rep(colnames(data)[65:69],5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -1071,10 +1131,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 ## Wound_open_bl 
@@ -1085,6 +1141,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, eval=T}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+normality_pvalue=numeric()
 for (i in 1:4)
 {
   current=data[,(69+i)] %>% pull
@@ -1098,17 +1155,21 @@ for (i in 1:4)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  
+   if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
+  
 }
-data_frame(parameter=colnames(data)[70:73], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4))%>%
+data_frame(parameter=colnames(data)[70:73], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()  
+
 ```
 
 
@@ -1116,6 +1177,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:4)
   for (j in 1:4)
 {
@@ -1127,8 +1189,13 @@ for (i in 1:4)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+       #############
+  wilcox_test=wilcox.test(group1, group2, paired=T, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(data)[70:73],each=4), group2=rep(colnames(data)[70:73],4), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(data)[70:73],each=4), group2=rep(colnames(data)[70:73],4), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:4, 6:8, 10:12, 14:16)]="---"
 result%>%
@@ -1138,10 +1205,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
+
 ```
 
 ## Wound_open 
@@ -1390,6 +1454,8 @@ annotate_figure(figure2,
 )
 
 ```
+
+
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1843,12 +1909,15 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
 ## T2-T1 
+
 
 ```{r, echo=F, message=F, warning=F}
 T2.T1=data %>% select(ends_with("T2.T1"))
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
   {
@@ -1861,8 +1930,13 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+       #############
+  wilcox_test=wilcox.test(group1, group2, paired=F, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(T2.T1),each=5), group2=rep(colnames(T2.T1),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(T2.T1),each=5), group2=rep(colnames(T2.T1),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -1871,11 +1945,6 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -1885,6 +1954,7 @@ datatable(extensions = 'Buttons',
 T3.T2=data %>% select(ends_with("T3.T2") | ends_with("T2.T3"))
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
   {
@@ -1897,8 +1967,13 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+       #############
+  wilcox_test=wilcox.test(group1, group2, paired=F, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(T3.T2),each=5), group2=rep(colnames(T3.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(T3.T2),each=5), group2=rep(colnames(T3.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -1908,10 +1983,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -1922,6 +1993,7 @@ datatable(extensions = 'Buttons',
 T4.T2=data %>% select(ends_with("T4.T2") | ends_with("T2.T4"))
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
   {
@@ -1934,8 +2006,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+       #############
+  wilcox_test=wilcox.test(group1, group2, paired=F, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
 }
-result=data_frame(group1=rep(colnames(T4.T2),each=5), group2=rep(colnames(T4.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(T4.T2),each=5), group2=rep(colnames(T4.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -1945,10 +2021,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -1958,6 +2030,7 @@ datatable(extensions = 'Buttons',
 T5.T2=data %>% select(ends_with("T5.T2") | ends_with("T2.T5"))
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
   {
@@ -1970,8 +2043,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+  
+       #############
+  wilcox_test=wilcox.test(group1, group2, paired=F, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
 }
-result=data_frame(group1=rep(colnames(T5.T2),each=5), group2=rep(colnames(T5.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(T5.T2),each=5), group2=rep(colnames(T5.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
@@ -1981,10 +2058,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-#%>%
-#  kbl() %>%
-#  kable_styling()%>%
-#scroll_box(height = "300px")
 ```
 
 
@@ -1994,6 +2067,7 @@ datatable(extensions = 'Buttons',
 T6.T2=data %>% select(ends_with("T6.T2") | ends_with("T2.T6"))
 p_value=numeric(); mean_difference=numeric(); CI_lower=numeric(); CI_upper=numeric()
 ii=0
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
   for (j in 1:5)
   {
@@ -2006,8 +2080,12 @@ for (i in 1:5)
   CI_lower[ii]=test$conf.int[1]
   CI_upper[ii]=test$conf.int[2]
   p_value[ii]=test$p.value
+       #############
+  wilcox_test=wilcox.test(group1, group2, paired=F, alternative = "two.sided")
+  wilcox_test_pvalue[ii]=pvalue_adjust(wilcox_test$p.value)
+  
 }
-result=data_frame(group1=rep(colnames(T6.T2),each=5), group2=rep(colnames(T6.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=rep(colnames(T6.T2),each=5), group2=rep(colnames(T6.T2),5), mean_difference=round(mean_difference,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), wilcox_test_pvalue=wilcox_test_pvalue) 
 
 result$group1[c(2:5, 7:10, 12:15, 17:20, 22:25)]="---"
 result%>%
