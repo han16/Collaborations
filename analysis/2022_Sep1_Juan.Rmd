@@ -109,14 +109,16 @@ p+geom_dotplot(binaxis='y', stackdir='center', dotsize=0.6)+
 #round(sd(data$Age)/sqrt(nrow(data)),2) # se
 #min(data$Age) # minimum 
 #max(data$Age) # maximum 
+#median(data$Age) # maximum 
+summary(data$Age)
 ```
 
 
 
 
-| Mean      | SD |   SE    | Range
-| :---        |    :----:   |   :----:   |        ---: |
-| 54.15    | 16.55   | 3.25   | (27, 73) |
+| Mean      | SD |   SE    | Range          | median
+| :---        |    :----:   |   :----:   |        ---: |  ---: |
+| 54.15    | 16.55   | 3.25   | (27, 73) | 58.5 |
 
 
 
@@ -298,6 +300,9 @@ SD=numeric()
 SE=numeric()
 range_min=numeric()
 range_max=numeric()
+median=numeric()
+Q1=numeric()
+Q3=numeric()
 for (i in 1:ncol(sub_data))
 {
   Mean[i]=round(mean(sub_data[,i]),4)
@@ -305,9 +310,13 @@ for (i in 1:ncol(sub_data))
   SE[i]=round(SD[i]/sqrt(nrow(sub_data)),4)
   range_min[i]=round(min(sub_data[,i]),4)
   range_max[i]=round(max(sub_data[,i]),4)
+  median[i]=summary(sub_data[,i])[3]
+  Q1[i]=summary(sub_data[,i])[2]
+  Q3[i]=summary(sub_data[,i])[5]
+  
 }
 
-data.frame(Time=c("Age", "Time_bone_graft", "Ging_thick", "Muc_thick", "Duration(min)", "Suture_removal", "Ging_width_T1", "Ging_width_T6"), Mean=Mean, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max)%>%
+data.frame(Time=c("Age", "Time_bone_graft", "Ging_thick", "Muc_thick", "Duration(min)", "Suture_removal", "Ging_width_T1", "Ging_width_T6"), Mean=Mean, Median=median, Q1=Q1, Q3=Q3, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -318,6 +327,7 @@ datatable(extensions = 'Buttons',
 ```
 
 * p value of 0.7824 suggests no difference between `Ging_width_T1` and `Ging_width_T6`
+* IQR is (Q1, Q3). 
 
 
 ## Width_3mm
@@ -356,10 +366,16 @@ Width_3mm_data[,4]=data_long %>% filter(time=="T4") %>% select(Width_3mm) %>% pu
 Width_3mm_data[,5]=data_long %>% filter(time=="T5") %>% select(Width_3mm) %>% pull
 Width_3mm_data[,6]=data_long %>% filter(time=="T6") %>% select(Width_3mm) %>% pull
 Mean=numeric(); SD=numeric(); SE=numeric(); Range_low=numeric(); Range_upper=numeric()
+Median=numeric(); Q1=Q3=numeric()
 normality_pvalue=numeric()
 for (i in 1:6)
 {
   Mean[i]=round(mean(Width_3mm_data[,i]),4)
+  
+  Median[i]=round(summary(Width_3mm_data[,i])[3],4)
+  Q1[i]=round(summary(Width_3mm_data[,i])[2],4)
+  Q3[i]=round(summary(Width_3mm_data[,i])[5],4)
+  
   SD[i]=round(sd(Width_3mm_data[,i]),4)
   SE[i]=round(SD[i]/sqrt(nrow(data)),4)
   Range_low[i]=round(min(Width_3mm_data[,i]),4)
@@ -367,7 +383,7 @@ for (i in 1:6)
   normality_pvalue[i]=round(shapiro.test(Width_3mm_data[,i])$p.value,4)
 }
 
-data.frame(Time=c("T1", "T2", "T3", "T4", "T5", "T6"), Mean=Mean, SD=SD, SE=SE, Range_low=Range_low, Range_upper=Range_upper, normality_pvalue= normality_pvalue)%>%
+data.frame(Time=c("T1", "T2", "T3", "T4", "T5", "T6"), Mean=Mean, Median=Median, Q1=Q1, Q3=Q3, SD=SD, SE=SE, Range_low=Range_low, Range_upper=Range_upper, normality_pvalue= normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -445,6 +461,7 @@ get_anova_table(res.aov)
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); 
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
+Median=Q1=Q3=numeric()
 # replace data[8,13]=5.4646 by referring to old sample 
 normality_pvalue=numeric()
 for (i in 1:5)
@@ -461,9 +478,13 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   normality_pvalue[i]=pvalue_adjust(shapiro.test(Width_3mm_data[,i])$p.value)
 }
-data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2), Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -515,6 +536,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(16+i)] %>% pull
@@ -529,9 +551,13 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[17:21], mean=round(estimate,2), Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -582,6 +608,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(21+i)] %>% pull
@@ -596,9 +623,13 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[22:26], mean=round(estimate,2), Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -650,6 +681,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(26+i)] %>% pull
@@ -664,9 +696,13 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[27:31], mean=round(estimate,2), Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -720,6 +756,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(31+i)] %>% pull
@@ -734,9 +771,13 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -789,6 +830,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3
 for (i in 1:5)
 {
   current=data[,(44+i)] %>% pull
@@ -803,9 +845,13 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
 }
-data_frame(parameter=colnames(data)[45:49], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[45:49], mean=round(estimate,2),  Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -855,6 +901,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(49+i)] %>% pull
@@ -869,12 +916,16 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   if (length(unique(current))>1)
    normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
   if (length(unique(current))==1)
    normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[50:54], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[50:54], mean=round(estimate,2), Median, Q1, Q3,  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -926,6 +977,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(54+i)] %>% pull
@@ -940,12 +992,16 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
    if (length(unique(current))>1)
    normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
   if (length(unique(current))==1)
    normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[55:59], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[55:59], mean=round(estimate,2), Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -997,6 +1053,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(59+i)] %>% pull
@@ -1010,6 +1067,9 @@ for (i in 1:5)
   SE[i]=SD[i]/length(current)
   minimum[i]=min(current)
   maximum[i]=max(current)
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
   
   if (length(unique(current))>1)
    normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
@@ -1017,7 +1077,7 @@ for (i in 1:5)
    normality_pvalue[i]=NA
   
 }
-data_frame(parameter=colnames(data)[60:64], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[60:64], mean=round(estimate,2), Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1069,6 +1129,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:5)
 {
   current=data[,(64+i)] %>% pull
@@ -1083,12 +1144,16 @@ for (i in 1:5)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
   if (length(unique(current))>1)
    normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
   if (length(unique(current))==1)
    normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[65:69], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[65:69], mean=round(estimate,2), Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1142,6 +1207,7 @@ datatable(extensions = 'Buttons',
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
+Median=Q1=Q3=numeric()
 for (i in 1:4)
 {
   current=data[,(69+i)] %>% pull
@@ -1156,13 +1222,18 @@ for (i in 1:4)
   minimum[i]=min(current)
   maximum[i]=max(current)
   
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
+  
    if (length(unique(current))>1)
    normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
   if (length(unique(current))==1)
    normality_pvalue[i]=NA
   
 }
-data_frame(parameter=colnames(data)[70:73], mean=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[70:73], mean=round(estimate,2),  Median, Q1, Q3, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
