@@ -68,6 +68,15 @@ datatable(extensions = 'Buttons',
   
  return(summary_data) 
 }
+
+
+lmp <- function (modelobject) {
+    if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+    f <- summary(modelobject)$fstatistic
+    p <- pf(f[1],f[2],f[3],lower.tail=F)
+    attributes(p) <- NULL
+    return(p)
+}
 ```
 
 
@@ -87,6 +96,7 @@ data$Wound_open_T3_YN=wound_open_new$Wound_open_T3_YN
 data$Wound_open_T4_YN=wound_open_new$Wound_open_T4_YN
 data$Wound_open_T5_YN=wound_open_new$Wound_open_T5_YN
 data$Wound_open_T6_YN=wound_open_new$Wound_open_T6_YN
+colnames(data)
 ```
 
 
@@ -528,6 +538,30 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+#### Type_bone_graft effect 
+
+```{r, echo=F, message=F, warning=F}
+variables=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2")
+pvalue=numeric()
+for (i in 1:length(variables))
+{
+sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, Type_bone_graft=data%>% select(Type_bone_graft) %>% pull)
+lm_reg=lm(swelling~as.character(Type_bone_graft), data=sub_data)  
+pvalue[i]=lmp(lm_reg) # get regression model p value
+}
+data.frame(variables, anova_pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="effect of Type_bone_graft",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* anova test was used 
+* p value less than 0.05 indicates significant effect 
 
 
 ### Buccal_3mm
