@@ -222,6 +222,6 @@ power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, 
 ```{r, echo=T, message=F, warning=F}
 
 d=4-1; #  mean difference  
-SD=1.48-1.21 # SD difference 
+SD=max(1.48,1.21) # use SD maximum  
 power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
 ```
