@@ -216,6 +216,8 @@ d=29-9; # use the median difference as mean difference
 SD=18/1.35 # use SD=IQR/1.35 
 power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
 ```
+* 11 samples are required to have 90\% power. 
+
 
 * [Santos paper](https://pubmed.ncbi.nlm.nih.gov/34031888/)
 
@@ -225,3 +227,4 @@ d=4-1; #  mean difference
 SD=max(1.48,1.21) # use SD maximum  
 power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
 ```
+ * 7 samples are required to have 90\% power. 
