@@ -202,3 +202,26 @@ library(metafor)
 * [multinma](https://dmphillippo.github.io/multinma/articles/vignette_overview.html)
 
 * [metafor](https://www.wvbauer.com/lib/exe/fetch.php/talks:2019_viechtbauer_lsp_ma_longitudinal.pdf); longitudinal meta analysis
+
+
+## Sample size determination 
+
+
+ * [Olsen paper](https://pubmed.ncbi.nlm.nih.gov/28215182/) 
+
+
+```{r, echo=T, message=F, warning=F}
+
+d=29-9; # use the median difference as mean difference  
+SD=18/1.35 # use SD=IQR/1.35 
+power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
+```
+
+* [Santos paper](https://pubmed.ncbi.nlm.nih.gov/34031888/)
+
+```{r, echo=T, message=F, warning=F}
+
+d=4-1; #  mean difference  
+SD=1.48-1.21 # SD difference 
+power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
+```
