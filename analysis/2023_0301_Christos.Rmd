@@ -212,19 +212,42 @@ library(metafor)
 
 ```{r, echo=T, message=F, warning=F}
 
-d=29-9; # use the median difference as mean difference  
+mean_difference=seq(1,20); # use the median difference as mean difference  
 SD=18/1.35 # use SD=IQR/1.35 
-power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="mean difference vs sample size",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 ```
-* 11 samples are required to have 90\% power. 
+* sample size with varying mean difference, given 80\% power. 
 
 
 * [Santos paper](https://pubmed.ncbi.nlm.nih.gov/34031888/)
 
 ```{r, echo=T, message=F, warning=F}
 
-d=4-1; #  mean difference  
+mean_difference=seq(0.1,4, by=0.5); #  mean difference  
 SD=max(1.48,1.21) # use SD maximum  
-power.t.test(power = .90, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="mean difference vs sample size",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
- * 7 samples are required to have 90\% power. 
+ * sample size with varying mean difference, given 80\% power.
+ 
+ 

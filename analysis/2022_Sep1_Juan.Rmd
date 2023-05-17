@@ -540,15 +540,15 @@ datatable(extensions = 'Buttons',
 ```
 
 
-#### Type_bone_graft effect 
+#### covariate effect 
 
 ```{r, echo=F, message=F, warning=F}
 variables=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2")
 pvalue=numeric()
 for (i in 1:length(variables))
 {
-sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, Type_bone_graft=data%>% select(Type_bone_graft) %>% pull)
-lm_reg=lm(swelling~as.character(Type_bone_graft), data=sub_data)  
+sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, cova=data%>% select(Type_bone_graft) %>% pull)
+lm_reg=lm(swelling~as.character(cova), data=sub_data)  
 pvalue[i]=lmp(lm_reg) # get regression model p value
 }
 data.frame(variables, anova_pvalue=pvalue_adjust(pvalue))%>%
@@ -562,6 +562,54 @@ datatable(extensions = 'Buttons',
 
 * anova test was used 
 * p value less than 0.05 indicates significant effect 
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+variables=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2")
+covariate="Time_bone_graft..months."
+pvalue=numeric()
+for (i in 1:length(variables))
+{
+sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, cova=data%>% select(covariate) %>% pull)
+lm_reg=lm(swelling~cova, data=sub_data)  
+pvalue[i]=lmp(lm_reg) # get regression model p value
+}
+data.frame(variables, anova_pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption=covariate,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+variables=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2")
+covariate="Site"
+site_split=data$Site
+site_split[data$Site<=16]="Maxilla"
+site_split[data$Site>16]="mandible"
+pvalue=numeric()
+for (i in 1:length(variables))
+{
+sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, cova=data%>% select(covariate) %>% pull)
+
+sub_data=sub_data %>% mutate(site_split=site_split)
+lm_reg=lm(swelling~site_split, data=sub_data)  
+pvalue[i]=lmp(lm_reg) # get regression model p value
+}
+data.frame(variables, anova_pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption=covariate,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
 
 
 ### Buccal_3mm
