@@ -96,7 +96,7 @@ data$Wound_open_T3_YN=wound_open_new$Wound_open_T3_YN
 data$Wound_open_T4_YN=wound_open_new$Wound_open_T4_YN
 data$Wound_open_T5_YN=wound_open_new$Wound_open_T5_YN
 data$Wound_open_T6_YN=wound_open_new$Wound_open_T6_YN
-colnames(data)
+#colnames(data)
 ```
 
 
@@ -544,71 +544,80 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 variables=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2")
-pvalue=numeric()
+
+Type_bone_graft=data%>% select("Type_bone_graft") %>% pull()
+Time_bone_graft_month=data%>% select("Time_bone_graft..months.") %>% pull()
+
+site_split1=data$Site
+site_split1[data$Site<=16]="Maxilla"
+site_split1[data$Site>16]="mandible"
+
+site_split2=data$Site
+site_split2[data$Site<=11 & data$Site>=6]="Anterior"
+site_split2[data$Site<=27 & data$Site>=22]="Anterior"
+site_split2[data$Site<=5 & data$Site>=1]="posterior"
+site_split2[data$Site<=21 & data$Site>=12]="posterior"
+site_split2[data$Site<=32 & data$Site>=28]="posterior"
+
+site_split3=data$Site
+site_split3[data$Site<=5 & data$Site>=1]="Sextants1"
+site_split3[data$Site<=11 & data$Site>=6]="Sextants2"
+site_split3[data$Site<=16 & data$Site>=12]="Sextants3"
+site_split3[data$Site<=21 & data$Site>=17]="Sextants4"
+site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
+site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
+
+Type_bone_graft_pvalue=numeric()
+Time_bone_graft_month_pvalue=numeric()
+site_split1_pvalue=numeric()
+site_split2_pvalue=numeric()
+site_split3_pvalue=numeric()
+
 for (i in 1:length(variables))
+  
 {
-sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, cova=data%>% select(Type_bone_graft) %>% pull)
-lm_reg=lm(swelling~as.character(cova), data=sub_data)  
-pvalue[i]=lmp(lm_reg) # get regression model p value
+sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, Type_bone_graft, Time_bone_graft_month, site_split1, site_split2, site_split3)
+
+lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
+Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
+Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
+site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
+site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
+site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
 }
-data.frame(variables, anova_pvalue=pvalue_adjust(pvalue))%>%
+
+
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
 datatable(extensions = 'Buttons',
-          caption="effect of Type_bone_graft",
+          caption="",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
 
-* anova test was used 
+* anova test was used for categorical variables and linear regression for continuous variabels 
+
+* site_split1: Maxilla: 1-16 vs. mandible 17-32
+* site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
+* site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
 * p value less than 0.05 indicates significant effect 
 
 
 
 
-```{r, echo=F, message=F, warning=F}
-variables=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2")
-covariate="Time_bone_graft..months."
-pvalue=numeric()
-for (i in 1:length(variables))
-{
-sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, cova=data%>% select(covariate) %>% pull)
-lm_reg=lm(swelling~cova, data=sub_data)  
-pvalue[i]=lmp(lm_reg) # get regression model p value
-}
-data.frame(variables, anova_pvalue=pvalue_adjust(pvalue))%>%
-datatable(extensions = 'Buttons',
-          caption=covariate,
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
 
 
-```{r, echo=F, message=F, warning=F}
-variables=c("Width_diff_3mm_T2.T1", "Width_diff_3mm_T3.T2", "Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2")
-covariate="Site"
-site_split=data$Site
-site_split[data$Site<=16]="Maxilla"
-site_split[data$Site>16]="mandible"
-pvalue=numeric()
-for (i in 1:length(variables))
-{
-sub_data=data.frame(swelling=data %>% select(variables[i]) %>% pull, cova=data%>% select(covariate) %>% pull)
-
-sub_data=sub_data %>% mutate(site_split=site_split)
-lm_reg=lm(swelling~site_split, data=sub_data)  
-pvalue[i]=lmp(lm_reg) # get regression model p value
-}
-data.frame(variables, anova_pvalue=pvalue_adjust(pvalue))%>%
-datatable(extensions = 'Buttons',
-          caption=covariate,
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
+                                  
 
 
 
@@ -683,6 +692,84 @@ datatable(extensions = 'Buttons',
 ```
 
 
+
+
+
+
+#### covariate effect 
+
+```{r, echo=F, message=F, warning=F}
+variables=c("Buccal_3mm_T2.T1","Buccal_3mm_T2.T3","Buccal_3mm_T2.T4","Buccal_3mm_T2.T5","Buccal_3mm_T2.T6")
+
+Type_bone_graft=data%>% select("Type_bone_graft") %>% pull()
+Time_bone_graft_month=data%>% select("Time_bone_graft..months.") %>% pull()
+
+site_split1=data$Site
+site_split1[data$Site<=16]="Maxilla"
+site_split1[data$Site>16]="mandible"
+
+site_split2=data$Site
+site_split2[data$Site<=11 & data$Site>=6]="Anterior"
+site_split2[data$Site<=27 & data$Site>=22]="Anterior"
+site_split2[data$Site<=5 & data$Site>=1]="posterior"
+site_split2[data$Site<=21 & data$Site>=12]="posterior"
+site_split2[data$Site<=32 & data$Site>=28]="posterior"
+
+site_split3=data$Site
+site_split3[data$Site<=5 & data$Site>=1]="Sextants1"
+site_split3[data$Site<=11 & data$Site>=6]="Sextants2"
+site_split3[data$Site<=16 & data$Site>=12]="Sextants3"
+site_split3[data$Site<=21 & data$Site>=17]="Sextants4"
+site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
+site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
+
+Type_bone_graft_pvalue=numeric()
+Time_bone_graft_month_pvalue=numeric()
+site_split1_pvalue=numeric()
+site_split2_pvalue=numeric()
+site_split3_pvalue=numeric()
+
+for (i in 1:length(variables))
+  
+{
+sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, Type_bone_graft, Time_bone_graft_month, site_split1, site_split2, site_split3)
+
+lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
+Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
+Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
+site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
+site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
+site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+}
+
+
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* anova test was used for categorical variables and linear regression for continuous variables 
+
+* site_split1: Maxilla: 1-16 vs. mandible 17-32
+* site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
+* site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
+* p value less than 0.05 indicates significant effect 
+
+
+
 ### Lingual_3mm
 
 
@@ -754,6 +841,79 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+
+#### covariate effect 
+
+```{r, echo=F, message=F, warning=F}
+variables=colnames(data)[22:26]
+
+Type_bone_graft=data%>% select("Type_bone_graft") %>% pull()
+Time_bone_graft_month=data%>% select("Time_bone_graft..months.") %>% pull()
+
+site_split1=data$Site
+site_split1[data$Site<=16]="Maxilla"
+site_split1[data$Site>16]="mandible"
+
+site_split2=data$Site
+site_split2[data$Site<=11 & data$Site>=6]="Anterior"
+site_split2[data$Site<=27 & data$Site>=22]="Anterior"
+site_split2[data$Site<=5 & data$Site>=1]="posterior"
+site_split2[data$Site<=21 & data$Site>=12]="posterior"
+site_split2[data$Site<=32 & data$Site>=28]="posterior"
+
+site_split3=data$Site
+site_split3[data$Site<=5 & data$Site>=1]="Sextants1"
+site_split3[data$Site<=11 & data$Site>=6]="Sextants2"
+site_split3[data$Site<=16 & data$Site>=12]="Sextants3"
+site_split3[data$Site<=21 & data$Site>=17]="Sextants4"
+site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
+site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
+
+Type_bone_graft_pvalue=numeric()
+Time_bone_graft_month_pvalue=numeric()
+site_split1_pvalue=numeric()
+site_split2_pvalue=numeric()
+site_split3_pvalue=numeric()
+
+for (i in 1:length(variables))
+  
+{
+sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, Type_bone_graft, Time_bone_graft_month, site_split1, site_split2, site_split3)
+
+lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
+Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
+Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
+site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
+site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
+site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+}
+
+
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* anova test was used for categorical variables and linear regression for continuous variables 
+
+* site_split1: Maxilla: 1-16 vs. mandible 17-32
+* site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
+* site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
+* p value less than 0.05 indicates significant effect 
 
 
 ###  Vertical_mid
@@ -831,6 +991,79 @@ datatable(extensions = 'Buttons',
 
 
 
+#### covariate effect 
+
+```{r, echo=F, message=F, warning=F}
+variables=colnames(data)[27:32]
+
+Type_bone_graft=data%>% select("Type_bone_graft") %>% pull()
+Time_bone_graft_month=data%>% select("Time_bone_graft..months.") %>% pull()
+
+site_split1=data$Site
+site_split1[data$Site<=16]="Maxilla"
+site_split1[data$Site>16]="mandible"
+
+site_split2=data$Site
+site_split2[data$Site<=11 & data$Site>=6]="Anterior"
+site_split2[data$Site<=27 & data$Site>=22]="Anterior"
+site_split2[data$Site<=5 & data$Site>=1]="posterior"
+site_split2[data$Site<=21 & data$Site>=12]="posterior"
+site_split2[data$Site<=32 & data$Site>=28]="posterior"
+
+site_split3=data$Site
+site_split3[data$Site<=5 & data$Site>=1]="Sextants1"
+site_split3[data$Site<=11 & data$Site>=6]="Sextants2"
+site_split3[data$Site<=16 & data$Site>=12]="Sextants3"
+site_split3[data$Site<=21 & data$Site>=17]="Sextants4"
+site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
+site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
+
+Type_bone_graft_pvalue=numeric()
+Time_bone_graft_month_pvalue=numeric()
+site_split1_pvalue=numeric()
+site_split2_pvalue=numeric()
+site_split3_pvalue=numeric()
+
+for (i in 1:length(variables))
+  
+{
+sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, Type_bone_graft, Time_bone_graft_month, site_split1, site_split2, site_split3)
+
+lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
+Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
+Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
+site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
+site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
+site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+}
+
+
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* anova test was used for categorical variables and linear regression for continuous variables 
+
+* site_split1: Maxilla: 1-16 vs. mandible 17-32
+* site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
+* site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
+* p value less than 0.05 indicates significant effect 
+
+
 ###  Vertical_max
 
 
@@ -904,6 +1137,79 @@ datatable(extensions = 'Buttons',
 
 ```
 
+#### covariate effect 
+
+```{r, echo=F, message=F, warning=F}
+variables=colnames(data)[32:36]
+
+Type_bone_graft=data%>% select("Type_bone_graft") %>% pull()
+Time_bone_graft_month=data%>% select("Time_bone_graft..months.") %>% pull()
+
+site_split1=data$Site
+site_split1[data$Site<=16]="Maxilla"
+site_split1[data$Site>16]="mandible"
+
+site_split2=data$Site
+site_split2[data$Site<=11 & data$Site>=6]="Anterior"
+site_split2[data$Site<=27 & data$Site>=22]="Anterior"
+site_split2[data$Site<=5 & data$Site>=1]="posterior"
+site_split2[data$Site<=21 & data$Site>=12]="posterior"
+site_split2[data$Site<=32 & data$Site>=28]="posterior"
+
+site_split3=data$Site
+site_split3[data$Site<=5 & data$Site>=1]="Sextants1"
+site_split3[data$Site<=11 & data$Site>=6]="Sextants2"
+site_split3[data$Site<=16 & data$Site>=12]="Sextants3"
+site_split3[data$Site<=21 & data$Site>=17]="Sextants4"
+site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
+site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
+
+Type_bone_graft_pvalue=numeric()
+Time_bone_graft_month_pvalue=numeric()
+site_split1_pvalue=numeric()
+site_split2_pvalue=numeric()
+site_split3_pvalue=numeric()
+
+for (i in 1:length(variables))
+  
+{
+sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, Type_bone_graft, Time_bone_graft_month, site_split1, site_split2, site_split3)
+
+lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
+Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
+Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
+site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
+site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
+site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+}
+
+
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* anova test was used for categorical variables and linear regression for continuous variables 
+
+* site_split1: Maxilla: 1-16 vs. mandible 17-32
+* site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
+* site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
+* p value less than 0.05 indicates significant effect 
+
+
 
 ## %vol 
 
@@ -975,6 +1281,79 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+#### covariate effect 
+
+```{r, echo=F, message=F, warning=F}
+variables=colnames(data)[45:49]
+
+Type_bone_graft=data%>% select("Type_bone_graft") %>% pull()
+Time_bone_graft_month=data%>% select("Time_bone_graft..months.") %>% pull()
+
+site_split1=data$Site
+site_split1[data$Site<=16]="Maxilla"
+site_split1[data$Site>16]="mandible"
+
+site_split2=data$Site
+site_split2[data$Site<=11 & data$Site>=6]="Anterior"
+site_split2[data$Site<=27 & data$Site>=22]="Anterior"
+site_split2[data$Site<=5 & data$Site>=1]="posterior"
+site_split2[data$Site<=21 & data$Site>=12]="posterior"
+site_split2[data$Site<=32 & data$Site>=28]="posterior"
+
+site_split3=data$Site
+site_split3[data$Site<=5 & data$Site>=1]="Sextants1"
+site_split3[data$Site<=11 & data$Site>=6]="Sextants2"
+site_split3[data$Site<=16 & data$Site>=12]="Sextants3"
+site_split3[data$Site<=21 & data$Site>=17]="Sextants4"
+site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
+site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
+
+Type_bone_graft_pvalue=numeric()
+Time_bone_graft_month_pvalue=numeric()
+site_split1_pvalue=numeric()
+site_split2_pvalue=numeric()
+site_split3_pvalue=numeric()
+
+for (i in 1:length(variables))
+  
+{
+sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, Type_bone_graft, Time_bone_graft_month, site_split1, site_split2, site_split3)
+
+lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
+Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
+Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
+site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
+site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
+site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+}
+
+
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* anova test was used for categorical variables and linear regression for continuous variables 
+
+* site_split1: Maxilla: 1-16 vs. mandible 17-32
+* site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
+* site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
+* p value less than 0.05 indicates significant effect 
 
 
 ## VAS_pain 
@@ -2252,17 +2631,19 @@ datatable(extensions = 'Buttons',
 
 ## correlation matrix 
 
+### parametric pearson correlation 
+
 ```{r, echo=F, message=F, warning=F}
 library(reshape2)
 sub_data=data.frame(Ging_width_T1=data$Ging_width_T1, Ging_width_T6=data$Ging_width_T6, Ging_thick=data$Ging_thick, Muc_thick=data$Muc_thick,Wound_open_bl_T3=data$Wound_open_bl_T3, Wound_open_bl_T4=data$Wound_open_bl_T4, Wound_open_bl_T5=data$Wound_open_bl_T5, Wound_open_bl_T6=data$Wound_open_bl_T6,Width_3mm_T1=data$Width_3mm_T1
 ,Width_3mm_T2=data$Width_3mm_T2, Width_3mm_T3=data$width_3mm_T3, Width_3mm_T4=data$Width_3mm_T4,
 Width_3mm_T5=data$Width_3mm_T5, Width_3mm_T6=data$Width_3mm_T6, Width_diff_3mm_T2_T1=data$Width_diff_3mm_T2.T1, Width_diff_3mm_T3_T2=data$Width_diff_3mm_T3.T2, Width_diff_3mm_T4_T2=data$Width_diff_3mm_T4.T2, Width_diff_3mm_T5_T2=data$Width_diff_3mm_T5.T2, Width_diff_3mm_T6_T2=data$width_diff_3mm_T6.T2, Buccal_3mm_T2_T1=data$Buccal_3mm_T2.T1, Buccal_3mm_T2_T3=data$Buccal_3mm_T2.T3, Buccal_3mm_T2_T4=data$Buccal_3mm_T2.T4, Buccal_3mm_T2_T5=data$Buccal_3mm_T2.T5, Buccal_3mm_T2_T6=data$Buccal_3mm_T2.T6, Lingual_3mm_T2_T1=data$Lingual_3mm_T2.T1, Lingual_3mm_T2_T3=data$Lingual_3mm_T2.T3, Lingual_3mm_T2_T4=data$Lingual_3mm_T2.T4, Lingual_3mm_T2_T5=data$Lingual_3mm_T2.T5, Lingual_3mm_T2_T6=data$Lingual_3mm_T2.T6, Vertical_mid_T2_T1=data$Vertical_mid_T2.T1, Vertical_mid_T2_T3=data$Vertical_mid_T2.T3, Vertical_mid_T2_T4=data$Vertical_mid_T2.T4, Vertical_mid_T2_T5=data$Vertical_mid_T2.T5, Vertical_mid_T2_T6=data$Vertical_mid_T2.T6, Vertical_max_T2_T1=data$Vertical_max_T2.T1, Vertical_max_T2_T3=data$Vertical_max_T2.T3, Vertical_max_T2_T4=data$Vertical_max_T2.T4, Vertical_max_T2_T5=data$Vertical_max_T2.T5, Vertical_max_T2_T6=data$Vertical_max_T2.T6, X.Vol_T2.T1.T1=data$X.Vol_T2.T1.T1, X.Vol_T3.T2.T2=data$X.Vol_T3.T2.T2, X.Vol_T4.T2.T2=data$X.Vol_T4.T2.T2,  X.Vol_T5.T2.T2=data$X.Vol_T5.T2.T2,  X.Vol_T6.T2.T2=data$X.Vol_T6.T2.T2, VAS_pain_T1=data$VAS_pain_T1, VAS_pain_T3=data$VAS_pain_T3, VAS_pain_T4=data$VAS_pain_T4, VAS_pain_T5=data$VAS_pain_T5, VAS_pain_T6=data$VAS_pain_T6, VAS_swell_T1=data$VAS_swell_T1,VAS_swell_T3=data$VAS_swell_T3, VAS_swell_T4=data$VAS_swell_T4, VAS_swell_T5=data$VAS_swell_T5, VAS_swell_T6=data$VAS_swell_T6, VAS_mouth_open_T1=data$VAS_mouth_open_T1, VAS_mouth_open_T3=data$VAS_mouth_open_T3, VAS_mouth_open_T4=data$VAS_mouth_open_T4, VAS_mouth_open_T5=data$VAS_mouth_open_T5, VAS_mouth_open_T6=data$VAS_mouth_open_T6, OHIP_T1=data$OHIP_T1, OHIP_T3=data$OHIP_T3, OHIP_T4=data$OHIP_T4, OHIP_T5=data$OHIP.T5, OHIP_T6=data$OHIP_T6)
 ################ compute p values 
-cormat2=round(cor(sub_data),2)
+cormat2=round(cor(sub_data, method="pearson"),2)
 cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
 for (i in 1:nrow(cormat2))
   for (j in 1:ncol(cormat2))
-    cormat2_pvalue[i,j]=round(cor.test(sub_data[,i], sub_data[,j])$p.value,4)
+    cormat2_pvalue[i,j]=round(cor.test(sub_data[,i], sub_data[,j], method="pearson")$p.value,4)
 row.names(cormat2_pvalue)=rownames(cormat2) 
 colnames(cormat2_pvalue)=rownames(cormat2) 
 ################
@@ -2355,7 +2736,120 @@ heatmaply_cor(
 
 
 
-* [correlation matrix and p values](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/EUHKs-fEVP5Nvq3zf7oc5ksBfpLMhRZnOExoQ5SwYrtq8g?e=WF8Vep), i.e. `correlation_pvalue`. 
+* [pearson correlation matrix and p values](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/EUHKs-fEVP5Nvq3zf7oc5ksBfpLMhRZnOExoQ5SwYrtq8g?e=WF8Vep), i.e. `correlation_pvalue`. 
+
+* `NA` in the correlation matrix means one of variables is constant, no variations leading to meaningless correlation. 
+
+* `var_index` corresponds to row/column index in the correlation matrix 
+
+
+
+### non-parametric spearman correlation 
+
+```{r, echo=F, message=F, warning=F}
+library(reshape2)
+sub_data=data.frame(Ging_width_T1=data$Ging_width_T1, Ging_width_T6=data$Ging_width_T6, Ging_thick=data$Ging_thick, Muc_thick=data$Muc_thick,Wound_open_bl_T3=data$Wound_open_bl_T3, Wound_open_bl_T4=data$Wound_open_bl_T4, Wound_open_bl_T5=data$Wound_open_bl_T5, Wound_open_bl_T6=data$Wound_open_bl_T6,Width_3mm_T1=data$Width_3mm_T1
+,Width_3mm_T2=data$Width_3mm_T2, Width_3mm_T3=data$width_3mm_T3, Width_3mm_T4=data$Width_3mm_T4,
+Width_3mm_T5=data$Width_3mm_T5, Width_3mm_T6=data$Width_3mm_T6, Width_diff_3mm_T2_T1=data$Width_diff_3mm_T2.T1, Width_diff_3mm_T3_T2=data$Width_diff_3mm_T3.T2, Width_diff_3mm_T4_T2=data$Width_diff_3mm_T4.T2, Width_diff_3mm_T5_T2=data$Width_diff_3mm_T5.T2, Width_diff_3mm_T6_T2=data$width_diff_3mm_T6.T2, Buccal_3mm_T2_T1=data$Buccal_3mm_T2.T1, Buccal_3mm_T2_T3=data$Buccal_3mm_T2.T3, Buccal_3mm_T2_T4=data$Buccal_3mm_T2.T4, Buccal_3mm_T2_T5=data$Buccal_3mm_T2.T5, Buccal_3mm_T2_T6=data$Buccal_3mm_T2.T6, Lingual_3mm_T2_T1=data$Lingual_3mm_T2.T1, Lingual_3mm_T2_T3=data$Lingual_3mm_T2.T3, Lingual_3mm_T2_T4=data$Lingual_3mm_T2.T4, Lingual_3mm_T2_T5=data$Lingual_3mm_T2.T5, Lingual_3mm_T2_T6=data$Lingual_3mm_T2.T6, Vertical_mid_T2_T1=data$Vertical_mid_T2.T1, Vertical_mid_T2_T3=data$Vertical_mid_T2.T3, Vertical_mid_T2_T4=data$Vertical_mid_T2.T4, Vertical_mid_T2_T5=data$Vertical_mid_T2.T5, Vertical_mid_T2_T6=data$Vertical_mid_T2.T6, Vertical_max_T2_T1=data$Vertical_max_T2.T1, Vertical_max_T2_T3=data$Vertical_max_T2.T3, Vertical_max_T2_T4=data$Vertical_max_T2.T4, Vertical_max_T2_T5=data$Vertical_max_T2.T5, Vertical_max_T2_T6=data$Vertical_max_T2.T6, X.Vol_T2.T1.T1=data$X.Vol_T2.T1.T1, X.Vol_T3.T2.T2=data$X.Vol_T3.T2.T2, X.Vol_T4.T2.T2=data$X.Vol_T4.T2.T2,  X.Vol_T5.T2.T2=data$X.Vol_T5.T2.T2,  X.Vol_T6.T2.T2=data$X.Vol_T6.T2.T2, VAS_pain_T1=data$VAS_pain_T1, VAS_pain_T3=data$VAS_pain_T3, VAS_pain_T4=data$VAS_pain_T4, VAS_pain_T5=data$VAS_pain_T5, VAS_pain_T6=data$VAS_pain_T6, VAS_swell_T1=data$VAS_swell_T1,VAS_swell_T3=data$VAS_swell_T3, VAS_swell_T4=data$VAS_swell_T4, VAS_swell_T5=data$VAS_swell_T5, VAS_swell_T6=data$VAS_swell_T6, VAS_mouth_open_T1=data$VAS_mouth_open_T1, VAS_mouth_open_T3=data$VAS_mouth_open_T3, VAS_mouth_open_T4=data$VAS_mouth_open_T4, VAS_mouth_open_T5=data$VAS_mouth_open_T5, VAS_mouth_open_T6=data$VAS_mouth_open_T6, OHIP_T1=data$OHIP_T1, OHIP_T3=data$OHIP_T3, OHIP_T4=data$OHIP_T4, OHIP_T5=data$OHIP.T5, OHIP_T6=data$OHIP_T6)
+################ compute p values 
+cormat2=round(cor(sub_data, method="spearman"),2)
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:ncol(cormat2))
+    cormat2_pvalue[i,j]=round(cor.test(sub_data[,i], sub_data[,j], method="spearman")$p.value,4)
+row.names(cormat2_pvalue)=rownames(cormat2) 
+colnames(cormat2_pvalue)=rownames(cormat2) 
+################
+cormat_with_lables <- round(cor(sub_data),2)
+sub_data_col_names=colnames(sub_data)
+colnames(sub_data)=seq(1:length(sub_data_col_names))
+  cormat <- round(cor(sub_data),2)
+  
+  # Get upper triangle of the correlation matrix
+  get_upper_tri <- function(cormat){
+    cormat[lower.tri(cormat)]<- NA
+    return(cormat)
+  }
+  
+  upper_tri <- get_upper_tri(cormat)
+  
+melted_cormat <- melt(cormat)
+melted_cormat_with_labels=melt(cormat_with_lables)
+
+# Melt the correlation matrix
+melted_cormat <- melt(upper_tri, na.rm = TRUE)
+# Heatmap
+var_index=seq(1,length(sub_data_col_names), by=3)
+var_index2=1:length(sub_data_col_names)
+ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
+ geom_tile(color = "white")+
+ scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+   midpoint = 0, limit = c(-1,1), space = "Lab", 
+   name="Pearson\nCorrelation") +
+  #theme_minimal()+ 
+ theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+    size = 10, hjust = 1))+
+  scale_x_continuous("var_index", labels = as.character(var_index), breaks = var_index)+
+  scale_y_continuous("var_index", labels = as.character(var_index), breaks = var_index)#+
+ #coord_fixed()
+
+correlation_pvalue=matrix(paste(cormat2, cormat2_pvalue, sep="_"), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+############################
+#ggplot(data = melted_cormat_with_labels, aes(Var2, Var1, fill = value))+
+# geom_tile(color = "white")+
+# scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+#   midpoint = 0, limit = c(-1,1), space = "Lab", 
+#   name="Pearson\nCorrelation") +
+#  theme_minimal()+ 
+# theme(axis.text.x = element_text(angle = 90, vjust = 0.5, 
+#    size = 10, hjust = 0.5))+
+# coord_fixed()
+
+
+#write.csv(cormat2, file="../../2022/202209/Juan/Juan_spearman_correlation_matrix_2023_0518.csv")
+#write.csv(cormat2_pvalue, file="../../2022/202209/Juan/Juan_spearman_correlation_matrix_pvalue_2023_0518.csv")
+#write.csv(correlation_pvalue, file="../../2022/202209/Juan/Juan_spearman_correlation_matrix_pvalue_2023_0518.csv")
+#cormat2%>%
+#datatable(extensions = 'Buttons',
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
+
+#data.frame(var_index=var_index2, variables=sub_data_col_names)%>%
+#datatable(extensions = 'Buttons',
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+library(heatmaply)
+
+heatmaply_cor(
+  cor(sub_data),
+  xlab = "Features", 
+  ylab = "Features",
+  na.rm=T
+)
+
+
+df <- mtcars
+heatmaply_cor(
+  cor(df),
+  xlab = "Features", 
+  ylab = "Features"
+)
+```
+
+
+
+* [spearman correlation matrix and p values](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/EWwblT_WNiZAvUlf45jHbj8BTW202m50FsaI4XiP2xZcVw?e=jTk3g1), i.e. `correlation_pvalue`. 
 
 * `NA` in the correlation matrix means one of variables is constant, no variations leading to meaningless correlation. 
 
