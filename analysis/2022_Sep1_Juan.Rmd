@@ -1388,7 +1388,33 @@ for (i in 1:5)
   if (length(unique(current))==1)
    normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[50:54], mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+##############
+for (j in 1:4)
+{
+  i=5+j
+  current=data[,(50+j)] %>% pull-data[,50] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD[i]/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
+  
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
+  if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
+}
+
+data_frame(parameter=c(colnames(data)[50:54],paste(colnames(data[,51:54]), colnames(data[50]), sep="-") ), mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1464,7 +1490,34 @@ for (i in 1:5)
   if (length(unique(current))==1)
    normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[55:59], mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+##############
+for (j in 1:4)
+{
+  i=5+j
+  current=data[,(55+j)] %>% pull-data[,55] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD[i]/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
+  
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
+  if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
+}
+
+
+data_frame(parameter=c(colnames(data)[55:59],paste(colnames(data[,56:59]), colnames(data[55]), sep="-") ), mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1540,7 +1593,33 @@ for (i in 1:5)
    normality_pvalue[i]=NA
   
 }
-data_frame(parameter=colnames(data)[60:64], mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+##############
+for (j in 1:4)
+{
+  i=5+j
+  current=data[,(60+j)] %>% pull-data[,60] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD[i]/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
+  
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
+  if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
+}
+
+data_frame(parameter=c(colnames(data)[60:64],paste(colnames(data[,61:64]), colnames(data[60]), sep="-")), mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1616,7 +1695,34 @@ for (i in 1:5)
   if (length(unique(current))==1)
    normality_pvalue[i]=NA
 }
-data_frame(parameter=colnames(data)[65:69], mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+
+##############
+for (j in 1:4)
+{
+  i=5+j
+  current=data[,(65+j)] %>% pull-data[,65] %>% pull
+  test=t.test(current)
+  estimate[i]=test$estimate
+  CI_lower[i]=test$conf.int[1]
+  CI_upper[i]=test$conf.int[2]
+  p_value[i]=test$p.value
+  
+  SD[i]=sd(current)
+  SE[i]=SD[i]/length(current)
+  minimum[i]=min(current)
+  maximum[i]=max(current)
+  
+  Median[i]=round(summary(current)[3],4)
+  Q1[i]=round(summary(current)[2],4)
+  Q3[i]=round(summary(current)[5],4)
+  
+  if (length(unique(current))>1)
+   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  if (length(unique(current))==1)
+   normality_pvalue[i]=NA
+}
+
+data_frame(parameter=c(colnames(data)[65:69],paste(colnames(data[,66:69]), colnames(data[65]), sep="-")), mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -2787,7 +2893,7 @@ ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
  geom_tile(color = "white")+
  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
    midpoint = 0, limit = c(-1,1), space = "Lab", 
-   name="Pearson\nCorrelation") +
+   name="spearman\nCorrelation") +
   #theme_minimal()+ 
  theme(axis.text.x = element_text(angle = 45, vjust = 1, 
     size = 10, hjust = 1))+
