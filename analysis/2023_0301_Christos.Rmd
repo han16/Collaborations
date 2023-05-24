@@ -68,7 +68,8 @@ datatable(extensions = 'Buttons',
 ```
 
 ```{r, echo=F, message=F, warning=F}
-data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Christos\\Data Collection sheet - Final.csv", header=T))
+data1=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Christos\\Data Collection sheet - Final.csv", header=T))
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Christos\\Data for VAS 1h.csv", header=T))
 ```
 
 ## use R package [BUGSnet](https://bugsnetsoftware.github.io/) 
@@ -86,19 +87,20 @@ remotes::install_github("audrey-b/BUGSnet@v1.1.0", upgrade = TRUE, build_vignett
 ```{r, echo=F, message=F, warning=F}
 #install.packages("multinma")
 library(multinma)
-head(parkinsons)
+#head(parkinsons)
+head(data)
 
 ```
 
 ###  [Analysis of arm-based data](https://dmphillippo.github.io/multinma/articles/example_parkinsons.html)
 
 ```{r, echo=F, message=F, warning=F}
-arm_net <- set_agd_arm(parkinsons, 
-                      study = studyn,
-                      trt = trtn,
-                      y = y, 
-                      se = se,
-                      sample_size = n) # use trt_ref to set reference treatment 
+arm_net <- set_agd_arm(data, 
+                      study = Studyn,
+                      trt = treatmentn,
+                      y = mean..y., 
+                      se = standard.error..se.,
+                      sample_size = sample.size..n.) # use trt_ref to set reference treatment 
 arm_net
 plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
 ```
