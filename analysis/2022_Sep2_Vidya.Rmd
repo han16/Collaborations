@@ -65,6 +65,38 @@ datatable(extensions = 'Buttons',
 ```
 
 
+### correlations between OCP and Icorr
+
+```{r, echo=F, message=F, warning=F}
+pearson_cor=numeric(); pearson_cor_pvalue=numeric()
+spearman_cor=numeric(); spearman_cor_pvalue=numeric()
+pearson_cor[1]=cor(data$OCP..mV..1.hr, data$Icorr..nA., method="pearson") # after deleting 61, data and data_NaOCI match together 
+pearson_cor_pvalue[1]=cor.test(data$OCP..mV..1.hr, data$Icorr..nA., method="pearson")$p.value # after deleting 61, data and data_NaOCI match together
+spearman_cor[1]=cor(data$OCP..mV..1.hr, data$Icorr..nA., method="spearman") # after deleting 61, data and data_NaOCI match together 
+spearman_cor_pvalue[1]=cor.test(data$OCP..mV..1.hr, data$Icorr..nA., method="spearman")$p.value # after deleting 61, data and data_NaOCI match together
+
+
+for (i in 1:length(brands))
+{
+  pearson_cor[1+i]=cor(data%>%filter(File==brands[i])%>% select(OCP..mV..1.hr)%>%pull, data%>%filter(File==brands[i])%>% select(Icorr..nA.), method="pearson")  
+  
+ pearson_cor_pvalue[1+i]=cor.test(data%>%filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull, data%>%filter(File==brands[i])%>% select(Icorr..nA.) %>% pull, method="pearson")$p.value 
+ 
+ spearman_cor[1+i]=cor(data%>%filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull, data%>%filter(File==brands[i])%>% select(Icorr..nA.) %>% pull, method="spearman")
+  
+ spearman_cor_pvalue[1+i]=cor.test(data%>%filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull, data%>%filter(File==brands[i])%>% select(Icorr..nA.) %>% pull, method="spearman")$p.value 
+}
+
+
+data.frame(variables=c("All File", brands), pearson_cor=round(pearson_cor,4), pearson_cor_pvalue=pvalue_adjust(pearson_cor_pvalue), spearman_cor=round(spearman_cor,4), spearman_cor_pvalue=pvalue_adjust(spearman_cor_pvalue))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 ### pairwise comparisons 
 
 
@@ -251,6 +283,8 @@ kruskal.test(OCP ~ file, data=data2)
 ```
 * Kruskal-Wallis test was used.  
 
+
+
 ## NaOCI 
 
 
@@ -287,6 +321,37 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
+### correlations between OCP and Icorr
+
+```{r, echo=F, message=F, warning=F}
+pearson_cor=numeric(); pearson_cor_pvalue=numeric()
+spearman_cor=numeric(); spearman_cor_pvalue=numeric()
+pearson_cor[1]=cor(data_NaOCI$OCP..mV..1.hr, data_NaOCI$Icorr..nA., method="pearson") # after deleting 61, data and data_NaOCI match together 
+pearson_cor_pvalue[1]=cor.test(data_NaOCI$OCP..mV..1.hr, data_NaOCI$Icorr..nA., method="pearson")$p.value # after deleting 61, data and data_NaOCI match together
+spearman_cor[1]=cor(data_NaOCI$OCP..mV..1.hr, data_NaOCI$Icorr..nA., method="spearman") # after deleting 61, data and data_NaOCI match together 
+spearman_cor_pvalue[1]=cor.test(data_NaOCI$OCP..mV..1.hr, data_NaOCI$Icorr..nA., method="spearman")$p.value # after deleting 61, data and data_NaOCI match together
+
+
+for (i in 1:length(brands))
+{
+  pearson_cor[1+i]=cor(data_NaOCI%>%filter(File==brands[i])%>% select(OCP..mV..1.hr)%>%pull, data_NaOCI%>%filter(File==brands[i])%>% select(Icorr..nA.), method="pearson")  
+  
+ pearson_cor_pvalue[1+i]=cor.test(data_NaOCI%>%filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull, data_NaOCI%>%filter(File==brands[i])%>% select(Icorr..nA.) %>% pull, method="pearson")$p.value 
+ 
+ spearman_cor[1+i]=cor(data_NaOCI%>%filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull, data_NaOCI%>%filter(File==brands[i])%>% select(Icorr..nA.) %>% pull, method="spearman")
+  
+ spearman_cor_pvalue[1+i]=cor.test(data_NaOCI%>%filter(File==brands[i])%>% select(OCP..mV..1.hr) %>% pull, data_NaOCI%>%filter(File==brands[i])%>% select(Icorr..nA.) %>% pull, method="spearman")$p.value 
+}
+
+
+data.frame(variables=c("All File", brands), pearson_cor=round(pearson_cor,4), pearson_cor_pvalue=pvalue_adjust(pearson_cor_pvalue), spearman_cor=round(spearman_cor,4), spearman_cor_pvalue=pvalue_adjust(spearman_cor_pvalue))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
 
 
 
@@ -534,7 +599,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Correlations 
+### Correlations between saline and naocI 
 
 ```{r, echo=F, message=F, warning=F}
 data_NaOCI=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202209\\Vidya\\NaOCl for Stats.csv", header = T))
@@ -563,8 +628,9 @@ for (i in 1:length(brands))
 }
 
 
-data.frame(variables=c("OCP_saline_vs_NaoCI", paste("OCP", brands, sep="_")), pearson_cor=round(pearson_cor,4), pearson_cor_pvalue=pvalue_adjust(pearson_cor_pvalue), spearman_cor=round(spearman_cor,4), spearman_cor_pvalue=pvalue_adjust(spearman_cor_pvalue))%>%
+data.frame(variables=c("All File_saline_vs_NaoCI",  brands), pearson_cor=round(pearson_cor,4), pearson_cor_pvalue=pvalue_adjust(pearson_cor_pvalue), spearman_cor=round(spearman_cor,4), spearman_cor_pvalue=pvalue_adjust(spearman_cor_pvalue))%>%
 datatable(extensions = 'Buttons',
+          caption="OCP:saline_vs_NaoCI",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -592,8 +658,9 @@ for (i in 1:length(brands))
 }
 
 
-data.frame(variables=c("Icorr_saline_vs_NaoCI", paste("Icorr", brands, sep="_")), pearson_cor=round(pearson_cor,4), pearson_cor_pvalue=pvalue_adjust(pearson_cor_pvalue), spearman_cor=round(spearman_cor,4), spearman_cor_pvalue=pvalue_adjust(spearman_cor_pvalue))%>%
+data.frame(variables=c("All File_saline_vs_NaoCI", brands), pearson_cor=round(pearson_cor,4), pearson_cor_pvalue=pvalue_adjust(pearson_cor_pvalue), spearman_cor=round(spearman_cor,4), spearman_cor_pvalue=pvalue_adjust(spearman_cor_pvalue))%>%
 datatable(extensions = 'Buttons',
+          caption="Icorr:saline_vs_NaoCI",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
