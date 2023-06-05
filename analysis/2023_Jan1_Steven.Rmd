@@ -381,6 +381,8 @@ datatable(extensions = 'Buttons',
 ```
 
 
+
+
 ```{r, echo=F, message=F, warning=F}
 d=seq(5, 20, by=1); SD=16
 sample_size=numeric()
@@ -408,4 +410,11 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+```
+
+
+## statistical software 
+
+```{r, echo=F}
+R.version
 ```

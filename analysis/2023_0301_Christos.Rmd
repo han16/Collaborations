@@ -95,8 +95,9 @@ head(data)
 ###  [Analysis of arm-based data](https://dmphillippo.github.io/multinma/articles/example_parkinsons.html)
 
 ```{r, echo=F, message=F, warning=F}
+data=data %>% select(studyn, treatmentn, mean..y., standard.error..se., sample.size..n.) %>% drop_na()
 arm_net <- set_agd_arm(data, 
-                      study = Studyn,
+                      study = studyn,
                       trt = treatmentn,
                       y = mean..y., 
                       se = standard.error..se.,
