@@ -16,6 +16,7 @@ set.seed(123)
 ```
 
 
+
 ```{r, echo=F, warning=F, message=F}
 pvalue_adjust=function(p_value)
 {
@@ -112,7 +113,7 @@ plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
 #### fixed effect meta-analysis
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, results=F}
 summary(normal(scale = 100))
 
 arm_fit_FE <- nma(arm_net, 
@@ -154,7 +155,7 @@ plot_prior_posterior(arm_fit_FE)
 #### Random effects meta-analysis
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 summary(normal(scale = 100))
 summary(half_normal(scale = 5))
 arm_fit_RE <- nma(arm_net, 
