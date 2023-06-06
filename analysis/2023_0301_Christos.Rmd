@@ -72,31 +72,28 @@ data1=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\20230
 data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Christos\\Data for VAS 1h.csv", header=T))
 ```
 
-## use R package [BUGSnet](https://bugsnetsoftware.github.io/) 
 
-```{r, echo=F, message=F, warning=F, eval=F}
-#install.packages(c("remotes", "knitr"))
-remotes::install_github("audrey-b/BUGSnet@v1.1.0", upgrade = TRUE, build_vignettes = TRUE, dependencies = TRUE)
 
-#remotes::install_github("audrey-b/BUGSnet@v1.1.0", upgrade = TRUE, build_vignettes = TRUE, dependencies = TRUE)
-```
-## [MetaStan](https://cran.r-project.org/web/packages/MetaStan/MetaStan.pdf)
-
-## multinma 
+## sample data 
 
 ```{r, echo=F, message=F, warning=F}
 #install.packages("multinma")
 library(multinma)
 #head(parkinsons)
-head(data)
+data%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
-###  [Analysis of arm-based data](https://dmphillippo.github.io/multinma/articles/example_parkinsons.html)
+### Analysis of arm-based data
 
 ```{r, echo=F, message=F, warning=F}
-data=data %>% select(studyn, treatmentn, mean..y., standard.error..se., sample.size..n.) %>% drop_na()
-arm_net <- set_agd_arm(data, 
+meta_data=data %>% select(studyn, treatmentn, mean..y., standard.error..se., sample.size..n.) %>% drop_na()
+arm_net <- set_agd_arm(meta_data, 
                       study = studyn,
                       trt = treatmentn,
                       y = mean..y., 
@@ -105,6 +102,12 @@ arm_net <- set_agd_arm(data,
 arm_net
 plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
 ```
+
+* each node is one treatment, 9 treatments (nodes) in total. 
+* edge between two nodes indicates these two treatments are in one study, and edge width indicates how manu studies involving these treatment,  e.g. two studies involve placebo and ibuprofen 
+* node size indicates the sample size 
+
+
 
 #### fixed effect meta-analysis
 
@@ -116,7 +119,6 @@ arm_fit_FE <- nma(arm_net,
                   trt_effects = "fixed",
                   prior_intercept = normal(scale = 100),
                   prior_trt = normal(scale = 10))
-#> Note: Setting "4" as the network reference treatment.
 #> 
 #> 
 #> arm_fit_FE
@@ -141,7 +143,11 @@ arm_fit_FE <- nma(arm_net,
 print(arm_fit_FE, pars = c("d", "mu")) # mu: study specific intercept; d_k treatment effects 
 plot_prior_posterior(arm_fit_FE)
 ```
-* there are 7 studies and 5 treatments with 4 as reference 
+
+* `placebo` is the reference treatment 
+* `d[k]` treatment effects
+* `mu[j]` study specific intercepts 
+
 
 
 
@@ -160,13 +166,39 @@ arm_fit_RE <- nma(arm_net,
                   adapt_delta = 0.99)
 
 
-pairs(arm_fit_RE, pars = c("mu[4]", "d[3]", "delta[4: 3]", "tau"))
+#pairs(arm_fit_RE, pars = c("mu[4]", "d[3]", "delta[4: 3]", "tau"))
 arm_fit_RE
 ```
 
-## [metafor](https://www.wvbauer.com/lib/exe/fetch.php/talks:2019_viechtbauer_lsp_ma_longitudinal.pdf)
+#### model comparison 
 
 ```{r, echo=F, message=F, warning=F}
+(arm_dic_FE <- dic(arm_fit_FE))
+
+
+#(arm_dic_RE <- dic(arm_fit_RE))
+
+plot(arm_dic_FE)
+```
+#### relative effects 
+
+```{r, echo=F, message=F, warning=F}
+(arm_releff_FE <- relative_effects(arm_fit_FE, trt_ref = "placebo"))
+plot(arm_releff_FE, ref_line = 0)
+```
+
+#### treatment ranking 
+
+```{r, echo=F, message=F, warning=F}
+(arm_ranks <- posterior_ranks(arm_fit_FE))
+plot(arm_ranks)
+```
+
+
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
  dat <- data.frame( 
    study = c("Jones et al. (1998)", "Lewis et al. (2004)",
  "Grant et al. (2006)", "Berry et al. (2013)",
@@ -197,6 +229,10 @@ library(metafor)
 ```
 
 ## Reference 
+
+* [BUGSnet](https://bugsnetsoftware.github.io/) 
+
+*  [MetaStan](https://cran.r-project.org/web/packages/MetaStan/MetaStan.pdf)
 
 * [Network meta-analysis: application and practice using R software](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6635665/pdf/epih-41-e2019013.pdf)
 
