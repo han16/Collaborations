@@ -83,6 +83,7 @@ library(multinma)
 #head(parkinsons)
 data%>%
 datatable(extensions = 'Buttons',
+          caption = "Full sample", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -93,8 +94,16 @@ datatable(extensions = 'Buttons',
 ### Analysis of arm-based data
 
 ```{r, echo=F, message=F, warning=F}
-meta_data=data %>% select(studyn, treatmentn, mean..y., standard.error..se., sample.size..n.) %>% drop_na()
-arm_net <- set_agd_arm(meta_data, 
+data_arm=data %>% select(studyn, treatmentn, mean..y., standard.error..se., sample.size..n.) %>% drop_na()
+data_arm%>%
+datatable(extensions = 'Buttons',
+          caption = "sub-data for arm-based analysis", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+arm_net <- set_agd_arm(data_arm, 
                       study = studyn,
                       trt = treatmentn,
                       y = mean..y., 
@@ -151,37 +160,7 @@ plot_prior_posterior(arm_fit_FE)
 
 
 
-
-#### Random effects meta-analysis
-
-
-```{r, echo=F, message=F, warning=F, eval=F}
-summary(normal(scale = 100))
-summary(half_normal(scale = 5))
-arm_fit_RE <- nma(arm_net, 
-                  seed = 379394727,
-                  trt_effects = "random",
-                  prior_intercept = normal(scale = 100),
-                  prior_trt = normal(scale = 100),
-                  prior_het = half_normal(scale = 5),
-                  adapt_delta = 0.99)
-
-
-#pairs(arm_fit_RE, pars = c("mu[4]", "d[3]", "delta[4: 3]", "tau"))
-arm_fit_RE
-```
-
-#### model comparison 
-
-```{r, echo=F, message=F, warning=F}
-(arm_dic_FE <- dic(arm_fit_FE))
-
-
-#(arm_dic_RE <- dic(arm_fit_RE))
-
-plot(arm_dic_FE)
-```
-#### relative effects 
+#### relative effects against placebo 
 
 ```{r, echo=F, message=F, warning=F}
 (arm_releff_FE <- relative_effects(arm_fit_FE, trt_ref = "placebo"))
@@ -193,6 +172,9 @@ plot(arm_releff_FE, ref_line = 0)
 ```{r, echo=F, message=F, warning=F}
 (arm_ranks <- posterior_ranks(arm_fit_FE))
 plot(arm_ranks)
+
+(arm_rankprobs <- posterior_rank_probs(arm_fit_FE))
+plot(arm_rankprobs)
 ```
 
 
@@ -242,6 +224,14 @@ library(metafor)
 * [multinma](https://dmphillippo.github.io/multinma/articles/vignette_overview.html)
 
 * [metafor](https://www.wvbauer.com/lib/exe/fetch.php/talks:2019_viechtbauer_lsp_ma_longitudinal.pdf); longitudinal meta analysis
+
+
+
+## Analysis of mixed arm-based and contrast-based data
+
+```{r, echo=F, message=F, warning=F}
+
+```
 
 
 ## Sample size determination 
