@@ -75,13 +75,13 @@ ggplot(data=data.frame(SD, sample_size), aes(x=SD, y=sample_size, group=1)) +
 ```{r, echo=T}
 d=0.3; SD=0.15 
 power.t.test(power = .80, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
-power.t.test(n=5, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
-power.t.test(n=10, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
+power.t.test(n=6, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
+power.t.test(n=12, delta = d, alternative = "two.sided", sig.level=0.05, sd=SD)
 ```
 
 
 ```{r, echo=T, eval=F}
-For power analysis, we have used function-power.t.test in statistical software R version 4.1.2 to calculate sample size required to achieve desired power, with  Type 1 error probability of 0.05. With group mean difference 30% and standard variation of 15%, at least 5 animals /group/time points are needed to obtain 80% power, and it will be significantly increased to 98% when there are 10  animals /group/time point. 
+For power analysis, we have used function-power.t.test in statistical software R version 4.1.2 to calculate sample size required to achieve desired power, with  Type 1 error probability of 0.05. With group mean difference 30% and standard variation of 15%, we will use 6 animals /group/time points that is able to achieve  87% power, and it will be significantly increased to 99% when there are 12  animals /group/time point. 
 ```
 
 ### use formular 
