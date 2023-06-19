@@ -335,10 +335,10 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-# t.test(data$Ging_width_T1, data$Ging_width_T6, paired=T) # use paired t test to test the difference 
+ t.test(data$Ging_width_T1, data$Ging_width_T6, paired=T) # use paired t test to test the difference 
 ```
 
-* p value of 0.7824 suggests no difference between `Ging_width_T1` and `Ging_width_T6`
+* p value of 0.7824 by two sample t test suggests no difference between `Ging_width_T1` and `Ging_width_T6`
 * IQR is Q3-Q1. 
 
 
@@ -455,12 +455,17 @@ datatable(extensions = 'Buttons',
 
 res.aov <- anova_test(data = data_long, dv =Width_3mm , wid = individual, within = time)
 get_anova_table(res.aov)
+
+data_long %>% friedman_test(Width_3mm ~ time |individual)
 ```
 
 
 * use repeated anova test 
 
+* `Friedman test` is an non-parametric alternative test to anova for repeated measures 
+
 * small p value indicates significant change over time 
+
 
 ## _T2-T1, T3-T2, T4-T2,  T5-T2 and T6-T2
 
@@ -574,6 +579,9 @@ Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
+site_split1_kruskal_pvalue=numeric()
+site_split2_kruskal_pvalue=numeric()
+site_split3_kruskal_pvalue=numeric()
 
 for (i in 1:length(variables))
   
@@ -589,16 +597,22 @@ Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
+
 lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
 site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split2_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split2, data=sub_data)$p.value
 
 lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
 site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=sub_data)$p.value
 }
 
-
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
+site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption="",
             options = list(dom = 'Blfrtip',
@@ -607,7 +621,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* anova test was used for categorical variables and linear regression for continuous variabels 
+* anova test was used for categorical variables and linear regression for continuous variables 
+* non-parametric Kruskal–Wallis test for anova 
 
 * site_split1: Maxilla: 1-16 vs. mandible 17-32
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
@@ -730,6 +745,9 @@ Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
+site_split1_kruskal_pvalue=numeric()
+site_split2_kruskal_pvalue=numeric()
+site_split3_kruskal_pvalue=numeric()
 
 for (i in 1:length(variables))
   
@@ -742,19 +760,28 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
 
 lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
 site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+site_split2_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split2, data=sub_data)$p.value
+
 lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
 site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=sub_data)$p.value
 
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
+site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption="",
             options = list(dom = 'Blfrtip',
@@ -764,7 +791,7 @@ datatable(extensions = 'Buttons',
 ```
 
 * anova test was used for categorical variables and linear regression for continuous variables 
-
+* non-parametric Kruskal–Wallis test for anova 
 * site_split1: Maxilla: 1-16 vs. mandible 17-32
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
@@ -878,6 +905,10 @@ site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
 
+site_split1_kruskal_pvalue=numeric()
+site_split2_kruskal_pvalue=numeric()
+site_split3_kruskal_pvalue=numeric()
+
 for (i in 1:length(variables))
   
 {
@@ -889,19 +920,30 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
 
 lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
 site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+site_split2_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split2, data=sub_data)$p.value
+
 lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
 site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=sub_data)$p.value
+
 
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), 
+site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
+site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption="",
             options = list(dom = 'Blfrtip',
@@ -911,7 +953,7 @@ datatable(extensions = 'Buttons',
 ```
 
 * anova test was used for categorical variables and linear regression for continuous variables 
-
+* non-parametric Kruskal–Wallis test for anova 
 * site_split1: Maxilla: 1-16 vs. mandible 17-32
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
@@ -1026,6 +1068,11 @@ site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
 
+site_split1_kruskal_pvalue=numeric()
+site_split2_kruskal_pvalue=numeric()
+site_split3_kruskal_pvalue=numeric()
+
+
 for (i in 1:length(variables))
   
 {
@@ -1037,19 +1084,29 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
 
 lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
 site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+site_split2_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split2, data=sub_data)$p.value
+
 lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
 site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=sub_data)$p.value
+
 
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
+site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption="",
             options = list(dom = 'Blfrtip',
@@ -1059,7 +1116,7 @@ datatable(extensions = 'Buttons',
 ```
 
 * anova test was used for categorical variables and linear regression for continuous variables 
-
+* non-parametric Kruskal–Wallis test for anova 
 * site_split1: Maxilla: 1-16 vs. mandible 17-32
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
@@ -1172,6 +1229,10 @@ site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
 
+site_split1_kruskal_pvalue=numeric()
+site_split2_kruskal_pvalue=numeric()
+site_split3_kruskal_pvalue=numeric()
+
 for (i in 1:length(variables))
   
 {
@@ -1182,20 +1243,28 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
-
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
+
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
 
 lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
 site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+site_split2_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split2, data=sub_data)$p.value
+
 lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
 site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=sub_data)$p.value
 
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
+site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption="",
             options = list(dom = 'Blfrtip',
@@ -1205,7 +1274,7 @@ datatable(extensions = 'Buttons',
 ```
 
 * anova test was used for categorical variables and linear regression for continuous variables 
-
+* non-parametric Kruskal–Wallis test for anova 
 * site_split1: Maxilla: 1-16 vs. mandible 17-32
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
@@ -1318,6 +1387,10 @@ site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
 
+site_split1_kruskal_pvalue=numeric()
+site_split2_kruskal_pvalue=numeric()
+site_split3_kruskal_pvalue=numeric()
+
 for (i in 1:length(variables))
   
 {
@@ -1329,19 +1402,27 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 
-lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
 
 lm_reg=lm(swelling_parameter~site_split2, data=sub_data)  
 site_split2_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+site_split2_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split2, data=sub_data)$p.value
+
 lm_reg=lm(swelling_parameter~site_split3, data=sub_data)  
 site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=sub_data)$p.value
+
 
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue))%>%
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
+site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption="",
             options = list(dom = 'Blfrtip',
@@ -1351,7 +1432,7 @@ datatable(extensions = 'Buttons',
 ```
 
 * anova test was used for categorical variables and linear regression for continuous variables 
-
+* non-parametric Kruskal–Wallis test for anova
 * site_split1: Maxilla: 1-16 vs. mandible 17-32
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
