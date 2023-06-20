@@ -304,7 +304,7 @@ figure
 
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data.frame(Age=data$Age, Time_bone_graft=data$Type_bone_graft, Ging_thick=data$Ging_thick, Muc_thick=data$Muc_thick, Duration_min=data$Duration.min., Suture_removal=data$Suture_removal, Ging_width_T1=data$Ging_width_T1, Ging_width_T6=data$Ging_width_T6)
+sub_data=data.frame(Age=data$Age, Time_bone_graft=data$Time_bone_graft..months., Ging_thick=data$Ging_thick, Muc_thick=data$Muc_thick, Duration_min=data$Duration.min., Suture_removal=data$Suture_removal, Ging_width_T1=data$Ging_width_T1, Ging_width_T6=data$Ging_width_T6)
 Mean=numeric()
 SD=numeric()
 SE=numeric()
@@ -316,14 +316,14 @@ Q3=numeric()
 normality_pvalue=numeric()
 for (i in 1:ncol(sub_data))
 {
-  Mean[i]=round(mean(sub_data[,i]),4)
-  SD[i]=round(sd(sub_data[,i]),4)
+  Mean[i]=round(mean(sub_data[,i],na.rm=T),4)
+  SD[i]=round(sd(sub_data[,i], na.rm=T),4)
   SE[i]=round(SD[i]/sqrt(nrow(sub_data)),4)
-  range_min[i]=round(min(sub_data[,i]),4)
-  range_max[i]=round(max(sub_data[,i]),4)
-  median[i]=summary(sub_data[,i])[3]
-  Q1[i]=summary(sub_data[,i])[2]
-  Q3[i]=summary(sub_data[,i])[5]
+  range_min[i]=round(min(sub_data[,i], na.rm=T),4)
+  range_max[i]=round(max(sub_data[,i], na.rm=T),4)
+  median[i]=summary(sub_data[,i], na.rm=T)[3]
+  Q1[i]=summary(sub_data[,i], na.rm=T)[2]
+  Q3[i]=summary(sub_data[,i], na.rm=T)[5]
   normality_pvalue[i]=round(shapiro.test(sub_data[,i])$p.value,4)
   
 }
