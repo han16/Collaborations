@@ -475,14 +475,13 @@ data_long %>% friedman_test(Width_3mm ~ time |individual)
 
 
 
-
-
 ```{r, echo=F, message=F, warning=F}
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric(); 
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 Median=Q1=Q3=numeric()
 # replace data[8,13]=5.4646 by referring to old sample 
 normality_pvalue=numeric()
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(11+i)] %>% pull
@@ -502,8 +501,9 @@ for (i in 1:5)
   Q3[i]=round(summary(current)[5],4)
   
   normality_pvalue[i]=pvalue_adjust(shapiro.test(Width_3mm_data[,i])$p.value)
+  wilcox_test_pvalue[i]=wilcox.test(current, mu=0, alternative="two.sided")$p.value
 }
-data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[12:16], mean=round(estimate,2), Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue, wilcox_test_pvalue=pvalue_adjust(wilcox_test_pvalue))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -513,6 +513,8 @@ datatable(extensions = 'Buttons',
 ```
 
 * use one sample t test to test each parameter is equal to 0 or not
+
+* one sample non-parametric test `wilcox_test_pvalue` was used 
 
 
 
@@ -1145,6 +1147,7 @@ p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
 Median=Q1=Q3=numeric()
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(31+i)] %>% pull
@@ -1164,8 +1167,10 @@ for (i in 1:5)
   Q3[i]=round(summary(current)[5],4)
   
   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  
+  wilcox_test_pvalue[i]=wilcox.test(current, mu=0, alternative="two.sided")$p.value
 }
-data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[32:36], mean=round(estimate,2),  Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue, wilcox_test_pvalue=pvalue_adjust(wilcox_test_pvalue))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1307,6 +1312,7 @@ p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
 SD=numeric(); SE=numeric(); minimum=numeric(); maximum=numeric()
 normality_pvalue=numeric()
 Median=Q1=Q3
+wilcox_test_pvalue=numeric()
 for (i in 1:5)
 {
   current=data[,(44+i)] %>% pull
@@ -1326,8 +1332,9 @@ for (i in 1:5)
   Q3[i]=round(summary(current)[5],4)
   
   normality_pvalue[i]=pvalue_adjust(shapiro.test(current)$p.value)
+  wilcox_test_pvalue[i]=wilcox.test(current, mu=0, alternative="two.sided")$p.value
 }
-data_frame(parameter=colnames(data)[45:49], mean=round(estimate,2),  Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue)%>%
+data_frame(parameter=colnames(data)[45:49], mean=round(estimate,2),  Median, Q1, Q3, IQR=Q3-Q1, CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), SD=round(SD,4), SE=round(SE,4),  minimum=round(minimum,4),  maximum=round(maximum, 4), normality_pvalue=normality_pvalue, wilcox_test_pvalue=pvalue_adjust(wilcox_test_pvalue))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1335,7 +1342,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
-
+* one sample non-parametric `wilcox.test` was used 
 
 
 ```{r, echo=F, message=F, warning=F}
