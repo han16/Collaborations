@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1538ae13cd7f0cba031859c750a1bf8a431146ectargetblank1538ae1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree74b82c2f7faba28122388aea08cd3c26e778193dtargetblank74b82c2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/1538ae13cd7f0cba031859c750a1bf8a431146ec" target="_blank">1538ae1</a>
+<a href="https://github.com/han16/Collaborations/tree/74b82c2f7faba28122388aea08cd3c26e778193d" target="_blank">74b82c2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1538ae13cd7f0cba031859c750a1bf8a431146ectargetblank1538ae1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree74b82c2f7faba28122388aea08cd3c26e778193dtargetblank74b82c2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/1538ae13cd7f0cba031859c750a1bf8a431146ec" target="_blank">1538ae1</a>.
+<a href="https://github.com/han16/Collaborations/tree/74b82c2f7faba28122388aea08cd3c26e778193d" target="_blank">74b82c2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -621,6 +621,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/74b82c2f7faba28122388aea08cd3c26e778193d/analysis/2022_Sep1_Juan.Rmd" target="_blank">74b82c2</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-06-20
+</td>
+<td>
+6/20/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/74b82c2f7faba28122388aea08cd3c26e778193d/docs/2022_Sep1_Juan.html" target="_blank">74b82c2</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-06-20
+</td>
+<td>
+6/20/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2067,9 +2101,19 @@ alternative hypothesis: true mean difference is not equal to 0
 sample estimates:
 mean difference 
      -0.1538462 </code></pre>
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  data$Ging_width_T1 and data$Ging_width_T6
+V = 154, p-value = 0.6278
+alternative hypothesis: true location shift is not equal to 0</code></pre>
 <ul>
-<li>p value of 0.7824 by two sample t test suggests no difference
-between <code>Ging_width_T1</code> and <code>Ging_width_T6</code></li>
+<li>p value of 0.7824 by parametric two sample paired t test suggests no
+difference between <code>Ging_width_T1</code> and
+<code>Ging_width_T6</code></li>
+<li>p value of 0.6278 by non-parametric Wilcoxon test suggests no
+difference between <code>Ging_width_T1</code> and
+<code>Ging_width_T6</code></li>
 <li>IQR is Q3-Q1.</li>
 </ul>
 </div>
@@ -2127,7 +2171,7 @@ not</li>
 <div id="covariate-effect" class="section level4">
 <h4>covariate effect</h4>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Width_diff_3mm_T2.T1","Width_diff_3mm_T3.T2","Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2"],[0.7355,0.681,0.7836,0.6965,0.8766],[0.9722,0.6499,0.7486,0.3802,0.8081],[0.0281,0.1141,0.0236,0.0994,0.8836],[0.1058,0.1693,0.0557,0.1383,0.8084],[0.1952,0.5874,0.1813,0.1886,0.1427],[0.0832,0.4414,0.0833,0.0833,0.0675],[0.2324,0.468,0.064,0.3926,0.2336],[0.2262,0.2635,0.0452,0.2097,0.1765]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Width_diff_3mm_T2.T1","Width_diff_3mm_T3.T2","Width_diff_3mm_T4.T2","Width_diff_3mm_T5.T2","width_diff_3mm_T6.T2"],[0.7355,0.681,0.7836,0.6965,0.8766],[0.8888,0.5274,0.8311,0.6547,0.9392],[0.9722,0.6499,0.7486,0.3802,0.8081],[0.0281,0.1141,0.0236,0.0994,0.8836],[0.1058,0.1693,0.0557,0.1383,0.8084],[0.1952,0.5874,0.1813,0.1886,0.1427],[0.0832,0.4414,0.0833,0.0833,0.0675],[0.2324,0.468,0.064,0.3926,0.2336],[0.2262,0.2635,0.0452,0.2097,0.1765]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Type_bone_graft_kruskal_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li><p>anova test was used for categorical variables and linear
 regression for continuous variables</p></li>
@@ -2150,7 +2194,7 @@ vs. 28-32</p></li>
 <div id="covariate-effect-1" class="section level4">
 <h4>covariate effect</h4>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Buccal_3mm_T2.T1","Buccal_3mm_T2.T3","Buccal_3mm_T2.T4","Buccal_3mm_T2.T5","Buccal_3mm_T2.T6"],[0.8904,0.7313,0.3209,0.7384,0.9055],[0.7186,0.4763,0.6704,0.949,0.6742],[0.0076,0.419,0.0662,0.0295,0.0149],[0.0492,0.5354,0.3456,0.2053,0.0896],[0.5825,0.2907,0.2506,0.3348,0.3574],[0.7003,0.2482,0.1489,0.1489,0.211],[0.1391,0.0145,0.1684,0.1927,0.2071],[0.4053,0.048,0.1397,0.3398,0.2812]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Buccal_3mm_T2.T1","Buccal_3mm_T2.T3","Buccal_3mm_T2.T4","Buccal_3mm_T2.T5","Buccal_3mm_T2.T6"],[0.8904,0.7313,0.3209,0.7384,0.9055],[0.6711,0.6646,0.4063,0.2973,0.8826],[0.7186,0.4763,0.6704,0.949,0.6742],[0.0076,0.419,0.0662,0.0295,0.0149],[0.0492,0.5354,0.3456,0.2053,0.0896],[0.5825,0.2907,0.2506,0.3348,0.3574],[0.7003,0.2482,0.1489,0.1489,0.211],[0.1391,0.0145,0.1684,0.1927,0.2071],[0.4053,0.048,0.1397,0.3398,0.2812]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Type_bone_graft_kruskal_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>anova test was used for categorical variables and linear regression
 for continuous variables</li>
@@ -2173,7 +2217,7 @@ vs. 28-32</li>
 <div id="covariate-effect-2" class="section level4">
 <h4>covariate effect</h4>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Lingual_3mm_T2.T1","Lingual_3mm_T2.T3","Lingual_3mm_T2.T4","Lingual_3mm_T2.T5","Lingual_3mm_T2.T6"],[0.9227,0.1776,0.8977,0.5054,0.7599],[0.5059,0.014,0.2176,0.9934,0.4623],[0.4451,0.2096,0.0015,0.7771,0.9401],[0.3187,0.3187,0.0033,0.6276,0.6469],[0.1254,0.749,0.5278,0.1032,0.3737],[0.0675,0.6304,0.5637,0.1488,0.1237],[0.2343,0.1336,0.0098,0.3755,0.6615],[0.1536,0.1109,0.0365,0.2643,0.4258]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Lingual_3mm_T2.T1","Lingual_3mm_T2.T3","Lingual_3mm_T2.T4","Lingual_3mm_T2.T5","Lingual_3mm_T2.T6"],[0.9227,0.1776,0.8977,0.5054,0.7599],[0.7121,0.3268,0.9869,0.437,0.6578],[0.5059,0.014,0.2176,0.9934,0.4623],[0.4451,0.2096,0.0015,0.7771,0.9401],[0.3187,0.3187,0.0033,0.6276,0.6469],[0.1254,0.749,0.5278,0.1032,0.3737],[0.0675,0.6304,0.5637,0.1488,0.1237],[0.2343,0.1336,0.0098,0.3755,0.6615],[0.1536,0.1109,0.0365,0.2643,0.4258]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Type_bone_graft_kruskal_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>anova test was used for categorical variables and linear regression
 for continuous variables</li>
@@ -2196,7 +2240,7 @@ vs. 28-32</li>
 <div id="covariate-effect-3" class="section level4">
 <h4>covariate effect</h4>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6"],["Vertical_mid_T2.T1","Vertical_mid_T2.T3","Vertical_mid_T2.T4","Vertical_mid_T2.T5","Vertical_mid_T2.T6","Vertical_max_T2.T1"],[0.3881,0.045,0.7178,0.4297,0.1265,0.5685],[0.4755,0.6814,0.0232,0.0169,0.5009,0.7748],[0.5512,0.0872,0.6014,0.3426,0.0749,0.7168],[0.7261,0.1002,0.7464,0.2933,0.2465,0.9356],[0.2221,0.838,0.8803,0.4796,0.4913,0.9147],[0.1779,0.6304,0.7728,0.5006,0.7003,0.7728],[0.8177,0.5143,0.5665,0.6835,0.099,0.6709],[0.6225,0.2626,0.7285,0.6246,0.4734,0.3347]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6"],["Vertical_mid_T2.T1","Vertical_mid_T2.T3","Vertical_mid_T2.T4","Vertical_mid_T2.T5","Vertical_mid_T2.T6","Vertical_max_T2.T1"],[0.3881,0.045,0.7178,0.4297,0.1265,0.5685],[0.464,0.1507,0.5872,0.4148,0.1871,0.6275],[0.4755,0.6814,0.0232,0.0169,0.5009,0.7748],[0.5512,0.0872,0.6014,0.3426,0.0749,0.7168],[0.7261,0.1002,0.7464,0.2933,0.2465,0.9356],[0.2221,0.838,0.8803,0.4796,0.4913,0.9147],[0.1779,0.6304,0.7728,0.5006,0.7003,0.7728],[0.8177,0.5143,0.5665,0.6835,0.099,0.6709],[0.6225,0.2626,0.7285,0.6246,0.4734,0.3347]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Type_bone_graft_kruskal_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>anova test was used for categorical variables and linear regression
 for continuous variables</li>
@@ -2219,7 +2263,7 @@ vs. 28-32</li>
 <div id="covariate-effect-4" class="section level4">
 <h4>covariate effect</h4>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-450f171f14364aa3ebed" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Vertical_max_T2.T1","Vertical_max_T2.T3","Vertical_max_T2.T4","Vertical_max_T2.T5","Vertical_max_T2.T6"],[0.5685,0.8035,0.2924,0.1431,0.3688],[0.7748,0.5473,0.1811,0.0962,0.8497],[0.7168,0.5384,0.0709,0.0079,0.0461],[0.9356,0.4345,0.1245,0.0191,0.1532],[0.9147,0.8809,0.8123,0.3463,0.3671],[0.7728,0.7728,0.3865,0.1779,0.2482],[0.6709,0.1488,0.069,0.0705,0.068],[0.3347,0.1302,0.1049,0.1785,0.12]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Vertical_max_T2.T1","Vertical_max_T2.T3","Vertical_max_T2.T4","Vertical_max_T2.T5","Vertical_max_T2.T6"],[0.5685,0.8035,0.2924,0.1431,0.3688],[0.6275,0.8997,0.5691,0.1075,0.4917],[0.7748,0.5473,0.1811,0.0962,0.8497],[0.7168,0.5384,0.0709,0.0079,0.0461],[0.9356,0.4345,0.1245,0.0191,0.1532],[0.9147,0.8809,0.8123,0.3463,0.3671],[0.7728,0.7728,0.3865,0.1779,0.2482],[0.6709,0.1488,0.069,0.0705,0.068],[0.3347,0.1302,0.1049,0.1785,0.12]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Type_bone_graft_kruskal_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>anova test was used for categorical variables and linear regression
 for continuous variables</li>
@@ -2243,7 +2287,7 @@ vs. 28-32</li>
 <div id="covariate-effect-5" class="section level4">
 <h4>covariate effect</h4>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1d5df3d80f5735caaf13" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1d5df3d80f5735caaf13">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["X.Vol_T2.T1.T1","X.Vol_T3.T2.T2","X.Vol_T4.T2.T2","X.Vol_T5.T2.T2","X.Vol_T6.T2.T2"],[0.096,0.1057,0.2404,0.1484,0.7348],[0.7464,0.2513,0.0038,0.0005,0.9413],[0.096,0.1057,0.2404,0.1484,0.7348],[0.1532,0.6469,0.5715,0.2253,0.038],[0.4108,0.0945,0.5322,0.9104,0.1612],[0.1779,0.0833,0.5006,0.7728,0.1779],[0.3442,0.0055,0.3873,0.9386,0.0505],[0.1414,0.0187,0.2342,0.7261,0.1123]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-1d5df3d80f5735caaf13">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["X.Vol_T2.T1.T1","X.Vol_T3.T2.T2","X.Vol_T4.T2.T2","X.Vol_T5.T2.T2","X.Vol_T6.T2.T2"],[0.096,0.1057,0.2404,0.1484,0.7348],[0.8456,0.1798,0.2792,0.25,0.725],[0.7464,0.2513,0.0038,0.0005,0.9413],[0.096,0.1057,0.2404,0.1484,0.7348],[0.1532,0.6469,0.5715,0.2253,0.038],[0.4108,0.0945,0.5322,0.9104,0.1612],[0.1779,0.0833,0.5006,0.7728,0.1779],[0.3442,0.0055,0.3873,0.9386,0.0505],[0.1414,0.0187,0.2342,0.7261,0.1123]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>Type_bone_graft_pvalue<\/th>\n      <th>Type_bone_graft_kruskal_pvalue<\/th>\n      <th>Time_bone_graft_month_pvalue<\/th>\n      <th>site_split1_pvalue<\/th>\n      <th>site_split1_kruskal_pvalue<\/th>\n      <th>site_split2_pvalue<\/th>\n      <th>site_split2_kruskal_pvalue<\/th>\n      <th>site_split3_pvalue<\/th>\n      <th>site_split3_kruskal_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>anova test was used for categorical variables and linear regression
 for continuous variables</li>

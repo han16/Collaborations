@@ -336,9 +336,11 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
  t.test(data$Ging_width_T1, data$Ging_width_T6, paired=T) # use paired t test to test the difference 
+ wilcox.test(data$Ging_width_T1, data$Ging_width_T6, paired=T)
 ```
 
-* p value of 0.7824 by two sample t test suggests no difference between `Ging_width_T1` and `Ging_width_T6`
+* p value of 0.7824 by parametric two sample paired t test suggests no difference between `Ging_width_T1` and `Ging_width_T6`
+* p value of 0.6278 by non-parametric Wilcoxon test suggests no difference between `Ging_width_T1` and `Ging_width_T6`
 * IQR is Q3-Q1. 
 
 
@@ -575,6 +577,7 @@ site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
 site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 
 Type_bone_graft_pvalue=numeric()
+Type_bone_graft_kruskal_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
@@ -594,6 +597,8 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+Type_bone_graft_kruskal_pvalue[i]=kruskal.test(swelling_parameter~as.character(Type_bone_graft), data=sub_data)$p.value
+
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
 
@@ -610,7 +615,7 @@ site_split3_pvalue[i]=lmp(lm_reg) # get regression model p value
 site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=sub_data)$p.value
 }
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue),Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
 site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
 site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
@@ -742,6 +747,7 @@ site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 
 Type_bone_graft_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
+Type_bone_graft_kruskal_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
@@ -759,6 +765,8 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+Type_bone_graft_kruskal_pvalue[i]=kruskal.test(swelling_parameter~as.character(Type_bone_graft), data=sub_data)$p.value
 
 
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
@@ -779,7 +787,7 @@ site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue),Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
 site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
 site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
@@ -900,6 +908,7 @@ site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
 site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 
 Type_bone_graft_pvalue=numeric()
+Type_bone_graft_kruskal_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
@@ -919,6 +928,8 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+Type_bone_graft_kruskal_pvalue[i]=kruskal.test(swelling_parameter~as.character(Type_bone_graft), data=sub_data)$p.value
 
 
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
@@ -940,7 +951,7 @@ site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), 
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue),Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), 
 site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
 site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
 site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
@@ -1063,6 +1074,7 @@ site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
 site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 
 Type_bone_graft_pvalue=numeric()
+Type_bone_graft_kruskal_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
@@ -1084,6 +1096,8 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+Type_bone_graft_kruskal_pvalue[i]=kruskal.test(swelling_parameter~as.character(Type_bone_graft), data=sub_data)$p.value
+
 
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
@@ -1104,7 +1118,7 @@ site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue),Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
 site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
 site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
@@ -1224,6 +1238,7 @@ site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
 site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 
 Type_bone_graft_pvalue=numeric()
+Type_bone_graft_kruskal_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
@@ -1245,6 +1260,8 @@ lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~site_split1, data=sub_data)  
 
+Type_bone_graft_kruskal_pvalue[i]=kruskal.test(swelling_parameter~as.character(Type_bone_graft), data=sub_data)$p.value
+
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
 
 site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
@@ -1262,7 +1279,7 @@ site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
 site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
 site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
@@ -1382,6 +1399,7 @@ site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
 site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 
 Type_bone_graft_pvalue=numeric()
+Type_bone_graft_kruskal_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
@@ -1402,6 +1420,8 @@ Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
 
+Type_bone_graft_kruskal_pvalue[i]=kruskal.test(swelling_parameter~as.character(Type_bone_graft), data=sub_data)$p.value
+
 site_split1_pvalue[i]=lmp(lm_reg) # get regression model p value
 
 site_split1_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split1, data=sub_data)$p.value
@@ -1420,7 +1440,7 @@ site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue),Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
 site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
 site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
