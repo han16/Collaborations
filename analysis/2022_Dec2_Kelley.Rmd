@@ -431,7 +431,13 @@ g1
 g2
 g3
 g4
+
+summary(data_raw$Age)
+sd(data_raw$Age)
 ```
+
+* for 1,715 patients, average mean is 15.89 and SD is 8.97. 
+
 
 ### data without missing values 
 
@@ -510,7 +516,12 @@ sub_data %>% datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ####### be careful about filter for RACE 
+
+summary(sub_data$Age)
+sd(sub_data$Age)
 ```
+
+* for 203 patients, average age is 15.54 and SD is 9.34. 
 
 
 * The model is $log\frac{P(Extraction)}{1-P(Extraction)}=\beta_0+\beta_1Upper.TSALD+\beta_2Lower.TSALD+\beta_3Skeletal.AP+\beta_4Upper\_lip+\beta_5Lower\_lip+\beta_6Age+\beta_7Sex+\beta_8Skeletal.Ver$
@@ -518,6 +529,9 @@ sub_data %>% datatable(extensions = 'Buttons',
 
 * $\beta$ estimates are OR column in the following table.  
 
+* $\beta_3$ is for `Skeletal.AP` that has 3 groups, with group I as reference, so OR of group II vs I is 1.34, and 1.86 is for group III vs I. 
+
+* $\beta_8$ is for `Skeletal.Ver` that also has 3 groups, with `high angle` as reference, OR of `Low angle` vs `High angle` is 0.37 and OR of `Normal angle` vs `High angle` is 0.92.   
 
 ```{r, echo=F, message=F, warning=F}
 colnames(sub_data)[5:6]=c("Upper_lip", "Lower_lip")
