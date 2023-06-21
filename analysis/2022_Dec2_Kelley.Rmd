@@ -436,7 +436,7 @@ summary(data_raw$Age)
 sd(data_raw$Age)
 ```
 
-* for 1,715 patients, average mean is 15.89 and SD is 8.97. 
+* for 1,715 patients, average age is 15.89 and SD is 8.97. 
 
 
 ### data without missing values 
