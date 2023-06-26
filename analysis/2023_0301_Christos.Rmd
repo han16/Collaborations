@@ -116,6 +116,7 @@ arm_net
 plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
 ```
 
+* rename "placebo 1", "placebo 2" as placebo
 * each node is one treatment, 7 treatments (nodes) in total. 
 * edge between two nodes indicates these two treatments are in one study, and edge width indicates how manu studies involving these treatment,  e.g. two studies involve placebo and ibuprofen 
 * node size indicates the sample size 
