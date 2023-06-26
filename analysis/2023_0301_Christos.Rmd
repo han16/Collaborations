@@ -95,6 +95,9 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 data_arm=data %>% select(studyn, treatmentn, mean..y., standard.error..se., sample.size..n.) %>% drop_na()
+data_arm$treatmentn[9]="placebo" # rename "placebo 1", "placebo 2" as placebo 
+data_arm$treatmentn[11]="placebo"
+
 data_arm%>%
 datatable(extensions = 'Buttons',
           caption = "sub-data for arm-based analysis", 
@@ -113,7 +116,7 @@ arm_net
 plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
 ```
 
-* each node is one treatment, 9 treatments (nodes) in total. 
+* each node is one treatment, 7 treatments (nodes) in total. 
 * edge between two nodes indicates these two treatments are in one study, and edge width indicates how manu studies involving these treatment,  e.g. two studies involve placebo and ibuprofen 
 * node size indicates the sample size 
 
@@ -154,6 +157,8 @@ print(arm_fit_FE, pars = c("d", "mu")) # mu: study specific intercept; d_k treat
 plot_prior_posterior(arm_fit_FE)
 ```
 
+* use $N(0,100^2)$ prior distributions for the treatment effects `d[k]`
+ and study-specific intercepts `mu[j]`
 * `placebo` is the reference treatment 
 * `d[k]` treatment effects
 * `mu[j]` study specific intercepts 
@@ -167,6 +172,8 @@ plot_prior_posterior(arm_fit_FE)
 plot(arm_releff_FE, ref_line = 0)
 ```
 
+* each horizontal line of every treatment  visualizes 5 summary statistics 2.5%,25%, 50%, 75%, 97.5%. 
+
 #### treatment ranking 
 
 ```{r, echo=F, message=F, warning=F}
@@ -177,7 +184,7 @@ plot(arm_ranks)
 plot(arm_rankprobs)
 ```
 
-
+* rank the treatments by `d[k]`, the larger mean, the higher rank. 
 
 
 
