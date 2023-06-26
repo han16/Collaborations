@@ -180,12 +180,12 @@ plot(arm_releff_FE, ref_line = 0)
 (arm_ranks <- posterior_ranks(arm_fit_FE))
 plot(arm_ranks)
 
-(arm_rankprobs <- posterior_rank_probs(arm_fit_FE))
-plot(arm_rankprobs)
+#(arm_rankprobs <- posterior_rank_probs(arm_fit_FE))
+#plot(arm_rankprobs)
 ```
 
-* rank the treatments by `d[k]`, the larger mean, the higher rank. 
-
+* rank the treatments by `d[k]`, the larger mean, the higher rank. ibuprofen > nimesilide > dexamethasone 8mg > ketorolac 10mg > celecoxib 200mg > 
+placebo > dexamethasone 4mg 
 
 
 ```{r, echo=F, message=F, warning=F, eval=F}
