@@ -119,3 +119,24 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+### pre vs post 
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+for (i in 1:length(variables))
+{
+  pre=as.numeric(pre_treatment[i,2:20])
+  post=as.numeric(post_treatment[i,2:20])
+  test=t.test(pre, post, paired=T)
+  pvalue[i]=pvalue_adjust(test$p.value)
+}
+data.frame(variable=variables, pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* use two sample paired t test to test the difference between pre and post treatment. 
