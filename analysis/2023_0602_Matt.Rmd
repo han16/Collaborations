@@ -1,0 +1,137 @@
+---
+title: "06/27/2023"
+output: html_document
+date: "2023-06-27"
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(grid)
+library(DT)
+library(gridExtra)
+library(matrixStats)
+library(cowplot)
+set.seed(123)
+```
+
+
+
+
+```{r, echo=F, warning=F, message=F}
+######## adjust p values 
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+############### summary statistics for continuous variable 
+summary_statistics=function(data)
+{  # each column is one variable, and row one subject 
+  
+variables=colnames(data)
+num_sample=numeric()
+Mean=numeric()
+SD=numeric()
+SE=numeric()
+range_min=numeric()
+range_max=numeric()
+normality_pvalue=numeric()
+for (i in 1:ncol(data))
+{
+  observation=data[,i]
+  observation=observation[!is.na(observation)] # remove missing values 
+  num_sample[i]=length(observation)
+  Mean[i]=round(mean(observation),4)
+  SD[i]=round(sd(observation),4)
+  SE[i]=round(SD[i]/sqrt(num_sample[i]),4)
+  range_min[i]=round(min(observation),4)
+  range_max[i]=round(max(observation),4)
+  normality_pvalue[i]=round(shapiro.test(observation)$p.value,4)
+}
+
+summary_data=data.frame(materials=variables, num_sample=num_sample, Mean=Mean, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max, normality_pvalue=normality_pvalue)
+
+summary_data%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
+ return(summary_data) 
+}
+
+```
+
+```{r, echo=F, message=F, warning=F}
+pre_treatment=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Matthew\\Generated Patient List_pretx.csv",stringsAsFactors=FALSE, fileEncoding="latin1", header=T))
+post_treatment=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Matthew\\Generated Patient List_postx.csv",stringsAsFactors=FALSE, fileEncoding="latin1", header=T))
+```
+
+
+## Summary statistics 
+
+
+```{r, echo=F, message=F, warning=F}
+variables=pre_treatment$X[1:12]
+average_pre=numeric(); sd_pre=numeric()
+average_post=numeric(); sd_post=numeric()
+for (i in 1:length(variables))
+{
+  average_pre[i]=mean(as.numeric(pre_treatment[i,2:20])); sd_pre[i]=sd(as.numeric(pre_treatment[i,2:20]))
+  average_post[i]=mean(as.numeric(post_treatment[i,2:20])); sd_post[i]=sd(as.numeric(post_treatment[i,2:20]))
+}
+summary=data.frame(variable=rep(variables,2), average=c(average_pre, average_post), sd=c(sd_pre, sd_post), treatment=rep(c("pre", "post"), each=length(variables)))
+
+#ggplot(sub_data_mean, aes(x=time, y=Width_3mm_mean, fill=methods)) + 
+#  geom_bar(stat="identity", color="black", 
+#           position=position_dodge()) +
+
+ggplot(summary, aes(variable, average)) + 
+   geom_bar(aes(fill =treatment ), stat = "identity", position=position_dodge())+
+  theme(axis.text.y = element_text(size = 10))+ # this is for numbers on y axis 
+  geom_errorbar(aes(ymin=average-sd, ymax=average+sd), width=.2,
+                 position=position_dodge(.9))+
+  xlab("")+
+   theme(plot.title = element_text(hjust = 0.5, size=15, face="bold"))+
+    theme(legend.title = element_blank(), legend.text=element_text(size=9))+theme(legend.position="bottom")+
+   theme(axis.text.x = element_text(angle = 15, vjust = 0.5, size=10))+
+ theme(text = element_text(size=13))+ # size is for labels on x axis 
+  theme(axis.title = element_text(size = 13))+ # Font Size of Axis Titles
+ theme(legend.spacing.x = unit(0.5, 'cm')) # add space between symbols in legend 
+
+
+ggplot(summary, aes(x=variable, y=average, fill=treatment)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=average-sd, ymax=average+sd), width=.2,
+                 position=position_dodge(.9))+
+  theme(legend.title=element_blank())+
+  ylab("")+
+  theme(legend.title = element_blank(), legend.text=element_text(size=9))+theme(legend.position="bottom")+
+   theme(axis.text.x = element_text(angle = 15, vjust = 0.5, size=10))+
+ theme(text = element_text(size=13))+ # size is for labels on x axis 
+  theme(axis.title = element_text(size = 13))+ # Font Size of Axis Titles
+ theme(legend.spacing.x = unit(0.5, 'cm')) # add space between symbols in legend
+
+data.frame(variable=variables, average_pre=round(average_pre,4),  sd_pre=round(sd_pre,4),  average_post=round(average_post,4), sd_post=round(sd_post,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
