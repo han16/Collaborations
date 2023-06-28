@@ -44,25 +44,32 @@ summary_statistics=function(data)
 variables=colnames(data)
 num_sample=numeric()
 Mean=numeric()
+Median=numeric()
 SD=numeric()
 SE=numeric()
 range_min=numeric()
 range_max=numeric()
 normality_pvalue=numeric()
+per_25_quantile=numeric()
+per_75_quantile=numeric()
+
 for (i in 1:ncol(data))
 {
   observation=data[,i]
   observation=observation[!is.na(observation)] # remove missing values 
   num_sample[i]=length(observation)
   Mean[i]=round(mean(observation),4)
+  Median[i]=round(median(observation),4)
   SD[i]=round(sd(observation),4)
   SE[i]=round(SD[i]/sqrt(num_sample[i]),4)
+  per_25_quantile[i]=round(quantile(observation, prob=0.25),4)
+  per_75_quantile[i]=round(quantile(observation, prob=0.75),4)
   range_min[i]=round(min(observation),4)
   range_max[i]=round(max(observation),4)
   normality_pvalue[i]=round(shapiro.test(observation)$p.value,4)
 }
 
-summary_data=data.frame(materials=variables, num_sample=num_sample, Mean=Mean, SD=SD, SE=SE, Range_low=range_min, Range_upper=range_max, normality_pvalue=normality_pvalue)
+summary_data=data.frame(variable=variables, num_sample=num_sample, Mean=Mean, Median=Median, SD=SD, SE=SE,per_25_quantile, per_75_quantile, Range_low=range_min, Range_upper=range_max, normality_pvalue=normality_pvalue)
 
 summary_data%>%
 datatable(extensions = 'Buttons',
@@ -123,13 +130,35 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 pvalue=numeric()
+pre_data_matrix=matrix(nrow=19, ncol=length(variables)); colnames(pre_data_matrix)=variables 
+post_data_matrix=matrix(nrow=19, ncol=length(variables)); colnames(post_data_matrix)=variables
 for (i in 1:length(variables))
 {
   pre=as.numeric(pre_treatment[i,2:20])
   post=as.numeric(post_treatment[i,2:20])
   test=t.test(pre, post, paired=T)
   pvalue[i]=pvalue_adjust(test$p.value)
+  
+  pre_data_matrix[,i]=pre
+  post_data_matrix[,i]=post
 }
+
+summary_statistics(pre_data_matrix)%>%
+datatable(extensions = 'Buttons',
+          caption="pre_treatment",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+summary_statistics(post_data_matrix)%>%
+datatable(extensions = 'Buttons',
+          caption="post_treatment",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 data.frame(variable=variables, pvalue=pvalue)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
