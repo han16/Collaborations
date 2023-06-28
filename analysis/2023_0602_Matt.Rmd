@@ -132,6 +132,7 @@ datatable(extensions = 'Buttons',
 pvalue=numeric()
 pre_data_matrix=matrix(nrow=19, ncol=length(variables)); colnames(pre_data_matrix)=variables 
 post_data_matrix=matrix(nrow=19, ncol=length(variables)); colnames(post_data_matrix)=variables
+diff_sum=numeric()
 for (i in 1:length(variables))
 {
   pre=as.numeric(pre_treatment[i,2:20])
@@ -141,6 +142,8 @@ for (i in 1:length(variables))
   
   pre_data_matrix[,i]=pre
   post_data_matrix[,i]=post
+  
+  diff_sum[i]=(sum((pre-post)^2)/(2*length(pre)))^0.5
 }
 
 summary_statistics(pre_data_matrix)%>%
@@ -159,13 +162,15 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-data.frame(variable=variables, pvalue=pvalue)%>%
+data.frame(variable=variables, pvalue=pvalue, Dahlber_error=round(diff_sum,4))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+# Dahlberg error is diff_sum/(2*length()
 
 ```
 
 * use two sample paired t test to test the difference between pre and post treatment. 
+* Dahlberg error is calculated as $D=\sqrt{\sum_{i=1}^N \frac{d_i^2}{N}}$, $d_i$ is difference between pre and post treatment for $i$ th individual, $i=1, 2, \cdots, N$, $N$ is sample size, the smaller the Dahlberg error, the more agreement between two observations. 
