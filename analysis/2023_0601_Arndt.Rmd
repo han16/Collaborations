@@ -223,6 +223,100 @@ grid.arrange(f1, f2, f3,  f4, f5, nrow=3)
 ```
 
 
+## Health literacy 
+
+```{r, echo=F, message=F, warning=F}
+variable="REAL30D"
+sub_data=data.frame(prop=c(sum(data$REAL30D>=21)/nrow(data), sum(data$REAL30D<21)/nrow(data)), class=c("adequate", "inadequate"))
+ggplot(sub_data, aes(x=class, y=prop, fill=class)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.title=element_blank())+ # remove legend title 
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab(variable)+
+  xlab("")+
+  #geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+  #               position=position_dodge(.9))+
+  geom_text(aes(label=round(prop*100,2)), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+geom_signif(annotations ="p=0.002", y_position =0.8  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, color="red")
+#binom.test(sub_data$prop[1]*nrow(data),nrow(data))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+variable="SAHL"
+sub_data=data.frame(prop=c(sum(data$SAHL>=14)/nrow(data), sum(data$SAHL<14)/nrow(data)), class=c("adequate", "inadequate"))
+ggplot(sub_data, aes(x=class, y=prop, fill=class)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.title=element_blank())+ # remove legend title 
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab(variable)+
+  xlab("")+
+  #geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+  #               position=position_dodge(.9))+
+  geom_text(aes(label=round(prop*100,2)), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+geom_signif(annotations ="p<0.001", y_position =1.1  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, color="red")
+#binom.test(sub_data$prop[1]*nrow(data),nrow(data))
+```
+
+
+## OHIP 
+
+```{r, echo=F, message=F, warning=F}
+variable="OHIP"
+sub_data=data.frame(mean=round(c(mean(data$OHIP[data$Disease_Y_N=="Y"], na.rm=T), mean(data$OHIP[data$Disease_Y_N=="N"], na.rm=T)),1), sd=round(c(sd(data$OHIP[data$Disease_Y_N=="Y"], na.rm=T), sd(data$OHIP[data$Disease_Y_N=="N"], na.rm=T)),1), Disease=c("Y", "N"))
+ggplot(sub_data, aes(x=Disease, y=mean, fill=Disease)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.title=element_blank())+ # remove legend title 
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab(variable)+
+  xlab("Disease")+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                 position=position_dodge(.9))+
+  geom_text(aes(label=mean), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  geom_signif(annotations ="p<0.001", y_position =110  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, color="red")
+
+#t.test(data$OHIP[data$Disease_Y_N=="Y"], data$OHIP[data$Disease_Y_N=="N"])
+```
+
+* two sample t test was used 
+
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data.frame(fourGroups=data$fourGroupsVAR00001, OHIP=data$OHIP)
+reg=lm(OHIP~as.character(fourGroups), data=sub_data)
+anova(reg)
+```
+* one way anova of OHIP among four groups "Periodontal Health", "Gingivitis", "Early/Moderate Periodontitis", "Severe Periodontitis". 
+
+## PRSA 
+
+
+
+```{r, echo=F, message=F, warning=F}
+variable="PRSA"
+sub_data=data.frame(mean=round(c(mean(data$PRSA[data$Age>40], na.rm=T), mean(data$PRSA[data$Age<=40], na.rm=T)),1), sd=round(c(sd(data$PRSA[data$Age>40], na.rm=T), sd(data$PRSA[data$Age<=40], na.rm=T)),1), Age=c(">40", "<=40"))
+ggplot(sub_data, aes(x=Age, y=mean, fill=Age)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.title=element_blank())+ # remove legend title 
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab(variable)+
+  xlab("Age")+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                 position=position_dodge(.9))+
+  geom_text(aes(label=mean), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  geom_signif(annotations ="p=0.0725", y_position =25  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, color="black")
+
+#t.test(data$PRSA[data$Age>40], data$PRSA[data$Age<=40])
+```
+
 
 ## statistical software 
 
