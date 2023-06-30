@@ -86,6 +86,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 pre_treatment=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Matthew\\Generated Patient List_pretx.csv",stringsAsFactors=FALSE, fileEncoding="latin1", header=T))
 post_treatment=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Matthew\\Generated Patient List_postx.csv",stringsAsFactors=FALSE, fileEncoding="latin1", header=T))
+UserError=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Matthew\\UserError.csv",stringsAsFactors=FALSE, fileEncoding="latin1", header=F))
 ```
 
 
@@ -93,7 +94,7 @@ post_treatment=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\20
 
 
 ```{r, echo=F, message=F, warning=F}
-variables=pre_treatment$X[1:12]
+variables=pre_treatment$X[1:19]
 average_pre=numeric(); sd_pre=numeric()
 average_post=numeric(); sd_post=numeric()
 for (i in 1:length(variables))
@@ -113,8 +114,8 @@ ggplot(summary, aes(x=variable, y=average, fill=treatment)) +
   theme(legend.title=element_blank())+
   ylab("")+
   theme(legend.title = element_blank(), legend.text=element_text(size=9))+theme(legend.position="bottom")+
-   theme(axis.text.x = element_text(angle = 15, vjust = 0.5, size=10))+
- theme(text = element_text(size=13))+ # size is for labels on x axis 
+   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size=7))+
+ theme(text = element_text(size=10))+ # size is for labels on x axis 
   theme(axis.title = element_text(size = 13))+ # Font Size of Axis Titles
  theme(legend.spacing.x = unit(0.5, 'cm')) # add space between symbols in legend
 
@@ -129,7 +130,7 @@ datatable(extensions = 'Buttons',
 ### pre vs post 
 
 ```{r, echo=F, message=F, warning=F}
-pvalue=numeric()
+pvalue=numeric(); wilcox_test_pvalue=numeric()
 pre_data_matrix=matrix(nrow=19, ncol=length(variables)); colnames(pre_data_matrix)=variables 
 post_data_matrix=matrix(nrow=19, ncol=length(variables)); colnames(post_data_matrix)=variables
 diff_sum=numeric()
@@ -144,6 +145,7 @@ for (i in 1:length(variables))
   post_data_matrix[,i]=post
   
   diff_sum[i]=(sum((pre-post)^2)/(2*length(pre)))^0.5
+  wilcox_test_pvalue[i]=wilcox.test(pre, post, alternative = "two.sided")$p.value
 }
 
 summary_statistics(pre_data_matrix)%>%
@@ -162,7 +164,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-data.frame(variable=variables, pvalue=pvalue, Dahlber_error=round(diff_sum,4))%>%
+data.frame(variable=variables, t_test_pvalue=pvalue, wilcox_test_pvalue=pvalue_adjust(wilcox_test_pvalue))%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -172,5 +174,31 @@ datatable(extensions = 'Buttons',
 
 ```
 
-* use two sample paired t test to test the difference between pre and post treatment. 
+* use two sample paired t test to test the difference between pre and post treatment.
+
+
+* `wilcox_test_pvalue`, p value of non-parametric two sample wilcox test
+
+
+## ICC
+
+```{r, echo=F, message=F, warning=F}
+library(irr)
+icc(UserError[,2:4], model ="oneway",  type = "consistency")
+```
+
+
+
+## Dahlberg error
+
+```{r, echo=F, message=F, warning=F}
+DahlbergError=round(abs(UserError[,2]-UserError[,3]),4)
+data.frame(variable=variables, Dahlberg_error=DahlbergError)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
 * Dahlberg error is calculated as $D=\sqrt{\sum_{i=1}^N \frac{d_i^2}{N}}$, $d_i$ is difference between pre and post treatment for $i$ th individual, $i=1, 2, \cdots, N$, $N$ is sample size, the smaller the Dahlberg error, the more agreement between two observations. 
