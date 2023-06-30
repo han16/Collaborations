@@ -202,3 +202,5 @@ datatable(extensions = 'Buttons',
 ```
 
 * Dahlberg error is calculated as $D=\sqrt{\sum_{i=1}^N \frac{d_i^2}{N}}$, $d_i$ is difference between pre and post treatment for $i$ th individual, $i=1, 2, \cdots, N$, $N$ is sample size, the smaller the Dahlberg error, the more agreement between two observations. 
+
+* V2 is Dahlberg error. 
