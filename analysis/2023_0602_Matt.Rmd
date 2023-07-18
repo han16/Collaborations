@@ -319,7 +319,7 @@ colnames(correlation_pvalue)=change_stat$X[1:19]
 
 #write.csv(cormat2, file="../../2022/202209/Juan/Juan_correlation_matrix_1208_2022.csv")
 #write.csv(cormat2_pvalue, file="../../2022/202209/Juan/Juan_correlation_matrix_pvalue_1209_2022.csv")
-#write.csv(correlation_pvalue, file="../../2022/202209/Juan/Juan_correlation_matrix_pvalue_0222_2023.csv")
+#write.csv(correlation_pvalue, file="../../2023/202306/Matthew/Matthew_correlation_matrix_pvalue_20230707.csv")
 #cormat2%>%
 #datatable(extensions = 'Buttons',
 #            options = list(dom = 'Blfrtip',
@@ -334,3 +334,9 @@ colnames(correlation_pvalue)=change_stat$X[1:19]
 #                           lengthMenu = list(c(10,25,50,-1),
 #                                             c(10,25,50,"All"))))
 ```
+
+
+
+* [pearson correlation matrix and p values](), i.e. `correlation_pvalue`. 
+
+* `NA` in the correlation matrix means one of variables is constant, no variations leading to meaningless correlation.

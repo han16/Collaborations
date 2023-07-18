@@ -78,7 +78,9 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Arndt\\Health literacy and Periodontal Health_data_for analysis.csv", header=T))
+data_old=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Arndt\\Health literacy and Periodontal Health_data_for analysis.csv", header=T))
+data_PRSA=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Arndt\\Health literacy and Periodontal Health_data_for analysis_PRSA.csv", header=T))
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306\\Arndt\\Health literacy and Periodontal Health_data_for analysis_2023_0717.csv", header=T)[1:97,])
 #data%>%
 #datatable(extensions = 'Buttons',
 #          caption = "Sample data", 
@@ -91,12 +93,12 @@ data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202306
 ## Basic statistics 
 
 ```{r, echo=F, message=F, warning=F}
-ggplot(data %>% dplyr::count(fourGroupsVAR00001)%>% mutate(status=c("Periodontal Health", "Gingivitis", "Early/Moderate Periodontitis", "Severe Periodontitis")), aes(x=as.factor(fourGroupsVAR00001), y=n, fill=status)) +geom_bar(stat="identity")+
+ggplot(data %>% dplyr::count(Four.Groups)%>% mutate(status=c("Periodontal Health", "Gingivitis", "Early/Moderate Periodontitis", "Severe Periodontitis")), aes(x=as.factor(Four.Groups), y=n, fill=status)) +geom_bar(stat="identity")+
   theme(legend.position="bottom")+
    theme(legend.title=element_blank())+ # remove legend title 
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   ylab("n")+
-  xlab("fourGroupsVAR00001")+
+  xlab("Four.Groups")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
@@ -105,6 +107,7 @@ ggplot(data %>% dplyr::count(fourGroupsVAR00001)%>% mutate(status=c("Periodontal
 ```{r, echo=F,message=F, warning=F}
 ############## age 
 variable="Age"
+data$Age=as.numeric(data$Age) # convert into numeric values first 
 sub_data=data.frame(mean=round(c(mean(data$Age[data$Disease_Y_N=="Y"], na.rm=T), mean(data$Age[data$Disease_Y_N=="N"], na.rm=T))), sd=round(c(sd(data$Age[data$Disease_Y_N=="Y"], na.rm=T), sd(data$Age[data$Disease_Y_N=="N"], na.rm=T))), Disease=c("Y", "N"))
 f1=ggplot(sub_data, aes(x=Disease, y=round(mean), fill=Disease)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -127,6 +130,7 @@ datatable(extensions = 'Buttons',
 #f1
 ########### decayed teeth 
 variable="Decayed"
+data$Decayed=as.numeric(data$Decayed)
 sub_data=data.frame(mean=round(c(mean(data$Decayed[data$Disease_Y_N=="Y"], na.rm=T), mean(data$Decayed[data$Disease_Y_N=="N"], na.rm=T)),1), sd=round(c(sd(data$Decayed[data$Disease_Y_N=="Y"], na.rm=T), sd(data$Decayed[data$Disease_Y_N=="N"], na.rm=T)),1), Disease=c("Y", "N"))
 f2=ggplot(sub_data, aes(x=Disease, y=mean, fill=Disease)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -151,6 +155,7 @@ datatable(extensions = 'Buttons',
 
 ########### missing teeth 
 variable="Missing"
+data$Missing=as.numeric(data$Missing)
 sub_data=data.frame(mean=round(c(mean(data$Missing[data$Disease_Y_N=="Y"], na.rm=T), mean(data$Missing[data$Disease_Y_N=="N"], na.rm=T)),1), sd=round(c(sd(data$Missing[data$Disease_Y_N=="Y"], na.rm=T), sd(data$Missing[data$Disease_Y_N=="N"], na.rm=T)),1), Disease=c("Y", "N"))
 f3=ggplot(sub_data, aes(x=Disease, y=mean, fill=Disease)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -174,6 +179,7 @@ datatable(extensions = 'Buttons',
 
 ########### filled teeth 
 variable="Filled"
+data$Filled=as.numeric(data$Filled)
 sub_data=data.frame(mean=round(c(mean(data$Filled[data$Disease_Y_N=="Y"], na.rm=T), mean(data$Filled[data$Disease_Y_N=="N"], na.rm=T)),1), sd=round(c(sd(data$Filled[data$Disease_Y_N=="Y"], na.rm=T), sd(data$Filled[data$Disease_Y_N=="N"], na.rm=T)),1), Disease=c("Y", "N"))
 f4=ggplot(sub_data, aes(x=Disease, y=mean, fill=Disease)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -197,6 +203,7 @@ datatable(extensions = 'Buttons',
 
 ########### DMFT
 variable="DMFT"
+data$DMFT=as.numeric(data$DMFT)
 sub_data=data.frame(mean=round(c(mean(data$DMFT[data$Disease_Y_N=="Y"], na.rm=T), mean(data$DMFT[data$Disease_Y_N=="N"], na.rm=T)),1), sd=round(c(sd(data$DMFT[data$Disease_Y_N=="Y"], na.rm=T), sd(data$DMFT[data$Disease_Y_N=="N"], na.rm=T)),1), Disease=c("Y", "N"))
 f5=ggplot(sub_data, aes(x=Disease, y=mean, fill=Disease)) +geom_bar(stat="identity")+
   theme(legend.position="right")+
@@ -246,6 +253,7 @@ geom_signif(annotations ="p=0.002", y_position =0.8  ,xmin=1, xmax=2, size=1, vj
 
 ```{r, echo=F, message=F, warning=F}
 variable="SAHL"
+data$SAHL=as.numeric(data$SAHL)
 sub_data=data.frame(prop=c(sum(data$SAHL>=14)/nrow(data), sum(data$SAHL<14)/nrow(data)), class=c("adequate", "inadequate"))
 ggplot(sub_data, aes(x=class, y=prop, fill=class)) +geom_bar(stat="identity")+
   theme(legend.position="right")+
@@ -267,6 +275,7 @@ geom_signif(annotations ="p<0.001", y_position =1.1  ,xmin=1, xmax=2, size=1, vj
 
 ```{r, echo=F, message=F, warning=F}
 variable="OHIP"
+data$OHIP=as.numeric(data$OHIP)
 sub_data=data.frame(mean=round(c(mean(data$OHIP[data$Disease_Y_N=="Y"], na.rm=T), mean(data$OHIP[data$Disease_Y_N=="N"], na.rm=T)),1), sd=round(c(sd(data$OHIP[data$Disease_Y_N=="Y"], na.rm=T), sd(data$OHIP[data$Disease_Y_N=="N"], na.rm=T)),1), Disease=c("Y", "N"))
 ggplot(sub_data, aes(x=Disease, y=mean, fill=Disease)) +geom_bar(stat="identity")+
   theme(legend.position="right")+
@@ -288,7 +297,7 @@ ggplot(sub_data, aes(x=Disease, y=mean, fill=Disease)) +geom_bar(stat="identity"
 
 
 ```{r, echo=F, message=F, warning=F}
-sub_data=data.frame(fourGroups=data$fourGroupsVAR00001, OHIP=data$OHIP)
+sub_data=data.frame(fourGroups=data$Four.Groups, OHIP=data$OHIP)
 reg=lm(OHIP~as.character(fourGroups), data=sub_data)
 anova(reg)
 ```
@@ -300,6 +309,7 @@ anova(reg)
 
 ```{r, echo=F, message=F, warning=F}
 variable="PRSA"
+data$PRSA=as.numeric(data$PRSA)
 sub_data=data.frame(mean=round(c(mean(data$PRSA[data$Age>40], na.rm=T), mean(data$PRSA[data$Age<=40], na.rm=T)),1), sd=round(c(sd(data$PRSA[data$Age>40], na.rm=T), sd(data$PRSA[data$Age<=40], na.rm=T)),1), Age=c(">40", "<=40"))
 ggplot(sub_data, aes(x=Age, y=mean, fill=Age)) +geom_bar(stat="identity")+
   theme(legend.position="right")+
@@ -316,6 +326,83 @@ ggplot(sub_data, aes(x=Age, y=mean, fill=Age)) +geom_bar(stat="identity")+
 
 #t.test(data$PRSA[data$Age>40], data$PRSA[data$Age<=40])
 ```
+
+
+## Relative risk 
+
+
+### Age 
+
+```{r, echo=T, message=F, warning=F}
+sub_data=data%>% select(Age, Disease_Y_N) 
+
+total1=nrow(sub_data%>% filter(Age>40)); total2= nrow(sub_data%>% filter(Age<=40))
+disease1=nrow(sub_data%>% filter(Age>40, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(Age<=40, Disease_Y_N=="Y"))
+
+RR=(disease1/total1)/(disease2/total2)
+RR
+OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
+OR
+```
+
+### teet loose 
+
+```{r, echo=T, message=F, warning=F}
+sub_data=data%>% select(PRSA_4, Disease_Y_N) 
+
+total1=nrow(sub_data%>% filter(PRSA_4==2)); total2= nrow(sub_data%>% filter(PRSA_4==1))
+disease1=nrow(sub_data%>% filter(PRSA_4==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_4==1, Disease_Y_N=="Y"))
+
+RR=(disease1/total1)/(disease2/total2)
+RR
+OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
+OR
+```
+
+### smoking 
+
+```{r, echo=T, message=F, warning=F}
+sub_data=data%>% select(PRSA_6, Disease_Y_N) 
+
+total1=nrow(sub_data%>% filter(PRSA_6==2)); total2= nrow(sub_data%>% filter(PRSA_6==1))
+disease1=nrow(sub_data%>% filter(PRSA_6==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_6==1, Disease_Y_N=="Y"))
+
+RR=(disease1/total1)/(disease2/total2)
+RR
+OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
+OR
+```
+
+
+### gum receeded 
+
+```{r, echo=T, message=F, warning=F}
+sub_data=data%>% select(PRSA_5, Disease_Y_N) 
+
+total1=nrow(sub_data%>% filter(PRSA_5==2)); total2= nrow(sub_data%>% filter(PRSA_5==1))
+disease1=nrow(sub_data%>% filter(PRSA_5==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_5==1, Disease_Y_N=="Y"))
+
+RR=(disease1/total1)/(disease2/total2)
+RR
+OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
+OR
+```
+
+
+### gum bleeding  
+
+```{r, echo=T, message=F, warning=F}
+sub_data=data%>% select(PRSA_3, Disease_Y_N) 
+
+total1=nrow(sub_data%>% filter(PRSA_3==2)); total2= nrow(sub_data%>% filter(PRSA_3==1))
+disease1=nrow(sub_data%>% filter(PRSA_3==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_3==1, Disease_Y_N=="Y"))
+
+RR=(disease1/total1)/(disease2/total2)
+RR
+OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
+OR
+```
+
 
 
 ## statistical software 
