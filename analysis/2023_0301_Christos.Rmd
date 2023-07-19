@@ -96,7 +96,8 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 data_arm=data %>% select(studyn, treatmentn, mean..y., standard.error..se., sample.size..n.) %>% drop_na()
 data_arm$treatmentn[9]="placebo" # rename "placebo 1", "placebo 2" as placebo 
-data_arm$treatmentn[11]="placebo"
+#data_arm$treatmentn[11]="placebo"
+data_arm=data_arm[-11,] # remove "placebo 2" to avoid two occurances of placebos in study 9
 
 data_arm%>%
 datatable(extensions = 'Buttons',
@@ -116,9 +117,10 @@ arm_net
 plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
 ```
 
-* rename "placebo 1", "placebo 2" as placebo
+* rename "placebo 1" as placebo 
+* remove "placebo 2"
 * each node is one treatment, 7 treatments (nodes) in total. 
-* edge between two nodes indicates these two treatments are in one study, and edge width indicates how manu studies involving these treatment,  e.g. two studies involve placebo and ibuprofen 
+* edge between two nodes indicates these two treatments are in one study, and edge width indicates how many studies involving these treatment,  e.g. 3 studies involve placebo and ibuprofen 
 * node size indicates the sample size 
 
 
