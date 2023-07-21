@@ -181,6 +181,59 @@ datatable(extensions = 'Buttons',
 * `wilcox_test_pvalue`, p value of non-parametric two sample wilcox test
 
 
+## SN vs U1
+
+
+### pre-treatment 
+
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+wilcox_test_pvalue=numeric()
+for (i in 1:6)
+{
+  SN=as.numeric(pre_treatment[i,2:20])
+  U1=as.numeric(pre_treatment[6+i,2:20])
+  test=t.test(SN, U1)
+  pvalue[i]=pvalue_adjust(test$p.value)
+  wilcox_test_pvalue[i]=wilcox.test(SN, U1, alternative = "two.sided")$p.value
+}
+
+data.frame(variable=paste(variables[1:6], variables[7:12], sep="-"), t_test_pvalue=pvalue, wilcox_test_pvalue=pvalue_adjust(wilcox_test_pvalue))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+### post-treatment 
+
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+wilcox_test_pvalue=numeric()
+for (i in 1:6)
+{
+  SN=as.numeric(post_treatment[i,2:20])
+  U1=as.numeric(post_treatment[6+i,2:20])
+  test=t.test(SN, U1)
+  pvalue[i]=pvalue_adjust(test$p.value)
+  wilcox_test_pvalue[i]=wilcox.test(SN, U1, alternative = "two.sided")$p.value
+}
+
+data.frame(variable=paste(variables[1:6], variables[7:12], sep="-"), t_test_pvalue=pvalue, wilcox_test_pvalue=pvalue_adjust(wilcox_test_pvalue))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 ## ICC
 
 
