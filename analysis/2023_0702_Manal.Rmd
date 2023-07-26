@@ -1,0 +1,166 @@
+---
+title: "07/26/2023"
+output: html_document
+date: "2023-07-26"
+---
+
+
+```{r setup, include=FALSE}
+rm(list=ls())
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(grid)
+library(DT)
+library(gridExtra)
+library(matrixStats)
+library(cowplot)
+library(readxl)
+set.seed(123)
+```
+
+
+
+
+```{r, echo=F, warning=F, message=F}
+######## adjust p values 
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+############### summary statistics for continuous variable 
+summary_statistics=function(data)
+{  # each column is one variable, and row one subject 
+  
+variables=colnames(data)
+num_sample=numeric()
+Mean=numeric()
+Median=numeric()
+SD=numeric()
+SE=numeric()
+range_min=numeric()
+range_max=numeric()
+normality_pvalue=numeric()
+per_25_quantile=numeric()
+per_75_quantile=numeric()
+
+for (i in 1:ncol(data))
+{
+  observation=data[,i]
+  observation=observation[!is.na(observation)] # remove missing values 
+  num_sample[i]=length(observation)
+  Mean[i]=round(mean(observation),4)
+  Median[i]=round(median(observation),4)
+  SD[i]=round(sd(observation),4)
+  SE[i]=round(SD[i]/sqrt(num_sample[i]),4)
+  per_25_quantile[i]=round(quantile(observation, prob=0.25),4)
+  per_75_quantile[i]=round(quantile(observation, prob=0.75),4)
+  range_min[i]=round(min(observation),4)
+  range_max[i]=round(max(observation),4)
+  normality_pvalue[i]=round(shapiro.test(observation)$p.value,4)
+}
+
+summary_data=data.frame(variable=variables, num_sample=num_sample, Mean=Mean, Median=Median, SD=SD, SE=SE,per_25_quantile, per_75_quantile, Range_low=range_min, Range_upper=range_max, normality_pvalue=normality_pvalue)
+
+summary_data%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
+ return(summary_data) 
+}
+
+```
+
+
+
+
+
+
+## sample size calculation 
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(ggplot2)
+d=seq(0.1, 2, by=0.1); SD=1.5
+sample_size=numeric()
+for (i in 1:length(d))
+{
+  test=power.t.test(power = .80, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="two.sample") # two sample t test 
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  #geom_vline(xintercept=0.13, colour="blue") +
+  #geom_text(aes(x=0.13, label="d=0.13", y=10), colour="blue", angle=90, vjust = 1.2, text=element_text(size=11))+
+  #geom_hline(yintercept=21, colour="blue") +
+  geom_point()+
+  xlab("d:mean difference")+
+  ylab("n:sample size")+
+  ggtitle("power=0.8; SD=1.5")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+data.frame(mean_difference=d, sample_size)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+* use `power.t.test` with option `alternative = "two.sided"`, `type="two.sample"`
+
+* sample size is the number of individuals required in each group.   
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(ggplot2)
+d=seq(0.1, 2, by=0.1); SD=1
+sample_size=numeric()
+for (i in 1:length(d))
+{
+  test=power.t.test(power = .80, delta = d[i], alternative = "two.sided", sig.level=0.05, sd=SD, type="two.sample") # two sample t test 
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  #geom_vline(xintercept=0.13, colour="blue") +
+  #geom_text(aes(x=0.13, label="d=0.13", y=10), colour="blue", angle=90, vjust = 1.2, text=element_text(size=11))+
+  #geom_hline(yintercept=21, colour="blue") +
+  geom_point()+
+  xlab("d:mean difference")+
+  ylab("n:sample size")+
+  ggtitle("power=0.8; SD=1")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+data.frame(mean_difference=d, sample_size)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* use `power.t.test` with option `alternative = "two.sided"`, `type="two.sample"`
+
+* sample size is the number of individuals required in each group.   
