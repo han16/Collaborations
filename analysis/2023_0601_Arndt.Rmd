@@ -271,6 +271,25 @@ geom_signif(annotations ="p<0.001", y_position =1.1  ,xmin=1, xmax=2, size=1, vj
 ```
 
 
+### REAL30D vs SAHL 
+
+
+```{r, echo=F, message=F, warning=F}
+n11=data %>% filter(REAL30D>=21 & SAHL>=14) %>% nrow()
+n12=data %>% filter(REAL30D<21 & SAHL>=14) %>% nrow()
+n21=data %>% filter(REAL30D>=21 & SAHL<14) %>% nrow()
+n22=data %>% filter(REAL30D<21 & SAHL<14) %>% nrow()
+data.frame(variable=c("REAL30D_Adequate_SAHL_Adequate", "REAL30D_Inadequate_SAHL_Adequate", "REAL30D_Adequate_SAHL_Inadequate", "REAL30D_Inadequate_SAHL_Inadequate"), n=c(n11, n12, n21, n22)) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+fisher.test(matrix(c(n11, n21, n12, n22), nrow=2))
+```
+
+
+
 ## OHIP 
 
 ```{r, echo=F, message=F, warning=F}
