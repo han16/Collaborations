@@ -290,6 +290,8 @@ fisher.test(matrix(c(n11, n21, n12, n22), nrow=2))
 
 
 
+
+
 ## OHIP 
 
 ```{r, echo=F, message=F, warning=F}
@@ -321,6 +323,26 @@ reg=lm(OHIP~as.character(fourGroups), data=sub_data)
 anova(reg)
 ```
 * one way anova of OHIP among four groups "Periodontal Health", "Gingivitis", "Early/Moderate Periodontitis", "Severe Periodontitis". 
+
+
+
+```{r, echo=F, message=F, warning=F}
+sub_data=data.frame(mean=round(c(mean(data$OHIP[data$Four.Groups=="0.00"], na.rm=T), mean(data$OHIP[data$Four.Groups=="1.00"], na.rm=T),mean(data$OHIP[data$Four.Groups=="2.00"], na.rm=T), mean(data$OHIP[data$Four.Groups=="3.00"], na.rm=T)), 1), sd=round(c(sd(data$OHIP[data$Four.Groups=="0.00"], na.rm=T), sd(data$OHIP[data$Four.Groups=="1.00"], na.rm=T), sd(data$OHIP[data$Four.Groups=="2.00"], na.rm=T),sd(data$OHIP[data$Four.Groups=="3.00"], na.rm=T)), 1), Four.Groups=c("Periodontal Health", "Gingivitis", "Early/Moderate Periodontitis", "Severe Periodontitis"))
+                    
+ggplot(sub_data, aes(x=Four.Groups, y=mean, fill=Four.Groups)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.title=element_blank())+ # remove legend title 
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  ylab(variable)+
+  xlab("")+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                 position=position_dodge(.9))+
+  geom_text(aes(label=mean), position=position_dodge(width=0.6), vjust=-0.25)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+```
+
 
 ## PRSA 
 
