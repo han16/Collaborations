@@ -102,6 +102,7 @@ data_2023=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\M
 
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2021)[6]="Q1"
+data_2021$Q1=tolower(data_2021$Q1) # unify the response all into lower case 
 data_2021_plot=data_2021 %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2021),4)) 
 
 data_2021_plot=data_2021_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2021_plot)), sep="_"))
@@ -149,6 +150,7 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2022A)[6]="Q1"
+data_2022A$Q1=tolower(data_2022A$Q1)
 data_2022A_plot=data_2022A %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2022A),4)) 
 
 data_2022A_plot=data_2022A_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2022A_plot)), sep="_"))
@@ -196,6 +198,7 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2022B)[6]="Q1"
+data_2022B$Q1=tolower(data_2022B$Q1)
 data_2022B_plot=data_2022B %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2022B),4)) 
 
 data_2022B_plot=data_2022B_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2022B_plot)), sep="_"))
@@ -243,6 +246,7 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2023)[6]="Q1"
+data_2023$Q1=tolower(data_2023$Q1)
 data_2023_plot=data_2023 %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2023),4)) 
 
 data_2023_plot=data_2023_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2023_plot)), sep="_"))
@@ -288,6 +292,25 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 Q1_all_response=unique(c(unique(data_2021$Q1), unique(data_2022A$Q1), unique(data_2022B$Q1), unique(data_2023$Q1)))
+all_response_data=data.frame(Q1=Q1_all_response)
+data_2021_plot_full_response=full_join(data_2021_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0 
+data_2022A_plot_full_response=full_join(data_2022A_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
+data_2022B_plot_full_response=full_join(data_2022B_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
+data_2023_plot_full_response=full_join(data_2023_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
+
+combine_data=data.frame(Q1=c(data_2021_plot_full_response$Q1, data_2022A_plot_full_response$Q1, data_2022B_plot_full_response$Q1, data_2023_plot_full_response$Q1),n=c(data_2021_plot_full_response$n, data_2022A_plot_full_response$n, data_2022B_plot_full_response$n, data_2023_plot_full_response$n), prop=c(data_2021_plot_full_response$prop, data_2022A_plot_full_response$prop, data_2022B_plot_full_response$prop, data_2023_plot_full_response$prop), year=rep(c("2021", "2022A", "2022B", "2023"), each=20) )
+
+
+ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.text=element_text(size=7))+ # text size in legend 
+  theme(legend.title=element_blank())+ # no legend title 
+  ylab("%")+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=1.5)+#+  # add numbers over bars
+  labs(x = NULL) + 
+  guides(x = "none")+
+  facet_wrap(~year)
 ```
 
 

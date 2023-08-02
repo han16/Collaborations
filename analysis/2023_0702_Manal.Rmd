@@ -93,6 +93,8 @@ datatable(extensions = 'Buttons',
 ## sample size calculation 
 
 
+### two sample t test 
+
 
 ```{r, echo=F, message=F, warning=F}
 library(ggplot2)
@@ -164,3 +166,34 @@ datatable(extensions = 'Buttons',
 * use `power.t.test` with option `alternative = "two.sided"`, `type="two.sample"`
 
 * sample size is the number of individuals required in each group.   
+
+
+### anova test 
+
+```{r, echo=F, message=F, warning=F}
+between_var=seq(1,5); within_var=seq(2,5)
+sample_size=numeric(); k=1
+for (i in 1:length(between_var))
+  for (j in 1:length(within_var))
+  {
+    test_result=power.anova.test(groups = 5, between.var = between_var[i], within.var = within_var[j],
+                 power = .90)
+    sample_size[k]=round(test_result$n)
+    k=k+1
+  }  
+
+
+data.frame(between_var=rep(between_var, each=length(within_var)), within_var=rep(within_var, length(between_var)), sample_size=sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption = "90% power", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* assume 5 groups 
+
+* `between_var`, `within_var` are between and within group variance. 
+
+* sample size is the number of individuals required in each group. 
