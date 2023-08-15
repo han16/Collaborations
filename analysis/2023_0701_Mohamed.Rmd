@@ -143,6 +143,49 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2021_plot2=data.frame(Q1=sapply(strsplit(data_2021$Q1, ";"), "[", 1)) %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2021),4)) 
+
+g1=ggplot(data_2021_plot2, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2021_plot2, aes(x=Q1, y=n, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2021_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2021",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 
 
 ### 2022_A 
@@ -193,6 +236,48 @@ datatable(extensions = 'Buttons',
 
 
 
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2022A_plot2=data.frame(Q1=sapply(strsplit(data_2022A$Q1, ";"), "[", 1)) %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2022A),4)) 
+
+g1=ggplot(data_2022A_plot2, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2022A_plot2, aes(x=Q1, y=n, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2022A_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2022A",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 ### 2022_B 
 
 
@@ -231,6 +316,48 @@ annotate_figure(figure,
 )
 ################
 data_2022B_plot%>%
+datatable(extensions = 'Buttons',
+          caption="year 2022B",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2022B_plot2=data.frame(Q1=sapply(strsplit(data_2022B$Q1, ";"), "[", 1)) %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2022B),4)) 
+
+g1=ggplot(data_2022B_plot2, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2022B_plot2, aes(x=Q1, y=n, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2022B_plot2%>%
 datatable(extensions = 'Buttons',
           caption="year 2022B",
             options = list(dom = 'Blfrtip',
@@ -288,6 +415,49 @@ datatable(extensions = 'Buttons',
 ```
 
 
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2023_plot2=data.frame(Q1=sapply(strsplit(data_2023$Q1, ";"), "[", 1)) %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2023),4)) 
+
+g1=ggplot(data_2023_plot2, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2023_plot2, aes(x=Q1, y=n, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2023_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2023",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 ### Combine across all years 
 
 ```{r, echo=F, message=F, warning=F}
@@ -312,6 +482,26 @@ ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
   guides(x = "none")+
   facet_wrap(~year)
 ```
+
+
+
+```{r, echo=F, message=F, warning=F}
+combine_data=data.frame(Q1=c(data_2021_plot2$Q1, data_2022A_plot2$Q1, data_2022B_plot2$Q1, data_2023_plot2$Q1),n=c(data_2021_plot2$n, data_2022A_plot2$n, data_2022B_plot2$n, data_2023_plot2$n), prop=c(data_2021_plot2$prop, data_2022A_plot2$prop, data_2022B_plot2$prop, data_2023_plot2$prop), year=rep(c("2021", "2022A", "2022B", "2023"), each=nrow(data_2021_plot2)))
+
+
+ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.text=element_text(size=9))+ # text size in legend 
+  theme(legend.title=element_blank())+ # no legend title 
+  ylab("%")+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)+#+  # add numbers over bars
+  labs(x = NULL) + 
+  guides(x = "none")+
+  facet_wrap(~year)
+```
+
+
 
 
 ## Q2: If you prefer video demos, please rank these options 1 to 3, with 1 being your most preferred video style and 3 being your least preferred
@@ -362,6 +552,53 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2021_plot2=data.frame(Q2=sapply(strsplit(data_2021$Q2, ";"), "[", 1)) %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2021),4)) 
+
+g1=ggplot(data_2021_plot2, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2021_plot2, aes(x=Q2, y=n, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2021_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2021",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
 ### 2022A
 
 
@@ -410,6 +647,51 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2022A_plot2=data.frame(Q2=sapply(strsplit(data_2022A$Q2, ";"), "[", 1)) %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2022A),4)) 
+
+g1=ggplot(data_2022A_plot2, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2022A_plot2, aes(x=Q2, y=n, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2022A_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2022A",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 ### 2022B
 
 
@@ -457,6 +739,49 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2022B_plot2=data.frame(Q2=sapply(strsplit(data_2022B$Q2, ";"), "[", 1)) %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2022B),4)) 
+
+g1=ggplot(data_2022B_plot2, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2022B_plot2, aes(x=Q2, y=n, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2022B_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2022B",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
 
 
 
@@ -510,6 +835,50 @@ datatable(extensions = 'Buttons',
 
 
 
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2023_plot2=data.frame(Q2=sapply(strsplit(data_2023$Q2, ";"), "[", 1)) %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2022B),4)) 
+
+g1=ggplot(data_2023_plot2, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2023_plot2, aes(x=Q2, y=n, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2023_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2023",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
 ### Combine across all years 
 
 ```{r, echo=F, message=F, warning=F}
@@ -526,6 +895,25 @@ combine_data=data.frame(Q2=c(data_2021_plot_full_response$Q2, data_2022A_plot_fu
 ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
    theme(legend.text=element_text(size=7))+ # text size in legend 
+  theme(legend.title=element_blank())+ # no legend title 
+  ylab("%")+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)+#+  # add numbers over bars
+  labs(x = NULL) + 
+  guides(x = "none")+
+  facet_wrap(~year)
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+combine_data=data.frame(Q2=c(data_2021_plot2$Q2, data_2022A_plot2$Q2, data_2022B_plot2$Q2, data_2023_plot2$Q2),n=c(data_2021_plot2$n, data_2022A_plot2$n, data_2022B_plot2$n, data_2023_plot2$n), prop=c(data_2021_plot2$prop, data_2022A_plot2$prop, data_2022B_plot2$prop, data_2023_plot2$prop), year=rep(c("2021", "2022A", "2022B", "2023"), each=nrow(data_2021_plot2)))
+
+
+ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="right")+
+   theme(legend.text=element_text(size=9))+ # text size in legend 
   theme(legend.title=element_blank())+ # no legend title 
   ylab("%")+
     xlab("")+
