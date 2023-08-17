@@ -504,6 +504,45 @@ ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
 
 
 
+#### comparison 
+
+
+```{r, echo=F, message=F, warning=F}
+
+ggplot(combine_data %>% filter(Q1=="live demo"), aes(x=year, y=prop, fill=year))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("%")+
+   ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
+   ggtitle("live demo")+
+   geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
+  geom_signif(annotations ="p<0.0001", y_position = 0.82  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p<0.0001", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  geom_signif(annotations ="p<0.0001", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+############ compute p value 
+######## 2021 vs 2022A
+#res <- prop.test(x = c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2022A_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2022A))) # use two sample proportion test 
+# or fisher.test(matrix(c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2022A_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, nrow(data_2021)-data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, nrow(data_2022A)-data_2022A_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull)), nrow=2))
+
+#res$p.value
+
+######## 2021 vs 2022B
+#res <- prop.test(x = c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2022B_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2022B))) # use two sample proportion test 
+#res$p.value
+
+
+######## 2021 vs 2023
+#res <- prop.test(x = c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2023_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2023))) # use two sample proportion test 
+#res$p.value
+
+```
+
+
+
 ## Q2: If you prefer video demos, please rank these options 1 to 3, with 1 being your most preferred video style and 3 being your least preferred
 
 
@@ -967,6 +1006,48 @@ annotate_figure(figure,
 )
 ################
 data_2021_plot%>%
+datatable(extensions = 'Buttons',
+          caption="year 2021",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2021_plot2=data.frame(Q3=sapply(strsplit(data_2021$Q3, ";"), "[", 1)) %>% dplyr::count(Q3)%>% mutate(prop=round(n/nrow(data_2021),4)) 
+
+g1=ggplot(data_2021_plot2, aes(x=Q3, y=prop, fill=Q3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2021_plot2, aes(x=Q3, y=n, fill=Q3)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2021_plot2%>%
 datatable(extensions = 'Buttons',
           caption="year 2021",
             options = list(dom = 'Blfrtip',
