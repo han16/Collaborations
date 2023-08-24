@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-08-23
+<strong>Last updated:</strong> 2023-08-24
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb0627b36c74691cbb51c1c9e7fd46b5a2d5e3400targetblankb0627b3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5e8c20235acf74f0c45063550607cea8952df189targetblank5e8c202a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/b0627b36c74691cbb51c1c9e7fd46b5a2d5e3400" target="_blank">b0627b3</a>
+<a href="https://github.com/han16/Collaborations/tree/5e8c20235acf74f0c45063550607cea8952df189" target="_blank">5e8c202</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb0627b36c74691cbb51c1c9e7fd46b5a2d5e3400targetblankb0627b3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5e8c20235acf74f0c45063550607cea8952df189targetblank5e8c202a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/b0627b36c74691cbb51c1c9e7fd46b5a2d5e3400" target="_blank">b0627b3</a>.
+<a href="https://github.com/han16/Collaborations/tree/5e8c20235acf74f0c45063550607cea8952df189" target="_blank">5e8c202</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -621,6 +621,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/5e8c20235acf74f0c45063550607cea8952df189/analysis/2023_0301_Christos.Rmd" target="_blank">5e8c202</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-08-23
+</td>
+<td>
+8/23/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/5e8c20235acf74f0c45063550607cea8952df189/docs/2023_0301_Christos.html" target="_blank">5e8c202</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-08-23
+</td>
+<td>
+8/23/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1181,71 +1215,69 @@ Han
 </div>
 <div id="forest-plot" class="section level3">
 <h3>forest plot</h3>
+<pre><code>Number of studies combined: k = 11
+Number of observations: o = 534
+
+                         SMD             95%-CI     z  p-value
+Common effect model  -0.5688 [-0.7467; -0.3908] -6.27 &lt; 0.0001
+Random effects model -0.7048 [-1.1752; -0.2344] -2.94   0.0033
+
+Quantifying heterogeneity:
+ tau^2 = 0.5267 [0.2036; 2.1227]; tau = 0.7257 [0.4512; 1.4570]
+ I^2 = 79.2% [63.4%; 88.2%]; H = 2.19 [1.65; 2.91]
+
+Test of heterogeneity:
+     Q d.f.  p-value
+ 48.08   10 &lt; 0.0001
+
+Details on meta-analytical method:
+- Inverse variance method
+- Restricted maximum-likelihood estimator for tau^2
+- Q-Profile method for confidence interval of tau^2 and tau
+- Hedges&#39; g (bias corrected standardised mean difference; using exact formulae)</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>one hour<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11"],["Pearlman, B.","Pereira, G.","Pilatti, G.","Pilatti, G.","Santos, B.","Santos, B.","Steffens, J 2011","Steffens, J 2011","Steffens, J 2011 @","Steffens, J 2011 @","Trombelli, L."],[63,27,20,20,20,20,19,18,20,16,22],[10,1.5,14.57,8.78,10,12,13.85,1.76,8,3,5.32],[21,5.7,20.36,17.57,14.8,15.4,20.08,2.92,17,12,6.5],[61,27,20,20,20,20,20,20,20,20,21],[19,7.4,18.1,18.1,40,44,9.9,9.9,10,10,14],[25,10.5,23.01,23.01,12.1,7.5,17.1,17.1,17,17,15.69]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>study<\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-<div id="analysis-of-arm-based-data" class="section level3">
-<h3>Analysis of arm-based data</h3>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>one hour<\/caption>","data":[["Pearlman..B.","Pereira..G.","Pilatti..G.","Pilatti..G..1","Santos..B.","Santos..B..1","Steffens..J.2011","Steffens..J.2011.1","Steffens..J.2011..","Steffens..J.2011...1","Trombelli..L."],[63,27,20,20,20,20,19,18,20,16,22],[10,1.5,14.57,8.78,10,12,13.85,1.76,8,3,5.32],[21,5.7,20.36,17.57,14.8,15.4,20.08,2.92,17,12,6.5],[61,27,20,20,20,20,20,20,20,20,21],[19,7.4,18.1,18.1,40,44,9.9,9.9,10,10,14],[25,10.5,23.01,23.01,12.1,7.5,17.1,17.1,17,17,15.69]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
-<li>rename “placebo 1” as placebo</li>
-<li>remove “placebo 2”</li>
-<li>each node is one treatment, 7 treatments (nodes) in total.</li>
-<li>edge between two nodes indicates these two treatments are in one
-study, and edge width indicates how many studies involving these
-treatment, e.g. 3 studies involve placebo and ibuprofen</li>
-<li>node size indicates the sample size</li>
-</ul>
-<div id="fixed-effect-meta-analysis" class="section level4">
-<h4>fixed effect meta-analysis</h4>
-<ul>
-<li>use <span class="math inline">\(N(0,100^2)\)</span> prior
-distributions for the treatment effects <code>d[k]</code> and
-study-specific intercepts <code>mu[j]</code></li>
-<li><code>placebo</code> is the reference treatment</li>
-<li><code>d[k]</code> treatment effects</li>
-<li><code>mu[j]</code> study specific intercepts</li>
-</ul>
-</div>
-<div id="relative-effects-against-placebo" class="section level4">
-<h4>relative effects against placebo</h4>
-<ul>
-<li>each horizontal line of every treatment visualizes 5 summary
-statistics 2.5%,25%, 50%, 75%, 97.5%.</li>
-</ul>
-</div>
-<div id="treatment-ranking" class="section level4">
-<h4>treatment ranking</h4>
-<ul>
-<li>rank the treatments by <code>d[k]</code>, the larger mean, the
-higher rank. ibuprofen &gt; nimesilide &gt; dexamethasone 8mg &gt;
-ketorolac 10mg &gt; celecoxib 200mg &gt; placebo &gt; dexamethasone
-4mg</li>
-</ul>
-</div>
-</div>
-</div>
-<div id="reference" class="section level2">
-<h2>Reference</h2>
-<ul>
-<li><p><a href="https://bugsnetsoftware.github.io/">BUGSnet</a></p></li>
+<li><p>For an individual study, a square with treatment estimate in the
+center and confidence interval as line extending either side of the
+square</p></li>
+<li><p>For meta-analysis results, a diamond with treatment estimate in
+the center and right and left side corresponding to lower and upper
+confidence limits</p></li>
+<li><p>heterogeneity (null hypothesis: all studies estimate the same
+effect) is measured by Cochran’s Q, which is calculated as the weighted
+sum of squared differences between individual study effects and the
+pooled effect across studies, following <span
+class="math inline">\(\chi^2\)</span> distribution with number of
+studies-1 DF.</p></li>
+<li><p><span class="math inline">\(I^2\)</span> statistic describes the
+percentage of variation across studies that is due to heterogeneity
+rather than chance <a
+href="https://www.statsdirect.com/help/meta_analysis/heterogeneity.htm#:~:text=Heterogeneity%20in%20meta%2Danalysis%20refers,the%20inconsistency%20of%20studies&#39;%20results">more
+details</a>.</p></li>
 <li><p><a
-href="https://cran.r-project.org/web/packages/MetaStan/MetaStan.pdf">MetaStan</a></p></li>
-<li><p><a
-href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6635665/pdf/epih-41-e2019013.pdf">Network
-meta-analysis: application and practice using R software</a></p></li>
-<li><p><a
-href="https://cran.r-project.org/web/packages/bayesmeta/vignettes/Roever2020-bayesmeta.pdf">bayesmeta</a></p></li>
-<li><p><a
-href="https://dmphillippo.github.io/multinma/articles/vignette_overview.html">multinma</a></p></li>
-<li><p><a
-href="https://www.wvbauer.com/lib/exe/fetch.php/talks:2019_viechtbauer_lsp_ma_longitudinal.pdf">metafor</a>;
-longitudinal meta analysis</p></li>
+href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-30#:~:text=Firstly%2C%20the%20SMD%20can%20be,a%20large%20effect%20%5B2%5D.">SMD
+interpretations</a></p></li>
 </ul>
+<pre class="r"><code>n1=63; s1=21; n2=61; s2=25
+# Calculate s_pooled
+s_pooled &lt;- sqrt(  # s_pooled is pooled standard deviation
+  (((n1-1)*s1^2) + ((n2-1)*s2^2))/
+    ((n1-1)+(n2-1))
+)
+
+# Calculate the standard error
+se &lt;- s_pooled*sqrt((1/n1)+(1/n2))
+#se
+
+mean1=10; mean2=19
+(mean1-mean2)/s_pooled  # this is SMD </code></pre>
+<pre><code>[1] -0.390386</code></pre>
 </div>
-<div id="analysis-of-mixed-arm-based-and-contrast-based-data"
-class="section level2">
-<h2>Analysis of mixed arm-based and contrast-based data</h2>
+<div id="network-meta-analysis" class="section level3">
+<h3>network meta-analysis</h3>
+</div>
 </div>
 <div id="sample-size-determination" class="section level2">
 <h2>Sample size determination</h2>
@@ -1318,50 +1350,56 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_6.2-1       multinma_0.5.0   readxl_1.4.2     DT_0.27         
- [5] rstatix_0.7.2    ggpubr_0.6.0     kableExtra_1.3.4 forcats_1.0.0   
- [9] stringr_1.5.0    dplyr_1.0.10     purrr_1.0.1      readr_2.1.4     
-[13] tidyr_1.3.0      tibble_3.1.8     ggplot2_3.4.1    tidyverse_1.3.2 
+ [1] dmetar_0.1.0     netmeta_2.8-2    meta_6.2-1       multinma_0.5.0  
+ [5] readxl_1.4.2     DT_0.27          rstatix_0.7.2    ggpubr_0.6.0    
+ [9] kableExtra_1.3.4 forcats_1.0.0    stringr_1.5.0    dplyr_1.0.10    
+[13] purrr_1.0.1      readr_2.1.4      tidyr_1.3.0      tibble_3.1.8    
+[17] ggplot2_3.4.1    tidyverse_1.3.2 
 
 loaded via a namespace (and not attached):
-  [1] minqa_1.2.5          googledrive_2.0.0    colorspace_2.0-3    
-  [4] ggsignif_0.6.4       ellipsis_0.3.2       rprojroot_2.0.3     
-  [7] evd_2.3-6.1          fs_1.5.2             rstudioapi_0.14     
- [10] rstan_2.21.8         fansi_1.0.3          lubridate_1.9.2     
- [13] mathjaxr_1.6-0       xml2_1.3.3           splines_4.2.2       
- [16] codetools_0.2-18     cachem_1.0.7         knitr_1.42          
- [19] jsonlite_1.8.4       nloptr_2.0.3         workflowr_1.7.0     
- [22] broom_1.0.3          dbplyr_2.3.0         compiler_4.2.2      
- [25] httr_1.4.5           backports_1.4.1      Matrix_1.5-1        
- [28] assertthat_0.2.1     fastmap_1.1.0        gargle_1.3.0        
- [31] cli_3.4.1            later_1.3.0          htmltools_0.5.4     
- [34] prettyunits_1.1.1    tools_4.2.2          igraph_1.4.1        
- [37] gtable_0.3.1         glue_1.6.2           Rcpp_1.0.9          
- [40] carData_3.0-5        cellranger_1.1.0     jquerylib_0.1.4     
- [43] vctrs_0.5.2          nlme_3.1-160         svglite_2.1.1       
- [46] crosstalk_1.2.0      xfun_0.37            rbibutils_2.2.13    
- [49] ps_1.7.2             lme4_1.1-31          rvest_1.0.3         
- [52] timechange_0.2.0     CompQuadForm_1.4.3   lifecycle_1.0.3     
- [55] googlesheets4_1.0.1  MASS_7.3-58.1        scales_1.2.1        
- [58] hms_1.1.2            promises_1.2.0.1     parallel_4.2.2      
- [61] inline_0.3.19        metafor_4.0-0        yaml_2.3.7          
- [64] gridExtra_2.3        loo_2.5.1            StanHeaders_2.21.0-7
- [67] sass_0.4.5           truncdist_1.0-2      stringi_1.7.8       
- [70] highr_0.10           boot_1.3-28          pkgbuild_1.4.0      
- [73] Rdpack_2.4           rlang_1.0.6          pkgconfig_2.0.3     
- [76] systemfonts_1.0.4    matrixStats_0.63.0   lattice_0.20-45     
- [79] evaluate_0.20        rstantools_2.3.0     htmlwidgets_1.6.1   
- [82] tidyselect_1.2.0     processx_3.8.0       magrittr_2.0.3      
- [85] R6_2.5.1             generics_0.1.3       DBI_1.1.3           
- [88] pillar_1.8.1         haven_2.5.1          whisker_0.4.1       
- [91] withr_2.5.0          abind_1.4-5          modelr_0.1.10       
- [94] crayon_1.5.2         car_3.1-1            utf8_1.2.2          
- [97] tzdb_0.3.0           rmarkdown_2.20       metadat_1.2-0       
-[100] grid_4.2.2           callr_3.7.3          git2r_0.31.0        
-[103] reprex_2.0.2         digest_0.6.31        webshot_0.5.4       
-[106] numDeriv_2016.8-1.1  httpuv_1.6.9         RcppParallel_5.1.7  
-[109] stats4_4.2.2         munsell_0.5.0        viridisLite_0.4.1   
-[112] bslib_0.4.2         </code></pre>
+  [1] metadat_1.2-0        backports_1.4.1      workflowr_1.7.0     
+  [4] systemfonts_1.0.4    igraph_1.4.1         splines_4.2.2       
+  [7] crosstalk_1.2.0      rstantools_2.3.0     inline_0.3.19       
+ [10] digest_0.6.31        htmltools_0.5.4      fansi_1.0.3         
+ [13] magrittr_2.0.3       truncdist_1.0-2      googlesheets4_1.0.1 
+ [16] cluster_2.1.4        tzdb_0.3.0           modelr_0.1.10       
+ [19] RcppParallel_5.1.7   matrixStats_0.63.0   svglite_2.1.1       
+ [22] timechange_0.2.0     prettyunits_1.1.1    colorspace_2.0-3    
+ [25] rvest_1.0.3          ggrepel_0.9.2        haven_2.5.1         
+ [28] rbibutils_2.2.13     xfun_0.37            callr_3.7.3         
+ [31] crayon_1.5.2         jsonlite_1.8.4       lme4_1.1-31         
+ [34] glue_1.6.2           gtable_0.3.1         gargle_1.3.0        
+ [37] webshot_0.5.4        kernlab_0.9-32       car_3.1-1           
+ [40] pkgbuild_1.4.0       evd_2.3-6.1          rstan_2.21.8        
+ [43] DEoptimR_1.0-11      prabclus_2.3-2       abind_1.4-5         
+ [46] scales_1.2.1         DBI_1.1.3            Rcpp_1.0.9          
+ [49] viridisLite_0.4.1    magic_1.6-1          mclust_6.0.0        
+ [52] stats4_4.2.2         StanHeaders_2.21.0-7 htmlwidgets_1.6.1   
+ [55] httr_1.4.5           fpc_2.2-10           ellipsis_0.3.2      
+ [58] modeltools_0.2-23    pkgconfig_2.0.3      loo_2.5.1           
+ [61] flexmix_2.3-19       nnet_7.3-18          sass_0.4.5          
+ [64] dbplyr_2.3.0         utf8_1.2.2           tidyselect_1.2.0    
+ [67] rlang_1.0.6          later_1.3.0          munsell_0.5.0       
+ [70] cellranger_1.1.0     tools_4.2.2          cachem_1.0.7        
+ [73] cli_3.4.1            generics_0.1.3       broom_1.0.3         
+ [76] mathjaxr_1.6-0       evaluate_0.20        fastmap_1.1.0       
+ [79] yaml_2.3.7           processx_3.8.0       knitr_1.42          
+ [82] fs_1.5.2             robustbase_0.95-0    nlme_3.1-160        
+ [85] whisker_0.4.1        xml2_1.3.3           compiler_4.2.2      
+ [88] rstudioapi_0.14      ggsignif_0.6.4       reprex_2.0.2        
+ [91] bslib_0.4.2          stringi_1.7.8        highr_0.10          
+ [94] ps_1.7.2             lattice_0.20-45      poibin_1.5          
+ [97] Matrix_1.5-1         nloptr_2.0.3         vctrs_0.5.2         
+[100] CompQuadForm_1.4.3   pillar_1.8.1         lifecycle_1.0.3     
+[103] Rdpack_2.4           jquerylib_0.1.4      httpuv_1.6.9        
+[106] R6_2.5.1             MuMIn_1.47.5         promises_1.2.0.1    
+[109] gridExtra_2.3        codetools_0.2-18     boot_1.3-28         
+[112] MASS_7.3-58.1        assertthat_0.2.1     rprojroot_2.0.3     
+[115] withr_2.5.0          metafor_4.0-0        diptest_0.76-0      
+[118] parallel_4.2.2       hms_1.1.2            grid_4.2.2          
+[121] class_7.3-20         minqa_1.2.5          rmarkdown_2.20      
+[124] carData_3.0-5        googledrive_2.0.0    git2r_0.31.0        
+[127] numDeriv_2016.8-1.1  lubridate_1.9.2     </code></pre>
 </div>
 </div>
 

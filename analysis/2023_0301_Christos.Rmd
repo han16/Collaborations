@@ -147,13 +147,16 @@ study_data[11,]=c(as.numeric(data_1hour_full[18,3:5]), as.numeric(data_1hour_ful
 study=c("Pearlman, B.", "Pereira, G.", "Pilatti, G.", "Pilatti, G.", "Santos, B.",  "Santos, B.", "Steffens, J 2011", "Steffens, J 2011", "Steffens, J 2011 @", "Steffens, J 2011 @", "Trombelli, L.")
 
 data_meta=data.frame(study=study,samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
-#colnames(data_meta)=c("study", "samplesize_exp", "mean_exp", "sd_exp", "samplesize_contr", "mean_contr", "sd_contr")
+colnames(study_data)=c("samplesize_exp", "mean_exp", "sd_exp", "samplesize_contr", "mean_contr", "sd_contr")
+rownames(study_data)=study
 
-#rownames(data_meta)=study
+data_meta=data.frame(study_data)
+
 m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta, sm = "SMD")
-#m1
+m1
 forest.meta(m1, layout="JAMA")
+
 
 data_meta%>%
 datatable(extensions = 'Buttons',
@@ -166,15 +169,56 @@ datatable(extensions = 'Buttons',
 ```
 
 
+* For an individual study, a square with treatment estimate in the center and confidence interval as line extending either side of the square
+
+
+* For meta-analysis results, a diamond with treatment estimate in the center and right and left side corresponding to lower and upper confidence limits
+
+* heterogeneity (null hypothesis: all studies estimate the same effect) is measured by Cochran’s Q, which is calculated as the weighted sum of squared differences between individual study effects and the pooled effect across studies, following $\chi^2$ distribution with number of studies-1 DF. 
+
+* $I^2$ statistic describes the percentage of variation across studies that is due to heterogeneity rather than chance
+[more details](https://www.statsdirect.com/help/meta_analysis/heterogeneity.htm#:~:text=Heterogeneity%20in%20meta%2Danalysis%20refers,the%20inconsistency%20of%20studies'%20results). 
+
+* [SMD interpretations](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-30#:~:text=Firstly%2C%20the%20SMD%20can%20be,a%20large%20effect%20%5B2%5D.)
+
+```{r, echo=T, message=F, warning=F}
+n1=63; s1=21; n2=61; s2=25
+# Calculate s_pooled
+s_pooled <- sqrt(  # s_pooled is pooled standard deviation
+  (((n1-1)*s1^2) + ((n2-1)*s2^2))/
+    ((n1-1)+(n2-1))
+)
+
+# Calculate the standard error
+se <- s_pooled*sqrt((1/n1)+(1/n2))
+#se
+
+mean1=10; mean2=19
+(mean1-mean2)/s_pooled  # this is SMD 
+```
 
 
 
+### network meta-analysis 
+
+```{r, echo=F, message=F, warning=F}
+library(netmeta)
+########### install package dmetar 
+#if (!require("devtools")) {
+#  install.packages("devtools")
+#}
+#devtools::install_github("MathiasHarrer/dmetar")
+library(dmetar)
+
+data(TherapyFormats)
+
+#head(TherapyFormats[1:5])
+
+```
 
 
 
-
-
-
+```{r, echo=F, eval=F}
 
 ### Analysis of arm-based data
 
@@ -200,7 +244,8 @@ arm_net <- set_agd_arm(data_arm,
                       sample_size = sample.size..n.) # use trt_ref to set reference treatment 
 arm_net
 plot(arm_net, weight_edges = TRUE, weight_nodes = TRUE)
-```
+
+
 
 * rename "placebo 1" as placebo 
 * remove "placebo 2"
@@ -246,7 +291,7 @@ arm_fit_FE <- nma(arm_net,
 
 print(arm_fit_FE, pars = c("d", "mu")) # mu: study specific intercept; d_k treatment effects 
 plot_prior_posterior(arm_fit_FE)
-```
+
 
 * use $N(0,100^2)$ prior distributions for the treatment effects `d[k]`
  and study-specific intercepts `mu[j]`
@@ -261,7 +306,7 @@ plot_prior_posterior(arm_fit_FE)
 ```{r, echo=F, message=F, warning=F, eval=F}
 (arm_releff_FE <- relative_effects(arm_fit_FE, trt_ref = "placebo"))
 plot(arm_releff_FE, ref_line = 0)
-```
+
 
 * each horizontal line of every treatment  visualizes 5 summary statistics 2.5%,25%, 50%, 75%, 97.5%. 
 
@@ -273,7 +318,7 @@ plot(arm_ranks)
 
 #(arm_rankprobs <- posterior_rank_probs(arm_fit_FE))
 #plot(arm_rankprobs)
-```
+
 
 * rank the treatments by `d[k]`, the larger mean, the higher rank. ibuprofen > nimesilide > dexamethasone 8mg > ketorolac 10mg > celecoxib 200mg > 
 placebo > dexamethasone 4mg 
@@ -307,7 +352,7 @@ library(metafor)
  par(mfrow=c(1,2))
  forest(res)
  funnel(res)
-```
+
 
 ## Reference 
 
@@ -324,12 +369,9 @@ library(metafor)
 * [metafor](https://www.wvbauer.com/lib/exe/fetch.php/talks:2019_viechtbauer_lsp_ma_longitudinal.pdf); longitudinal meta analysis
 
 
-
-## Analysis of mixed arm-based and contrast-based data
-
-```{r, echo=F, message=F, warning=F}
-
 ```
+
+
 
 
 ## Sample size determination 
