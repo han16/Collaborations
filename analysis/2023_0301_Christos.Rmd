@@ -210,11 +210,79 @@ library(netmeta)
 #devtools::install_github("MathiasHarrer/dmetar")
 library(dmetar)
 
+############# an example 
 data(TherapyFormats)
 
 #head(TherapyFormats[1:5])
+#as.matrix(table(TherapyFormats$author))
+#m.netmeta <- netmeta(TE = TE,
+#                     seTE = seTE,
+#                     treat1 = treat1,
+#                     treat2 = treat2,
+#                     studlab = author,
+#                     data = TherapyFormats,
+#                     sm = "SMD",
+#                     fixed = TRUE,
+#                     random = FALSE,
+#                     reference.group = "cau",
+#                     details.chkmultiarm = TRUE,
+#                     sep.trts = " vs ")
+#summary(m.netmeta)
+
+#########################
+
+treat1=c("ibuprofen", "ibuprofen", "dexamethasone 4mg", "celecoxib 200mg", "ibuprofen", "nimesilide", "dexamethasone 4mg", "dexamethasone 8mg", "celecoxib 200mg", "etoricoxib 120mg", "ketorolac 10mg")
+treat2=rep("placebo", length(treat1))
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2)
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                #     studlab = study,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+summary(m.netmeta)
+
+long.labels=m.netmeta$trts
+
+netgraph(m.netmeta, 
+         labels = long.labels)
 
 ```
+
+
+
+```{r, echo=F, message=F, warning=F}
+## Visualizing Direct and Indirect Evidenc
+d.evidence <- direct.evidence.plot(m.netmeta)
+plot(d.evidence)
+```
+
+```{r, echo=F, message=F, warning=F}
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("Title 1",
+                     "(Title 2)"),
+       drop.reference.group = TRUE,
+       label.left = "left panel",
+       label.right = "right panel",
+       labels = long.labels)
+
+```
+
+* higher P-score, the better it is 
+
+
+
 
 
 

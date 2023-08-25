@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-08-24
+<strong>Last updated:</strong> 2023-08-25
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5e8c20235acf74f0c45063550607cea8952df189targetblank5e8c202a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree987f10a5cc8c03e04b42c4454295dfd25f325ac8targetblank987f10aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/5e8c20235acf74f0c45063550607cea8952df189" target="_blank">5e8c202</a>
+<a href="https://github.com/han16/Collaborations/tree/987f10a5cc8c03e04b42c4454295dfd25f325ac8" target="_blank">987f10a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5e8c20235acf74f0c45063550607cea8952df189targetblank5e8c202a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree987f10a5cc8c03e04b42c4454295dfd25f325ac8targetblank987f10aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/5e8c20235acf74f0c45063550607cea8952df189" target="_blank">5e8c202</a>.
+<a href="https://github.com/han16/Collaborations/tree/987f10a5cc8c03e04b42c4454295dfd25f325ac8" target="_blank">987f10a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -573,6 +573,7 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+    Ignored:    analysis/figure/
 
 Unstaged changes:
     Modified:   analysis/2023_0301_Christos.Rmd
@@ -621,6 +622,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/987f10a5cc8c03e04b42c4454295dfd25f325ac8/analysis/2023_0301_Christos.Rmd" target="_blank">987f10a</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-08-24
+</td>
+<td>
+8/24/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/987f10a5cc8c03e04b42c4454295dfd25f325ac8/docs/2023_0301_Christos.html" target="_blank">987f10a</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-08-24
+</td>
+<td>
+8/24/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1277,6 +1312,91 @@ mean1=10; mean2=19
 </div>
 <div id="network-meta-analysis" class="section level3">
 <h3>network meta-analysis</h3>
+<pre><code>Original data:
+
+              treat1  treat2      TE   seTE
+1          ibuprofen placebo -0.3880 0.1814
+2          ibuprofen placebo -0.6883 0.2807
+3  dexamethasone 4mg placebo -0.1593 0.3168
+4    celecoxib 200mg placebo -0.4462 0.3205
+5          ibuprofen placebo -2.1752 0.4065
+6         nimesilide placebo -2.5894 0.4387
+7  dexamethasone 4mg placebo  0.2079 0.3213
+8  dexamethasone 8mg placebo -0.6333 0.3338
+9    celecoxib 200mg placebo -0.1153 0.3165
+10  etoricoxib 120mg placebo -0.4563 0.3402
+11    ketorolac 10mg placebo -0.7157 0.3156
+
+Number of treatment arms (by study):
+   narms
+1      2
+2      2
+3      2
+4      2
+5      2
+6      2
+7      2
+8      2
+9      2
+10     2
+11     2
+
+Results (common effects model):
+
+              treat1  treat2     SMD             95%-CI     Q leverage
+1          ibuprofen placebo -0.6856 [-0.9652; -0.4060]  2.69     0.62
+2          ibuprofen placebo -0.6856 [-0.9652; -0.4060]  0.00     0.26
+3  dexamethasone 4mg placebo  0.0217 [-0.4204;  0.4639]  0.33     0.51
+4    celecoxib 200mg placebo -0.2787 [-0.7201;  0.1628]  0.27     0.49
+5          ibuprofen placebo -0.6856 [-0.9652; -0.4060] 13.43     0.12
+6         nimesilide placebo -2.5894 [-3.4493; -1.7296]  0.00     1.00
+7  dexamethasone 4mg placebo  0.0217 [-0.4204;  0.4639]  0.34     0.49
+8  dexamethasone 8mg placebo -0.6333 [-1.2875;  0.0209]  0.00     1.00
+9    celecoxib 200mg placebo -0.2787 [-0.7201;  0.1628]  0.27     0.51
+10  etoricoxib 120mg placebo -0.4563 [-1.1230;  0.2105]  0.00     1.00
+11    ketorolac 10mg placebo -0.7157 [-1.3342; -0.0971]  0.00     1.00
+
+Number of studies: k = 11
+Number of pairwise comparisons: m = 11
+Number of treatments: n = 8
+Number of designs: d = 7
+
+Common effects model
+
+Treatment estimate (sm = &#39;SMD&#39;, comparison: other treatments vs &#39;placebo&#39;):
+                      SMD             95%-CI     z  p-value
+celecoxib 200mg   -0.2787 [-0.7201;  0.1628] -1.24   0.2160
+dexamethasone 4mg  0.0217 [-0.4204;  0.4639]  0.10   0.9233
+dexamethasone 8mg -0.6333 [-1.2875;  0.0209] -1.90   0.0578
+etoricoxib 120mg  -0.4563 [-1.1230;  0.2105] -1.34   0.1799
+ibuprofen         -0.6856 [-0.9652; -0.4060] -4.81 &lt; 0.0001
+ketorolac 10mg    -0.7157 [-1.3342; -0.0971] -2.27   0.0233
+nimesilide        -2.5894 [-3.4493; -1.7296] -5.90 &lt; 0.0001
+placebo                 .                  .     .        .
+
+Quantifying heterogeneity / inconsistency:
+tau^2 = 0.2896; tau = 0.5382; I^2 = 76.9% [44.0%; 90.5%]
+
+Tests of heterogeneity (within designs) and inconsistency (between designs):
+                    Q d.f. p-value
+Total           17.32    4  0.0017
+Within designs  17.32    4  0.0017
+Between designs  0.00    0      --</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>                  P-score
+nimesilide         0.9999
+ibuprofen          0.6697
+ketorolac 10mg     0.6640
+dexamethasone 8mg  0.6066
+etoricoxib 120mg   0.4811
+celecoxib 200mg    0.3476
+dexamethasone 4mg  0.1200
+placebo            0.1110</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>higher P-score, the better it is</li>
+</ul>
 </div>
 </div>
 <div id="sample-size-determination" class="section level2">
@@ -1376,30 +1496,31 @@ loaded via a namespace (and not attached):
  [49] viridisLite_0.4.1    magic_1.6-1          mclust_6.0.0        
  [52] stats4_4.2.2         StanHeaders_2.21.0-7 htmlwidgets_1.6.1   
  [55] httr_1.4.5           fpc_2.2-10           ellipsis_0.3.2      
- [58] modeltools_0.2-23    pkgconfig_2.0.3      loo_2.5.1           
- [61] flexmix_2.3-19       nnet_7.3-18          sass_0.4.5          
- [64] dbplyr_2.3.0         utf8_1.2.2           tidyselect_1.2.0    
- [67] rlang_1.0.6          later_1.3.0          munsell_0.5.0       
- [70] cellranger_1.1.0     tools_4.2.2          cachem_1.0.7        
- [73] cli_3.4.1            generics_0.1.3       broom_1.0.3         
- [76] mathjaxr_1.6-0       evaluate_0.20        fastmap_1.1.0       
- [79] yaml_2.3.7           processx_3.8.0       knitr_1.42          
- [82] fs_1.5.2             robustbase_0.95-0    nlme_3.1-160        
- [85] whisker_0.4.1        xml2_1.3.3           compiler_4.2.2      
- [88] rstudioapi_0.14      ggsignif_0.6.4       reprex_2.0.2        
- [91] bslib_0.4.2          stringi_1.7.8        highr_0.10          
- [94] ps_1.7.2             lattice_0.20-45      poibin_1.5          
- [97] Matrix_1.5-1         nloptr_2.0.3         vctrs_0.5.2         
-[100] CompQuadForm_1.4.3   pillar_1.8.1         lifecycle_1.0.3     
-[103] Rdpack_2.4           jquerylib_0.1.4      httpuv_1.6.9        
-[106] R6_2.5.1             MuMIn_1.47.5         promises_1.2.0.1    
-[109] gridExtra_2.3        codetools_0.2-18     boot_1.3-28         
-[112] MASS_7.3-58.1        assertthat_0.2.1     rprojroot_2.0.3     
-[115] withr_2.5.0          metafor_4.0-0        diptest_0.76-0      
-[118] parallel_4.2.2       hms_1.1.2            grid_4.2.2          
-[121] class_7.3-20         minqa_1.2.5          rmarkdown_2.20      
-[124] carData_3.0-5        googledrive_2.0.0    git2r_0.31.0        
-[127] numDeriv_2016.8-1.1  lubridate_1.9.2     </code></pre>
+ [58] modeltools_0.2-23    farver_2.1.1         pkgconfig_2.0.3     
+ [61] loo_2.5.1            flexmix_2.3-19       nnet_7.3-18         
+ [64] sass_0.4.5           dbplyr_2.3.0         utf8_1.2.2          
+ [67] labeling_0.4.2       tidyselect_1.2.0     rlang_1.0.6         
+ [70] later_1.3.0          munsell_0.5.0        cellranger_1.1.0    
+ [73] tools_4.2.2          cachem_1.0.7         cli_3.4.1           
+ [76] generics_0.1.3       broom_1.0.3          mathjaxr_1.6-0      
+ [79] evaluate_0.20        fastmap_1.1.0        yaml_2.3.7          
+ [82] processx_3.8.0       knitr_1.42           fs_1.5.2            
+ [85] robustbase_0.95-0    nlme_3.1-160         whisker_0.4.1       
+ [88] xml2_1.3.3           compiler_4.2.2       rstudioapi_0.14     
+ [91] ggsignif_0.6.4       reprex_2.0.2         bslib_0.4.2         
+ [94] stringi_1.7.8        highr_0.10           ps_1.7.2            
+ [97] lattice_0.20-45      poibin_1.5           Matrix_1.5-1        
+[100] nloptr_2.0.3         vctrs_0.5.2          CompQuadForm_1.4.3  
+[103] pillar_1.8.1         lifecycle_1.0.3      Rdpack_2.4          
+[106] jquerylib_0.1.4      httpuv_1.6.9         R6_2.5.1            
+[109] MuMIn_1.47.5         promises_1.2.0.1     gridExtra_2.3       
+[112] codetools_0.2-18     boot_1.3-28          MASS_7.3-58.1       
+[115] assertthat_0.2.1     rprojroot_2.0.3      withr_2.5.0         
+[118] metafor_4.0-0        diptest_0.76-0       parallel_4.2.2      
+[121] hms_1.1.2            grid_4.2.2           class_7.3-20        
+[124] minqa_1.2.5          rmarkdown_2.20       carData_3.0-5       
+[127] googledrive_2.0.0    git2r_0.31.0         numDeriv_2016.8-1.1 
+[130] lubridate_1.9.2     </code></pre>
 </div>
 </div>
 
