@@ -154,8 +154,30 @@ data_meta=data.frame(study_data)
 
 m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta, sm = "SMD")
-m1
-forest.meta(m1, layout="JAMA")
+
+########### generate object for plot 
+
+m.gen <- metagen(TE = m1$TE,
+                 seTE =m1$seTE,
+                 studlab = study,
+                 data = data_meta,
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Third Wave Psychotherapies")
+
+
+forest.meta(m.gen, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+#forest.meta(m.gen, sortvar = TE, 
+#            prediction = FALSE, 
+#            print.tau2 = FALSE, 
+#            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
 
 
 data_meta%>%
@@ -211,7 +233,7 @@ library(netmeta)
 library(dmetar)
 
 ############# an example 
-data(TherapyFormats)
+#data(TherapyFormats)
 
 #head(TherapyFormats[1:5])
 #as.matrix(table(TherapyFormats$author))
