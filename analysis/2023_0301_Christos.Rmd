@@ -144,7 +144,7 @@ study_data[8,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full
 study_data[9,]=c(as.numeric(data_1hour_full[15,3:5]), as.numeric(data_1hour_full[17,3:5]))
 study_data[10,]=c(as.numeric(data_1hour_full[16,3:5]), as.numeric(data_1hour_full[17,3:5]))
 study_data[11,]=c(as.numeric(data_1hour_full[18,3:5]), as.numeric(data_1hour_full[19,3:5]))
-study=c("Pearlman, B.", "Pereira, G.", "Pilatti, G.", "Pilatti, G.", "Santos, B.",  "Santos, B.", "Steffens, J 2011", "Steffens, J 2011", "Steffens, J 2011 @", "Steffens, J 2011 @", "Trombelli, L.")
+study=c("Pearlman, B._ibuprofen_vs_placebo", "Pereira, G._ibuprofen_vs_placebo", "Pilatti, G._dexamethasone 4mg_vs_placebo", "Pilatti, G._celecoxib 200mg_vs_placebo", "Santos, B._ibuprofen_vs_placebo",  "Santos, B._nimesilide_vs_placebo", "Steffens, J 2011_dexamethasone 4mg_vs_placebo", "Steffens, J 2011_dexamethasone 8mg_vs_placebo", "Steffens, J 2011 @_celecoxib 200mg_vs_placebo", "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo", "Trombelli, L._ketorolac 10mg_vs_placebo")
 
 data_meta=data.frame(study=study,samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
 colnames(study_data)=c("samplesize_exp", "mean_exp", "sd_exp", "samplesize_contr", "mean_contr", "sd_contr")
@@ -168,10 +168,12 @@ m.gen <- metagen(TE = m1$TE,
                  hakn = TRUE,
                  title = "Third Wave Psychotherapies")
 
+summary(m.gen)
 
 forest.meta(m.gen, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
+            fontsize=8.5,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 

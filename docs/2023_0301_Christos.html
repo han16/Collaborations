@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-08-25
+<strong>Last updated:</strong> 2023-08-29
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree91a9a58755abf20c7d06664cb193d965c8d953a4targetblank91a9a58a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea0cb15c9953703f3a1fb9ec3b0eb56122982db9atargetblanka0cb15ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/91a9a58755abf20c7d06664cb193d965c8d953a4" target="_blank">91a9a58</a>
+<a href="https://github.com/han16/Collaborations/tree/a0cb15c9953703f3a1fb9ec3b0eb56122982db9a" target="_blank">a0cb15c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree91a9a58755abf20c7d06664cb193d965c8d953a4targetblank91a9a58a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea0cb15c9953703f3a1fb9ec3b0eb56122982db9atargetblanka0cb15ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/91a9a58755abf20c7d06664cb193d965c8d953a4" target="_blank">91a9a58</a>.
+<a href="https://github.com/han16/Collaborations/tree/a0cb15c9953703f3a1fb9ec3b0eb56122982db9a" target="_blank">a0cb15c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -621,6 +621,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a0cb15c9953703f3a1fb9ec3b0eb56122982db9a/analysis/2023_0301_Christos.Rmd" target="_blank">a0cb15c</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-08-25
+</td>
+<td>
+8/25/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a0cb15c9953703f3a1fb9ec3b0eb56122982db9a/docs/2023_0301_Christos.html" target="_blank">a0cb15c</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-08-25
+</td>
+<td>
+8/25/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1283,9 +1317,54 @@ Han
 </div>
 <div id="forest-plot" class="section level3">
 <h3>forest plot</h3>
+<pre><code>Review:     Third Wave Psychotherapies
+
+                                                   SMD             95%-CI
+Pearlman, B._ibuprofen_vs_placebo              -0.3880 [-0.7434; -0.0325]
+Pereira, G._ibuprofen_vs_placebo               -0.6883 [-1.2384; -0.1381]
+Pilatti, G._dexamethasone 4mg_vs_placebo       -0.1593 [-0.7801;  0.4616]
+Pilatti, G._celecoxib 200mg_vs_placebo         -0.4462 [-1.0745;  0.1820]
+Santos, B._ibuprofen_vs_placebo                -2.1752 [-2.9719; -1.3784]
+Santos, B._nimesilide_vs_placebo               -2.5894 [-3.4493; -1.7296]
+Steffens, J 2011_dexamethasone 4mg_vs_placebo   0.2079 [-0.4218;  0.8377]
+Steffens, J 2011_dexamethasone 8mg_vs_placebo  -0.6333 [-1.2875;  0.0209]
+Steffens, J 2011 @_celecoxib 200mg_vs_placebo  -0.1153 [-0.7357;  0.5051]
+Steffens, J 2011 @_etoricoxib 120mg_vs_placebo -0.4563 [-1.1230;  0.2105]
+Trombelli, L._ketorolac 10mg_vs_placebo        -0.7157 [-1.3342; -0.0971]
+                                               %W(random)
+Pearlman, B._ibuprofen_vs_placebo                    10.3
+Pereira, G._ibuprofen_vs_placebo                      9.5
+Pilatti, G._dexamethasone 4mg_vs_placebo              9.2
+Pilatti, G._celecoxib 200mg_vs_placebo                9.2
+Santos, B._ibuprofen_vs_placebo                       8.3
+Santos, B._nimesilide_vs_placebo                      8.0
+Steffens, J 2011_dexamethasone 4mg_vs_placebo         9.1
+Steffens, J 2011_dexamethasone 8mg_vs_placebo         9.0
+Steffens, J 2011 @_celecoxib 200mg_vs_placebo         9.2
+Steffens, J 2011 @_etoricoxib 120mg_vs_placebo        9.0
+Trombelli, L._ketorolac 10mg_vs_placebo               9.2
+
+Number of studies combined: k = 11
+
+                              SMD             95%-CI     t p-value
+Random effects model (HK) -0.7048 [-1.2607; -0.1490] -2.83  0.0180
+
+Quantifying heterogeneity:
+ tau^2 = 0.5267 [0.2036; 2.1227]; tau = 0.7257 [0.4512; 1.4570]
+ I^2 = 79.2% [63.4%; 88.2%]; H = 2.19 [1.65; 2.91]
+
+Test of heterogeneity:
+     Q d.f.  p-value
+ 48.08   10 &lt; 0.0001
+
+Details on meta-analytical method:
+- Inverse variance method
+- Restricted maximum-likelihood estimator for tau^2
+- Q-Profile method for confidence interval of tau^2 and tau
+- Hartung-Knapp (HK) adjustment for random effects model (df = 10)</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>one hour<\/caption>","data":[["Pearlman..B.","Pereira..G.","Pilatti..G.","Pilatti..G..1","Santos..B.","Santos..B..1","Steffens..J.2011","Steffens..J.2011.1","Steffens..J.2011..","Steffens..J.2011...1","Trombelli..L."],[63,27,20,20,20,20,19,18,20,16,22],[10,1.5,14.57,8.78,10,12,13.85,1.76,8,3,5.32],[21,5.7,20.36,17.57,14.8,15.4,20.08,2.92,17,12,6.5],[61,27,20,20,20,20,20,20,20,20,21],[19,7.4,18.1,18.1,40,44,9.9,9.9,10,10,14],[25,10.5,23.01,23.01,12.1,7.5,17.1,17.1,17,17,15.69]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>one hour<\/caption>","data":[["Pearlman, B._ibuprofen_vs_placebo","Pereira, G._ibuprofen_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Santos, B._ibuprofen_vs_placebo","Santos, B._nimesilide_vs_placebo","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo"],[63,27,20,20,20,20,19,18,20,16,22],[10,1.5,14.57,8.78,10,12,13.85,1.76,8,3,5.32],[21,5.7,20.36,17.57,14.8,15.4,20.08,2.92,17,12,6.5],[61,27,20,20,20,20,20,20,20,20,21],[19,7.4,18.1,18.1,40,44,9.9,9.9,10,10,14],[25,10.5,23.01,23.01,12.1,7.5,17.1,17.1,17,17,15.69]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li><p>For an individual study, a square with treatment estimate in the
 center and confidence interval as line extending either side of the
