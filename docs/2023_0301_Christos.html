@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-09-07
+<strong>Last updated:</strong> 2023-09-11
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea6275964fa8ff6447bf1c0b9a8a379a9f33f50e7targetblanka627596a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree10d8e30ec8b642411c340d9b7b5e79ed8969717etargetblank10d8e30a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/a6275964fa8ff6447bf1c0b9a8a379a9f33f50e7" target="_blank">a627596</a>
+<a href="https://github.com/han16/Collaborations/tree/10d8e30ec8b642411c340d9b7b5e79ed8969717e" target="_blank">10d8e30</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea6275964fa8ff6447bf1c0b9a8a379a9f33f50e7targetblanka627596a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree10d8e30ec8b642411c340d9b7b5e79ed8969717etargetblank10d8e30a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/a6275964fa8ff6447bf1c0b9a8a379a9f33f50e7" target="_blank">a627596</a>.
+<a href="https://github.com/han16/Collaborations/tree/10d8e30ec8b642411c340d9b7b5e79ed8969717e" target="_blank">10d8e30</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -573,6 +573,7 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+    Ignored:    analysis/figure/
 
 Unstaged changes:
     Modified:   analysis/2023_0301_Christos.Rmd
@@ -621,6 +622,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/10d8e30ec8b642411c340d9b7b5e79ed8969717e/analysis/2023_0301_Christos.Rmd" target="_blank">10d8e30</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-07
+</td>
+<td>
+9/7/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/10d8e30ec8b642411c340d9b7b5e79ed8969717e/docs/2023_0301_Christos.html" target="_blank">10d8e30</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-07
+</td>
+<td>
+9/7/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1513,15 +1548,121 @@ comparison</li>
 interpreted with particular caution.</li>
 </ul>
 <pre><code>                  P-score
-nimesilide         0.9529
-ibuprofen          0.7913
-dexamethasone 8mg  0.5734
-ketorolac 10mg     0.5626
-etoricoxib 120mg   0.4809
-celecoxib 200mg    0.3310
-placebo            0.1612
-dexamethasone 4mg  0.1467</code></pre>
+nimesilide         0.8993
+ibuprofen          0.7378
+dexamethasone 8mg  0.5730
+ketorolac 10mg     0.5706
+etoricoxib 120mg   0.4878
+celecoxib 200mg    0.3497
+placebo            0.1927
+dexamethasone 4mg  0.1890</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Original data (with adjusted standard errors for multi-arm studies):
+
+                              treat1            treat2      TE   seTE seTE.adj
+Pearlman, B.               ibuprofen           placebo -0.3880 0.1814   0.6277
+Pereira, G.                ibuprofen           placebo -0.6883 0.2807   0.6632
+Pilatti, G.        dexamethasone 4mg           placebo -0.1593 0.3168   0.8310
+Pilatti, G.          celecoxib 200mg           placebo -0.4462 0.3205   0.8353
+Santos, B.                 ibuprofen           placebo -2.1752 0.4065   0.8951
+Santos, B.                nimesilide           placebo -2.5894 0.4387   0.9495
+Steffens, J 2011   dexamethasone 4mg           placebo  0.2079 0.3213   0.8279
+Steffens, J 2011   dexamethasone 8mg           placebo -0.6333 0.3338   0.8421
+Steffens, J 2011 @   celecoxib 200mg           placebo -0.1153 0.3165   0.8234
+Steffens, J 2011 @  etoricoxib 120mg           placebo -0.4563 0.3402   0.8508
+Trombelli, L.         ketorolac 10mg           placebo -0.7157 0.3156   0.6787
+Pilatti, G.          celecoxib 200mg dexamethasone 4mg -0.2984 0.3182   0.8325
+Santos, B.                 ibuprofen        nimesilide -0.1298 0.3166   0.7954
+Steffens, J 2011   dexamethasone 4mg dexamethasone 8mg  0.8134 0.3437   0.8544
+Steffens, J 2011 @   celecoxib 200mg  etoricoxib 120mg  0.3259 0.3379   0.8479
+                   narms multiarm
+Pearlman, B.           2         
+Pereira, G.            2         
+Pilatti, G.            3        *
+Pilatti, G.            3        *
+Santos, B.             3        *
+Santos, B.             3        *
+Steffens, J 2011       3        *
+Steffens, J 2011       3        *
+Steffens, J 2011 @     3        *
+Steffens, J 2011 @     3        *
+Trombelli, L.          2         
+Pilatti, G.            3        *
+Santos, B.             3        *
+Steffens, J 2011       3        *
+Steffens, J 2011 @     3        *
+
+Number of treatment arms (by study):
+                   narms
+Pearlman, B.           2
+Pereira, G.            2
+Trombelli, L.          2
+Pilatti, G.            3
+Santos, B.             3
+Steffens, J 2011       3
+Steffens, J 2011 @     3
+
+Results (random effects model):
+
+                              treat1            treat2     SMD
+Pearlman, B.               ibuprofen           placebo -1.0484
+Pereira, G.                ibuprofen           placebo -1.0484
+Pilatti, G.        dexamethasone 4mg           placebo  0.0535
+Pilatti, G.          celecoxib 200mg           placebo -0.2485
+Santos, B.                 ibuprofen           placebo -1.0484
+Santos, B.                nimesilide           placebo -1.6076
+Steffens, J 2011   dexamethasone 4mg           placebo  0.0535
+Steffens, J 2011   dexamethasone 8mg           placebo -0.6956
+Steffens, J 2011 @   celecoxib 200mg           placebo -0.2485
+Steffens, J 2011 @  etoricoxib 120mg           placebo -0.5155
+Trombelli, L.         ketorolac 10mg           placebo -0.7157
+Pilatti, G.          celecoxib 200mg dexamethasone 4mg -0.3020
+Santos, B.                 ibuprofen        nimesilide  0.5592
+Steffens, J 2011   dexamethasone 4mg dexamethasone 8mg  0.7491
+Steffens, J 2011 @   celecoxib 200mg  etoricoxib 120mg  0.2670
+                               95%-CI
+Pearlman, B.       [-1.8050; -0.2919]
+Pereira, G.        [-1.8050; -0.2919]
+Pilatti, G.        [-0.8572;  0.9642]
+Pilatti, G.        [-1.1592;  0.6623]
+Santos, B.         [-1.8050; -0.2919]
+Santos, B.         [-2.8827; -0.3325]
+Steffens, J 2011   [-0.8572;  0.9642]
+Steffens, J 2011   [-1.9539;  0.5626]
+Steffens, J 2011 @ [-1.1592;  0.6623]
+Steffens, J 2011 @ [-1.7782;  0.7472]
+Trombelli, L.      [-2.0460;  0.6146]
+Pilatti, G.        [-1.3902;  0.7863]
+Santos, B.         [-0.6760;  1.7943]
+Steffens, J 2011   [-0.5139;  2.0122]
+Steffens, J 2011 @ [-0.9945;  1.5286]
+
+Number of studies: k = 7
+Number of pairwise comparisons: m = 15
+Number of treatments: n = 8
+Number of designs: d = 6
+
+Random effects model
+
+Treatment estimate (sm = &#39;SMD&#39;, comparison: other treatments vs &#39;placebo&#39;):
+                      SMD             95%-CI     z p-value
+celecoxib 200mg   -0.2485 [-1.1592;  0.6623] -0.53  0.5928
+dexamethasone 4mg  0.0535 [-0.8572;  0.9642]  0.12  0.9083
+dexamethasone 8mg -0.6956 [-1.9539;  0.5626] -1.08  0.2786
+etoricoxib 120mg  -0.5155 [-1.7782;  0.7472] -0.80  0.4236
+ibuprofen         -1.0484 [-1.8050; -0.2919] -2.72  0.0066
+ketorolac 10mg    -0.7157 [-2.0460;  0.6146] -1.05  0.2917
+nimesilide        -1.6076 [-2.8827; -0.3325] -2.47  0.0135
+placebo                 .                  .     .       .
+
+Quantifying heterogeneity / inconsistency:
+tau^2 = 0.3611; tau = 0.6009; I^2 = 80.6% [54.5%; 91.7%]
+
+Tests of heterogeneity (within designs) and inconsistency (between designs):
+                    Q d.f. p-value
+Total           20.61    4  0.0004
+Within designs   0.81    1  0.3689
+Between designs 16.28    3  0.0010</code></pre>
 <ul>
 <li>higher P-score, the better it is</li>
 </ul>
@@ -1538,7 +1679,7 @@ dexamethasone 4mg  0.1467</code></pre>
 <h3>forest plot</h3>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>3 hours<\/caption>","data":[["Pereira, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_dexamethasone 8mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo","Pereira, G._dexamethasone 4mg_vs_celecoxib 200mg","Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg","Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg","Steffens, J 2010_dexamethasone 8mg_vs_etoricoxib 120mg"],[20,20,19,18,20,16,15,15,22,20,19,20,15],[10.84,4.36,10.3,2.64,4,2,1.9,2.2,5.32,10.84,10.3,4,1.9],[18.28,8.34,17.96,5.52,8,6,4.2,4.5,6.69,18.28,17.96,8,4.2],[20,20,20,20,20,20,15,15,21,20,18,16,15],[25.47,25.47,22.35,22.35,22,22,9.9,9.9,20.38,4.36,2.64,2,2.2],[31.19,31.19,29.86,29.86,30,30,12,12,17.23,8.34,5.52,6,4.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>3 hours<\/caption>","data":[["Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_dexamethasone 8mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg","Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg","Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg","Steffens, J 2010_dexamethasone 8mg_vs_etoricoxib 120mg"],[20,20,19,18,20,16,15,15,22,20,19,20,15],[10.84,4.36,10.3,2.64,4,2,1.9,2.2,5.32,10.84,10.3,4,1.9],[18.28,8.34,17.96,5.52,8,6,4.2,4.5,6.69,18.28,17.96,8,4.2],[20,20,20,20,20,20,15,15,21,20,18,16,15],[25.47,25.47,22.35,22.35,22,22,9.9,9.9,20.38,4.36,2.64,2,2.2],[31.19,31.19,29.86,29.86,30,30,12,12,17.23,8.34,5.52,6,4.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="network-meta-analysis-1" class="section level3">
 <h3>network meta-analysis</h3>
@@ -1558,13 +1699,107 @@ comparison</li>
 interpreted with particular caution.</li>
 </ul>
 <pre><code>                  P-score
-ketorolac 10mg     0.8397
-dexamethasone 8mg  0.7005
-etoricoxib 120mg   0.6810
-celecoxib 200mg    0.5564
-dexamethasone 4mg  0.2211
-placebo            0.0012</code></pre>
+ketorolac 10mg     0.8304
+dexamethasone 8mg  0.6923
+etoricoxib 120mg   0.6738
+celecoxib 200mg    0.5628
+dexamethasone 4mg  0.2370
+placebo            0.0038</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Original data (with adjusted standard errors for multi-arm studies):
+
+                              treat1            treat2      TE   seTE seTE.adj
+Pilatti, G.        dexamethasone 4mg           placebo -0.5609 0.3230   0.3919
+Pilatti, G.          celecoxib 200mg           placebo -0.9063 0.3337   0.4196
+Steffens, J 2011   dexamethasone 4mg           placebo -0.4761 0.3253   0.3886
+Steffens, J 2011   dexamethasone 8mg           placebo -0.8762 0.3417   0.4282
+Steffens, J 2011 @   celecoxib 200mg           placebo -0.8036 0.3300   0.3932
+Steffens, J 2011 @  etoricoxib 120mg           placebo -0.8585 0.3520   0.4491
+Steffens, J 2010   dexamethasone 8mg           placebo -0.8658 0.3842   0.4790
+Steffens, J 2010    etoricoxib 120mg           placebo -0.8267 0.3826   0.4745
+Trombelli, L.         ketorolac 10mg           placebo -1.1414 0.3312   0.3312
+Pilatti, G.          celecoxib 200mg dexamethasone 4mg -0.4470 0.3206   0.3864
+Steffens, J 2011   dexamethasone 4mg dexamethasone 8mg  0.5575 0.3359   0.4127
+Steffens, J 2011 @   celecoxib 200mg  etoricoxib 120mg  0.2721 0.3371   0.4085
+Steffens, J 2010   dexamethasone 8mg  etoricoxib 120mg -0.0671 0.3653   0.4346
+                   narms multiarm
+Pilatti, G.            3        *
+Pilatti, G.            3        *
+Steffens, J 2011       3        *
+Steffens, J 2011       3        *
+Steffens, J 2011 @     3        *
+Steffens, J 2011 @     3        *
+Steffens, J 2010       3        *
+Steffens, J 2010       3        *
+Trombelli, L.          2         
+Pilatti, G.            3        *
+Steffens, J 2011       3        *
+Steffens, J 2011 @     3        *
+Steffens, J 2010       3        *
+
+Number of treatment arms (by study):
+                   narms
+Trombelli, L.          2
+Pilatti, G.            3
+Steffens, J 2011       3
+Steffens, J 2011 @     3
+Steffens, J 2010       3
+
+Results (random effects model):
+
+                              treat1            treat2     SMD
+Pilatti, G.        dexamethasone 4mg           placebo -0.4474
+Pilatti, G.          celecoxib 200mg           placebo -0.8142
+Steffens, J 2011   dexamethasone 4mg           placebo -0.4474
+Steffens, J 2011   dexamethasone 8mg           placebo -0.9383
+Steffens, J 2011 @   celecoxib 200mg           placebo -0.8142
+Steffens, J 2011 @  etoricoxib 120mg           placebo -0.9209
+Steffens, J 2010   dexamethasone 8mg           placebo -0.9383
+Steffens, J 2010    etoricoxib 120mg           placebo -0.9209
+Trombelli, L.         ketorolac 10mg           placebo -1.1414
+Pilatti, G.          celecoxib 200mg dexamethasone 4mg -0.3668
+Steffens, J 2011   dexamethasone 4mg dexamethasone 8mg  0.4909
+Steffens, J 2011 @   celecoxib 200mg  etoricoxib 120mg  0.1067
+Steffens, J 2010   dexamethasone 8mg  etoricoxib 120mg -0.0174
+                               95%-CI
+Pilatti, G.        [-0.8680; -0.0268]
+Pilatti, G.        [-1.2435; -0.3850]
+Steffens, J 2011   [-0.8680; -0.0268]
+Steffens, J 2011   [-1.4023; -0.4743]
+Steffens, J 2011 @ [-1.2435; -0.3850]
+Steffens, J 2011 @ [-1.3898; -0.4521]
+Steffens, J 2010   [-1.4023; -0.4743]
+Steffens, J 2010   [-1.3898; -0.4521]
+Trombelli, L.      [-1.7904; -0.4923]
+Pilatti, G.        [-0.8678;  0.1342]
+Steffens, J 2011   [-0.0362;  1.0179]
+Steffens, J 2011 @ [-0.4239;  0.6373]
+Steffens, J 2010   [-0.5715;  0.5367]
+
+Number of studies: k = 5
+Number of pairwise comparisons: m = 13
+Number of treatments: n = 6
+Number of designs: d = 5
+
+Random effects model
+
+Treatment estimate (sm = &#39;SMD&#39;, comparison: other treatments vs &#39;placebo&#39;):
+                      SMD             95%-CI     z  p-value
+celecoxib 200mg   -0.8142 [-1.2435; -0.3850] -3.72   0.0002
+dexamethasone 4mg -0.4474 [-0.8680; -0.0268] -2.08   0.0371
+dexamethasone 8mg -0.9383 [-1.4023; -0.4743] -3.96 &lt; 0.0001
+etoricoxib 120mg  -0.9209 [-1.3898; -0.4521] -3.85   0.0001
+ketorolac 10mg    -1.1414 [-1.7904; -0.4923] -3.45   0.0006
+placebo                 .                  .     .        .
+
+Quantifying heterogeneity / inconsistency:
+tau^2 = 0; tau = 0; I^2 = 0% [0.0%; 79.2%]
+
+Tests of heterogeneity (within designs) and inconsistency (between designs):
+                   Q d.f. p-value
+Total           0.49    4  0.9747
+Within designs  0.00    0      --
+Between designs 0.08    4  0.9993</code></pre>
 <ul>
 <li>higher P-score, the better it is</li>
 </ul>
@@ -1592,15 +1827,129 @@ placebo            0.0012</code></pre>
 interpreted with particular caution.</li>
 </ul>
 <pre><code>                  P-score
-nimesilide         0.9078
-etoricoxib 120mg   0.7515
-dexamethasone 8mg  0.6873
-ibuprofen          0.6173
-celecoxib 200mg    0.4759
-ketorolac 10mg     0.3578
-dexamethasone 4mg  0.1794
-placebo            0.0230</code></pre>
+nimesilide         0.8839
+etoricoxib 120mg   0.7308
+dexamethasone 8mg  0.6725
+ibuprofen          0.6557
+celecoxib 200mg    0.4840
+ketorolac 10mg     0.3587
+dexamethasone 4mg  0.1852
+placebo            0.0292</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Original data (with adjusted standard errors for multi-arm studies):
+
+                              treat1            treat2      TE   seTE seTE.adj
+Pereira, G.                ibuprofen           placebo -1.0869 0.2930   0.2930
+Pilatti, G.        dexamethasone 4mg           placebo -0.2459 0.3175   0.3849
+Pilatti, G.          celecoxib 200mg           placebo -0.6464 0.3252   0.4040
+Santos, B.                 ibuprofen           placebo -0.3249 0.3185   0.3792
+Santos, B.                nimesilide           placebo -1.1529 0.3440   0.4488
+Steffens, J 2011   dexamethasone 4mg           placebo -0.3174 0.3226   0.3832
+Steffens, J 2011   dexamethasone 8mg           placebo -0.8470 0.3406   0.4257
+Steffens, J 2011 @   celecoxib 200mg           placebo -0.6920 0.3265   0.3866
+Steffens, J 2011 @  etoricoxib 120mg           placebo -0.8361 0.3512   0.4477
+Steffens, J 2010   dexamethasone 8mg           placebo -0.7153 0.3783   0.4681
+Steffens, J 2010    etoricoxib 120mg           placebo -0.7312 0.3788   0.4697
+Trombelli, L.         ketorolac 10mg           placebo -0.4511 0.3093   0.3093
+Pilatti, G.          celecoxib 200mg dexamethasone 4mg -0.4091 0.3199   0.3904
+Santos, B.                 ibuprofen        nimesilide  0.2890 0.3180   0.3783
+Steffens, J 2011   dexamethasone 4mg dexamethasone 8mg  0.6454 0.3383   0.4192
+Steffens, J 2011 @   celecoxib 200mg  etoricoxib 120mg  0.3984 0.3391   0.4138
+Steffens, J 2010   dexamethasone 8mg  etoricoxib 120mg  0.0721 0.3653   0.4377
+                   narms multiarm
+Pereira, G.            2         
+Pilatti, G.            3        *
+Pilatti, G.            3        *
+Santos, B.             3        *
+Santos, B.             3        *
+Steffens, J 2011       3        *
+Steffens, J 2011       3        *
+Steffens, J 2011 @     3        *
+Steffens, J 2011 @     3        *
+Steffens, J 2010       3        *
+Steffens, J 2010       3        *
+Trombelli, L.          2         
+Pilatti, G.            3        *
+Santos, B.             3        *
+Steffens, J 2011       3        *
+Steffens, J 2011 @     3        *
+Steffens, J 2010       3        *
+
+Number of treatment arms (by study):
+                   narms
+Pereira, G.            2
+Trombelli, L.          2
+Pilatti, G.            3
+Santos, B.             3
+Steffens, J 2011       3
+Steffens, J 2011 @     3
+Steffens, J 2010       3
+
+Results (random effects model):
+
+                              treat1            treat2     SMD
+Pereira, G.                ibuprofen           placebo -0.8104
+Pilatti, G.        dexamethasone 4mg           placebo -0.2401
+Pilatti, G.          celecoxib 200mg           placebo -0.6208
+Santos, B.                 ibuprofen           placebo -0.8104
+Santos, B.                nimesilide           placebo -1.1216
+Steffens, J 2011   dexamethasone 4mg           placebo -0.2401
+Steffens, J 2011   dexamethasone 8mg           placebo -0.8188
+Steffens, J 2011 @   celecoxib 200mg           placebo -0.6208
+Steffens, J 2011 @  etoricoxib 120mg           placebo -0.8788
+Steffens, J 2010   dexamethasone 8mg           placebo -0.8188
+Steffens, J 2010    etoricoxib 120mg           placebo -0.8788
+Trombelli, L.         ketorolac 10mg           placebo -0.4511
+Pilatti, G.          celecoxib 200mg dexamethasone 4mg -0.3807
+Santos, B.                 ibuprofen        nimesilide  0.3112
+Steffens, J 2011   dexamethasone 4mg dexamethasone 8mg  0.5787
+Steffens, J 2011 @   celecoxib 200mg  etoricoxib 120mg  0.2581
+Steffens, J 2010   dexamethasone 8mg  etoricoxib 120mg  0.0601
+                               95%-CI
+Pereira, G.        [-1.2330; -0.3878]
+Pilatti, G.        [-0.6572;  0.1770]
+Pilatti, G.        [-1.0442; -0.1974]
+Santos, B.         [-1.2330; -0.3878]
+Santos, B.         [-1.7400; -0.5032]
+Steffens, J 2011   [-0.6572;  0.1770]
+Steffens, J 2011   [-1.2805; -0.3571]
+Steffens, J 2011 @ [-1.0442; -0.1974]
+Steffens, J 2011 @ [-1.3467; -0.4110]
+Steffens, J 2010   [-1.2805; -0.3571]
+Steffens, J 2010   [-1.3467; -0.4110]
+Trombelli, L.      [-1.0574;  0.1551]
+Pilatti, G.        [-0.8802;  0.1188]
+Santos, B.         [-0.2822;  0.9046]
+Steffens, J 2011   [ 0.0508;  1.1066]
+Steffens, J 2011 @ [-0.2729;  0.7891]
+Steffens, J 2010   [-0.4947;  0.6148]
+
+Number of studies: k = 7
+Number of pairwise comparisons: m = 17
+Number of treatments: n = 8
+Number of designs: d = 7
+
+Random effects model
+
+Treatment estimate (sm = &#39;SMD&#39;, comparison: other treatments vs &#39;placebo&#39;):
+                      SMD             95%-CI     z p-value
+celecoxib 200mg   -0.6208 [-1.0442; -0.1974] -2.87  0.0041
+dexamethasone 4mg -0.2401 [-0.6572;  0.1770] -1.13  0.2593
+dexamethasone 8mg -0.8188 [-1.2805; -0.3571] -3.48  0.0005
+etoricoxib 120mg  -0.8788 [-1.3467; -0.4110] -3.68  0.0002
+ibuprofen         -0.8104 [-1.2330; -0.3878] -3.76  0.0002
+ketorolac 10mg    -0.4511 [-1.0574;  0.1551] -1.46  0.1447
+nimesilide        -1.1216 [-1.7400; -0.5032] -3.55  0.0004
+placebo                 .                  .     .       .
+
+Quantifying heterogeneity / inconsistency:
+tau^2 = 0; tau = 0; I^2 = 0% [0.0%; 74.6%]
+
+Tests of heterogeneity (within designs) and inconsistency (between designs):
+                   Q d.f. p-value
+Total           2.92    5  0.7116
+Within designs  0.00    0      --
+Between designs 3.20    5  0.6693</code></pre>
 </div>
 </div>
 <div id="hours-1" class="section level2">
@@ -1625,14 +1974,114 @@ placebo            0.0230</code></pre>
 interpreted with particular caution.</li>
 </ul>
 <pre><code>                                    P-score
-dexamethasone 8mg                    0.9769
-etoricoxib 120mg                     0.7083
-dexamethasone 4mg                    0.5557
-celecoxib 200mg                      0.5421
-ketorolac 10mg                       0.4540
-placebo                              0.1486
-dexketoprofen trometamol (DKT) 25mg  0.1145</code></pre>
+dexamethasone 8mg                    0.9601
+etoricoxib 120mg                     0.6964
+dexamethasone 4mg                    0.5562
+celecoxib 200mg                      0.5435
+ketorolac 10mg                       0.4609
+placebo                              0.1601
+dexketoprofen trometamol (DKT) 25mg  0.1228</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Original data (with adjusted standard errors for multi-arm studies):
+
+                                                treat1            treat2
+Pilatti, G.                          dexamethasone 4mg           placebo
+Pilatti, G.                            celecoxib 200mg           placebo
+Sanchez-Perez, A.  dexketoprofen trometamol (DKT) 25mg           placebo
+Steffens, J 2011                     dexamethasone 4mg           placebo
+Steffens, J 2011                     dexamethasone 8mg           placebo
+Steffens, J 2011 @                     celecoxib 200mg           placebo
+Steffens, J 2011 @                    etoricoxib 120mg           placebo
+Steffens, J 2010                     dexamethasone 8mg           placebo
+Steffens, J 2010                      etoricoxib 120mg           placebo
+Trombelli, L.                           ketorolac 10mg           placebo
+Pilatti, G.                            celecoxib 200mg dexamethasone 4mg
+Steffens, J 2011                     dexamethasone 4mg dexamethasone 8mg
+Steffens, J 2011 @                     celecoxib 200mg  etoricoxib 120mg
+Steffens, J 2010                     dexamethasone 8mg  etoricoxib 120mg
+                        TE   seTE seTE.adj narms multiarm
+Pilatti, G.        -0.2302 0.3174   0.3853     3        *
+Pilatti, G.        -0.6324 0.3248   0.4039     3        *
+Sanchez-Perez, A.   0.0810 0.2196   0.2196     2         
+Steffens, J 2011   -0.2592 0.3218   0.3820     3        *
+Steffens, J 2011   -0.8750 0.3417   0.4291     3        *
+Steffens, J 2011 @ -0.3922 0.3196   0.3787     3        *
+Steffens, J 2011 @ -0.4256 0.3396   0.4259     3        *
+Steffens, J 2010   -0.6869 0.3773   0.4669     3        *
+Steffens, J 2010   -0.5881 0.3741   0.4588     3        *
+Trombelli, L.      -0.2606 0.3065   0.3065     2         
+Pilatti, G.         0.3181 0.3184   0.3877     3        *
+Steffens, J 2011    0.5971 0.3370   0.4161     3        *
+Steffens, J 2011 @  0.1630 0.3360   0.4160     3        *
+Steffens, J 2010   -0.3807 0.3689   0.4466     3        *
+
+Number of treatment arms (by study):
+                   narms
+Sanchez-Perez, A.      2
+Trombelli, L.          2
+Pilatti, G.            3
+Steffens, J 2011       3
+Steffens, J 2011 @     3
+Steffens, J 2010       3
+
+Results (random effects model):
+
+                                                treat1            treat2
+Pilatti, G.                          dexamethasone 4mg           placebo
+Pilatti, G.                            celecoxib 200mg           placebo
+Sanchez-Perez, A.  dexketoprofen trometamol (DKT) 25mg           placebo
+Steffens, J 2011                     dexamethasone 4mg           placebo
+Steffens, J 2011                     dexamethasone 8mg           placebo
+Steffens, J 2011 @                     celecoxib 200mg           placebo
+Steffens, J 2011 @                    etoricoxib 120mg           placebo
+Steffens, J 2010                     dexamethasone 8mg           placebo
+Steffens, J 2010                      etoricoxib 120mg           placebo
+Trombelli, L.                           ketorolac 10mg           placebo
+Pilatti, G.                            celecoxib 200mg dexamethasone 4mg
+Steffens, J 2011                     dexamethasone 4mg dexamethasone 8mg
+Steffens, J 2011 @                     celecoxib 200mg  etoricoxib 120mg
+Steffens, J 2010                     dexamethasone 8mg  etoricoxib 120mg
+                       SMD             95%-CI
+Pilatti, G.        -0.3544 [-0.7701;  0.0613]
+Pilatti, G.        -0.3438 [-0.7635;  0.0760]
+Sanchez-Perez, A.   0.0810 [-0.3495;  0.5115]
+Steffens, J 2011   -0.3544 [-0.7701;  0.0613]
+Steffens, J 2011   -0.8552 [-1.3176; -0.3928]
+Steffens, J 2011 @ -0.3438 [-0.7635;  0.0760]
+Steffens, J 2011 @ -0.4962 [-0.9560; -0.0364]
+Steffens, J 2010   -0.8552 [-1.3176; -0.3928]
+Steffens, J 2010   -0.4962 [-0.9560; -0.0364]
+Trombelli, L.      -0.2606 [-0.8613;  0.3401]
+Pilatti, G.         0.0106 [-0.4861;  0.5074]
+Steffens, J 2011    0.5008 [-0.0261;  1.0277]
+Steffens, J 2011 @  0.1524 [-0.3747;  0.6795]
+Steffens, J 2010   -0.3591 [-0.9143;  0.1962]
+
+Number of studies: k = 6
+Number of pairwise comparisons: m = 14
+Number of treatments: n = 7
+Number of designs: d = 6
+
+Random effects model
+
+Treatment estimate (sm = &#39;SMD&#39;, comparison: other treatments vs &#39;placebo&#39;):
+                                        SMD             95%-CI     z p-value
+celecoxib 200mg                     -0.3438 [-0.7635;  0.0760] -1.61  0.1085
+dexamethasone 4mg                   -0.3544 [-0.7701;  0.0613] -1.67  0.0947
+dexamethasone 8mg                   -0.8552 [-1.3176; -0.3928] -3.63  0.0003
+dexketoprofen trometamol (DKT) 25mg  0.0810 [-0.3495;  0.5115]  0.37  0.7123
+etoricoxib 120mg                    -0.4962 [-0.9560; -0.0364] -2.12  0.0344
+ketorolac 10mg                      -0.2606 [-0.8613;  0.3401] -0.85  0.3952
+placebo                                   .                  .     .       .
+
+Quantifying heterogeneity / inconsistency:
+tau^2 = 0; tau = 0; I^2 = 0% [0.0%; 79.2%]
+
+Tests of heterogeneity (within designs) and inconsistency (between designs):
+                   Q d.f. p-value
+Total           1.58    4  0.8127
+Within designs  0.00    0      --
+Between designs 0.53    4  0.9707</code></pre>
 </div>
 </div>
 <div id="hours-2" class="section level2">
@@ -1640,20 +2089,16 @@ dexketoprofen trometamol (DKT) 25mg  0.1145</code></pre>
 <div id="sample-data-4" class="section level3">
 <h3>sample data</h3>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>24 hours<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["Pereira, G.","Pereira, G.","Pilatti, G.","Pilatti, G.","Pilatti, G.","Sanchez-Perez, A.","Sanchez-Perez, A.","Santos, B.","Santos, B.","Santos, B.","Santos, B.","Steffens, J 2011 @","Steffens, J 2011 @","Steffens, J 2011 @","Steffens, J 2010","Steffens, J 2010","Steffens, J 2010","Trombelli, L.","Trombelli, L.","Vieth, M.","Vieth, M."],["ibuprofen","placebo","placebo","dexamethasone 4mg","celecoxib 200mg","dexketoprofen trometamol (DKT) 25mg","placebo","ibuprofen","placebo 1","nimesilide","placebo 2","celecoxib 200mg","etoricoxib 120mg","placebo","placebo","dexamethasone 8mg","etoricoxib 120mg","ketorolac 10mg","placebo","dexamethasone 8mg IV","placebo"],["27","27","20","20","20","41","42","20","20","20","20","20","16","20","15","15","15","22","21","34","34"],[4.4,15.6,6.68,3.89,3.84,7.86,6.56,19.5,21.5,26,40.5,3,0,3,0.9,0,0.3,7.77,5.33,8.5,4.5],[6.9,11.2,11.52,7.83,7.66,13.29,11.6,15,14,15,11.4,8,1,8,2.6,0,1.3,10.42,7.44,9,6.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>study<\/th>\n      <th>treatment<\/th>\n      <th>n<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>24 hours<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["Pereira, G.","Pereira, G.","Pilatti, G.","Pilatti, G.","Pilatti, G.","Sanchez-Perez, A.","Sanchez-Perez, A.","Santos, B.","Santos, B.","Santos, B.","Santos, B.","Steffens, J 2011 @","Steffens, J 2011 @","Steffens, J 2011 @","Steffens, J 2010","Steffens, J 2010","Trombelli, L.","Trombelli, L.","Vieth, M.","Vieth, M."],["ibuprofen","placebo","placebo","dexamethasone 4mg","celecoxib 200mg","dexketoprofen trometamol (DKT) 25mg","placebo","ibuprofen","placebo 1","nimesilide","placebo 2","celecoxib 200mg","etoricoxib 120mg","placebo","placebo","etoricoxib 120mg","ketorolac 10mg","placebo","dexamethasone 8mg IV","placebo"],["27","27","20","20","20","41","42","20","20","20","20","20","16","20","15","15","22","21","34","34"],[4.4,15.6,6.68,3.89,3.84,7.86,6.56,19.5,21.5,26,40.5,3,0,3,0.9,0.3,7.77,5.33,8.5,4.5],[6.9,11.2,11.52,7.83,7.66,13.29,11.6,15,14,15,11.4,8,1,8,2.6,1.3,10.42,7.44,9,6.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>study<\/th>\n      <th>treatment<\/th>\n      <th>n<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="forest-plot-4" class="section level3">
 <h3>forest plot</h3>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>24 hours<\/caption>","data":[["Pereira, G._ibuprofen_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Sanchez-Perez, A._dexketoprofen trometamol (DKT) 25mg_vs_placebo","Santos, B._ibuprofen_vs_placebo","Santos, B._nimesilide_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_dexamethasone 8mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo","Vieth, M._dexamethasone 8mg IV_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg","Santos, B._ibuprofen_vs_nimesilide","Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg","Steffens, J 2010_dexamethasone 8mg_vs_etoricoxib 120mg"],[27,20,20,41,20,20,20,16,15,15,22,34,20,20,20,15],[4.4,3.89,3.84,7.86,19.5,26,3,0,0,0.3,7.77,8.5,3.89,19.5,3,0],[6.9,7.83,7.66,13.29,15,15,8,1,0,1.3,10.42,9,7.83,15,8,0],[27,20,20,42,20,20,20,20,15,15,21,34,20,20,16,15],[15.6,6.68,6.68,6.56,21.5,40.5,3,3,0.9,0.9,5.33,4.5,3.84,26,0,0.3],[11.2,11.52,11.52,11.6,14,11.4,8,8,2.6,2.6,7.44,6.5,7.66,15,1,1.3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>24 hours<\/caption>","data":[["Pereira, G._ibuprofen_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Sanchez-Perez, A._dexketoprofen trometamol (DKT) 25mg_vs_placebo","Santos, B._ibuprofen_vs_placebo","Santos, B._nimesilide_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo","Vieth, M._dexamethasone 8mg IV_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg","Santos, B._ibuprofen_vs_nimesilide","Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg"],[27,20,20,41,20,20,20,16,15,22,34,20,20,20],[4.4,3.89,3.84,7.86,19.5,26,3,0,0.3,7.77,8.5,3.89,19.5,3],[6.9,7.83,7.66,13.29,15,15,8,1,1.3,10.42,9,7.83,15,8],[27,20,20,42,20,20,20,20,15,21,34,20,20,16],[15.6,6.68,6.68,6.56,21.5,40.5,3,3,0.9,5.33,4.5,3.84,26,0],[11.2,11.52,11.52,11.6,14,11.4,8,8,2.6,7.44,6.5,7.66,15,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="network-meta-analysis-4" class="section level3">
 <h3>network meta-analysis</h3>
-<pre><code>Comparisons not considered in network meta-analysis:
- studlab            treat1           treat2 TE seTE
-       9 dexamethasone 8mg          placebo NA   NA
-      16 dexamethasone 8mg etoricoxib 120mg NA   NA</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
@@ -1661,16 +2106,120 @@ dexketoprofen trometamol (DKT) 25mg  0.1145</code></pre>
 interpreted with particular caution.</li>
 </ul>
 <pre><code>                                    P-score
-ibuprofen                            0.9243
-nimesilide                           0.8570
-etoricoxib 120mg                     0.7346
-dexamethasone 4mg                    0.5311
-celecoxib 200mg                      0.4676
-placebo                              0.3638
-dexketoprofen trometamol (DKT) 25mg  0.3085
-ketorolac 10mg                       0.2211
-dexamethasone 8mg IV                 0.0921</code></pre>
+ibuprofen                            0.9016
+nimesilide                           0.8157
+etoricoxib 120mg                     0.6874
+dexamethasone 4mg                    0.5206
+celecoxib 200mg                      0.4640
+placebo                              0.3814
+dexketoprofen trometamol (DKT) 25mg  0.3374
+ketorolac 10mg                       0.2561
+dexamethasone 8mg IV                 0.1358</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Original data (with adjusted standard errors for multi-arm studies):
+
+                                                treat1            treat2
+Pereira, G.                                  ibuprofen           placebo
+Pilatti, G.                          dexamethasone 4mg           placebo
+Pilatti, G.                            celecoxib 200mg           placebo
+Sanchez-Perez, A.  dexketoprofen trometamol (DKT) 25mg           placebo
+Santos, B.                                   ibuprofen           placebo
+Santos, B.                                  nimesilide           placebo
+Steffens, J 2011 @                     celecoxib 200mg           placebo
+Steffens, J 2011 @                    etoricoxib 120mg           placebo
+Steffens, J 2010                      etoricoxib 120mg           placebo
+Trombelli, L.                           ketorolac 10mg           placebo
+Vieth, M.                         dexamethasone 8mg IV           placebo
+Pilatti, G.                            celecoxib 200mg dexamethasone 4mg
+Santos, B.                                   ibuprofen        nimesilide
+Steffens, J 2011 @                     celecoxib 200mg  etoricoxib 120mg
+                        TE   seTE seTE.adj narms multiarm
+Pereira, G.        -1.1866 0.2968   0.4705     2         
+Pilatti, G.        -0.2776 0.3179   0.5933     3        *
+Pilatti, G.        -0.2845 0.3180   0.5934     3        *
+Sanchez-Perez, A.   0.1033 0.2197   0.4260     2         
+Santos, B.         -0.1351 0.3166   0.5845     3        *
+Santos, B.         -1.0668 0.3401   0.6242     3        *
+Steffens, J 2011 @  0.0000 0.3162   0.5794     3        *
+Steffens, J 2011 @ -0.4875 0.3409   0.6183     3        *
+Steffens, J 2010   -0.2840 0.3672   0.5178     2         
+Trombelli, L.       0.2635 0.3065   0.4767     2         
+Vieth, M.           0.5037 0.2466   0.4405     2         
+Pilatti, G.        -0.0063 0.3162   0.5906     3        *
+Santos, B.         -0.4247 0.3201   0.5898     3        *
+Steffens, J 2011 @  0.4875 0.3409   0.6183     3        *
+
+Number of treatment arms (by study):
+                   narms
+Pereira, G.            2
+Sanchez-Perez, A.      2
+Steffens, J 2010       2
+Trombelli, L.          2
+Vieth, M.              2
+Pilatti, G.            3
+Santos, B.             3
+Steffens, J 2011 @     3
+
+Results (random effects model):
+
+                                                treat1            treat2
+Pereira, G.                                  ibuprofen           placebo
+Pilatti, G.                          dexamethasone 4mg           placebo
+Pilatti, G.                            celecoxib 200mg           placebo
+Sanchez-Perez, A.  dexketoprofen trometamol (DKT) 25mg           placebo
+Santos, B.                                   ibuprofen           placebo
+Santos, B.                                  nimesilide           placebo
+Steffens, J 2011 @                     celecoxib 200mg           placebo
+Steffens, J 2011 @                    etoricoxib 120mg           placebo
+Steffens, J 2010                      etoricoxib 120mg           placebo
+Trombelli, L.                           ketorolac 10mg           placebo
+Vieth, M.                         dexamethasone 8mg IV           placebo
+Pilatti, G.                            celecoxib 200mg dexamethasone 4mg
+Santos, B.                                   ibuprofen        nimesilide
+Steffens, J 2011 @                     celecoxib 200mg  etoricoxib 120mg
+                       SMD             95%-CI
+Pereira, G.        -0.8839 [-1.5446; -0.2232]
+Pilatti, G.        -0.1898 [-1.0726;  0.6931]
+Pilatti, G.        -0.1090 [-0.7588;  0.5408]
+Sanchez-Perez, A.   0.1033 [-0.7317;  0.9384]
+Santos, B.         -0.8839 [-1.5446; -0.2232]
+Santos, B.         -0.7458 [-1.6556;  0.1640]
+Steffens, J 2011 @ -0.1090 [-0.7588;  0.5408]
+Steffens, J 2011 @ -0.4346 [-1.1162;  0.2470]
+Steffens, J 2010   -0.4346 [-1.1162;  0.2470]
+Trombelli, L.       0.2635 [-0.6707;  1.1977]
+Vieth, M.           0.5037 [-0.3596;  1.3671]
+Pilatti, G.         0.0808 [-0.8010;  0.9626]
+Santos, B.         -0.1381 [-1.0343;  0.7580]
+Steffens, J 2011 @  0.3256 [-0.4746;  1.1258]
+
+Number of studies: k = 8
+Number of pairwise comparisons: m = 14
+Number of treatments: n = 9
+Number of designs: d = 8
+
+Random effects model
+
+Treatment estimate (sm = &#39;SMD&#39;, comparison: other treatments vs &#39;placebo&#39;):
+                                        SMD             95%-CI     z p-value
+celecoxib 200mg                     -0.1090 [-0.7588;  0.5408] -0.33  0.7423
+dexamethasone 4mg                   -0.1898 [-1.0726;  0.6931] -0.42  0.6736
+dexamethasone 8mg IV                 0.5037 [-0.3596;  1.3671]  1.14  0.2528
+dexketoprofen trometamol (DKT) 25mg  0.1033 [-0.7317;  0.9384]  0.24  0.8084
+etoricoxib 120mg                    -0.4346 [-1.1162;  0.2470] -1.25  0.2114
+ibuprofen                           -0.8839 [-1.5446; -0.2232] -2.62  0.0087
+ketorolac 10mg                       0.2635 [-0.6707;  1.1977]  0.55  0.5804
+nimesilide                          -0.7458 [-1.6556;  0.1640] -1.61  0.1081
+placebo                                   .                  .     .       .
+
+Quantifying heterogeneity / inconsistency:
+tau^2 = 0.1332; tau = 0.3650; I^2 = 55.8% [0.0%; 85.4%]
+
+Tests of heterogeneity (within designs) and inconsistency (between designs):
+                   Q d.f. p-value
+Total           6.79    3  0.0790
+Within designs  0.00    0      --
+Between designs 6.59    3  0.0862</code></pre>
 </div>
 </div>
 <div id="days" class="section level2">
@@ -1695,15 +2244,100 @@ dexamethasone 8mg IV                 0.0921</code></pre>
 interpreted with particular caution.</li>
 </ul>
 <pre><code>                                    P-score
-nimesilide                           0.7178
-ibuprofen                            0.6929
-etoricoxib 120mg                     0.6707
-celecoxib 200mg                      0.6055
-dexamethasone 4mg                    0.4008
-placebo                              0.3774
-dexketoprofen trometamol (DKT) 25mg  0.3700
-dexamethasone 8mg IV                 0.1649</code></pre>
+nimesilide                           0.6466
+etoricoxib 120mg                     0.6332
+ibuprofen                            0.6301
+celecoxib 200mg                      0.5738
+dexamethasone 4mg                    0.4379
+placebo                              0.4175
+dexketoprofen trometamol (DKT) 25mg  0.4112
+dexamethasone 8mg IV                 0.2497</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Original data (with adjusted standard errors for multi-arm studies):
+
+                                               treat1            treat2      TE
+Pereira, G.                                 ibuprofen           placebo -0.1801
+Pilatti, G.                         dexamethasone 4mg           placebo  0.0313
+Pilatti, G.                           celecoxib 200mg           placebo -0.2594
+Sanchez-Perez, A. dexketoprofen trometamol (DKT) 25mg           placebo  0.0556
+Santos, B.                                  ibuprofen           placebo  0.0000
+Santos, B.                                 nimesilide           placebo -0.9062
+Steffens, J 2010                     etoricoxib 120mg           placebo -0.3594
+Vieth, M.                        dexamethasone 8mg IV           placebo  0.3705
+Pilatti, G.                           celecoxib 200mg dexamethasone 4mg -0.1993
+Santos, B.                                  ibuprofen        nimesilide -0.4531
+                    seTE seTE.adj narms multiarm
+Pereira, G.       0.2728   0.5967     2         
+Pilatti, G.       0.3162   0.7561     3        *
+Pilatti, G.       0.3177   0.7579     3        *
+Sanchez-Perez, A. 0.2196   0.5743     2         
+Santos, B.        0.3162   0.7520     3        *
+Santos, B.        0.3337   0.7745     3        *
+Steffens, J 2010  0.3685   0.6461     2         
+Vieth, M.         0.2447   0.5844     2         
+Pilatti, G.       0.3171   0.7572     3        *
+Santos, B.        0.3207   0.7574     3        *
+
+Number of treatment arms (by study):
+                  narms
+Pereira, G.           2
+Sanchez-Perez, A.     2
+Steffens, J 2010      2
+Vieth, M.             2
+Pilatti, G.           3
+Santos, B.            3
+
+Results (random effects model):
+
+                                               treat1            treat2     SMD
+Pereira, G.                                 ibuprofen           placebo -0.3065
+Pilatti, G.                         dexamethasone 4mg           placebo  0.0009
+Pilatti, G.                           celecoxib 200mg           placebo -0.2289
+Sanchez-Perez, A. dexketoprofen trometamol (DKT) 25mg           placebo  0.0556
+Santos, B.                                  ibuprofen           placebo -0.3065
+Santos, B.                                 nimesilide           placebo -0.3681
+Steffens, J 2010                     etoricoxib 120mg           placebo -0.3594
+Vieth, M.                        dexamethasone 8mg IV           placebo  0.3705
+Pilatti, G.                           celecoxib 200mg dexamethasone 4mg -0.2297
+Santos, B.                                  ibuprofen        nimesilide  0.0616
+                             95%-CI
+Pereira, G.       [-1.1476; 0.5347]
+Pilatti, G.       [-1.2099; 1.2116]
+Pilatti, G.       [-1.4411; 0.9834]
+Sanchez-Perez, A. [-1.0700; 1.1812]
+Santos, B.        [-1.1476; 0.5347]
+Santos, B.        [-1.5132; 0.7771]
+Steffens, J 2010  [-1.6256; 0.9069]
+Vieth, M.         [-0.7749; 1.5158]
+Pilatti, G.       [-1.4413; 0.9819]
+Santos, B.        [-1.0767; 1.1998]
+
+Number of studies: k = 6
+Number of pairwise comparisons: m = 10
+Number of treatments: n = 8
+Number of designs: d = 6
+
+Random effects model
+
+Treatment estimate (sm = &#39;SMD&#39;, comparison: other treatments vs &#39;placebo&#39;):
+                                        SMD            95%-CI     z p-value
+celecoxib 200mg                     -0.2289 [-1.4411; 0.9834] -0.37  0.7114
+dexamethasone 4mg                    0.0009 [-1.2099; 1.2116]  0.00  0.9989
+dexamethasone 8mg IV                 0.3705 [-0.7749; 1.5158]  0.63  0.5261
+dexketoprofen trometamol (DKT) 25mg  0.0556 [-1.0700; 1.1812]  0.10  0.9229
+etoricoxib 120mg                    -0.3594 [-1.6256; 0.9069] -0.56  0.5780
+ibuprofen                           -0.3065 [-1.1476; 0.5347] -0.71  0.4751
+nimesilide                          -0.3681 [-1.5132; 0.7771] -0.63  0.5287
+placebo                                   .                 .     .       .
+
+Quantifying heterogeneity / inconsistency:
+tau^2 = 0.2816; tau = 0.5307; I^2 = 76.4% [0.0%; 94.6%]
+
+Tests of heterogeneity (within designs) and inconsistency (between designs):
+                   Q d.f. p-value
+Total           4.23    1  0.0397
+Within designs  0.00    0      --
+Between designs 0.19    1  0.6664</code></pre>
 </div>
 </div>
 <div id="sample-size-determination" class="section level2">

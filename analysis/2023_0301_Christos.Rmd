@@ -294,13 +294,13 @@ m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, s
   data = data_meta, sm = "SMD")
 
 
-data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2)
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
 m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
                      treat1 = treat1,
                      treat2 = treat2,
-                 #    studlab = study,
-                #     tol.multiarm=0.1,
+                     studlab = study,
+                     tol.multiarm=0.2,
                 #     tol.multiarm.se = NULL,
                      data = data_meta_network,
                      sm = "SMD",
@@ -309,7 +309,6 @@ m.netmeta <- netmeta(TE = TE,
                      reference.group = "placebo",
                      details.chkmultiarm = TRUE,
                      sep.trts = " vs ")
-#summary(m.netmeta)
 
 long.labels=m.netmeta$trts
 
@@ -331,7 +330,7 @@ netgraph(m.netmeta,
 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
-## Visualizing Direct and Indirect Evidenc
+## Visualizing Direct and Indirect Evidence
 d.evidence <- direct.evidence.plot(m.netmeta)
 plot(d.evidence)
 ```
@@ -354,6 +353,7 @@ forest(m.netmeta,
        label.left = "",
        label.right = "",
        labels = long.labels)
+summary(m.netmeta)
 
 ```
 
@@ -410,6 +410,7 @@ datatable(extensions = 'Buttons',
 study_data=matrix(nrow=13, ncol=6)
 study_data[1,]=c(as.numeric(data_3hour_full[2,3:5]), as.numeric(data_3hour_full[1,3:5]))
 study_data[2,]=c(as.numeric(data_3hour_full[3,3:5]), as.numeric(data_3hour_full[1,3:5]))
+
 study_data[3,]=c(as.numeric(data_3hour_full[4,3:5]), as.numeric(data_3hour_full[6,3:5]))
 study_data[4,]=c(as.numeric(data_3hour_full[5,3:5]), as.numeric(data_3hour_full[6,3:5]))
 study_data[5,]=c(as.numeric(data_3hour_full[7,3:5]), as.numeric(data_3hour_full[9,3:5]))
@@ -426,7 +427,7 @@ study_data[13,]=c(as.numeric(data_3hour_full[11,3:5]), as.numeric(data_3hour_ful
 
 
 
-comparison=c("Pereira, G._dexamethasone 4mg_vs_placebo",  
+comparison=c("Pilatti, G._dexamethasone 4mg_vs_placebo",  
              "Pilatti, G._celecoxib 200mg_vs_placebo",  
              "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
              "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
@@ -436,7 +437,7 @@ comparison=c("Pereira, G._dexamethasone 4mg_vs_placebo",
              "Steffens, J 2010_etoricoxib 120mg_vs_placebo", 
              "Trombelli, L._ketorolac 10mg_vs_placebo", 
              
-            "Pereira, G._dexamethasone 4mg_vs_celecoxib 200mg", 
+            "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg", 
             "Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg", 
             "Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg",  
             "Steffens, J 2010_dexamethasone 8mg_vs_etoricoxib 120mg" )
@@ -518,8 +519,8 @@ m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
                      treat1 = treat1,
                      treat2 = treat2,
-                 #    studlab = study,
-                #     tol.multiarm=0.1,
+                     studlab = study,
+                     tol.multiarm=0.1,
                 #     tol.multiarm.se = NULL,
                      data = data_meta_network,
                      sm = "SMD",
@@ -573,7 +574,7 @@ forest(m.netmeta,
        label.left = "",
        label.right = "",
        labels = long.labels)
-
+summary(m.netmeta)
 ```
 
 * higher P-score, the better it is 
@@ -727,8 +728,8 @@ m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
                      treat1 = treat1,
                      treat2 = treat2,
-                 #    studlab = study,
-                #     tol.multiarm=0.1,
+                     studlab = study,
+                     tol.multiarm=0.2,
                 #     tol.multiarm.se = NULL,
                      data = data_meta_network,
                      sm = "SMD",
@@ -773,7 +774,7 @@ forest(m.netmeta,
        label.left = "",
        label.right = "",
        labels = long.labels)
-
+summary(m.netmeta)
 ```
 
 ## 8 hours 
@@ -926,8 +927,8 @@ m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
                      treat1 = treat1,
                      treat2 = treat2,
-                 #    studlab = study,
-                #     tol.multiarm=0.1,
+                     studlab = study,
+                     tol.multiarm=0.3,
                 #     tol.multiarm.se = NULL,
                      data = data_meta_network,
                      sm = "SMD",
@@ -972,7 +973,7 @@ forest(m.netmeta,
        label.left = "",
        label.right = "",
        labels = long.labels)
-
+summary(m.netmeta)
 ```
 
 
@@ -987,6 +988,8 @@ colnames(data_24hour_full)=c("study", "treatment", "n", "mean", "sd")
 
 data_24hour_full$study[16]="Steffens, J 2010"
 data_24hour_full$study[17]="Steffens, J 2010"
+
+data_24hour_full=data_24hour_full[-16,]
 
 data_24hour_full%>%
 datatable(extensions = 'Buttons',
@@ -1006,7 +1009,7 @@ datatable(extensions = 'Buttons',
 
 ######## manually create the data matrix 
 
-study_data=matrix(nrow=16, ncol=6)
+study_data=matrix(nrow=14, ncol=6)
 study_data[1,]=c(as.numeric(data_24hour_full[1,3:5]), as.numeric(data_24hour_full[2,3:5]))
 
 study_data[2,]=c(as.numeric(data_24hour_full[4,3:5]), as.numeric(data_24hour_full[3,3:5]))
@@ -1021,16 +1024,15 @@ study_data[7,]=c(as.numeric(data_24hour_full[12,3:5]), as.numeric(data_24hour_fu
 study_data[8,]=c(as.numeric(data_24hour_full[13,3:5]), as.numeric(data_24hour_full[14,3:5]))
 
 study_data[9,]=c(as.numeric(data_24hour_full[16,3:5]), as.numeric(data_24hour_full[15,3:5]))
-study_data[10,]=c(as.numeric(data_24hour_full[17,3:5]), as.numeric(data_24hour_full[15,3:5]))
 
-study_data[11,]=c(as.numeric(data_24hour_full[18,3:5]), as.numeric(data_24hour_full[19,3:5]))
+study_data[10,]=c(as.numeric(data_24hour_full[17,3:5]), as.numeric(data_24hour_full[18,3:5]))
 
-study_data[12,]=c(as.numeric(data_24hour_full[20,3:5]), as.numeric(data_24hour_full[21,3:5]))
+study_data[11,]=c(as.numeric(data_24hour_full[19,3:5]), as.numeric(data_24hour_full[20,3:5]))
 
-study_data[13,]=c(as.numeric(data_24hour_full[4,3:5]), as.numeric(data_24hour_full[5,3:5]))
-study_data[14,]=c(as.numeric(data_24hour_full[8,3:5]), as.numeric(data_24hour_full[10,3:5]))
-study_data[15,]=c(as.numeric(data_24hour_full[12,3:5]), as.numeric(data_24hour_full[13,3:5]))
-study_data[16,]=c(as.numeric(data_24hour_full[16,3:5]), as.numeric(data_24hour_full[17,3:5]))
+study_data[12,]=c(as.numeric(data_24hour_full[4,3:5]), as.numeric(data_24hour_full[5,3:5]))
+study_data[13,]=c(as.numeric(data_24hour_full[8,3:5]), as.numeric(data_24hour_full[10,3:5]))
+study_data[14,]=c(as.numeric(data_24hour_full[12,3:5]), as.numeric(data_24hour_full[13,3:5]))
+
 
 
 
@@ -1048,7 +1050,6 @@ comparison=c( "Pereira, G._ibuprofen_vs_placebo",
              "Steffens, J 2011 @_celecoxib 200mg_vs_placebo", 
              "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo", 
              
-             "Steffens, J 2010_dexamethasone 8mg_vs_placebo", 
              "Steffens, J 2010_etoricoxib 120mg_vs_placebo", 
              
              "Trombelli, L._ketorolac 10mg_vs_placebo", 
@@ -1057,8 +1058,7 @@ comparison=c( "Pereira, G._ibuprofen_vs_placebo",
              
              "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg",
              "Santos, B._ibuprofen_vs_nimesilide",
-            "Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg",  
-            "Steffens, J 2010_dexamethasone 8mg_vs_etoricoxib 120mg" )
+            "Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg" )
 
 
 data_meta=data.frame(comparison=comparison, samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
@@ -1135,8 +1135,8 @@ m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
                      treat1 = treat1,
                      treat2 = treat2,
-                 #    studlab = study,
-                #     tol.multiarm=0.1,
+                     studlab = study,
+                     tol.multiarm=0.5,
                 #     tol.multiarm.se = NULL,
                      data = data_meta_network,
                      sm = "SMD",
@@ -1181,7 +1181,7 @@ forest(m.netmeta,
        label.left = "",
        label.right = "",
        labels = long.labels)
-
+summary(m.netmeta)
 ```
 
 
@@ -1334,8 +1334,8 @@ m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
                      treat1 = treat1,
                      treat2 = treat2,
-                 #    studlab = study,
-                #     tol.multiarm=0.1,
+                     studlab = study,
+                     tol.multiarm=0.5,
                 #     tol.multiarm.se = NULL,
                      data = data_meta_network,
                      sm = "SMD",
@@ -1380,7 +1380,7 @@ forest(m.netmeta,
        label.left = "",
        label.right = "",
        labels = long.labels)
-
+summary(m.netmeta)
 ```
 
 
