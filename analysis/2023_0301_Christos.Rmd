@@ -350,10 +350,10 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "",
-       label.right = "",
+       label.left = "Heterogeneity: I^2=80.6%",
+       label.right = "95% CI, [54.5%; 91.7%]",
        labels = long.labels)
-summary(m.netmeta)
+#summary(m.netmeta)
 
 ```
 
@@ -571,10 +571,10 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "",
-       label.right = "",
+       label.left = "Heterogeneity, I^2=0",
+       label.right = "95% CI, [0.0%; 79.2%]",
        labels = long.labels)
-summary(m.netmeta)
+#summary(m.netmeta)
 ```
 
 * higher P-score, the better it is 
@@ -771,10 +771,10 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "",
-       label.right = "",
+       label.left = "Heterogeneity, 0",
+       label.right = "95% CI, [0.0%; 74.6%]",
        labels = long.labels)
-summary(m.netmeta)
+#summary(m.netmeta)
 ```
 
 ## 8 hours 
@@ -883,7 +883,7 @@ m.gen <- metagen(TE = m1$TE,
 forest.meta(m.gen, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -942,7 +942,7 @@ m.netmeta <- netmeta(TE = TE,
 long.labels=m.netmeta$trts
 
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE, 
+         labels = long.labels, number.of.studies = TRUE, srt.labels = 35
          )
 
 
@@ -970,10 +970,10 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "",
-       label.right = "",
+       label.left = "Heterogeneity, I^2=0",
+       label.right = "95% CI, [0.0%; 79.2%]",
        labels = long.labels)
-summary(m.netmeta)
+#summary(m.netmeta)
 ```
 
 
@@ -1089,7 +1089,7 @@ m.gen <- metagen(TE = m1$TE,
 forest.meta(m.gen, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -1150,7 +1150,7 @@ m.netmeta <- netmeta(TE = TE,
 long.labels=m.netmeta$trts
 
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE, 
+         labels = long.labels, number.of.studies = TRUE,  srt.labels = 35
          )
 
 
@@ -1178,10 +1178,10 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "",
-       label.right = "",
+       label.left = "Heterogeneity, I^2=55.8%",
+       label.right = "95% CI, [0.0%; 85.4%]",
        labels = long.labels)
-summary(m.netmeta)
+#summary(m.netmeta)
 ```
 
 
@@ -1289,7 +1289,7 @@ m.gen <- metagen(TE = m1$TE,
 forest.meta(m.gen, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -1349,7 +1349,7 @@ m.netmeta <- netmeta(TE = TE,
 long.labels=m.netmeta$trts
 
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE, 
+         labels = long.labels, number.of.studies = TRUE,  srt.labels = 40
          )
 
 
@@ -1377,10 +1377,10 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "",
-       label.right = "",
+       label.left = "Heterogeneity, I^2=76.4%",
+       label.right = "95% CI, [0.0%; 94.6%]",
        labels = long.labels)
-summary(m.netmeta)
+#summary(m.netmeta)
 ```
 
 

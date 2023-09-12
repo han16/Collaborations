@@ -709,6 +709,25 @@ ggtitle("medical conditions by county")+
 theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title  
 facet_wrap(~medical_condition)
 ```
+## age vs no.teeth 
+
+```{r, echo=F, message=F, warning=F}
+
+png("C:\\Shengtong\\Teaching\\DENT 6002\\2023Fall\\Lecurers\\teeth_vs_age.png")
+ggplot(data, aes(x=Age_at_exam, y=permanent_teeth_present)) + geom_point()+
+  xlab("Age")+ylab("# permanent teeth")
+dev.off()
+
+
+png("C:\\Shengtong\\Teaching\\DENT 6002\\2023Fall\\Lecurers\\teeth_age_regression.png")
+ggplot(data, aes(x=Age_at_exam, y=permanent_teeth_present)) + geom_point()+
+  xlab("Age")+ylab("# permanent teeth")+
+geom_smooth(method=lm)
+reg=lm(permanent_teeth_present~Age_at_exam, data=data)
+```
+
+
+
 
 ## logistic regression 
 
