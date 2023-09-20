@@ -578,7 +578,7 @@ site_split3[data$Site<=21 & data$Site>=17]="Sextants4"
 site_split3[data$Site<=27 & data$Site>=22]="Sextants5"
 site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 
-Type_bone_graft_pvalue=numeric()
+Type_bone_graft_pvalue=numeric(); Type_bone_graft_coeffcient=numeric()
 Type_bone_graft_kruskal_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
 site_split1_pvalue=numeric()
@@ -595,6 +595,7 @@ sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, T
 
 lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
 Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
 
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
