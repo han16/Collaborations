@@ -1,0 +1,204 @@
+---
+title: "09/25 2023"
+output: html_document
+date: "2023-09-25"
+---
+
+
+```{r setup, include=FALSE}
+rm(list=ls())
+library(tidyverse)
+library(kableExtra)
+library(ggpubr)
+library(rstatix) # use anova_test function 
+library(grid)
+library(DT)
+library(gridExtra)
+library(matrixStats)
+library(cowplot)
+library(readxl)
+set.seed(123)
+```
+
+
+
+
+```{r, echo=F, warning=F, message=F}
+######## adjust p values 
+pvalue_adjust=function(p_value)
+{
+  p_value_adjust=numeric()
+for (i in 1:length(p_value))
+{
+  if (is.na(p_value[i])==T)
+    p_value_adjust[i]=p_value[i]
+  if (is.na(p_value[i])==F & p_value[i]<0.0001)
+    p_value_adjust[i]="<0.0001"
+  if (is.na(p_value[i])==F & p_value[i]>0.0001)
+    p_value_adjust[i]=round(p_value[i],4)
+}
+  return(p_value_adjust)
+}
+############### summary statistics for continuous variable 
+summary_statistics=function(data)
+{  # each column is one variable, and row one subject 
+  
+variables=colnames(data)
+num_sample=numeric()
+Mean=numeric()
+Median=numeric()
+SD=numeric()
+SE=numeric()
+range_min=numeric()
+range_max=numeric()
+normality_pvalue=numeric()
+per_25_quantile=numeric()
+per_75_quantile=numeric()
+
+for (i in 1:ncol(data))
+{
+  observation=data[,i]
+  observation=observation[!is.na(observation)] # remove missing values 
+  num_sample[i]=length(observation)
+  Mean[i]=round(mean(observation),4)
+  Median[i]=round(median(observation),4)
+  SD[i]=round(sd(observation),4)
+  SE[i]=round(SD[i]/sqrt(num_sample[i]),4)
+  per_25_quantile[i]=round(quantile(observation, prob=0.25),4)
+  per_75_quantile[i]=round(quantile(observation, prob=0.75),4)
+  range_min[i]=round(min(observation),4)
+  range_max[i]=round(max(observation),4)
+  normality_pvalue[i]=round(shapiro.test(observation)$p.value,4)
+}
+
+summary_data=data.frame(variable=variables, num_sample=num_sample, Mean=Mean, Median=Median, SD=SD, SE=SE,per_25_quantile, per_75_quantile, Range_low=range_min, Range_upper=range_max, normality_pvalue=normality_pvalue)
+
+summary_data%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
+ return(summary_data) 
+}
+
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Early peri-implant bone loss CORRECTIVE TREATMENT) VK092423.xlsx")
+
+num_indi=24
+Age=data$Data$Age[1:num_indi]
+CBL_diagnosis_months=as.numeric(data$Data$CBL_diagnosis_months)[1:num_indi]
+I_Torque=as.numeric(data$Data$I_Torque)[1:num_indi]
+I_Diameter=as.numeric(data$Data$I_Diameter)[1:num_indi]
+I_Length=as.numeric(data$Data$I_Length)[1:num_indi]
+Bone_loss_mm=as.numeric(data$Data$Bone_loss_mm)[1:num_indi]
+Bone_loss_percentage=as.numeric(data$Data$`Bone_loss_%`)[1:num_indi]
+Bone_loss_post_regen_mm=as.numeric(data$Data$Bone_loss_post_regen_mm)[1:num_indi]
+Bone_loss_post_regen_percentage=as.numeric(data$Data$`Bone_loss_post_regen_%`)[1:num_indi]
+Month_post_regen=as.numeric(data$Data$Month_post_regen)[1:num_indi]
+data2=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Bone_loss_mm, Bone_loss_percentage, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen)
+```
+
+
+
+## summary statistics 
+
+```{r, echo=F, message=F, warning=F}
+data_summary=summary_statistics(data2)
+data_summary %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## data distribution 
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(Gender) %>% mutate(prop=n/24)
+data_subset$Gender[data_subset$Gender==1]="Male"; data_subset$Gender[data_subset$Gender==2]="Female"
+g1=ggplot(data_subset, aes(x=Gender, y=prop, fill=Gender)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Gender, y=n, fill=Gender)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Gender", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(Smoking) %>% mutate(prop=n/24)
+data_subset$Smoking[data_subset$Smoking==1]="Never"; data_subset$Smoking[data_subset$Smoking==2]="Past"
+data_subset$Smoking[data_subset$Smoking==3]="Current"; data_subset$Smoking[data_subset$Smoking==4]="not reported
+"
+
+
+g1=ggplot(data_subset, aes(x=Smoking, y=prop, fill=Smoking)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Smoking, y=n, fill=Smoking)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Smoking", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
