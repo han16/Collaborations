@@ -308,3 +308,414 @@ annotate_figure(figure,
 #                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
 ```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data$Data$Pre_implant_Procedure[1]=1
+data_subset=data$Data %>% dplyr::count(Pre_implant_Procedure) %>% mutate(prop=n/24)
+
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]="Extraction alone"; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]="Extraction and bone graft"; 
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]="Extraction, bone graft and membrane";
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==4]="GBR";
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==7]="not reported";
+
+
+
+g1=ggplot(data_subset, aes(x=Pre_implant_Procedure, y=prop, fill=Pre_implant_Procedure)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Pre_implant_Procedure, y=n, fill=Pre_implant_Procedure)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Pre_implant_Procedure", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data$Data$I_placement[6]="4"
+data_subset=data$Data %>% dplyr::count(I_placement) %>% mutate(prop=n/24)
+
+data_subset$I_placement[data_subset$I_placement==1]="Single implant placement"; data_subset$I_placement[data_subset$I_placement==2]="Placement with bone graft"; 
+data_subset$I_placement[data_subset$I_placement==4]="Placement with bone graft and membrane";
+data_subset$I_placement[data_subset$I_placement==5]="Placement with indirect sinus lift";
+data_subset$I_placement[data_subset$I_placement==7]="Immediate/delayed placement";
+data_subset$I_placement[data_subset$I_placement==8]="other";
+
+
+g1=ggplot(data_subset, aes(x=I_placement, y=prop, fill=I_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=I_placement, y=n, fill=I_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("I_placement", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(HA) %>% mutate(prop=n/24)
+
+data_subset$HA[data_subset$HA==1]="yes"; 
+data_subset$HA[data_subset$HA==2]="no"; 
+
+
+g1=ggplot(data_subset, aes(x=HA, y=prop, fill=HA)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=HA, y=n, fill=HA)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("HA", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(I_Brand) %>% mutate(prop=n/24)
+
+data_subset$I_Brand[data_subset$I_Brand==3]="Straumann BLT"; 
+data_subset$I_Brand[data_subset$I_Brand==4]="Osseospeed Ev"; 
+data_subset$I_Brand[data_subset$I_Brand==5]="Nobel Replace Connical Connection";
+data_subset$I_Brand[data_subset$I_Brand==6]="Atra EV";
+data_subset$I_Brand[data_subset$I_Brand==7]="BioHorizons Tapered Plus";
+data_subset$I_Brand[data_subset$I_Brand==8]="Nobel Replace Select";
+data_subset$I_Brand[data_subset$I_Brand==9]="Nobel Replace Tapered Groovy";
+
+g1=ggplot(data_subset, aes(x=I_Brand, y=prop, fill=I_Brand)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=I_Brand, y=n, fill=I_Brand)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("I_Brand", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(I_Surface) %>% mutate(prop=n/24)
+
+data_subset$I_Surface[data_subset$I_Surface==2]="TiUnite"; 
+data_subset$I_Surface[data_subset$I_Surface==3]="SLA";
+data_subset$I_Surface[data_subset$I_Surface==4]="TiO2";
+data_subset$I_Surface[data_subset$I_Surface==5]="Ti";
+data_subset$I_Surface[data_subset$I_Surface==6]="TLXP3812";
+data_subset$I_Surface[data_subset$I_Surface==7]="Tiu"; 
+
+g1=ggplot(data_subset, aes(x=I_Surface, y=prop, fill=I_Surface)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=I_Surface, y=n, fill=I_Surface)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("I_Surface", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(I_Shape) %>% mutate(prop=n/24)
+
+data_subset$I_Shape[data_subset$I_Shape==1]="straight"; 
+data_subset$I_Shape[data_subset$I_Shape==2]="tapered"; 
+
+
+g1=ggplot(data_subset, aes(x=I_Shape, y=prop, fill=I_Shape)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=I_Shape, y=n, fill=I_Shape)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("I_Shape", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(I_Technique) %>% mutate(prop=n/24)
+
+data_subset$I_Technique[data_subset$I_Technique==1]="Free handed"; 
+data_subset$I_Technique[data_subset$I_Technique==2]="Pilot guided";
+data_subset$I_Technique[data_subset$I_Technique==3]="Fully guided";
+data_subset$I_Technique[data_subset$I_Technique==5]="not reported"; 
+
+g1=ggplot(data_subset, aes(x=I_Technique, y=prop, fill=I_Technique)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=I_Technique, y=n, fill=I_Technique)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("I_Technique", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(I_Location) %>% mutate(prop=n/24)
+
+data_subset$I_Location[data_subset$I_Location==2]="Equicrestal"; 
+data_subset$I_Location[data_subset$I_Location==3]="Subcrestal"; 
+
+
+g1=ggplot(data_subset, aes(x=I_Location, y=prop, fill=I_Location)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=I_Location, y=n, fill=I_Location)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("I_Location", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(Present_comp_post_placement) %>% mutate(prop=n/24)
+
+data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==1]="yes"; 
+data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==2]="no"; 
+
+
+g1=ggplot(data_subset, aes(x=Present_comp_post_placement, y=prop, fill=Present_comp_post_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Present_comp_post_placement, y=n, fill=Present_comp_post_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Present_comp_post_placement", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(Coverscrew_exp_post_placement) %>% mutate(prop=n/24)
+
+data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==1]="yes"; 
+data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==2]="no"; 
+
+
+g1=ggplot(data_subset, aes(x=Coverscrew_exp_post_placement, y=prop, fill=Coverscrew_exp_post_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Coverscrew_exp_post_placement, y=n, fill=Coverscrew_exp_post_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Coverscrew_exp_post_placement", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data$Data %>% dplyr::count(`Infection/pus_post_placement`) %>% mutate(prop=n/24)
+
+data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==1]="yes"; 
+data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==2]="no"; 
+
+
+g1=ggplot(data_subset, aes(x=`Infection/pus_post_placement`, y=prop, fill=`Infection/pus_post_placement`)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=`Infection/pus_post_placement`, y=n, fill=`Infection/pus_post_placement`)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("`Infection/pus_post_placement`", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+```
+
+
+
