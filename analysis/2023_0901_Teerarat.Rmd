@@ -150,8 +150,12 @@ g1=ggplot(data_subset, aes(x=Gender, y=prop, fill=Gender)) +geom_bar(stat="ident
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+
+pvalue=round(binom.test(data_subset$n, p = 0.5)$p.value,4)
+  
   g2=ggplot(data_subset, aes(x=Gender, y=n, fill=Gender)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
+    geom_signif(annotations ="p=0.541", y_position = 15  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3)+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   ylab("count")+
     xlab("")+
@@ -184,11 +188,19 @@ g1=ggplot(data_subset, aes(x=Smoking, y=prop, fill=Smoking)) +geom_bar(stat="ide
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+
+pvalue1=round(binom.test(c(12,7), p = 0.5)$p.value,4)
+pvalue2=round(binom.test(c(7,3), p = 0.5)$p.value,4)
+pvalue3=round(binom.test(c(12,3), p = 0.5)$p.value,4)
+
   g2=ggplot(data_subset, aes(x=Smoking, y=n, fill=Smoking)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   ylab("count")+
     xlab("")+
+     geom_signif(annotations ="p=0.035", y_position = 13.5  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3, col="red")+
+    geom_signif(annotations ="p=0.359", y_position = 13.5  ,xmin=2.1, xmax=4, size=1, vjust=-0.5, textsize=3)+
+    geom_signif(annotations ="p=0.344", y_position = 15  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3)+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
 #questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
@@ -217,11 +229,16 @@ g1=ggplot(data_subset, aes(x=Diabetes, y=prop, fill=Diabetes)) +geom_bar(stat="i
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+
+
+pvalue1=round(binom.test(c(15,9), p = 0.5)$p.value,4)
+
   g2=ggplot(data_subset, aes(x=Diabetes, y=n, fill=Diabetes)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   ylab("count")+
     xlab("")+
+    geom_signif(annotations ="p=0.308", y_position = 16  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, col="black")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
 #questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
@@ -252,11 +269,16 @@ g1=ggplot(data_subset2, aes(x=Implant_site, y=prop, fill=Implant_site)) +geom_ba
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+
+
+pvalue1=round(binom.test(c(6,18), p = 0.5)$p.value,4)
+
   g2=ggplot(data_subset2, aes(x=Implant_site, y=n, fill=Implant_site)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   ylab("count")+
     xlab("")+
+    geom_signif(annotations ="p=0.023", y_position = 19.5  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, col="red")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
 #questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
@@ -291,11 +313,25 @@ g1=ggplot(data_subset2, aes(x=Implant_site, y=prop, fill=Implant_site)) +geom_ba
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+
+pvalue1=round(binom.test(c(4,14), p = 0.5)$p.value,4)
+pvalue2=round(binom.test(c(4,14), p = 0.5)$p.value,4)
+pvalue3=round(binom.test(c(2,14), p = 0.5)$p.value,4)
+pvalue4=round(binom.test(c(4,4), p = 0.5)$p.value,4)
+pvalue5=round(binom.test(c(2,4), p = 0.5)$p.value,4)
+pvalue6=round(binom.test(c(2,4), p = 0.5)$p.value,4)
+
   g2=ggplot(data_subset2, aes(x=Implant_site, y=n, fill=Implant_site)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   ylab("count")+
     xlab("")+
+    geom_signif(annotations ="p=0.031", y_position = 15  ,xmin=3, xmax=4, size=1, vjust=-0.5, textsize=3, col="red")+
+    geom_signif(annotations ="p=0.031", y_position = 16  ,xmin=2, xmax=4, size=1, vjust=-0.5, textsize=3, col="red")+
+    geom_signif(annotations ="p=0.004", y_position = 17  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3, col="red")+
+    geom_signif(annotations ="p=1.000", y_position = 6  ,xmin=2, xmax=3, size=1, vjust=-0.5, textsize=3, col="black")+
+    geom_signif(annotations ="p=0.689", y_position = 7  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3, col="black")+
+    geom_signif(annotations ="p=0.689", y_position = 5.2  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, col="black")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
 #questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
@@ -332,11 +368,30 @@ g1=ggplot(data_subset, aes(x=Pre_implant_Procedure, y=prop, fill=Pre_implant_Pro
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+
+pvalue1=round(binom.test(c(4,1), p = 0.5)$p.value,4)
+pvalue2=round(binom.test(c(6,4), p = 0.5)$p.value,4)
+pvalue3=round(binom.test(c(6,1), p = 0.5)$p.value,4)
+pvalue4=round(binom.test(c(9,4), p = 0.5)$p.value,4)
+pvalue5=round(binom.test(c(9,1), p = 0.5)$p.value,4)
+pvalue6=round(binom.test(c(9,6), p = 0.5)$p.value,4)
+
+
   g2=ggplot(data_subset, aes(x=Pre_implant_Procedure, y=n, fill=Pre_implant_Procedure)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
-  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+6))+
     xlab("")+
+    geom_signif(annotations ="p=0.375", y_position = 5.5  ,xmin=3.1, xmax=4, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=0.375", y_position = 5.5  ,xmin=2, xmax=2.9, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=1.000", y_position = 6.5  ,xmin=2, xmax=4, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=0.754", y_position = 7.5  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=0.125", y_position = 8.5  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=0.754", y_position = 9.5  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=0.267", y_position = 10.5  ,xmin=4, xmax=5, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=0.022", y_position = 12  ,xmin=3, xmax=5, size=1, vjust=-0.5, textsize=2, col="red")+
+    geom_signif(annotations ="p=0.267", y_position = 13  ,xmin=2, xmax=5, size=1, vjust=-0.5, textsize=2, col="black")+
+    geom_signif(annotations ="p=0.607", y_position = 14  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=2, col="black")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
 #questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
@@ -373,11 +428,24 @@ g1=ggplot(data_subset, aes(x=I_placement, y=prop, fill=I_placement)) +geom_bar(s
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+
+
+pvalue1=round(binom.test(c(13,3), p = 0.5)$p.value,4)
+pvalue2=round(binom.test(c(13,4), p = 0.5)$p.value,4)
+pvalue3=round(binom.test(c(13,1), p = 0.5)$p.value,4)
+pvalue4=round(binom.test(c(13,2), p = 0.5)$p.value,4)
+pvalue5=round(binom.test(c(9,1), p = 0.5)$p.value,4)
+pvalue6=round(binom.test(c(9,6), p = 0.5)$p.value,4)
+
   g2=ggplot(data_subset, aes(x=I_placement, y=n, fill=I_placement)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
-  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+8))+
     xlab("")+
+    geom_signif(annotations ="p=0.021", y_position = 15  ,xmin=5, xmax=6, size=1, vjust=-0.5, textsize=2, col="red")+
+    geom_signif(annotations ="p=0.049", y_position = 16.5  ,xmin=4, xmax=6, size=1, vjust=-0.5, textsize=2, col="red")+
+    geom_signif(annotations ="p=0.002", y_position = 18  ,xmin=3, xmax=6, size=1, vjust=-0.5, textsize=2, col="red")+
+    geom_signif(annotations ="p=0.007", y_position = 19.5  ,xmin=1, xmax=6, size=1, vjust=-0.5, textsize=2, col="red")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
 #questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
@@ -409,11 +477,14 @@ g1=ggplot(data_subset, aes(x=HA, y=prop, fill=HA)) +geom_bar(stat="identity")+
   #ggtitle(paste(questions[i]))+
   #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
 #g1
+pvalue1=round(binom.test(c(21,3), p = 0.5)$p.value,4)
+
   g2=ggplot(data_subset, aes(x=HA, y=n, fill=HA)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   ylab("count")+ylim(c(0, max(data_subset$n)+2))+
     xlab("")+
+    geom_signif(annotations ="p<0.001", y_position = 23  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3, col="red")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
 #questions[1]
   figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
