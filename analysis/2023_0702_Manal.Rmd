@@ -83,11 +83,34 @@ datatable(extensions = 'Buttons',
  return(summary_data) 
 }
 
+
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
 ```
 
 
 
 
+## Kappa 
+
+```{r, echo=F, message=F, warning=F}
+data_sheet=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202308\\Zaid\\Book1- for Kappa.xlsx")
+data=data_sheet$Sheet1
+library(irr)
+kappa2(data[,c(5,7)])
+```
 
 
 ## sample size calculation 
