@@ -127,6 +127,8 @@ datatable(extensions = 'Buttons',
 mean(kappa_value)
 ```
 
+* We randomly choose 20 data points, and rate them by one expert and 5 other independent raters. Cohen's Kappa was calculated between the expert and 5 other raters. The average kappa is 0.67 indicating substantial agreement, with p value less than 0.1%.   
+
 
 ## sample size calculation 
 
