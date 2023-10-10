@@ -109,7 +109,22 @@ multiplesheets <- function(fname) {
 data_sheet=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202308\\Zaid\\Book1- for Kappa.xlsx")
 data=data_sheet$Sheet1
 library(irr)
-kappa2(data[,c(5,7)])
+result=kappa2(data[,c(5,7)])
+kappa_value=numeric()
+kappa_pvalue=numeric()
+for (i in 1:5)
+{
+  kappa_test=kappa2(data[,c(2,i+2)])
+  kappa_value[i]=round(kappa_test$value,4)
+  kappa_pvalue[i]=pvalue_adjust(kappa_test$p.value)
+}
+data.frame(kappa_value, kappa_pvalue)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+mean(kappa_value)
 ```
 
 
