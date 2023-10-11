@@ -105,29 +105,39 @@ multiplesheets <- function(fname) {
 
 ## Kappa 
 
+```{r, echo=F, message=F, warning=F, results=F}
+data_sheet=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202308\\Zaid\\AI - Kappa - tooth .xlsx")
+```
+
 ```{r, echo=F, message=F, warning=F}
-data_sheet=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202308\\Zaid\\Book1- for Kappa.xlsx")
-data=data_sheet$Sheet1
 library(irr)
-result=kappa2(data[,c(5,7)])
+
+kappa_value_all=numeric()
+for (j in 1:length(data_sheet))
+{
+data=t(data_sheet[[j]])
 kappa_value=numeric()
 kappa_pvalue=numeric()
 for (i in 1:5)
 {
-  kappa_test=kappa2(data[,c(2,i+2)])
+  kappa_test=kappa2(data.frame(rate1=as.numeric(data[2:nrow(data),1]), rate2=as.numeric(data[2:nrow(data),(i+1)])))
   kappa_value[i]=round(kappa_test$value,4)
   kappa_pvalue[i]=pvalue_adjust(kappa_test$p.value)
 }
-data.frame(kappa_value, kappa_pvalue)%>%
+kappa_value_all[j]=mean(kappa_value)
+}
+
+data.frame(kappa_value_all)%>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-mean(kappa_value)
+
+mean(kappa_value_all)
 ```
 
-* We randomly choose 20 data points, and rate them by one expert and 5 other independent raters. Cohen's Kappa was calculated between the expert and 5 other raters. The average kappa is 0.67 indicating substantial agreement, with p value less than 0.1%.   
+* We randomly choose 20 patients, and rate all teeth in every single patient by one expert and 5 other independent raters using 1(restoration) or 0 (no restoration). Cohen's Kappa was calculated between the expert and 5 other raters across all teeth within one patient, and average them as kappa for that individual. Finally  the average kappa is calculated across all 20 patients, as 0.97 indicating [almost perfect agreement](https://www.andywills.info/rminr/irr.html#:~:text=To%20calculate%20Cohen's%20kappa%20in,kappa2%20from%20the%20irr%20package.&text=The%20key%20result%20here%20is%20Kappa%20which%20is%20your%20Cohen's,higher%20or%20lower%20than%20this), with p value less than 0.1%.   
 
 
 ## sample size calculation 
