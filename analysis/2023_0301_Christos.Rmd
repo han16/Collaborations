@@ -273,7 +273,7 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 
 ```{r, echo=F, message=F, warning=F}
 #####################
-variable_include_index=c(2,3,4,5,6,7,8,9,10,12,13,14,15)
+variable_include_index=c(2,3,4,5,6,7,8,9,10)
 
 m3 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = "SMD")
@@ -300,6 +300,118 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 
+```
+
+
+
+##### Preemptive medication given less than 1 hour prior to surgery
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+variable_include_index=c(1, 11)
+
+m4 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen4 <- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen4, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+#### 1 hour - Studies only with ibuproben
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+variable_include_index=c(1, 2, 5)
+
+m5 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen5 <- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen5, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+#### 1 hour - Studies only with dexamethasone
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+variable_include_index=c(3, 7, 8)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+#### 1 hour - Sensitivity analysis
+
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
 ############################
 data_meta%>%
 datatable(extensions = 'Buttons',
@@ -310,7 +422,6 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
-
 
 
 
