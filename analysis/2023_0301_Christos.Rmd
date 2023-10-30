@@ -628,6 +628,11 @@ datatable(extensions = 'Buttons',
 
 ### forest plot 
 
+
+#### 3 hours - Studies per medication
+
+
+
 ```{r, echo=F, message=F, warning=F}
 ##### https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/forest.html
 
@@ -730,6 +735,76 @@ datatable(extensions = 'Buttons',
 
 ```
 
+#### 3	hours - Studies only with dexamethazone
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+variable_include_index=c(1, 3, 4,7)
+
+m2 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen2 <- metagen(TE = m2$TE,
+                 seTE =m2$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+#### 3 hours - Sensitivity analysis
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+TE_random=numeric(); seTE_random=numeric()
+num_comparison=9
+for (i in 1:num_comparison)
+{
+ m_leave_one_out <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = "SMD")
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste("omitting", comparison[1:num_comparison], sep="_")
+m.gen_leave_one_out <- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
 
 
 
