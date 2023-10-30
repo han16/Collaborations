@@ -918,6 +918,8 @@ datatable(extensions = 'Buttons',
 
 ### forest plot 
 
+#### 6 hours - ALL studies per author – no groups
+
 ```{r, echo=F, message=F, warning=F}
 ##### https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/forest.html
 
@@ -1013,6 +1015,18 @@ forest.meta(m.gen, layout="JAMA", sortvar = TE,
 #            print.tau2 = FALSE, 
 #            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
 
+```
+
+
+#### 6 hours - Studies per surgery
+
+MA 1 – periodontal surgery
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
 
 ##################### forest plot without Pereira
 variable_include_index=2:12
@@ -1049,6 +1063,117 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+```
+
+
+
+
+#### 6	hours - Studies only with ibuproben
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+variable_include_index=c(1,4)
+
+m3 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen3 <- metagen(TE = m3$TE,
+                 seTE =m3$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen3, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+```
+
+
+
+
+#### 6	hours - Studies only with dexamethazone
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+variable_include_index=c(2,6,7,10)
+
+m4 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen4 <- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen4, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+```
+
+#### 6 hours - Sensitivity analysis
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+TE_random=numeric(); seTE_random=numeric()
+num_comparison=12
+for (i in 1:num_comparison)
+{
+ m_leave_one_out <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = "SMD")
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste("omitting", comparison[1:num_comparison], sep="_")
+m.gen_leave_one_out <- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
 
