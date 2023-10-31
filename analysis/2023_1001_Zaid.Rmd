@@ -4,3 +4,33 @@ output: html_document
 date: "2023-10-30"
 ---
 
+
+## ANOVA_design function
+
+```{r, echo=F, message=F, warning=F}
+# https://aaroncaldwell.us/SuperpowerBook/the-experimental-design.html
+library(Superpower)
+
+```
+
+
+## power analysis for 3-way interaction 
+
+```{r, echo=F, message=F, warning=F}
+# From https://aaroncaldwell.us/SuperpowerBook/power-for-three-way-interactions.html
+# With 2x2x2 designs, 
+# the names for paired comparisons can become very long. 
+# So here I abbreviate terms: 
+#   Size, Color, and Cognitive Load, have values:
+# b = big, s = small, g = green, 
+# r = red, pres = present, abs = absent.  
+labelnames <- c("Ceramics", "FP", "LD", "Surface finish", "DM", "GL", 
+                "Resin composition", "CE", "FL") #
+design_result <- ANOVA_design(design = "2b*2b*2b", 
+                              #sample size per group 
+                              n = 10, 
+                              #pattern of means
+                              mu = c(15.01, 2, 6, 1, 6, 6, 1, 8), 
+                              sd = 10, #standard deviation
+                              labelnames = labelnames) 
+```
