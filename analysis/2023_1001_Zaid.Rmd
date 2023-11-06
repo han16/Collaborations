@@ -138,10 +138,10 @@ simulation_result <- ANOVA_power(design_result,
 simulation_result
 
 
-exact_result <- ANOVA_exact(design_result,
-                            alpha_level = Superpower_options("alpha_level"),
-                            verbose = FALSE)
-exact_result
+#exact_result <- ANOVA_exact(design_result,
+#                            alpha_level = Superpower_options("alpha_level"),
+#                            verbose = FALSE)
+#exact_result
 ```
 
 
