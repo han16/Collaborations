@@ -1409,6 +1409,7 @@ site_split3[data$Site<=32 & data$Site>=28]="Sextants6"
 Type_bone_graft_pvalue=numeric()
 Type_bone_graft_kruskal_pvalue=numeric()
 Time_bone_graft_month_pvalue=numeric()
+Time_bone_graft_month_Spearman_cor=numeric()
 site_split1_pvalue=numeric()
 site_split2_pvalue=numeric()
 site_split3_pvalue=numeric()
@@ -1424,6 +1425,9 @@ sub_data=data.frame(swelling_parameter=data %>% select(variables[i]) %>% pull, T
 
 lm_reg=lm(swelling_parameter~Time_bone_graft_month, data=sub_data)  
 Time_bone_graft_month_pvalue[i]=lmp(lm_reg) # get regression model p value
+
+sub_data2=data.frame(swelling_parameter=sub_data$swelling_parameter, Time_bone_graft_month=sub_data$Time_bone_graft_month) %>% drop_na()
+Time_bone_graft_month_Spearman_cor[i]=cor(sub_data2$swelling_parameter,sub_data2$Time_bone_graft_month, method="spearman" )
 
 lm_reg=lm(swelling_parameter~as.character(Type_bone_graft), data=sub_data)  
 Type_bone_graft_pvalue[i]=lmp(lm_reg) # get regression model p value
@@ -1448,7 +1452,9 @@ site_split3_kruskal_pvalue[i]=kruskal.test(swelling_parameter~site_split3, data=
 }
 
 
-data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue),Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue), site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
+data.frame(variables, Type_bone_graft_pvalue=pvalue_adjust(Type_bone_graft_pvalue),Type_bone_graft_kruskal_pvalue=pvalue_adjust(Type_bone_graft_kruskal_pvalue), Time_bone_graft_month_pvalue=pvalue_adjust(Time_bone_graft_month_pvalue),
+Time_bone_graft_month_Spearman_cor=round(Time_bone_graft_month_Spearman_cor, 2), 
+site_split1_pvalue=pvalue_adjust(site_split1_pvalue), site_split1_kruskal_pvalue=pvalue_adjust(site_split1_kruskal_pvalue), site_split2_pvalue=pvalue_adjust(site_split2_pvalue), 
 site_split2_kruskal_pvalue=pvalue_adjust(site_split2_kruskal_pvalue), site_split3_pvalue=pvalue_adjust(site_split3_pvalue), 
 site_split3_kruskal_pvalue=pvalue_adjust(site_split3_kruskal_pvalue))%>%
 datatable(extensions = 'Buttons',
@@ -1465,6 +1471,7 @@ datatable(extensions = 'Buttons',
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
 * p value less than 0.05 indicates significant effect 
+* p value is testing the overall significance of covariates in the model  
 
 
 ## VAS_pain 
