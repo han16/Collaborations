@@ -1215,6 +1215,7 @@ prop.test(x=c(21,6), n=c(33,33), p = NULL, alternative = "greater",
 ```
 
 * p value <0.001 indicating the ratio of PBI is statistically higher than that of STOP-Bang. 
+* two sample proportion test was used. 
 
 ## statistical software 
 
