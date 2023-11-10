@@ -1107,7 +1107,7 @@ SD[5]=sd(data5, na.rm=T)
 #CI_upper[5]=t.test(data5)$conf.int[2]
 
 
-data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), STOP_BANG_OSA_risk=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2))%>% datatable(extensions = 'Buttons',
+data.frame(Number_of_yes_response=c("0-2", "3-4", "5-8", "2 STOP+MALE GENDER", "2 STOP+bmi>35"), STOP_BANG_OSA_risk=c("low", "intermediate", "high", "high", "high"), num_participants=num_participants, Average_sAHI=round(average_sAHI,2), SD_sAHI=round(SD,2))%>% datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1205,6 +1205,16 @@ t.test(BMI_group1, BMI_group2)
 * the mean of `sAHI<5` is 24.52 and `sAHI>=5` is 27.32. 
 
 
+
+
+### PBI is more reliable than STOP-Bang Statistically 
+
+```{r, echo=T, message=F, warning=F}
+prop.test(x=c(21,6), n=c(33,33), p = NULL, alternative = "greater",
+          correct = TRUE)
+```
+
+* p value <0.001 indicating the ratio of PBI is statistically higher than that of STOP-Bang. 
 
 ## statistical software 
 
