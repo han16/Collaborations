@@ -81,6 +81,8 @@ data_long %>%
   get_summary_stats(PBI_total, type = "mean_sd")
 ```
 
+
+
 ```{r, echo=F, message=F, warning=F}
 data_long %>%
   group_by(time) %>%
@@ -1199,6 +1201,7 @@ BMI_group2=data %>% filter(sAHI>=5) %>% select(BMI.kg.m2) %>% pull
 t.test(BMI_group1, BMI_group2)
 ```
 * the BMI difference between `sAHI<5` and `sAHI>=5` is significant  with p value of 0.02
+* two sample t test was used. 
 * the mean of `sAHI<5` is 24.52 and `sAHI>=5` is 27.32. 
 
 

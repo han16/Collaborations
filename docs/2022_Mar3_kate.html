@@ -13,7 +13,7 @@
 
 <title>3/29/2022</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -37,20 +37,20 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.25/datatables.js"></script>
-<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<script src="site_libs/jszip-1.11.3/jszip.min.js"></script>
-<script src="site_libs/pdfmake-1.11.3/pdfmake.js"></script>
-<script src="site_libs/pdfmake-1.11.3/vfs_fonts.js"></script>
-<link href="site_libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="site_libs/dt-ext-buttons-1.11.3/js/dataTables.buttons.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.11.3/js/buttons.html5.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.11.3/js/buttons.colVis.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.11.3/js/buttons.print.min.js"></script>
+<script src="site_libs/datatables-binding-0.27/datatables.js"></script>
+<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.12.1/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.12.1/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.12.1/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.12.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.12.1/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.12.1/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.12.1/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.12.1/js/buttons.print.min.js"></script>
 <link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -93,6 +93,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -113,6 +114,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -170,11 +174,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -203,8 +211,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -212,16 +220,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -338,7 +339,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -403,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-10-27
+<strong>Last updated:</strong> 2023-11-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -537,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60e3134d391d33004f45074747862dc2a39ad02ftargetblank60e3134a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60b4433a972f86b173782d057ae99dbe1356f9d4targetblank60b4433a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/60e3134d391d33004f45074747862dc2a39ad02f" target="_blank">60e3134</a>
+<a href="https://github.com/han16/Collaborations/tree/60b4433a972f86b173782d057ae99dbe1356f9d4" target="_blank">60b4433</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60e3134d391d33004f45074747862dc2a39ad02ftargetblank60e3134a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60b4433a972f86b173782d057ae99dbe1356f9d4targetblank60b4433a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -555,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/60e3134d391d33004f45074747862dc2a39ad02f" target="_blank">60e3134</a>.
+<a href="https://github.com/han16/Collaborations/tree/60b4433a972f86b173782d057ae99dbe1356f9d4" target="_blank">60b4433</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -570,7 +571,9 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
+    Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
     Modified:   analysis/2022_Mar3_kate.Rmd
@@ -619,6 +622,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6bc107e5f7091403229ecdbc9890c85466d4d52a/analysis/2022_Mar3_kate.Rmd" target="_blank">6bc107e</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-10-27
+</td>
+<td>
+10/27/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/6bc107e5f7091403229ecdbc9890c85466d4d52a/docs/2022_Mar3_kate.html" target="_blank">6bc107e</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-10-27
+</td>
+<td>
+10/27/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1591,14 +1628,14 @@ Han
 </div>
 <div id="summary-statistics" class="section level3">
 <h3>summary statistics</h3>
-<pre><code># A tibble: 2 x 5
+<pre><code># A tibble: 2 × 5
   time      variable      n  mean    sd
-  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  &lt;chr&gt;     &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 screening PBI_total   102  70.0  19.0
 2 week 8    PBI_total   102  66.2  20.4</code></pre>
-<pre><code># A tibble: 2 x 5
+<pre><code># A tibble: 2 × 5
   time      variable        n  mean    sd
-  &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+  &lt;chr&gt;     &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 screening PBI_average   102  2.54 0.698
 2 week 8    PBI_average   102  2.41 0.729</code></pre>
 </div>
@@ -1615,12 +1652,12 @@ Han
 </div>
 <div id="normality-assumption" class="section level3">
 <h3>normality assumption</h3>
-<pre><code># A tibble: 2 x 4
+<pre><code># A tibble: 2 × 4
   time      variable  statistic     p
   &lt;chr&gt;     &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
 1 screening PBI_total     0.990 0.680
 2 week 8    PBI_total     0.981 0.161</code></pre>
-<pre><code># A tibble: 2 x 4
+<pre><code># A tibble: 2 × 4
   time      variable    statistic     p
   &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;
 1 screening PBI_average     0.987 0.439
@@ -4468,7 +4505,7 @@ data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot;11-12&quot;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["0-5","6-10","11-12","13-15","16-24"],["lower normal","higher normal","mild excessive","moderate excessive","severe"],[46,17,6,0,2],[4.85,11.94,11.5,null,8],[6.27,19.24,7.29,null,4.24],[2.99,2.05,3.85,null,-30.12],[6.71,21.83,19.15,null,46.12]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Epworth_score<\/th>\n      <th>sleepiness_severity<\/th>\n      <th>num_participants<\/th>\n      <th>Average_sAHI<\/th>\n      <th>SD<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>ID&gt;=40, 71 participates in total.</li>
@@ -4529,7 +4566,7 @@ data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot;, &quot;5-8&
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["0-2","3-4","5-8","2 STOP+MALE GENDER","2 STOP+bmi&gt;35"],["low","intermediate","high","high","high"],[57,6,3,3,2],[6.33,11.33,11,11.67,7],[11.61,9.89,5,13.2,5.66],[3.25,0.95,-1.42,-21.13,-43.82],[9.41,21.72,23.42,44.47,57.82]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Number_of_yes_response<\/th>\n      <th>STOP_BANG_OSA_risk<\/th>\n      <th>num_participants<\/th>\n      <th>Average_sAHI<\/th>\n      <th>SD<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>ID&gt;=40</li>
@@ -4590,7 +4627,7 @@ data.frame(Epworth_score=c(&quot;0-5&quot;, &quot;6-10&quot;, &quot;11-12&quot;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["0-5","6-10","11-12","13-15","16-24"],["lower normal","higher normal","mild excessive","moderate excessive","severe"],[16,9,6,0,2],[10.69,21.11,11.5,null,8],[7.64,23.21,7.29,null,4.24],[6.62,3.27,3.85,null,-30.12],[14.76,38.95,19.15,null,46.12]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Epworth_score<\/th>\n      <th>sleepiness_severity<\/th>\n      <th>num_participants_sAHI_larger_than5<\/th>\n      <th>Average_sAHI<\/th>\n      <th>SD<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>ID&gt;=40 <code>Patient.ID.Number&gt;=40</code></li>
@@ -4639,7 +4676,7 @@ CI_low[2]=t.test(data2)$conf.int[1]
 CI_upper[2]=t.test(data2)$conf.int[2]
 
 data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP.BANG.total&gt;=5 &amp; STOP.BANG.total&lt;=8 &amp; sAHI&gt;=5) %&gt;% select(Patient.ID.Number, STOP.BANG.total, sAHI)</code></pre>
-<pre><code># A tibble: 3 x 3
+<pre><code># A tibble: 3 × 3
   Patient.ID.Number STOP.BANG.total  sAHI
               &lt;int&gt;           &lt;int&gt; &lt;int&gt;
 1                62               5     6
@@ -4653,7 +4690,7 @@ CI_low[3]=t.test(data3)$conf.int[1]
 CI_upper[3]=t.test(data3)$conf.int[2]
 
 data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp; Remarks.A..Gender==&quot;M&quot; &amp; sAHI&gt;=5 )%&gt;% select(Patient.ID.Number, STOP.BANG.total, Remarks.A..Gender, sAHI)</code></pre>
-<pre><code># A tibble: 2 x 4
+<pre><code># A tibble: 2 × 4
   Patient.ID.Number STOP.BANG.total Remarks.A..Gender  sAHI
               &lt;int&gt;           &lt;int&gt; &lt;chr&gt;             &lt;int&gt;
 1               100               4 M                     9
@@ -4666,7 +4703,7 @@ CI_low[4]=t.test(data4)$conf.int[1]
 CI_upper[4]=t.test(data4)$conf.int[2]
 
 data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; STOP==2 &amp; STOP.BANG.total&gt;=3 &amp; STOP.BANG.total&lt;=4 &amp;  BMI.kg.m2 &gt;35 &amp; sAHI&gt;=5)%&gt;% select(Patient.ID.Number, STOP.BANG.total, BMI.kg.m2, sAHI)</code></pre>
-<pre><code># A tibble: 1 x 4
+<pre><code># A tibble: 1 × 4
   Patient.ID.Number STOP.BANG.total BMI.kg.m2  sAHI
               &lt;int&gt;           &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
 1                87               3      36.3    11</code></pre>
@@ -4683,7 +4720,7 @@ data.frame(Number_of_yes_response=c(&quot;0-2&quot;, &quot;3-4&quot;, &quot;5-8&
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["0-2","3-4","5-8","2 STOP+MALE GENDER","2 STOP+bmi&gt;35"],["low","intermediate","high","high","high"],[21,6,3,2,1],[13.46,11.33,11,17.5,11]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Number_of_yes_response<\/th>\n      <th>STOP_BANG_OSA_risk<\/th>\n      <th>num_participants<\/th>\n      <th>Average_sAHI<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li><p>ID&gt;=40</p></li>
@@ -4743,7 +4780,7 @@ data.frame(Epworth_score=c(&quot; all participants&quot;, &quot;sAHI&lt;5&quot;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],[" all participants","sAHI&lt;5","sAHI&gt;=5","sAHI&gt;=15"],[71,38,33,9],[25.82,24.52,27.31,27.68],[5.21,4.7,5.43,3.66],[24.58,22.97,25.39,24.87],[27.05,26.06,29.24,30.49]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Epworth_score<\/th>\n      <th>num_participants<\/th>\n      <th>Average_BMI<\/th>\n      <th>SD<\/th>\n      <th>CI_low<\/th>\n      <th>CI_upper<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="figure-8" class="section level3">
@@ -4753,7 +4790,7 @@ data.frame(Epworth_score=c(&quot; all participants&quot;, &quot;sAHI&lt;5&quot;,
 <pre class="r"><code>data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=5 ) %&gt;%nrow # No. participants with sAHI&gt;=5</code></pre>
 <pre><code>[1] 33</code></pre>
 <pre class="r"><code>data%&gt;%filter(Patient.ID.Number&gt;=40 &amp; sAHI&gt;=5 &amp; Epworth.Score==1) %&gt;% select(Patient.ID.Number, sAHI, Epworth.Score, Average.PBI.Score.8.week) # No. participants with sAHI&gt;=5</code></pre>
-<pre><code># A tibble: 2 x 4
+<pre><code># A tibble: 2 × 4
   Patient.ID.Number  sAHI Epworth.Score Average.PBI.Score.8.week
               &lt;int&gt; &lt;int&gt;         &lt;int&gt;                    &lt;dbl&gt;
 1                91     5             1                     1.89
@@ -4781,6 +4818,7 @@ mean of x mean of y
 <ul>
 <li>the BMI difference between <code>sAHI&lt;5</code> and
 <code>sAHI&gt;=5</code> is significant with p value of 0.02</li>
+<li>two sample t test was used.</li>
 <li>the mean of <code>sAHI&lt;5</code> is 24.52 and
 <code>sAHI&gt;=5</code> is 27.32.</li>
 </ul>
@@ -4788,21 +4826,22 @@ mean of x mean of y
 </div>
 <div id="statistical-software" class="section level2">
 <h2>statistical software</h2>
-<pre><code>               _                           
-platform       x86_64-w64-mingw32          
-arch           x86_64                      
-os             mingw32                     
-system         x86_64, mingw32             
-status                                     
-major          4                           
-minor          1.2                         
-year           2021                        
-month          11                          
-day            01                          
-svn rev        81115                       
-language       R                           
-version.string R version 4.1.2 (2021-11-01)
-nickname       Bird Hippie                 </code></pre>
+<pre><code>               _                                
+platform       x86_64-w64-mingw32               
+arch           x86_64                           
+os             mingw32                          
+crt            ucrt                             
+system         x86_64, mingw32                  
+status                                          
+major          4                                
+minor          2.2                              
+year           2022                             
+month          10                               
+day            31                               
+svn rev        83211                            
+language       R                                
+version.string R version 4.2.2 (2022-10-31 ucrt)
+nickname       Innocent and Trusting            </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -4812,49 +4851,57 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.2.2 (2022-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 19044)
+Running under: Windows 10 x64 (build 19045)
 
 Matrix products: default
 
 locale:
-[1] LC_COLLATE=English_United States.1252 
-[2] LC_CTYPE=English_United States.1252   
-[3] LC_MONETARY=English_United States.1252
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
 [4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.1252    
+[5] LC_TIME=English_United States.utf8    
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] nlme_3.1-153     foreign_0.8-81   DT_0.25          rstatix_0.7.0   
- [5] kableExtra_1.3.4 ggpubr_0.4.0     forcats_0.5.1    stringr_1.4.0   
- [9] dplyr_1.0.7      purrr_0.3.4      readr_2.1.1      tidyr_1.1.4     
-[13] tibble_3.1.6     ggplot2_3.3.5    tidyverse_1.3.1 
+ [1] nlme_3.1-160     foreign_0.8-83   DT_0.27          rstatix_0.7.2   
+ [5] kableExtra_1.3.4 ggpubr_0.6.0     forcats_1.0.0    stringr_1.5.0   
+ [9] dplyr_1.0.10     purrr_1.0.1      readr_2.1.4      tidyr_1.3.0     
+[13] tibble_3.1.8     ggplot2_3.4.1    tidyverse_1.3.2 
 
 loaded via a namespace (and not attached):
- [1] fs_1.5.2          lubridate_1.8.0   webshot_0.5.2     httr_1.4.2       
- [5] rprojroot_2.0.2   tools_4.1.2       backports_1.4.1   bslib_0.3.1      
- [9] utf8_1.2.2        R6_2.5.1          DBI_1.1.2         colorspace_2.0-2 
-[13] withr_2.4.3       tidyselect_1.1.1  compiler_4.1.2    git2r_0.29.0     
-[17] cli_3.1.1         rvest_1.0.2       xml2_1.3.3        labeling_0.4.2   
-[21] sass_0.4.1        scales_1.1.1      systemfonts_1.0.3 digest_0.6.29    
-[25] rmarkdown_2.11    svglite_2.0.0     pkgconfig_2.0.3   htmltools_0.5.2  
-[29] dbplyr_2.1.1      fastmap_1.1.0     highr_0.9         htmlwidgets_1.5.4
-[33] rlang_0.4.12      readxl_1.3.1      rstudioapi_0.13   jquerylib_0.1.4  
-[37] generics_0.1.1    farver_2.1.0      jsonlite_1.7.3    crosstalk_1.2.0  
-[41] car_3.0-12        magrittr_2.0.1    Rcpp_1.0.8        munsell_0.5.0    
-[45] fansi_1.0.2       abind_1.4-5       lifecycle_1.0.1   stringi_1.7.6    
-[49] whisker_0.4       yaml_2.2.2        carData_3.0-5     grid_4.1.2       
-[53] promises_1.2.0.1  crayon_1.4.2      lattice_0.20-45   haven_2.4.3      
-[57] cowplot_1.1.1     hms_1.1.1         knitr_1.37        pillar_1.6.5     
-[61] ggsignif_0.6.3    reprex_2.0.1      glue_1.6.0        evaluate_0.14    
-[65] modelr_0.1.8      vctrs_0.3.8       tzdb_0.2.0        httpuv_1.6.5     
-[69] cellranger_1.1.0  gtable_0.3.0      assertthat_0.2.1  xfun_0.29        
-[73] broom_0.7.11      later_1.3.0       viridisLite_0.4.0 workflowr_1.7.0  
-[77] ellipsis_0.3.2   </code></pre>
+ [1] fs_1.5.2            lubridate_1.9.2     webshot_0.5.4      
+ [4] httr_1.4.5          rprojroot_2.0.3     tools_4.2.2        
+ [7] backports_1.4.1     bslib_0.4.2         utf8_1.2.2         
+[10] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
+[13] withr_2.5.0         tidyselect_1.2.0    compiler_4.2.2     
+[16] git2r_0.31.0        cli_3.4.1           rvest_1.0.3        
+[19] xml2_1.3.3          labeling_0.4.2      sass_0.4.5         
+[22] scales_1.2.1        systemfonts_1.0.4   digest_0.6.31      
+[25] rmarkdown_2.20      svglite_2.1.1       pkgconfig_2.0.3    
+[28] htmltools_0.5.4     dbplyr_2.3.0        fastmap_1.1.0      
+[31] highr_0.10          htmlwidgets_1.6.1   rlang_1.0.6        
+[34] readxl_1.4.2        rstudioapi_0.14     jquerylib_0.1.4    
+[37] generics_0.1.3      farver_2.1.1        jsonlite_1.8.4     
+[40] crosstalk_1.2.0     car_3.1-1           googlesheets4_1.0.1
+[43] magrittr_2.0.3      Rcpp_1.0.9          munsell_0.5.0      
+[46] fansi_1.0.3         abind_1.4-5         lifecycle_1.0.3    
+[49] stringi_1.7.8       whisker_0.4.1       yaml_2.3.7         
+[52] carData_3.0-5       grid_4.2.2          promises_1.2.0.1   
+[55] crayon_1.5.2        lattice_0.20-45     haven_2.5.1        
+[58] cowplot_1.1.1       hms_1.1.2           knitr_1.42         
+[61] pillar_1.8.1        ggsignif_0.6.4      reprex_2.0.2       
+[64] glue_1.6.2          evaluate_0.20       modelr_0.1.10      
+[67] vctrs_0.5.2         tzdb_0.3.0          httpuv_1.6.9       
+[70] cellranger_1.1.0    gtable_0.3.1        assertthat_0.2.1   
+[73] cachem_1.0.7        xfun_0.37           broom_1.0.3        
+[76] later_1.3.0         googledrive_2.0.0   viridisLite_0.4.1  
+[79] gargle_1.3.0        workflowr_1.7.0     timechange_0.2.0   
+[82] ellipsis_0.3.2     </code></pre>
 </div>
 </div>
 
