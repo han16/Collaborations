@@ -104,6 +104,35 @@ multiplesheets <- function(fname) {
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
+data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-Implant DATA CLEAN 111023_without_header.xlsx")
+
+group_corr=data2$`Data CORR`
+group_restore=data2$`Data RESTORE`
+
+num_indi=24
+Age=data$Data$Age[1:num_indi]
+CBL_diagnosis_months=as.numeric(data$Data$CBL_diagnosis_months)[1:num_indi]
+I_Torque=as.numeric(data$Data$I_Torque)[1:num_indi]
+I_Diameter=as.numeric(data$Data$I_Diameter)[1:num_indi]
+I_Length=as.numeric(data$Data$I_Length)[1:num_indi]
+Bone_loss_mm=as.numeric(data$Data$Bone_loss_mm)[1:num_indi]
+Bone_loss_percentage=as.numeric(data$Data$`Bone_loss_%`)[1:num_indi]
+Bone_loss_post_regen_mm=as.numeric(data$Data$Bone_loss_post_regen_mm)[1:num_indi]
+Bone_loss_post_regen_percentage=as.numeric(data$Data$`Bone_loss_post_regen_%`)[1:num_indi]
+Month_post_regen=as.numeric(data$Data$Month_post_regen)[1:num_indi]
+data2=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Bone_loss_mm, Bone_loss_percentage, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen)
+```
+
+
+
+
+
+
+
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
 data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Early peri-implant bone loss CORRECTIVE TREATMENT) VK092423.xlsx")
 
 num_indi=24
