@@ -60,6 +60,8 @@ for (i in 1:ncol(data))
   observation=data[,i]
   observation=observation[!is.na(observation)] # remove missing values 
   num_sample[i]=length(observation)
+  if (num_sample[i]>0)
+  {
   Mean[i]=round(mean(observation),4)
   Median[i]=round(median(observation),4)
   SD[i]=round(sd(observation),4)
@@ -69,6 +71,20 @@ for (i in 1:ncol(data))
   range_min[i]=round(min(observation),4)
   range_max[i]=round(max(observation),4)
   normality_pvalue[i]=round(shapiro.test(observation)$p.value,4)
+  }
+  if (num_sample[i]==0)
+  {
+  Mean[i]=NA
+  Median[i]=NA
+  SD[i]=NA
+  SE[i]=NA
+  per_25_quantile[i]=NA
+  per_75_quantile[i]=NA
+  range_min[i]=NA
+  range_max[i]=NA
+  normality_pvalue[i]=NA
+  }
+  
 }
 
 summary_data=data.frame(variable=variables, num_sample=num_sample, Mean=Mean, Median=Median, SD=SD, SE=SE,per_25_quantile, per_75_quantile, Range_low=range_min, Range_upper=range_max, normality_pvalue=normality_pvalue)
@@ -105,31 +121,94 @@ multiplesheets <- function(fname) {
 
 ```{r, echo=F, message=F, warning=F, results=F}
 data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-Implant DATA CLEAN 111023_without_header.xlsx")
-
-group_corr=data2$`Data CORR`
-group_restore=data2$`Data RESTORE`
-
-num_indi=24
-Age=data$Data$Age[1:num_indi]
-CBL_diagnosis_months=as.numeric(data$Data$CBL_diagnosis_months)[1:num_indi]
-I_Torque=as.numeric(data$Data$I_Torque)[1:num_indi]
-I_Diameter=as.numeric(data$Data$I_Diameter)[1:num_indi]
-I_Length=as.numeric(data$Data$I_Length)[1:num_indi]
-Bone_loss_mm=as.numeric(data$Data$Bone_loss_mm)[1:num_indi]
-Bone_loss_percentage=as.numeric(data$Data$`Bone_loss_%`)[1:num_indi]
-Bone_loss_post_regen_mm=as.numeric(data$Data$Bone_loss_post_regen_mm)[1:num_indi]
-Bone_loss_post_regen_percentage=as.numeric(data$Data$`Bone_loss_post_regen_%`)[1:num_indi]
-Month_post_regen=as.numeric(data$Data$Month_post_regen)[1:num_indi]
-data2=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Bone_loss_mm, Bone_loss_percentage, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen)
 ```
 
 
 
 
+## summary statistics 
+
+### CORR
+
+```{r, echo=F, message=F, warning=F}
+group_corr=data2$`Data CORR`
+
+num_indi=24
+Data=group_corr
+Age=as.numeric(Data$Age[1:num_indi])
+CBL_diagnosis_months=as.numeric(Data$CBL_diagnosis_months)[1:num_indi]
+I_Torque=as.numeric(Data$I_Torque)[1:num_indi]
+I_Diameter=as.numeric(Data$I_Diameter)[1:num_indi]
+I_Length=as.numeric(Data$I_Length)[1:num_indi]
+Time_comp_days=as.numeric(Data$Time_comp_days)[1:num_indi]
+Bone_loss_mm=as.numeric(Data$Bone_loss_mm)[1:num_indi]
+Bone_loss_percentage=as.numeric(Data$`Bone_loss_%`)[1:num_indi]
+Bone_loss_crest=as.numeric(Data$Bone_loss_crest)[1:num_indi]
+Bone_loss_post_regen_mm=as.numeric(Data$Bone_loss_post_regen_mm)[1:num_indi]
+Bone_loss_post_regen_percentage=as.numeric(Data$`Bone_loss_post_regen_%`)[1:num_indi]
+Month_post_regen=as.numeric(Data$Month_post_regen)[1:num_indi]
+RTR_post_regen_IP=as.numeric(Data$RTR_post_regen_IP)[1:num_indi]
+RTR_post_regen_CRP=as.numeric(Data$RTR_post_regen_CRP)[1:num_indi]
+Time_comp_post_regen=as.numeric(Data$Time_comp_post_regen)[1:num_indi]
+Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
+Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
+Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
+
+data_interest=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
+
+data_summary=summary_statistics(data_interest)
+data_summary %>%
+datatable(extensions = 'Buttons',
+          caption = "CORR",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* `num_sample` numeric samples after removing NA's  
 
 
 
 
+### restore 
+
+```{r, echo=F, message=F, warning=F}
+group_restore=data2$`Data RESTORE`
+
+num_indi=55
+Data=group_restore
+Age=as.numeric(Data$Age[1:num_indi])
+CBL_diagnosis_months=as.numeric(Data$CBL_diagnosis_months)[1:num_indi]
+I_Torque=as.numeric(Data$I_Torque)[1:num_indi]
+I_Diameter=as.numeric(Data$I_Diameter)[1:num_indi]
+I_Length=as.numeric(Data$I_Length)[1:num_indi]
+Time_comp_days=as.numeric(Data$Time_comp_days)[1:num_indi]
+Bone_loss_mm=as.numeric(Data$Bone_loss_mm)[1:num_indi]
+Bone_loss_percentage=as.numeric(Data$`Bone_loss_%`)[1:num_indi]
+Bone_loss_crest=as.numeric(Data$Bone_loss_crest)[1:num_indi]
+Bone_loss_post_regen_mm=as.numeric(Data$Bone_loss_post_regen_mm)[1:num_indi]
+Bone_loss_post_regen_percentage=as.numeric(Data$`Bone_loss_post_regen_%`)[1:num_indi]
+Month_post_regen=as.numeric(Data$Month_post_regen)[1:num_indi]
+RTR_post_regen_IP=as.numeric(Data$RTR_post_regen_IP)[1:num_indi]
+RTR_post_regen_CRP=as.numeric(Data$RTR_post_regen_CRP)[1:num_indi]
+Time_comp_post_regen=as.numeric(Data$Time_comp_post_regen)[1:num_indi]
+Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
+Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
+Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
+
+data_interest=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
+
+data_summary=summary_statistics(data_interest)
+data_summary %>%
+datatable(extensions = 'Buttons',
+          caption = "restore",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
