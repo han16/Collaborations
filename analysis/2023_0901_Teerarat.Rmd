@@ -154,9 +154,9 @@ Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
 Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
 Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
 
-data_interest=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
+data_interest_corr=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
 
-data_summary=summary_statistics(data_interest)
+data_summary=summary_statistics(data_interest_corr)
 data_summary %>%
 datatable(extensions = 'Buttons',
           caption = "CORR",
@@ -198,9 +198,9 @@ Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
 Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
 Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
 
-data_interest=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
+data_interest_store=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
 
-data_summary=summary_statistics(data_interest)
+data_summary=summary_statistics(data_interest_store)
 data_summary %>%
 datatable(extensions = 'Buttons',
           caption = "restore",
@@ -209,6 +209,26 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+## corr vs store 
+
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+variable_index=c(1:9,16)
+for (i in 1:length(variable_index))
+  pvalue[i]=t.test(data_interest_corr[,variable_index[i]], data_interest_store[,variable_index[i]], na.rm=T)$p.value
+data.frame(variable=colnames(data_interest_corr)[variable_index], pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "restore",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* two sample t test was used 
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
