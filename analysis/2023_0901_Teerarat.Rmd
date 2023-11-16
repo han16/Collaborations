@@ -221,7 +221,7 @@ for (i in 1:length(variable_index))
   pvalue[i]=t.test(data_interest_corr[,variable_index[i]], data_interest_store[,variable_index[i]], na.rm=T)$p.value
 data.frame(variable=colnames(data_interest_corr)[variable_index], pvalue=pvalue_adjust(pvalue))%>%
 datatable(extensions = 'Buttons',
-          caption = "restore",
+          caption = "corr vs restore",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
