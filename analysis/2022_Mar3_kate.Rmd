@@ -1217,6 +1217,17 @@ prop.test(x=c(21,6), n=c(33,33), p = NULL, alternative = "greater",
 * p value <0.001 indicating the ratio of PBI is statistically higher than that of STOP-Bang. 
 * two sample proportion test was used. 
 
+
+### PBI vs ESS
+
+```{r, echo=T, message=F, warning=F}
+prop.test(x=c(21,2), n=c(33,33), p = NULL, alternative = "greater",
+          correct = TRUE)
+```
+
+* p value <0.001 indicating the ratio of PBI is statistically higher than that of ESS. 
+* two sample proportion test was used. 
+
 ## statistical software 
 
 ```{r, echo=F}
