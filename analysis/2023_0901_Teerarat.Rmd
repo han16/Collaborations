@@ -130,6 +130,9 @@ data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\T
 
 ### CORR
 
+
+#### numeric variables 
+
 ```{r, echo=F, message=F, warning=F}
 group_corr=data2$`Data CORR`
 
@@ -170,6 +173,45 @@ datatable(extensions = 'Buttons',
 * `num_sample` numeric samples after removing NA's  
 
 
+
+#### categorical variables 
+
+```{r, echo=F, message=F, warning=F}
+group_corr=data2$`Data CORR`
+
+num_indi=24
+Data=group_corr
+Gender=Data$Gender[1:num_indi]
+Smoking=Data$Smoking[1:num_indi]
+Implant_site=Data$Implant_site[1:num_indi]
+Pre_implant_Procedure=Data$Pre_implant_Procedure[1:num_indi]
+I_placement=Data$I_placement[1:num_indi]
+Comp_placement=Data$Comp_placement[1:num_indi]
+HA=Data$HA[1:num_indi]
+I_Brand=Data$I_Brand[1:num_indi]
+I_Surface=Data$I_Surface[1:num_indi]
+I_Shape=Data$I_Shape[1:num_indi]
+I_Techique=Data$I_Technique[1:num_indi]
+I_Location=Data$I_Location[1:num_indi]
+Month_post_regen=as.numeric(Data$Month_post_regen)[1:num_indi]
+RTR_post_regen_IP=as.numeric(Data$RTR_post_regen_IP)[1:num_indi]
+RTR_post_regen_CRP=as.numeric(Data$RTR_post_regen_CRP)[1:num_indi]
+Time_comp_post_regen=as.numeric(Data$Time_comp_post_regen)[1:num_indi]
+Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
+Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
+Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
+
+data_interest_corr=data.frame(Gender=Gender)
+
+data_summary=summary_statistics(data_interest_corr)
+data_summary %>%
+datatable(extensions = 'Buttons',
+          caption = "CORR",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
 
 
 ### restore 
