@@ -388,7 +388,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-11-20
+<strong>Last updated:</strong> 2023-11-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree72f6b53f979a9278eba2b4f49ca1485eeeab16f6targetblank72f6b53a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree841ca080513cb102f3d2aae75df6294418231152targetblank841ca08a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/72f6b53f979a9278eba2b4f49ca1485eeeab16f6" target="_blank">72f6b53</a>
+<a href="https://github.com/han16/Collaborations/tree/841ca080513cb102f3d2aae75df6294418231152" target="_blank">841ca08</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree72f6b53f979a9278eba2b4f49ca1485eeeab16f6targetblank72f6b53a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree841ca080513cb102f3d2aae75df6294418231152targetblank841ca08a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/72f6b53f979a9278eba2b4f49ca1485eeeab16f6" target="_blank">72f6b53</a>.
+<a href="https://github.com/han16/Collaborations/tree/841ca080513cb102f3d2aae75df6294418231152" target="_blank">841ca08</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -606,6 +606,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/841ca080513cb102f3d2aae75df6294418231152/analysis/2023_1102_Arndt.Rmd" target="_blank">841ca08</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-20
+</td>
+<td>
+11/20/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/841ca080513cb102f3d2aae75df6294418231152/docs/2023_1102_Arndt.html" target="_blank">841ca08</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-20
+</td>
+<td>
+11/20/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -740,6 +774,12 @@ Group        2   3.73    1.87   1.068    0.348
 Residuals   98 171.34    1.75                     
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>p value of 0.77 indicates there is no interaction between Method
+and Group</p></li>
+<li><p>Main effect: Angles of Methods vary significantly because of p
+value <code>2.15e-11</code>.</p></li>
+</ul>
 </div>
 <div id="two-sample-t-test" class="section level2">
 <h2>two sample t test</h2>
@@ -758,6 +798,33 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y 
 0.6764706 2.6566667 </code></pre>
+<ul>
+<li>two sample t test suggests angles are significantly different
+between Methods (p value <code>5.011e-10</code>).</li>
+</ul>
+</div>
+<div id="power-analysis" class="section level2">
+<h2>power analysis</h2>
+<pre class="r"><code>method_1_sd=sd(data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==1)])
+method_1_mean=mean(data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==1)])
+method_2_sd=sd(data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==2)])
+method_2_mean=mean(data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==2)])
+power.t.test(n=17, delta=method_1_mean-method_2_mean, sd=(method_1_sd+method_2_sd)/2)</code></pre>
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 17
+          delta = 1.980196
+             sd = 1.104876
+      sig.level = 0.05
+          power = 0.9990425
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+<ul>
+<li>with mean and sd in the observed sample, sample size of 17 achieves
+the power of 99.90%.</li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
