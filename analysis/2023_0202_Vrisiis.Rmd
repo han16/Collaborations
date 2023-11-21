@@ -82,6 +82,7 @@ sd(sub_data %>% filter(time=="T6" & methods=="Juan") %>% select(Width_3mm) %>% p
 #################
 Time=c("T1", "T2", "T3", "T4", "T5", "T6")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(Width_3mm) %>% pull
@@ -92,10 +93,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -125,6 +127,8 @@ ggplot(sub_data_mean, aes(x=time, y=Width_3mm_mean, fill=methods)) +
   geom_signif(annotations ="p=0.064", y_position = y_position  ,xmin=5.7, xmax=6.3, size=1, vjust=-0.5, textsize=3.0)
 
 ```
+
+* `p_value_wilcox` is the p value of non-parametric wilcox test. 
 
 
 
@@ -201,6 +205,7 @@ sd(sub_data %>% filter(time=="T6-T2" & methods=="Juan") %>% select(Width_diff_3m
 #################
 Time=c("T2-T1", "T3-T2", "T4-T2", "T5-T2", "T6-T2")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(Width_diff_3mm) %>% pull
@@ -211,10 +216,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -310,6 +316,7 @@ sd(sub_data %>% filter(time=="T6-T2" & methods=="Juan") %>% select(Buccal_3mm) %
 #################
 Time=c("T2-T1", "T3-T2", "T4-T2", "T5-T2", "T6-T2")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(Buccal_3mm) %>% pull
@@ -320,10 +327,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -421,6 +429,7 @@ sd(sub_data %>% filter(time=="T6-T2" & methods=="Juan") %>% select(Lingual_3mm) 
 #################
 Time=c("T2-T1", "T3-T2", "T4-T2", "T5-T2", "T6-T2")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(Lingual_3mm) %>% pull
@@ -431,10 +440,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -528,6 +538,7 @@ sd(sub_data %>% filter(time=="T6-T2" & methods=="Juan") %>% select(Vertical_mid)
 #################
 Time=c("T3-T2", "T4-T2", "T5-T2", "T6-T2")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(Vertical_mid) %>% pull
@@ -538,10 +549,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -635,6 +647,7 @@ sd(sub_data %>% filter(time=="T6-T2" & methods=="Juan") %>% select(Vertical_max)
 #################
 Time=c("T3-T2", "T4-T2", "T5-T2", "T6-T2")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(Vertical_max) %>% pull
@@ -645,10 +658,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -748,6 +762,7 @@ sd(sub_data %>% filter(time=="T6-T2/T2" & methods=="Juan") %>% select(vol) %>% p
 #################
 Time=c("T2-T1/T1","T3-T2/T2", "T4-T2/T2", "T5-T2/T2", "T6-T2/T2")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(vol) %>% pull
@@ -758,10 +773,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -861,6 +877,7 @@ sd(sub_data %>% filter(time=="T6" & methods=="Juan") %>% select(VAS_pain) %>% pu
 #################
 Time=c("T1", "T3", "T4", "T5", "T6")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(VAS_pain) %>% pull
@@ -871,10 +888,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -971,6 +989,7 @@ sd(sub_data %>% filter(time=="T6" & methods=="Juan") %>% select(variable) %>% pu
 #################
 Time=c("T1", "T3", "T4", "T5", "T6")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(variable) %>% pull
@@ -981,10 +1000,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -1083,6 +1103,7 @@ sd(sub_data %>% filter(time=="T6" & methods=="Juan") %>% select(variable) %>% pu
 #################
 Time=c("T1", "T3", "T4", "T5", "T6")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(variable) %>% pull
@@ -1093,10 +1114,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
@@ -1194,6 +1216,7 @@ sd(sub_data %>% filter(time=="T6" & methods=="Juan") %>% select(variable) %>% pu
 #################
 Time=c("T1", "T3", "T4", "T5", "T6")
 p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
+p_value_wilcox=numeric()
 for (i in 1:length(Time))
 {
   group1=sub_data %>% filter(time==Time[i] & methods=="MM25") %>% select(variable) %>% pull
@@ -1204,10 +1227,11 @@ for (i in 1:length(Time))
   CI_upper[i]=test$conf.int[2]
   estimate[i]=mean(group1)-mean(group2)
   ##############
+  p_value_wilcox[i]=wilcox.test(group1, group2, alternative = "two.sided")$p.value
 }
 
 
-result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
+result=data_frame(group1=paste("MM25", Time, sep="_"), group2=paste("Juan", Time, sep="_"), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value), p_value_wilcox=pvalue_adjust(p_value_wilcox)) 
 
 result%>%
 datatable(extensions = 'Buttons',
