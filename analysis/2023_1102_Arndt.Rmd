@@ -126,10 +126,11 @@ data_Precision_Static_vs_Robotic=read_xlsx("C:\\Shengtong\\Research\\AllCollabor
 
 ```{r, echo=F, message=F, warning=F}
 # http://www.sthda.com/english/wiki/two-way-anova-test-in-r
-#data_Trueness_Robotic_vs_Static$Method=as.factor(data_Trueness_Robotic_vs_Static$Method)
+data_Trueness_Robotic_vs_Static$Method=as.factor(data_Trueness_Robotic_vs_Static$Method)
 #data_Trueness_Robotic_vs_Static$Method[which(data_Trueness_Robotic_vs_Static$Method==1)]="sCAIS"
 #data_Trueness_Robotic_vs_Static$Method[which(data_Trueness_Robotic_vs_Static$Method==2)]="RAIS robotic"
-#data_Trueness_Robotic_vs_Static$Group=as.factor(data_Trueness_Robotic_vs_Static$Group)
+
+data_Trueness_Robotic_vs_Static$Group=as.factor(data_Trueness_Robotic_vs_Static$Group)
 res.aov3 <- aov(Angle ~ Method*Group, data = data_Trueness_Robotic_vs_Static)
 summary(res.aov3)
 ```
