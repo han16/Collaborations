@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbeea8445da263e52880cb981825f2957b9ad79targetblankafbeea8a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree72f6b53f979a9278eba2b4f49ca1485eeeab16f6targetblank72f6b53a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/afbeea8445da263e52880cb981825f2957b9ad79" target="_blank">afbeea8</a>
+<a href="https://github.com/han16/Collaborations/tree/72f6b53f979a9278eba2b4f49ca1485eeeab16f6" target="_blank">72f6b53</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbeea8445da263e52880cb981825f2957b9ad79targetblankafbeea8a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree72f6b53f979a9278eba2b4f49ca1485eeeab16f6targetblank72f6b53a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/afbeea8445da263e52880cb981825f2957b9ad79" target="_blank">afbeea8</a>.
+<a href="https://github.com/han16/Collaborations/tree/72f6b53f979a9278eba2b4f49ca1485eeeab16f6" target="_blank">72f6b53</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -606,6 +606,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/72f6b53f979a9278eba2b4f49ca1485eeeab16f6/analysis/2023_1102_Arndt.Rmd" target="_blank">72f6b53</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-20
+</td>
+<td>
+11/20/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/72f6b53f979a9278eba2b4f49ca1485eeeab16f6/docs/2023_1102_Arndt.html" target="_blank">72f6b53</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-20
+</td>
+<td>
+11/20/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -683,6 +717,14 @@ han
 </div>
 <div id="two-way-anova" class="section level2">
 <h2>two way anova</h2>
+<pre class="r"><code># http://www.sthda.com/english/wiki/two-way-anova-test-in-r
+data_Trueness_Robotic_vs_Static$Method=as.factor(data_Trueness_Robotic_vs_Static$Method)
+#data_Trueness_Robotic_vs_Static$Method[which(data_Trueness_Robotic_vs_Static$Method==1)]=&quot;sCAIS&quot;
+#data_Trueness_Robotic_vs_Static$Method[which(data_Trueness_Robotic_vs_Static$Method==2)]=&quot;RAIS robotic&quot;
+
+data_Trueness_Robotic_vs_Static$Group=as.factor(data_Trueness_Robotic_vs_Static$Group)
+res.aov3 &lt;- aov(Angle ~ Method*Group, data = data_Trueness_Robotic_vs_Static) # with interaction
+summary(res.aov3)</code></pre>
 <pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 Method        1  99.99   99.99  56.327 3.12e-11 ***
 Group         2   3.73    1.87   1.052    0.353    
@@ -690,6 +732,32 @@ Method:Group  2   0.93    0.46   0.261    0.771
 Residuals    96 170.42    1.78                     
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>res.aov2 &lt;- aov(Angle ~ Method+Group, data = data_Trueness_Robotic_vs_Static) # main effect without interaction
+summary(res.aov2)</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Method       1  99.99   99.99  57.190 2.15e-11 ***
+Group        2   3.73    1.87   1.068    0.348    
+Residuals   98 171.34    1.75                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="two-sample-t-test" class="section level2">
+<h2>two sample t test</h2>
+<pre class="r"><code>#res.aov1 &lt;- aov(Angle ~ Method, data = data_Trueness_Robotic_vs_Static) 
+#summary(res.aov1)
+
+t.test(data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==1)], data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==2)])</code></pre>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method == 1)] and data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method == 2)]
+t = -7.5573, df = 54.22, p-value = 5.011e-10
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -2.505477 -1.454915
+sample estimates:
+mean of x mean of y 
+0.6764706 2.6566667 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

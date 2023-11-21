@@ -124,13 +124,28 @@ data_Precision_Static_vs_Robotic=read_xlsx("C:\\Shengtong\\Research\\AllCollabor
 
 ## two way anova 
 
-```{r, echo=F, message=F, warning=F}
+
+```{r, echo=T, message=F, warning=F}
 # http://www.sthda.com/english/wiki/two-way-anova-test-in-r
 data_Trueness_Robotic_vs_Static$Method=as.factor(data_Trueness_Robotic_vs_Static$Method)
 #data_Trueness_Robotic_vs_Static$Method[which(data_Trueness_Robotic_vs_Static$Method==1)]="sCAIS"
 #data_Trueness_Robotic_vs_Static$Method[which(data_Trueness_Robotic_vs_Static$Method==2)]="RAIS robotic"
 
 data_Trueness_Robotic_vs_Static$Group=as.factor(data_Trueness_Robotic_vs_Static$Group)
-res.aov3 <- aov(Angle ~ Method*Group, data = data_Trueness_Robotic_vs_Static)
+res.aov3 <- aov(Angle ~ Method*Group, data = data_Trueness_Robotic_vs_Static) # with interaction
 summary(res.aov3)
+
+res.aov2 <- aov(Angle ~ Method+Group, data = data_Trueness_Robotic_vs_Static) # main effect without interaction
+summary(res.aov2)
+```
+
+
+## two sample t test 
+
+```{r, echo=T, message=F, warning=F}
+#res.aov1 <- aov(Angle ~ Method, data = data_Trueness_Robotic_vs_Static) 
+#summary(res.aov1)
+
+t.test(data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==1)], data_Trueness_Robotic_vs_Static$Angle[which(data_Trueness_Robotic_vs_Static$Method==2)])
+
 ```
