@@ -2035,6 +2035,21 @@ Han
 <div id="all-studies-per-author-no-groups" class="section level4">
 <h4>ALL studies per author – no groups</h4>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es">Random
+effect model</a>, effects of individual studies do not only deviate due
+to sampling error alone but that there is another source of
+variance,</li>
+</ul>
+<p><span
+class="math display">\[\widehat{\theta}_k=\underbrace{\mu+\zeta_k}_{\theta_k}+\epsilon_k\]</span></p>
+<p><span class="math inline">\(\mu\)</span> is the true pooled effect
+size; <span class="math inline">\(\theta_k\)</span> is the true effect
+size of study k. <a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#fig:random">here</a>
+is the relationships among them. <span
+class="math inline">\(\zeta_k\)</span> is a product of chance alone.</p>
 </div>
 <div id="hour---studies-per-surgery" class="section level4">
 <h4>1 hour - Studies per surgery</h4>
@@ -2059,7 +2074,7 @@ class="section level5">
 <li><a
 href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es">pooled
 effect size under the fixed-effect model simply uses a weighted average
-of all studies</a></li>
+of all studies</a> Inverse-variance meta analysis</li>
 </ul>
 <p><span class="math display">\[\widehat{\theta}=\frac{\sum_k
 \widehat{\theta}_kw_k}{\sum_k w_k}\]</span></p>
