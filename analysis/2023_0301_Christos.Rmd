@@ -231,6 +231,15 @@ forest.meta(m.gen, layout="JAMA", sortvar = TE,
 #            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
+* [Random effect model](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es), effects of individual studies do not only deviate due to sampling error alone but that there is another source of variance, 
+
+$$\widehat{\theta}_k=\underbrace{\mu+\zeta_k}_{\theta_k}+\epsilon_k$$
+
+$\mu$ is the true pooled effect size; $\theta_k$ is the true effect size of study k. [here](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#fig:random) is the relationships among them. $\zeta_k$ is a product of chance alone. 
+
+
+
+
 
 #### 1 hour - Studies per surgery
 
@@ -333,10 +342,50 @@ m.gen4 <- metagen(TE = m4$TE,
 forest.meta(m.gen4, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=9,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+variable_include_index=c(1, 11)
+
+m4 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen4 <- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen4, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=9,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+* [pooled effect size under the fixed-effect model simply uses a weighted average of all studies](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es) Inverse-variance meta analysis 
+
+$$\widehat{\theta}=\frac{\sum_k \widehat{\theta}_kw_k}{\sum_k w_k}$$
+
+$\widehat{\theta}$ is the pooled effect size, $\widehat{\theta}_k$ is kth study effect size, and $w_k$ is the weight as $w_k=\frac{1}{s_k^2}$, $s_k^2$ is the variance. 
+
+
+
 
 #### 1 hour - Studies only with ibuproben
 
