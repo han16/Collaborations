@@ -906,7 +906,7 @@ m.gen <- metagen(TE = m1$TE,
 forest.meta(m.gen, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -949,7 +949,7 @@ m.gen <- metagen(TE = m1$TE,
 forest.meta(m.gen, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -994,7 +994,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1026,7 +1026,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1061,7 +1061,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1093,7 +1093,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1127,7 +1127,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1158,7 +1158,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1193,7 +1193,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1223,7 +1223,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 
@@ -1294,7 +1294,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
@@ -1328,7 +1328,7 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
