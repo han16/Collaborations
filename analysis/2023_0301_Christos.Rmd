@@ -3422,6 +3422,50 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
 
 ```
 
+##### 1 day - Studies only with dexamethazone
+
+
+
+#### 1 day - Sensitivity analysis
+
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+#####################
+TE_random=numeric(); seTE_random=numeric()
+num_comparison=7
+for (i in 1:num_comparison)
+{
+ m_leave_one_out <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = "SMD")
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste("omitting", comparison[1:num_comparison], sep="_")
+m.gen_leave_one_out <- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
 
 ```{r, echo=F, message=F, warning=F}
 
