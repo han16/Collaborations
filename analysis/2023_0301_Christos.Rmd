@@ -3070,11 +3070,11 @@ MA 1 – periodontal surgery
 
 
 
-
+* random effect model 
 
 ```{r, echo=F, message=F, warning=F}
 ##################### forest plot without Pereira
-variable_include_index=c(2,3,4)
+variable_include_index=c(2,3,4,5,6)
 
 m2 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = "SMD")
@@ -3097,12 +3097,55 @@ m.gen2 <- metagen(TE = m2$TE,
 forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=6,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+```
 
+
+* fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+##################### forest plot without Pereira
+variable_include_index=c(2,3,4,5,6)
+
+m2 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen2 <- metagen(TE = m2$TE,
+                 seTE =m2$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen2, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=8,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+```
+
+
+#### 1 day - Studies per medication
+
+
+##### ibuprofen 600mg
+
+
+* random effect model 
+
+```{r, echo=F, message=F, warning=F}
 
 ##############
-variable_include_index=c(1,4)
+variable_include_index=c(1,2)
 
 m3 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = "SMD")
@@ -3125,10 +3168,48 @@ m.gen3 <- metagen(TE = m3$TE,
 forest.meta(m.gen3, layout="JAMA", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=6,
+            fontsize=8,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
+```
 
+
+* fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+
+##############
+variable_include_index=c(1,2)
+
+m3 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen3 <- metagen(TE = m3$TE,
+                 seTE =m3$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen3, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=8,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
 
 ##################
 data_meta%>%
