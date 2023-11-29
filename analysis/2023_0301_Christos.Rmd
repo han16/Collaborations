@@ -596,6 +596,10 @@ datatable(extensions = 'Buttons',
 
 * [SMD interpretations](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-30#:~:text=Firstly%2C%20the%20SMD%20can%20be,a%20large%20effect%20%5B2%5D.)
 
+
+##### calculate SMD using example of Pearlman, B._ibuprofen 400mg_vs_placebo
+
+
 ```{r, echo=T, message=F, warning=F}
 n1=63; s1=21; n2=61; s2=25
 # Calculate s_pooled
@@ -609,7 +613,7 @@ se <- s_pooled*sqrt((1/n1)+(1/n2))
 #se
 
 mean1=10; mean2=19
-(mean1-mean2)/s_pooled  # this is SMD 
+(mean1-mean2)/s_pooled  # this is SMD for Pearlman, B._ibuprofen 400mg_vs_placebo
 ```
 
 
