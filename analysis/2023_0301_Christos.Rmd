@@ -779,6 +779,8 @@ forest(m.netmeta,
 
 * higher P-score, the better it is 
 
+* placebo is used as the reference group 
+
 
 
 ```{r, echo=F, message=F, warning=F}
