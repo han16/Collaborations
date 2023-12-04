@@ -131,6 +131,9 @@ datatable(extensions = 'Buttons',
 
 #### ALL studies per author – no groups
 
+##### random effect model 
+
+
 ```{r, echo=F, message=F, warning=F}
 ##### https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/forest.html
 
@@ -243,6 +246,8 @@ $\mu$ is the true pooled effect size; $\theta_k$ is the true effect size of stud
 
 #### 1 hour - Studies per surgery
 
+##### random effect model 
+
 ```{r, echo=F, message=F, warning=F}
 ##################### forest plot without Pereira
 variable_include_index=c(1,3:11)
@@ -280,6 +285,8 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 
 ##### Preemptive medication given 1 hour prior to surgery or longer 
 
+
+###### random effect model 
 
 ```{r, echo=F, message=F, warning=F}
 #####################
@@ -531,6 +538,8 @@ forest.meta(m.gen6, layout="JAMA", sortvar = TE,
 
 #### 1 hour - Sensitivity analysis
 
+
+##### random effect model 
 
 ```{r, echo=F, message=F, warning=F}
 #####################
@@ -1238,6 +1247,8 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 ##### ketorolac 10mg 
 
 
+* random effect model 
+
 
 ```{r, echo=F, message=F, warning=F}
 variable_include_index=c(9)
@@ -1343,6 +1354,8 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 
 
 #### 3 hours - Sensitivity analysis
+
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1545,6 +1558,10 @@ datatable(extensions = 'Buttons',
 
 #### 6 hours - ALL studies per author – no groups
 
+
+* random effect model 
+
+
 ```{r, echo=F, message=F, warning=F}
 ##### https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/forest.html
 
@@ -1648,7 +1665,7 @@ forest.meta(m.gen, layout="JAMA", sortvar = TE,
 MA 1 – periodontal surgery
 
 
-
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1899,6 +1916,9 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 ##### nimesulide 100mg
 
 
+* random effect model  
+
+
 ```{r, echo=F, message=F, warning=F}
 variable_include_index=c(5)
 
@@ -2061,6 +2081,8 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 
 
 ##### ketorolac 10mg
+
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2229,6 +2251,8 @@ forest.meta(m.gen4, layout="JAMA", sortvar = TE,
 
 
 #### 6 hours - Sensitivity analysis
+
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2437,6 +2461,7 @@ datatable(extensions = 'Buttons',
 
 
 
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2713,6 +2738,8 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 ##### ketorolac 10mg
 
 
+* random effect model 
+
 
 ```{r, echo=F, message=F, warning=F}
 variable_include_index=c(7)
@@ -2804,6 +2831,9 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 
 
 #### 8 hours - Sensitivity analysis
+
+
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F, eval=F}
@@ -2989,6 +3019,8 @@ datatable(extensions = 'Buttons',
 
 #### 1 day - ALL studies per author – no groups
 
+
+* random effect model 
 
 
 
@@ -3215,6 +3247,9 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
 ##### nimesulide 100mg
 
 
+* fixed effect model 
+
+
 ```{r, echo=F, message=F, warning=F}
 
 ##############
@@ -3321,6 +3356,9 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
 
 
 ##### ketorolac 10mg
+
+* random effect model 
+
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -3433,6 +3471,7 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
 #### 1 day - Sensitivity analysis
 
 
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
@@ -3639,7 +3678,7 @@ datatable(extensions = 'Buttons',
 
 #### 3 days - ALL studies per author – no groups
 
-
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -3855,6 +3894,7 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
 
 ##### nimesulide 100mg
 
+* fixed effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -3893,6 +3933,7 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
 
 ##### etoricoxib 120mg
 
+* fixed effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -3973,6 +4014,7 @@ forest.meta(m.gen3, layout="JAMA", sortvar = TE,
 #### 3 days - Sensitivity analysis
 
 
+* random effect model 
 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
