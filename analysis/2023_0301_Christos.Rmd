@@ -103,7 +103,7 @@ data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Ch
 ```
 
 
-## one hour 
+## 1 hour 
 
 ### sample data 
 
@@ -130,6 +130,7 @@ datatable(extensions = 'Buttons',
 
 
 #### ALL studies per author – no groups
+
 
 ##### random effect model 
 
@@ -539,7 +540,7 @@ forest.meta(m.gen6, layout="JAMA", sortvar = TE,
 #### 1 hour - Sensitivity analysis
 
 
-##### random effect model 
+*  random effect model 
 
 ```{r, echo=F, message=F, warning=F}
 #####################
@@ -574,6 +575,42 @@ forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
 
 ```
 
+
+
+*  fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+#####################
+TE_random=numeric(); seTE_random=numeric()
+for (i in 1:11)
+{
+ m_leave_one_out <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = "SMD")
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste("omitting", comparison[1:11], sep="_")
+m.gen_leave_one_out <- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
 
 
 
@@ -800,7 +837,7 @@ forest(m.netmeta,
 
 
 
-## three hours 
+## 3 hours 
 
 ### sample data 
 
@@ -944,6 +981,7 @@ datatable(extensions = 'Buttons',
 
 
 * fixed effect model 
+
 
 ```{r, echo=F, message=F, warning=F}
 ########### generate object for plot 
@@ -1391,6 +1429,46 @@ forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
+
+
+* fixed effect model 
+
+
+```{r, echo=F, message=F, warning=F}
+#####################
+TE_random=numeric(); seTE_random=numeric()
+num_comparison=9
+for (i in 1:num_comparison)
+{
+ m_leave_one_out <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = "SMD")
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste("omitting", comparison[1:num_comparison], sep="_")
+m.gen_leave_one_out <- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
 
 
 
