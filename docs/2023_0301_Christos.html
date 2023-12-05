@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree56a434cf4b4577c639639c7c06bffbfcce8e5923targetblank56a434ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0d4430ce6e57cc0b74fc2a8d10e285884553d1b4targetblank0d4430ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/56a434cf4b4577c639639c7c06bffbfcce8e5923" target="_blank">56a434c</a>
+<a href="https://github.com/han16/Collaborations/tree/0d4430ce6e57cc0b74fc2a8d10e285884553d1b4" target="_blank">0d4430c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree56a434cf4b4577c639639c7c06bffbfcce8e5923targetblank56a434ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0d4430ce6e57cc0b74fc2a8d10e285884553d1b4targetblank0d4430ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/56a434cf4b4577c639639c7c06bffbfcce8e5923" target="_blank">56a434c</a>.
+<a href="https://github.com/han16/Collaborations/tree/0d4430ce6e57cc0b74fc2a8d10e285884553d1b4" target="_blank">0d4430c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -574,6 +574,7 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+    Ignored:    analysis/figure/
 
 Unstaged changes:
     Modified:   analysis/2023_0301_Christos.Rmd
@@ -622,6 +623,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/0d4430ce6e57cc0b74fc2a8d10e285884553d1b4/analysis/2023_0301_Christos.Rmd" target="_blank">0d4430c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-12-05
+</td>
+<td>
+12/5/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/0d4430ce6e57cc0b74fc2a8d10e285884553d1b4/docs/2023_0301_Christos.html" target="_blank">0d4430c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-12-05
+</td>
+<td>
+12/5/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2766,7 +2801,9 @@ mean1=10; mean2=19
 <p><a
 href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/netwma.html">network
 Meta-Analysis</a></p>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="random-effect-model-1" class="section level4">
+<h4>random effect model</h4>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>overall comparison structure</li>
 <li>direct links mean there are direct comparison, otherwise indirect
@@ -2776,7 +2813,7 @@ comparison</li>
 <li>numbers on the edge indicate how many studies involve that
 comparison</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
@@ -2791,7 +2828,7 @@ ibuprofen 400mg    0.4165
 celecoxib 200mg    0.3492
 placebo            0.1986
 dexamethasone 4mg  0.1941</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Q statistics to assess homogeneity / consistency
 
                     Q df p-value
@@ -2817,6 +2854,40 @@ Between designs 10.02  3  0.0184          0           0</code></pre>
 <li><p>placebo is used as the reference group</p></li>
 </ul>
 </div>
+<div id="fixed-effect-model" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+nimesilide 100mg   0.9474
+ibuprofen 600mg    0.8790
+ketorolac 10mg     0.6286
+dexamethasone 8mg  0.6186
+etoricoxib 120mg   0.5072
+ibuprofen 400mg    0.4213
+celecoxib 200mg    0.3101
+placebo            0.1024
+dexamethasone 4mg  0.0855</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                    Q df p-value
+Total           10.02  3  0.0184
+Within designs   0.00  0      --
+Between designs 10.02  3  0.0184
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.0184)
+
+                                 Detached design    Q df p-value
+                      placebo vs ibuprofen 600mg 0.96  2  0.6180
+ placebo vs celecoxib 200mg vs dexamethasone 4mg 9.06  1  0.0026
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                    Q df p-value tau.within tau2.within
+Between designs 10.02  3  0.0184          0           0</code></pre>
+</div>
+</div>
 </div>
 <div id="hours" class="section level2">
 <h2>3 hours</h2>
@@ -2833,29 +2904,18 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>3 hours<\/caption>","data":[["Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_dexamethasone 8mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo"],[20,20,19,18,20,16,15,15,22],[10.84,4.36,10.3,2.64,4,2,1.9,2.2,5.32],[18.28,8.34,17.96,5.52,8,6,4.2,4.5,6.69],[20,20,20,20,20,20,15,15,21],[25.47,25.47,22.35,22.35,22,22,9.9,9.9,20.38],[31.19,31.19,29.86,29.86,30,30,12,12,17.23]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hours---studies-per-medication" class="section level4">
 <h4>3 hours - Studies per medication</h4>
 <div id="dexamethasone-4mg-1" class="section level5">
 <h5>dexamethasone 4mg</h5>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="celecoxib-200mg-1" class="section level5">
-<h5>celecoxib 200mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -2865,8 +2925,8 @@ class="section level4">
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="dexamethasone-8mg" class="section level5">
-<h5>dexamethasone 8mg</h5>
+<div id="celecoxib-200mg-1" class="section level5">
+<h5>celecoxib 200mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -2876,8 +2936,8 @@ class="section level4">
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="etoricoxib-120mg" class="section level5">
-<h5>etoricoxib 120mg</h5>
+<div id="dexamethasone-8mg" class="section level5">
+<h5>dexamethasone 8mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -2887,28 +2947,28 @@ class="section level4">
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="etoricoxib-120mg" class="section level5">
+<h5>etoricoxib 120mg</h5>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 <div id="ketorolac-10mg" class="section level5">
 <h5>ketorolac 10mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="hours---studies-only-with-dexamethazone"
 class="section level4">
 <h4>3 hours - Studies only with dexamethazone</h4>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="hours---sensitivity-analysis" class="section level4">
-<h4>3 hours - Sensitivity analysis</h4>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -2918,10 +2978,23 @@ class="section level4">
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="hours---sensitivity-analysis" class="section level4">
+<h4>3 hours - Sensitivity analysis</h4>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="network-meta-analysis-1" class="section level3">
 <h3>network meta-analysis</h3>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="random-effect-model-2" class="section level4">
+<h4>random effect model</h4>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>overall comparison structure</li>
 <li>direct links mean there are direct comparison, otherwise indirect
@@ -2931,7 +3004,7 @@ comparison</li>
 <li>numbers on the edge indicate how many studies involve that
 comparison</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
@@ -2943,10 +3016,64 @@ etoricoxib 120mg   0.6738
 celecoxib 200mg    0.5628
 dexamethasone 4mg  0.2370
 placebo            0.0038</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           0.08  4  0.9993
+Within designs  0.00  0      --
+Between designs 0.08  4  0.9993
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.9993)
+
+                                   Detached design    Q df p-value
+   placebo vs celecoxib 200mg vs dexamethasone 4mg 0.00  2  0.9981
+    placebo vs celecoxib 200mg vs etoricoxib 120mg 0.04  2  0.9809
+ placebo vs dexamethasone 4mg vs dexamethasone 8mg 0.06  2  0.9695
+  placebo vs dexamethasone 8mg vs etoricoxib 120mg 0.07  2  0.9678
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 0.08  4  0.9993          0           0</code></pre>
 <ul>
 <li>higher P-score, the better it is</li>
 </ul>
+</div>
+<div id="fixed-effect-model-1" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+ketorolac 10mg     0.8304
+dexamethasone 8mg  0.6923
+etoricoxib 120mg   0.6738
+celecoxib 200mg    0.5628
+dexamethasone 4mg  0.2370
+placebo            0.0038</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           0.08  4  0.9993
+Within designs  0.00  0      --
+Between designs 0.08  4  0.9993
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.9993)
+
+                                   Detached design    Q df p-value
+   placebo vs celecoxib 200mg vs dexamethasone 4mg 0.00  2  0.9981
+    placebo vs celecoxib 200mg vs etoricoxib 120mg 0.04  2  0.9809
+ placebo vs dexamethasone 4mg vs dexamethasone 8mg 0.06  2  0.9695
+  placebo vs dexamethasone 8mg vs etoricoxib 120mg 0.07  2  0.9678
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 0.08  4  0.9993          0           0</code></pre>
+</div>
 </div>
 </div>
 <div id="hours-1" class="section level2">
@@ -2964,11 +3091,11 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hours---studies-per-surgery" class="section level4">
 <h4>6 hours - Studies per surgery</h4>
@@ -2976,13 +3103,13 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>6 hours<\/caption>","data":[["Pereira, G._ibuprofen 600mg_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Santos, B._ibuprofen 600mg_vs_placebo1","Santos, B._nimesilide 100mg_vs_placebo2","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_dexamethasone 8mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo"],[27,20,20,20,20,19,18,20,16,15,15,22],[4.1,7.52,3.42,32,26,7.15,1.23,3,1,1.1,0.9,14.73],[5.7,12.34,6.38,20.4,20.3,12.13,3.17,6,3,2.7,2.7,12.95],[27,20,20,20,20,20,20,20,20,15,15,21],[15.6,10.94,10.94,37.5,44,11.9,11.9,12,12,10.1,10.1,22.95],[13.6,14.81,14.81,11.6,7.5,16.71,16.71,17,17,17.1,17.1,21.9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hours---studies-per-medication-1" class="section level4">
 <h4>6 hours - Studies per medication</h4>
@@ -2991,43 +3118,25 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dexamethasone-4mg-2" class="section level5">
 <h5>dexamethasone 4mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="celecoxib-200mg-2" class="section level5">
-<h5>celecoxib 200mg</h5>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="nimesulide-100mg" class="section level5">
-<h5>nimesulide 100mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="dexamethasone-8mg-1" class="section level5">
-<h5>dexamethasone 8mg</h5>
+<div id="celecoxib-200mg-2" class="section level5">
+<h5>celecoxib 200mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -3037,27 +3146,26 @@ class="section level4">
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="etoricoxib-120mg-1" class="section level5">
-<h5>etoricoxib 120mg</h5>
+<div id="nimesulide-100mg" class="section level5">
+<h5>nimesulide 100mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="ketorolac-10mg-1" class="section level5">
-<h5>ketorolac 10mg</h5>
+<div id="dexamethasone-8mg-1" class="section level5">
+<h5>dexamethasone 8mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-64-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-</div>
-<div id="hours---studies-only-with-ibuproben" class="section level4">
-<h4>6 hours - Studies only with ibuproben</h4>
+<div id="etoricoxib-120mg-1" class="section level5">
+<h5>etoricoxib 120mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -3067,34 +3175,55 @@ class="section level4">
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="ketorolac-10mg-1" class="section level5">
+<h5>ketorolac 10mg</h5>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="hours---studies-only-with-ibuproben" class="section level4">
+<h4>6 hours - Studies only with ibuproben</h4>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 <div id="hours---studies-only-with-dexamethazone-1"
 class="section level4">
 <h4>6 hours - Studies only with dexamethazone</h4>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hours---sensitivity-analysis-1" class="section level4">
 <h4>6 hours - Sensitivity analysis</h4>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="network-meta-analysis-2" class="section level3">
 <h3>network meta-analysis</h3>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="random-effect-model-3" class="section level4">
+<h4>random effect model</h4>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
@@ -3108,7 +3237,65 @@ celecoxib 200mg    0.4840
 ketorolac 10mg     0.3587
 dexamethasone 4mg  0.1852
 placebo            0.0292</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           3.20  5  0.6693
+Within designs  0.00  0      --
+Between designs 3.20  5  0.6693
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.6693)
+
+                                   Detached design    Q df p-value
+                        placebo vs ibuprofen 600mg 0.10  4  0.9988
+  placebo vs dexamethasone 8mg vs etoricoxib 120mg 3.13  3  0.3721
+ placebo vs dexamethasone 4mg vs dexamethasone 8mg 3.14  3  0.3699
+    placebo vs celecoxib 200mg vs etoricoxib 120mg 3.18  3  0.3650
+   placebo vs celecoxib 200mg vs dexamethasone 4mg 3.19  3  0.3639
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 3.20  5  0.6693          0           0</code></pre>
+</div>
+<div id="fixed-effect-model-2" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+nimesilide 100mg   0.8839
+etoricoxib 120mg   0.7308
+dexamethasone 8mg  0.6725
+ibuprofen 600mg    0.6557
+celecoxib 200mg    0.4840
+ketorolac 10mg     0.3587
+dexamethasone 4mg  0.1852
+placebo            0.0292</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           3.20  5  0.6693
+Within designs  0.00  0      --
+Between designs 3.20  5  0.6693
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.6693)
+
+                                   Detached design    Q df p-value
+                        placebo vs ibuprofen 600mg 0.10  4  0.9988
+  placebo vs dexamethasone 8mg vs etoricoxib 120mg 3.13  3  0.3721
+ placebo vs dexamethasone 4mg vs dexamethasone 8mg 3.14  3  0.3699
+    placebo vs celecoxib 200mg vs etoricoxib 120mg 3.18  3  0.3650
+   placebo vs celecoxib 200mg vs dexamethasone 4mg 3.19  3  0.3639
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 3.20  5  0.6693          0           0</code></pre>
+</div>
 </div>
 </div>
 <div id="hours-2" class="section level2">
@@ -3126,38 +3313,16 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="hours---studies-per-medication-2" class="section level4">
-<h4>8 hours - Studies per medication</h4>
-<div id="celecoxib-200mg-3" class="section level5">
-<h5>celecoxib 200mg</h5>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="dexamethasone-8mg-2" class="section level5">
-<h5>dexamethasone 8mg</h5>
-<ul>
-<li>random effect model</li>
-</ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="etoricoxib-120mg-2" class="section level5">
-<h5>etoricoxib 120mg</h5>
+<div id="hours---studies-per-medication-2" class="section level4">
+<h4>8 hours - Studies per medication</h4>
+<div id="celecoxib-200mg-3" class="section level5">
+<h5>celecoxib 200mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -3167,12 +3332,34 @@ class="section level4">
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-83-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="dexamethasone-8mg-2" class="section level5">
+<h5>dexamethasone 8mg</h5>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="etoricoxib-120mg-2" class="section level5">
+<h5>etoricoxib 120mg</h5>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-87-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 <div id="ketorolac-10mg-2" class="section level5">
 <h5>ketorolac 10mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="hours---studies-only-with-dexamethazone-2"
@@ -3181,28 +3368,30 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-89-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hours---sensitivity-analysis-2" class="section level4">
 <h4>8 hours - Sensitivity analysis</h4>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-87-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-91-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-92-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="network-meta-analysis-3" class="section level3">
 <h3>network meta-analysis</h3>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-89-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="random-effect-model-4" class="section level4">
+<h4>random effect model</h4>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-93-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
@@ -3213,7 +3402,60 @@ etoricoxib 120mg   0.6138
 celecoxib 200mg    0.5714
 ketorolac 10mg     0.3467
 placebo            0.0558</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-91-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           0.52  3  0.9138
+Within designs  0.00  0      --
+Between designs 0.52  3  0.9138
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.9138)
+
+                                  Detached design    Q df p-value
+                     placebo vs dexamethasone 8mg 0.32  2  0.8518
+                       placebo vs celecoxib 200mg 0.33  2  0.8460
+   placebo vs celecoxib 200mg vs etoricoxib 120mg 0.14  1  0.7117
+ placebo vs dexamethasone 8mg vs etoricoxib 120mg 0.28  1  0.5981
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 0.52  3  0.9138          0           0</code></pre>
+</div>
+<div id="fixed-effect-model-3" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+dexamethasone 8mg  0.9124
+etoricoxib 120mg   0.6138
+celecoxib 200mg    0.5714
+ketorolac 10mg     0.3467
+placebo            0.0558</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           0.52  3  0.9138
+Within designs  0.00  0      --
+Between designs 0.52  3  0.9138
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.9138)
+
+                                  Detached design    Q df p-value
+                     placebo vs dexamethasone 8mg 0.32  2  0.8518
+                       placebo vs celecoxib 200mg 0.33  2  0.8460
+   placebo vs celecoxib 200mg vs etoricoxib 120mg 0.14  1  0.7117
+ placebo vs dexamethasone 8mg vs etoricoxib 120mg 0.28  1  0.5981
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 0.52  3  0.9138          0           0</code></pre>
+</div>
 </div>
 </div>
 <div id="hours-3" class="section level2">
@@ -3230,46 +3472,15 @@ placebo            0.0558</code></pre>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="day---studies-per-surgery" class="section level4">
-<h4>1 day - Studies per surgery</h4>
-<p>MA 1 – periodontal surgery</p>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-97-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="day---studies-per-medication" class="section level4">
-<h4>1 day - Studies per medication</h4>
-<div id="ibuprofen-600mg-2" class="section level5">
-<h5>ibuprofen 600mg</h5>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-98-1.png" width="672" style="display: block; margin: auto;" /></p>
-<ul>
-<li>fixed effect model</li>
-</ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-99-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="nimesulide-100mg-1" class="section level5">
-<h5>nimesulide 100mg</h5>
 <ul>
 <li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-100-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="etoricoxib-120mg-3" class="section level5">
-<h5>etoricoxib 120mg</h5>
+<div id="day---studies-per-surgery" class="section level4">
+<h4>1 day - Studies per surgery</h4>
+<p>MA 1 – periodontal surgery</p>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -3279,6 +3490,37 @@ placebo            0.0558</code></pre>
 </ul>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-102-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="day---studies-per-medication" class="section level4">
+<h4>1 day - Studies per medication</h4>
+<div id="ibuprofen-600mg-2" class="section level5">
+<h5>ibuprofen 600mg</h5>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-103-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-104-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="nimesulide-100mg-1" class="section level5">
+<h5>nimesulide 100mg</h5>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-105-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="etoricoxib-120mg-3" class="section level5">
+<h5>etoricoxib 120mg</h5>
+<ul>
+<li>random effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-106-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-107-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 <div id="dexamethasone-8mg-3" class="section level5">
 <h5>dexamethasone 8mg</h5>
 </div>
@@ -3287,7 +3529,7 @@ placebo            0.0558</code></pre>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-103-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-108-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="day---studies-only-with-ibuproben" class="section level4">
@@ -3295,11 +3537,11 @@ placebo            0.0558</code></pre>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-104-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-109-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-105-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-110-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="day---studies-only-with-dexamethazone" class="section level5">
 <h5>1 day - Studies only with dexamethazone</h5>
 </div>
@@ -3309,19 +3551,21 @@ placebo            0.0558</code></pre>
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-106-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-111-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-107-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-112-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>24 hours<\/caption>","data":[["Pereira, G._ibuprofen 600mg_vs_placebo","Santos, B._ibuprofen 600mg_vs_placebo","Santos, B._nimesilide 100mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo"],[27,20,20,16,22,21],[4.4,19.5,26,0,7.77,5.33],[6.9,15,15,1,10.42,7.44],[27,20,20,20,15,34],[15.6,21.5,40.5,3,0.9,8.5],[11.2,14,11.4,8,2.6,9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="network-meta-analysis-4" class="section level3">
 <h3>network meta-analysis</h3>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-109-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-110-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="random-effect-model-5" class="section level4">
+<h4>random effect model</h4>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-114-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-115-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
@@ -3333,7 +3577,65 @@ etoricoxib 120mg                     0.5816
 placebo                              0.3065
 dexketoprofen trometamol (DKT) 25mg  0.2868
 ketorolac 10mg                       0.2130</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-111-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-116-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           6.04  2  0.0489
+Within designs  0.16  1  0.6847
+Between designs 5.87  1  0.0154
+
+Design-specific decomposition of within-designs Q statistic
+
+                      Design    Q df p-value
+ placebo vs etoricoxib 120mg 0.16  1  0.6847
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.0154)
+
+            Detached design    Q df p-value
+ placebo vs ibuprofen 600mg 0.00  0      --
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 5.87  1  0.0154          0           0</code></pre>
+</div>
+<div id="fixed-effect-model-4" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                                    P-score
+ibuprofen 600mg                      0.9258
+nimesilide 100mg                     0.8108
+etoricoxib 120mg                     0.6205
+placebo                              0.3109
+dexketoprofen trometamol (DKT) 25mg  0.2135
+ketorolac 10mg                       0.1185</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-117-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           6.04  2  0.0489
+Within designs  0.16  1  0.6847
+Between designs 5.87  1  0.0154
+
+Design-specific decomposition of within-designs Q statistic
+
+                      Design    Q df p-value
+ placebo vs etoricoxib 120mg 0.16  1  0.6847
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.0154)
+
+            Detached design    Q df p-value
+ placebo vs ibuprofen 600mg 0.00  0      --
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 5.87  1  0.0154          0           0</code></pre>
+</div>
 </div>
 </div>
 <div id="hours-4" class="section level2">
@@ -3351,11 +3653,11 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-114-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-120-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-115-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="days---studies-per-surgery" class="section level4">
 <h4>3 days - Studies per surgery</h4>
@@ -3363,11 +3665,11 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-116-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-117-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-123-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="days---studies-per-medication" class="section level4">
 <h4>3 days - Studies per medication</h4>
@@ -3376,18 +3678,18 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-118-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-124-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-119-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-125-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="nimesulide-100mg-2" class="section level5">
 <h5>nimesulide 100mg</h5>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-120-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-126-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dexamethasone-8mg-4" class="section level5">
 <h5>dexamethasone 8mg</h5>
@@ -3397,7 +3699,7 @@ class="section level4">
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-127-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="days---studies-only-with-ibuproben" class="section level4">
@@ -3405,7 +3707,7 @@ class="section level4">
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-128-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="days---studies-only-with-dexamethazone" class="section level4">
 <h4>3 days - Studies only with dexamethazone</h4>
@@ -3418,30 +3720,90 @@ class="section level4">
 <ul>
 <li>random effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-123-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-129-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-124-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-130-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>3 days<\/caption>","data":[["Pereira, G._ibuprofen 600mg_vs_placebo","Santos, B._ibuprofen 600mg_vs_placebo","Santos, B._nimesilide 100mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo"],[27,20,20,15],[1.6,3.5,9,0.3],[4.7,8.7,14.4,1.3],[27,20,20,15],[2.7,3.5,22.5,1.7],[7.1,8.7,14.8,5.2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="network-meta-analysis-5" class="section level3">
 <h3>network meta-analysis</h3>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-127-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="random-effect-model-6" class="section level4">
+<h4>random effect model</h4>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-133-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
 </ul>
 <pre><code>                                    P-score
-ibuprofen 600mg                      0.8541
-nimesilide 100mg                     0.7580
-etoricoxib 120mg                     0.5816
-placebo                              0.3065
-dexketoprofen trometamol (DKT) 25mg  0.2868
-ketorolac 10mg                       0.2130</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-128-1.png" width="672" style="display: block; margin: auto;" /></p>
+ibuprofen 600mg                      0.9258
+nimesilide 100mg                     0.8108
+etoricoxib 120mg                     0.6205
+placebo                              0.3109
+dexketoprofen trometamol (DKT) 25mg  0.2135
+ketorolac 10mg                       0.1185</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-134-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           6.04  2  0.0489
+Within designs  0.16  1  0.6847
+Between designs 5.87  1  0.0154
+
+Design-specific decomposition of within-designs Q statistic
+
+                      Design    Q df p-value
+ placebo vs etoricoxib 120mg 0.16  1  0.6847
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.0154)
+
+            Detached design    Q df p-value
+ placebo vs ibuprofen 600mg 0.00  0      --
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 5.87  1  0.0154          0           0</code></pre>
+</div>
+<div id="fixed-effect-model-5" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                                    P-score
+ketorolac 10mg                       0.9498
+ibuprofen 600mg                      0.7231
+nimesilide 100mg                     0.4766
+etoricoxib 120mg                     0.3638
+dexketoprofen trometamol (DKT) 25mg  0.2698
+placebo                              0.2169</code></pre>
+<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-135-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                   Q df p-value
+Total           3.02  2  0.2204
+Within designs  0.19  1  0.6664
+Between designs 2.84  1  0.0920
+
+Design-specific decomposition of within-designs Q statistic
+
+                      Design    Q df p-value
+ placebo vs etoricoxib 120mg 0.19  1  0.6664
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.0920)
+
+            Detached design    Q df p-value
+ placebo vs ibuprofen 600mg 0.00  0      --
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                   Q df p-value tau.within tau2.within
+Between designs 2.84  1  0.0920          0           0</code></pre>
+</div>
 </div>
 </div>
 <div id="sample-size-determination" class="section level2">

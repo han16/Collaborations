@@ -973,6 +973,12 @@ m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, s
   data = data_meta, sm = "SMD")
 
 
+```
+
+
+#### random effect model 
+
+```{r, echo=F, message=F, warning=F}
 data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
 m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
@@ -1041,6 +1047,44 @@ decomp.design(m.netmeta)
 * higher P-score, the better it is 
 
 * placebo is used as the reference group 
+
+
+#### fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+
+
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = TRUE,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+```
 
 
 
@@ -1690,6 +1734,8 @@ forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
 ### network meta-analysis 
 
 
+#### random effect model 
+
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -1817,14 +1863,53 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "Heterogeneity, I^2=0",
-       label.right = "95% CI, [0.0%; 79.2%]",
+       label.left = "",
+       label.right = "",
        labels = long.labels)
 #summary(m.netmeta)
+decomp.design(m.netmeta)
 ```
 
 * higher P-score, the better it is 
 
+
+
+#### fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+
+
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = TRUE,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+```
 
 
 ## 6 hours 
@@ -2703,6 +2788,8 @@ forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
 ### network meta-analysis 
 
 
+#### random effect model 
+
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -2834,12 +2921,50 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "Heterogeneity, 0",
-       label.right = "95% CI, [0.0%; 74.6%]",
+       label.left = "",
+       label.right = "",
        labels = long.labels)
 #summary(m.netmeta)
+decomp.design(m.netmeta)
 ```
 
+
+#### fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+
+
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = TRUE,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+```
 
 
 ## 8 hours 
@@ -3366,6 +3491,8 @@ forest.meta(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
 ### network meta-analysis 
 
 
+#### random effect model 
+
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -3474,11 +3601,51 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "Heterogeneity, I^2=0",
-       label.right = "95% CI, [0.0%; 79.2%]",
+       label.left = "",
+       label.right = "",
        labels = long.labels)
 #summary(m.netmeta)
+decomp.design(m.netmeta)
 ```
+
+
+#### fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+
+
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = TRUE,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+```
+
 
 
 ## 24 hours 
@@ -4103,6 +4270,7 @@ datatable(extensions = 'Buttons',
 
 ### network meta-analysis 
 
+#### random effect model 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -4215,12 +4383,51 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "Heterogeneity, I^2=55.8%",
-       label.right = "95% CI, [0.0%; 85.4%]",
+       label.left = "",
+       label.right = "",
        labels = long.labels)
 #summary(m.netmeta)
+decomp.design(m.netmeta)
 ```
 
+
+
+#### fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.5,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+
+
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = TRUE,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+```
 
 
 ## 72 hours 
@@ -4738,6 +4945,8 @@ datatable(extensions = 'Buttons',
 ### network meta-analysis 
 
 
+#### random effect model 
+
 
 ```{r, echo=F, message=F, warning=F, eval=F}
 #########################
@@ -4802,13 +5011,51 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "Heterogeneity, I^2=76.4%",
-       label.right = "95% CI, [0.0%; 94.6%]",
+       label.left = "",
+       label.right = "",
        labels = long.labels)
 #summary(m.netmeta)
+decomp.design(m.netmeta)
 ```
 
 
+
+#### fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.5,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+
+
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = TRUE,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+```
 
 
 
