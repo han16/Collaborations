@@ -287,7 +287,7 @@ forest.meta(m.gen2, layout="JAMA", sortvar = TE,
 ##### Preemptive medication given 1 hour prior to surgery or longer 
 
 
-###### random effect model 
+*  random effect model 
 
 ```{r, echo=F, message=F, warning=F}
 #####################
@@ -875,6 +875,10 @@ mean1=10; mean2=19
 
 ### network meta-analysis 
 
+
+[network Meta-Analysis](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/netwma.html)
+
+
 ```{r, echo=F, message=F, warning=F}
 
 ############# an example 
@@ -1025,12 +1029,14 @@ forest(m.netmeta,
        smlab = paste("",
                      ""),
        drop.reference.group = TRUE,
-       label.left = "Heterogeneity: I^2=80.6%",
-       label.right = "95% CI, [54.5%; 91.7%]",
+       label.left = "",
+       label.right = "",
        labels = long.labels)
 #summary(m.netmeta)
-
+decomp.design(m.netmeta)
 ```
+
+* random effect model is used, due to significant p values  
 
 * higher P-score, the better it is 
 
