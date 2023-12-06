@@ -100,6 +100,7 @@ data_2023=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\M
 
 ### 2021
 
+
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2021)[6]="Q1"
 data_2021$Q1=tolower(data_2021$Q1) # unify the response all into lower case 
