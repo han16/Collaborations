@@ -177,7 +177,7 @@ count=data_plot$n
 if (length(count)==2)
 { 
  p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
- variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep=" vs ")
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
 } 
 
 if (length(count)>2)
@@ -188,7 +188,7 @@ if (length(count)>2)
   {
     k=k+1
     p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
-    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep=" vs ")
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
   }
 }   
 
@@ -259,7 +259,7 @@ count=data_plot$n
 if (length(count)==2)
 { 
  p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
- variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep=" vs ")
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
 } 
 
 if (length(count)>2)
@@ -270,7 +270,7 @@ if (length(count)>2)
   {
     k=k+1
     p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
-    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep=" vs ")
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
   }
 }   
 
@@ -283,3 +283,1791 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+## Q3
+
+
+```{r, echo=F, message=F, warning=F}
+k=4
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+## Q4
+
+
+```{r, echo=F, message=F, warning=F}
+k=5
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* the third blamk row is `NA`
+
+
+
+
+
+## Q5
+
+
+```{r, echo=F, message=F, warning=F}
+k=6
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+
+
+## Q6
+
+
+```{r, echo=F, message=F, warning=F}
+k=7
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## Q7
+
+
+```{r, echo=F, message=F, warning=F}
+k=8
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+## Q8
+
+
+```{r, echo=F, message=F, warning=F}
+k=9
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q9
+
+
+```{r, echo=F, message=F, warning=F}
+k=10
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## Q10
+
+
+```{r, echo=F, message=F, warning=F}
+k=11
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+## Q11
+
+
+```{r, echo=F, message=F, warning=F}
+k=12
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+## Q12
+
+
+```{r, echo=F, message=F, warning=F}
+k=13
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+## Q13
+
+
+```{r, echo=F, message=F, warning=F}
+k=14
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q14
+
+
+```{r, echo=F, message=F, warning=F}
+k=15
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q15
+
+
+```{r, echo=F, message=F, warning=F}
+k=16
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q16
+
+
+```{r, echo=F, message=F, warning=F}
+k=17
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+## Q17
+
+
+```{r, echo=F, message=F, warning=F}
+k=18
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## Q18
+
+
+```{r, echo=F, message=F, warning=F}
+k=19
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## Q19
+
+
+```{r, echo=F, message=F, warning=F}
+k=20
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## Q20
+
+
+```{r, echo=F, message=F, warning=F}
+k=21
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q21
+
+
+```{r, echo=F, message=F, warning=F}
+k=22
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q22
+
+
+```{r, echo=F, message=F, warning=F}
+k=23
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q23
+
+
+```{r, echo=F, message=F, warning=F}
+k=24
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Q24
+
+
+```{r, echo=F, message=F, warning=F}
+k=25
+question=colnames(data)[k]
+sub_data=data.frame(Q=data[,k])
+colnames(sub_data)="Q"
+sub_data$Q=tolower(sub_data$Q) # unify the response all into lower case 
+data_plot=sub_data%>% dplyr::count(Q)%>% mutate(prop=round(n/nrow(data),4)) 
+
+data_plot=data_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_plot)), sep="_"))
+
+  
+g1=ggplot(data_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_plot%>%
+datatable(extensions = 'Buttons',
+          caption=question,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+p_value=numeric()
+variables=c()
+count=data_plot$n
+if (length(count)==2)
+{ 
+ p_value[1]=pvalue_adjust(binom.test(c(count[1],count[2]))$p.value)
+ variables[1]=paste(data_plot$Q[1], data_plot$Q[2], sep="_vs_")
+} 
+
+if (length(count)>2)
+{
+  k=0
+  for (i in 1:(length(count)-1))
+    for (j in (i+1):length(count))
+  {
+    k=k+1
+    p_value[k]=pvalue_adjust(binom.test(c(count[i],count[j]))$p.value)
+    variables[k]=paste(data_plot$Q[i], data_plot$Q[j], sep="_vs_")
+  }
+}   
+
+data.frame(variables=variables, pvalue=p_value)%>%
+datatable(extensions = 'Buttons',
+          caption=question, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
