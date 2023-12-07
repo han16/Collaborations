@@ -147,3 +147,35 @@ datatable(extensions = 'Buttons',
 ```
 
 * two sample t test was used. 
+
+
+## Sleeve_H vs Sleeveless_H
+
+```{r, echo=F, message=F, warning=F}
+parameters1=colnames(data)[3:12]
+parameters2=c("H2", "H4", "H6")
+pvalue=numeric()
+
+for (i in 1:length(parameters1))
+  for (j in 1:length(parameters2))
+{
+  k=(i-1)*3+j
+  sample1=data %>% filter(methods=="Sleeve" & H==parameters2[j]) %>% select(parameters[i]) %>% pull()
+  sample2=data %>% filter(methods=="Sleeveless" & H==parameters2[j]) %>% select(parameters[i]) %>% pull()
+  if (sd(sample1)==0 & sd(sample2)==0)
+    pvalue[k]=1
+  if (sd(sample1)+sd(sample2)!=0)
+    pvalue[k]=t.test(sample1, sample2)$p.value
+}
+
+data.frame(parameters=paste(rep(parameters1,each=3), parameters2, sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption=" Sleeve vs Sleeveless",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+* p value of 1 may be because both two samples are constant without variations. 
+
