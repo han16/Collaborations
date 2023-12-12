@@ -274,7 +274,7 @@ for (i in 1:length(parameters))
 
 data.frame(parameters=parameters, pvalue=pvalue_adjust(pvalue))%>%
 datatable(extensions = 'Buttons',
-          caption="Sleeveless",
+          caption="",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
