@@ -113,6 +113,14 @@ multiplesheets <- function(fname) {
 }
 
 
+lmp <- function (modelobject) {
+    if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+    f <- summary(modelobject)$fstatistic
+    p <- pf(f[1],f[2],f[3],lower.tail=F)
+    attributes(p) <- NULL
+    return(p)
+}
+
 ```
 
 
@@ -179,3 +187,99 @@ datatable(extensions = 'Buttons',
 ```
 * p value of 1 may be because both two samples are constant without variations. 
 
+
+
+## one way anova 
+
+### Sleeve 
+
+```{r, echo=F, message=F, warning=F}
+parameters=colnames(data)[3:12]
+pvalue=numeric()
+
+for (i in 1:length(parameters))
+{
+  #i=1
+  sub_data=data %>% filter(methods=="Sleeve") %>% select(parameters[i], H)
+  fit=lm(sub_data[,1] %>%pull() ~as.factor(sub_data$H), sub_data)
+  
+  pvalue[i]=lmp(fit)
+}
+
+data.frame(parameters=parameters, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="Sleeve",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* p value less than 5\% indicates significance among `H2, H4, H6`. 
+
+
+
+
+### Sleeveless 
+
+```{r, echo=F, message=F, warning=F}
+parameters=colnames(data)[3:12]
+pvalue=numeric()
+
+for (i in 1:length(parameters))
+{
+  #i=1
+  sub_data=data %>% filter(methods=="Sleeveless") %>% select(parameters[i], H)
+  fit=lm(sub_data[,1] %>%pull() ~as.factor(sub_data$H), sub_data)
+  
+  pvalue[i]=lmp(fit)
+}
+
+data.frame(parameters=parameters, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="Sleeveless",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+
+
+* p value less than 5\% indicates significance among `H2, H4, H6`. 
+
+
+
+
+
+## two way anova: Sleeve X H 
+
+```{r, echo=F, message=F, warning=F}
+parameters=colnames(data)[3:12]
+pvalue=numeric()
+
+for (i in 1:length(parameters))
+{
+  #i=1
+  sub_data=data %>% select(parameters[i], methods, H)
+  fit=lm(sub_data[,1] %>%pull() ~sub_data$H+sub_data$methods+sub_data$H*sub_data$methods, sub_data)
+  
+  pvalue[i]=min(coef(summary(fit))[5:6,4])
+}
+
+data.frame(parameters=parameters, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="Sleeveless",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+p value less than 5\% indicates significant interaction between sleeve and H.
