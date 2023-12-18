@@ -26,7 +26,7 @@ kappa_test=kappa2(ratings)
 kappa_value[i]=kappa_test$value
 kappa_pvalue[i]=kappa_test$p.value
 }
-data.frame(kappa_value=round(kappa_value,4), kappa_pvalue=adjust_pvalue(kappa_pvalue)) %>%
+data.frame(kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "Cohen’s kappa", 
             options = list(dom = 'Blfrtip',
