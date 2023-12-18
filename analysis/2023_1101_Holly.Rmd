@@ -99,3 +99,12 @@ multiplesheets <- function(fname) {
 
 ```
 
+
+
+```{r, echo=F,message=F, warning=F, results=F}
+data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202311\\Holly\\All Data.xlsx")
+```
+
+
+
+
