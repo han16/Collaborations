@@ -63,7 +63,114 @@ datatable(extensions = 'Buttons',
 ## Intra-rater reliability 
 
 
+
+### Kendall's W
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+kendall_pvalue=numeric()
+kendall_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+kendall_test=kendall(ratings,correct = FALSE)
+kendall_pvalue[i]=kendall_test$p.value
+kendall_value[i]=kendall_test$value
+}
+data.frame(sheet=names(data), kendall_value=round(kendall_value,4), kendall_pvalue=pvalue_adjust(kendall_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS IH vs CVMS 2H", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+kendall_pvalue=numeric()
+kendall_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+kendall_test=kendall(ratings,correct = FALSE)
+kendall_pvalue[i]=kendall_test$p.value
+kendall_value[i]=kendall_test$value
+}
+data.frame(sheet=names(data), kendall_value=round(kendall_value,4), kendall_pvalue=pvalue_adjust(kendall_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS 1D vs CVMS 2D", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
 ### ICC
+
+
+```{r, echo=F, message=F, warning=F}
+
+icc_pvalue=numeric()
+icc_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+icc_test=icc(ratings, model ="oneway",  type = "consistency")
+icc_pvalue[i]=icc_test$p.value
+icc_value[i]=icc_test$value
+}
+data.frame(sheet=names(data), icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS IH vs CVMS 2H", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+```{r, echo=F, message=F, warning=F}
+
+icc_pvalue=numeric()
+icc_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+icc_test=icc(ratings, model ="oneway",  type = "consistency")
+icc_pvalue[i]=icc_test$p.value
+icc_value[i]=icc_test$value
+}
+data.frame(sheet=names(data), icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS 1D vs CVMS 2D", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
 
 
 ### repeated measure agreement 
