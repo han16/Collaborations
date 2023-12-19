@@ -22,17 +22,53 @@ for (i in 1:length(data))
 {
 sub_data=data[[i]]
 ratings=sub_data%>% select(`CVMS IH`, `CVMS 1D`) %>% drop_na()
-kappa_test=kappa2(ratings)
+kappa_test=kappa2(ratings, weight="squared")
 kappa_value[i]=kappa_test$value
 kappa_pvalue[i]=kappa_test$p.value
 }
-data.frame(kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+data.frame(sheet=names(data), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
 datatable(extensions = 'Buttons',
-          caption = "Cohen’s kappa", 
+          caption = "CVMS IH vs CVMS 1D", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+* weighed Kappa test was used 
+
+* [reference](https://www.andywills.info/rminr/irr.html)
+
+
+```{r, echo=F, message=F, warning=F}
+kappa_pvalue=numeric()
+kappa_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS 2H`, `CVMS 2D`) %>% drop_na()
+kappa_test=kappa2(ratings, weight="squared")
+kappa_value[i]=kappa_test$value
+kappa_pvalue[i]=kappa_test$p.value
+}
+data.frame(sheet=names(data), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS 2H vs CVMS 2D", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+## Intra-rater reliability 
+
+
+### ICC
+
+
+### repeated measure agreement 
+
+
+* [reference](https://cran.r-project.org/web/packages/SimplyAgree/vignettes/agreement_analysis.html)
 
 
