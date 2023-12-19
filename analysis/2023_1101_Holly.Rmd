@@ -169,11 +169,61 @@ datatable(extensions = 'Buttons',
 
 
 
+* [ICC test was used](https://www.r-bloggers.com/2021/06/intraclass-correlation-coefficient-in-r-quick-guide/) 
 
 
 
 
-### repeated measure agreement 
+### repeated measure agreement-Concordance Correlation Coefficient
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(SimplyAgree)
+
+ccc_pvalue=numeric()
+ccc_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+ccc_test=agree_test(x=ratings[,1],y=ratings[,2], agree.level = .8)
+#ccc_pvalue[i]=icc_test$p.value
+ccc_value[i]=ccc_test$ccc.xy[1]
+}
+data.frame(sheet=names(data), ccc_value=round(unlist(ccc_value),4)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS IH vs CVMS 2H", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+```{r, echo=F, message=F, warning=F}
+library(SimplyAgree)
+
+ccc_pvalue=numeric()
+ccc_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+ccc_test=agree_test(x=ratings[,1],y=ratings[,2], agree.level = .8)
+#ccc_pvalue[i]=icc_test$p.value
+ccc_value[i]=ccc_test$ccc.xy[1]
+}
+data.frame(sheet=names(data), ccc_value=round(unlist(ccc_value),4)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS 1D vs CVMS 2D", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
 
 
 * [reference](https://cran.r-project.org/web/packages/SimplyAgree/vignettes/agreement_analysis.html)
