@@ -26,7 +26,15 @@ kappa_test=kappa2(ratings, weight="squared")
 kappa_value[i]=kappa_test$value
 kappa_pvalue[i]=kappa_test$p.value
 }
-data.frame(sheet=names(data), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS IH`, `CVMS 1D`) %>% drop_na()
+kappa_test=kappa2(ratings, weight="squared")
+kappa_value[i+1]=kappa_test$value
+kappa_pvalue[i+1]=kappa_test$p.value
+
+
+
+data.frame(sheet=c(names(data),"combine"), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS IH vs CVMS 1D", 
             options = list(dom = 'Blfrtip',
@@ -51,7 +59,13 @@ kappa_test=kappa2(ratings, weight="squared")
 kappa_value[i]=kappa_test$value
 kappa_pvalue[i]=kappa_test$p.value
 }
-data.frame(sheet=names(data), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS 2H`, `CVMS 2D`) %>% drop_na()
+kappa_test=kappa2(ratings, weight="squared")
+kappa_value[i+1]=kappa_test$value
+kappa_pvalue[i+1]=kappa_test$p.value
+
+data.frame(sheet=c(names(data), "combine"), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS 2H vs CVMS 2D", 
             options = list(dom = 'Blfrtip',
@@ -82,7 +96,13 @@ kendall_test=kendall(ratings,correct = FALSE)
 kendall_pvalue[i]=kendall_test$p.value
 kendall_value[i]=kendall_test$value
 }
-data.frame(sheet=names(data), kendall_value=round(kendall_value,4), kendall_pvalue=pvalue_adjust(kendall_pvalue)) %>%
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+kendal_test=kendall(ratings, correct = FALSE)
+kendall_value[i+1]=kendall_test$value
+kendall_pvalue[i+1]=kendall_test$p.value
+
+data.frame(sheet=c(names(data), "combine"), kendall_value=round(kendall_value,4), kendall_pvalue=pvalue_adjust(kendall_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS IH vs CVMS 2H", 
             options = list(dom = 'Blfrtip',
@@ -107,7 +127,14 @@ kendall_test=kendall(ratings,correct = FALSE)
 kendall_pvalue[i]=kendall_test$p.value
 kendall_value[i]=kendall_test$value
 }
-data.frame(sheet=names(data), kendall_value=round(kendall_value,4), kendall_pvalue=pvalue_adjust(kendall_pvalue)) %>%
+
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+kendal_test=kendall(ratings, correct = FALSE)
+kendall_value[i+1]=kendall_test$value
+kendall_pvalue[i+1]=kendall_test$p.value
+
+data.frame(sheet=c(names(data), "combine"), kendall_value=round(kendall_value,4), kendall_pvalue=pvalue_adjust(kendall_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS 1D vs CVMS 2D", 
             options = list(dom = 'Blfrtip',
@@ -135,7 +162,14 @@ icc_test=icc(ratings, model ="oneway",  type = "consistency")
 icc_pvalue[i]=icc_test$p.value
 icc_value[i]=icc_test$value
 }
-data.frame(sheet=names(data), icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+icc_test=icc(ratings, model ="oneway",  type = "consistency")
+icc_value[i+1]=icc_test$value
+icc_pvalue[i+1]=icc_test$p.value
+
+data.frame(sheet=c(names(data), "combine"), icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS IH vs CVMS 2H", 
             options = list(dom = 'Blfrtip',
@@ -157,7 +191,14 @@ icc_test=icc(ratings, model ="oneway",  type = "consistency")
 icc_pvalue[i]=icc_test$p.value
 icc_value[i]=icc_test$value
 }
-data.frame(sheet=names(data), icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+icc_test=icc(ratings, model ="oneway",  type = "consistency")
+icc_value[i+1]=icc_test$value
+icc_pvalue[i+1]=icc_test$p.value
+
+data.frame(sheet=c(names(data), "combine"), icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS 1D vs CVMS 2D", 
             options = list(dom = 'Blfrtip',
@@ -188,10 +229,15 @@ for (i in 1:length(data))
 sub_data=data[[i]]
 ratings=sub_data%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
 ccc_test=agree_test(x=ratings[,1],y=ratings[,2], agree.level = .8)
-#ccc_pvalue[i]=icc_test$p.value
 ccc_value[i]=ccc_test$ccc.xy[1]
 }
-data.frame(sheet=names(data), ccc_value=round(unlist(ccc_value),4)) %>%
+
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+ccc_test=agree_test(x=ratings[,1],y=ratings[,2], agree.level = .8)
+ccc_value[i+1]=ccc_test$ccc.xy[1]
+
+data.frame(sheet=c(names(data), "combine"), ccc_value=round(unlist(ccc_value),4)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS IH vs CVMS 2H", 
             options = list(dom = 'Blfrtip',
@@ -214,7 +260,13 @@ ccc_test=agree_test(x=ratings[,1],y=ratings[,2], agree.level = .8)
 #ccc_pvalue[i]=icc_test$p.value
 ccc_value[i]=ccc_test$ccc.xy[1]
 }
-data.frame(sheet=names(data), ccc_value=round(unlist(ccc_value),4)) %>%
+
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+ccc_test=agree_test(x=ratings[,1],y=ratings[,2], agree.level = .8)
+ccc_value[i+1]=ccc_test$ccc.xy[1]
+
+data.frame(sheet=c(names(data), "combine"), ccc_value=round(unlist(ccc_value),4)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS 1D vs CVMS 2D", 
             options = list(dom = 'Blfrtip',

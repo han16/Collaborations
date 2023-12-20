@@ -642,7 +642,16 @@ datatable(extensions = 'Buttons',
 
 
 
-                                  
+#### test When variables reach T2 level 
+
+
+```{r, echo=F, message=F, warning=F}
+
+
+```
+
+
+
 
 
 
