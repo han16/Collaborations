@@ -47,6 +47,8 @@ datatable(extensions = 'Buttons',
 
 * [reference](https://www.andywills.info/rminr/irr.html)
 
+* the last row `combine`, is combining all sheets together 
+
 
 ```{r, echo=F, message=F, warning=F}
 kappa_pvalue=numeric()
