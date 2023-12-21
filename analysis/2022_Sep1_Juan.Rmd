@@ -646,11 +646,27 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-
+parametric_pvalue=numeric()
+non_parametric_pvalue=numeric()
+for (i in 1:5)
+{
+  sample1=data[,(11+i)] %>% pull
+  sample2=rep(0, length(sample1))
+  parametric_pvalue[i]=t.test(sample1, sample2)$p.value
+  non_parametric_pvalue[i]=wilcox.test(sample1, sample2)$p.value
+}
+data.frame(variables=colnames(data)[12:16], parametric_pvalue=pvalue_adjust(parametric_pvalue), non_parametric_pvalue=pvalue_adjust(non_parametric_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
-
+* parametric test is using two sample t test and non-parametric test is wilcox test 
+* p value less than 5% suggests that variable is statistically significant away from 0. 
 
 
 
@@ -819,6 +835,31 @@ datatable(extensions = 'Buttons',
 
 
 
+#### test When variables reach T2 level 
+
+
+```{r, echo=F, message=F, warning=F}
+parametric_pvalue=numeric()
+non_parametric_pvalue=numeric()
+for (i in 1:5)
+{
+  sample1=data[,(16+i)] %>% pull
+  sample2=rep(0, length(sample1))
+  parametric_pvalue[i]=t.test(sample1, sample2)$p.value
+  non_parametric_pvalue[i]=wilcox.test(sample1, sample2)$p.value
+}
+data.frame(variables=colnames(data)[17:21], parametric_pvalue=pvalue_adjust(parametric_pvalue), non_parametric_pvalue=pvalue_adjust(non_parametric_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 ### Lingual_3mm
 
 
@@ -981,6 +1022,33 @@ datatable(extensions = 'Buttons',
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
 * p value less than 0.05 indicates significant effect 
+
+
+#### test When variables reach T2 level 
+
+
+```{r, echo=F, message=F, warning=F}
+parametric_pvalue=numeric()
+non_parametric_pvalue=numeric()
+for (i in 1:5)
+{
+  sample1=data[,(21+i)] %>% pull
+  sample2=rep(0, length(sample1))
+  parametric_pvalue[i]=t.test(sample1, sample2)$p.value
+  non_parametric_pvalue[i]=wilcox.test(sample1, sample2)$p.value
+}
+data.frame(variables=colnames(data)[22:26], parametric_pvalue=pvalue_adjust(parametric_pvalue), non_parametric_pvalue=pvalue_adjust(non_parametric_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 
 
 ###  Vertical_mid
@@ -1149,6 +1217,31 @@ datatable(extensions = 'Buttons',
 * p value less than 0.05 indicates significant effect 
 
 
+#### test When variables reach T2 level 
+
+
+```{r, echo=F, message=F, warning=F}
+parametric_pvalue=numeric()
+non_parametric_pvalue=numeric()
+for (i in 1:5)
+{
+  sample1=data[,(26+i)] %>% pull
+  sample2=rep(0, length(sample1))
+  parametric_pvalue[i]=t.test(sample1, sample2)$p.value
+  non_parametric_pvalue[i]=wilcox.test(sample1, sample2)$p.value
+}
+data.frame(variables=colnames(data)[27:31], parametric_pvalue=pvalue_adjust(parametric_pvalue), non_parametric_pvalue=pvalue_adjust(non_parametric_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 ###  Vertical_max
 
 
@@ -1311,6 +1404,30 @@ datatable(extensions = 'Buttons',
 * site_split2: Anterior: 6-11 and 22-27 vs. posterior: 1-5, 12-21, 28-32
 * site_split3: Sextants: 1-5 vs. 6-11 vs. 12-16 vs. 17-21 vs. 22-27 vs. 28-32
 * p value less than 0.05 indicates significant effect 
+
+
+#### test When variables reach T2 level 
+
+
+```{r, echo=F, message=F, warning=F}
+parametric_pvalue=numeric()
+non_parametric_pvalue=numeric()
+for (i in 1:5)
+{
+  sample1=data[,(31+i)] %>% pull
+  sample2=rep(0, length(sample1))
+  parametric_pvalue[i]=t.test(sample1, sample2)$p.value
+  non_parametric_pvalue[i]=wilcox.test(sample1, sample2)$p.value
+}
+data.frame(variables=colnames(data)[32:36], parametric_pvalue=pvalue_adjust(parametric_pvalue), non_parametric_pvalue=pvalue_adjust(non_parametric_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 
