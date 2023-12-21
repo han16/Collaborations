@@ -100,9 +100,9 @@ kendall_value[i]=kendall_test$value
 }
 combine=bind_rows(data, .id = "column_label")
 ratings=combine%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
-kendal_test=kendall(ratings, correct = FALSE)
-kendall_value[i+1]=kendall_test$value
-kendall_pvalue[i+1]=kendall_test$p.value
+kendall_test=kendall(ratings, correct = FALSE)
+kendall_value[11]=kendall_test$value
+kendall_pvalue[11]=kendall_test$p.value
 
 data.frame(sheet=c(names(data), "combine"), kendall_value=round(kendall_value,4), kendall_pvalue=pvalue_adjust(kendall_pvalue)) %>%
 datatable(extensions = 'Buttons',
@@ -132,7 +132,7 @@ kendall_value[i]=kendall_test$value
 
 combine=bind_rows(data, .id = "column_label")
 ratings=combine%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
-kendal_test=kendall(ratings, correct = FALSE)
+kendall_test=kendall(ratings, correct = FALSE)
 kendall_value[i+1]=kendall_test$value
 kendall_pvalue[i+1]=kendall_test$p.value
 
