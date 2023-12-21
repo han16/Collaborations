@@ -76,6 +76,34 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+### combine 1H+2H, 1D+2D 
+
+
+```{r, echo=F, message=F, warning=F}
+kappa_pvalue=numeric()
+kappa_value=numeric()
+
+combine=bind_rows(data, .id = "column_label")
+ratings1=combine%>% select(`CVMS IH`, `CVMS 1D`) %>% drop_na()
+colnames(ratings1)=c("rater1", "rater2")
+ratings2=combine%>% select(`CVMS 2H`, `CVMS 2D`) %>% drop_na()
+colnames(ratings2)=c("rater1", "rater2")
+ratings=rbind(ratings1, ratings2)
+
+kappa_test=kappa2(ratings, weight="squared")
+kappa_value=kappa_test$value
+kappa_pvalue=kappa_test$p.value
+
+data.frame(sheet=c("1H+2H vs 1D+2D"), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS 1H+2H vs CVMS 1D+2D", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 ## Intra-rater reliability 
 
 
