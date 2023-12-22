@@ -18,6 +18,7 @@ data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202311\\Ho
 ```{r, echo=F, message=F, warning=F}
 kappa_pvalue=numeric()
 kappa_value=numeric()
+num_sample=numeric()
 for (i in 1:length(data))
 {
 sub_data=data[[i]]
@@ -25,16 +26,18 @@ ratings=sub_data%>% select(`CVMS IH`, `CVMS 1D`) %>% drop_na()
 kappa_test=kappa2(ratings, weight="squared")
 kappa_value[i]=kappa_test$value
 kappa_pvalue[i]=kappa_test$p.value
+num_sample[i]=nrow(ratings)
 }
 combine=bind_rows(data, .id = "column_label")
 ratings=combine%>% select(`CVMS IH`, `CVMS 1D`) %>% drop_na()
 kappa_test=kappa2(ratings, weight="squared")
 kappa_value[i+1]=kappa_test$value
 kappa_pvalue[i+1]=kappa_test$p.value
+num_sample[i+1]=nrow(ratings)
 
 
 
-data.frame(sheet=c(names(data),"combine"), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+data.frame(sheet=c(names(data),"combine"), num_sample=num_sample, kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "CVMS IH vs CVMS 1D", 
             options = list(dom = 'Blfrtip',
