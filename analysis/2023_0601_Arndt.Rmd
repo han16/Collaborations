@@ -369,7 +369,7 @@ ggplot(sub_data, aes(x=Age, y=mean, fill=Age)) +geom_bar(stat="identity")+
 ```
 
 
-## Relative risk 
+## Relative risk and odds ratio 
 
 
 ### Age 
