@@ -375,16 +375,31 @@ ggplot(sub_data, aes(x=Age, y=mean, fill=Age)) +geom_bar(stat="identity")+
 ### Age 
 
 ```{r, echo=T, message=F, warning=F}
+library(epitools)
 sub_data=data%>% select(Age, Disease_Y_N) 
 
 total1=nrow(sub_data%>% filter(Age>40)); total2= nrow(sub_data%>% filter(Age<=40))
 disease1=nrow(sub_data%>% filter(Age>40, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(Age<=40, Disease_Y_N=="Y"))
 
 RR=(disease1/total1)/(disease2/total2)
-RR
+#RR
+RR_computing=riskratio.wald(matrix(c(disease1, total1, disease2, total2), nrow=2))
+RR_computing$p.value
+RR_computing$measure
+###################
 OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
-OR
+#OR
+OR_data=matrix(c(disease1,total1-disease1,disease2, total2-disease2), nrow=2)
+OR_computing=oddsratio(OR_data)
+OR_computing$p.value
+OR_computing$measure
+
 ```
+* Relative risk is 1.15, 95% CI is (0.76, 1.74) with p value 0.53 for fisher.exact test 
+
+* odds ratio is 3.84 , 95% CI is (1.18, 13.95) with p value of 0.03 for fisher.exact test 
+
+
 
 ### teet loose 
 
@@ -395,9 +410,18 @@ total1=nrow(sub_data%>% filter(PRSA_4==2)); total2= nrow(sub_data%>% filter(PRSA
 disease1=nrow(sub_data%>% filter(PRSA_4==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_4==1, Disease_Y_N=="Y"))
 
 RR=(disease1/total1)/(disease2/total2)
-RR
+#RR
+RR_computing=riskratio.wald(matrix(c(disease1, total1, disease2, total2), nrow=2))
+RR_computing$p.value
+RR_computing$measure
+###################
 OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
-OR
+#OR
+OR_data=matrix(c(disease1,total1-disease1,disease2, total2-disease2), nrow=2)
+OR_computing=oddsratio(OR_data)
+OR_computing$p.value
+OR_computing$measure
+
 ```
 
 ### smoking 
@@ -409,9 +433,17 @@ total1=nrow(sub_data%>% filter(PRSA_6==2)); total2= nrow(sub_data%>% filter(PRSA
 disease1=nrow(sub_data%>% filter(PRSA_6==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_6==1, Disease_Y_N=="Y"))
 
 RR=(disease1/total1)/(disease2/total2)
-RR
+#RR
+RR_computing=riskratio.wald(matrix(c(disease1, total1, disease2, total2), nrow=2))
+RR_computing$p.value
+RR_computing$measure
+###################
 OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
-OR
+#OR
+OR_data=matrix(c(disease1,total1-disease1,disease2, total2-disease2), nrow=2)
+OR_computing=oddsratio(OR_data)
+OR_computing$p.value
+OR_computing$measure
 ```
 
 
@@ -424,9 +456,17 @@ total1=nrow(sub_data%>% filter(PRSA_5==2)); total2= nrow(sub_data%>% filter(PRSA
 disease1=nrow(sub_data%>% filter(PRSA_5==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_5==1, Disease_Y_N=="Y"))
 
 RR=(disease1/total1)/(disease2/total2)
-RR
+#RR
+RR_computing=riskratio.wald(matrix(c(disease1, total1, disease2, total2), nrow=2))
+RR_computing$p.value
+RR_computing$measure
+###################
 OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
-OR
+#OR
+OR_data=matrix(c(disease1,total1-disease1,disease2, total2-disease2), nrow=2)
+OR_computing=oddsratio(OR_data)
+OR_computing$p.value
+OR_computing$measure
 ```
 
 
@@ -439,9 +479,17 @@ total1=nrow(sub_data%>% filter(PRSA_3==2)); total2= nrow(sub_data%>% filter(PRSA
 disease1=nrow(sub_data%>% filter(PRSA_3==2, Disease_Y_N=="Y")); disease2=nrow(sub_data%>% filter(PRSA_3==1, Disease_Y_N=="Y"))
 
 RR=(disease1/total1)/(disease2/total2)
-RR
+#RR
+RR_computing=riskratio.wald(matrix(c(disease1, total1, disease2, total2), nrow=2))
+RR_computing$p.value
+RR_computing$measure
+###################
 OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
-OR
+#OR
+OR_data=matrix(c(disease1,total1-disease1,disease2, total2-disease2), nrow=2)
+OR_computing=oddsratio(OR_data)
+OR_computing$p.value
+OR_computing$measure
 ```
 
 
