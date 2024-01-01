@@ -383,21 +383,21 @@ disease1=nrow(sub_data%>% filter(Age>40, Disease_Y_N=="Y")); disease2=nrow(sub_d
 
 RR=(disease1/total1)/(disease2/total2)
 #RR
-RR_computing=riskratio.wald(matrix(c(disease1, total1, disease2, total2), nrow=2))
-RR_computing$p.value
-RR_computing$measure
+RR_computing=riskratio(matrix(c(disease1, total1, disease2, total2), nrow=2))
+RR_computing$p.value  # this is p value 
+RR_computing$measure  # CI is reported here 
 ###################
 OR=disease1*(total2-disease2)/((total1-disease1)*disease2)
 #OR
 OR_data=matrix(c(disease1,total1-disease1,disease2, total2-disease2), nrow=2)
 OR_computing=oddsratio(OR_data)
-OR_computing$p.value
-OR_computing$measure
+OR_computing$p.value # this is p value 
+OR_computing$measure # CI is reported here 
 
 ```
-* Relative risk is 1.15, 95% CI is (0.76, 1.74) with p value 0.53 for fisher.exact test 
+* Relative risk is 1.18, 95% CI is (0.76, 1.85) with p value 0.53 for fisher.exact test 
 
-* odds ratio is 3.84 , 95% CI is (1.18, 13.95) with p value of 0.03 for fisher.exact test 
+* odds ratio is 4.33 , 95% CI is (1.32, 15.85) with p value of 0.03 for fisher.exact test 
 
 
 
