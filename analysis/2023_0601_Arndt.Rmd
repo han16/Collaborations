@@ -395,9 +395,9 @@ OR_computing$p.value # this is p value
 OR_computing$measure # CI is reported here 
 
 ```
-* Relative risk is 1.18, 95% CI is (0.76, 1.85) with p value 0.53 for fisher.exact test 
+* Relative risk is 1.18, 95% CI is (0.76, 1.85) with p value 0.51 for fisher.exact test 
 
-* odds ratio is 4.33 , 95% CI is (1.32, 15.85) with p value of 0.03 for fisher.exact test 
+* odds ratio is 4.33 , 95% CI is (1.32, 15.85) with p value of 0.014 for fisher.exact test 
 
 
 
