@@ -13,8 +13,42 @@ data=as_tibble(data_raw[[1]])
 
 ## survival analysis of SSCs 
 
-
+### basic numbers 
 
 ```{r, echo=F, message=F, warning=F}
+data_ssc_survival=data %>% select(`SSC Placement Technique`, `6-month`, `12-month`, `18-month`, `24-month`, `30-month`, `36-month`, `42-month`, `48-month`, `54-month`, `60-month`, `66-month`)
 
+time_point=c("6-month", "12-month", "18-month", "24-month", "30-month", "36-month", "42-month", "48-month", "54-month", "60-month", "66-month")
+#time_point=seq(6,66,by=6)
+
+TT=numeric()
+HT=numeric()
+for (i in 1:length(time_point))
+{
+  TT[i]=sum(data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(time_point[i]) %>% pull()==1) # count survivors at every time point  
+  HT[i]=sum(data_ssc_survival %>% filter(`SSC Placement Technique`==2) %>% select(time_point[i]) %>% pull()==1)
+}
+time_point[1]="06-month"
+TT_HT=data.frame(num_success=c(TT, HT), time_point= rep(time_point,2), technique=c(rep("TT", length(time_point)), rep("HT", length(time_point))))
+
+ggplot(data = TT_HT, aes(x = time_point, y = num_success, fill = technique)) +
+  geom_bar(stat = "identity", position = position_dodge(), alpha = 0.75)  +
+  ylim(0,400) +
+  geom_text(aes(label = num_success), fontface = "bold", vjust = 1.5, 
+             position = position_dodge(.9), size = 4) +
+  labs(x = "\n time ", y = "#. success:SSC=1\n", title = "\n  \n") +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="red", size = 12),
+        axis.title.y = element_text(face="bold", colour="red", size = 12),
+        legend.title = element_text(face="bold", size = 10))+
+   theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+    size = 12, hjust = 1))
+
+```
+
+### Kaplan-Meier survival analyses 
+
+```{r, echo=F, message=F, warning=F}
+library(survival)
+?Surv
 ```
