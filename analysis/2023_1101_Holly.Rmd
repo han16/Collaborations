@@ -177,7 +177,7 @@ datatable(extensions = 'Buttons',
 
 ```
 
-
+* [wiki introduction](https://en.wikipedia.org/wiki/Kendall%27s_W)
 
 
 ### ICC
@@ -244,6 +244,8 @@ datatable(extensions = 'Buttons',
 
 
 * [ICC test was used](https://www.r-bloggers.com/2021/06/intraclass-correlation-coefficient-in-r-quick-guide/) 
+
+* [Detailed introduction to ICC](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4913118/)
 
 
 
@@ -312,5 +314,7 @@ datatable(extensions = 'Buttons',
 
 
 * [reference](https://cran.r-project.org/web/packages/SimplyAgree/vignettes/agreement_analysis.html)
+
+* [comparison between ICC and CCC](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5004097/)
 
 
