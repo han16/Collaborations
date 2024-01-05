@@ -388,7 +388,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-03
+<strong>Last updated:</strong> 2024-01-05
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -548,15 +548,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecdd95b881920452af39bebbe04ea437f1853349btargetblankcdd95b8a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7b9322bb209fba268c4d2120e4bcfdff76a8ae0ftargetblank7b9322ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/cdd95b881920452af39bebbe04ea437f1853349b" target="_blank">cdd95b8</a>
+<a href="https://github.com/han16/Collaborations/tree/7b9322bb209fba268c4d2120e4bcfdff76a8ae0f" target="_blank">7b9322b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecdd95b881920452af39bebbe04ea437f1853349btargetblankcdd95b8a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7b9322bb209fba268c4d2120e4bcfdff76a8ae0ftargetblank7b9322ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/cdd95b881920452af39bebbe04ea437f1853349b" target="_blank">cdd95b8</a>.
+<a href="https://github.com/han16/Collaborations/tree/7b9322bb209fba268c4d2120e4bcfdff76a8ae0f" target="_blank">7b9322b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -587,6 +587,7 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2023_12_03_Cem.Rmd
+    Modified:   analysis/Rfunctions.R
 
 </code></pre>
 <p>
@@ -632,6 +633,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ad3ea5187f17a08eb92999b941b75113edc1a386/analysis/2023_12_03_Cem.Rmd" target="_blank">ad3ea51</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-03
+</td>
+<td>
+1/3/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ad3ea5187f17a08eb92999b941b75113edc1a386/docs/2023_12_03_Cem.html" target="_blank">ad3ea51</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-03
+</td>
+<td>
+1/3/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -726,7 +761,73 @@ han
 </div>
 <div id="survival-analysis-of-sscs" class="section level2">
 <h2>survival analysis of SSCs</h2>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="basic-numbers" class="section level3">
+<h3>basic numbers</h3>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
+* only include HT and TT</p>
+</div>
+<div id="kaplan-meier-survival-analyses" class="section level3">
+<h3>Kaplan-Meier survival analyses</h3>
+<pre><code>Call: survfit(formula = Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete)
+
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+    0    698     187  0.73209 0.01676      0.69996       0.7657
+    6    511      58  0.64900 0.01807      0.61454       0.6854
+   12    453      47  0.58166 0.01867      0.54619       0.6194
+   18    406      81  0.46562 0.01888      0.43004       0.5041
+   24    325     140  0.26504 0.01671      0.23424       0.2999
+   30    185      94  0.13037 0.01274      0.10764       0.1579
+   36     91      64  0.03868 0.00730      0.02672       0.0560
+   42     27       9  0.02579 0.00600      0.01635       0.0407
+   48     18      13  0.00716 0.00319      0.00299       0.0172
+   54      5       5  0.00000     NaN           NA           NA</code></pre>
+<pre><code>List of 16
+ $ n        : int 698
+ $ time     : num [1:10] 0 6 12 18 24 30 36 42 48 54
+ $ n.risk   : num [1:10] 698 511 453 406 325 185 91 27 18 5
+ $ n.event  : num [1:10] 187 58 47 81 140 94 64 9 13 5
+ $ n.censor : num [1:10] 0 0 0 0 0 0 0 0 0 0
+ $ surv     : num [1:10] 0.732 0.649 0.582 0.466 0.265 ...
+ $ std.err  : num [1:10] 0.0229 0.0278 0.0321 0.0405 0.063 ...
+ $ cumhaz   : num [1:10] 0.268 0.381 0.485 0.685 1.115 ...
+ $ std.chaz : num [1:10] 0.0196 0.0246 0.0289 0.0364 0.0515 ...
+ $ type     : chr &quot;right&quot;
+ $ logse    : logi TRUE
+ $ conf.int : num 0.95
+ $ conf.type: chr &quot;log&quot;
+ $ lower    : num [1:10] 0.7 0.615 0.546 0.43 0.234 ...
+ $ upper    : num [1:10] 0.766 0.685 0.619 0.504 0.3 ...
+ $ call     : language survfit(formula = Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete)
+ - attr(*, &quot;class&quot;)= chr &quot;survfit&quot;</code></pre>
+<pre><code>Call: survfit(formula = Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete)
+
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+    0    698     187  0.73209 0.01676      0.69996       0.7657
+    6    511      58  0.64900 0.01807      0.61454       0.6854
+   12    453      47  0.58166 0.01867      0.54619       0.6194
+   18    406      81  0.46562 0.01888      0.43004       0.5041
+   24    325     140  0.26504 0.01671      0.23424       0.2999
+   30    185      94  0.13037 0.01274      0.10764       0.1579
+   36     91      64  0.03868 0.00730      0.02672       0.0560
+   42     27       9  0.02579 0.00600      0.01635       0.0407
+   48     18      13  0.00716 0.00319      0.00299       0.0172
+   54      5       5  0.00000     NaN           NA           NA</code></pre>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>*<a
+href="https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html">reference</a></p>
+<pre><code>Call:
+survdiff(formula = Surv(survival_time, status) ~ SSC_Placement_Technique, 
+    data = data_ssc_survival_complete)
+
+                            N Observed Expected (O-E)^2/E (O-E)^2/V
+SSC_Placement_Technique=1 225      225      255      3.48      9.01
+SSC_Placement_Technique=2 473      473      443      2.00      9.01
+
+ Chisq= 9  on 1 degrees of freedom, p= 0.003 </code></pre>
+<ul>
+<li>there is a significant difference in survival time between TT and
+HT</li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -754,39 +855,42 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] irr_0.84.1         lpSolve_5.6.18     readxl_1.4.2       cowplot_1.1.1     
- [5] matrixStats_0.63.0 gridExtra_2.3      DT_0.27            rstatix_0.7.2     
- [9] ggpubr_0.6.0       kableExtra_1.3.4   forcats_1.0.0      stringr_1.5.0     
-[13] dplyr_1.0.10       purrr_1.0.1        readr_2.1.4        tidyr_1.3.0       
-[17] tibble_3.1.8       ggplot2_3.4.1      tidyverse_1.3.2   
+ [1] survival_3.4-0     condsurv_1.0.0     ggsurvfit_1.0.0    lubridate_1.9.2   
+ [5] irr_0.84.1         lpSolve_5.6.18     readxl_1.4.2       cowplot_1.1.1     
+ [9] matrixStats_0.63.0 gridExtra_2.3      DT_0.27            rstatix_0.7.2     
+[13] ggpubr_0.6.0       kableExtra_1.3.4   forcats_1.0.0      stringr_1.5.0     
+[17] dplyr_1.0.10       purrr_1.0.1        readr_2.1.4        tidyr_1.3.0       
+[21] tibble_3.1.8       ggplot2_3.4.1      tidyverse_1.3.2   
 
 loaded via a namespace (and not attached):
- [1] fs_1.5.2            lubridate_1.9.2     webshot_0.5.4      
- [4] httr_1.4.5          rprojroot_2.0.3     tools_4.2.2        
- [7] backports_1.4.1     bslib_0.4.2         utf8_1.2.2         
-[10] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
-[13] withr_2.5.0         tidyselect_1.2.0    compiler_4.2.2     
-[16] git2r_0.31.0        cli_3.4.1           rvest_1.0.3        
-[19] xml2_1.3.3          labeling_0.4.2      sass_0.4.5         
-[22] scales_1.2.1        systemfonts_1.0.4   digest_0.6.31      
-[25] rmarkdown_2.20      svglite_2.1.1       pkgconfig_2.0.3    
-[28] htmltools_0.5.4     dbplyr_2.3.0        fastmap_1.1.0      
-[31] highr_0.10          htmlwidgets_1.6.1   rlang_1.0.6        
-[34] rstudioapi_0.14     farver_2.1.1        jquerylib_0.1.4    
-[37] generics_0.1.3      jsonlite_1.8.4      car_3.1-1          
-[40] googlesheets4_1.0.1 magrittr_2.0.3      Rcpp_1.0.9         
-[43] munsell_0.5.0       fansi_1.0.3         abind_1.4-5        
-[46] lifecycle_1.0.3     stringi_1.7.8       whisker_0.4.1      
-[49] yaml_2.3.7          carData_3.0-5       promises_1.2.0.1   
-[52] crayon_1.5.2        haven_2.5.1         hms_1.1.2          
-[55] knitr_1.42          pillar_1.8.1        ggsignif_0.6.4     
-[58] reprex_2.0.2        glue_1.6.2          evaluate_0.20      
-[61] modelr_0.1.10       vctrs_0.5.2         tzdb_0.3.0         
-[64] httpuv_1.6.9        cellranger_1.1.0    gtable_0.3.1       
-[67] assertthat_0.2.1    cachem_1.0.7        xfun_0.37          
-[70] broom_1.0.3         later_1.3.0         googledrive_2.0.0  
-[73] viridisLite_0.4.1   gargle_1.3.0        workflowr_1.7.0    
-[76] timechange_0.2.0    ellipsis_0.3.2     </code></pre>
+ [1] fs_1.6.3            webshot_0.5.4       httr_1.4.5         
+ [4] rprojroot_2.0.3     tools_4.2.2         backports_1.4.1    
+ [7] bslib_0.4.2         utf8_1.2.2          R6_2.5.1           
+[10] DBI_1.1.3           colorspace_2.0-3    withr_2.5.0        
+[13] tidyselect_1.2.0    compiler_4.2.2      git2r_0.31.0       
+[16] cli_3.4.1           rvest_1.0.3         xml2_1.3.3         
+[19] labeling_0.4.2      sass_0.4.5          scales_1.2.1       
+[22] systemfonts_1.0.4   digest_0.6.31       rmarkdown_2.20     
+[25] svglite_2.1.1       pkgconfig_2.0.3     htmltools_0.5.4    
+[28] dbplyr_2.3.0        fastmap_1.1.0       highr_0.10         
+[31] htmlwidgets_1.6.1   rlang_1.0.6         rstudioapi_0.14    
+[34] farver_2.1.1        jquerylib_0.1.4     generics_0.1.3     
+[37] jsonlite_1.8.4      car_3.1-1           googlesheets4_1.0.1
+[40] magrittr_2.0.3      patchwork_1.1.3     Matrix_1.5-1       
+[43] Rcpp_1.0.9          munsell_0.5.0       fansi_1.0.3        
+[46] abind_1.4-5         lifecycle_1.0.3     stringi_1.7.8      
+[49] whisker_0.4.1       yaml_2.3.7          carData_3.0-5      
+[52] promises_1.2.0.1    crayon_1.5.2        lattice_0.20-45    
+[55] splines_4.2.2       haven_2.5.1         hms_1.1.2          
+[58] knitr_1.42          pillar_1.9.0        ggsignif_0.6.4     
+[61] reprex_2.0.2        glue_1.6.2          evaluate_0.20      
+[64] modelr_0.1.10       vctrs_0.5.2         tzdb_0.3.0         
+[67] httpuv_1.6.9        cellranger_1.1.0    gtable_0.3.1       
+[70] assertthat_0.2.1    cachem_1.0.7        xfun_0.37          
+[73] broom_1.0.3         later_1.3.0         googledrive_2.0.0  
+[76] viridisLite_0.4.1   gargle_1.3.0        workflowr_1.7.0    
+[79] timechange_0.2.0    ellipsis_0.3.2     </code></pre>
+</div>
 </div>
 </div>
 
