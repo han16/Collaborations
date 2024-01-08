@@ -548,15 +548,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeeea66e767f57e3e41534fc238e167f5f589161d7targetblankeea66e7a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559dtargetblank9c63f4ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/eea66e767f57e3e41534fc238e167f5f589161d7" target="_blank">eea66e7</a>
+<a href="https://github.com/han16/Collaborations/tree/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d" target="_blank">9c63f4b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeeea66e767f57e3e41534fc238e167f5f589161d7targetblankeea66e7a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559dtargetblank9c63f4ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/eea66e767f57e3e41534fc238e167f5f589161d7" target="_blank">eea66e7</a>.
+<a href="https://github.com/han16/Collaborations/tree/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d" target="_blank">9c63f4b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -632,6 +632,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d/analysis/2023_12_03_Cem.Rmd" target="_blank">9c63f4b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-08
+</td>
+<td>
+1/8/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d/docs/2023_12_03_Cem.html" target="_blank">9c63f4b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-08
+</td>
+<td>
+1/8/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -890,6 +924,20 @@ SSC_Placement_Technique=2 473      473      443      2.00      9.01
 <li>there is a significant difference in survival time between TT and
 HT</li>
 </ul>
+</div>
+</div>
+</div>
+<div id="covariate-effect-on-survival-of-sscs" class="section level2">
+<h2>covariate effect on survival of SSCs</h2>
+<pre><code>Call:
+coxph(formula = Surv(survival_time, status) ~ `Age on Tx Date`, 
+    data = data_ssc_survival_complete)
+
+                     coef exp(coef) se(coef)     z        p
+`Age on Tx Date` 0.009392  1.009436 0.002345 4.005 6.19e-05
+
+Likelihood ratio test=15.76  on 1 df, p=7.209e-05
+n= 698, number of events= 698 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -952,8 +1000,6 @@ loaded via a namespace (and not attached):
 [73] broom_1.0.3         later_1.3.0         googledrive_2.0.0  
 [76] viridisLite_0.4.1   gargle_1.3.0        workflowr_1.7.0    
 [79] timechange_0.2.0    ellipsis_0.3.2     </code></pre>
-</div>
-</div>
 </div>
 </div>
 

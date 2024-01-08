@@ -16,7 +16,7 @@ data=as_tibble(data_raw[[1]])
 ### basic numbers 
 
 ```{r, echo=F, message=F, warning=F}
-data_ssc_survival=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% select(`SSC Placement Technique`, `6-month`, `12-month`, `18-month`, `24-month`, `30-month`, `36-month`, `42-month`, `48-month`, `54-month`, `60-month`, `66-month`, `Age on Tx Date`, `Behavior`)
+data_ssc_survival=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% select(`SSC Placement Technique`, `6-month`, `12-month`, `18-month`, `24-month`, `30-month`, `36-month`, `42-month`, `48-month`, `54-month`, `60-month`, `66-month`, `Age on Tx Date`, `Behavior`, `Tx. Site`, `Tx Provider`)
 
 time_point=c("6-month", "12-month", "18-month", "24-month", "30-month", "36-month", "42-month", "48-month", "54-month", "60-month", "66-month")
 #time_point=seq(6,66,by=6)
@@ -111,7 +111,9 @@ survdiff(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
 ## covariate effect on survival of SSCs
 
 ```{r, echo=F, message=F, warning=F}
-data_ssc_survival_complete2=
+coxph(Surv(survival_time, status) ~ `Age on Tx Date`, data = data_ssc_survival_complete)
+#%>% 
+#  tbl_regression(exp = TRUE) 
 ```
 
 
