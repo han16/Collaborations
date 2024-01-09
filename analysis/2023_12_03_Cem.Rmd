@@ -161,3 +161,18 @@ coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_su
 * `D3				: 1` is the reference group 
 
 
+
+## the effect of the SSC placement technique (TT vs. HT) on the need to use advanced behavior management ? 
+
+
+
+## analyze the effect of patient’s age and behavior score on the number of SSCs received by the patient at the same appointment
+
+
+
+
+
+
+
+
+
