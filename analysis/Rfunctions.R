@@ -13,9 +13,11 @@ library(irr)
 
 library(lubridate)
 library(ggsurvfit)
-#library(gtsummary)
-#library(tidycmprsk)
+library(gtsummary)
+library(tidycmprsk)
 
+#install.packages("devtools")
+library(devtools)
 # devtools::install_github("zabore/condsurv")
 library(condsurv)
 
