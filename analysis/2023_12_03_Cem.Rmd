@@ -6,7 +6,7 @@ date: "2023-12-18"
 
 ```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
-data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202310\\Cem\\Dr Han Excel workbook-Hall SSC study.xlsx")
+data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202310\\Cem\\Dr Han Excel workbook-Hall SSC study_20240116.xlsx")
 data=as_tibble(data_raw[[1]])
 ```
 
@@ -16,7 +16,7 @@ data=as_tibble(data_raw[[1]])
 ### basic numbers 
 
 ```{r, echo=F, message=F, warning=F}
-data_ssc_survival=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% select(`SSC Placement Technique`, `6-month`, `12-month`, `18-month`, `24-month`, `30-month`, `36-month`, `42-month`, `48-month`, `54-month`, `60-month`, `66-month`, `Age on Tx Date`, `Behavior`, `Tx. Site`, `Tx Provider`)
+data_ssc_survival=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% select(`SSC Placement Technique`, `6-month`, `12-month`, `18-month`, `24-month`, `30-month`, `36-month`, `42-month`, `48-month`, `54-month`, `60-month`, `66-month`, `Age on Tx Date`, `Behavior`, `Tx. Site`, `Tx Provider`)  # only include TT, HT two methods 
 
 time_point=c("6-month", "12-month", "18-month", "24-month", "30-month", "36-month", "42-month", "48-month", "54-month", "60-month", "66-month")
 #time_point=seq(6,66,by=6)
@@ -48,6 +48,18 @@ ggplot(data = TT_HT, aes(x = time_point, y = num_success, fill = technique)) +
 * only include HT and TT 
 
 
+
+## patient age between TT and HT 
+
+```{r, echo=T, message=F, warning=F}
+sample1=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(`Age on Tx Date`) %>% pull()
+sample2=data_ssc_survival %>% filter(`SSC Placement Technique`==2) %>% select(`Age on Tx Date`) %>% pull()
+t.test(sample1, sample2)
+```
+
+
+
+
 ### Kaplan-Meier survival analyses 
 
 ```{r, echo=F, message=F, warning=F}
@@ -55,11 +67,32 @@ library(survival)
 
 
 ######## compute survival time for every tooth 
-survival_time=numeric()
+survival_time=numeric(); status=numeric()
+num_ones=numeric(); num_threes=numeric();num_zeros=numeric() 
 for (i in 1:nrow(data_ssc_survival))
-  survival_time[i]=(sum(as.numeric(data_ssc_survival[i,2:12])==1)+1)*6 # survival time in months 
+{
+  num_ones[i]=sum(as.numeric(data_ssc_survival[i,2:12])==1)
+  if (as.numeric(data_ssc_survival[i,num_ones[i]+2])==2)  # 1--->2
+   survival_time[i]=(num_ones[i]+1)*6 # survival time in months 
+  
+  if (as.numeric(data_ssc_survival[i,num_ones[i]+2])==3)  # 1--->3
+  {
+    num_threes[i]=sum(as.numeric(data_ssc_survival[i,2:12])==3)
+    survival_time[i]=(num_ones[i]+num_threes[i]+1)*6 # survival time in months
+  }
+  
+  if (as.numeric(data_ssc_survival[i,num_ones[i]+2])==0)  # 1--->0
+     survival_time[i]=(num_ones[i]+1)*6 # survival time in months
+  
+  num_zeros[i]=sum(as.numeric(data_ssc_survival[i,2:12])==0)
+  if (num_zeros[i]>0) # there is drop off
+    status[i]=0
+  if (num_zeros[i]==0) # no drop off, i.e. observed data
+    status[i]=1
+  
+}
 
-data_ssc_survival_complete=data_ssc_survival %>% add_column(survival_time=survival_time, status=rep(1, length(survival_time))) %>% drop_na()  
+data_ssc_survival_complete=data_ssc_survival %>% add_column(survival_time=survival_time, status=status) %>% drop_na()  
 colnames(data_ssc_survival_complete)[1]="SSC_Placement_Technique"
 
 
@@ -78,7 +111,6 @@ survfit2(Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete) %>%
   add_risktable()
 
 
-colnames(data_ssc_survival_complete)[1]="SSC_Placement_Technique"
 survfit2(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_survival_complete) %>% 
   ggsurvfit() +
   labs(
@@ -162,7 +194,7 @@ coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_su
 
 
 
-## the effect of the SSC placement technique (TT vs. HT) on the need to use advanced behavior management ? 
+## the effect of the SSC placement technique (TT vs. HT) on the need to use advanced behavior management and on the patients’ behavior scores  ? 
 
 
 

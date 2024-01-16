@@ -388,7 +388,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-09
+<strong>Last updated:</strong> 2024-01-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -548,15 +548,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeda75c757c209c67fcf07472c2eb3885916040b91targetblankda75c75a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree68deee2dfe824ebebcf4f6bac41e38e92938863btargetblank68deee2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/da75c757c209c67fcf07472c2eb3885916040b91" target="_blank">da75c75</a>
+<a href="https://github.com/han16/Collaborations/tree/68deee2dfe824ebebcf4f6bac41e38e92938863b" target="_blank">68deee2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeda75c757c209c67fcf07472c2eb3885916040b91targetblankda75c75a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree68deee2dfe824ebebcf4f6bac41e38e92938863btargetblank68deee2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/da75c757c209c67fcf07472c2eb3885916040b91" target="_blank">da75c75</a>.
+<a href="https://github.com/han16/Collaborations/tree/68deee2dfe824ebebcf4f6bac41e38e92938863b" target="_blank">68deee2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -632,6 +632,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68deee2dfe824ebebcf4f6bac41e38e92938863b/analysis/2023_12_03_Cem.Rmd" target="_blank">68deee2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-09
+</td>
+<td>
+1/9/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/68deee2dfe824ebebcf4f6bac41e38e92938863b/docs/2023_12_03_Cem.html" target="_blank">68deee2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-09
+</td>
+<td>
+1/9/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -985,137 +1019,54 @@ han
 <li>only include HT and TT</li>
 </ul>
 </div>
+</div>
+<div id="patient-age-between-tt-and-ht" class="section level2">
+<h2>patient age between TT and HT</h2>
+<pre class="r"><code>sample1=data_ssc_survival %&gt;% filter(`SSC Placement Technique`==1) %&gt;% select(`Age on Tx Date`) %&gt;% pull()
+sample2=data_ssc_survival %&gt;% filter(`SSC Placement Technique`==2) %&gt;% select(`Age on Tx Date`) %&gt;% pull()
+t.test(sample1, sample2)</code></pre>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  sample1 and sample2
+t = 8.5615, df = 420.92, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  8.941567 14.270855
+sample estimates:
+mean of x mean of y 
+ 84.07556  72.46934 </code></pre>
 <div id="kaplan-meier-survival-analyses" class="section level3">
 <h3>Kaplan-Meier survival analyses</h3>
 <pre><code>List of 16
- $ n        : int 698
- $ time     : num [1:10] 6 12 18 24 30 36 42 48 54 60
- $ n.risk   : num [1:10] 698 511 453 406 325 185 91 27 18 5
- $ n.event  : num [1:10] 187 58 47 81 140 94 64 9 13 5
- $ n.censor : num [1:10] 0 0 0 0 0 0 0 0 0 0
- $ surv     : num [1:10] 0.732 0.649 0.582 0.466 0.265 ...
- $ std.err  : num [1:10] 0.0229 0.0278 0.0321 0.0405 0.063 ...
- $ cumhaz   : num [1:10] 0.268 0.381 0.485 0.685 1.115 ...
- $ std.chaz : num [1:10] 0.0196 0.0246 0.0289 0.0364 0.0515 ...
+ $ n        : int 696
+ $ time     : num [1:11] 6 12 18 24 30 36 42 48 54 60 ...
+ $ n.risk   : num [1:11] 696 509 454 414 357 240 161 108 102 95 ...
+ $ n.event  : num [1:11] 4 9 3 1 3 0 0 1 0 0 ...
+ $ n.censor : num [1:11] 183 46 37 56 114 79 53 5 7 5 ...
+ $ surv     : num [1:11] 0.994 0.977 0.97 0.968 0.96 ...
+ $ std.err  : num [1:11] 0.00288 0.00661 0.00764 0.00801 0.00938 ...
+ $ cumhaz   : num [1:11] 0.00575 0.02343 0.03004 0.03245 0.04086 ...
+ $ std.chaz : num [1:11] 0.00287 0.00656 0.00759 0.00796 0.00932 ...
  $ type     : chr &quot;right&quot;
  $ logse    : logi TRUE
  $ conf.int : num 0.95
  $ conf.type: chr &quot;log&quot;
- $ lower    : num [1:10] 0.7 0.615 0.546 0.43 0.234 ...
- $ upper    : num [1:10] 0.766 0.685 0.619 0.504 0.3 ...
+ $ lower    : num [1:11] 0.989 0.964 0.956 0.953 0.942 ...
+ $ upper    : num [1:11] 1 0.989 0.985 0.983 0.978 ...
  $ call     : language survfit(formula = Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete)
  - attr(*, &quot;class&quot;)= chr &quot;survfit&quot;</code></pre>
 <pre><code>Call: survfit(formula = Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete)
 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
-    6    698     187  0.73209 0.01676      0.69996       0.7657
-   12    511      58  0.64900 0.01807      0.61454       0.6854
-   18    453      47  0.58166 0.01867      0.54619       0.6194
-   24    406      81  0.46562 0.01888      0.43004       0.5041
-   30    325     140  0.26504 0.01671      0.23424       0.2999
-   36    185      94  0.13037 0.01274      0.10764       0.1579
-   42     91      64  0.03868 0.00730      0.02672       0.0560
-   48     27       9  0.02579 0.00600      0.01635       0.0407
-   54     18      13  0.00716 0.00319      0.00299       0.0172
-   60      5       5  0.00000     NaN           NA           NA</code></pre>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/eea66e767f57e3e41534fc238e167f5f589161d7/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-1.png" target="_blank">eea66e7</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/9bdae9252f030f1b357f996534783e18262ee8f5/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-1.png" target="_blank">9bdae92</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
-Past versions of unnamed-chunk-3-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/eea66e767f57e3e41534fc238e167f5f589161d7/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-2.png" target="_blank">eea66e7</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/9bdae9252f030f1b357f996534783e18262ee8f5/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-3-2.png" target="_blank">9bdae92</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+    6    696       4    0.994 0.00287        0.989        1.000
+   12    509       9    0.977 0.00645        0.964        0.989
+   18    454       3    0.970 0.00741        0.956        0.985
+   24    414       1    0.968 0.00775        0.953        0.983
+   30    357       3    0.960 0.00900        0.942        0.978
+   48    108       1    0.951 0.01256        0.927        0.976
+   72     90      90    0.000     NaN           NA           NA</code></pre>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p><a
 href="https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html">reference</a></p></li>
@@ -1131,10 +1082,10 @@ survdiff(formula = Surv(survival_time, status) ~ SSC_Placement_Technique,
     data = data_ssc_survival_complete)
 
                             N Observed Expected (O-E)^2/E (O-E)^2/V
-SSC_Placement_Technique=1 225      225      255      3.48      9.01
-SSC_Placement_Technique=2 473      473      443      2.00      9.01
+SSC_Placement_Technique=1 225       53     54.8    0.0609     0.743
+SSC_Placement_Technique=2 471       58     56.2    0.0594     0.743
 
- Chisq= 9  on 1 degrees of freedom, p= 0.003 </code></pre>
+ Chisq= 0.7  on 1 degrees of freedom, p= 0.4 </code></pre>
 <ul>
 <li>there is a significant difference in survival time between TT and
 HT</li>
@@ -1596,9 +1547,9 @@ HT</li>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="label" class="gt_row gt_left">Age on Tx Date</td>
-<td headers="estimate" class="gt_row gt_center">1.01</td>
-<td headers="ci" class="gt_row gt_center">1.00, 1.01</td>
-<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+<td headers="estimate" class="gt_row gt_center">1.00</td>
+<td headers="ci" class="gt_row gt_center">0.99, 1.01</td>
+<td headers="p.value" class="gt_row gt_center">0.5</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -2074,33 +2025,33 @@ e.g. death)</p></li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    B</td>
-<td headers="estimate" class="gt_row gt_center">0.93</td>
-<td headers="ci" class="gt_row gt_center">0.67, 1.29</td>
-<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
+<td headers="estimate" class="gt_row gt_center">1.07</td>
+<td headers="ci" class="gt_row gt_center">0.49, 2.34</td>
+<td headers="p.value" class="gt_row gt_center">0.9</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    I</td>
-<td headers="estimate" class="gt_row gt_center">1.04</td>
-<td headers="ci" class="gt_row gt_center">0.75, 1.44</td>
-<td headers="p.value" class="gt_row gt_center">0.8</td></tr>
-    <tr><td headers="label" class="gt_row gt_left">    J</td>
-<td headers="estimate" class="gt_row gt_center">0.91</td>
-<td headers="ci" class="gt_row gt_center">0.65, 1.27</td>
+<td headers="estimate" class="gt_row gt_center">1.26</td>
+<td headers="ci" class="gt_row gt_center">0.59, 2.69</td>
 <td headers="p.value" class="gt_row gt_center">0.6</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    J</td>
+<td headers="estimate" class="gt_row gt_center">0.99</td>
+<td headers="ci" class="gt_row gt_center">0.43, 2.29</td>
+<td headers="p.value" class="gt_row gt_center">>0.9</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    K</td>
-<td headers="estimate" class="gt_row gt_center">0.98</td>
-<td headers="ci" class="gt_row gt_center">0.71, 1.36</td>
+<td headers="estimate" class="gt_row gt_center">1.07</td>
+<td headers="ci" class="gt_row gt_center">0.46, 2.48</td>
 <td headers="p.value" class="gt_row gt_center">0.9</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    L</td>
-<td headers="estimate" class="gt_row gt_center">0.88</td>
-<td headers="ci" class="gt_row gt_center">0.65, 1.19</td>
-<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.99</td>
+<td headers="ci" class="gt_row gt_center">0.45, 2.21</td>
+<td headers="p.value" class="gt_row gt_center">>0.9</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    S</td>
-<td headers="estimate" class="gt_row gt_center">0.87</td>
-<td headers="ci" class="gt_row gt_center">0.64, 1.18</td>
-<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
+<td headers="estimate" class="gt_row gt_center">1.16</td>
+<td headers="ci" class="gt_row gt_center">0.52, 2.59</td>
+<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    T</td>
-<td headers="estimate" class="gt_row gt_center">0.98</td>
-<td headers="ci" class="gt_row gt_center">0.71, 1.35</td>
-<td headers="p.value" class="gt_row gt_center">0.9</td></tr>
+<td headers="estimate" class="gt_row gt_center">1.31</td>
+<td headers="ci" class="gt_row gt_center">0.55, 3.16</td>
+<td headers="p.value" class="gt_row gt_center">0.5</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -2568,9 +2519,9 @@ hazard.</p></li>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="label" class="gt_row gt_left">SSC_Placement_Technique</td>
-<td headers="estimate" class="gt_row gt_center">1.34</td>
-<td headers="ci" class="gt_row gt_center">1.14, 1.58</td>
-<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+<td headers="estimate" class="gt_row gt_center">1.07</td>
+<td headers="ci" class="gt_row gt_center">0.73, 1.56</td>
+<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -3043,17 +2994,17 @@ hazard.</p></li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    2</td>
-<td headers="estimate" class="gt_row gt_center">1.04</td>
-<td headers="ci" class="gt_row gt_center">0.70, 1.54</td>
-<td headers="p.value" class="gt_row gt_center">0.9</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.81</td>
+<td headers="ci" class="gt_row gt_center">0.28, 2.29</td>
+<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    3</td>
-<td headers="estimate" class="gt_row gt_center">0.96</td>
-<td headers="ci" class="gt_row gt_center">0.66, 1.41</td>
-<td headers="p.value" class="gt_row gt_center">0.8</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.67</td>
+<td headers="ci" class="gt_row gt_center">0.24, 1.87</td>
+<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    4</td>
-<td headers="estimate" class="gt_row gt_center">0.98</td>
-<td headers="ci" class="gt_row gt_center">0.66, 1.45</td>
-<td headers="p.value" class="gt_row gt_center">>0.9</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.66</td>
+<td headers="ci" class="gt_row gt_center">0.23, 1.84</td>
+<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -3526,9 +3477,9 @@ hazard.</p></li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    2</td>
-<td headers="estimate" class="gt_row gt_center">1.35</td>
-<td headers="ci" class="gt_row gt_center">1.16, 1.57</td>
-<td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
+<td headers="estimate" class="gt_row gt_center">1.14</td>
+<td headers="ci" class="gt_row gt_center">0.79, 1.65</td>
+<td headers="p.value" class="gt_row gt_center">0.5</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -3543,10 +3494,11 @@ hazard.</p></li>
 </ul>
 </div>
 <div
-id="the-effect-of-the-ssc-placement-technique-tt-vs.-ht-on-the-need-to-use-advanced-behavior-management"
+id="the-effect-of-the-ssc-placement-technique-tt-vs.-ht-on-the-need-to-use-advanced-behavior-management-and-on-the-patients-behavior-scores"
 class="section level2">
 <h2>the effect of the SSC placement technique (TT vs. HT) on the need to
-use advanced behavior management ?</h2>
+use advanced behavior management and on the patients’ behavior scores
+?</h2>
 </div>
 <div
 id="analyze-the-effect-of-patients-age-and-behavior-score-on-the-number-of-sscs-received-by-the-patient-at-the-same-appointment"
