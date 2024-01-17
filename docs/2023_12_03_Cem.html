@@ -548,15 +548,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree382e4de405c4749893dd5a825246a4cbc82cf4fdtargetblank382e4dea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea127fd6070818812f9856f1993662d9d05c73181targetblanka127fd6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/382e4de405c4749893dd5a825246a4cbc82cf4fd" target="_blank">382e4de</a>
+<a href="https://github.com/han16/Collaborations/tree/a127fd6070818812f9856f1993662d9d05c73181" target="_blank">a127fd6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree382e4de405c4749893dd5a825246a4cbc82cf4fdtargetblank382e4dea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea127fd6070818812f9856f1993662d9d05c73181targetblanka127fd6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/382e4de405c4749893dd5a825246a4cbc82cf4fd" target="_blank">382e4de</a>.
+<a href="https://github.com/han16/Collaborations/tree/a127fd6070818812f9856f1993662d9d05c73181" target="_blank">a127fd6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -632,6 +632,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a127fd6070818812f9856f1993662d9d05c73181/analysis/2023_12_03_Cem.Rmd" target="_blank">a127fd6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-17
+</td>
+<td>
+1/17/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a127fd6070818812f9856f1993662d9d05c73181/docs/2023_12_03_Cem.html" target="_blank">a127fd6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-17
+</td>
+<td>
+1/17/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1075,6 +1109,37 @@ mean of x mean of y
 <ul>
 <li>teeth age between two techniques.</li>
 </ul>
+</div>
+<div id="teeth-behavior-score-between-tt-and-ht" class="section level2">
+<h2>teeth behavior score between TT and HT</h2>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Blue color indicates that the observed value is higher than the
+expected value if the data were random</p></li>
+<li><p>Red color specifies that the observed value is lower than the
+expected value if the data were random</p></li>
+<li><p><a
+href="http://www.sthda.com/english/wiki/chi-square-test-of-independence-in-r">reference</a></p></li>
+</ul>
+<pre class="r"><code>chisq=chisq.test(TT_HT_behavior)
+chisq</code></pre>
+<pre><code>
+    Pearson&#39;s Chi-squared test
+
+data:  TT_HT_behavior
+X-squared = 33.405, df = 3, p-value = 2.646e-07</code></pre>
+<pre class="r"><code>chisq$observed</code></pre>
+<pre><code>     TT  HT
+[1,] 13  16
+[2,] 51 123
+[3,] 73 237
+[4,] 88  97</code></pre>
+<pre class="r"><code>round(chisq$expected,2)</code></pre>
+<pre><code>        TT     HT
+[1,]  9.35  19.65
+[2,] 56.09 117.91
+[3,] 99.93 210.07
+[4,] 59.63 125.37</code></pre>
 <div id="kaplan-meier-survival-analyses" class="section level3">
 <h3>Kaplan-Meier survival analyses</h3>
 <pre><code>List of 16
@@ -1105,82 +1170,7 @@ mean of x mean of y
    30    357       3    0.960 0.00900        0.942        0.978
    48    108       1    0.951 0.01256        0.927        0.976
    72     90      90    0.000     NaN           NA           NA</code></pre>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/382e4de405c4749893dd5a825246a4cbc82cf4fd/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-1.png" target="_blank">382e4de</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-16
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
-Past versions of unnamed-chunk-4-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/382e4de405c4749893dd5a825246a4cbc82cf4fd/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-2.png" target="_blank">382e4de</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-16
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p><a
 href="https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html">reference</a></p></li>
@@ -3650,44 +3640,46 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] survival_3.5-7    condsurv_1.0.0    devtools_2.4.5    usethis_2.2.2    
- [5] tidycmprsk_1.0.0  gtsummary_1.7.2   ggsurvfit_1.0.0   irr_0.84.1       
- [9] lpSolve_5.6.20    readxl_1.4.3      cowplot_1.1.2     matrixStats_1.2.0
-[13] gridExtra_2.3     DT_0.31           rstatix_0.7.2     ggpubr_0.6.0     
-[17] kableExtra_1.3.4  lubridate_1.9.3   forcats_1.0.0     stringr_1.5.1    
-[21] dplyr_1.1.4       purrr_1.0.2       readr_2.1.4       tidyr_1.3.0      
-[25] tibble_3.2.1      ggplot2_3.4.4     tidyverse_2.0.0  
+ [1] survival_3.5-7    gplots_3.1.3      condsurv_1.0.0    devtools_2.4.5   
+ [5] usethis_2.2.2     tidycmprsk_1.0.0  gtsummary_1.7.2   ggsurvfit_1.0.0  
+ [9] irr_0.84.1        lpSolve_5.6.20    readxl_1.4.3      cowplot_1.1.2    
+[13] matrixStats_1.2.0 gridExtra_2.3     DT_0.31           rstatix_0.7.2    
+[17] ggpubr_0.6.0      kableExtra_1.3.4  lubridate_1.9.3   forcats_1.0.0    
+[21] stringr_1.5.1     dplyr_1.1.4       purrr_1.0.2       readr_2.1.4      
+[25] tidyr_1.3.0       tibble_3.2.1      ggplot2_3.4.4     tidyverse_2.0.0  
 
 loaded via a namespace (and not attached):
- [1] remotes_2.4.2.1      rlang_1.1.2          magrittr_2.0.3      
- [4] git2r_0.33.0         compiler_4.3.2       systemfonts_1.0.5   
- [7] vctrs_0.6.5          rvest_1.0.3          profvis_0.3.8       
-[10] pkgconfig_2.0.3      fastmap_1.1.1        backports_1.4.1     
-[13] ellipsis_0.3.2       labeling_0.4.3       utf8_1.2.4          
-[16] promises_1.2.1       rmarkdown_2.25       markdown_1.12       
-[19] sessioninfo_1.2.2    tzdb_0.4.0           haven_2.5.4         
-[22] xfun_0.41            labelled_2.12.0      cachem_1.0.8        
-[25] jsonlite_1.8.8       highr_0.10           later_1.3.2         
-[28] broom_1.0.5          R6_2.5.1             bslib_0.6.1         
-[31] stringi_1.8.3        car_3.1-2            pkgload_1.3.3       
-[34] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.0.11         
-[37] knitr_1.45           httpuv_1.6.13        Matrix_1.6-1.1      
-[40] splines_4.3.2        timechange_0.2.0     tidyselect_1.2.0    
-[43] rstudioapi_0.15.0    abind_1.4-5          yaml_2.3.8          
-[46] miniUI_0.1.1.1       pkgbuild_1.4.3       lattice_0.21-9      
-[49] shiny_1.8.0          withr_2.5.2          evaluate_0.23       
-[52] urlchecker_1.0.1     xml2_1.3.6           pillar_1.9.0        
-[55] carData_3.0-5        whisker_0.4.1        generics_0.1.3      
-[58] rprojroot_2.0.4      hms_1.1.3            commonmark_1.9.0    
-[61] munsell_0.5.0        scales_1.3.0         xtable_1.8-4        
-[64] glue_1.6.2           tools_4.3.2          webshot_0.5.5       
-[67] ggsignif_0.6.4       fs_1.6.3             colorspace_2.1-0    
-[70] patchwork_1.2.0      cli_3.6.2            workflowr_1.7.1     
-[73] fansi_1.0.6          broom.helpers_1.14.0 viridisLite_0.4.2   
-[76] svglite_2.1.3        gt_0.10.0            gtable_0.3.4        
-[79] sass_0.4.8           digest_0.6.33        farver_2.1.1        
-[82] htmlwidgets_1.6.4    memoise_2.0.1        htmltools_0.5.7     
-[85] lifecycle_1.0.4      httr_1.4.7           mime_0.12           </code></pre>
+ [1] bitops_1.0-7         remotes_2.4.2.1      rlang_1.1.2         
+ [4] magrittr_2.0.3       git2r_0.33.0         compiler_4.3.2      
+ [7] systemfonts_1.0.5    vctrs_0.6.5          rvest_1.0.3         
+[10] profvis_0.3.8        pkgconfig_2.0.3      fastmap_1.1.1       
+[13] backports_1.4.1      ellipsis_0.3.2       labeling_0.4.3      
+[16] caTools_1.18.2       utf8_1.2.4           promises_1.2.1      
+[19] rmarkdown_2.25       markdown_1.12        sessioninfo_1.2.2   
+[22] tzdb_0.4.0           haven_2.5.4          xfun_0.41           
+[25] labelled_2.12.0      cachem_1.0.8         jsonlite_1.8.8      
+[28] highr_0.10           later_1.3.2          broom_1.0.5         
+[31] R6_2.5.1             bslib_0.6.1          stringi_1.8.3       
+[34] car_3.1-2            pkgload_1.3.3        jquerylib_0.1.4     
+[37] cellranger_1.1.0     Rcpp_1.0.11          knitr_1.45          
+[40] httpuv_1.6.13        Matrix_1.6-1.1       splines_4.3.2       
+[43] timechange_0.2.0     tidyselect_1.2.0     rstudioapi_0.15.0   
+[46] abind_1.4-5          yaml_2.3.8           miniUI_0.1.1.1      
+[49] pkgbuild_1.4.3       lattice_0.21-9       shiny_1.8.0         
+[52] withr_2.5.2          evaluate_0.23        urlchecker_1.0.1    
+[55] xml2_1.3.6           pillar_1.9.0         carData_3.0-5       
+[58] KernSmooth_2.23-22   whisker_0.4.1        generics_0.1.3      
+[61] rprojroot_2.0.4      hms_1.1.3            commonmark_1.9.0    
+[64] munsell_0.5.0        scales_1.3.0         gtools_3.9.5        
+[67] xtable_1.8-4         glue_1.6.2           tools_4.3.2         
+[70] webshot_0.5.5        ggsignif_0.6.4       fs_1.6.3            
+[73] colorspace_2.1-0     patchwork_1.2.0      cli_3.6.2           
+[76] workflowr_1.7.1      fansi_1.0.6          broom.helpers_1.14.0
+[79] viridisLite_0.4.2    svglite_2.1.3        gt_0.10.0           
+[82] gtable_0.3.4         sass_0.4.8           digest_0.6.33       
+[85] farver_2.1.1         htmlwidgets_1.6.4    memoise_2.0.1       
+[88] htmltools_0.5.7      lifecycle_1.0.4      httr_1.4.7          
+[91] mime_0.12           </code></pre>
 </div>
 </div>
 

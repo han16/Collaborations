@@ -63,6 +63,51 @@ t.test(sample1, sample2)
 
 
 
+## teeth behavior score between TT and HT
+
+```{r, echo=F, message=F, warning=F}
+TT_behavior=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(Behavior)%>% dplyr::count(Behavior)
+HT_behavior=data_ssc_survival %>% filter(`SSC Placement Technique`==2) %>% select(Behavior)%>% dplyr::count(Behavior)
+TT_HT_behavior=data.frame(TT=TT_behavior$n, HT=HT_behavior$n)
+```
+
+
+```{r, echo=F, message=F, warning=F}
+library("gplots")
+# 1. convert the data as a table
+dt <- as.table(as.matrix(TT_HT_behavior))
+rownames(dt)=TT_behavior$Behavior
+# 2. Graph
+balloonplot(t(dt), main ="Behavior", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+
+library("graphics")
+mosaicplot(dt, shade = TRUE, las=2,
+           main = "Behavior")
+```
+
+
+
+
+* Blue color indicates that the observed value is higher than the expected value if the data were random
+
+* Red color specifies that the observed value is lower than the expected value if the data were random
+
+* [reference](http://www.sthda.com/english/wiki/chi-square-test-of-independence-in-r)
+
+
+
+```{r, echo=T, message=F, warning=F}
+chisq=chisq.test(TT_HT_behavior)
+chisq
+chisq$observed
+round(chisq$expected,2)
+```
+
+
+
+
 ### Kaplan-Meier survival analyses 
 
 ```{r, echo=F, message=F, warning=F}
