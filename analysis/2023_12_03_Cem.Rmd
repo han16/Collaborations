@@ -105,7 +105,7 @@ chisq$observed
 round(chisq$expected,2)
 ```
 
-
+* small p value suggests teeth behavior differ between TT and HT 
 
 
 ### Kaplan-Meier survival analyses 
