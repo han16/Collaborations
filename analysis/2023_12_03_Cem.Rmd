@@ -197,7 +197,7 @@ coxph(Surv(survival_time, status) ~ `Age on Tx Date`, data = data_ssc_survival_c
   tbl_regression(exp = TRUE) 
 ```
 
-* one increase unit of age leads to 1% increase of hazard of failure.  (hazard: the probability of experiencing an event, e.g. death)
+* age has no effect on the  hazard of failure.  (hazard: the probability of experiencing an event, e.g. death)
 
 * use cox regression 
 
@@ -219,7 +219,7 @@ coxph(Surv(survival_time, status) ~ `SSC_Placement_Technique`, data = data_ssc_s
   tbl_regression(exp = TRUE) 
 ```
 
-* hazard ratio of HT (2) vs TT (1) is 1.34 
+* hazard ratio of HT (2) vs TT (1) is 1.07 with no statistical significance
 
 
 
