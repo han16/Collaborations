@@ -388,7 +388,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-16
+<strong>Last updated:</strong> 2024-01-17
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -548,15 +548,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree68deee2dfe824ebebcf4f6bac41e38e92938863btargetblank68deee2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree382e4de405c4749893dd5a825246a4cbc82cf4fdtargetblank382e4dea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/68deee2dfe824ebebcf4f6bac41e38e92938863b" target="_blank">68deee2</a>
+<a href="https://github.com/han16/Collaborations/tree/382e4de405c4749893dd5a825246a4cbc82cf4fd" target="_blank">382e4de</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree68deee2dfe824ebebcf4f6bac41e38e92938863btargetblank68deee2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree382e4de405c4749893dd5a825246a4cbc82cf4fdtargetblank382e4dea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/68deee2dfe824ebebcf4f6bac41e38e92938863b" target="_blank">68deee2</a>.
+<a href="https://github.com/han16/Collaborations/tree/382e4de405c4749893dd5a825246a4cbc82cf4fd" target="_blank">382e4de</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -632,6 +632,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/382e4de405c4749893dd5a825246a4cbc82cf4fd/analysis/2023_12_03_Cem.Rmd" target="_blank">382e4de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-16
+</td>
+<td>
+1/16/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/382e4de405c4749893dd5a825246a4cbc82cf4fd/docs/2023_12_03_Cem.html" target="_blank">382e4de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-16
+</td>
+<td>
+1/16/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1016,12 +1050,14 @@ han
 </div>
 </div>
 <ul>
-<li>only include HT and TT</li>
+<li><p>only include HT and TT</p></li>
+<li><p>numbers are for teeth, not patients and one patient may have
+multiple teeth</p></li>
 </ul>
 </div>
 </div>
-<div id="patient-age-between-tt-and-ht" class="section level2">
-<h2>patient age between TT and HT</h2>
+<div id="teeth-age-between-tt-and-ht" class="section level2">
+<h2>teeth age between TT and HT</h2>
 <pre class="r"><code>sample1=data_ssc_survival %&gt;% filter(`SSC Placement Technique`==1) %&gt;% select(`Age on Tx Date`) %&gt;% pull()
 sample2=data_ssc_survival %&gt;% filter(`SSC Placement Technique`==2) %&gt;% select(`Age on Tx Date`) %&gt;% pull()
 t.test(sample1, sample2)</code></pre>
@@ -1036,6 +1072,9 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y 
  84.07556  72.46934 </code></pre>
+<ul>
+<li>teeth age between two techniques.</li>
+</ul>
 <div id="kaplan-meier-survival-analyses" class="section level3">
 <h3>Kaplan-Meier survival analyses</h3>
 <pre><code>List of 16
@@ -1066,7 +1105,82 @@ mean of x mean of y
    30    357       3    0.960 0.00900        0.942        0.978
    48    108       1    0.951 0.01256        0.927        0.976
    72     90      90    0.000     NaN           NA           NA</code></pre>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/382e4de405c4749893dd5a825246a4cbc82cf4fd/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-1.png" target="_blank">382e4de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/382e4de405c4749893dd5a825246a4cbc82cf4fd/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-4-2.png" target="_blank">382e4de</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li><p><a
 href="https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html">reference</a></p></li>
@@ -1087,8 +1201,8 @@ SSC_Placement_Technique=2 471       58     56.2    0.0594     0.743
 
  Chisq= 0.7  on 1 degrees of freedom, p= 0.4 </code></pre>
 <ul>
-<li>there is a significant difference in survival time between TT and
-HT</li>
+<li>large p value indicates no statistical difference in survival time
+between TT and HT</li>
 </ul>
 </div>
 </div>

@@ -47,9 +47,11 @@ ggplot(data = TT_HT, aes(x = time_point, y = num_success, fill = technique)) +
 ```
 * only include HT and TT 
 
+* numbers are for teeth, not patients and one patient may have multiple teeth 
 
 
-## patient age between TT and HT 
+
+## teeth age between TT and HT 
 
 ```{r, echo=T, message=F, warning=F}
 sample1=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(`Age on Tx Date`) %>% pull()
@@ -57,6 +59,7 @@ sample2=data_ssc_survival %>% filter(`SSC Placement Technique`==2) %>% select(`A
 t.test(sample1, sample2)
 ```
 
+* teeth age between two techniques. 
 
 
 
@@ -105,7 +108,7 @@ survfit2(Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete) %>%
   ggsurvfit() +
   labs(
     x = "Months",
-    y = "Overall survival probability"
+    y = "Overall survival probability of teeth"
   ) + 
   add_confidence_interval()+
   add_risktable()
@@ -115,7 +118,7 @@ survfit2(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
   ggsurvfit() +
   labs(
     x = "Months",
-    y = "Overall survival probability"
+    y = "Overall survival probability of teeth"
   ) +
   add_confidence_interval()+
   add_risktable()
@@ -130,6 +133,8 @@ survfit2(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
 * `At Risk: No. survivals`, `Events: No.failures`
 
 
+
+
 #### Logrank test between two samples 
 
 
@@ -137,7 +142,7 @@ survfit2(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
  # comparing survival time between groups
 survdiff(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_survival_complete)
 ```
-* there is a significant difference in survival time between TT and HT  
+* large p value indicates no statistical difference in survival time between TT and HT  
 
 
 ## covariate effect on survival of SSCs
