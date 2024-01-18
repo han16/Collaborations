@@ -274,6 +274,8 @@ t.test(TT_age, HT_age)
 data_covariate=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==1)  %>% select(`Pt. Chart`,`SSC Placement Technique`, `Behavior`,  `Change in Behavior Score between sessions (two sessions)`, `Change in Behavior Score between sessions (more than two sessions)`) 
 
 data_covariate %>% dplyr::count(`Pt. Chart`)
+TT_score=data_covariate %>% filter(`SSC Placement Technique`==1) %>% select(`Pt. Chart`, `Behavior`) 
+HT_score=data_covariate %>% filter(`SSC Placement Technique`==2) %>% select(`Pt. Chart`, `Behavior`) 
 ```
 
 
