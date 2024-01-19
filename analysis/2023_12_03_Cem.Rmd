@@ -54,9 +54,9 @@ ggplot(data = TT_HT, aes(x = time_point, y = num_success, fill = technique)) +
 ## teeth age between TT and HT 
 
 ```{r, echo=T, message=F, warning=F}
-sample1=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(`Age on Tx Date`) %>% pull()
-sample2=data_ssc_survival %>% filter(`SSC Placement Technique`==2) %>% select(`Age on Tx Date`) %>% pull()
-t.test(sample1, sample2)
+TT_age=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(`Age on Tx Date`) %>% pull()
+HT_age=data_ssc_survival %>% filter(`SSC Placement Technique`==2) %>% select(`Age on Tx Date`) %>% pull()
+t.test(TT_age, HT_age)
 ```
 
 * teeth age between two techniques. 
