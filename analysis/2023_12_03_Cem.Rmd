@@ -273,8 +273,10 @@ t.test(TT_age, HT_age)
 ```{r, echo=T, message=F, warning=F}
 
 TT_score_change=data %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==4) %>% filter(`SSC Placement Technique`==1) %>%  select(`Change in Behavior Score between sessions (two sessions)`)%>% dplyr::count(`Change in Behavior Score between sessions (two sessions)`)
+TT_score_change
 
 HT_score_change=data %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==4) %>% filter(`SSC Placement Technique`==2) %>%  select(`Change in Behavior Score between sessions (two sessions)`)%>% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
+HT_score_change
 
 TT_HT_score_change=data.frame(TT=c(4,5), HT=c(4,23))
 chisq=chisq.test(TT_HT_score_change)
@@ -296,8 +298,10 @@ Two sessions - Score increased		: 4
 ```{r, echo=T, message=F, warning=F}
 
 TT_score_change=data %>% filter(`Change in Behavior Score between sessions (more than two sessions)`==2 | `Change in Behavior Score between sessions (more than two sessions)`==3 | `Change in Behavior Score between sessions (more than two sessions)`==4 | `Change in Behavior Score between sessions (more than two sessions)`==5) %>% filter(`SSC Placement Technique`==1) %>%  select(`Change in Behavior Score between sessions (more than two sessions)`)%>% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`)
+TT_score_change
 
 HT_score_change=data %>% filter(`Change in Behavior Score between sessions (more than two sessions)`==2 | `Change in Behavior Score between sessions (more than two sessions)`==3 | `Change in Behavior Score between sessions (more than two sessions)`==4 | `Change in Behavior Score between sessions (more than two sessions)`==5) %>% filter(`SSC Placement Technique`==2) %>%  select(`Change in Behavior Score between sessions (more than two sessions)`)%>% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`)
+HT_score_change
 
 TT_HT_score_change=data.frame(TT=c(6,1), HT=c(29,0))
 chisq=chisq.test(TT_HT_score_change)
