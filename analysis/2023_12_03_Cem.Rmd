@@ -11,9 +11,9 @@ data=as_tibble(data_raw[[1]])
 ```
 
 
-## survival analysis of SSCs 
 
-### basic numbers 
+
+## basic numbers 
 
 ```{r, echo=F, message=F, warning=F}
 data_ssc_survival=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% select(`SSC Placement Technique`, `6-month`, `12-month`, `18-month`, `24-month`, `30-month`, `36-month`, `42-month`, `48-month`, `54-month`, `60-month`, `66-month`, `Age on Tx Date`, `Behavior`, `Tx. Site`, `Tx Provider`)  # only include TT, HT two methods 
@@ -108,6 +108,9 @@ round(chisq$expected,2)
 ```
 
 * small p value suggests teeth behavior differ between TT and HT 
+
+
+## survival analysis of SSCs 
 
 
 ### Kaplan-Meier survival analyses 
