@@ -1600,6 +1600,34 @@ datatable(extensions = 'Buttons',
 * p value is testing the overall significance of covariates in the model  
 
 
+
+
+
+#### test When variables reach T2 level 
+
+
+```{r, echo=F, message=F, warning=F}
+parametric_pvalue=numeric()
+non_parametric_pvalue=numeric()
+for (i in 1:5)
+{
+  sample1=data[,(44+i)] %>% pull
+  sample2=rep(0, length(sample1))
+  parametric_pvalue[i]=t.test(sample1, sample2)$p.value
+  non_parametric_pvalue[i]=wilcox.test(sample1, sample2)$p.value
+}
+data.frame(variables=colnames(data)[45:49], parametric_pvalue=pvalue_adjust(parametric_pvalue), non_parametric_pvalue=pvalue_adjust(non_parametric_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 ## VAS_pain 
 
 ```{r, echo=F, message=F, warning=F, eval=T}
