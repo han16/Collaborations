@@ -110,6 +110,15 @@ round(chisq$expected,2)
 * small p value suggests teeth behavior differ between TT and HT 
 
 
+### Combine 1/2, 3/4 and compare 
+
+
+```{r, echo=T, message=F, warning=F}
+prop.test(x=c(sum(TT_HT_behavior[1:2,1]), sum(TT_HT_behavior[1:2,2])), n=c(sum(TT_HT_behavior[,1]), sum(TT_HT_behavior[,2])), p = NULL, alternative = "two.sided", correct = TRUE)
+```
+* large p value suggests of no difference between TT and FT in terms of proportion of 1+2
+
+
 ## survival analysis of SSCs 
 
 

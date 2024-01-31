@@ -388,7 +388,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-22
+<strong>Last updated:</strong> 2024-01-31
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -548,15 +548,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree920ac76a287eb7315fd2228cd76245860a769520targetblank920ac76a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4f1d76677507e044e60c8fea982b7d7711b61072targetblank4f1d766a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/920ac76a287eb7315fd2228cd76245860a769520" target="_blank">920ac76</a>
+<a href="https://github.com/han16/Collaborations/tree/4f1d76677507e044e60c8fea982b7d7711b61072" target="_blank">4f1d766</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree920ac76a287eb7315fd2228cd76245860a769520targetblank920ac76a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4f1d76677507e044e60c8fea982b7d7711b61072targetblank4f1d766a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/920ac76a287eb7315fd2228cd76245860a769520" target="_blank">920ac76</a>.
+<a href="https://github.com/han16/Collaborations/tree/4f1d76677507e044e60c8fea982b7d7711b61072" target="_blank">4f1d766</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -632,6 +632,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a41fd9a5e006545879a19229116c39573f453ddc/analysis/2023_12_03_Cem.Rmd" target="_blank">a41fd9a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-22
+</td>
+<td>
+1/22/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a41fd9a5e006545879a19229116c39573f453ddc/docs/2023_12_03_Cem.html" target="_blank">a41fd9a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-01-22
+</td>
+<td>
+1/22/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1487,6 +1521,25 @@ X-squared = 33.405, df = 3, p-value = 2.646e-07</code></pre>
 <ul>
 <li>small p value suggests teeth behavior differ between TT and HT</li>
 </ul>
+<div id="combine-12-34-and-compare" class="section level3">
+<h3>Combine 1/2, 3/4 and compare</h3>
+<pre class="r"><code>prop.test(x=c(sum(TT_HT_behavior[1:2,1]), sum(TT_HT_behavior[1:2,2])), n=c(sum(TT_HT_behavior[,1]), sum(TT_HT_behavior[,2])), p = NULL, alternative = &quot;two.sided&quot;, correct = TRUE)</code></pre>
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(sum(TT_HT_behavior[1:2, 1]), sum(TT_HT_behavior[1:2, 2])) out of c(sum(TT_HT_behavior[, 1]), sum(TT_HT_behavior[, 2]))
+X-squared = 0.027917, df = 1, p-value = 0.8673
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.08453891  0.06568995
+sample estimates:
+   prop 1    prop 2 
+0.2844444 0.2938689 </code></pre>
+<ul>
+<li>large p value suggests of no difference between TT and FT in terms
+of proportion of 1+2</li>
+</ul>
+</div>
 </div>
 <div id="survival-analysis-of-sscs" class="section level2">
 <h2>survival analysis of SSCs</h2>
@@ -1520,82 +1573,7 @@ X-squared = 33.405, df = 3, p-value = 2.646e-07</code></pre>
    30    357       3    0.960 0.00900        0.942        0.978
    48    108       1    0.951 0.01256        0.927        0.976
    72     90      90    0.000     NaN           NA           NA</code></pre>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/45e2f97d6b03cee62f566556d9b7a4447083e02f/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-7-1.png" target="_blank">45e2f97</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
-Past versions of unnamed-chunk-7-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/45e2f97d6b03cee62f566556d9b7a4447083e02f/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-7-2.png" target="_blank">45e2f97</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p><a
 href="https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html">reference</a></p></li>
