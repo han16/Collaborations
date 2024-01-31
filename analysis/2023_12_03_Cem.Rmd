@@ -349,6 +349,8 @@ coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_su
 
 ## effect of teeth age on advanced behavior management 
 
+### 2 sesssins 
+
 ```{r, echo=T, message=F, warning=F}
 data_covariate=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==1)  %>% select(`SSC Placement Technique`, `Age on Tx Date`,  `Change in Behavior Score between sessions (two sessions)`, `Change in Behavior Score between sessions (more than two sessions)`)    # only include TT, HT two methods 
 
@@ -358,6 +360,8 @@ t.test(TT_age, HT_age)
 
 ```
 
+
+### more than 2 sessions 
 
 ```{r, echo=T, message=F, warning=F}
 data_covariate=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% select(`SSC Placement Technique`, `Age on Tx Date`,  `Change in Behavior Score between sessions (two sessions)`, `Change in Behavior Score between sessions (more than two sessions)`)    # only include TT, HT two methods 
@@ -419,3 +423,31 @@ More than two sessions - Score decreased then remained unchanged		: 4
 More than two sessions - Score decreased then increased			: 5
 
 
+
+## Q9 
+
+
+```{r, echo=T, message=F, warning=F}
+TT_covariate=data %>% filter(`SSC Placement Technique`==1 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4)  %>% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
+TT_covariate
+
+HT_covariate=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4)  %>% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
+HT_covariate
+
+```
+
+
+
+
+
+## Q10 
+
+
+```{r, echo=T, message=F, warning=F}
+TT_covariate=data %>% filter(`SSC Placement Technique`==1 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`) 
+TT_covariate
+
+HT_covariate=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`) 
+HT_covariate
+
+```
