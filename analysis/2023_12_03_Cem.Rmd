@@ -206,6 +206,12 @@ survdiff(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
 
 ## covariate effect on survival of SSCs
 
+
+### Age 
+
+#### TT+HT
+
+
 ```{r, echo=F, message=F, warning=F}
 coxph(Surv(survival_time, status) ~ `Age on Tx Date`, data = data_ssc_survival_complete)%>% 
   tbl_regression(exp = TRUE) 
@@ -215,7 +221,24 @@ coxph(Surv(survival_time, status) ~ `Age on Tx Date`, data = data_ssc_survival_c
 
 * use cox regression 
 
+#### TT
 
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ `Age on Tx Date`, data = data_ssc_survival_complete %>% filter(SSC_Placement_Technique==1))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+#### HT
+
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ `Age on Tx Date`, data = data_ssc_survival_complete %>% filter(SSC_Placement_Technique==2))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+
+### Tx.site 
+
+#### TT+HT
 
 ```{r, echo=F, message=F, warning=F}
 coxph(Surv(survival_time, status) ~ `Tx. Site`, data = data_ssc_survival_complete)%>% 
@@ -228,6 +251,26 @@ coxph(Surv(survival_time, status) ~ `Tx. Site`, data = data_ssc_survival_complet
 * HR < indicates reduced hazard and HR>1 increased hazard. 
 
 
+#### TT
+
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ `Tx. Site`, data = data_ssc_survival_complete%>% filter(SSC_Placement_Technique==1))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+#### HT
+
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ `Tx. Site`, data = data_ssc_survival_complete%>% filter(SSC_Placement_Technique==2))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+
+
+### SSC_Placement_Technique
+
+#### TT+HT
+
 ```{r, echo=F, message=F, warning=F}
 coxph(Surv(survival_time, status) ~ `SSC_Placement_Technique`, data = data_ssc_survival_complete)%>% 
   tbl_regression(exp = TRUE) 
@@ -236,7 +279,17 @@ coxph(Surv(survival_time, status) ~ `SSC_Placement_Technique`, data = data_ssc_s
 * hazard ratio of HT (2) vs TT (1) is 1.07 with no statistical significance
 
 
+#### TT
 
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ `SSC_Placement_Technique`, data = data_ssc_survival_complete %>% filter(SSC_Placement_Technique==1))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+
+### Behavior
+
+#### TT+HT
 
 ```{r, echo=F, message=F, warning=F}
 coxph(Surv(survival_time, status) ~ as.factor(Behavior), data = data_ssc_survival_complete)%>% 
@@ -248,6 +301,26 @@ coxph(Surv(survival_time, status) ~ as.factor(Behavior), data = data_ssc_surviva
 
 
 
+#### TT 
+
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ as.factor(Behavior), data = data_ssc_survival_complete %>% filter (SSC_Placement_Technique==1))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+
+#### HT 
+
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ as.factor(Behavior), data = data_ssc_survival_complete %>% filter (SSC_Placement_Technique==2))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+### Tx Provider
+
+#### TT+HT
+
+
 ```{r, echo=F, message=F, warning=F}
 coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_survival_complete)%>% 
   tbl_regression(exp = TRUE) 
@@ -256,6 +329,22 @@ coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_su
 
 * `D3				: 1` is the reference group 
 
+
+
+#### TT
+
+
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_survival_complete %>% filter (SSC_Placement_Technique==1))%>% 
+  tbl_regression(exp = TRUE) 
+```
+
+#### HT
+
+```{r, echo=F, message=F, warning=F}
+coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_survival_complete %>% filter (SSC_Placement_Technique==2))%>% 
+  tbl_regression(exp = TRUE) 
+```
 
 
 ## effect of teeth age on advanced behavior management 
