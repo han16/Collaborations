@@ -434,8 +434,17 @@ TT_covariate
 HT_covariate=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4)  %>% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
 HT_covariate
 
+TT_HT=data.frame(TT=TT_covariate$n, HT=HT_covariate$n)
+chisq=chisq.test(TT_HT)
+chisq
 ```
 
+
+* Two sessions - Score decreased		: 2 
+
+* Two sessions - No change		: 3 
+
+* Two sessions - Score increased		: 4 
 
 
 
@@ -450,4 +459,7 @@ TT_covariate
 HT_covariate=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`) 
 HT_covariate
 
+TT_HT=data.frame(TT=TT_covariate$n, HT=c(HT_covariate$n,0))
+chisq=chisq.test(TT_HT)
+chisq
 ```
