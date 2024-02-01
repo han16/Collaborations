@@ -463,3 +463,17 @@ TT_HT=data.frame(TT=TT_covariate$n, HT=c(HT_covariate$n,0))
 chisq=chisq.test(TT_HT)
 chisq
 ```
+
+
+
+* Score remained unchanged							: 1 
+
+* More than two sessions - Score increased then remained unchanged		: 2 
+
+* More than two sessions - Score increased then decreased 			: 3 
+
+* More than two sessions - Score decreased then remained unchanged		: 4 
+
+* More than two sessions - Score decreased then increased			: 5 
+
+ 
