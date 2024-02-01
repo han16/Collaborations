@@ -548,15 +548,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed5685bf2a3ef6392e863df3e7d30539e8a328a09targetblankd5685bfa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb705573158599214a3b8d83ba66a46ff7e5b024btargetblankb705573a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/d5685bf2a3ef6392e863df3e7d30539e8a328a09" target="_blank">d5685bf</a>
+<a href="https://github.com/han16/Collaborations/tree/b705573158599214a3b8d83ba66a46ff7e5b024b" target="_blank">b705573</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed5685bf2a3ef6392e863df3e7d30539e8a328a09targetblankd5685bfa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb705573158599214a3b8d83ba66a46ff7e5b024btargetblankb705573a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/d5685bf2a3ef6392e863df3e7d30539e8a328a09" target="_blank">d5685bf</a>.
+<a href="https://github.com/han16/Collaborations/tree/b705573158599214a3b8d83ba66a46ff7e5b024b" target="_blank">b705573</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -632,6 +632,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/b705573158599214a3b8d83ba66a46ff7e5b024b/analysis/2023_12_03_Cem.Rmd" target="_blank">b705573</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-01
+</td>
+<td>
+2/1/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/b705573158599214a3b8d83ba66a46ff7e5b024b/docs/2023_12_03_Cem.html" target="_blank">b705573</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-01
+</td>
+<td>
+2/1/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1512,8 +1546,8 @@ han
 multiple teeth</p></li>
 </ul>
 </div>
-<div id="teeth-age-between-tt-and-ht" class="section level2">
-<h2>teeth age between TT and HT</h2>
+<div id="q1-teeth-age-between-tt-and-ht" class="section level2">
+<h2>Q1: teeth age between TT and HT</h2>
 <pre class="r"><code>TT_age=data_ssc_survival %&gt;% filter(`SSC Placement Technique`==1) %&gt;% select(`Age on Tx Date`) %&gt;% pull()
 HT_age=data_ssc_survival %&gt;% filter(`SSC Placement Technique`==2) %&gt;% select(`Age on Tx Date`) %&gt;% pull()
 t.test(TT_age, HT_age)</code></pre>
@@ -1532,8 +1566,9 @@ mean of x mean of y
 <li>teeth age between two techniques.</li>
 </ul>
 </div>
-<div id="teeth-behavior-score-between-tt-and-ht" class="section level2">
-<h2>teeth behavior score between TT and HT</h2>
+<div id="q2-teeth-behavior-score-between-tt-and-ht"
+class="section level2">
+<h2>Q2: teeth behavior score between TT and HT</h2>
 <p><img src="figure/2023_12_03_Cem.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1776,8 +1811,8 @@ href="https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html"
 <li><p><code>At Risk: No. survivals</code>,
 <code>Events: No.failures</code></p></li>
 </ul>
-<div id="logrank-test-between-two-samples" class="section level4">
-<h4>Logrank test between two samples</h4>
+<div id="q3-logrank-test-between-two-samples" class="section level4">
+<h4>Q3: Logrank test between two samples</h4>
 <pre><code>Call:
 survdiff(formula = Surv(survival_time, status) ~ SSC_Placement_Technique, 
     data = data_ssc_survival_complete)
@@ -1796,8 +1831,8 @@ between TT and HT</li>
 </div>
 <div id="covariate-effect-on-survival-of-sscs" class="section level2">
 <h2>covariate effect on survival of SSCs</h2>
-<div id="age" class="section level3">
-<h3>Age</h3>
+<div id="q4-age" class="section level3">
+<h3>Q4: Age</h3>
 <div id="ttht" class="section level4">
 <h4>TT+HT</h4>
 <div id="osncjrvket" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -3205,8 +3240,8 @@ probability of experiencing an event, e.g. death)</p></li>
 </div>
 </div>
 </div>
-<div id="tx.site" class="section level3">
-<h3>Tx.site</h3>
+<div id="q6-tx.site" class="section level3">
+<h3>Q6: Tx.site</h3>
 <div id="ttht-1" class="section level4">
 <h4>TT+HT</h4>
 <div id="gtrqabqbmx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -5652,8 +5687,8 @@ significance</li>
 </div>
 </div>
 </div>
-<div id="behavior" class="section level3">
-<h3>Behavior</h3>
+<div id="q5-behavior" class="section level3">
+<h3>Q5: Behavior</h3>
 <div id="ttht-3" class="section level4">
 <h4>TT+HT</h4>
 <div id="cbzhmhbfwq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -7107,8 +7142,8 @@ significance</li>
 </div>
 </div>
 </div>
-<div id="tx-provider" class="section level3">
-<h3>Tx Provider</h3>
+<div id="q7-tx-provider" class="section level3">
+<h3>Q7: Tx Provider</h3>
 <div id="ttht-4" class="section level4">
 <h4>TT+HT</h4>
 <div id="esoscvyocb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -8539,9 +8574,9 @@ significance</li>
 </div>
 </div>
 </div>
-<div id="effect-of-teeth-age-on-advanced-behavior-management"
+<div id="q8-effect-of-teeth-age-on-advanced-behavior-management"
 class="section level2">
-<h2>effect of teeth age on advanced behavior management</h2>
+<h2>Q8: effect of teeth age on advanced behavior management</h2>
 <div id="sesssins" class="section level3">
 <h3>2 sesssins</h3>
 <pre class="r"><code>data_covariate=data %&gt;% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %&gt;% filter(`Change in Behavior Score between sessions (two sessions)`==1)  %&gt;% select(`SSC Placement Technique`, `Age on Tx Date`,  `Change in Behavior Score between sessions (two sessions)`, `Change in Behavior Score between sessions (more than two sessions)`)    # only include TT, HT two methods 
@@ -8584,6 +8619,8 @@ mean of x mean of y
 <div id="ssc-affects-patients-behavior-scores-change"
 class="section level2">
 <h2>SSC affects patient’s behavior scores change</h2>
+<div id="q11" class="section level3">
+<h3>Q11</h3>
 <pre class="r"><code>TT_score_change=data %&gt;% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==4) %&gt;% filter(`SSC Placement Technique`==1) %&gt;%  select(`Change in Behavior Score between sessions (two sessions)`)%&gt;% dplyr::count(`Change in Behavior Score between sessions (two sessions)`)
 TT_score_change</code></pre>
 <pre><code># A tibble: 2 × 2
@@ -8610,6 +8647,9 @@ X-squared = 1.9286, df = 1, p-value = 0.1649</code></pre>
 Only one session : 0 More than two sessions : 1 Two sessions - Score
 decreased : 2 Two sessions - No change : 3 Two sessions - Score
 increased : 4</p>
+</div>
+<div id="q12" class="section level3">
+<h3>Q12</h3>
 <pre class="r"><code>TT_score_change=data %&gt;% filter(`Change in Behavior Score between sessions (more than two sessions)`==2 | `Change in Behavior Score between sessions (more than two sessions)`==3 | `Change in Behavior Score between sessions (more than two sessions)`==4 | `Change in Behavior Score between sessions (more than two sessions)`==5) %&gt;% filter(`SSC Placement Technique`==1) %&gt;%  select(`Change in Behavior Score between sessions (more than two sessions)`)%&gt;% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`)
 TT_score_change</code></pre>
 <pre><code># A tibble: 2 × 2
@@ -8637,6 +8677,7 @@ More than two sessions - Score increased then remained unchanged : 2
 More than two sessions - Score increased then decreased : 3 More than
 two sessions - Score decreased then remained unchanged : 4 More than two
 sessions - Score decreased then increased : 5</p>
+</div>
 </div>
 <div id="q9" class="section level2">
 <h2>Q9</h2>

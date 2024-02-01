@@ -51,7 +51,7 @@ ggplot(data = TT_HT, aes(x = time_point, y = num_success, fill = technique)) +
 
 
 
-## teeth age between TT and HT 
+## Q1: teeth age between TT and HT 
 
 ```{r, echo=T, message=F, warning=F}
 TT_age=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(`Age on Tx Date`) %>% pull()
@@ -65,7 +65,7 @@ t.test(TT_age, HT_age)
 
 
 
-## teeth behavior score between TT and HT
+## Q2: teeth behavior score between TT and HT
 
 ```{r, echo=F, message=F, warning=F}
 TT_behavior=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(Behavior)%>% dplyr::count(Behavior)
@@ -194,7 +194,7 @@ survfit2(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
 
 
 
-#### Logrank test between two samples 
+#### Q3:  Logrank test between two samples 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -207,7 +207,7 @@ survdiff(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
 ## covariate effect on survival of SSCs
 
 
-### Age 
+### Q4: Age 
 
 #### TT+HT
 
@@ -236,7 +236,7 @@ coxph(Surv(survival_time, status) ~ `Age on Tx Date`, data = data_ssc_survival_c
 ```
 
 
-### Tx.site 
+### Q6:  Tx.site 
 
 #### TT+HT
 
@@ -287,7 +287,7 @@ coxph(Surv(survival_time, status) ~ `SSC_Placement_Technique`, data = data_ssc_s
 ```
 
 
-### Behavior
+### Q5: Behavior
 
 #### TT+HT
 
@@ -316,7 +316,7 @@ coxph(Surv(survival_time, status) ~ as.factor(Behavior), data = data_ssc_surviva
   tbl_regression(exp = TRUE) 
 ```
 
-### Tx Provider
+### Q7: Tx Provider
 
 #### TT+HT
 
@@ -347,7 +347,7 @@ coxph(Surv(survival_time, status) ~ as.factor(`Tx Provider`), data = data_ssc_su
 ```
 
 
-## effect of teeth age on advanced behavior management 
+## Q8:  effect of teeth age on advanced behavior management 
 
 ### 2 sesssins 
 
@@ -361,7 +361,7 @@ t.test(TT_age, HT_age)
 ```
 
 
-### more than 2 sessions 
+###  more than 2 sessions 
 
 ```{r, echo=T, message=F, warning=F}
 data_covariate=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% select(`SSC Placement Technique`, `Age on Tx Date`,  `Change in Behavior Score between sessions (two sessions)`, `Change in Behavior Score between sessions (more than two sessions)`)    # only include TT, HT two methods 
@@ -374,6 +374,8 @@ t.test(TT_age, HT_age)
 
 
 ## SSC affects patient's behavior scores change 
+
+### Q11
 
 ```{r, echo=T, message=F, warning=F}
 
@@ -399,6 +401,7 @@ Two sessions - Score increased		: 4
 
 
 
+### Q12
 
 ```{r, echo=T, message=F, warning=F}
 
