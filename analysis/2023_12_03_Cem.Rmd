@@ -51,15 +51,33 @@ ggplot(data = TT_HT, aes(x = time_point, y = num_success, fill = technique)) +
 
 
 
+
+
+
 ## Q1: teeth age between TT and HT 
+
+
+
 
 ```{r, echo=T, message=F, warning=F}
 TT_age=data_ssc_survival %>% filter(`SSC Placement Technique`==1) %>% select(`Age on Tx Date`) %>% pull()
 HT_age=data_ssc_survival %>% filter(`SSC Placement Technique`==2) %>% select(`Age on Tx Date`) %>% pull()
 t.test(TT_age, HT_age)
+
+
+data.frame(parameters=c("min", "1st quantile", "Median", "mean", "3rd quantile", "maximum", "SD"), TT_age=c(50.00, 71.00, 83.00, 84.08, 98.00, 119.00, 17.01), HT_age=c(33.00, 61.00, 71.00, 72.47, 82.00, 117.00, 16.16)) %>%
+datatable(extensions = 'Buttons',
+          caption = "Summary statistics of age in TT/HT",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
 ```
 
+
 * teeth age between two techniques. 
+* SD is reported in the table 
 
 
 
@@ -156,6 +174,8 @@ for (i in 1:nrow(data_ssc_survival))
 
 data_ssc_survival_complete=data_ssc_survival %>% add_column(survival_time=survival_time, status=status) %>% drop_na()  
 colnames(data_ssc_survival_complete)[1]="SSC_Placement_Technique"
+data_ssc_survival_complete$SSC_Placement_Technique[data_ssc_survival_complete$SSC_Placement_Technique==1]="TT"
+data_ssc_survival_complete$SSC_Placement_Technique[data_ssc_survival_complete$SSC_Placement_Technique==2]="HT"
 
 
 s1 <- survfit(Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete)
@@ -173,6 +193,7 @@ survfit2(Surv(survival_time, status) ~ 1, data = data_ssc_survival_complete) %>%
   add_risktable()
 
 
+#png("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202310\\Cem\\survival_curve_TT_HT.png")
 survfit2(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_survival_complete) %>% 
   ggsurvfit() +
   labs(
@@ -181,7 +202,10 @@ survfit2(Surv(survival_time, status) ~ SSC_Placement_Technique, data = data_ssc_
   ) +
   add_confidence_interval()+
   add_risktable()
+#dev.off()
 
+data_ssc_survival_complete$SSC_Placement_Technique[data_ssc_survival_complete$SSC_Placement_Technique=="TT"]="1"
+data_ssc_survival_complete$SSC_Placement_Technique[data_ssc_survival_complete$SSC_Placement_Technique=="HT"]="2"
 ```
  
 
@@ -281,7 +305,7 @@ coxph(Surv(survival_time, status) ~ `SSC_Placement_Technique`, data = data_ssc_s
 
 #### TT
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 coxph(Surv(survival_time, status) ~ `SSC_Placement_Technique`, data = data_ssc_survival_complete %>% filter(SSC_Placement_Technique==1))%>% 
   tbl_regression(exp = TRUE) 
 ```

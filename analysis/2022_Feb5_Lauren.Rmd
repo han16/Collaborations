@@ -4,16 +4,11 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-rm(list=ls())
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(kableExtra)
-library(ggpubr)
-set.seed(123)
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
 ```
 
 ```{r, echo=F, message=F, warning=F}
-data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Mohamed\\D3_ENDO_Clicker_Survey_(Responses)_coded.csv", header=T))
+data=as_tibble(read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Mohamed\\D3_ENDO_Clicker_Survey_(Responses)_coded.csv", fileEncoding = "Latin1"))
 
 ```
 
@@ -31,7 +26,7 @@ for (i in 1:length(questions))
   response=data[,c(questions_index[i], questions_index[i]+1)] 
   colnames(response)=c("response_cate", "coded_response") # rename col names 
   
-  response_by_group=response %>% count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
+  response_by_group=response %>% dplyr::count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
  
   response_cate_number=sort(unique(response$coded_response)); response_cate=numeric() 
   for (j in 1:length(response_cate_number))
@@ -97,7 +92,7 @@ for (i in 1:length(questions))
   response=data[,c(questions_index[i], questions_index[i]+1)] 
   colnames(response)=c("response_cate", "coded_response") # rename col names 
   
-  response_by_group=response %>% count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
+  response_by_group=response %>% dplyr::count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
  
   response_cate_number=sort(unique(response$coded_response)); response_cate=numeric() 
   for (j in 1:length(response_cate_number))
@@ -183,7 +178,7 @@ for (i in 1:length(questions))
   response=data[,c(questions_index[i], questions_index[i]+1)] 
   colnames(response)=c("response_cate", "coded_response") # rename col names 
   
-  response_by_group=response %>% count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
+  response_by_group=response %>% dplyr::count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
  
   response_cate_number=sort(unique(response$coded_response)); response_cate=numeric() 
   for (j in 1:length(response_cate_number))
@@ -246,7 +241,7 @@ for (i in 1:length(questions))
   response=data[,c(questions_index[i], questions_index[i]+1)] 
   colnames(response)=c("response_cate", "coded_response") # rename col names 
   
-  response_by_group=response %>% count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
+  response_by_group=response %>% dplyr::count(response=coded_response) %>% mutate(prop=n/nrow(data)) # group response 
  
   response_cate_number=sort(unique(response$coded_response)); response_cate=numeric() 
   for (j in 1:length(response_cate_number))

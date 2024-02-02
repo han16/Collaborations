@@ -13,7 +13,7 @@
 
 <title>2/24/2022</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -75,6 +75,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -95,6 +96,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -152,11 +156,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -185,8 +193,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,16 +202,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -320,7 +321,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -385,13 +386,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-06-20
+<strong>Last updated:</strong> 2024-02-01
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -403,7 +404,7 @@ title="This is the local directory in which the code in this file was executed."
 This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
   href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -504,30 +505,56 @@ run.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it
+difficult for you and others to run your code on a different machine.
+Change the absolute path(s) below to the suggested relative path(s) to
+make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R
+</td>
+<td style="text-align:left;">
+analysis/Rfunctions.R
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb1ff8df04068b693b1aa30c0febed01e8be5a0a4targetblankb1ff8dfa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/b1ff8df04068b693b1aa30c0febed01e8be5a0a4" target="_blank">b1ff8df</a>
+<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb1ff8df04068b693b1aa30c0febed01e8be5a0a4targetblankb1ff8dfa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +564,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/b1ff8df04068b693b1aa30c0febed01e8be5a0a4" target="_blank">b1ff8df</a>.
+<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -552,7 +579,9 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
+    Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
     Modified:   analysis/2022_Feb5_Lauren.Rmd
@@ -601,6 +630,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ee233a8da19f4f6a5764daa50ce5b022fcadfdcc/analysis/2022_Feb5_Lauren.Rmd" target="_blank">ee233a8</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-20
+</td>
+<td>
+6/20/2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ee233a8da19f4f6a5764daa50ce5b022fcadfdcc/docs/2022_Feb5_Lauren.html" target="_blank">ee233a8</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-06-20
+</td>
+<td>
+6/20/2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -730,11 +793,107 @@ Han
 <div id="section-1" class="section level2">
 <h2>section 1</h2>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-2-1.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-2-1.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree   Neutral        Agree
 Disagree       NA 0.1795654 6.167247e-22
 Neutral        NA        NA 5.521267e-17
 Agree          NA        NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-2-2.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-2-2.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>        Neutral        Agree
 Neutral      NA 1.363405e-11
 Agree        NA           NA</code></pre>
@@ -751,30 +910,296 @@ between <code>Disagree</code> and <code>Neutral</code> is
 <div id="section-2" class="section level2">
 <h2>section 2</h2>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-1.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-1.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>            No Indifferent          Yes
 No          NA   0.1077521 1.523583e-15
 Indifferent NA          NA 1.641548e-10
 Yes         NA          NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
+Past versions of unnamed-chunk-3-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-2.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-2.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>            No  Indifferent          Yes
 No          NA 1.513833e-09 1.697968e-12
 Indifferent NA           NA 3.148799e-01
 Yes         NA           NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
+Past versions of unnamed-chunk-3-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-3.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-3.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>            No  Indifferent          Yes
 No          NA 0.0008779103 1.849366e-15
 Indifferent NA           NA 1.918739e-06
 Yes         NA           NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-4">
+Past versions of unnamed-chunk-3-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-4.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-4.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>            Indifferent          Yes
 Indifferent          NA 4.207683e-21
 Yes                  NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-5">
+Past versions of unnamed-chunk-3-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-5.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>                 15 to 30 seconds 30 to 60 seconds  60+ seconds
 15 to 30 seconds               NA     4.757482e-07 1.067384e-02
 30 to 60 seconds               NA               NA 5.375096e-14
 60+ seconds                    NA               NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-6">
+Past versions of unnamed-chunk-3-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-3-6.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>                    Less than 3 minutes 3 to 5 minutes 5 to 7 minutes
 Less than 3 minutes                  NA   5.645557e-12   7.841572e-07
 3 to 5 minutes                       NA             NA   4.701156e-02
@@ -789,26 +1214,266 @@ Less than 3 minutes    1.000000e+00
 <div id="section-3" class="section level2">
 <h2>section 3</h2>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-1.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-1.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree      Neutral        Agree
 Disagree       NA 1.233129e-07 1.857035e-16
 Neutral        NA           NA 1.789930e-03
 Agree          NA           NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-2.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-2.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree     Neutral        Agree
 Disagree       NA 0.001489639 5.295300e-21
 Neutral        NA          NA 6.147807e-11
 Agree          NA          NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-3">
+Past versions of unnamed-chunk-4-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-3.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-3.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree   Neutral       Agree
 Disagree       NA 0.1184692 1.18100e-21
 Neutral        NA        NA 4.52958e-16
 Agree          NA        NA          NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-4">
+Past versions of unnamed-chunk-4-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-4.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-4.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree Neutral        Agree
 Disagree       NA 0.21875 6.247778e-28
 Neutral        NA      NA 3.459873e-23
 Agree          NA      NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-5">
+Past versions of unnamed-chunk-4-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-5.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-4-5.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree    Neutral        Agree
 Disagree       NA 0.01667385 9.708115e-12
 Neutral        NA         NA 9.375635e-06
@@ -817,47 +1482,288 @@ Agree          NA         NA           NA</code></pre>
 <div id="section-4" class="section level2">
 <h2>section 4</h2>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-1.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-1.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree     Neutral        Agree
 Disagree       NA 0.003417969 7.431701e-26
 Neutral        NA          NA 6.125403e-16
 Agree          NA          NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-2.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-2.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree     Neutral        Agree
 Disagree       NA 0.001831055 1.470184e-25
 Neutral        NA          NA 4.301654e-15
 Agree          NA          NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-3">
+Past versions of unnamed-chunk-5-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-3.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-3.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree      Neutral        Agree
 Disagree       NA 4.176982e-07 5.057803e-17
 Neutral        NA           NA 4.087772e-04
 Agree          NA           NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-4">
+Past versions of unnamed-chunk-5-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-4.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-4.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>         Disagree   Neutral        Agree
 Disagree       NA 0.0703125 2.448624e-27
 Neutral        NA        NA 7.849647e-21
 Agree          NA        NA           NA</code></pre>
 <p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-5">
+Past versions of unnamed-chunk-5-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/17f38c5ad6a3355b0b7230e632d2770f50ea8a07/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-5.png" target="_blank">17f38c5</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e2c7c3264de9150ecb8d3cc9ef94b5b105ed71e1/docs/figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-5-5.png" target="_blank">e2c7c32</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>    No          Yes
 No  NA 5.109797e-20
 Yes NA           NA</code></pre>
 </div>
 <div id="statistical-software" class="section level2">
 <h2>statistical software</h2>
-<pre><code>               _                           
-platform       x86_64-w64-mingw32          
-arch           x86_64                      
-os             mingw32                     
-system         x86_64, mingw32             
-status                                     
-major          4                           
-minor          1.2                         
-year           2021                        
-month          11                          
-day            01                          
-svn rev        81115                       
-language       R                           
-version.string R version 4.1.2 (2021-11-01)
-nickname       Bird Hippie                 </code></pre>
+<pre><code>               _                                
+platform       x86_64-w64-mingw32               
+arch           x86_64                           
+os             mingw32                          
+crt            ucrt                             
+system         x86_64, mingw32                  
+status                                          
+major          4                                
+minor          3.2                              
+year           2023                             
+month          10                               
+day            31                               
+svn rev        85441                            
+language       R                                
+version.string R version 4.3.2 (2023-10-31 ucrt)
+nickname       Eye Holes                        </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -867,47 +1773,65 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.3.2 (2023-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 18363)
+Running under: Windows 10 x64 (build 19045)
 
 Matrix products: default
 
+
 locale:
-[1] LC_COLLATE=English_United States.1252 
-[2] LC_CTYPE=English_United States.1252   
-[3] LC_MONETARY=English_United States.1252
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
 [4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.1252    
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Chicago
+tzcode source: internal
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] ggpubr_0.4.0     kableExtra_1.3.4 forcats_0.5.1    stringr_1.4.0   
- [5] dplyr_1.0.7      purrr_0.3.4      readr_2.1.1      tidyr_1.1.4     
- [9] tibble_3.1.6     ggplot2_3.3.5    tidyverse_1.3.1 
+ [1] condsurv_1.0.0    devtools_2.4.5    usethis_2.2.2     tidycmprsk_1.0.0 
+ [5] gtsummary_1.7.2   ggsurvfit_1.0.0   irr_0.84.1        lpSolve_5.6.20   
+ [9] readxl_1.4.3      cowplot_1.1.2     matrixStats_1.2.0 gridExtra_2.3    
+[13] DT_0.31           rstatix_0.7.2     ggpubr_0.6.0      kableExtra_1.3.4 
+[17] lubridate_1.9.3   forcats_1.0.0     stringr_1.5.1     dplyr_1.1.4      
+[21] purrr_1.0.2       readr_2.1.4       tidyr_1.3.0       tibble_3.2.1     
+[25] ggplot2_3.4.4     tidyverse_2.0.0  
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.2        sass_0.4.1        jsonlite_1.7.3    viridisLite_0.4.0
- [5] carData_3.0-5     modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1 
- [9] highr_0.9         cellranger_1.1.0  yaml_2.2.2        pillar_1.6.5     
-[13] backports_1.4.1   glue_1.6.0        digest_0.6.29     promises_1.2.0.1 
-[17] ggsignif_0.6.3    rvest_1.0.2       colorspace_2.0-2  cowplot_1.1.1    
-[21] htmltools_0.5.2   httpuv_1.6.5      pkgconfig_2.0.3   broom_0.7.11     
-[25] haven_2.4.3       scales_1.1.1      webshot_0.5.2     svglite_2.0.0    
-[29] whisker_0.4       later_1.3.0       tzdb_0.2.0        git2r_0.29.0     
-[33] farver_2.1.0      generics_0.1.1    car_3.0-12        ellipsis_0.3.2   
-[37] withr_2.4.3       cli_3.1.1         magrittr_2.0.1    crayon_1.4.2     
-[41] readxl_1.3.1      evaluate_0.14     fs_1.5.2          fansi_1.0.2      
-[45] rstatix_0.7.0     xml2_1.3.3        tools_4.1.2       hms_1.1.1        
-[49] lifecycle_1.0.1   munsell_0.5.0     reprex_2.0.1      compiler_4.1.2   
-[53] jquerylib_0.1.4   systemfonts_1.0.3 rlang_0.4.12      grid_4.1.2       
-[57] rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.11    gtable_0.3.0     
-[61] abind_1.4-5       DBI_1.1.2         R6_2.5.1          gridExtra_2.3    
-[65] lubridate_1.8.0   knitr_1.37        fastmap_1.1.0     utf8_1.2.2       
-[69] workflowr_1.7.0   rprojroot_2.0.2   stringi_1.7.6     Rcpp_1.0.8       
-[73] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.29        </code></pre>
+ [1] remotes_2.4.2.1      rlang_1.1.2          magrittr_2.0.3      
+ [4] git2r_0.33.0         compiler_4.3.2       systemfonts_1.0.5   
+ [7] vctrs_0.6.5          rvest_1.0.3          profvis_0.3.8       
+[10] pkgconfig_2.0.3      fastmap_1.1.1        backports_1.4.1     
+[13] ellipsis_0.3.2       labeling_0.4.3       utf8_1.2.4          
+[16] promises_1.2.1       rmarkdown_2.25       sessioninfo_1.2.2   
+[19] tzdb_0.4.0           xfun_0.41            cachem_1.0.8        
+[22] jsonlite_1.8.8       highr_0.10           later_1.3.2         
+[25] broom_1.0.5          R6_2.5.1             bslib_0.6.1         
+[28] stringi_1.8.3        car_3.1-2            pkgload_1.3.3       
+[31] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.0.11         
+[34] knitr_1.45           httpuv_1.6.13        Matrix_1.6-1.1      
+[37] splines_4.3.2        timechange_0.2.0     tidyselect_1.2.0    
+[40] rstudioapi_0.15.0    abind_1.4-5          yaml_2.3.8          
+[43] miniUI_0.1.1.1       pkgbuild_1.4.3       lattice_0.21-9      
+[46] shiny_1.8.0          withr_2.5.2          evaluate_0.23       
+[49] survival_3.5-7       urlchecker_1.0.1     xml2_1.3.6          
+[52] pillar_1.9.0         carData_3.0-5        whisker_0.4.1       
+[55] generics_0.1.3       rprojroot_2.0.4      hms_1.1.3           
+[58] munsell_0.5.0        scales_1.3.0         xtable_1.8-4        
+[61] glue_1.6.2           tools_4.3.2          webshot_0.5.5       
+[64] ggsignif_0.6.4       fs_1.6.3             colorspace_2.1-0    
+[67] cli_3.6.2            workflowr_1.7.1      fansi_1.0.6         
+[70] broom.helpers_1.14.0 viridisLite_0.4.2    svglite_2.1.3       
+[73] gt_0.10.0            gtable_0.3.4         sass_0.4.8          
+[76] digest_0.6.33        farver_2.1.1         htmlwidgets_1.6.4   
+[79] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
+[82] httr_1.4.7           mime_0.12           </code></pre>
 </div>
 </div>
 

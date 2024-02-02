@@ -36,6 +36,22 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.31/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -388,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-02-01
+<strong>Last updated:</strong> 2024-02-02
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -548,15 +564,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb705573158599214a3b8d83ba66a46ff7e5b024btargetblankb705573a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/b705573158599214a3b8d83ba66a46ff7e5b024b" target="_blank">b705573</a>
+<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb705573158599214a3b8d83ba66a46ff7e5b024btargetblankb705573a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +582,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/b705573158599214a3b8d83ba66a46ff7e5b024b" target="_blank">b705573</a>.
+<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -584,8 +600,10 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+    Ignored:    analysis/figure/
 
 Unstaged changes:
+    Modified:   analysis/2022_Feb5_Lauren.Rmd
     Modified:   analysis/2023_12_03_Cem.Rmd
 
 </code></pre>
@@ -632,6 +650,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/b182fdb91884f2443610b8f034fd3ad6cc704215/analysis/2023_12_03_Cem.Rmd" target="_blank">b182fdb</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-01
+</td>
+<td>
+2/1/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/b182fdb91884f2443610b8f034fd3ad6cc704215/docs/2023_12_03_Cem.html" target="_blank">b182fdb</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-01
+</td>
+<td>
+2/1/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1562,8 +1614,18 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y 
  84.07556  72.46934 </code></pre>
+<pre class="r"><code>data.frame(parameters=c(&quot;min&quot;, &quot;1st quantile&quot;, &quot;Median&quot;, &quot;mean&quot;, &quot;3rd quantile&quot;, &quot;maximum&quot;, &quot;SD&quot;), TT_age=c(50.00, 71.00, 83.00, 84.08, 98.00, 119.00, 17.01), HT_age=c(33.00, 61.00, 71.00, 72.47, 82.00, 117.00, 16.16)) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Summary statistics of age in TT/HT&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Summary statistics of age in TT/HT<\/caption>","data":[["1","2","3","4","5","6","7"],["min","1st quantile","Median","mean","3rd quantile","maximum","SD"],[50,71,83,84.08,98,119,17.01],[33,61,71,72.47,82,117,16.16]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>parameters<\/th>\n      <th>TT_age<\/th>\n      <th>HT_age<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"parameters","targets":1},{"name":"TT_age","targets":2},{"name":"HT_age","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>teeth age between two techniques.</li>
+<li>SD is reported in the table</li>
 </ul>
 </div>
 <div id="q2-teeth-behavior-score-between-tt-and-ht"
@@ -5202,6 +5264,14 @@ hazard.</p></li>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="label" class="gt_row gt_left">SSC_Placement_Technique</td>
+<td headers="estimate" class="gt_row gt_center"><br /></td>
+<td headers="ci" class="gt_row gt_center"><br /></td>
+<td headers="p.value" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    1</td>
+<td headers="estimate" class="gt_row gt_center">—</td>
+<td headers="ci" class="gt_row gt_center">—</td>
+<td headers="p.value" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    2</td>
 <td headers="estimate" class="gt_row gt_center">1.07</td>
 <td headers="ci" class="gt_row gt_center">0.73, 1.56</td>
 <td headers="p.value" class="gt_row gt_center">0.7</td></tr>
@@ -5221,6 +5291,12 @@ significance</li>
 </div>
 <div id="tt-2" class="section level4">
 <h4>TT</h4>
+</div>
+</div>
+<div id="q5-behavior" class="section level3">
+<h3>Q5: Behavior</h3>
+<div id="ttht-3" class="section level4">
+<h4>TT+HT</h4>
 <div id="cagewiyxqu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#cagewiyxqu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -5672,10 +5748,26 @@ significance</li>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="label" class="gt_row gt_left">SSC_Placement_Technique</td>
+    <tr><td headers="label" class="gt_row gt_left">as.factor(Behavior)</td>
 <td headers="estimate" class="gt_row gt_center"><br /></td>
 <td headers="ci" class="gt_row gt_center"><br /></td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    1</td>
+<td headers="estimate" class="gt_row gt_center">—</td>
+<td headers="ci" class="gt_row gt_center">—</td>
+<td headers="p.value" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    2</td>
+<td headers="estimate" class="gt_row gt_center">0.81</td>
+<td headers="ci" class="gt_row gt_center">0.28, 2.29</td>
+<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    3</td>
+<td headers="estimate" class="gt_row gt_center">0.67</td>
+<td headers="ci" class="gt_row gt_center">0.24, 1.87</td>
+<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    4</td>
+<td headers="estimate" class="gt_row gt_center">0.66</td>
+<td headers="ci" class="gt_row gt_center">0.23, 1.84</td>
+<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -5685,12 +5777,12 @@ significance</li>
   </tfoot>
 </table>
 </div>
+<ul>
+<li><code>Frankl 1             : 1</code> is the reference</li>
+</ul>
 </div>
-</div>
-<div id="q5-behavior" class="section level3">
-<h3>Q5: Behavior</h3>
-<div id="ttht-3" class="section level4">
-<h4>TT+HT</h4>
+<div id="tt-3" class="section level4">
+<h4>TT</h4>
 <div id="cbzhmhbfwq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#cbzhmhbfwq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -6151,17 +6243,17 @@ significance</li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    2</td>
-<td headers="estimate" class="gt_row gt_center">0.81</td>
-<td headers="ci" class="gt_row gt_center">0.28, 2.29</td>
+<td headers="estimate" class="gt_row gt_center">0.75</td>
+<td headers="ci" class="gt_row gt_center">0.21, 2.68</td>
 <td headers="p.value" class="gt_row gt_center">0.7</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    3</td>
-<td headers="estimate" class="gt_row gt_center">0.67</td>
-<td headers="ci" class="gt_row gt_center">0.24, 1.87</td>
-<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.72</td>
+<td headers="ci" class="gt_row gt_center">0.20, 2.52</td>
+<td headers="p.value" class="gt_row gt_center">0.6</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    4</td>
-<td headers="estimate" class="gt_row gt_center">0.66</td>
-<td headers="ci" class="gt_row gt_center">0.23, 1.84</td>
-<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.75</td>
+<td headers="ci" class="gt_row gt_center">0.23, 2.48</td>
+<td headers="p.value" class="gt_row gt_center">0.6</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -6171,12 +6263,9 @@ significance</li>
   </tfoot>
 </table>
 </div>
-<ul>
-<li><code>Frankl 1             : 1</code> is the reference</li>
-</ul>
 </div>
-<div id="tt-3" class="section level4">
-<h4>TT</h4>
+<div id="ht-2" class="section level4">
+<h4>HT</h4>
 <div id="vncwcngwow" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#vncwcngwow table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -6637,17 +6726,17 @@ significance</li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    2</td>
-<td headers="estimate" class="gt_row gt_center">0.75</td>
-<td headers="ci" class="gt_row gt_center">0.21, 2.68</td>
-<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.62</td>
+<td headers="ci" class="gt_row gt_center">0.08, 4.83</td>
+<td headers="p.value" class="gt_row gt_center">0.6</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    3</td>
-<td headers="estimate" class="gt_row gt_center">0.72</td>
-<td headers="ci" class="gt_row gt_center">0.20, 2.52</td>
-<td headers="p.value" class="gt_row gt_center">0.6</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.46</td>
+<td headers="ci" class="gt_row gt_center">0.06, 3.56</td>
+<td headers="p.value" class="gt_row gt_center">0.5</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    4</td>
-<td headers="estimate" class="gt_row gt_center">0.75</td>
-<td headers="ci" class="gt_row gt_center">0.23, 2.48</td>
-<td headers="p.value" class="gt_row gt_center">0.6</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.41</td>
+<td headers="ci" class="gt_row gt_center">0.05, 3.35</td>
+<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -6658,8 +6747,11 @@ significance</li>
 </table>
 </div>
 </div>
-<div id="ht-2" class="section level4">
-<h4>HT</h4>
+</div>
+<div id="q7-tx-provider" class="section level3">
+<h3>Q7: Tx Provider</h3>
+<div id="ttht-4" class="section level4">
+<h4>TT+HT</h4>
 <div id="vljvjdiyzt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#vljvjdiyzt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -7111,7 +7203,7 @@ significance</li>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="label" class="gt_row gt_left">as.factor(Behavior)</td>
+    <tr><td headers="label" class="gt_row gt_left">as.factor(`Tx Provider`)</td>
 <td headers="estimate" class="gt_row gt_center"><br /></td>
 <td headers="ci" class="gt_row gt_center"><br /></td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
@@ -7120,17 +7212,9 @@ significance</li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    2</td>
-<td headers="estimate" class="gt_row gt_center">0.62</td>
-<td headers="ci" class="gt_row gt_center">0.08, 4.83</td>
-<td headers="p.value" class="gt_row gt_center">0.6</td></tr>
-    <tr><td headers="label" class="gt_row gt_left">    3</td>
-<td headers="estimate" class="gt_row gt_center">0.46</td>
-<td headers="ci" class="gt_row gt_center">0.06, 3.56</td>
+<td headers="estimate" class="gt_row gt_center">1.14</td>
+<td headers="ci" class="gt_row gt_center">0.79, 1.65</td>
 <td headers="p.value" class="gt_row gt_center">0.5</td></tr>
-    <tr><td headers="label" class="gt_row gt_left">    4</td>
-<td headers="estimate" class="gt_row gt_center">0.41</td>
-<td headers="ci" class="gt_row gt_center">0.05, 3.35</td>
-<td headers="p.value" class="gt_row gt_center">0.4</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -7140,12 +7224,12 @@ significance</li>
   </tfoot>
 </table>
 </div>
+<ul>
+<li><code>D3               : 1</code> is the reference group</li>
+</ul>
 </div>
-</div>
-<div id="q7-tx-provider" class="section level3">
-<h3>Q7: Tx Provider</h3>
-<div id="ttht-4" class="section level4">
-<h4>TT+HT</h4>
+<div id="tt-4" class="section level4">
+<h4>TT</h4>
 <div id="esoscvyocb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#esoscvyocb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -7606,9 +7690,9 @@ significance</li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    2</td>
-<td headers="estimate" class="gt_row gt_center">1.14</td>
-<td headers="ci" class="gt_row gt_center">0.79, 1.65</td>
-<td headers="p.value" class="gt_row gt_center">0.5</td></tr>
+<td headers="estimate" class="gt_row gt_center">0.90</td>
+<td headers="ci" class="gt_row gt_center">0.52, 1.55</td>
+<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
   </tbody>
   
   <tfoot class="gt_footnotes">
@@ -7618,12 +7702,9 @@ significance</li>
   </tfoot>
 </table>
 </div>
-<ul>
-<li><code>D3               : 1</code> is the reference group</li>
-</ul>
 </div>
-<div id="tt-4" class="section level4">
-<h4>TT</h4>
+<div id="ht-3" class="section level4">
+<h4>HT</h4>
 <div id="faphejiens" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#faphejiens table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -8084,481 +8165,6 @@ significance</li>
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"><br /></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    2</td>
-<td headers="estimate" class="gt_row gt_center">0.90</td>
-<td headers="ci" class="gt_row gt_center">0.52, 1.55</td>
-<td headers="p.value" class="gt_row gt_center">0.7</td></tr>
-  </tbody>
-  
-  <tfoot class="gt_footnotes">
-    <tr>
-      <td class="gt_footnote" colspan="4"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> HR = Hazard Ratio, CI = Confidence Interval</td>
-    </tr>
-  </tfoot>
-</table>
-</div>
-</div>
-<div id="ht-3" class="section level4">
-<h4>HT</h4>
-<div id="ktyenriago" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ktyenriago table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#ktyenriago thead, #ktyenriago tbody, #ktyenriago tfoot, #ktyenriago tr, #ktyenriago td, #ktyenriago th {
-  border-style: none;
-}
-
-#ktyenriago p {
-  margin: 0;
-  padding: 0;
-}
-
-#ktyenriago .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#ktyenriago .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#ktyenriago .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#ktyenriago .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#ktyenriago .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ktyenriago .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ktyenriago .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ktyenriago .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#ktyenriago .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#ktyenriago .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#ktyenriago .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#ktyenriago .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#ktyenriago .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#ktyenriago .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#ktyenriago .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#ktyenriago .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#ktyenriago .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#ktyenriago .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#ktyenriago .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ktyenriago .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#ktyenriago .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#ktyenriago .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#ktyenriago .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ktyenriago .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#ktyenriago .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#ktyenriago .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ktyenriago .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ktyenriago .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#ktyenriago .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ktyenriago .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#ktyenriago .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ktyenriago .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ktyenriago .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ktyenriago .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ktyenriago .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ktyenriago .gt_left {
-  text-align: left;
-}
-
-#ktyenriago .gt_center {
-  text-align: center;
-}
-
-#ktyenriago .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#ktyenriago .gt_font_normal {
-  font-weight: normal;
-}
-
-#ktyenriago .gt_font_bold {
-  font-weight: bold;
-}
-
-#ktyenriago .gt_font_italic {
-  font-style: italic;
-}
-
-#ktyenriago .gt_super {
-  font-size: 65%;
-}
-
-#ktyenriago .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#ktyenriago .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#ktyenriago .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#ktyenriago .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#ktyenriago .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#ktyenriago .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#ktyenriago .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;HR&lt;/strong&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;"><strong>HR</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;95% CI&lt;/strong&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;"><strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;p-value&lt;/strong&gt;"><strong>p-value</strong></th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="label" class="gt_row gt_left">as.factor(`Tx Provider`)</td>
-<td headers="estimate" class="gt_row gt_center"><br /></td>
-<td headers="ci" class="gt_row gt_center"><br /></td>
-<td headers="p.value" class="gt_row gt_center"><br /></td></tr>
-    <tr><td headers="label" class="gt_row gt_left">    1</td>
-<td headers="estimate" class="gt_row gt_center">—</td>
-<td headers="ci" class="gt_row gt_center">—</td>
-<td headers="p.value" class="gt_row gt_center"><br /></td></tr>
-    <tr><td headers="label" class="gt_row gt_left">    2</td>
 <td headers="estimate" class="gt_row gt_center">1.42</td>
 <td headers="ci" class="gt_row gt_center">0.84, 2.39</td>
 <td headers="p.value" class="gt_row gt_center">0.2</td></tr>
@@ -8811,13 +8417,13 @@ loaded via a namespace (and not attached):
 [64] munsell_0.5.0        scales_1.3.0         gtools_3.9.5        
 [67] xtable_1.8-4         glue_1.6.2           tools_4.3.2         
 [70] webshot_0.5.5        ggsignif_0.6.4       fs_1.6.3            
-[73] colorspace_2.1-0     patchwork_1.2.0      cli_3.6.2           
-[76] workflowr_1.7.1      fansi_1.0.6          broom.helpers_1.14.0
-[79] viridisLite_0.4.2    svglite_2.1.3        gt_0.10.0           
-[82] gtable_0.3.4         sass_0.4.8           digest_0.6.33       
-[85] farver_2.1.1         htmlwidgets_1.6.4    memoise_2.0.1       
-[88] htmltools_0.5.7      lifecycle_1.0.4      httr_1.4.7          
-[91] mime_0.12           </code></pre>
+[73] crosstalk_1.2.1      colorspace_2.1-0     patchwork_1.2.0     
+[76] cli_3.6.2            workflowr_1.7.1      fansi_1.0.6         
+[79] broom.helpers_1.14.0 viridisLite_0.4.2    svglite_2.1.3       
+[82] gt_0.10.0            gtable_0.3.4         sass_0.4.8          
+[85] digest_0.6.33        farver_2.1.1         htmlwidgets_1.6.4   
+[88] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
+[91] httr_1.4.7           mime_0.12           </code></pre>
 </div>
 </div>
 
