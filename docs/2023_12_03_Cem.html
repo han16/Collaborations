@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-02-02
+<strong>Last updated:</strong> 2024-02-05
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -564,15 +564,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948targetblanka81c1e3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>
+<a href="https://github.com/han16/Collaborations/tree/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948" target="_blank">a81c1e3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948targetblanka81c1e3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +582,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>.
+<a href="https://github.com/han16/Collaborations/tree/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948" target="_blank">a81c1e3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -600,10 +600,8 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
-    Ignored:    analysis/figure/
 
 Unstaged changes:
-    Modified:   analysis/2022_Feb5_Lauren.Rmd
     Modified:   analysis/2023_12_03_Cem.Rmd
 
 </code></pre>
@@ -650,6 +648,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948/analysis/2023_12_03_Cem.Rmd" target="_blank">a81c1e3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-02
+</td>
+<td>
+2/2/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948/docs/2023_12_03_Cem.html" target="_blank">a81c1e3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-02
+</td>
+<td>
+2/2/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1850,6 +1882,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-8-2.png" target="_blank">a81c1e3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-02
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/5ecf24b4c76aabd060208c469fb355119dcac184/docs/figure/2023_12_03_Cem.Rmd/unnamed-chunk-8-2.png" target="_blank">5ecf24b</a>
@@ -8201,6 +8244,15 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y 
  80.22414  70.99482 </code></pre>
+<pre class="r"><code>data.frame(parameters=c(&quot;min&quot;, &quot;1st quantile&quot;, &quot;Median&quot;, &quot;mean&quot;, &quot;3rd quantile&quot;, &quot;maximum&quot;, &quot;SD&quot;), TT_age=round(c(summary(TT_age), sd(TT_age)),2), HT_age=round(c(summary(HT_age), sd(HT_age)),2)) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Summary statistics of age in TT/HT&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Summary statistics of age in TT/HT<\/caption>","data":[["Min.","1st Qu.","Median","Mean","3rd Qu.","Max.",""],["min","1st quantile","Median","mean","3rd quantile","maximum","SD"],[63,74,77,80.22,87.75,103,11.59],[38,62,68,70.98999999999999,79,115,14.19]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>parameters<\/th>\n      <th>TT_age<\/th>\n      <th>HT_age<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"parameters","targets":1},{"name":"TT_age","targets":2},{"name":"HT_age","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="more-than-2-sessions" class="section level3">
 <h3>more than 2 sessions</h3>
@@ -8220,6 +8272,15 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y 
  81.53333  72.30769 </code></pre>
+<pre class="r"><code>data.frame(parameters=c(&quot;min&quot;, &quot;1st quantile&quot;, &quot;Median&quot;, &quot;mean&quot;, &quot;3rd quantile&quot;, &quot;maximum&quot;, &quot;SD&quot;), TT_age=round(c(summary(TT_age), sd(TT_age)),2), HT_age=round(c(summary(HT_age), sd(HT_age)),2)) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Summary statistics of age in TT/HT&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Summary statistics of age in TT/HT<\/caption>","data":[["Min.","1st Qu.","Median","Mean","3rd Qu.","Max.",""],["min","1st quantile","Median","mean","3rd quantile","maximum","SD"],[67,74.5,77,81.53,88,101,10.96],[46,61.5,71,72.31,82.5,115,15.71]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>parameters<\/th>\n      <th>TT_age<\/th>\n      <th>HT_age<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"parameters","targets":1},{"name":"TT_age","targets":2},{"name":"HT_age","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="ssc-affects-patients-behavior-scores-change"

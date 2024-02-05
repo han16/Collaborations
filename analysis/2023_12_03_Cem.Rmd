@@ -382,6 +382,16 @@ TT_age=data_covariate %>% filter(`SSC Placement Technique`==1) %>% select(`Age o
 HT_age=data_covariate %>% filter(`SSC Placement Technique`==2) %>% select(`Age on Tx Date`) %>% pull()
 t.test(TT_age, HT_age)
 
+
+data.frame(parameters=c("min", "1st quantile", "Median", "mean", "3rd quantile", "maximum", "SD"), TT_age=round(c(summary(TT_age), sd(TT_age)),2), HT_age=round(c(summary(HT_age), sd(HT_age)),2)) %>%
+datatable(extensions = 'Buttons',
+          caption = "Summary statistics of age in TT/HT",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
+
 ```
 
 
@@ -393,6 +403,15 @@ data_covariate=data %>% filter(`SSC Placement Technique`==1 | `SSC Placement Tec
 TT_age=data_covariate %>% filter(`SSC Placement Technique`==1) %>% select(`Age on Tx Date`) %>% pull()
 HT_age=data_covariate %>% filter(`SSC Placement Technique`==2) %>% select(`Age on Tx Date`) %>% pull()
 t.test(TT_age, HT_age)
+
+
+data.frame(parameters=c("min", "1st quantile", "Median", "mean", "3rd quantile", "maximum", "SD"), TT_age=round(c(summary(TT_age), sd(TT_age)),2), HT_age=round(c(summary(HT_age), sd(HT_age)),2)) %>%
+datatable(extensions = 'Buttons',
+          caption = "Summary statistics of age in TT/HT",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
