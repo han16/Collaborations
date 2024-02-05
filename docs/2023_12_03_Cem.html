@@ -564,15 +564,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948targetblanka81c1e3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8237ea3e6773371b63de571c9444d804d9dadf15targetblank8237ea3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948" target="_blank">a81c1e3</a>
+<a href="https://github.com/han16/Collaborations/tree/8237ea3e6773371b63de571c9444d804d9dadf15" target="_blank">8237ea3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948targetblanka81c1e3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8237ea3e6773371b63de571c9444d804d9dadf15targetblank8237ea3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +582,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948" target="_blank">a81c1e3</a>.
+<a href="https://github.com/han16/Collaborations/tree/8237ea3e6773371b63de571c9444d804d9dadf15" target="_blank">8237ea3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -648,6 +648,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8237ea3e6773371b63de571c9444d804d9dadf15/analysis/2023_12_03_Cem.Rmd" target="_blank">8237ea3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-05
+</td>
+<td>
+2/5/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/8237ea3e6773371b63de571c9444d804d9dadf15/docs/2023_12_03_Cem.html" target="_blank">8237ea3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-05
+</td>
+<td>
+2/5/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1789,8 +1823,8 @@ of proportion of 1+2</li>
 </ul>
 </div>
 </div>
-<div id="survival-analysis-of-sscs" class="section level2">
-<h2>survival analysis of SSCs</h2>
+<div id="q3-survival-analysis-of-sscs" class="section level2">
+<h2>Q3: survival analysis of SSCs</h2>
 <div id="kaplan-meier-survival-analyses" class="section level3">
 <h3>Kaplan-Meier survival analyses</h3>
 <pre><code>List of 16
@@ -8346,73 +8380,70 @@ two sessions - Score decreased then remained unchanged : 4 More than two
 sessions - Score decreased then increased : 5</p>
 </div>
 </div>
-<div id="q9" class="section level2">
-<h2>Q9</h2>
-<pre class="r"><code>TT_covariate=data %&gt;% filter(`SSC Placement Technique`==1 ) %&gt;% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4)  %&gt;% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
-TT_covariate</code></pre>
-<pre><code># A tibble: 3 × 2
-  `Change in Behavior Score between sessions (two sessions)`     n
-                                                       &lt;dbl&gt; &lt;int&gt;
-1                                                          2     4
-2                                                          3    10
-3                                                          4     5</code></pre>
-<pre class="r"><code>HT_covariate=data %&gt;% filter(`SSC Placement Technique`==2 ) %&gt;% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4)  %&gt;% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
-HT_covariate</code></pre>
-<pre><code># A tibble: 3 × 2
-  `Change in Behavior Score between sessions (two sessions)`     n
-                                                       &lt;dbl&gt; &lt;int&gt;
-1                                                          2     4
-2                                                          3    21
-3                                                          4    23</code></pre>
-<pre class="r"><code>TT_HT=data.frame(TT=TT_covariate$n, HT=HT_covariate$n)
-chisq=chisq.test(TT_HT)
-chisq</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test
+<div
+id="q9-ssc-placement-technique-tt-vs.-ht-affect-the-need-for-using-advanced-behavior-management-n2o-with-2-sessions"
+class="section level2">
+<h2>Q9: SSC placement technique (TT vs. HT) affect the need for using
+advanced behavior management (N2O) with 2 sessions</h2>
+<pre class="r"><code>TT_id=data %&gt;% filter(`SSC Placement Technique`==1 ) %&gt;% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4) %&gt;% select(`Pt. Chart`) %&gt;% pull() # patients starting with TT 
+TT_to_n2o= data%&gt;% filter(`Pt. Chart` %in% TT_id) %&gt;% filter(`SSC Placement Technique`==3) %&gt;% nrow()
 
-data:  TT_HT
-X-squared = 3.5961, df = 2, p-value = 0.1656</code></pre>
+HT_id=data %&gt;% filter(`SSC Placement Technique`==2 ) %&gt;% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4) %&gt;% select(`Pt. Chart`) %&gt;% pull() # patients starting with TT 
+HT_to_n2o= data%&gt;% filter(`Pt. Chart` %in% HT_id) %&gt;% filter(`SSC Placement Technique`==4) %&gt;% nrow()
+
+prop.test(x=c(TT_to_n2o, HT_to_n2o), n=c(length(TT_id), length(HT_id)), p = NULL, alternative = &quot;two.sided&quot;, correct = TRUE)</code></pre>
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(TT_to_n2o, HT_to_n2o) out of c(length(TT_id), length(HT_id))
+X-squared = 0.20819, df = 1, p-value = 0.6482
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.1438201  0.2929429
+sample estimates:
+    prop 1     prop 2 
+0.15789474 0.08333333 </code></pre>
 <ul>
-<li><p>Two sessions - Score decreased : 2</p></li>
-<li><p>Two sessions - No change : 3</p></li>
-<li><p>Two sessions - Score increased : 4</p></li>
+<li><p>the proportion of TT to TT with N2O (TT-&gt;TT with N2O) is
+15.79% and HT to HT with N2O (HT-&gt; HT with N2O) is 8.33%.</p></li>
+<li><p>the proportion of patients from TT t0 TT with N2O is not
+significantly different from patients from HT to HT with N2O.</p></li>
+<li><p>small sample in each group could be a concern of no
+difference</p></li>
 </ul>
 </div>
-<div id="q10" class="section level2">
-<h2>Q10</h2>
-<pre class="r"><code>TT_covariate=data %&gt;% filter(`SSC Placement Technique`==1 ) %&gt;% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %&gt;% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`) 
-TT_covariate</code></pre>
-<pre><code># A tibble: 3 × 2
-  `Change in Behavior Score between sessions (more than two sessions)`     n
-                                                                 &lt;dbl&gt; &lt;int&gt;
-1                                                                    1     8
-2                                                                    2     6
-3                                                                    4     1</code></pre>
-<pre class="r"><code>HT_covariate=data %&gt;% filter(`SSC Placement Technique`==2 ) %&gt;% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %&gt;% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`) 
-HT_covariate</code></pre>
-<pre><code># A tibble: 2 × 2
-  `Change in Behavior Score between sessions (more than two sessions)`     n
-                                                                 &lt;dbl&gt; &lt;int&gt;
-1                                                                    1    10
-2                                                                    2    29</code></pre>
-<pre class="r"><code>TT_HT=data.frame(TT=TT_covariate$n, HT=c(HT_covariate$n,0))
-chisq=chisq.test(TT_HT)
-chisq</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test
+<div
+id="q10-ssc-placement-technique-tt-vs.-ht-affect-the-need-for-using-advanced-behavior-management-n2o-with-more-than-2-sessions"
+class="section level2">
+<h2>Q10: SSC placement technique (TT vs. HT) affect the need for using
+advanced behavior management (N2O) with more than 2 sessions</h2>
+<pre class="r"><code>TT_id=data %&gt;% filter(`SSC Placement Technique`==1 ) %&gt;% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %&gt;% select(`Pt. Chart`) %&gt;% pull() # patients starting with TT
+TT_to_n2o= length(unique(data%&gt;% filter(`Pt. Chart` %in% TT_id) %&gt;% filter(`SSC Placement Technique`==3) %&gt;% select(`Pt. Chart`) %&gt;% pull())) # count people starting from 1, and change to 3 at a later point, and there could be states other than 1,3 in between    
 
-data:  TT_HT
-X-squared = 7.0655, df = 2, p-value = 0.02922</code></pre>
+
+HT_id=data %&gt;% filter(`SSC Placement Technique`==2 ) %&gt;% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %&gt;% select(`Pt. Chart`) %&gt;% pull() # patients starting with TT
+HT_to_n2o= length(unique(data%&gt;% filter(`Pt. Chart` %in% TT_id) %&gt;% filter(`SSC Placement Technique`==4) %&gt;% select(`Pt. Chart`) %&gt;% pull())) # count people starting from 2, and change to 4 at a later point, and there could be states other than 1,3 in between 
+
+prop.test(x=c(TT_to_n2o, HT_to_n2o), n=c(length(TT_id), length(HT_id)), p = NULL, alternative = &quot;two.sided&quot;, correct = TRUE)</code></pre>
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(TT_to_n2o, HT_to_n2o) out of c(length(TT_id), length(HT_id))
+X-squared = 0.7819, df = 1, p-value = 0.3766
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.1174987  0.3328833
+sample estimates:
+    prop 1     prop 2 
+0.13333333 0.02564103 </code></pre>
 <ul>
-<li><p>Score remained unchanged : 1</p></li>
-<li><p>More than two sessions - Score increased then remained unchanged
-: 2</p></li>
-<li><p>More than two sessions - Score increased then decreased :
-3</p></li>
-<li><p>More than two sessions - Score decreased then remained unchanged
-: 4</p></li>
-<li><p>More than two sessions - Score decreased then increased :
-5</p></li>
+<li><p>the proportion of TT to TT with N2O at a later point
+(TT-&gt;…&gt;TT with N2O-&gt;…) is 13.33% and HT to HT with N2O
+(HT-&gt;…&gt; HT with N2O&gt;…) is 2.56%.</p></li>
+<li><p>the proportion of patients from TT t0 TT with N2O is not
+significantly different from patients from HT to HT with N2O.</p></li>
+<li><p>small sample in each group could be a concern of no
+difference</p></li>
 </ul>
 <br>
 <p>

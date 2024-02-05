@@ -137,7 +137,7 @@ prop.test(x=c(sum(TT_HT_behavior[1:2,1]), sum(TT_HT_behavior[1:2,2])), n=c(sum(T
 * large p value suggests of no difference between TT and FT in terms of proportion of 1+2
 
 
-## survival analysis of SSCs 
+## Q3:  survival analysis of SSCs 
 
 
 ### Kaplan-Meier survival analyses 
@@ -470,56 +470,47 @@ More than two sessions - Score decreased then increased			: 5
 
 
 
-## Q9 
+## Q9: SSC placement technique (TT vs. HT) affect the need for using advanced behavior management (N2O) with 2 sessions  
 
 
 ```{r, echo=T, message=F, warning=F}
-TT_covariate=data %>% filter(`SSC Placement Technique`==1 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4)  %>% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
-TT_covariate
+TT_id=data %>% filter(`SSC Placement Technique`==1 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4) %>% select(`Pt. Chart`) %>% pull() # patients starting with TT 
+TT_to_n2o= data%>% filter(`Pt. Chart` %in% TT_id) %>% filter(`SSC Placement Technique`==3) %>% nrow()
 
-HT_covariate=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4)  %>% dplyr::count(`Change in Behavior Score between sessions (two sessions)`) 
-HT_covariate
+HT_id=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (two sessions)`==2 | `Change in Behavior Score between sessions (two sessions)`==3 | `Change in Behavior Score between sessions (two sessions)`==4) %>% select(`Pt. Chart`) %>% pull() # patients starting with TT 
+HT_to_n2o= data%>% filter(`Pt. Chart` %in% HT_id) %>% filter(`SSC Placement Technique`==4) %>% nrow()
 
-TT_HT=data.frame(TT=TT_covariate$n, HT=HT_covariate$n)
-chisq=chisq.test(TT_HT)
-chisq
+prop.test(x=c(TT_to_n2o, HT_to_n2o), n=c(length(TT_id), length(HT_id)), p = NULL, alternative = "two.sided", correct = TRUE)
+
 ```
+* the proportion of TT to TT with N2O (TT->TT with N2O) is 15.79% and HT to HT with N2O (HT-> HT with N2O) is 8.33%. 
+
+* the proportion of patients from TT t0 TT with N2O is not significantly different from patients from HT to HT with N2O. 
+
+* small sample in each group could be a concern of no difference 
 
 
-* Two sessions - Score decreased		: 2 
-
-* Two sessions - No change		: 3 
-
-* Two sessions - Score increased		: 4 
-
-
-
-
-## Q10 
+## Q10: SSC placement technique (TT vs. HT) affect the need for using advanced behavior management (N2O) with more than 2 sessions
 
 
 ```{r, echo=T, message=F, warning=F}
-TT_covariate=data %>% filter(`SSC Placement Technique`==1 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`) 
-TT_covariate
+TT_id=data %>% filter(`SSC Placement Technique`==1 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% select(`Pt. Chart`) %>% pull() # patients starting with TT
+TT_to_n2o= length(unique(data%>% filter(`Pt. Chart` %in% TT_id) %>% filter(`SSC Placement Technique`==3) %>% select(`Pt. Chart`) %>% pull())) # count people starting from 1, and change to 3 at a later point, and there could be states other than 1,3 in between    
 
-HT_covariate=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% dplyr::count(`Change in Behavior Score between sessions (more than two sessions)`) 
-HT_covariate
 
-TT_HT=data.frame(TT=TT_covariate$n, HT=c(HT_covariate$n,0))
-chisq=chisq.test(TT_HT)
-chisq
+HT_id=data %>% filter(`SSC Placement Technique`==2 ) %>% filter(`Change in Behavior Score between sessions (more than two sessions)`!=0)  %>% select(`Pt. Chart`) %>% pull() # patients starting with TT
+HT_to_n2o= length(unique(data%>% filter(`Pt. Chart` %in% TT_id) %>% filter(`SSC Placement Technique`==4) %>% select(`Pt. Chart`) %>% pull())) # count people starting from 2, and change to 4 at a later point, and there could be states other than 1,3 in between 
+
+prop.test(x=c(TT_to_n2o, HT_to_n2o), n=c(length(TT_id), length(HT_id)), p = NULL, alternative = "two.sided", correct = TRUE)
 ```
+* the proportion of TT to TT with N2O at a later point (TT->...>TT with N2O->...) is 13.33% and HT to HT with N2O (HT->...> HT with N2O>...) is 2.56%. 
+
+* the proportion of patients from TT t0 TT with N2O is not significantly different from patients from HT to HT with N2O. 
+
+* small sample in each group could be a concern of no difference 
 
 
 
-* Score remained unchanged							: 1 
 
-* More than two sessions - Score increased then remained unchanged		: 2 
-
-* More than two sessions - Score increased then decreased 			: 3 
-
-* More than two sessions - Score decreased then remained unchanged		: 4 
-
-* More than two sessions - Score decreased then increased			: 5 
 
  
