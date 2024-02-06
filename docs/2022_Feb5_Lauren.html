@@ -35,6 +35,22 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.31/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -386,7 +402,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-02-01
+<strong>Last updated:</strong> 2024-02-06
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -546,15 +562,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree14b77029345dc10eee13c9563e305a9fb7fcad7ftargetblank14b7702a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>
+<a href="https://github.com/han16/Collaborations/tree/14b77029345dc10eee13c9563e305a9fb7fcad7f" target="_blank">14b7702</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb182fdb91884f2443610b8f034fd3ad6cc704215targetblankb182fdba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree14b77029345dc10eee13c9563e305a9fb7fcad7ftargetblank14b7702a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -564,7 +580,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/b182fdb91884f2443610b8f034fd3ad6cc704215" target="_blank">b182fdb</a>.
+<a href="https://github.com/han16/Collaborations/tree/14b77029345dc10eee13c9563e305a9fb7fcad7f" target="_blank">14b7702</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -630,6 +646,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948/analysis/2022_Feb5_Lauren.Rmd" target="_blank">a81c1e3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-02
+</td>
+<td>
+2/2/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a81c1e38f74f4cfcf2b7cc8b462a9a27c08a5948/docs/2022_Feb5_Lauren.html" target="_blank">a81c1e3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-02
+</td>
+<td>
+2/2/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1746,6 +1796,201 @@ Han
 No  NA 5.109797e-20
 Yes NA           NA</code></pre>
 </div>
+<div id="section" class="section level2">
+<h2>2024</h2>
+<div id="section-1-1" class="section level3">
+<h3>section 1</h3>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree      Neutral      Agree
+Disagree       NA 0.0006855642 0.18821620
+Neutral        NA           NA 0.04876677
+Agree          NA           NA         NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree     Neutral        Agree
+Disagree       NA 0.007385254 1.113425e-18
+Neutral        NA          NA 1.333319e-10
+Agree          NA          NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree    Neutral        Agree
+Disagree       NA 3.5882e-05 4.373672e-16
+Neutral        NA         NA 2.180657e-05
+Agree          NA         NA           NA</code></pre>
+</div>
+<div id="section-2-1" class="section level3">
+<h3>section 2</h3>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No Indifferent          Yes
+No          NA 0.001193243 2.716853e-08
+Indifferent NA          NA 2.203346e-02
+Yes         NA          NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No  Indifferent          Yes
+No          NA 5.417769e-07 3.102804e-07
+Indifferent NA           NA 1.000000e+00
+Yes         NA           NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No Indifferent          Yes
+No          NA  0.04703103 3.183629e-06
+Indifferent NA          NA 9.542211e-03
+Yes         NA          NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-7-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No Indifferent          Yes
+No          NA 0.007385254 1.113425e-18
+Indifferent NA          NA 1.333319e-10
+Yes         NA          NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-7-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>                       15 to 30 seconds 30 to 60 seconds Longer than 60 seconds
+15 to 30 seconds                     NA        0.1192737           1.084394e-06
+30 to 60 seconds                     NA               NA           1.306528e-10
+Longer than 60 seconds               NA               NA                     NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-7-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>                        Less than 3 minutes Between 3 to 5 minutes
+Less than 3 minutes                      NA           2.571572e-07
+Between 3 to 5 minutes                   NA                     NA
+Between 5 to 7 minutes                   NA                     NA
+Between 7 to 10 minutes                  NA                     NA
+                        Between 5 to 7 minutes Between 7 to 10 minutes
+Less than 3 minutes                0.013530987            4.239502e-01
+Between 3 to 5 minutes             0.008554539            1.284823e-09
+Between 5 to 7 minutes                      NA            5.461127e-04
+Between 7 to 10 minutes                     NA                      NA</code></pre>
+</div>
+<div id="section-3-1" class="section level3">
+<h3>section 3</h3>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree      Neutral        Agree
+Disagree       NA 1.636124e-06 1.008748e-07
+Neutral        NA           NA 6.529644e-01
+Agree          NA           NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree     Neutral        Agree
+Disagree       NA 0.002599478 2.083544e-14
+Neutral        NA          NA 1.773068e-06
+Agree          NA          NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree      Neutral        Agree
+Disagree       NA 0.0005187988 1.202787e-19
+Neutral        NA           NA 1.938192e-09
+Agree          NA           NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-8-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree Neutral        Agree
+Disagree       NA   0.625 3.432800e-23
+Neutral        NA      NA 1.022137e-20
+Agree          NA      NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-8-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree   Neutral        Agree
+Disagree       NA 0.6177193 5.084767e-05
+Neutral        NA        NA 6.361730e-04
+Agree          NA        NA           NA</code></pre>
+</div>
+<div id="section-4-1" class="section level3">
+<h3>section 4</h3>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree      Neutral        Agree
+Disagree       NA 0.0003107488 2.591759e-13
+Neutral        NA           NA 1.266112e-04
+Agree          NA           NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree    Neutral        Agree
+Disagree       NA 3.5882e-05 4.373672e-16
+Neutral        NA         NA 2.180657e-05
+Agree          NA         NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree   Neutral        Agree
+Disagree       NA 0.0237027 8.219664e-06
+Neutral        NA        NA 3.441591e-02
+Agree          NA        NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-9-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>        Neutral        Agree
+Neutral      NA 4.628574e-11
+Agree        NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-9-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>    No          Yes
+No  NA 2.427174e-10
+Yes NA           NA</code></pre>
+<div
+id="if-you-answered-yes-to-question-5-please-select-which-additional-topics-you-would-like-to-see-covered-to-improve-your-knowledge-of-advanced-clinical-endo.-select-all-that-apply."
+class="section level4">
+<h4>6. If you answered YES to question 5, please select which additional
+topics you would like to see covered to improve your knowledge of
+advanced clinical endo. Select ALL that apply.</h4>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Summary statistics of age in TT/HT<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown)","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Mishaps during cleaning and shaping (ex: ledges, perforations)","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Mishaps during cleaning and shaping (ex: ledges, perforations);Obturation (ex: voids, obdurating short of working length)","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Mishaps during cleaning and shaping (ex: ledges, perforations);Obturation (ex: voids, obdurating short of working length);Radiographs (ex: troubleshooting radiographs during endo procedures)","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Mishaps during cleaning and shaping (ex: ledges, perforations);Obturation (ex: voids, obdurating short of working length);Radiographs (ex: troubleshooting radiographs during endo procedures);Irrigation methods ","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Mishaps during cleaning and shaping (ex: ledges, perforations);Obturation (ex: voids, obdurating short of working length);Radiographs (ex: troubleshooting radiographs during endo procedures);More clinical scenarios of trauma diagnosis!","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Mishaps during cleaning and shaping (ex: ledges, perforations);Radiographs (ex: troubleshooting radiographs during endo procedures)","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Obturation (ex: voids, obdurating short of working length)","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Obturation (ex: voids, obdurating short of working length);Radiographs (ex: troubleshooting radiographs during endo procedures)","Advanced accessed openings (ex: through a crown, teeth with little to no clinical crown);Radiographs (ex: troubleshooting radiographs during endo procedures)","Mishaps during cleaning and shaping (ex: ledges, perforations)","Mishaps during cleaning and shaping (ex: ledges, perforations);Obturation (ex: voids, obdurating short of working length)","Mishaps during cleaning and shaping (ex: ledges, perforations);Obturation (ex: voids, obdurating short of working length);Radiographs (ex: troubleshooting radiographs during endo procedures)","Mishaps during cleaning and shaping (ex: ledges, perforations);Radiographs (ex: troubleshooting radiographs during endo procedures)","Obturation (ex: voids, obdurating short of working length);Radiographs (ex: troubleshooting radiographs during endo procedures)","Radiographs (ex: troubleshooting radiographs during endo procedures)",null],[1,2,4,45,1,1,2,1,2,1,2,3,2,1,1,1,15],[0.01,0.02,0.05,0.53,0.01,0.01,0.02,0.01,0.02,0.01,0.02,0.04,0.02,0.01,0.01,0.01,0.18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>6. If you answered YES to question 5, please select which additional topics you would like to see covered to improve your knowledge of advanced clinical endo. Select ALL that apply.<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"6. If you answered YES to question 5, please select which additional topics you would like to see covered to improve your knowledge of advanced clinical endo. Select ALL that apply.","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="section-5" class="section level2">
+<h2>2025</h2>
+<div id="section-1-2" class="section level3">
+<h3>section 1</h3>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>         Disagree     Neutral      Agree
+Disagree       NA 0.002186243 0.01861775
+Neutral        NA          NA 0.56006463
+Agree          NA          NA         NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>        Neutral        Agree
+Neutral      NA 8.807937e-20
+Agree        NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-11-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>        Neutral        Agree
+Neutral      NA 1.121638e-18
+Agree        NA           NA</code></pre>
+</div>
+<div id="section-2-2" class="section level3">
+<h3>section 2</h3>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>    No          Yes
+No  NA 0.0001111206
+Yes NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>    No          Yes
+No  NA 2.260598e-07
+Yes NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>    No          Yes
+No  NA 5.622369e-14
+Yes NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>    No          Yes
+No  NA 0.0002616832
+Yes NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No Indifferent          Yes
+No          NA 2.54486e-05 1.570262e-08
+Indifferent NA          NA 1.605784e-01
+Yes         NA          NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No  Indifferent          Yes
+No          NA 1.170292e-10 2.499510e-07
+Indifferent NA           NA 2.031168e-01
+Yes         NA           NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No  Indifferent          Yes
+No          NA 0.0002685401 0.0001751267
+Indifferent NA           NA 1.0000000000
+Yes         NA           NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>            No Indifferent          Yes
+No          NA 0.004425049 5.238237e-19
+Indifferent NA          NA 2.651717e-10
+Yes         NA          NA           NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>                       15 to 30 seconds 30 to 60 seconds Longer than 60 seconds
+15 to 30 seconds                     NA     7.255748e-14           3.719166e-03
+30 to 60 seconds                     NA               NA           2.879391e-06
+Longer than 60 seconds               NA               NA                     NA</code></pre>
+<p><img src="figure/2022_Feb5_Lauren.Rmd/unnamed-chunk-12-10.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>                       Less than 3 minutes Between 3 to 5 minutes
+Less than 3 minutes                     NA           1.951909e-05
+Between 3 to 5 minutes                  NA                     NA
+Between 5 to 7 minutes                  NA                     NA
+                       Between 5 to 7 minutes
+Less than 3 minutes              6.177193e-01
+Between 3 to 5 minutes           9.674891e-07
+Between 5 to 7 minutes                     NA</code></pre>
+</div>
+</div>
 <div id="statistical-software" class="section level2">
 <h2>statistical software</h2>
 <pre><code>               _                                
@@ -1825,13 +2070,13 @@ loaded via a namespace (and not attached):
 [55] generics_0.1.3       rprojroot_2.0.4      hms_1.1.3           
 [58] munsell_0.5.0        scales_1.3.0         xtable_1.8-4        
 [61] glue_1.6.2           tools_4.3.2          webshot_0.5.5       
-[64] ggsignif_0.6.4       fs_1.6.3             colorspace_2.1-0    
-[67] cli_3.6.2            workflowr_1.7.1      fansi_1.0.6         
-[70] broom.helpers_1.14.0 viridisLite_0.4.2    svglite_2.1.3       
-[73] gt_0.10.0            gtable_0.3.4         sass_0.4.8          
-[76] digest_0.6.33        farver_2.1.1         htmlwidgets_1.6.4   
-[79] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
-[82] httr_1.4.7           mime_0.12           </code></pre>
+[64] ggsignif_0.6.4       fs_1.6.3             crosstalk_1.2.1     
+[67] colorspace_2.1-0     cli_3.6.2            workflowr_1.7.1     
+[70] fansi_1.0.6          broom.helpers_1.14.0 viridisLite_0.4.2   
+[73] svglite_2.1.3        gt_0.10.0            gtable_0.3.4        
+[76] sass_0.4.8           digest_0.6.33        farver_2.1.1        
+[79] htmlwidgets_1.6.4    memoise_2.0.1        htmltools_0.5.7     
+[82] lifecycle_1.0.4      httr_1.4.7           mime_0.12           </code></pre>
 </div>
 </div>
 
