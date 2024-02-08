@@ -588,7 +588,7 @@ response=data_2024 %>% select(`6. If you answered YES to question 5, please sele
 response=response %>% mutate(prop=round(n/nrow(data_2024),2))
 response  %>%
 datatable(extensions = 'Buttons',
-          caption = "Summary statistics of age in TT/HT",
+          caption = "",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -761,6 +761,150 @@ annotate_figure(figures[[9]], top = text_grob(paste(questions[9])))
 p_value_list[[9]]
 annotate_figure(figures[[10]], top = text_grob(paste(questions[10])))
 p_value_list[[10]]
+```
+
+
+### section 3
+
+```{r, echo=F, message=F, warning=F}
+questions_index=seq(27, 35,by=2)
+questions=colnames(data_2025)[questions_index]
+figures=list()
+p_value_list=list()
+for (i in 1:length(questions))
+{
+  response=data_2025[,c(questions_index[i], questions_index[i]+1)] 
+  colnames(response)=c("response_cate", "coded_response") # rename col names 
+  
+  response_by_group=response %>% dplyr::count(response=coded_response) %>% mutate(prop=n/nrow(data_2025)) # group response 
+ 
+  response_cate_number=sort(unique(response$coded_response)); response_cate=numeric() 
+  for (j in 1:length(response_cate_number))
+    response_cate[j]=unique(response$response_cate[response$coded_response==response_cate_number[j]])
+  response_by_group=response_by_group %>% mutate(response_cate=response_cate)
+############ calculate p values 
+  p_value_matrix=matrix(nrow=nrow(response_by_group), ncol=nrow(response_by_group))
+  row.names(p_value_matrix)=response_by_group$response_cate
+  colnames(p_value_matrix)=response_by_group$response_cate
+  for (j in 1:(nrow(p_value_matrix)-1))
+    for (k in (j+1):nrow(p_value_matrix))
+  {
+    bino_test=binom.test(response_by_group[j,2] %>% pull, (response_by_group[k,2] %>% pull+response_by_group[j,2] %>% pull))
+    p_value_matrix[j,k]=bino_test$p.value
+  }
+  p_value_list[[i]]=p_value_matrix 
+  ############### draw the figure 
+  
+     
+    g1=ggplot(response_by_group, aes(x=response_cate, y=prop, fill=response_cate)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)  # add numbers over bars
+   
+ g2=ggplot(response_by_group, aes(x=response_cate, y=n, fill=response_cate)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+  
+ figures[[i]]=ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+ 
+}
+annotate_figure(figures[[1]], top = text_grob(paste(questions[1])))
+p_value_list[[1]]
+annotate_figure(figures[[2]], top = text_grob(paste(questions[2])))
+p_value_list[[2]]
+annotate_figure(figures[[3]], top = text_grob(paste(questions[3])))
+p_value_list[[3]]
+annotate_figure(figures[[4]], top = text_grob(paste(questions[4])))
+p_value_list[[4]]
+annotate_figure(figures[[5]], top = text_grob(paste(questions[5])))
+p_value_list[[5]]
+```
+
+
+### section 4
+
+```{r, echo=F, message=F, warning=F}
+questions_index=seq(37, 47, by=2)
+questions=colnames(data_2025)[questions_index]
+figures=list()
+p_value_list=list()
+for (i in 1:length(questions))
+{
+  response=data_2025[,c(questions_index[i], questions_index[i]+1)] 
+  colnames(response)=c("response_cate", "coded_response") # rename col names 
+  
+  response_by_group=response %>% dplyr::count(response=coded_response) %>% mutate(prop=n/nrow(data_2025)) # group response 
+ 
+  response_cate_number=sort(unique(response$coded_response)); response_cate=numeric() 
+  for (j in 1:length(response_cate_number))
+    response_cate[j]=unique(response$response_cate[response$coded_response==response_cate_number[j]])
+  response_by_group=response_by_group %>% mutate(response_cate=response_cate)
+  ############ calculate p values 
+  p_value_matrix=matrix(nrow=nrow(response_by_group), ncol=nrow(response_by_group))
+  row.names(p_value_matrix)=response_by_group$response_cate
+  colnames(p_value_matrix)=response_by_group$response_cate
+  for (j in 1:(nrow(p_value_matrix)-1))
+    for (k in (j+1):nrow(p_value_matrix))
+  {
+    bino_test=binom.test(response_by_group[j,2] %>% pull, (response_by_group[k,2] %>% pull+response_by_group[j,2] %>% pull))
+    p_value_matrix[j,k]=bino_test$p.value
+  }
+  p_value_list[[i]]=p_value_matrix 
+  ############### draw the figure 
+  
+  
+  g1=ggplot(response_by_group, aes(x=response_cate, y=prop, fill=response_cate)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25)  # add numbers over bars
+  
+  g2=ggplot(response_by_group, aes(x=response_cate, y=n, fill=response_cate)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=12))+
+  ylab("")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25)#+  # add numbers over bars
+  
+ figures[[i]]=ggarrange(g1, g2,
+                   # labels = c("A", "B", "C"),
+                    ncol = 2, nrow = 1)
+}
+annotate_figure(figures[[1]], top = text_grob(paste(questions[1])))
+p_value_list[[1]]
+annotate_figure(figures[[2]], top = text_grob(paste(questions[2])))
+p_value_list[[2]]
+annotate_figure(figures[[3]], top = text_grob(paste(questions[3])))
+p_value_list[[3]]
+annotate_figure(figures[[4]], top = text_grob(paste(questions[4])))
+p_value_list[[4]]
+annotate_figure(figures[[5]], top = text_grob(paste(questions[5])))
+p_value_list[[5]]
+```
+
+
+#### 7. If you said yes to question 6, please select or write which topics you might like covered to improve clinical experience in endo.
+
+
+```{r, echo=F, message=F, warning=F}
+response=data_2025 %>% select(`7. If you said yes to question 6, please select or write which topics you might like covered to improve clinical experience in endo.`) %>% dplyr::count(`7. If you said yes to question 6, please select or write which topics you might like covered to improve clinical experience in endo.`)
+
+response=response %>% mutate(prop=round(n/nrow(data_2025),2))
+response  %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
