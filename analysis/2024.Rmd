@@ -10,3 +10,6 @@ library(tidyverse)
 
 ## projects
 
+1. [Feb-Linda](2024_0201_Linda.html)
+
+2. [Feb-Ann](2024_0202_Ann.html)

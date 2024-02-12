@@ -1,0 +1,16 @@
+---
+title: '2024/02/12'
+output: html_document
+date: "2024-02-12"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202310\\Cem\\Dr Han Excel workbook-Hall SSC study_20240116.xlsx")
+#data=as_tibble(data_raw[[1]])
+```
+
+
+# sample size determination 
+
