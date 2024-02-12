@@ -485,7 +485,7 @@ prop.test(x=c(TT_to_n2o, HT_to_n2o), n=c(length(TT_id), length(HT_id)), p = NULL
 ```
 * the proportion of TT to TT with N2O (TT->TT with N2O) is 15.79% and HT to HT with N2O (HT-> HT with N2O) is 8.33%. 
 
-* the proportion of patients from TT t0 TT with N2O is not significantly different from patients from HT to HT with N2O. 
+* the proportion of patients from TT to TT with N2O is not significantly different from patients from HT to HT with N2O. 
 
 * small sample in each group could be a concern of no difference 
 
@@ -505,12 +505,18 @@ prop.test(x=c(TT_to_n2o, HT_to_n2o), n=c(length(TT_id), length(HT_id)), p = NULL
 ```
 * the proportion of TT to TT with N2O at a later point (TT->...>TT with N2O->...) is 13.33% and HT to HT with N2O (HT->...> HT with N2O>...) is 2.56%. 
 
-* the proportion of patients from TT t0 TT with N2O is not significantly different from patients from HT to HT with N2O. 
+* the proportion of patients from TT to TT with N2O is not significantly different from patients from HT to HT with N2O. 
 
 * small sample in each group could be a concern of no difference 
 
 
+## 36-mo success rates
 
 
+```{r, echo=T, message=F, warning=F}
+prop.test(x=c(99, 85), n=c(111, 100), p = NULL, alternative = "two.sided", correct = F)
+```
+
+* success rare in TT is 89.19%, 85% in HT, without statistically significant difference because of p value of 0.363.  
 
  
