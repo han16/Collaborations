@@ -38,7 +38,7 @@ ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
   geom_point()+
   xlab("d:mean difference")+
   ylab("n:sample size")+
-  ggtitle("power=0.8; SD=0.2")
+  ggtitle("power=0.8; SD=1.89")
 
 data.frame(mean_difference=round(d,2), sample_size=sample_size)%>%
 datatable(extensions = 'Buttons',
