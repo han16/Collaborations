@@ -12,5 +12,40 @@ source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunction
 ```
 
 
-# sample size determination 
+## sample size determination 
+
+```{r, echo=F, message=F, warning=F}
+d=11.24-9.69; SD=1.89   # use CO vs AS
+power.t.test(power = .80, delta = d, alternative = "one.sided", sig.level=0.05, sd=SD)
+
+
+d=2.37-2.01; SD=1.09   # use CO vs AS
+power.t.test(power = .80, delta = d, alternative = "one.sided", sig.level=0.05, sd=SD)
+```
+
+```{r, echo=F}
+library(ggplot2)
+d=seq(0.1, 2, by=0.1); SD=1.5
+sample_size=numeric()
+for (i in 1:length(d))
+{
+  test=power.t.test(power = .80, delta = d[i], alternative = "one.sided", sig.level=0.05, sd=SD)
+  sample_size[i]=round(test$n)
+}
+ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
+  geom_line(color="red")+
+  geom_hline(yintercept=0.8, linetype="dashed", color = "blue")+
+  geom_point()+
+  xlab("d:mean difference")+
+  ylab("n:sample size")+
+  ggtitle("power=0.8; SD=0.2")
+
+data.frame(mean_difference=round(d,2), sample_size=sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption = " samplle size vs between group mean difference", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
 
