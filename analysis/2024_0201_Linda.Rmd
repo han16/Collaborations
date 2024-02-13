@@ -42,7 +42,7 @@ ggplot(data=data.frame(d, sample_size), aes(x=d, y=sample_size, group=1)) +
 
 data.frame(mean_difference=round(d,2), sample_size=sample_size)%>%
 datatable(extensions = 'Buttons',
-          caption = " samplle size vs between group mean difference", 
+          caption = " sample size vs between group mean difference", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
