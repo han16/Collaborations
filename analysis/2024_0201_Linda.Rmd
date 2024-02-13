@@ -48,4 +48,4 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
-
+* SD=1.89 is from CO in table 3. 
