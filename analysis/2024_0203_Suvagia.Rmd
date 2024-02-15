@@ -37,3 +37,11 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+
+
+
+* [ICC test was used](https://www.r-bloggers.com/2021/06/intraclass-correlation-coefficient-in-r-quick-guide/) 
+
+* [Detailed introduction to ICC](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4913118/)
