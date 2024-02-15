@@ -4,3 +4,36 @@ output: html_document
 date: "2024-02-14"
 ---
 
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202402\\Suvagia\\ICC.xlsx")
+#data=as_tibble(data_raw[[1]])
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data=data_raw$Math
+icc_pvalue=numeric()
+icc_value=numeric()
+variable_index=seq(2, 121, by=2)
+variable=colnames(data)[variable_index]
+
+for (i in 1:length(variable_index))
+{
+sub_data=data[,c(variable_index[i], variable_index[i]+1)]
+ratings=sub_data%>% drop_na()
+icc_test=icc(ratings, model ="oneway",  type = "consistency")
+icc_pvalue[i]=icc_test$p.value
+icc_value[i]=icc_test$value
+}
+
+
+data.frame(variable=variable, icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
