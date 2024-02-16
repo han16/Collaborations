@@ -44,7 +44,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 ```
 
 
-* no statistical difference between pre and post in both case and control groups. 
+* no statistical difference between pre and post in both case (p value of 0.78) and control groups (p value of 0.46) using two sample paired t test. 
 
 
 
