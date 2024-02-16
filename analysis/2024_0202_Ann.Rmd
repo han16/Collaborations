@@ -6,7 +6,7 @@ date: "2024-02-12"
 
 ```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
-data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202402\\Ann\\Graphs for Control vs Tx.xlsx")
+data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202402\\Ann\\Graphs for Control vs Tx_new.xlsx")
 
 ```
 
@@ -242,8 +242,39 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 ```
 
 
-```{r, echo=F, message=F, warning=F, eval=F}
+```{r, echo=F, message=F, warning=F, eval=T}
 variable_index=8
+variable=names(data_raw)[variable_index]
+data=data_raw[[variable_index]]
+
+sub_data=data.frame(control_pre=as.numeric(data[,2]), control_post=as.numeric(data[,3]), case_pre=as.numeric(data[,6]), case_post=as.numeric(data[,7]))
+
+mean=numeric(); sd=numeric()
+phase=c("1:pre", "2:post"); group=c("control", "case")
+plot_data=data.frame(mean=round(apply(sub_data, 2, mean, na.rm=T),2),  sd=round(apply(sub_data, 2, sd, na.rm=T),2), time=rep(phase, length(group)), group=rep(group, each=length(phase)))
+
+###################
+ggplot(plot_data, aes(x=time, y=mean, group=group, color=group)) + 
+  geom_line() +
+  geom_point()+
+  ylab(variable)+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                 position=position_dodge(.05)) 
+###################
+plot_data%>%
+datatable(extensions = 'Buttons',
+          caption=variable, 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+t.test(sub_data$control_pre, sub_data$control_post, paired = T)
+t.test(sub_data$case_pre, sub_data$case_post, paired = T)
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+variable_index=10
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
 
