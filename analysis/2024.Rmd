@@ -15,3 +15,5 @@ library(tidyverse)
 2. [Feb-Ann](2024_0202_Ann.html)
 
 3. [Feb-Suvagia](2024_0203_Suvagia.html)
+
+4. [Feb-Zaid](2024_0204_Zaid.html)

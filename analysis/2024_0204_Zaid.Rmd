@@ -13,6 +13,7 @@ data_combine=data_raw$combine
 ```
 
 ```{r, echo=F, message=F, warning=F}
+library(SimplyAgree)
 data_split=list(); all_surface=c()
 for (i in 1:66)
 {
@@ -30,9 +31,12 @@ all_surface=all_surface[!is.na(all_surface)]
 #################
 kappa_value=numeric()
 kappa_pvalue=numeric()
+num_teeth=numeric()
+agreement=numeric()
+ccc_value=numeric()
 for (i in 1:length(all_surface))
 {
-  i=12
+#  i=9
   rate1=numeric(); rate2=numeric()
   k=0
   for (j in 1:length(data_split))
@@ -45,11 +49,29 @@ for (i in 1:length(all_surface))
     }
     
   }
+   num_teeth[i]=length(rate1)
+  
    kappa_test=kappa2(data.frame(rate1=as.numeric(unlist(rate1)), rate2=as.numeric(unlist(rate2))))
   kappa_value[i]=round(kappa_test$value,4)
   kappa_pvalue[i]=pvalue_adjust(kappa_test$p.value) 
   
+  agreement[i]=agree(data.frame(rate1=as.numeric(unlist(rate1)), rate2=as.numeric(unlist(rate2))))$value
+  
+#  if (k>1)
+ # ccc_value[i]=agree_test(x=as.numeric(unlist(rate1)), y=as.numeric(unlist(rate2)), agree.level = 0.8)$ccc.xy[1]
+  
 }
-
+data.frame(surface=all_surface, num_teeth=num_teeth, kappa_value=kappa_value, kappa_pvalue=kappa_pvalue, agreement=round(agreement,4))%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
+
+* [ccc value](https://cran.r-project.org/web/packages/SimplyAgree/vignettes/agreement_analysis.html)
+
+
+* [reference](https://www.andywills.info/rminr/irr.html)

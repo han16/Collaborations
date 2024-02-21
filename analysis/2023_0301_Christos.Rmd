@@ -5110,5 +5110,5 @@ datatable(extensions = 'Buttons',
  
 ## statistical analysis 
 
-Statistical software R (version 4.3.2) was used for all analysis. R package meta was used to perform meta analysis, including drawing forest plot. 
+Statistical software R (version 4.3.2) was used for all analysis. R package meta was employed to perform meta analysis, including fixed and random effect models, and drawing forest plot. 
  

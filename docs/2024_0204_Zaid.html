@@ -10,9 +10,9 @@
 
 
 
-<meta name="date" content="2024-01-08" />
+<meta name="date" content="2024-02-19" />
 
-<title>2024</title>
+<title>02/19/2024</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -36,6 +36,22 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.31/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -358,8 +374,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">2024</h1>
-<h4 class="date">2024-01-08</h4>
+<h1 class="title toc-ignore">02/19/2024</h1>
+<h4 class="date">2024-02-19</h4>
 
 </div>
 
@@ -388,13 +404,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-02-21
+<strong>Last updated:</strong> 2024-02-20
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -507,15 +523,41 @@ run.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it
+difficult for you and others to run your code on a different machine.
+Change the absolute path(s) below to the suggested relative path(s) to
+make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R
+</td>
+<td style="text-align:left;">
+analysis/Rfunctions.R
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -560,7 +602,6 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
-    Modified:   analysis/2023_0301_Christos.Rmd
     Modified:   analysis/2024.Rmd
     Modified:   analysis/2024_0204_Zaid.Rmd
 
@@ -580,10 +621,11 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/2024.Rmd</code>) and HTML
-(<code>docs/2024.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+made to the R Markdown (<code>analysis/2024_0204_Zaid.Rmd</code>) and
+HTML (<code>docs/2024_0204_Zaid.html</code>) files. If you’ve configured
+a remote Git repository (see <code>?wflow_git_remote</code>), click on
+the hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -612,101 +654,16 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/761c4ce898190b2afafa4465bd22187e5e59d3c6/analysis/2024.Rmd" target="_blank">761c4ce</a>
+<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/analysis/2024_0204_Zaid.Rmd" target="_blank">f5f3084</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-02-14
+2024-02-19
 </td>
 <td>
-2/14/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/761c4ce898190b2afafa4465bd22187e5e59d3c6/docs/2024.html" target="_blank">761c4ce</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-14
-</td>
-<td>
-2/14/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/b84b61ef953e89b5adb63c3d024d3466227dfa6d/analysis/2024.Rmd" target="_blank">b84b61e</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-12
-</td>
-<td>
-2/12/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/b84b61ef953e89b5adb63c3d024d3466227dfa6d/docs/2024.html" target="_blank">b84b61e</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-12
-</td>
-<td>
-2/12/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d/analysis/2024.Rmd" target="_blank">9c63f4b</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-08
-</td>
-<td>
-1/8/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d/docs/2024.html" target="_blank">9c63f4b</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-08
-</td>
-<td>
-1/8/2024
+2/19/2024
 </td>
 </tr>
 </tbody>
@@ -716,14 +673,15 @@ han
 </div>
 </div>
 </div>
-<div id="projects" class="section level2">
-<h2>projects</h2>
-<ol style="list-style-type: decimal">
-<li><p><a href="2024_0201_Linda.html">Feb-Linda</a></p></li>
-<li><p><a href="2024_0202_Ann.html">Feb-Ann</a></p></li>
-<li><p><a href="2024_0203_Suvagia.html">Feb-Suvagia</a></p></li>
-<li><p><a href="2024_0204_Zaid.html">Feb-Zaid</a></p></li>
-</ol>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39"],["HD","IM","ID","JM","JD","KM","LD","LM","MD","HM","KD","14M","19M","AD","AM","BD","BM","CD","RD","SM","SD","TM","TD","3M","30M","CM","RM","19D","DD","QD","GD","MM","30D","3D","ND","14D","5D","28D","31M"],[31,30,34,36,35,31,36,31,28,9,30,19,25,30,30,28,25,25,21,22,29,30,30,18,22,8,4,8,3,2,5,5,11,7,3,7,1,1,1],[0.6516999999999999,-0.0465,0.7647,0.5596,0.4776,0.7362,0.8323,0,0,null,0.4737,null,0,0.7826,0.5532,0.7742,0,0,1,null,0.8542999999999999,0.449,0.6512,0.64,-0.0476,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["1e-04","0.7858","&lt;0.0001","6e-04","9e-04","&lt;0.0001","&lt;0.0001","1","NaN","NaN","0.0023","NaN","NaN","&lt;0.0001","7e-04","&lt;0.0001","NaN","NaN","&lt;0.0001","NaN","&lt;0.0001","0.0032","1e-04","0.0036","0.8233","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN"],[96.77419999999999,90,88.2353,77.7778,94.28570000000001,87.0968,91.66670000000001,90.32259999999999,89.28570000000001,100,93.33329999999999,100,96,96.66670000000001,76.66670000000001,89.28570000000001,92,96,100,100,93.10339999999999,70,96.66670000000001,94.4444,90.9091,100,100,100,100,100,100,100,100,100,100,100,100,100,100]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>surface<\/th>\n      <th>num_teeth<\/th>\n      <th>kappa_value<\/th>\n      <th>kappa_pvalue<\/th>\n      <th>agreement<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"surface","targets":1},{"name":"num_teeth","targets":2},{"name":"kappa_value","targets":3},{"name":"kappa_pvalue","targets":4},{"name":"agreement","targets":5}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li><p><a
+href="https://cran.r-project.org/web/packages/SimplyAgree/vignettes/agreement_analysis.html">ccc
+value</a></p></li>
+<li><p><a
+href="https://www.andywills.info/rminr/irr.html">reference</a></p></li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -751,27 +709,51 @@ time zone: America/Chicago
 tzcode source: internal
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
- [5] purrr_1.0.2     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   
- [9] ggplot2_3.4.4   tidyverse_2.0.0
+ [1] SimplyAgree_0.1.2 condsurv_1.0.0    devtools_2.4.5    usethis_2.2.2    
+ [5] tidycmprsk_1.0.0  gtsummary_1.7.2   ggsurvfit_1.0.0   irr_0.84.1       
+ [9] lpSolve_5.6.20    readxl_1.4.3      cowplot_1.1.2     matrixStats_1.2.0
+[13] gridExtra_2.3     DT_0.31           rstatix_0.7.2     ggpubr_0.6.0     
+[17] kableExtra_1.3.4  lubridate_1.9.3   forcats_1.0.0     stringr_1.5.1    
+[21] dplyr_1.1.4       purrr_1.0.2       readr_2.1.4       tidyr_1.3.0      
+[25] tibble_3.2.1      ggplot2_3.4.4     tidyverse_2.0.0  
 
 loaded via a namespace (and not attached):
- [1] sass_0.4.8        utf8_1.2.4        generics_0.1.3    stringi_1.8.3    
- [5] hms_1.1.3         digest_0.6.33     magrittr_2.0.3    timechange_0.2.0 
- [9] evaluate_0.23     grid_4.3.2        fastmap_1.1.1     rprojroot_2.0.4  
-[13] workflowr_1.7.1   jsonlite_1.8.8    whisker_0.4.1     promises_1.2.1   
-[17] fansi_1.0.6       scales_1.3.0      jquerylib_0.1.4   cli_3.6.2        
-[21] rlang_1.1.2       munsell_0.5.0     withr_2.5.2       cachem_1.0.8     
-[25] yaml_2.3.8        tools_4.3.2       tzdb_0.4.0        colorspace_2.1-0 
-[29] httpuv_1.6.13     vctrs_0.6.5       R6_2.5.1          lifecycle_1.0.4  
-[33] git2r_0.33.0      fs_1.6.3          pkgconfig_2.0.3   pillar_1.9.0     
-[37] bslib_0.6.1       later_1.3.2       gtable_0.3.4      glue_1.6.2       
-[41] Rcpp_1.0.11       xfun_0.41         tidyselect_1.2.0  rstudioapi_0.15.0
-[45] knitr_1.45        htmltools_0.5.7   rmarkdown_2.25    compiler_4.3.2   </code></pre>
-</div>
+ [1] remotes_2.4.2.1      rlang_1.1.2          magrittr_2.0.3      
+ [4] git2r_0.33.0         compiler_4.3.2       systemfonts_1.0.5   
+ [7] vctrs_0.6.5          quantreg_5.97        rvest_1.0.3         
+[10] profvis_0.3.8        pkgconfig_2.0.3      fastmap_1.1.1       
+[13] backports_1.4.1      ellipsis_0.3.2       utf8_1.2.4          
+[16] promises_1.2.1       rmarkdown_2.25       sessioninfo_1.2.2   
+[19] tzdb_0.4.0           nloptr_2.0.3         MatrixModels_0.5-3  
+[22] xfun_0.41            cachem_1.0.8         jsonlite_1.8.8      
+[25] highr_0.10           later_1.3.2          broom_1.0.5         
+[28] R6_2.5.1             bslib_0.6.1          stringi_1.8.3       
+[31] boot_1.3-28.1        car_3.1-2            pkgload_1.3.3       
+[34] estimability_1.4.1   jquerylib_0.1.4      cellranger_1.1.0    
+[37] Rcpp_1.0.11          knitr_1.45           httpuv_1.6.13       
+[40] Matrix_1.6-1.1       splines_4.3.2        timechange_0.2.0    
+[43] tidyselect_1.2.0     rstudioapi_0.15.0    abind_1.4-5         
+[46] yaml_2.3.8           miniUI_0.1.1.1       pkgbuild_1.4.3      
+[49] lattice_0.21-9       shiny_1.8.0          withr_2.5.2         
+[52] evaluate_0.23        survival_3.5-7       urlchecker_1.0.1    
+[55] xml2_1.3.6           pillar_1.9.0         carData_3.0-5       
+[58] whisker_0.4.1        insight_0.19.7       generics_0.1.3      
+[61] rprojroot_2.0.4      hms_1.1.3            munsell_0.5.0       
+[64] scales_1.3.0         minqa_1.2.6          xtable_1.8-4        
+[67] glue_1.6.2           emmeans_1.10.0       tools_4.3.2         
+[70] SparseM_1.81         lme4_1.1-35.1        webshot_0.5.5       
+[73] ggsignif_0.6.4       mvtnorm_1.2-4        fs_1.6.3            
+[76] crosstalk_1.2.1      colorspace_2.1-0     patchwork_1.2.0     
+[79] nlme_3.1-163         cli_3.6.2            workflowr_1.7.1     
+[82] fansi_1.0.6          broom.helpers_1.14.0 viridisLite_0.4.2   
+[85] svglite_2.1.3        gt_0.10.0            gtable_0.3.4        
+[88] sass_0.4.8           digest_0.6.33        htmlwidgets_1.6.4   
+[91] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
+[94] httr_1.4.7           mime_0.12            MASS_7.3-60         </code></pre>
 </div>
 
 
