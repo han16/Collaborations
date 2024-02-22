@@ -70,8 +70,15 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+```{r, echo=T, message=F, warning=F}
+result=data.frame(surface=all_surface, num_teeth=num_teeth, kappa_value=kappa_value, kappa_pvalue=kappa_pvalue, agreement=round(agreement,4))
+kappa_value_all=result %>% filter(num_teeth>10 & kappa_value>0) %>% drop_na() %>% select(kappa_value) %>% pull()
+summary(kappa_value_all)
+```
 
-* [ccc value](https://cran.r-project.org/web/packages/SimplyAgree/vignettes/agreement_analysis.html)
+
+
+* average kappa value is 0.68 that is substantial according to the [interpretation](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3900052/#:~:text=Cohen%20suggested%20the%20Kappa%20result,1.00%20as%20almost%20perfect%20agreement.)
 
 
 * [reference](https://www.andywills.info/rminr/irr.html)
