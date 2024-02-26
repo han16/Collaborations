@@ -244,7 +244,7 @@ $$\widehat{\theta}_k=\underbrace{\mu+\zeta_k}_{\theta_k}+\epsilon_k$$
 
 $\mu$ is the true pooled effect size; $\theta_k$ is the true effect size of study k. [here](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#fig:random) is the relationships among them. $\zeta_k$ is a product of chance alone. 
 
-
+* We use R package-meta to calculate standardised mean difference (SMD) and 95/% confidence interval (CI) in every study between each treatment and placebo, reported in the Table on the left and visualized on the right. Pooled effect was calculated as `Total` in the last row. Heterogeneity measure was presented under the table.  
 
 
 ```{r, echo=F, message=F, warning=F}
