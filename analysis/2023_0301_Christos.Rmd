@@ -235,6 +235,7 @@ forest(m.gen, layout="JAMA", sortvar = TE,
 #            prediction = FALSE, 
 #            print.tau2 = FALSE, 
 #            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
+
 ```
 
 * [Random effect model](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es), effects of individual studies do not only deviate due to sampling error alone but that there is another source of variance, 
@@ -245,6 +246,30 @@ $\mu$ is the true pooled effect size; $\theta_k$ is the true effect size of stud
 
 
 
+
+```{r, echo=F, message=F, warning=F}
+# https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pub-bias.html
+# Define fill colors for contour
+col.contour = c("gray75", "pink", "red")
+
+# Generate funnel plot (we do not include study labels here)
+meta::funnel(m.gen, 
+             #xlim = c(-0.5, 2),
+             contour = c(0.9, 0.95, 0.99),
+             col.contour = col.contour)
+
+# Add a legend
+legend(x = -2.5, y = 0.1, 
+       legend = c("p < 0.1", "p < 0.05", "p < 0.01"),
+       fill = col.contour)
+
+# Add a title
+title("Contour-Enhanced Funnel Plot")
+```
+
+* When there is no publication bias, the data points in such a plot should form a roughly symmetrical, upside-down funnel. Studies in the top part of the plot (those with low standard errors), should lie closely together, and not far away from the pooled effect size. In the lower part of the plot, with increasing standard errors, the funnel “opens up”, and effect sizes are expected to scatter more heavily to the left and right of the pooled effect.
+
+* interested areas with $p<0.05$, and $p<0.01$ 
 
 
 #### 1 hour - Studies per surgery
