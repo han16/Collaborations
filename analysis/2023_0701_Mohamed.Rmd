@@ -92,6 +92,7 @@ data_2021=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\M
 data_2022A=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\Mohamed\\Endo Lab Learning Preference - 2022 (A)(1-107).xlsx")
 data_2022B=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\Mohamed\\Endo Lab Learning Preference - 2022 (B)(1-106).xlsx")
 data_2023=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\Mohamed\\Endo Lab Learning Preference - 2023 (B)(1-94).xlsx")
+data_2024=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\Mohamed\\Endo Lab Learning Preference - 2024(1-99).xlsx")
 ```
 
 
@@ -459,17 +460,127 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### Combine across all years 
+### 2024 
+
 
 ```{r, echo=F, message=F, warning=F}
-Q1_all_response=unique(c(unique(data_2021$Q1), unique(data_2022A$Q1), unique(data_2022B$Q1), unique(data_2023$Q1)))
+colnames(data_2024)[6]="Q1"
+data_2024$Q1=tolower(data_2024$Q1)
+data_2024_plot=data_2024 %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2024),4)) 
+
+data_2024_plot=data_2024_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2024_plot)), sep="_"))
+
+  
+g1=ggplot(data_2024_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2024_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2024_plot%>%
+datatable(extensions = 'Buttons',
+          caption="year 2022B",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2024_plot2=data.frame(Q1=sapply(strsplit(data_2024$Q1, ";"), "[", 1)) %>% dplyr::count(Q1)%>% mutate(prop=round(n/nrow(data_2024),4)) 
+
+g1=ggplot(data_2024_plot2, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2024_plot2, aes(x=Q1, y=n, fill=Q1)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2024_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2023",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Combine across all years 
+
+```{r, echo=F, message=F, warning=F, eval=F}
+Q1_all_response=unique(c(unique(data_2021$Q1), unique(data_2022A$Q1), unique(data_2022B$Q1), unique(data_2023$Q1), unique(data_2024$Q1)))
 all_response_data=data.frame(Q1=Q1_all_response)
 data_2021_plot_full_response=full_join(data_2021_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0 
 data_2022A_plot_full_response=full_join(data_2022A_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
 data_2022B_plot_full_response=full_join(data_2022B_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
 data_2023_plot_full_response=full_join(data_2023_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
+data_2024_plot_full_response=full_join(data_2024_plot, all_response_data) %>% select(Q1, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
 
-combine_data=data.frame(Q1=c(data_2021_plot_full_response$Q1, data_2022A_plot_full_response$Q1, data_2022B_plot_full_response$Q1, data_2023_plot_full_response$Q1),n=c(data_2021_plot_full_response$n, data_2022A_plot_full_response$n, data_2022B_plot_full_response$n, data_2023_plot_full_response$n), prop=c(data_2021_plot_full_response$prop, data_2022A_plot_full_response$prop, data_2022B_plot_full_response$prop, data_2023_plot_full_response$prop), year=rep(c("2021", "2022A", "2022B", "2023"), each=20) )
+combine_data=data.frame(Q1=c(
+data_2021_plot_full_response$Q1, 
+data_2022A_plot_full_response$Q1, 
+data_2022B_plot_full_response$Q1, 
+data_2023_plot_full_response$Q1, 
+data_2024_plot_full_response$Q1),
+n=c(data_2021_plot_full_response$n, 
+    data_2022A_plot_full_response$n, 
+    data_2022B_plot_full_response$n, 
+    data_2023_plot_full_response$n, 
+    data_2024_plot_full_response$n), 
+prop=c(data_2021_plot_full_response$prop, 
+       data_2022A_plot_full_response$prop, 
+       data_2022B_plot_full_response$prop, 
+       data_2023_plot_full_response$prop, 
+       data_2024_plot_full_response$prop), 
+year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=23) )
 
 
 ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
@@ -487,7 +598,21 @@ ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
 
 
 ```{r, echo=F, message=F, warning=F}
-combine_data=data.frame(Q1=c(data_2021_plot2$Q1, data_2022A_plot2$Q1, data_2022B_plot2$Q1, data_2023_plot2$Q1),n=c(data_2021_plot2$n, data_2022A_plot2$n, data_2022B_plot2$n, data_2023_plot2$n), prop=c(data_2021_plot2$prop, data_2022A_plot2$prop, data_2022B_plot2$prop, data_2023_plot2$prop), year=rep(c("2021", "2022A", "2022B", "2023"), each=nrow(data_2021_plot2)))
+combine_data=data.frame(Q1=c(data_2021_plot2$Q1, 
+                             data_2022A_plot2$Q1, 
+                             data_2022B_plot2$Q1,         
+                             data_2023_plot2$Q1, 
+                             data_2024_plot2$Q1),
+                        n=c(data_2021_plot2$n, 
+                            data_2022A_plot2$n, 
+                            data_2022B_plot2$n, 
+                            data_2023_plot2$n, 
+                            data_2024_plot2$n), 
+                        prop=c(data_2021_plot2$prop, 
+                               data_2022A_plot2$prop, 
+                               data_2022B_plot2$prop, 
+                               data_2023_plot2$prop, 
+                               data_2024_plot2$prop), year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=nrow(data_2021_plot2)))
 
 
 ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
@@ -513,13 +638,14 @@ ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
 ggplot(combine_data %>% filter(Q1=="live demo"), aes(x=year, y=prop, fill=year))+ 
 geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("%")+
-   ylim(c(0,1))+
+   ylim(c(0,1.1))+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("live demo")+
    geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
   geom_signif(annotations ="p<0.0001", y_position = 0.82  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
    geom_signif(annotations ="p<0.0001", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
   geom_signif(annotations ="p<0.0001", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  geom_signif(annotations ="p=1.0000", y_position = 1.03  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
@@ -540,6 +666,10 @@ geom_bar(position = "dodge",stat="identity")+
 #res <- prop.test(x = c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2023_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2023))) # use two sample proportion test 
 #res$p.value
 
+
+######## 2021 vs 2024
+#res <- prop.test(x = c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2024_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2024))) # use two sample proportion test 
+#res$p.value
 ```
 
 
@@ -877,7 +1007,7 @@ datatable(extensions = 'Buttons',
 
 ```{r, echo=F, message=F, warning=F}
 # sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
-data_2023_plot2=data.frame(Q2=sapply(strsplit(data_2023$Q2, ";"), "[", 1)) %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2022B),4)) 
+data_2023_plot2=data.frame(Q2=sapply(strsplit(data_2023$Q2, ";"), "[", 1)) %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2023),4)) 
 
 g1=ggplot(data_2023_plot2, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -918,18 +1048,130 @@ datatable(extensions = 'Buttons',
 
 
 
+### 2024
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+colnames(data_2024)[7]="Q2"
+data_2024$Q2=tolower(data_2024$Q2) # unify the response all into lower case 
+data_2024_plot=data_2024 %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2024),4)) 
+
+data_2024_plot=data_2024_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2024_plot)), sep="_"))
+
+  
+g1=ggplot(data_2024_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2024_plot, aes(x=Response, y=n, fill=Response)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2024_plot%>%
+datatable(extensions = 'Buttons',
+          caption="year 2024",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+# sapply(strsplit(data_2021$Q1, ";"), "[", 1)   ## extract the most favoriate one 
+data_2024_plot2=data.frame(Q2=sapply(strsplit(data_2024$Q2, ";"), "[", 1)) %>% dplyr::count(Q2)%>% mutate(prop=round(n/nrow(data_2024),4)) 
+
+g1=ggplot(data_2024_plot2, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_2024_plot2, aes(x=Q2, y=n, fill=Q2)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  #theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+    theme(axis.text.x = element_blank())+
+  ylab("count")+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=3)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="right") 
+annotate_figure(figure,
+                top = text_grob("", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+################
+data_2024_plot2%>%
+datatable(extensions = 'Buttons',
+          caption="year 2024",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 
 ### Combine across all years 
 
 ```{r, echo=F, message=F, warning=F}
-Q2_all_response=unique(c(unique(data_2021$Q2), unique(data_2022A$Q2), unique(data_2022B$Q2), unique(data_2023$Q2)))
+Q2_all_response=unique(c(unique(data_2021$Q2), 
+                         unique(data_2022A$Q2), 
+                         unique(data_2022B$Q2), 
+                         unique(data_2023$Q2), 
+                         unique(data_2024$Q2)))
 all_response_data=data.frame(Q2=Q2_all_response)
 data_2021_plot_full_response=full_join(data_2021_plot, all_response_data) %>% select(Q2, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0 
 data_2022A_plot_full_response=full_join(data_2022A_plot, all_response_data) %>% select(Q2, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
 data_2022B_plot_full_response=full_join(data_2022B_plot, all_response_data) %>% select(Q2, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
 data_2023_plot_full_response=full_join(data_2023_plot, all_response_data) %>% select(Q2, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
+data_2024_plot_full_response=full_join(data_2024_plot, all_response_data) %>% select(Q2, n ,prop) %>% replace(is.na(.), 0) # replace NAs with 0
 
-combine_data=data.frame(Q2=c(data_2021_plot_full_response$Q2, data_2022A_plot_full_response$Q2, data_2022B_plot_full_response$Q2, data_2023_plot_full_response$Q2),n=c(data_2021_plot_full_response$n, data_2022A_plot_full_response$n, data_2022B_plot_full_response$n, data_2023_plot_full_response$n), prop=c(data_2021_plot_full_response$prop, data_2022A_plot_full_response$prop, data_2022B_plot_full_response$prop, data_2023_plot_full_response$prop), year=rep(c("2021", "2022A", "2022B", "2023"), each=length(Q2_all_response)) )
+combine_data=data.frame(Q2=c(data_2021_plot_full_response$Q2,
+                             data_2022A_plot_full_response$Q2,
+                             data_2022B_plot_full_response$Q2,
+                      data_2023_plot_full_response$Q2, 
+                      data_2024_plot_full_response$Q2),
+                      n=c(data_2021_plot_full_response$n,
+                          data_2022A_plot_full_response$n,
+                          data_2022B_plot_full_response$n,
+                          data_2023_plot_full_response$n, 
+                          data_2024_plot_full_response$n),
+                      prop=c(data_2021_plot_full_response$prop, 
+                             data_2022A_plot_full_response$prop,
+                             data_2022B_plot_full_response$prop,
+                             data_2023_plot_full_response$prop, 
+                             data_2024_plot_full_response$prop), 
+                      year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=length(Q2_all_response)) )
 
 
 ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
@@ -948,7 +1190,22 @@ ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
 
 
 ```{r, echo=F, message=F, warning=F}
-combine_data=data.frame(Q2=c(data_2021_plot2$Q2, data_2022A_plot2$Q2, data_2022B_plot2$Q2, data_2023_plot2$Q2),n=c(data_2021_plot2$n, data_2022A_plot2$n, data_2022B_plot2$n, data_2023_plot2$n), prop=c(data_2021_plot2$prop, data_2022A_plot2$prop, data_2022B_plot2$prop, data_2023_plot2$prop), year=rep(c("2021", "2022A", "2022B", "2023"), each=nrow(data_2021_plot2)))
+combine_data=data.frame(Q2=c(data_2021_plot2$Q2, 
+                             data_2022A_plot2$Q2, 
+                             data_2022B_plot2$Q2,
+                             data_2023_plot2$Q2, 
+                             data_2024_plot2$Q2),
+                        n=c(data_2021_plot2$n, 
+                            data_2022A_plot2$n, 
+                            data_2022B_plot2$n, 
+                            data_2023_plot2$n, 
+                            data_2024_plot2$n), 
+                        prop=c(data_2021_plot2$prop, 
+                               data_2022A_plot2$prop, 
+                               data_2022B_plot2$prop, 
+                               data_2023_plot2$prop, 
+                               data_2024_plot2$prop), 
+                        year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=nrow(data_2021_plot2)))
 
 
 ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
@@ -971,13 +1228,14 @@ ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
 ggplot(combine_data %>% filter(Q2=="demo with instructor speaking throughout the video"), aes(x=year, y=prop, fill=year))+ 
 geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("%")+
-   ylim(c(0,1))+
+   ylim(c(0,1.1))+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("demo with instructor speaking throughout the vide")+
    geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
-  geom_signif(annotations ="p=0.832", y_position = 0.82  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
-   geom_signif(annotations ="p=1.000", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
-  geom_signif(annotations ="p=0.242", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  geom_signif(annotations ="p=0.832", y_position = 0.82  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p=1.000", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  geom_signif(annotations ="p=0.242", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  geom_signif(annotations ="p=0.293", y_position = 1.03  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
@@ -990,12 +1248,16 @@ geom_bar(position = "dodge",stat="identity")+
 #res$p.value
 
 ######## 2021 vs 2022B
-res <- prop.test(x = c(data_2021_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull, data_2022B_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2022B))) # use two sample proportion test 
+#res <- prop.test(x = c(data_2021_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull, data_2022B_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2022B))) # use two sample proportion test 
 #res$p.value
 
 
 ######## 2021 vs 2023
 #res <- prop.test(x = c(data_2021_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull, data_2023_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2023))) # use two sample proportion test 
+#res$p.value
+
+######## 2021 vs 2024
+#res <- prop.test(x = c(data_2021_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull, data_2024_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2024))) # use two sample proportion test 
 #res$p.value
 
 ```
