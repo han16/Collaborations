@@ -642,7 +642,9 @@ geom_bar(position = "dodge",stat="identity")+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("live demo")+
    geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
-  geom_signif(annotations ="p<0.0001", y_position = 0.82  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+  geom_signif(annotations ="p<0.0001", y_position = 0.82  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+   geom_signif(annotations ="p=0.0136", y_position = 0.82  ,xmin=2.1, xmax=2.9, size=1, vjust=-0.5, textsize=3.5, color="red")+# textsize is for text over the bar; size is for width of lines 
+  geom_signif(annotations ="p=0.2206", y_position = 0.82  ,xmin=3.1, xmax=3.9, size=1, vjust=-0.5, textsize=3.5, color="black")+
    geom_signif(annotations ="p<0.0001", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
   geom_signif(annotations ="p<0.0001", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
   geom_signif(annotations ="p=1.0000", y_position = 1.03  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
@@ -660,6 +662,14 @@ geom_bar(position = "dodge",stat="identity")+
 ######## 2021 vs 2022B
 #res <- prop.test(x = c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2022B_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2022B))) # use two sample proportion test 
 #res$p.value
+
+######## 2022A vs 2022B
+#res <- prop.test(x = c(data_2022A_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2022B_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2022A), nrow(data_2022B))) # use two sample proportion test 
+#res$p.value
+
+######## 2022B vs 2023
+res <- prop.test(x = c(data_2022B_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2023_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2022B), nrow(data_2023))) # use two sample proportion test 
+res$p.value
 
 
 ######## 2021 vs 2023
