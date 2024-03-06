@@ -2236,7 +2236,7 @@ geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("%")+
    ylim(c(0,1))+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
-   ggtitle("classical")+
+   ggtitle("live demo")+
    geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
   #geom_signif(annotations ="p=0.371", y_position = 0.72  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
   # geom_signif(annotations ="p=0.232", y_position = 0.79  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="black")+
