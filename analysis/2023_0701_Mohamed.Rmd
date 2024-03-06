@@ -186,7 +186,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-
+* look at the first choice in the ranking 
 
 
 
