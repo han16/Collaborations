@@ -642,12 +642,12 @@ geom_bar(position = "dodge",stat="identity")+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("live demo")+
    geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
-  geom_signif(annotations ="p<0.0001", y_position = 0.82  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
-   geom_signif(annotations ="p=0.0136", y_position = 0.82  ,xmin=2.1, xmax=2.9, size=1, vjust=-0.5, textsize=3.5, color="red")+# textsize is for text over the bar; size is for width of lines 
-  geom_signif(annotations ="p=0.2206", y_position = 0.82  ,xmin=3.1, xmax=3.9, size=1, vjust=-0.5, textsize=3.5, color="black")+
-   geom_signif(annotations ="p<0.0001", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
-  geom_signif(annotations ="p<0.0001", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
-  geom_signif(annotations ="p=1.0000", y_position = 1.03  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  #geom_signif(annotations ="p<0.0001", y_position = 0.82  ,xmin=1, xmax=1.9, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+   #geom_signif(annotations ="p=0.0136", y_position = 0.82  ,xmin=2.1, xmax=2.9, size=1, vjust=-0.5, textsize=3.5, color="red")+# textsize is for text over the bar; size is for width of lines 
+  #geom_signif(annotations ="p=0.2206", y_position = 0.82  ,xmin=3.1, xmax=3.9, size=1, vjust=-0.5, textsize=3.5, color="black")+
+   #geom_signif(annotations ="p<0.0001", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.0001", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p=1.0000", y_position = 1.03  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
@@ -668,8 +668,8 @@ geom_bar(position = "dodge",stat="identity")+
 #res$p.value
 
 ######## 2022B vs 2023
-res <- prop.test(x = c(data_2022B_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2023_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2022B), nrow(data_2023))) # use two sample proportion test 
-res$p.value
+#res <- prop.test(x = c(data_2022B_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2023_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2022B), nrow(data_2023))) # use two sample proportion test 
+#res$p.value
 
 
 ######## 2021 vs 2023
@@ -680,8 +680,29 @@ res$p.value
 ######## 2021 vs 2024
 #res <- prop.test(x = c(data_2021_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull, data_2024_plot2%>% filter(Q1=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2024))) # use two sample proportion test 
 #res$p.value
+variable="live demo"
+combine_data_2=combine_data %>% filter(Q1==variable) %>% mutate(total_n=c(sum(data_2021_plot2$n), sum(data_2022A_plot2$n), sum(data_2022B_plot2$n), sum(data_2023_plot2$n), sum(data_2024_plot2$n)))
+pvalue=numeric(); k=0
+year1=c(); year2=c()
+for (i in 1:(nrow(combine_data_2)-1))
+  for (j in (i+1):nrow(combine_data_2))
+  {
+    k=k+1
+    res <- prop.test(x = c(combine_data_2$n[i], combine_data_2$n[j]), n = c(combine_data_2$total_n[i], combine_data_2$total_n[j]))
+    pvalue[k]=pvalue_adjust(res$p.value)
+    year1[k]=combine_data_2$year[i]; year2[k]=combine_data_2$year[j]
+    
+  }
+data.frame(year=paste(year1, year2, sep="_vs_"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
+* two sample proportion test was used. 
 
 
 ## Q2: If you prefer video demos, please rank these options 1 to 3, with 1 being your most preferred video style and 3 being your least preferred
@@ -1242,10 +1263,10 @@ geom_bar(position = "dodge",stat="identity")+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("demo with instructor speaking throughout the vide")+
    geom_text(aes(label=prop*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
-  geom_signif(annotations ="p=0.832", y_position = 0.82  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
-   geom_signif(annotations ="p=1.000", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="black")+
-  geom_signif(annotations ="p=0.242", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="black")+
-  geom_signif(annotations ="p=0.293", y_position = 1.03  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  #geom_signif(annotations ="p=0.832", y_position = 0.82  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+   #geom_signif(annotations ="p=1.000", y_position = 0.89  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  #geom_signif(annotations ="p=0.242", y_position = 0.96  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  #geom_signif(annotations ="p=0.293", y_position = 1.03  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
@@ -1269,6 +1290,28 @@ geom_bar(position = "dodge",stat="identity")+
 ######## 2021 vs 2024
 #res <- prop.test(x = c(data_2021_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull, data_2024_plot2%>% filter(Q2=="demo with instructor speaking throughout the video") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2024))) # use two sample proportion test 
 #res$p.value
+
+
+variable="demo with instructor speaking throughout the video"
+combine_data_2=combine_data %>% filter(Q2==variable) %>% mutate(total_n=c(sum(data_2021_plot2$n), sum(data_2022A_plot2$n), sum(data_2022B_plot2$n), sum(data_2023_plot2$n), sum(data_2024_plot2$n)))
+pvalue=numeric(); k=0
+year1=c(); year2=c()
+for (i in 1:(nrow(combine_data_2)-1))
+  for (j in (i+1):nrow(combine_data_2))
+  {
+    k=k+1
+    res <- prop.test(x = c(combine_data_2$n[i], combine_data_2$n[j]), n = c(combine_data_2$total_n[i], combine_data_2$total_n[j]))
+    pvalue[k]=pvalue_adjust(res$p.value)
+    year1[k]=combine_data_2$year[i]; year2[k]=combine_data_2$year[j]
+    
+  }
+data.frame(year=paste(year1, year2, sep="_vs_"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
@@ -1895,10 +1938,10 @@ geom_bar(position = "dodge",stat="identity")+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("classical")+
    geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
-  geom_signif(annotations ="p=0.012", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
-   geom_signif(annotations ="p=0.045", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
-  geom_signif(annotations ="p<0.001", y_position = 0.66  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
-  geom_signif(annotations ="p=0.536", y_position = 0.73  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  #geom_signif(annotations ="p=0.012", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="red")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p=0.045", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.66  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p=0.536", y_position = 0.73  ,xmin=1, xmax=5, size=1, vjust=-0.5, textsize=3.5, color="black")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
@@ -1923,6 +1966,28 @@ geom_bar(position = "dodge",stat="identity")+
 ######## 2021 vs 2024
 #res <- prop.test(x = c(data_2021_plot2_regroup%>% filter(Q3=="classical") %>% select(n) %>% pull, data_2024_plot2_regroup%>% filter(Q3=="classical") %>% select(n) %>% pull), n = c(nrow(data_2021), nrow(data_2024))) # use two sample proportion test 
 #res$p.value
+
+
+variable="classical"
+combine_data_2=combine_data %>% filter(Q3==variable) %>% mutate(total_n=c(sum(data_2021_plot2$n), sum(data_2022A_plot2$n), sum(data_2022B_plot2$n), sum(data_2023_plot2$n), sum(data_2024_plot2$n)))
+pvalue=numeric(); k=0
+year1=c(); year2=c()
+for (i in 1:(nrow(combine_data_2)-1))
+  for (j in (i+1):nrow(combine_data_2))
+  {
+    k=k+1
+    res <- prop.test(x = c(combine_data_2$n[i], combine_data_2$n[j]), n = c(combine_data_2$total_n[i], combine_data_2$total_n[j]))
+    pvalue[k]=pvalue_adjust(res$p.value)
+    year1[k]=combine_data_2$year[i]; year2[k]=combine_data_2$year[j]
+    
+  }
+data.frame(year=paste(year1, year2, sep="_vs_"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
@@ -2173,9 +2238,9 @@ geom_bar(position = "dodge",stat="identity")+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("classical")+
    geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
-  geom_signif(annotations ="p=0.371", y_position = 0.72  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
-   geom_signif(annotations ="p=0.232", y_position = 0.79  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="black")+
-  geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p=0.371", y_position = 0.72  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p=0.232", y_position = 0.79  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="black")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
@@ -2201,6 +2266,29 @@ geom_bar(position = "dodge",stat="identity")+
 #res <- prop.test(x = c(data_2022A_plot%>% filter(Q4=="live demo") %>% select(n) %>% pull, data_2024_plot%>% filter(Q4=="live demo") %>% select(n) %>% pull), n = c(nrow(data_2022A), nrow(data_2024))) # use two sample proportion test 
 #res$p.value
 
+
+variable="live demo"
+combine_data_2=combine_data %>% filter(Q4==variable) %>% mutate(total_n=c(sum(data_2022A_plot2$n), sum(data_2022B_plot2$n), sum(data_2023_plot2$n), sum(data_2024_plot2$n)))
+pvalue=numeric(); k=0
+year1=c(); year2=c()
+for (i in 1:(nrow(combine_data_2)-1))
+  for (j in (i+1):nrow(combine_data_2))
+  {
+    k=k+1
+    res <- prop.test(x = c(combine_data_2$n[i], combine_data_2$n[j]), n = c(combine_data_2$total_n[i], combine_data_2$total_n[j]))
+    pvalue[k]=pvalue_adjust(res$p.value)
+    year1[k]=combine_data_2$year[i]; year2[k]=combine_data_2$year[j]
+    
+  }
+data.frame(year=paste(year1, year2, sep="_vs_"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
 ```
 
 
@@ -2216,7 +2304,7 @@ geom_bar(position = "dodge",stat="identity")+
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2022B)[10]="Q5"
 data_2022B$Q5=tolower(data_2022B$Q5) # unify the response all into lower case
-data_2022B_plot=data_2022B %>% dplyr::count(Q5)%>% mutate(prop=round(n/nrow(data_2022B),4)) 
+data_2022B_plot=data_2022B %>% dplyr::count(Q5)%>% mutate(prop=round(n/nrow(data_2022B),4)) %>% drop_na()
 
 data_2022B_plot=data_2022B_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2022B_plot)), sep="_"))
 
@@ -2256,7 +2344,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-
+* due to missing values, Res_1+Res_2 is not equal to 100%. 
 
 ### 2023 
 
@@ -2264,7 +2352,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2023)[10]="Q5"
 data_2023$Q5=tolower(data_2023$Q5) # unify the response all into lower case
-data_2023_plot=data_2023 %>% dplyr::count(Q5)%>% mutate(prop=round(n/nrow(data_2023),4)) 
+data_2023_plot=data_2023 %>% dplyr::count(Q5)%>% mutate(prop=round(n/nrow(data_2023),4)) %>% drop_na() 
 
 data_2023_plot=data_2023_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2023_plot)), sep="_"))
 
@@ -2314,7 +2402,7 @@ colnames(data_2024)[10]="Q5"
 data_2024$Q5=tolower(data_2024$Q5) # unify the response all into lower case
 data_2024_plot=data_2024 %>% dplyr::count(Q5)%>% mutate(prop=round(n/nrow(data_2024),4)) 
 
-data_2024_plot=data_2024_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2024_plot)), sep="_"))
+data_2024_plot=data_2024_plot%>% mutate(Response=paste("Res", seq(1:nrow(data_2024_plot)), sep="_")) %>% drop_na()
 
   
 g1=ggplot(data_2024_plot, aes(x=Response, y=prop, fill=Response)) +geom_bar(stat="identity")+
@@ -2374,7 +2462,7 @@ combine_data=data.frame(Q5=c(data_2022B_plot_full_response$Q5,
                             data_2024_plot_full_response$n), 
                         prop=c( data_2022B_plot_full_response$prop, 
                                 data_2023_plot_full_response$prop, 
-                                data_2024_plot_full_response$prop), year=rep(c( "2022B", "2023", "2024"), each=length(Q5_all_response)) )
+                                data_2024_plot_full_response$prop), year=rep(c( "2022B", "2023", "2024"), each=length(Q5_all_response)) ) %>% drop_na()
 
 
 ggplot(combine_data, aes(x=Q5, y=prop, fill=Q5)) +geom_bar(stat="identity")+
@@ -2399,8 +2487,8 @@ geom_bar(position = "dodge",stat="identity")+
    theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=8))+
    ggtitle("demo of the procedure step-wise")+
    geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.9), vjust=1.25)+  # add numbers over bars 
-  geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
-   geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
   #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
    theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
   theme(legend.title=element_blank())+
@@ -2426,5 +2514,26 @@ geom_bar(position = "dodge",stat="identity")+
 ######## 2022B vs 2024
 #res <- prop.test(x = c(data_2022B_plot%>% filter(Q5=="demo of the procedure step-wise") %>% select(n) %>% pull, data_2024_plot%>% filter(Q5=="demo of the procedure step-wise") %>% select(n) %>% pull), n = c(nrow(data_2022B), nrow(data_2024))) # use two sample proportion test 
 #res$p.value
+
+variable="demo of the procedure step-wise"
+combine_data_2=combine_data %>% filter(Q5==variable) %>% mutate(total_n=c(sum(data_2022B_plot2$n), sum(data_2023_plot2$n), sum(data_2024_plot2$n)))
+pvalue=numeric(); k=0
+year1=c(); year2=c()
+for (i in 1:(nrow(combine_data_2)-1))
+  for (j in (i+1):nrow(combine_data_2))
+  {
+    k=k+1
+    res <- prop.test(x = c(combine_data_2$n[i], combine_data_2$n[j]), n = c(combine_data_2$total_n[i], combine_data_2$total_n[j]))
+    pvalue[k]=pvalue_adjust(res$p.value)
+    year1[k]=combine_data_2$year[i]; year2[k]=combine_data_2$year[j]
+    
+  }
+data.frame(year=paste(year1, year2, sep="_vs_"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
