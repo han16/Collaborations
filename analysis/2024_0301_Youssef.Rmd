@@ -6,6 +6,67 @@ date: "2024-03-04"
 
 ```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
-data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202403\\Youssef\\Data Averages.xlsx")
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202403\\Youssef\\Data Averages.xlsx")
 #data=as_tibble(data_raw[[1]])
+RNiTI_Sample=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202403\\Youssef\\RNiTI_Sample1-10.xlsx")
+SSSD_Sample=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202403\\Youssef\\SSSD_Sample1-10.xlsx")
+TMASD_Sample=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202403\\Youssef\\TMASD_Sample 1-10.xlsx")
+
 ```
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+for (i in 1:42)
+{
+  RNiTI_Sample_data=c(as.numeric(RNiTI_Sample$`1`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`2`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`3`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`4`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`5`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`6`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`7`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`8`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`9`[2:21,i]), 
+                      as.numeric(RNiTI_Sample$`10`[2:21,i]))
+  
+  SSSD_Sample_data=c(as.numeric(SSSD_Sample$`1`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`2`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`3`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`4`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`5`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`6`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`7`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`8`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`9`[2:21,i]), 
+                      as.numeric(SSSD_Sample$`10`[2:21,i]))
+  
+  TMASD_Sample_data=c(as.numeric(TMASD_Sample$`1`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`2`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`3`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`4`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`5`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`6`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`7`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`8`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`9`[2:21,i]), 
+                      as.numeric(TMASD_Sample$`10`[2:21,i]))
+  
+  
+  sub_data=data.frame(sample=rep(c("RNiTI_Sample", "SSSD_Sample","TMASD_Sample"), each=length(RNiTI_Sample_data)), observation=c(RNiTI_Sample_data,SSSD_Sample_data, TMASD_Sample_data ))
+  res.aov <- aov(observation ~ sample, data = sub_data)
+  pvalue[i]=summary(res.aov)[[1]][["Pr(>F)"]][1]
+}
+variables=paste(rep(c("A (1): Central Incisor", "C (2): Lateral Incisor", "E (3): Canine","x (4): First Premolar", "x (5): Second Premolar","x (6): First Molar", "x (7): Second Molar"), each=6), c("Fx", "Fy", "Fz", "Mx", "My", "Mz"), sep="_")
+data.frame(variable=variables, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "Comparison among 3 materials", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* use one way annova to test difference among 3 materials
+
+
+* [reference](http://www.sthda.com/english/wiki/one-way-anova-test-in-r)
