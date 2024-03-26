@@ -242,7 +242,7 @@ forest(m.gen, layout="JAMA", sortvar = TE,
 
 
 $$Total \times SD=Total \times \sqrt{sample~size} \times(CI~upper~limit-CI~lower~limit)/3.92 $$
-In above example, the raw mean difference is $-0.7\times \sqrt{11} \times (-0.15+1.26)/3.92=-0.657$ 
+In above example, the raw mean difference is $-0.7\times \sqrt{11} \times (-0.15+1.26)/3.92=-0.657$.  
 
 
 * [Random effect model](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es), effects of individual studies do not only deviate due to sampling error alone but that there is another source of variance, 
@@ -918,7 +918,7 @@ mean1=10; mean2=19
 
 [network Meta-Analysis](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/netwma.html)
 
-In traditional meta-analysis, direct comparison between two treatments may not be available because in typical clinical trials, what often happens is the comparison between specific treatment and placebo. So network meta analysis enables the assessment of  relative effectiveness of several treatments by incorporating indirect comparisons. for more details see [Evidence Synthesis for Decision Making 2:
+In traditional meta-analysis, direct comparison between two treatments may not be available because in typical clinical trials, what often happens is the comparison between specific treatment and placebo. So network meta analysis enables the assessment of  relative effectiveness of several treatments by incorporating indirect comparisons using multivariate linear regression models. for more details see [Evidence Synthesis for Decision Making 2:
 A Generalized Linear Modeling Framework
 for Pairwise and Network Meta-analysis of
 Randomized Controlled Trials](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3704203/pdf/10.1177_0272989X12458724.pdf) and [Automating network meta-analysis](https://onlinelibrary.wiley.com/doi/epdf/10.1002/jrsm.1054)
