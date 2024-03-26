@@ -911,6 +911,23 @@ mean1=10; mean2=19
 
 [network Meta-Analysis](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/netwma.html)
 
+In traditional meta-analysis, direct comparison between two treatments may not be available because in typical clinical trials, what often happens is the comparison between specific treatment and placebo. So network meta analysis enables the relative effectiveness of several treatments by incorporating indirect comparisons. for more details see [Evidence Synthesis for Decision Making 2:
+A Generalized Linear Modeling Framework
+for Pairwise and Network Meta-analysis of
+Randomized Controlled Trials](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3704203/pdf/10.1177_0272989X12458724.pdf) and [Automating network meta-analysis](https://onlinelibrary.wiley.com/doi/epdf/10.1002/jrsm.1054)
+
+Assume K trials and M comparisons, $\hat{\theta}_m$ is effect size of every comparison, to model the observed effect size ${\bf \hat{\theta}}=c(\hat{\theta}_1, \hat{\theta}_2, \cdots, \hat{\theta}_M)$, 
+
+$$\bf \hat{\theta}=X\theta_{treat}+\epsilon$$
+* $\bf \hat{\theta}$:  observed effect size vector 
+* $\bf X$: $m \times n$ design matrix, columns represent different treatment, rows represent comparisons 
+* $\bf \theta_{treat}$: true effect size of n unique treatments, its estimate is the goal  
+* $\bf \epsilon$ errors following $\epsilon_m \sim N(0, \sigma_m^2)$. 
+
+
+
+
+
 
 ```{r, echo=F, message=F, warning=F}
 

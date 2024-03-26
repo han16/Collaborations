@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-02-27
+<strong>Last updated:</strong> 2024-03-26
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef2c3e1106cd85d0ae7d25c37b7927387f62fbaf5targetblankf2c3e11a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4e4007e362f773f827b70388081e043dda1c6a6btargetblank4e4007ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/f2c3e1106cd85d0ae7d25c37b7927387f62fbaf5" target="_blank">f2c3e11</a>
+<a href="https://github.com/han16/Collaborations/tree/4e4007e362f773f827b70388081e043dda1c6a6b" target="_blank">4e4007e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef2c3e1106cd85d0ae7d25c37b7927387f62fbaf5targetblankf2c3e11a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4e4007e362f773f827b70388081e043dda1c6a6btargetblank4e4007ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/f2c3e1106cd85d0ae7d25c37b7927387f62fbaf5" target="_blank">f2c3e11</a>.
+<a href="https://github.com/han16/Collaborations/tree/4e4007e362f773f827b70388081e043dda1c6a6b" target="_blank">4e4007e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -622,6 +622,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/509174ebe62fb3476920b1592e33aa28374671fb/analysis/2023_0301_Christos.Rmd" target="_blank">509174e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-27
+</td>
+<td>
+2/27/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/509174ebe62fb3476920b1592e33aa28374671fb/docs/2023_0301_Christos.html" target="_blank">509174e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-02-27
+</td>
+<td>
+2/27/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -5362,6 +5396,34 @@ mean1=10; mean2=19
 <p><a
 href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/netwma.html">network
 Meta-Analysis</a></p>
+<p>In traditional meta-analysis, direct comparison between two
+treatments may not be available because in typical clinical trials, what
+often happens is the comparison between specific treatment and placebo.
+So network meta analysis enables the relative effectiveness of several
+treatments by incorporating indirect comparisons. for more details see
+<a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3704203/pdf/10.1177_0272989X12458724.pdf">Evidence
+Synthesis for Decision Making 2: A Generalized Linear Modeling Framework
+for Pairwise and Network Meta-analysis of Randomized Controlled
+Trials</a> and <a
+href="https://onlinelibrary.wiley.com/doi/epdf/10.1002/jrsm.1054">Automating
+network meta-analysis</a></p>
+<p>Assume K trials and M comparisons, <span
+class="math inline">\(\hat{\theta}_m\)</span> is effect size of every
+comparison, to model the observed effect size <span
+class="math inline">\({\bf \hat{\theta}}=c(\hat{\theta}_1,
+\hat{\theta}_2, \cdots, \hat{\theta}_M)\)</span>,</p>
+<p><span class="math display">\[\bf
+\hat{\theta}=X\theta_{treat}+\epsilon\]</span> * <span
+class="math inline">\(\bf \hat{\theta}\)</span>: observed effect size
+vector * <span class="math inline">\(\bf X\)</span>: <span
+class="math inline">\(m \times n\)</span> design matrix, columns
+represent different treatment, rows represent comparisons * <span
+class="math inline">\(\bf \theta_{treat}\)</span>: true effect size of n
+unique treatments, its estimate is the goal<br />
+* <span class="math inline">\(\bf \epsilon\)</span> errors following
+<span class="math inline">\(\epsilon_m \sim N(0,
+\sigma_m^2)\)</span>.</p>
 <div id="random-effect-model-1" class="section level4">
 <h4>random effect model</h4>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
