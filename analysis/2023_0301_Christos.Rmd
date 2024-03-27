@@ -1151,6 +1151,8 @@ decomp.design(m.netmeta)
 
 * in this analysis, placebo is treated as reference. 
 
+* [P-score details](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-015-0060-8) 
+
 * from P-score ranking, the nimesilide 100mg might be the most effective treatment, however solely because it has the highest score in the ranking, doesn't mean it's the best one, need further information from forest plot 
 
 * In the forest plot, if two treatments have overlapping, then these two are not significantly different, and they are otherwise. For example, nimesilide 100mg   and  ibuprofen 600mg are not different from one another, although nimesilide 100mg is higher than ibuprofen 600mg in the ranking. It's safe to say ibuprofen 600mg is better than dexamethasone 4mg, since no overlap between their CI's. 
