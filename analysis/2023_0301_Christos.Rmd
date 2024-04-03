@@ -1169,7 +1169,7 @@ decomp.design(m.netmeta)
 
 * in this analysis, placebo is treated as reference. 
 
-* [P-score details](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-015-0060-8) 
+* P score is a frequentist analogue to SUCRA, for [details](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-015-0060-8) 
 
 * from P-score ranking, the nimesilide 100mg might be the most effective treatment, however solely because it has the highest score in the ranking, doesn't mean it's the best one, need further information from forest plot 
 
