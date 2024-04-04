@@ -96,6 +96,19 @@ data_2024=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\M
 ```
 
 
+```{r, echo=F, message=F, warning=F}
+data.frame(year=c("2021", "2022A", "2022B", "2023", "2024"), num_participants=c(nrow(data_2021), nrow(data_2022A), nrow(data_2022B), nrow(data_2023), nrow(data_2024)))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 ## Q1: Please rank these methods of receiving information for lab projects from 1 to 4, with 1 being your most preferred delivery method and 4 being your least preferred
 
 
