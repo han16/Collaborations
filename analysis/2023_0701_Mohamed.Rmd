@@ -2554,7 +2554,7 @@ datatable(extensions = 'Buttons',
 
 ## statistical analysis 
 
-Statistical software R version 4.3.2 was used for all analysis. Two sample proportion test by R function prop.test was used to test the proportion difference between two groups. Statistical significance was determined when p value is less than 0.05.   
+Statistical software R version 4.3.2 was used for all analysis. Two sample proportion test by R function-prop.test was used to test the proportion difference between two groups. Statistical significance was determined when p value is less than 0.05.   
 
 
 
