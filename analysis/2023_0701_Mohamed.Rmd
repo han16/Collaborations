@@ -2550,3 +2550,16 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+## statistical analysis 
+
+Statistical software R version 4.3.2 was used for all analysis. Two sample proportion test in R, prop.test was used to the proportion difference between two groups. Statistical significance was determined when p value is less than 0.05.   
+
+
+
+## statistical software 
+
+```{r, echo=F}
+R.version
+```
