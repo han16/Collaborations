@@ -97,7 +97,11 @@ data_2024=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\M
 
 
 ```{r, echo=F, message=F, warning=F}
-data.frame(year=c("2021", "2022A", "2022B", "2023", "2024"), num_participants=c(nrow(data_2021), nrow(data_2022A), nrow(data_2022B), nrow(data_2023), nrow(data_2024)))%>%
+# change years 2021 to 2020
+# 2022A  to 2021
+# 2022B  to 2022
+
+data.frame(year=c("2020", "2021", "2022", "2023", "2024"), num_participants=c(nrow(data_2021), nrow(data_2022A), nrow(data_2022B), nrow(data_2023), nrow(data_2024)))%>%
 datatable(extensions = 'Buttons',
           caption="",
             options = list(dom = 'Blfrtip',
@@ -112,7 +116,7 @@ datatable(extensions = 'Buttons',
 ## Q1: Please rank these methods of receiving information for lab projects from 1 to 4, with 1 being your most preferred delivery method and 4 being your least preferred
 
 
-### 2021
+### 2020 (originally 2021)
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -151,7 +155,7 @@ annotate_figure(figure,
 ################
 data_2021_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2021",
+          caption="year 2020",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -192,7 +196,7 @@ annotate_figure(figure,
 ################
 data_2021_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2021",
+          caption="year 2020",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -203,7 +207,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### 2022_A 
+### 2021(2022_A) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -242,7 +246,7 @@ annotate_figure(figure,
 ################
 data_2022A_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022A",
+          caption="year 2021",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -285,7 +289,7 @@ annotate_figure(figure,
 ################
 data_2022A_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022A",
+          caption="year 2021",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -293,7 +297,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### 2022_B 
+### 2022(2022_B) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -332,7 +336,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -374,7 +378,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -625,7 +629,8 @@ combine_data=data.frame(Q1=c(data_2021_plot2$Q1,
                                data_2022A_plot2$prop, 
                                data_2022B_plot2$prop, 
                                data_2023_plot2$prop, 
-                               data_2024_plot2$prop), year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=nrow(data_2021_plot2)))
+                               data_2024_plot2$prop), year=rep(c("2020", "2021", "2022", "2023", "2024"), 
+                                                               each=nrow(data_2021_plot2)))
 
 
 ggplot(combine_data, aes(x=Q1, y=prop, fill=Q1)) +geom_bar(stat="identity")+
@@ -721,7 +726,7 @@ datatable(extensions = 'Buttons',
 ## Q2: If you prefer video demos, please rank these options 1 to 3, with 1 being your most preferred video style and 3 being your least preferred
 
 
-### 2021 
+### 2020(2021) 
 
 ```{r, echo=F, message=F, warning=F}
 colnames(data_2021)[7]="Q2"
@@ -759,7 +764,7 @@ annotate_figure(figure,
 ################
 data_2021_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2021",
+          caption="year 2020",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -802,7 +807,7 @@ annotate_figure(figure,
 ################
 data_2021_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2021",
+          caption="year 2020",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -813,7 +818,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### 2022A
+### 2021(2022A)
 
 
 
@@ -854,7 +859,7 @@ annotate_figure(figure,
 ################
 data_2022A_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022A",
+          caption="year 2021",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -897,7 +902,7 @@ annotate_figure(figure,
 ################
 data_2022A_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022A",
+          caption="year 2021",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -906,7 +911,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### 2022B
+### 2022(2022B)
 
 
 
@@ -947,7 +952,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -989,7 +994,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1215,7 +1220,7 @@ combine_data=data.frame(Q2=c(data_2021_plot_full_response$Q2,
                              data_2022B_plot_full_response$prop,
                              data_2023_plot_full_response$prop, 
                              data_2024_plot_full_response$prop), 
-                      year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=length(Q2_all_response)) )
+                      year=rep(c("2020", "2021", "2022", "2023", "2024"), each=length(Q2_all_response)) )
 
 
 ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
@@ -1249,7 +1254,7 @@ combine_data=data.frame(Q2=c(data_2021_plot2$Q2,
                                data_2022B_plot2$prop, 
                                data_2023_plot2$prop, 
                                data_2024_plot2$prop), 
-                        year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=nrow(data_2021_plot2)))
+                        year=rep(c("2020", "2021", "2022", "2023", "2024"), each=nrow(data_2021_plot2)))
 
 
 ggplot(combine_data, aes(x=Q2, y=prop, fill=Q2)) +geom_bar(stat="identity")+
@@ -1334,7 +1339,7 @@ datatable(extensions = 'Buttons',
 ## Q3: If you prefer the video demos with a subtitle and music in the background, what kind of music do you prefer?
 
 
-### 2021 
+### 2020(2021) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1373,7 +1378,7 @@ annotate_figure(figure,
 ################
 data_2021_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2021",
+          caption="year 2020",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1421,7 +1426,7 @@ annotate_figure(figure,
 ################
 data_2021_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2021",
+          caption="year 2020",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1429,7 +1434,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### 2022A 
+### 2021(2022A) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1468,7 +1473,7 @@ annotate_figure(figure,
 ################
 data_2022A_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022A",
+          caption="year 2021",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1522,7 +1527,7 @@ annotate_figure(figure,
 ################
 data_2022A_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022A",
+          caption="year 2021",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1534,7 +1539,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### 2022B 
+### 2022(2022B) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -1573,7 +1578,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1633,7 +1638,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot2%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1891,7 +1896,7 @@ combine_data=data.frame(Q3=c(data_2021_plot_full_response$Q3,
                                data_2022A_plot_full_response$prop, 
                                data_2022B_plot_full_response$prop, 
                                data_2023_plot_full_response$prop, 
-                               data_2023_plot_full_response$prop), year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=length(Q3_all_response)) )
+                               data_2023_plot_full_response$prop), year=rep(c("2020", "2021", "2022", "2023", "2024"), each=length(Q3_all_response)) )
 
 
 ggplot(combine_data, aes(x=Q3, y=prop, fill=Q3)) +geom_bar(stat="identity")+
@@ -1924,7 +1929,7 @@ combine_data=data.frame(Q3=c(data_2021_plot2_regroup$Q3,
                                data_2022A_plot2_regroup$prop, 
                                data_2022B_plot2_regroup$prop, 
                                data_2023_plot2_regroup$prop, 
-                               data_2024_plot2_regroup$prop), year=rep(c("2021", "2022A", "2022B", "2023", "2024"), each=nrow(data_2021_plot2_regroup)))
+                               data_2024_plot2_regroup$prop), year=rep(c("2020", "2021", "2022", "2023", "2024"), each=nrow(data_2021_plot2_regroup)))
 
 
 ggplot(combine_data, aes(x=Q3, y=prop, fill=Q3)) +geom_bar(stat="identity")+
@@ -2012,7 +2017,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### 2022A 
+### 2021(2022A) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2051,14 +2056,14 @@ annotate_figure(figure,
 ################
 data_2022A_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022A",
+          caption="year 2021",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
 
-### 2022B 
+### 2022(2022B) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2097,7 +2102,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -2222,7 +2227,7 @@ combine_data=data.frame(Q4=c(data_2022A_plot_full_response$Q4,
                         prop=c( data_2022A_plot_full_response$prop, 
                                 data_2022B_plot_full_response$prop, 
                                 data_2023_plot_full_response$prop, 
-                                data_2024_plot_full_response$prop), year=rep(c( "2022A", "2022B", "2023", "2024"), each=length(Q4_all_response)) )
+                                data_2024_plot_full_response$prop), year=rep(c( "2021", "2022", "2023", "2024"), each=length(Q4_all_response)) )
 
 
 ggplot(combine_data, aes(x=Q4, y=prop, fill=Q4)) +geom_bar(stat="identity")+
@@ -2311,7 +2316,7 @@ datatable(extensions = 'Buttons',
 ## Q5: If you prefer the Live Demo, which Live demo style you prefer most? 
 
 
-### 2022B 
+### 2022(2022B) 
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -2350,7 +2355,7 @@ annotate_figure(figure,
 ################
 data_2022B_plot%>%
 datatable(extensions = 'Buttons',
-          caption="year 2022B",
+          caption="year 2022",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -2475,7 +2480,7 @@ combine_data=data.frame(Q5=c(data_2022B_plot_full_response$Q5,
                             data_2024_plot_full_response$n), 
                         prop=c( data_2022B_plot_full_response$prop, 
                                 data_2023_plot_full_response$prop, 
-                                data_2024_plot_full_response$prop), year=rep(c( "2022B", "2023", "2024"), each=length(Q5_all_response)) ) %>% drop_na()
+                                data_2024_plot_full_response$prop), year=rep(c( "2022", "2023", "2024"), each=length(Q5_all_response)) ) %>% drop_na()
 
 
 ggplot(combine_data, aes(x=Q5, y=prop, fill=Q5)) +geom_bar(stat="identity")+
