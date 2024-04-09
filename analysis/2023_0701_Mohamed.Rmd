@@ -2315,7 +2315,7 @@ datatable(extensions = 'Buttons',
 ### combine most favorite choice across years 
 
 ```{r, echo=F, message=F, warning=F}
-combine_data=data.frame(year=c("2021", "2022", "2023", "2024"), choice=c("live demo", "live demo", "live demo", "power points"), prop=c(0.6355, 0.5660, 0.5426, 0.3131))
+combine_data=data.frame(year=c("2020", "2021", "2022", "2023", "2024"), choice=c("video demo", "live demo", "live demo", "live demo", "power points"), prop=c(0.4608, 0.6355, 0.5660, 0.5426, 0.3131))
 ggplot(combine_data, aes(x=year, y=prop, fill=choice))+ 
 geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("%")+
