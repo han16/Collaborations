@@ -1,0 +1,112 @@
+---
+title: "4/11/2024"
+output: html_document
+date: "2024-04-11"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202403\\Youssef\\Data Averages.xlsx")
+#data=as_tibble(data_raw[[1]])
+data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202404\\Zainab\\Zainab_MTT assay_Percentage viability data_041024.xlsx")
+data=data_raw$Sheet1
+```
+
+
+## pairwise comparisons between groups 
+
+### day 1 
+
+```{r, echo=F, message=F, warning=F}
+data_day1=data[2:16,1:5]
+k=0
+pvalue=numeric()
+sample1_index=numeric()
+sample2_index=numeric()
+for (i in 1:(ncol(data_day1)-1))
+  for (j in (i+1):length(data_day1))
+{
+  k=k+1  
+  sample1=as.numeric(data_day1[,i]); sample1_index[k]=i
+  sample2=as.numeric(data_day1[,j]); sample2_index[k]=j
+  two_sample_test=t.test(sample1, sample2, na.rm=T)
+  pvalue[k]=two_sample_test$p.value
+  }
+data.frame(sample1=sample1_index, sample2=sample2_index, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+* each row are two group index 
+
+* numbers in red have been removed before the test 
+
+* two  sample t test was used. 
+
+
+### day 7 
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_day7=data[2:16,7:11]
+##############
+library(outliers)
+outlier_test <- grubbs.test(as.numeric(data_day7$`7 days`)) # https://rpubs.com/Alema/1000582
+outlier_test <- grubbs.test(as.numeric(data_day7$`...11`))
+#############
+
+k=0
+pvalue=numeric()
+sample1_index=numeric()
+sample2_index=numeric()
+for (i in 1:(ncol(data_day7)-1))
+  for (j in (i+1):length(data_day7))
+{
+  k=k+1  
+  sample1=as.numeric(data_day7[,i]); sample1_index[k]=i
+  sample2=as.numeric(data_day7[,j]); sample2_index[k]=j
+  two_sample_test=t.test(sample1, sample2, na.rm=T)
+  pvalue[k]=two_sample_test$p.value
+  }
+data.frame(sample1=sample1_index, sample2=sample2_index, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+*  statistics [Grubbs test](https://rpubs.com/Alema/1000582) doesn't support blue numbers are outliers 
+
+
+## anova test 
+
+
+
+### day 1 
+
+```{r, echo=T, message=F, warning=F}
+anova_day1=data.frame(response= as.numeric(unlist(as.vector(data_day1[,2:5]))), covariate=rep(c("group2", "group3", "group4", "group5"), each=nrow(data_day1)))
+res.aov <- aov(response ~ covariate, data = anova_day1)
+# Summary of the analysis
+summary(res.aov)
+```
+
+
+### day 7 
+
+```{r, echo=T, message=F, warning=F}
+anova_day7=data.frame(response= as.numeric(unlist(as.vector(data_day7[,2:5]))), covariate=rep(c("group2", "group3", "group4", "group5"), each=nrow(data_day7)))
+res.aov <- aov(response ~ covariate, data = anova_day7)
+# Summary of the analysis
+summary(res.aov)
+```
