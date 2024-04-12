@@ -43,7 +43,7 @@ datatable(extensions = 'Buttons',
 
 ```
 
-* each row are two group index 
+* each row are two group index; group 1 is the control group.  
 
 * numbers in red have been removed before the test 
 
@@ -110,3 +110,29 @@ res.aov <- aov(response ~ covariate, data = anova_day7)
 # Summary of the analysis
 summary(res.aov)
 ```
+
+
+## comparison between different time points within a group 
+
+```{r, echo=F, message=F, warning=F}
+pvalue=numeric()
+for (i in 1:ncol(data_day1))
+{
+ # i=1
+  day1=as.numeric(data_day1[,i])
+  day7=as.numeric(data_day7[,i])
+  test=t.test(day1, day7, paired=T)
+  pvalue[i]=test$p.value
+  
+}
+ data.frame(group=seq(1,5), pvalue=pvalue_adjust(pvalue)) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* day 1 and day 7 are compared in every group 
+* two sample paired t test was used. 
