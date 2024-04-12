@@ -101,6 +101,7 @@ res.aov <- aov(response ~ covariate, data = anova_day1)
 summary(res.aov)
 ```
 
+* small p value suggests group 2, 3, 4, 5 are not all equal. 
 
 ### day 7 
 
@@ -111,6 +112,7 @@ res.aov <- aov(response ~ covariate, data = anova_day7)
 summary(res.aov)
 ```
 
+* large p value fails to reject the null hypothesis of group 2, 3, 4, 5 being equal. 
 
 ## comparison between different time points within a group 
 
