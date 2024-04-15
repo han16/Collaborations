@@ -138,3 +138,11 @@ datatable(extensions = 'Buttons',
 
 * day 1 and day 7 are compared in every group 
 * two sample paired t test was used. 
+
+
+
+## statistical software 
+
+```{r, echo=F, message=F, warning=F}
+R.version
+```
