@@ -57,7 +57,7 @@ summary_statistics=function(data)
   
   for (i in 1:ncol(data))
   {
-    observation=data[,i]
+    observation=as.numeric(data[,i])
     observation=observation[!is.na(observation)] # remove missing values 
     num_sample[i]=length(observation)
     if (num_sample[i]>0)

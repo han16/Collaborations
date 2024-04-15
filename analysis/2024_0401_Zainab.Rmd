@@ -14,6 +14,35 @@ data=data_raw$Sheet1
 ```
 
 
+## summary statistics 
+
+
+```{r, echo=F, message=F, warning=F}
+data_day1=data[2:16,1:5]
+summary=summary_statistics(data_day1)
+summary%>%
+datatable(extensions = 'Buttons',
+          caption = "day 1",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+data_day7=data[2:16,7:11]
+summary=summary_statistics(data_day7)
+summary%>%
+datatable(extensions = 'Buttons',
+          caption = "day 7",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 ## pairwise comparisons between groups 
 
 ### day 1 
