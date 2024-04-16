@@ -42,6 +42,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
+* in every table, rows are group 1, 2, etc. 
 
 ## pairwise comparisons between groups 
 
