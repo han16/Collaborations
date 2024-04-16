@@ -110,6 +110,77 @@ datatable(extensions = 'Buttons',
 ## Intra-rater reliability 
 
 
+### Cohen’s kappa
+
+
+```{r, echo=F, message=F, warning=F}
+
+kappa_pvalue=numeric()
+kappa_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+kappa_test=kappa2(ratings,weight="squared")
+kappa_pvalue[i]=kappa_test$p.value
+kappa_value[i]=kappa_test$value
+}
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS IH`, `CVMS 2H`) %>% drop_na()
+kappa_test=kappa2(ratings, weight="squared")
+kappa_value[11]=kappa_test$value
+kappa_pvalue[11]=kappa_test$p.value
+
+data.frame(sheet=c(names(data), "combine"), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "CVMS IH vs CVMS 2H", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+* weighed Kappa test was used 
+
+* [reference](https://www.andywills.info/rminr/irr.html)
+
+* the last row `combine`, is combining all sheets together 
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+kappa_pvalue=numeric()
+kappa_value=numeric()
+for (i in 1:length(data))
+{
+sub_data=data[[i]]
+ratings=sub_data%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+kappa_test=kappa2(ratings,weight="squared")
+kappa_pvalue[i]=kappa_test$p.value
+kappa_value[i]=kappa_test$value
+}
+combine=bind_rows(data, .id = "column_label")
+ratings=combine%>% select(`CVMS 1D`, `CVMS 2D`) %>% drop_na()
+kappa_test=kappa2(ratings, weight="squared")
+kappa_value[11]=kappa_test$value
+kappa_pvalue[11]=kappa_test$p.value
+
+data.frame(sheet=c(names(data), "combine"), kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "`CVMS 1D`, `CVMS 2D`", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
 
 ### Kendall's W
 
