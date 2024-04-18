@@ -176,13 +176,38 @@ datatable(extensions = 'Buttons',
 
 #### categorical variables 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, eval=F}
 group_corr=data2$`Data CORR`
-
 num_indi=24
-Data=group_corr
-Gender=Data$Gender[1:num_indi]
-Smoking=Data$Smoking[1:num_indi]
+Data=group_corr[1:num_indi,]
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+events=Data %>% dplyr::count(Gender) %>% mutate(percentage=n/sum(n))
+if (nrow(events)==2)
+{
+ events%>%
+datatable(extensions = 'Buttons',
+          caption = "CORR",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All")))) 
+pvalue_adjust(binom.test(events$n)$p.value)
+}
+```
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+Data %>% dplyr::count(Smoking) %>% mutate(percentage=round(n/sum(n),4))
+events=Data %>% dplyr::count(Smoking) %>% select(n) %>% pull()
+#pvalue_adjust(binom.test(events)$p.value)
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
 Implant_site=Data$Implant_site[1:num_indi]
 Pre_implant_Procedure=Data$Pre_implant_Procedure[1:num_indi]
 I_placement=Data$I_placement[1:num_indi]
@@ -201,7 +226,7 @@ Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
 Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
 Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
 
-data_interest_corr=data.frame(Gender=Gender)
+data_interest_corr=data.frame(Gender=Gender, Smoking=Smoking,Implant_site=Implant_site, Pre_implant_Procedure=Pre_implant_Procedure, I_placement=I_placement, Comp_placement=Comp_placement, HA=HA, I_Brand=I_Brand, I_Surface=I_Surface, I_Shape=I_Shape,I_Techique=I_Techique, I_Location=I_Location)
 
 data_summary=summary_statistics(data_interest_corr)
 data_summary %>%
@@ -307,6 +332,8 @@ datatable(extensions = 'Buttons',
 
 ## data distribution 
 
+
+### CORR
 
 ```{r, echo=F, message=F, warning=F}
 data_subset=data$Data %>% dplyr::count(Gender) %>% mutate(prop=n/24)

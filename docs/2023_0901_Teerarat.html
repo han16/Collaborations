@@ -14,7 +14,7 @@
 
 <title>09/25 2023</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -30,30 +30,30 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.27/datatables.js"></script>
-<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="site_libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="site_libs/jszip-1.12.1/jszip.min.js"></script>
-<script src="site_libs/pdfmake-1.12.1/pdfmake.js"></script>
-<script src="site_libs/pdfmake-1.12.1/vfs_fonts.js"></script>
-<link href="site_libs/dt-ext-buttons-1.12.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="site_libs/dt-ext-buttons-1.12.1/js/dataTables.buttons.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.12.1/js/buttons.html5.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.12.1/js/buttons.colVis.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.12.1/js/buttons.print.min.js"></script>
-<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.31/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -383,7 +383,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -394,8 +394,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -404,13 +404,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-11-17
+<strong>Last updated:</strong> 2024-04-18
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -422,7 +422,7 @@ title="This is the local directory in which the code in this file was executed."
 This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
   href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -433,18 +433,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -535,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c81723df6a05b77ebd6383e3baff061a38c4e91targetblank9c81723a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4207e0e7605fa18a43cde946414977648e7dc646targetblank4207e0ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/9c81723df6a05b77ebd6383e3baff061a38c4e91" target="_blank">9c81723</a>
+<a href="https://github.com/han16/Collaborations/tree/4207e0e7605fa18a43cde946414977648e7dc646" target="_blank">4207e0e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree9c81723df6a05b77ebd6383e3baff061a38c4e91targetblank9c81723a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4207e0e7605fa18a43cde946414977648e7dc646targetblank4207e0ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -553,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/9c81723df6a05b77ebd6383e3baff061a38c4e91" target="_blank">9c81723</a>.
+<a href="https://github.com/han16/Collaborations/tree/4207e0e7605fa18a43cde946414977648e7dc646" target="_blank">4207e0e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,6 +574,9 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Unstaged changes:
+    Modified:   analysis/2023_0901_Teerarat.Rmd
 
 </code></pre>
 <p>
@@ -616,6 +622,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2c22964f50493026e237d279a0802a2073918a0a/analysis/2023_0901_Teerarat.Rmd" target="_blank">2c22964</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-17
+</td>
+<td>
+11/17/2023
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/2c22964f50493026e237d279a0802a2073918a0a/docs/2023_0901_Teerarat.html" target="_blank">2c22964</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-17
+</td>
+<td>
+11/17/2023
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1001,102 +1041,1128 @@ Han
 <h2>summary statistics</h2>
 <div id="corr" class="section level3">
 <h3>CORR</h3>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>CORR<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Time_comp_days","Bone_loss_mm","Bone_loss_percentage","Bone_loss_crest","Bone_loss_post_regen_mm","Bone_loss_post_regen_percentage","Month_post_regen","RTR_post_regen_IP","RTR_post_regen_CRP","Time_comp_post_regen","Post_cr_del_months","Latest_bone_levels_mm","Latest_bone_levels_percentage"],[24,24,14,24,24,16,23,23,23,19,19,19,23,23,7,19,13,13],[65.875,4.2083,35.7143,4.1167,10.0625,36.75,4.2087,40.1991,1.5391,1.2526,12.4284,4.6842,8.6957,3.6739,10.8571,14.0526,1.0231,9.4823],[67,3,35,4.1,10,25.5,4.1,38.02,1.7,0.9,10.84,4,8,3,8,11,0,0],[10.7958,4.718,12.0667,0.5761,1.2538,28.1366,1.9874,17.1383,0.9316,1.452,13.9833,3.2155,4.3634,3.2143,6.4402,11.252,1.2924,11.9604],[2.2037,0.9631,3.225,0.1176,0.2559,7.0342,0.4144,3.5736,0.1943,0.3331,3.208,0.7377,0.9098,0.6702,2.4342,2.5814,0.3584,3.3172],[59.25,1,31.25,3.725,10,19.25,3,29.515,0.95,0,0,2,5.5,1,7.5,5,0,0],[75,3.25,45,4.425,10.25,49.25,5.05,52.225,2.05,2.45,23.82,6.5,10,5.5,15,21,2,17.4],[35,1,15,3.3,8,2,1,10,0,0,0,1,3,0.5,2,0,0,0],[80,18,50,5,12,111,9.4,86.23,3.2,4.4,37,12,18,13,21,43,3.5,33.04],[0.0833,0,0.0579,0.0127,0.0017,0.0214,0.2753,0.4155,0.3698,0.0021,0.0016,0.0135,0.0112,0.0034,0.7713,0.1772,0.005,0.0051]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="numeric-variables" class="section level4">
+<h4>numeric variables</h4>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>CORR<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Time_comp_days","Bone_loss_mm","Bone_loss_percentage","Bone_loss_crest","Bone_loss_post_regen_mm","Bone_loss_post_regen_percentage","Month_post_regen","RTR_post_regen_IP","RTR_post_regen_CRP","Time_comp_post_regen","Post_cr_del_months","Latest_bone_levels_mm","Latest_bone_levels_percentage"],[24,24,14,24,24,16,23,23,23,19,19,19,23,23,7,19,13,13],[65.875,4.2083,35.7143,4.1167,10.0625,36.75,4.2087,40.1991,1.5391,1.2526,12.4284,4.6842,8.6957,3.6739,10.8571,14.0526,1.0231,9.4823],[67,3,35,4.1,10,25.5,4.1,38.02,1.7,0.9,10.84,4,8,3,8,11,0,0],[10.7958,4.718,12.0667,0.5760999999999999,1.2538,28.1366,1.9874,17.1383,0.9316,1.452,13.9833,3.2155,4.3634,3.2143,6.4402,11.252,1.2924,11.9604],[2.2037,0.9631,3.225,0.1176,0.2559,7.0342,0.4144,3.5736,0.1943,0.3331,3.208,0.7377,0.9098000000000001,0.6702,2.4342,2.5814,0.3584,3.3172],[59.25,1,31.25,3.725,10,19.25,3,29.515,0.95,0,0,2,5.5,1,7.5,5,0,0],[75,3.25,45,4.425,10.25,49.25,5.05,52.225,2.05,2.45,23.82,6.5,10,5.5,15,21,2,17.4],[35,1,15,3.3,8,2,1,10,0,0,0,1,3,0.5,2,0,0,0],[80,18,50,5,12,111,9.4,86.23,3.2,4.4,37,12,18,13,21,43,3.5,33.04],[0.0833,0,0.0579,0.0127,0.0017,0.0214,0.2753,0.4155,0.3698,0.0021,0.0016,0.0135,0.0112,0.0034,0.7713,0.1772,0.005,0.0051]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"num_sample","targets":2},{"name":"Mean","targets":3},{"name":"Median","targets":4},{"name":"SD","targets":5},{"name":"SE","targets":6},{"name":"per_25_quantile","targets":7},{"name":"per_75_quantile","targets":8},{"name":"Range_low","targets":9},{"name":"Range_upper","targets":10},{"name":"normality_pvalue","targets":11}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li><code>num_sample</code> numeric samples after removing NA’s</li>
 </ul>
 </div>
+<div id="categorical-variables" class="section level4">
+<h4>categorical variables</h4>
+</div>
+</div>
 <div id="restore" class="section level3">
 <h3>restore</h3>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>restore<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Time_comp_days","Bone_loss_mm","Bone_loss_percentage","Bone_loss_crest","Bone_loss_post_regen_mm","Bone_loss_post_regen_percentage","Month_post_regen","RTR_post_regen_IP","RTR_post_regen_CRP","Time_comp_post_regen","Post_cr_del_months","Latest_bone_levels_mm","Latest_bone_levels_percentage"],[55,55,44,55,55,21,51,47,55,0,0,0,0,0,0,42,0,0],[61.7273,4.1273,39.3182,4.3945,10.9273,26.3333,3.1882,29.4864,1.48,null,null,null,null,null,null,24.381,null,null],[61,3,40,4.3,11.5,15,2.9,28.7,1.4,null,null,null,null,null,null,21.5,null,null],[14.0389,3.8106,9.5595,0.598,1.6114,25.5095,1.3096,12.0474,1.2139,null,null,null,null,null,null,15.9404,null,null],[1.893,0.5138,1.4411,0.0806,0.2173,5.5666,0.1834,1.7573,0.1637,null,null,null,null,null,null,2.4597,null,null],[55,2,35,4.1,10,7,2.4,21.13,0,null,null,null,null,null,null,12.25,null,null],[73.5,5,45,4.9,12,37,3.55,36.28,2.4,null,null,null,null,null,null,31.75,null,null],[19,1,15,3.3,8,2,1.1,9.9,0,null,null,null,null,null,null,1,null,null],[87,22,70,6,13,91,7.9,65.8,4.9,null,null,null,null,null,null,65,null,null],[0.101,0,0.0144,0.0058,0.0001,0.0049,0.0004,0.0896,0.0021,null,null,null,null,null,null,0.0743,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>restore<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Time_comp_days","Bone_loss_mm","Bone_loss_percentage","Bone_loss_crest","Bone_loss_post_regen_mm","Bone_loss_post_regen_percentage","Month_post_regen","RTR_post_regen_IP","RTR_post_regen_CRP","Time_comp_post_regen","Post_cr_del_months","Latest_bone_levels_mm","Latest_bone_levels_percentage"],[55,55,44,55,55,21,51,47,55,0,0,0,0,0,0,42,0,0],[61.7273,4.1273,39.3182,4.3945,10.9273,26.3333,3.1882,29.4864,1.48,null,null,null,null,null,null,24.381,null,null],[61,3,40,4.3,11.5,15,2.9,28.7,1.4,null,null,null,null,null,null,21.5,null,null],[14.0389,3.8106,9.5595,0.598,1.6114,25.5095,1.3096,12.0474,1.2139,null,null,null,null,null,null,15.9404,null,null],[1.893,0.5138,1.4411,0.0806,0.2173,5.5666,0.1834,1.7573,0.1637,null,null,null,null,null,null,2.4597,null,null],[55,2,35,4.1,10,7,2.4,21.13,0,null,null,null,null,null,null,12.25,null,null],[73.5,5,45,4.9,12,37,3.55,36.28,2.4,null,null,null,null,null,null,31.75,null,null],[19,1,15,3.3,8,2,1.1,9.9,0,null,null,null,null,null,null,1,null,null],[87,22,70,6,13,91,7.9,65.8,4.9,null,null,null,null,null,null,65,null,null],[0.101,0,0.0144,0.0058,0.0001,0.0049,0.0004,0.0896,0.0021,null,null,null,null,null,null,0.0743,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"num_sample","targets":2},{"name":"Mean","targets":3},{"name":"Median","targets":4},{"name":"SD","targets":5},{"name":"SE","targets":6},{"name":"per_25_quantile","targets":7},{"name":"per_75_quantile","targets":8},{"name":"Range_low","targets":9},{"name":"Range_upper","targets":10},{"name":"normality_pvalue","targets":11}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="corr-vs-store" class="section level2">
 <h2>corr vs store</h2>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>corr vs restore<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Time_comp_days","Bone_loss_mm","Bone_loss_percentage","Bone_loss_crest","Post_cr_del_months"],[0.1589,0.9412,0.3208,0.0575,0.0127,0.2545,0.0316,0.0111,0.8168,0.0057]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>corr vs restore<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Time_comp_days","Bone_loss_mm","Bone_loss_percentage","Bone_loss_crest","Post_cr_del_months"],[0.1589,0.9412,0.3208,0.0575,0.0127,0.2545,0.0316,0.0111,0.8168,0.0057]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>two sample t test was used</li>
 </ul>
 </div>
 <div id="summary-statistics-1" class="section level2">
 <h2>summary statistics</h2>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Bone_loss_mm","Bone_loss_percentage","Bone_loss_post_regen_mm","Bone_loss_post_regen_percentage","Month_post_regen"],[24,24,14,24,24,23,23,19,19,19],[65.875,4.2083,35.7143,4.1167,10.0625,4.2087,40.1991,1.2526,12.4284,4.6842],[67,3,35,4.1,10,4.1,38.02,0.9,10.84,4],[10.7958,4.718,12.0667,0.5761,1.2538,1.9874,17.1383,1.452,13.9833,3.2155],[2.2037,0.9631,3.225,0.1176,0.2559,0.4144,3.5736,0.3331,3.208,0.7377],[59.25,1,31.25,3.725,10,3,29.515,0,0,2],[75,3.25,45,4.425,10.25,5.05,52.225,2.45,23.82,6.5],[35,1,15,3.3,8,1,10,0,0,1],[80,18,50,5,12,9.4,86.23,4.4,37,12],[0.0833,0,0.0579,0.0127,0.0017,0.2753,0.4155,0.0021,0.0016,0.0135]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Bone_loss_mm","Bone_loss_percentage","Bone_loss_post_regen_mm","Bone_loss_post_regen_percentage","Month_post_regen"],[24,24,14,24,24,23,23,19,19,19],[65.875,4.2083,35.7143,4.1167,10.0625,4.2087,40.1991,1.2526,12.4284,4.6842],[67,3,35,4.1,10,4.1,38.02,0.9,10.84,4],[10.7958,4.718,12.0667,0.5760999999999999,1.2538,1.9874,17.1383,1.452,13.9833,3.2155],[2.2037,0.9631,3.225,0.1176,0.2559,0.4144,3.5736,0.3331,3.208,0.7377],[59.25,1,31.25,3.725,10,3,29.515,0,0,2],[75,3.25,45,4.425,10.25,5.05,52.225,2.45,23.82,6.5],[35,1,15,3.3,8,1,10,0,0,1],[80,18,50,5,12,9.4,86.23,4.4,37,12],[0.0833,0,0.0579,0.0127,0.0017,0.2753,0.4155,0.0021,0.0016,0.0135]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"num_sample","targets":2},{"name":"Mean","targets":3},{"name":"Median","targets":4},{"name":"SD","targets":5},{"name":"SE","targets":6},{"name":"per_25_quantile","targets":7},{"name":"per_75_quantile","targets":8},{"name":"Range_low","targets":9},{"name":"Range_upper","targets":10},{"name":"normality_pvalue","targets":11}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="data-distribution" class="section level2">
 <h2>data distribution</h2>
-<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Male_vs_Female"],[0.5413]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="corr-1" class="section level3">
+<h3>CORR</h3>
+<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-12-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-12-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/76d0e59e9cae2c7926674502676953e66259d4e3/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-12-1.png" target="_blank">76d0e59</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Male_vs_Female"],[0.5413]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>binomial exact test was used to compute p values</li>
 </ul>
-<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Never_vs_Past","Never_vs_Current","Never_vs_not reported\n","Past_vs_Current","Past_vs_not reported\n","Current_vs_not reported\n"],[0.3593,0.0352,0.0129,0.3438,0.1797,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Yes_vs_No"],[0.3075]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2514ce28ae593bde0f73" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Maxilla_vs_Mandible"],[0.0227]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Upper posterior_vs_Upper anterior","Upper posterior_vs_Lower posterior","Upper posterior_vs_Lower anterior","Upper anterior_vs_Lower posterior","Upper anterior_vs_Lower anterior","Lower posterior_vs_Lower anterior"],[0.0309,0.0309,0.0042,1,0.6875,0.6875]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Extraction alone_vs_Extraction and bone graft","Extraction alone_vs_Extraction, bone graft and membrane","Extraction alone_vs_GBR","Extraction alone_vs_not reported","Extraction and bone graft_vs_Extraction, bone graft and membrane","Extraction and bone graft_vs_GBR","Extraction and bone graft_vs_not reported","Extraction, bone graft and membrane_vs_GBR","Extraction, bone graft and membrane_vs_not reported","GBR_vs_not reported"],[0.7539,0.125,0.7539,0.6072,0.375,1,0.2668,0.375,0.0215,0.2668]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-13-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-13-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/76d0e59e9cae2c7926674502676953e66259d4e3/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-13-1.png" target="_blank">76d0e59</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Never_vs_Past","Never_vs_Current","Never_vs_not reported\n","Past_vs_Current","Past_vs_not reported\n","Current_vs_not reported\n"],[0.3593,0.0352,0.0129,0.3438,0.1797,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Single implant placement_vs_Placement with bone graft","Single implant placement_vs_Placement with bone graft and membrane","Single implant placement_vs_Placement with indirect sinus lift","Single implant placement_vs_Immediate/delayed placement","Single implant placement_vs_other","Placement with bone graft_vs_Placement with bone graft and membrane","Placement with bone graft_vs_Placement with indirect sinus lift","Placement with bone graft_vs_Immediate/delayed placement","Placement with bone graft_vs_other","Placement with bone graft and membrane_vs_Placement with indirect sinus lift","Placement with bone graft and membrane_vs_Immediate/delayed placement","Placement with bone graft and membrane_vs_other","Placement with indirect sinus lift_vs_Immediate/delayed placement","Placement with indirect sinus lift_vs_other","Immediate/delayed placement_vs_other"],[0.0018,0.049,0.0213,0.0074,0.0018,0.375,0.625,1,1,1,0.6875,0.375,1,0.625,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-14-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-14-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/76d0e59e9cae2c7926674502676953e66259d4e3/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-14-1.png" target="_blank">76d0e59</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Yes_vs_No"],[0.3075]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0003]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-15-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-15-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/82e315ad1c531cfa659a2f769d39da2c9ce2207c/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-15-1.png" target="_blank">82e315a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-10-03
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/376f376786771312c5f695f6ed1746988b9e90e4/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-15-1.png" target="_blank">376f376</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2514ce28ae593bde0f73" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Maxilla_vs_Mandible"],[0.0227]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["Straumann BLT_vs_Osseospeed Ev","Straumann BLT_vs_Nobel Replace Connical Connection","Straumann BLT_vs_Atra EV","Straumann BLT_vs_BioHorizons Tapered Plus","Straumann BLT_vs_Nobel Replace Select","Straumann BLT_vs_Nobel Replace Tapered Groovy","Osseospeed Ev_vs_Nobel Replace Connical Connection","Osseospeed Ev_vs_Atra EV","Osseospeed Ev_vs_BioHorizons Tapered Plus","Osseospeed Ev_vs_Nobel Replace Select","Osseospeed Ev_vs_Nobel Replace Tapered Groovy","Nobel Replace Connical Connection_vs_Atra EV","Nobel Replace Connical Connection_vs_BioHorizons Tapered Plus","Nobel Replace Connical Connection_vs_Nobel Replace Select","Nobel Replace Connical Connection_vs_Nobel Replace Tapered Groovy","Atra EV_vs_BioHorizons Tapered Plus","Atra EV_vs_Nobel Replace Select","Atra EV_vs_Nobel Replace Tapered Groovy","BioHorizons Tapered Plus_vs_Nobel Replace Select","BioHorizons Tapered Plus_vs_Nobel Replace Tapered Groovy","Nobel Replace Select_vs_Nobel Replace Tapered Groovy"],[0.0005,0.0192,0.0005,0.0005,0.0005,0.0005,0.375,1,1,1,1,0.375,0.375,0.375,0.375,1,1,1,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-16-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-16-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/376f376786771312c5f695f6ed1746988b9e90e4/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-16-1.png" target="_blank">376f376</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Upper posterior_vs_Upper anterior","Upper posterior_vs_Lower posterior","Upper posterior_vs_Lower anterior","Upper anterior_vs_Lower posterior","Upper anterior_vs_Lower anterior","Lower posterior_vs_Lower anterior"],[0.0309,0.0309,0.0042,1,0.6875,0.6875]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-873249b169eb6149d57e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["TiUnite_vs_SLA","TiUnite_vs_TiO2","TiUnite_vs_Ti","TiUnite_vs_TLXP3812","TiUnite_vs_Tiu","SLA_vs_TiO2","SLA_vs_Ti","SLA_vs_TLXP3812","SLA_vs_Tiu","TiO2_vs_Ti","TiO2_vs_TLXP3812","TiO2_vs_Tiu","Ti_vs_TLXP3812","Ti_vs_Tiu","TLXP3812_vs_Tiu"],[0.0414,0.2188,0.2188,0.2188,0.2188,0.0005,0.0005,0.0005,0.0005,1,1,1,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-17-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-17-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/376f376786771312c5f695f6ed1746988b9e90e4/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-17-1.png" target="_blank">376f376</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Extraction alone_vs_Extraction and bone graft","Extraction alone_vs_Extraction, bone graft and membrane","Extraction alone_vs_GBR","Extraction alone_vs_not reported","Extraction and bone graft_vs_Extraction, bone graft and membrane","Extraction and bone graft_vs_GBR","Extraction and bone graft_vs_not reported","Extraction, bone graft and membrane_vs_GBR","Extraction, bone graft and membrane_vs_not reported","GBR_vs_not reported"],[0.7539,0.125,0.7539,0.6072,0.375,1,0.2668,0.375,0.0215,0.2668]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["straight_vs_tapered"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-18-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-18-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/376f376786771312c5f695f6ed1746988b9e90e4/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-18-1.png" target="_blank">376f376</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Single implant placement_vs_Placement with bone graft","Single implant placement_vs_Placement with bone graft and membrane","Single implant placement_vs_Placement with indirect sinus lift","Single implant placement_vs_Immediate/delayed placement","Single implant placement_vs_other","Placement with bone graft_vs_Placement with bone graft and membrane","Placement with bone graft_vs_Placement with indirect sinus lift","Placement with bone graft_vs_Immediate/delayed placement","Placement with bone graft_vs_other","Placement with bone graft and membrane_vs_Placement with indirect sinus lift","Placement with bone graft and membrane_vs_Immediate/delayed placement","Placement with bone graft and membrane_vs_other","Placement with indirect sinus lift_vs_Immediate/delayed placement","Placement with indirect sinus lift_vs_other","Immediate/delayed placement_vs_other"],[0.0018,0.049,0.0213,0.0074,0.0018,0.375,0.625,1,1,1,0.6875,0.375,1,0.625,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f25d4e1770d66a86dcce" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f25d4e1770d66a86dcce">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Free handed_vs_Pilot guided","Free handed_vs_Fully guided","Free handed_vs_NR","Pilot guided_vs_Fully guided","Pilot guided_vs_NR","Fully guided_vs_NR"],[0.0386,0.1797,0.4531,0.6291,0.3018,0.7744]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-19-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-19-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/376f376786771312c5f695f6ed1746988b9e90e4/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-19-1.png" target="_blank">376f376</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0003]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-969965edfe9f869aa904" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Equicrestal_vs_Subcrestal"],[0.3075]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-20-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-20-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/161fe6496b37fbaffc942217a41bd65a9b25614c/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-20-1.png" target="_blank">161fe64</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["Straumann BLT_vs_Osseospeed Ev","Straumann BLT_vs_Nobel Replace Connical Connection","Straumann BLT_vs_Atra EV","Straumann BLT_vs_BioHorizons Tapered Plus","Straumann BLT_vs_Nobel Replace Select","Straumann BLT_vs_Nobel Replace Tapered Groovy","Osseospeed Ev_vs_Nobel Replace Connical Connection","Osseospeed Ev_vs_Atra EV","Osseospeed Ev_vs_BioHorizons Tapered Plus","Osseospeed Ev_vs_Nobel Replace Select","Osseospeed Ev_vs_Nobel Replace Tapered Groovy","Nobel Replace Connical Connection_vs_Atra EV","Nobel Replace Connical Connection_vs_BioHorizons Tapered Plus","Nobel Replace Connical Connection_vs_Nobel Replace Select","Nobel Replace Connical Connection_vs_Nobel Replace Tapered Groovy","Atra EV_vs_BioHorizons Tapered Plus","Atra EV_vs_Nobel Replace Select","Atra EV_vs_Nobel Replace Tapered Groovy","BioHorizons Tapered Plus_vs_Nobel Replace Select","BioHorizons Tapered Plus_vs_Nobel Replace Tapered Groovy","Nobel Replace Select_vs_Nobel Replace Tapered Groovy"],[0.0005,0.0192,0.0005,0.0005,0.0005,0.0005,0.375,1,1,1,1,0.375,0.375,0.375,0.375,1,1,1,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-450f171f14364aa3ebed" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.1516]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-21-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-21-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/161fe6496b37fbaffc942217a41bd65a9b25614c/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-21-1.png" target="_blank">161fe64</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-873249b169eb6149d57e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["TiUnite_vs_SLA","TiUnite_vs_TiO2","TiUnite_vs_Ti","TiUnite_vs_TLXP3812","TiUnite_vs_Tiu","SLA_vs_TiO2","SLA_vs_Ti","SLA_vs_TLXP3812","SLA_vs_Tiu","TiO2_vs_Ti","TiO2_vs_TLXP3812","TiO2_vs_Tiu","Ti_vs_TLXP3812","Ti_vs_Tiu","TLXP3812_vs_Tiu"],[0.0414,0.2188,0.2188,0.2188,0.2188,0.0005,0.0005,0.0005,0.0005,1,1,1,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fbfc52d82635d988c6e1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fbfc52d82635d988c6e1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.1516]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-22-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-22-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/161fe6496b37fbaffc942217a41bd65a9b25614c/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-22-1.png" target="_blank">161fe64</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["straight_vs_tapered"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2f4c52b7f36e26c300a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2f4c52b7f36e26c300a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0639]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-23-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-23-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/161fe6496b37fbaffc942217a41bd65a9b25614c/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-23-1.png" target="_blank">161fe64</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f25d4e1770d66a86dcce" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f25d4e1770d66a86dcce">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Free handed_vs_Pilot guided","Free handed_vs_Fully guided","Free handed_vs_NR","Pilot guided_vs_Fully guided","Pilot guided_vs_NR","Fully guided_vs_NR"],[0.0386,0.1797,0.4531,0.6291,0.3018,0.7744]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1d5df3d80f5735caaf13" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1d5df3d80f5735caaf13">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-24-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-24-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/161fe6496b37fbaffc942217a41bd65a9b25614c/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-24-1.png" target="_blank">161fe64</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-969965edfe9f869aa904" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Equicrestal_vs_Subcrestal"],[0.3075]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-67c25ca3336b15b0293a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-67c25ca3336b15b0293a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0066]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-25-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-25-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/161fe6496b37fbaffc942217a41bd65a9b25614c/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-25-1.png" target="_blank">161fe64</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2023-09-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-450f171f14364aa3ebed" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.1516]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-530a78b6872d546cc16a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-530a78b6872d546cc16a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-26-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-26-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-fbfc52d82635d988c6e1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fbfc52d82635d988c6e1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.1516]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4cadc5f8c7ab9ff923ac" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4cadc5f8c7ab9ff923ac">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0066]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-27-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-27-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2f4c52b7f36e26c300a7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2f4c52b7f36e26c300a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0639]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fc8df40fd67c2027a709" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fc8df40fd67c2027a709">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["vertical_vs_horizontal","vertical_vs_NA","vertical_vs_NR","horizontal_vs_NA","horizontal_vs_NR","NA_vs_NR"],["0.0043","&lt;0.0001","&lt;0.0001","0.375","0.375","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-28-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/68768022a37dd02056314f01f820fa5789a6e98f/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-28-1.png" target="_blank">6876802</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1d5df3d80f5735caaf13" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1d5df3d80f5735caaf13">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d8c7d17cf4080686b93c" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d8c7d17cf4080686b93c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Debridement alone_vs_Debridement with bone graft","Debridement alone_vs_Debridement with bone graft and membrane","Debridement alone_vs_Debridement with bone graft, membrane, and biologics","Debridement alone_vs_other","Debridement with bone graft_vs_Debridement with bone graft and membrane","Debridement with bone graft_vs_Debridement with bone graft, membrane, and biologics","Debridement with bone graft_vs_other","Debridement with bone graft and membrane_vs_Debridement with bone graft, membrane, and biologics","Debridement with bone graft and membrane_vs_other","Debridement with bone graft, membrane, and biologics_vs_other"],[0.4531,0.0074,1,1,0.0963,0.4531,0.4531,0.0074,0.0074,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/96357d862edbb066f7016f0f97c55e3991d18787/docs/figure/2023_0901_Teerarat.Rmd/unnamed-chunk-29-1.png" target="_blank">96357d8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2023-11-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-67c25ca3336b15b0293a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-67c25ca3336b15b0293a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0066]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-530a78b6872d546cc16a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-530a78b6872d546cc16a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-4cadc5f8c7ab9ff923ac" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4cadc5f8c7ab9ff923ac">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.0066]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-fc8df40fd67c2027a709" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fc8df40fd67c2027a709">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["vertical_vs_horizontal","vertical_vs_NA","vertical_vs_NR","horizontal_vs_NA","horizontal_vs_NR","NA_vs_NR"],["0.0043","&lt;0.0001","&lt;0.0001","0.375","0.375","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p><img src="figure/2023_0901_Teerarat.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-d8c7d17cf4080686b93c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d8c7d17cf4080686b93c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Debridement alone_vs_Debridement with bone graft","Debridement alone_vs_Debridement with bone graft and membrane","Debridement alone_vs_Debridement with bone graft, membrane, and biologics","Debridement alone_vs_other","Debridement with bone graft_vs_Debridement with bone graft and membrane","Debridement with bone graft_vs_Debridement with bone graft, membrane, and biologics","Debridement with bone graft_vs_other","Debridement with bone graft and membrane_vs_Debridement with bone graft, membrane, and biologics","Debridement with bone graft and membrane_vs_other","Debridement with bone graft, membrane, and biologics_vs_other"],[0.4531,0.0074,1,1,0.0963,0.4531,0.4531,0.0074,0.0074,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1106,11 +2172,12 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.2 (2022-10-31 ucrt)
+<pre><code>R version 4.3.2 (2023-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 19045)
 
 Matrix products: default
+
 
 locale:
 [1] LC_COLLATE=English_United States.utf8 
@@ -1119,44 +2186,39 @@ locale:
 [4] LC_NUMERIC=C                          
 [5] LC_TIME=English_United States.utf8    
 
+time zone: America/Chicago
+tzcode source: internal
+
 attached base packages:
 [1] grid      stats     graphics  grDevices utils     datasets  methods  
 [8] base     
 
 other attached packages:
- [1] readxl_1.4.2       cowplot_1.1.1      matrixStats_0.63.0 gridExtra_2.3     
- [5] DT_0.27            rstatix_0.7.2      ggpubr_0.6.0       kableExtra_1.3.4  
- [9] forcats_1.0.0      stringr_1.5.0      dplyr_1.0.10       purrr_1.0.1       
-[13] readr_2.1.4        tidyr_1.3.0        tibble_3.1.8       ggplot2_3.4.1     
-[17] tidyverse_1.3.2   
+ [1] readxl_1.4.3      cowplot_1.1.2     matrixStats_1.2.0 gridExtra_2.3    
+ [5] DT_0.31           rstatix_0.7.2     ggpubr_0.6.0      kableExtra_1.3.4 
+ [9] lubridate_1.9.3   forcats_1.0.0     stringr_1.5.1     dplyr_1.1.4      
+[13] purrr_1.0.2       readr_2.1.4       tidyr_1.3.0       tibble_3.2.1     
+[17] ggplot2_3.4.4     tidyverse_2.0.0  
 
 loaded via a namespace (and not attached):
- [1] fs_1.5.2            lubridate_1.9.2     webshot_0.5.4      
- [4] httr_1.4.5          rprojroot_2.0.3     tools_4.2.2        
- [7] backports_1.4.1     bslib_0.4.2         utf8_1.2.2         
-[10] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
-[13] withr_2.5.0         tidyselect_1.2.0    compiler_4.2.2     
-[16] git2r_0.31.0        cli_3.4.1           rvest_1.0.3        
-[19] xml2_1.3.3          labeling_0.4.2      sass_0.4.5         
-[22] scales_1.2.1        systemfonts_1.0.4   digest_0.6.31      
-[25] rmarkdown_2.20      svglite_2.1.1       pkgconfig_2.0.3    
-[28] htmltools_0.5.4     highr_0.10          dbplyr_2.3.0       
-[31] fastmap_1.1.0       htmlwidgets_1.6.1   rlang_1.0.6        
-[34] rstudioapi_0.14     farver_2.1.1        jquerylib_0.1.4    
-[37] generics_0.1.3      jsonlite_1.8.4      crosstalk_1.2.0    
-[40] car_3.1-1           googlesheets4_1.0.1 magrittr_2.0.3     
-[43] Rcpp_1.0.9          munsell_0.5.0       fansi_1.0.3        
-[46] abind_1.4-5         lifecycle_1.0.3     stringi_1.7.8      
-[49] whisker_0.4.1       yaml_2.3.7          carData_3.0-5      
-[52] promises_1.2.0.1    crayon_1.5.2        haven_2.5.1        
-[55] hms_1.1.2           knitr_1.42          pillar_1.8.1       
-[58] ggsignif_0.6.4      reprex_2.0.2        glue_1.6.2         
-[61] evaluate_0.20       modelr_0.1.10       vctrs_0.5.2        
-[64] tzdb_0.3.0          httpuv_1.6.9        cellranger_1.1.0   
-[67] gtable_0.3.1        assertthat_0.2.1    cachem_1.0.7       
-[70] xfun_0.37           broom_1.0.3         later_1.3.0        
-[73] googledrive_2.0.0   viridisLite_0.4.1   gargle_1.3.0       
-[76] workflowr_1.7.0     timechange_0.2.0    ellipsis_0.3.2     </code></pre>
+ [1] gtable_0.3.4      xfun_0.41         bslib_0.6.1       htmlwidgets_1.6.4
+ [5] tzdb_0.4.0        crosstalk_1.2.1   vctrs_0.6.5       tools_4.3.2      
+ [9] generics_0.1.3    fansi_1.0.6       highr_0.10        pkgconfig_2.0.3  
+[13] webshot_0.5.5     lifecycle_1.0.4   farver_2.1.1      compiler_4.3.2   
+[17] git2r_0.33.0      munsell_0.5.0     carData_3.0-5     httpuv_1.6.13    
+[21] htmltools_0.5.7   sass_0.4.8        yaml_2.3.8        later_1.3.2      
+[25] pillar_1.9.0      car_3.1-2         jquerylib_0.1.4   whisker_0.4.1    
+[29] ellipsis_0.3.2    cachem_1.0.8      abind_1.4-5       tidyselect_1.2.0 
+[33] rvest_1.0.3       digest_0.6.33     stringi_1.8.3     labeling_0.4.3   
+[37] rprojroot_2.0.4   fastmap_1.1.1     colorspace_2.1-0  cli_3.6.2        
+[41] magrittr_2.0.3    utf8_1.2.4        broom_1.0.5       withr_2.5.2      
+[45] scales_1.3.0      promises_1.2.1    backports_1.4.1   timechange_0.2.0 
+[49] rmarkdown_2.25    httr_1.4.7        cellranger_1.1.0  ggsignif_0.6.4   
+[53] workflowr_1.7.1   hms_1.1.3         evaluate_0.23     knitr_1.45       
+[57] viridisLite_0.4.2 rlang_1.1.2       Rcpp_1.0.11       glue_1.6.2       
+[61] xml2_1.3.6        svglite_2.1.3     rstudioapi_0.15.0 jsonlite_1.8.8   
+[65] R6_2.5.1          systemfonts_1.0.5 fs_1.6.3         </code></pre>
+</div>
 </div>
 </div>
 
