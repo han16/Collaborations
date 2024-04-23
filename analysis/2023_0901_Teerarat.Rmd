@@ -1565,7 +1565,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F, results=F}
 
 data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-Implant DATA CLEAN 111023_without_header.xlsx")
-group_restore=data2$`Data RESTORE`
+group_restore=data2$`Data RESTORE`   # re-load the data
 
 num_indi=55
 Data=group_restore
