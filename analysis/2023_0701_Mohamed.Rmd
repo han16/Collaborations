@@ -2579,6 +2579,34 @@ datatable(extensions = 'Buttons',
 
 
 
+## grades 
+
+```{r, echo=F, message=F, warning=F}
+grades=read_excel("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202307\\Mohamed\\grades all years.xlsx")
+live_demo=data.frame(yearr2020=as.numeric(grades[3:108,5]%>%pull()), year2021=as.numeric(grades[3:108,10]%>%pull()), year2022=as.numeric(grades[3:108,15]%>%pull()), year2023=as.numeric(grades[3:108,20]%>%pull()), year2024=as.numeric(grades[3:108,25]%>%pull()))
+pvalue=numeric(); time1=c(); time2=c()
+k=0
+for (i in 1:(ncol(live_demo)-1))
+ for (j in (i+1):ncol(live_demo))
+ {
+   k=k+1
+   sample1=live_demo[,i]; time1[k]=colnames(live_demo)[i]
+   sample2=live_demo[,j]; time2[k]=colnames(live_demo)[j]
+   t_test=t.test(sample1, sample2)
+   pvalue[k]=t_test$p.value
+ }
+data.frame(year=paste(time1, time2, sep="_vs_"), pvalue=round(adjust_pvalue(pvalue),4))%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All")))) 
+```
+
+
+* two sample t test was used. 
+
 
 
 ## statistical analysis 
