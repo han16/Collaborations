@@ -35,12 +35,10 @@ data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\T
 
 
 
-## summary statistics 
+## continuous variables 
 
 ### CORR
 
-
-#### numeric variables 
 
 ```{r, echo=F, message=F, warning=F}
 group_corr=data2$`Data CORR`
@@ -145,45 +143,16 @@ datatable(extensions = 'Buttons',
 * two sample t test was used 
 
 
-```{r, echo=F, message=F, warning=F, results=F}
-data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Early peri-implant bone loss CORRECTIVE TREATMENT) VK092423.xlsx")
-
-num_indi=24
-Age=data$Data$Age[1:num_indi]
-CBL_diagnosis_months=as.numeric(data$Data$CBL_diagnosis_months)[1:num_indi]
-I_Torque=as.numeric(data$Data$I_Torque)[1:num_indi]
-I_Diameter=as.numeric(data$Data$I_Diameter)[1:num_indi]
-I_Length=as.numeric(data$Data$I_Length)[1:num_indi]
-Bone_loss_mm=as.numeric(data$Data$Bone_loss_mm)[1:num_indi]
-Bone_loss_percentage=as.numeric(data$Data$`Bone_loss_%`)[1:num_indi]
-Bone_loss_post_regen_mm=as.numeric(data$Data$Bone_loss_post_regen_mm)[1:num_indi]
-Bone_loss_post_regen_percentage=as.numeric(data$Data$`Bone_loss_post_regen_%`)[1:num_indi]
-Month_post_regen=as.numeric(data$Data$Month_post_regen)[1:num_indi]
-data2=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Bone_loss_mm, Bone_loss_percentage, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen)
-```
 
 
-
-## summary statistics 
-
-```{r, echo=F, message=F, warning=F}
-data_summary=summary_statistics(data2)
-data_summary %>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-
-## data distribution 
+## categorical variables 
 
 
 ### CORR
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Gender) %>% mutate(prop=n/24)
+data=data2$`Data CORR`
+data_subset=data %>% dplyr::count(Gender) %>% mutate(prop=n/24)
 data_subset$Gender[data_subset$Gender==1]="Male"; data_subset$Gender[data_subset$Gender==2]="Female"
 g1=ggplot(data_subset, aes(x=Gender, y=prop, fill=Gender)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
@@ -238,7 +207,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Smoking) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(Smoking) %>% mutate(prop=n/24)
 data_subset$Smoking[data_subset$Smoking==1]="Never"; data_subset$Smoking[data_subset$Smoking==2]="Past"
 data_subset$Smoking[data_subset$Smoking==3]="Current"; data_subset$Smoking[data_subset$Smoking==4]="not reported
 "
@@ -298,7 +267,7 @@ datatable(extensions = 'Buttons',
 ```
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Diabetes) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(Diabetes) %>% mutate(prop=n/24)
 data_subset$Diabetes[data_subset$Diabetes==1]="Yes"; data_subset$Diabetes[data_subset$Diabetes==2]="No"
 
 
@@ -354,8 +323,9 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Implant_site) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(Implant_site) %>% mutate(prop=n/24)
 index1=which(data_subset$Implant_site<=16); index2=which(data_subset$Implant_site>16)
 n=c(sum(data_subset$n[index1]), sum(data_subset$n[index2]))
 prop=c(sum(data_subset$prop[index1]), sum(data_subset$prop[index2]))
@@ -415,7 +385,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Implant_site) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(Implant_site) %>% mutate(prop=n/24)
 index1=union(which(data_subset$Implant_site<=5), which(data_subset$Implant_site<=16 & data_subset$Implant_site>=12)); index2=which(data_subset$Implant_site>=6 &data_subset$Implant_site<=11);
 index3=union(which(data_subset$Implant_site>=17 & data_subset$Implant_site<=21), which(data_subset$Implant_site<=31 & data_subset$Implant_site>=28));
 index4=which(data_subset$Implant_site>=22 &data_subset$Implant_site<=27 )
@@ -489,8 +459,8 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data$Data$Pre_implant_Procedure[1]=1
-data_subset=data$Data %>% dplyr::count(Pre_implant_Procedure) %>% mutate(prop=n/24)
+data$Pre_implant_Procedure[1]=1
+data_subset=data %>% dplyr::count(Pre_implant_Procedure) %>% mutate(prop=n/24)
 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]="Extraction alone"; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]="Extraction and bone graft"; 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]="Extraction, bone graft and membrane";
@@ -568,8 +538,8 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data$Data$I_placement[6]="4"
-data_subset=data$Data %>% dplyr::count(I_placement) %>% mutate(prop=n/24)
+data$I_placement[6]="4"
+data_subset=data %>% dplyr::count(I_placement) %>% mutate(prop=n/24)
 
 data_subset$I_placement[data_subset$I_placement==1]="Single implant placement"; data_subset$I_placement[data_subset$I_placement==2]="Placement with bone graft"; 
 data_subset$I_placement[data_subset$I_placement==4]="Placement with bone graft and membrane";
@@ -640,7 +610,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(HA) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(HA) %>% mutate(prop=n/24)
 
 data_subset$HA[data_subset$HA==1]="yes"; 
 data_subset$HA[data_subset$HA==2]="no"; 
@@ -695,7 +665,7 @@ datatable(extensions = 'Buttons',
 ```
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(I_Brand) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(I_Brand) %>% mutate(prop=n/24)
 
 data_subset$I_Brand[data_subset$I_Brand==3]="Straumann BLT"; 
 data_subset$I_Brand[data_subset$I_Brand==4]="Osseospeed Ev"; 
@@ -755,7 +725,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(I_Surface) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(I_Surface) %>% mutate(prop=n/24)
 
 data_subset$I_Surface[data_subset$I_Surface==2]="TiUnite"; 
 data_subset$I_Surface[data_subset$I_Surface==3]="SLA";
@@ -813,7 +783,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(I_Shape) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(I_Shape) %>% mutate(prop=n/24)
 
 data_subset$I_Shape[data_subset$I_Shape==1]="straight"; 
 data_subset$I_Shape[data_subset$I_Shape==2]="tapered"; 
@@ -867,8 +837,8 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data$Data$I_Technique[data$Data$I_Technique=="NR"]=5
-data_subset=data$Data %>% dplyr::count(I_Technique) %>% mutate(prop=n/24)
+data$I_Technique[data$I_Technique=="NR"]=5
+data_subset=data %>% dplyr::count(I_Technique) %>% mutate(prop=n/24)
 
 data_subset$I_Technique[data_subset$I_Technique==1]="Free handed"; 
 data_subset$I_Technique[data_subset$I_Technique==2]="Pilot guided";
@@ -926,7 +896,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(I_Location) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(I_Location) %>% mutate(prop=n/24)
 
 data_subset$I_Location[data_subset$I_Location==1]="Supracrestal";
 data_subset$I_Location[data_subset$I_Location==2]="Equicrestal"; 
@@ -978,8 +948,179 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Present_comp_post_placement) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(Postop_med) %>% mutate(prop=n/24)
+
+data_subset$Postop_med[data_subset$Postop_med==1]="Amoxicillin";
+data_subset$Postop_med[data_subset$Postop_med==2]="Clindamycin"; 
+data_subset$Postop_med[data_subset$Postop_med==3]="Azithromycin"; 
+data_subset$Postop_med[data_subset$Postop_med==4]="not reported"; 
+data_subset$Postop_med[data_subset$Postop_med==5]="doxycycline"; 
+data_subset$Postop_med[data_subset$Postop_med==6]="antibiotic not specified"; 
+
+
+g1=ggplot(data_subset, aes(x=Postop_med, y=prop, fill=Postop_med)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Postop_med, y=n, fill=Postop_med)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Postop_med", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+############ compute/print out between group p values 
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2], data_subset[j,2]), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data%>% dplyr::count(Premed) %>% mutate(prop=n/24)
+
+data_subset$Premed[data_subset$Premed==1]="Amoxicillin";
+data_subset$Premed[data_subset$Premed==2]="not reported"; 
+
+
+g1=ggplot(data_subset, aes(x=Premed, y=prop, fill=Premed)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Premed, y=n, fill=Premed)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Premed", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+############ compute/print out between group p values 
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2], data_subset[j,2]), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data %>% dplyr::count(Provider_level) %>% mutate(prop=n/24)
+
+data_subset$Provider_level[data_subset$Provider_level==1]="Faculty";
+data_subset$Provider_level[data_subset$Provider_level==2]="Perio resident";
+data_subset$Provider_level[data_subset$Provider_level==3]="Pros resident";
+data_subset$Provider_level[data_subset$Provider_level==4]="AEGD resident";
+
+
+g1=ggplot(data_subset, aes(x=Provider_level, y=prop, fill=Provider_level)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Provider_level, y=n, fill=Provider_level)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Provider_level", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+############ compute/print out between group p values 
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2], data_subset[j,2]), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data %>% dplyr::count(Present_comp_post_placement) %>% mutate(prop=n/24)
 
 data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==1]="yes"; 
 data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==2]="no"; 
@@ -1032,7 +1173,7 @@ datatable(extensions = 'Buttons',
 ```
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Coverscrew_exp_post_placement) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(Coverscrew_exp_post_placement) %>% mutate(prop=n/24)
 
 data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==1]="yes"; 
 data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==2]="no"; 
@@ -1087,7 +1228,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(`Infection/pus_post_placement`) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(`Infection/pus_post_placement`) %>% mutate(prop=n/24)
 
 data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==1]="yes"; 
 data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==2]="no"; 
@@ -1142,7 +1283,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(abscess_post_placement) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(abscess_post_placement) %>% mutate(prop=n/24)
 
 data_subset$abscess_post_placement[data_subset$abscess_post_placement==1]="yes"; 
 data_subset$abscess_post_placement[data_subset$abscess_post_placement==2]="no"; 
@@ -1196,7 +1337,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(sinus_post_placement) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(sinus_post_placement) %>% mutate(prop=n/24)
 
 data_subset$sinus_post_placement[data_subset$sinus_post_placement==1]="yes"; 
 data_subset$sinus_post_placement[data_subset$sinus_post_placement==2]="no"; 
@@ -1247,8 +1388,11 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(swell_post_placement) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(swell_post_placement) %>% mutate(prop=n/24)
 
 data_subset$swell_post_placement[data_subset$swell_post_placement==1]="yes"; 
 data_subset$swell_post_placement[data_subset$swell_post_placement==2]="no"; 
@@ -1302,7 +1446,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(pain_post_placement) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(pain_post_placement) %>% mutate(prop=n/24)
 
 data_subset$pain_post_placement[data_subset$pain_post_placement==1]="yes"; 
 data_subset$pain_post_placement[data_subset$pain_post_placement==2]="no"; 
@@ -1356,8 +1500,66 @@ datatable(extensions = 'Buttons',
 
 
 
+
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Type_bone_loss) %>% mutate(prop=n/24)
+data_subset=data%>% dplyr::count(Other_post_placement) %>% mutate(prop=n/24)
+
+data_subset$Other_post_placement[data_subset$Other_post_placement==1]="yes"; 
+data_subset$Other_post_placement[data_subset$Other_post_placement==2]="no"; 
+
+
+g1=ggplot(data_subset, aes(x=Other_post_placement, y=prop, fill=Other_post_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Other_post_placement, y=n, fill=Other_post_placement)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Other_post_placement", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+############ compute/print out between group p values 
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2], data_subset[j,2]), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data%>% dplyr::count(Type_bone_loss) %>% mutate(prop=n/24)
 
 data_subset$Type_bone_loss[data_subset$Type_bone_loss==1]="vertical"; 
 data_subset$Type_bone_loss[data_subset$Type_bone_loss==2]="horizontal"; 
@@ -1412,7 +1614,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=data$Data %>% dplyr::count(Corr_regen_procedure) %>% mutate(prop=n/24)
+data_subset=data %>% dplyr::count(Corr_regen_procedure) %>% mutate(prop=n/24)
 
 data_subset$Corr_regen_procedure[data_subset$Corr_regen_procedure==1]="Debridement alone"; 
 data_subset$Corr_regen_procedure[data_subset$Corr_regen_procedure==3]="Debridement with bone graft";
@@ -1466,6 +1668,63 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset=data %>% dplyr::count(Present_comp_post_regen) %>% mutate(prop=n/24)
+
+data_subset$Present_comp_post_regen[data_subset$Present_comp_post_regen==1]="yes"; 
+data_subset$Present_comp_post_regen[data_subset$Present_comp_post_regen==2]="no";
+
+
+g1=ggplot(data_subset, aes(x=Present_comp_post_regen, y=prop, fill=Present_comp_post_regen)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=7))+
+  ylab("%")+ylim(c(0,1))+
+    xlab("")+
+  geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+  #ggtitle(paste(questions[i]))+
+  #theme(plot.title = element_text(hjust = 0.5, size=10))  #center the title 
+#g1
+  g2=ggplot(data_subset, aes(x=Present_comp_post_regen, y=n, fill=Present_comp_post_regen)) +geom_bar(stat="identity")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=7))+
+  ylab("count")+ylim(c(0, max(data_subset$n)+2))+
+    xlab("")+
+  geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
+#questions[1]
+  figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Present_comp_post_regen", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold"
+)
+
+############ compute/print out between group p values 
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2], data_subset[j,2]), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
 
 
 
