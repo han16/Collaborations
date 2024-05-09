@@ -908,6 +908,54 @@ datatable(extensions = 'Buttons',
 ```
 
 
+## comparisons 
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
+
+data_comparison=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Mohamed\\Coded Responses – 3 Class Comparison.xlsx")
+
+```
+
+```{r, echo=F, message=F, warning=F, results=F}
+data_all_year=data_comparison
+data_all_year[[1]]=NULL  # remove the first element 
+year_comaprison=function(X)
+{
+X=as.matrix(X[,-1])
+
+  total_students=apply(X,1, sum)
+  pvalue_calculation=function(y)
+  {
+    pvalue=numeric()
+    pvalue[1]=prop.test(c(y[1], y[2]), n=c(total_students[1], total_students[2]))$p.value
+    pvalue[2]=prop.test(c(y[1], y[3]), n=c(total_students[1], total_students[3]))$p.value
+    pvalue[3]=prop.test(c(y[2], y[3]), n=c(total_students[2], total_students[3]))$p.value
+    return(pvalue)
+  }
+
+  pvalue=apply(X, 2, pvalue_calculation)
+  return(pvalue)
+} 
+pvalue_all_year=lapply(data_all_year, year_comaprison)
+```
+
+
+
 
 ## statistical software 
 
