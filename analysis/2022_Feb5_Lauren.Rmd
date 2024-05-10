@@ -908,7 +908,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-## comparisons 
+## year comparisons 
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
@@ -931,7 +931,7 @@ data_comparison=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2022\
 
 ```
 
-```{r, echo=F, message=F, warning=F, results=F}
+```{r, echo=F, message=F, warning=F, results=T}
 data_all_year=data_comparison
 data_all_year[[1]]=NULL  # remove the first element 
 year_comaprison=function(X)
@@ -942,9 +942,9 @@ X=as.matrix(X[,-1])
   pvalue_calculation=function(y)
   {
     pvalue=numeric()
-    pvalue[1]=prop.test(c(y[1], y[2]), n=c(total_students[1], total_students[2]))$p.value
-    pvalue[2]=prop.test(c(y[1], y[3]), n=c(total_students[1], total_students[3]))$p.value
-    pvalue[3]=prop.test(c(y[2], y[3]), n=c(total_students[2], total_students[3]))$p.value
+    pvalue[1]=round(prop.test(c(y[1], y[2]), n=c(total_students[1], total_students[2]))$p.value,4)
+    pvalue[2]=round(prop.test(c(y[1], y[3]), n=c(total_students[1], total_students[3]))$p.value,4)
+    pvalue[3]=round(prop.test(c(y[2], y[3]), n=c(total_students[2], total_students[3]))$p.value,4)
     return(pvalue)
   }
 
@@ -952,7 +952,165 @@ X=as.matrix(X[,-1])
   return(pvalue)
 } 
 pvalue_all_year=lapply(data_all_year, year_comaprison)
+
+print_function=function(X)
+{
+  rownames(X)=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+  X%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+  
+}
+#lapply(pvalue_all_year, print_function)
+#for (i in 1:length(pvalue_all_year))
+  
+#{
+#  X=pvalue_all_year[[i]]
+  
+#  rownames(X)=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+#  X%>%
+#datatable(extensions = 'Buttons',
+#          caption = names(data_all_year)[i],
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
+#}
 ```
+
+
+```{r, echo=F, message=F, warning=F}
+
+i=1
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=2
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=3
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+i=4
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=5
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=6
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=7
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=8
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+i=9
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=10
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+i=11
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+i=12
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+pvalue_all_year[[i]]%>%
+datatable(extensions = 'Buttons',
+          caption = names(data_all_year)[i],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* two sample proportion test was used. 
 
 
 
