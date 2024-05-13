@@ -404,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-04-04
+<strong>Last updated:</strong> 2024-05-13
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -538,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed7d49b46edde5c399a9a828047dc237eead40df1targetblankd7d49b4a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3f9a903e165248579d50b2443fe78cca331044f7targetblank3f9a903a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/d7d49b46edde5c399a9a828047dc237eead40df1" target="_blank">d7d49b4</a>
+<a href="https://github.com/han16/Collaborations/tree/3f9a903e165248579d50b2443fe78cca331044f7" target="_blank">3f9a903</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed7d49b46edde5c399a9a828047dc237eead40df1targetblankd7d49b4a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3f9a903e165248579d50b2443fe78cca331044f7targetblank3f9a903a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -556,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/d7d49b46edde5c399a9a828047dc237eead40df1" target="_blank">d7d49b4</a>.
+<a href="https://github.com/han16/Collaborations/tree/3f9a903e165248579d50b2443fe78cca331044f7" target="_blank">3f9a903</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -574,6 +574,9 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Untracked files:
+    Untracked:  analysis/2023_0301_Christos_3days.Rmd
 
 Unstaged changes:
     Modified:   analysis/2023_0301_Christos.Rmd
@@ -622,6 +625,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f892f808ff03bc0a8adbb46662a7c377ab941c05/analysis/2023_0301_Christos.Rmd" target="_blank">f892f80</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-04-11
+</td>
+<td>
+4/11/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/5a9e30aff882fe48873eee35dba3ce1c10a59f7f/analysis/2023_0301_Christos.Rmd" target="_blank">5a9e30a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-04-04
+</td>
+<td>
+4/4/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/5a9e30aff882fe48873eee35dba3ce1c10a59f7f/docs/2023_0301_Christos.html" target="_blank">5a9e30a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-04-04
+</td>
+<td>
+4/4/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -5599,7 +5653,8 @@ href="https://www.statsdirect.com/help/meta_analysis/heterogeneity.htm#:~:text=H
 details</a>.</p></li>
 <li><p><a
 href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-30#:~:text=Firstly%2C%20the%20SMD%20can%20be,a%20large%20effect%20%5B2%5D.">SMD
-interpretations</a></p></li>
+interpretations</a>, and <a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/effects.html">calculations</a></p></li>
 </ul>
 <div
 id="calculate-smd-using-example-of-pearlman-b._ibuprofen-400mg_vs_placebo"
@@ -16828,13 +16883,12 @@ han
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
 </ul>
-<pre><code>                                    P-score
-ibuprofen 600mg                      0.8541
-nimesilide 100mg                     0.7580
-etoricoxib 120mg                     0.5816
-placebo                              0.3065
-dexketoprofen trometamol (DKT) 25mg  0.2868
-ketorolac 10mg                       0.2130</code></pre>
+<pre><code>                 P-score
+ibuprofen 600mg   0.7455
+nimesilide 100mg  0.6777
+etoricoxib 120mg  0.5466
+placebo           0.2877
+ketorolac 10mg    0.2425</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-117-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-117-1">
@@ -16908,10 +16962,10 @@ han
 </div>
 <pre><code>Q statistics to assess homogeneity / consistency
 
-                   Q df p-value
-Total           6.04  2  0.0489
-Within designs  0.16  1  0.6847
-Between designs 5.87  1  0.0154
+                    Q df p-value
+Total           12.37  2  0.0021
+Within designs   0.16  1  0.6847
+Between designs 12.20  1  0.0005
 
 Design-specific decomposition of within-designs Q statistic
 
@@ -16919,7 +16973,7 @@ Design-specific decomposition of within-designs Q statistic
  placebo vs etoricoxib 120mg 0.16  1  0.6847
 
 Between-designs Q statistic after detaching of single designs
-(influential designs have p-value markedly different from 0.0154)
+(influential designs have p-value markedly different from 0.0005)
 
             Detached design    Q df p-value
  placebo vs ibuprofen 600mg 0.00  0      --
@@ -16927,18 +16981,17 @@ Between-designs Q statistic after detaching of single designs
 Q statistic to assess consistency under the assumption of
 a full design-by-treatment interaction random effects model
 
-                   Q df p-value tau.within tau2.within
-Between designs 5.87  1  0.0154          0           0</code></pre>
+                    Q df p-value tau.within tau2.within
+Between designs 12.20  1  0.0005          0           0</code></pre>
 </div>
 <div id="fixed-effect-model-4" class="section level4">
 <h4>fixed effect model</h4>
-<pre><code>                                    P-score
-ibuprofen 600mg                      0.9258
-nimesilide 100mg                     0.8108
-etoricoxib 120mg                     0.6205
-placebo                              0.3109
-dexketoprofen trometamol (DKT) 25mg  0.2135
-ketorolac 10mg                       0.1185</code></pre>
+<pre><code>                 P-score
+ibuprofen 600mg   0.7872
+nimesilide 100mg  0.6970
+etoricoxib 120mg  0.6918
+placebo           0.2422
+ketorolac 10mg    0.0818</code></pre>
 <p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-118-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-118-1">
@@ -17012,10 +17065,10 @@ han
 </div>
 <pre><code>Q statistics to assess homogeneity / consistency
 
-                   Q df p-value
-Total           6.04  2  0.0489
-Within designs  0.16  1  0.6847
-Between designs 5.87  1  0.0154
+                    Q df p-value
+Total           12.37  2  0.0021
+Within designs   0.16  1  0.6847
+Between designs 12.20  1  0.0005
 
 Design-specific decomposition of within-designs Q statistic
 
@@ -17023,7 +17076,7 @@ Design-specific decomposition of within-designs Q statistic
  placebo vs etoricoxib 120mg 0.16  1  0.6847
 
 Between-designs Q statistic after detaching of single designs
-(influential designs have p-value markedly different from 0.0154)
+(influential designs have p-value markedly different from 0.0005)
 
             Detached design    Q df p-value
  placebo vs ibuprofen 600mg 0.00  0      --
@@ -17031,1016 +17084,16 @@ Between-designs Q statistic after detaching of single designs
 Q statistic to assess consistency under the assumption of
 a full design-by-treatment interaction random effects model
 
-                   Q df p-value tau.within tau2.within
-Between designs 5.87  1  0.0154          0           0</code></pre>
+                    Q df p-value tau.within tau2.within
+Between designs 12.20  1  0.0005          0           0</code></pre>
 </div>
 </div>
 </div>
 <div id="hours-4" class="section level2">
 <h2>72 hours</h2>
-<div id="sample-data-5" class="section level3">
-<h3>sample data</h3>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>3 days<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Pereira, G.","Pereira, G.","Pilatti, G.","Pilatti, G.","Pilatti, G.","Sanchez-Perez, A.","Sanchez-Perez, A.","Santos, B.","Santos, B.","Santos, B.","Santos, B.","Steffens, J 2010","Steffens, J 2010","Vieth, M.","Vieth, M."],["ibuprofen 600mg","placebo","placebo","dexamethasone 4mg","celecoxib 200mg","dexketoprofen trometamol (DKT) 25mg","placebo","ibuprofen 600mg","placebo 1","nimesulide 100mg","placebo 2","placebo","etoricoxib 120mg","dexamethasone 8mg IV","placebo"],[27,27,20,20,20,41,42,20,20,20,20,15,15,34,34],[1.6,2.7,3.21,3.47,2,7.61,6.89,3.5,3.5,9,22.5,1.7,0.3,6,3.5],[4.7,7.1,5.92,9.890000000000001,2.6,13.48,12.16,8.699999999999999,8.699999999999999,14.4,14.8,5.2,1.3,8,5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>study<\/th>\n      <th>treatment<\/th>\n      <th>n<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"study","targets":1},{"name":"treatment","targets":2},{"name":"n","targets":3},{"name":"mean","targets":4},{"name":"sd","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-<div id="forest-plot-4" class="section level3">
-<h3>forest plot</h3>
-<div id="days---all-studies-per-author-no-groups"
-class="section level4">
-<h4>3 days - ALL studies per author – no groups</h4>
 <ul>
-<li>random effect model</li>
+<li><a href="2023_0301_Christos_3days.html">72 hours</a></li>
 </ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-121-1">
-Past versions of unnamed-chunk-121-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-121-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/56a434cf4b4577c639639c7c06bffbfcce8e5923/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" target="_blank">56a434c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/4e9b86cfe067ae2a6f333cbedcd6b5128846bda8/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-121-1.png" target="_blank">4e9b86c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-122-1">
-Past versions of unnamed-chunk-122-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-122-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/56a434cf4b4577c639639c7c06bffbfcce8e5923/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" target="_blank">56a434c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/4e9b86cfe067ae2a6f333cbedcd6b5128846bda8/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-122-1.png" target="_blank">4e9b86c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>raw difference -0.10
-<code>&gt; -0.33*(4)^0.5*(-0.02+0.64)/3.92 [1]  -0.1043878</code></li>
-</ul>
-</div>
-<div id="days---studies-per-surgery" class="section level4">
-<h4>3 days - Studies per surgery</h4>
-<p>MA 1 – periodontal flap surgery</p>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-123-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-123-1">
-Past versions of unnamed-chunk-123-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-123-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-123-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-123-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-123-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/56a434cf4b4577c639639c7c06bffbfcce8e5923/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-123-1.png" target="_blank">56a434c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-124-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-124-1">
-Past versions of unnamed-chunk-124-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-124-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-124-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-124-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-124-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/56a434cf4b4577c639639c7c06bffbfcce8e5923/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-124-1.png" target="_blank">56a434c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>raw difference -0.14
-<code>&gt; -0.41*(3)^0.5*(-0.03+0.79)/3.92 [1]  -0.1376804</code></li>
-</ul>
-</div>
-<div id="days---studies-per-medication" class="section level4">
-<h4>3 days - Studies per medication</h4>
-<div id="ibuprofen-600mg-3" class="section level5">
-<h5>ibuprofen 600mg</h5>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-125-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-125-1">
-Past versions of unnamed-chunk-125-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-125-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-125-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-125-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-125-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-126-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-126-1">
-Past versions of unnamed-chunk-126-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-126-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-126-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-126-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="nimesulide-100mg-2" class="section level5">
-<h5>nimesulide 100mg</h5>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-127-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-127-1">
-Past versions of unnamed-chunk-127-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-127-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-127-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-127-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/56a434cf4b4577c639639c7c06bffbfcce8e5923/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-127-1.png" target="_blank">56a434c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="dexamethasone-8mg-4" class="section level5">
-<h5>dexamethasone 8mg</h5>
-</div>
-<div id="etoricoxib-120mg-4" class="section level5">
-<h5>etoricoxib 120mg</h5>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-128-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-128-1">
-Past versions of unnamed-chunk-128-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-128-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-128-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-128-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-128-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/56a434cf4b4577c639639c7c06bffbfcce8e5923/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-128-1.png" target="_blank">56a434c</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div id="days---studies-only-with-ibuproben" class="section level4">
-<h4>3 days - Studies only with ibuproben</h4>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-129-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-129-1">
-Past versions of unnamed-chunk-129-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-129-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-129-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-129-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-129-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="days---studies-only-with-dexamethazone" class="section level4">
-<h4>3 days - Studies only with dexamethazone</h4>
-<div id="dexamethasone-8mg-5" class="section level5">
-<h5>dexamethasone 8mg</h5>
-</div>
-</div>
-<div id="days---sensitivity-analysis" class="section level4">
-<h4>3 days - Sensitivity analysis</h4>
-<ul>
-<li>random effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-130-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-130-1">
-Past versions of unnamed-chunk-130-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-130-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-130-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f5f30840dabc3acaedc20a0444a8045e049ed6e3/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-130-1.png" target="_blank">f5f3084</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-130-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-131-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-131-1">
-Past versions of unnamed-chunk-131-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-131-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-131-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>raw difference -0.07
-<code>&gt; -0.31*(4)^0.5*(-0.09+0.54)/3.92 [1]  -0.07117347</code></li>
-</ul>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>3 days<\/caption>","data":[["Pereira, G._ibuprofen 600mg_vs_placebo","Santos, B._ibuprofen 600mg_vs_placebo","Santos, B._nimesilide 100mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo"],[27,20,20,15],[1.6,3.5,9,0.3],[4.7,8.699999999999999,14.4,1.3],[27,20,20,15],[2.7,3.5,22.5,1.7],[7.1,8.699999999999999,14.8,5.2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"samplesize_exp","targets":1},{"name":"mean_exp","targets":2},{"name":"sd_exp","targets":3},{"name":"samplesize_contr","targets":4},{"name":"mean_contr","targets":5},{"name":"sd_contr","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div id="network-meta-analysis-5" class="section level3">
-<h3>network meta-analysis</h3>
-<div id="random-effect-model-6" class="section level4">
-<h4>random effect model</h4>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-134-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-134-1">
-Past versions of unnamed-chunk-134-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-134-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-134-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-134-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>a mean path length &gt; 2 means that a comparison estimate should be
-interpreted with particular caution.</li>
-</ul>
-<pre><code>                                    P-score
-ibuprofen 600mg                      0.9258
-nimesilide 100mg                     0.8108
-etoricoxib 120mg                     0.6205
-placebo                              0.3109
-dexketoprofen trometamol (DKT) 25mg  0.2135
-ketorolac 10mg                       0.1185</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-135-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-135-1">
-Past versions of unnamed-chunk-135-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-135-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-135-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c029ef3bb9a8cc23136872723998f4fbbaaaacaa/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-135-1.png" target="_blank">c029ef3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2023-12-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>Q statistics to assess homogeneity / consistency
-
-                   Q df p-value
-Total           6.04  2  0.0489
-Within designs  0.16  1  0.6847
-Between designs 5.87  1  0.0154
-
-Design-specific decomposition of within-designs Q statistic
-
-                      Design    Q df p-value
- placebo vs etoricoxib 120mg 0.16  1  0.6847
-
-Between-designs Q statistic after detaching of single designs
-(influential designs have p-value markedly different from 0.0154)
-
-            Detached design    Q df p-value
- placebo vs ibuprofen 600mg 0.00  0      --
-
-Q statistic to assess consistency under the assumption of
-a full design-by-treatment interaction random effects model
-
-                   Q df p-value tau.within tau2.within
-Between designs 5.87  1  0.0154          0           0</code></pre>
-</div>
-<div id="fixed-effect-model-5" class="section level4">
-<h4>fixed effect model</h4>
-<pre><code>                                    P-score
-ketorolac 10mg                       0.9498
-ibuprofen 600mg                      0.7231
-nimesilide 100mg                     0.4766
-etoricoxib 120mg                     0.3638
-dexketoprofen trometamol (DKT) 25mg  0.2698
-placebo                              0.2169</code></pre>
-<p><img src="figure/2023_0301_Christos.Rmd/unnamed-chunk-136-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-136-1">
-Past versions of unnamed-chunk-136-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-136-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f722aa45a1906dd131ed017af1e1defcd3c67652/docs/figure/2023_0301_Christos.Rmd/unnamed-chunk-136-1.png" target="_blank">f722aa4</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>Q statistics to assess homogeneity / consistency
-
-                   Q df p-value
-Total           3.02  2  0.2204
-Within designs  0.19  1  0.6664
-Between designs 2.84  1  0.0920
-
-Design-specific decomposition of within-designs Q statistic
-
-                      Design    Q df p-value
- placebo vs etoricoxib 120mg 0.19  1  0.6664
-
-Between-designs Q statistic after detaching of single designs
-(influential designs have p-value markedly different from 0.0920)
-
-            Detached design    Q df p-value
- placebo vs ibuprofen 600mg 0.00  0      --
-
-Q statistic to assess consistency under the assumption of
-a full design-by-treatment interaction random effects model
-
-                   Q df p-value tau.within tau2.within
-Between designs 2.84  1  0.0920          0           0</code></pre>
-</div>
-</div>
 </div>
 <div id="sample-size-determination" class="section level2">
 <h2>Sample size determination</h2>
@@ -18061,8 +17114,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>mean difference vs sample size<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],[2792,699,311,175,113,78,58,45,35,29,24,20,18,15,13,12,11,10,9,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mean_difference<\/th>\n      <th>sample_size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"mean_difference","targets":1},{"name":"sample_size","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>mean difference vs sample size<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],[2792,699,311,175,113,78,58,45,35,29,24,20,18,15,13,12,11,10,9,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mean_difference<\/th>\n      <th>sample_size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"mean_difference","targets":1},{"name":"sample_size","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li><p>sample size with varying mean difference, given 80%
 power.</p></li>
@@ -18082,8 +17135,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>mean difference vs sample size<\/caption>","data":[["1","2","3","4","5","6","7","8"],[0.1,0.6,1.1,1.6,2.1,2.6,3.1,3.6],[3439,96,29,14,9,6,5,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mean_difference<\/th>\n      <th>sample_size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"mean_difference","targets":1},{"name":"sample_size","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>mean difference vs sample size<\/caption>","data":[["1","2","3","4","5","6","7","8"],[0.1,0.6,1.1,1.6,2.1,2.6,3.1,3.6],[3439,96,29,14,9,6,5,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mean_difference<\/th>\n      <th>sample_size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"mean_difference","targets":1},{"name":"sample_size","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>sample size with varying mean difference, given 80% power.</li>
 </ul>
