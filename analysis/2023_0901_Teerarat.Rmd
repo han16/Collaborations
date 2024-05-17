@@ -166,8 +166,10 @@ datatable(extensions = 'Buttons',
 
 ## categorical variables 
 
+### CORR 
 
-* [corr](2023_0901_Teerarat_part1.html)
+
+* [group corr](2023_0901_Teerarat_part1.html)
 
 
 ### RESTORE 
