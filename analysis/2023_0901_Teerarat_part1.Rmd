@@ -25,6 +25,9 @@ multiplesheets <- function(fname) {
 
 
 
+[home](2023_0901_Teerarat.html)
+
+
 
 ```{r, echo=F, message=F, warning=F, results=F}
 data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-Implant DATA CLEAN 111023_without_header.xlsx")
