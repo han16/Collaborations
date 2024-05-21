@@ -184,7 +184,9 @@ datatable(extensions = 'Buttons',
 * [corr vs restore](2023_0901_Teerarat_part3.html)
 
 
+### combining corr and restore 
 
+* [corr and restore](2023_0901_Teerarat_part4.html)
 
 
 

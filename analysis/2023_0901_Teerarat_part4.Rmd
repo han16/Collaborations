@@ -1,0 +1,338 @@
+---
+title: "combing corr and restore"
+output: html_document
+date: "2024-05-21"
+---
+
+
+```{r, echo=F, message=F, warning=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
+```
+
+
+
+## Home 
+
+[home](2023_0901_Teerarat.html)
+
+
+
+## corr+restore
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+
+data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-Implant DATA CLEAN 111023_without_header.xlsx")
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+num_indi1=55
+num_indi2=23
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Gender) %>% drop_na()
+data_subset1$Gender[data_subset1$Gender==1]="Male"; data_subset1$Gender[data_subset1$Gender==2]="Female"
+data_subset2=data2$`Data CORR` %>% dplyr::count(Gender)  %>% drop_na()
+data_subset2$Gender[data_subset2$Gender==1]="Male"; data_subset2$Gender[data_subset2$Gender==2]="Female"
+data_subset=data_frame(Gender=data_subset1$Gender, n=data_subset1$n+data_subset2$n) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Smoking) %>% drop_na()
+data_subset2=data2$`Data CORR` %>% dplyr::count(Smoking)  %>% drop_na()
+
+
+data_subset=data_frame(Smoking=data_subset1$Smoking, n=data_subset1$n+data_subset2$n) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+data_subset$Smoking[data_subset$Smoking==1]="Never"; data_subset$Smoking[data_subset$Smoking==2]="Past"
+data_subset$Smoking[data_subset$Smoking==3]="Current"; data_subset$Smoking[data_subset$Smoking==4]="not reported"
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Diabetes) %>% drop_na()
+data_subset2=data2$`Data CORR` %>% dplyr::count(Diabetes)  %>% drop_na()
+
+
+data_subset=data_frame(Diabetes=data_subset1$Diabetes, n=data_subset1$n+c(data_subset2$n,0)) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+data_subset$Diabetes[data_subset$Diabetes==1]="Yes"; data_subset$Diabetes[data_subset$Diabetes==2]="No"
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Implant_site)  %>% drop_na()
+index1=which(data_subset1$Implant_site<=16); index2=which(data_subset1$Implant_site>16)
+n=c(sum(data_subset1$n[index1]), sum(data_subset1$n[index2]))
+data_subset11=data.frame(Implant_site=c("Maxilla", "Mandible"), n=n)
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Implant_site)  %>% drop_na()
+index1=which(data_subset2$Implant_site<=16); index2=which(data_subset2$Implant_site>16)
+n=c(sum(data_subset2$n[index1]), sum(data_subset2$n[index2]))
+data_subset22=data.frame(Implant_site=c("Maxilla", "Mandible"), n=n)
+
+
+
+data_subset=data_frame(Implant_site=data_subset11$Implant_site, n=data_subset11$n+data_subset22$n) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Implant_site)  %>% drop_na()
+index1=union(which(data_subset1$Implant_site<=5), which(data_subset1$Implant_site<=16 & data_subset1$Implant_site>=12)); index2=which(data_subset1$Implant_site>=6 &data_subset1$Implant_site<=11);
+index3=union(which(data_subset1$Implant_site>=17 & data_subset1$Implant_site<=21), which(data_subset1$Implant_site<=31 & data_subset1$Implant_site>=28));
+index4=which(data_subset1$Implant_site>=22 &data_subset1$Implant_site<=27 )
+
+n=c(sum(data_subset1$n[index1]), sum(data_subset1$n[index2]), sum(data_subset1$n[index3]), sum(data_subset1$n[index4]))
+prop=c(sum(data_subset1$prop[index1]), sum(data_subset1$prop[index2]), sum(data_subset1$prop[index3]), sum(data_subset1$prop[index4]))
+data_subset11=data.frame(Implant_site=c("Upper posterior", "Upper anterior", "Lower posterior", "Lower anterior"), n=n, prop=prop)
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Implant_site)  %>% drop_na()
+index1=union(which(data_subset2$Implant_site<=5), which(data_subset2$Implant_site<=16 & data_subset2$Implant_site>=12)); index2=which(data_subset2$Implant_site>=6 &data_subset2$Implant_site<=11);
+index3=union(which(data_subset2$Implant_site>=17 & data_subset2$Implant_site<=21), which(data_subset2$Implant_site<=31 & data_subset2$Implant_site>=28));
+index4=which(data_subset2$Implant_site>=22 &data_subset2$Implant_site<=27 )
+
+n=c(sum(data_subset2$n[index1]), sum(data_subset2$n[index2]), sum(data_subset2$n[index3]), sum(data_subset2$n[index4]))
+prop=c(sum(data_subset2$prop[index1]), sum(data_subset2$prop[index2]), sum(data_subset2$prop[index3]), sum(data_subset2$prop[index4]))
+data_subset22=data.frame(Implant_site=c("Upper posterior", "Upper anterior", "Lower posterior", "Lower anterior"), n=n, prop=prop)
+
+
+data_subset=data_frame(Implant_site=data_subset11$Implant_site, n=data_subset11$n+data_subset22$n) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Pre_implant_Procedure)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Pre_implant_Procedure)  %>% drop_na()
+
+
+
+data_subset=data_frame(Pre_implant_Procedure=data_subset1$Pre_implant_Procedure, n=data_subset1$n+c(data_subset2$n, 0)) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]="Extraction alone"; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]="Extraction and bone graft"; 
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]="Extraction, bone graft and membrane";
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==4]="GBR";
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==5]="Sinus lift";
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==6]="other";
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==7]="not reported";
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_placement) %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(I_placement)  %>% drop_na()
+
+
+
+data_subset=data_frame(I_placement=c(seq(1,8),"NR"), n=c(38+13, 0+1, 0+0, 7+3, 3+3, 0+0, 5+2, 0+1, 2+0)) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset$I_placement[data_subset$I_placement==1]="Single implant placement"; data_subset$I_placement[data_subset$I_placement==2]="Placement with bone graft"; 
+data_subset$I_placement[data_subset$I_placement==4]="Placement with bone graft and membrane";
+data_subset$I_placement[data_subset$I_placement==5]="Placement with indirect sinus lift";
+data_subset$I_placement[data_subset$I_placement==6]="Placement with direct sinus lift";
+data_subset$I_placement[data_subset$I_placement==7]="Immediate/delayed placement";
+data_subset$I_placement[data_subset$I_placement==8]="other";
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
