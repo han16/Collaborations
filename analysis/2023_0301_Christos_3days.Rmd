@@ -5,6 +5,11 @@ date: "2024-05-13"
 ---
 
 
+## Home 
+
+
+[Home](2023_0301_Christos.html)
+
 
 
 ## 72 hours 
@@ -578,7 +583,7 @@ m.netmeta <- netmeta(TE = TE,
                      treat1 = treat1,
                      treat2 = treat2,
                      studlab = study,
-                     tol.multiarm=0.3,
+                     tol.multiarm=0.1,
                 #     tol.multiarm.se = NULL,
                      data = data_meta_network,
                      sm = "SMD",
