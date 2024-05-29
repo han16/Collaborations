@@ -155,8 +155,8 @@ m.gen <- metagen(TE = m1$TE,
 forest(m.gen, layout="RevMan5", sortvar = TE, 
             prediction = F, 
             print.tau2 = F,
-            fontsize=7,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            fontsize=6,
+            leftlabs = c("study")) # sortvar = TE: sort studies by effect size 
 
 ### add text for test of overall effect https://www.metafor-project.org/doku.php/plots:forest_plot_revman#code
 #forest.meta(m.gen, sortvar = TE, 
