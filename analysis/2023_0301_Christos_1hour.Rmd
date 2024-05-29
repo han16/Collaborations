@@ -147,12 +147,45 @@ m.gen <- metagen(TE = m1$TE,
                  title = "Different treatments")
 
 #summary(m.gen)
+```
+
+
+```{r, echo=F, message=F, warning=F}
 
 forest(m.gen, layout="RevMan5", sortvar = TE, 
+            prediction = F, 
+            print.tau2 = F,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+### add text for test of overall effect https://www.metafor-project.org/doku.php/plots:forest_plot_revman#code
+#forest.meta(m.gen, sortvar = TE, 
+#            prediction = FALSE, 
+#            print.tau2 = FALSE, 
+#            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+par(mar=c(10.8,0,1.3,1.3), mgp=c(3,0.2,0), tcl=-0.2)
+sav=forest(m.gen, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE", "g"), cex=0.78) # sortvar = TE: sort studies by effect size 
+
+### add text for test of overall effect https://www.metafor-project.org/doku.php/plots:forest_plot_revman#code
+par(xpd=NA)
+#par(cex=sav$cex, font=1)
+#text(sav$xlim[1], -4, pos=4, bquote(paste("Test for overall effect: ",
+#   "Z = ", .(fmtx(m.gen$zval.random, digits=2)),
+#   " (", .(fmtp(m.gen$pval.random, digits=2, pname="P", add0=TRUE, sep=TRUE, equal=TRUE)), ")")))
+
+par(cex=sav$cex, font=1)
+text(log(c(0.01, 100)), -4, c("Favours caffeine","Favours decaf"), pos=c(4,2), offset=-0.5)
+ 
 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -210,9 +243,14 @@ title("Contour-Enhanced Funnel Plot")
 * significant studies are in interested areas with $p<0.05$, and $p<0.01$.  
 
 
-```{r, echo=T, message=F, warning=F}
-m.gen$zval.random # Z value
-m.gen$pval.random
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen$zval.random, 4), pval=round(m.gen$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 ```
 
 
