@@ -281,7 +281,7 @@ m.gen2 <- metagen(TE = m2$TE,
 
 #summary(m.gen)
 
-forest(m.gen2, layout="JAMA", sortvar = TE, 
+forest(m.gen2, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
@@ -294,6 +294,17 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
 `> -0.71*(10)^0.5*(-0.08+1.34)/3.92
 [1] -0.7216769`
 
+
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen2$zval.random, 4), pval=round(m.gen2$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 #### 1 hour - Studies per timing of preemptive medication administration
