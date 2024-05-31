@@ -290,11 +290,11 @@ m.gen2 <- metagen(TE = m2$TE,
                  title = "Different treatments")
 
 #summary(m.gen)
-
-forest(m.gen2, layout="JAMA", sortvar = TE, 
+par(mar=rep(0,4))
+forest(m.gen2, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=8,
+            fontsize=7,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
@@ -303,6 +303,17 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
 `> -0.61*(11)^0.5*(-0.41+0.81)/3.92
 [1]  -0.206443`
 
+
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen2$zval.common, 4), pval=round(m.gen2$pval.common,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 #### 6 hours - Studies per medication
@@ -916,10 +927,10 @@ m.gen_leave_one_out <- metagen(TE = TE_random,
 
 #summary(m.gen)
 
-forest(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+forest(m.gen_leave_one_out, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
@@ -930,6 +941,16 @@ forest(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
 `> -0.66*(12)^0.5*(-0.61+0.72)/3.92
 [1]  -0.206443`
 
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen_leave_one_out$zval.common, 4), pval=round(m.gen_leave_one_out$pval.common,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 ### network meta-analysis 

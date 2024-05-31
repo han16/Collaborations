@@ -670,10 +670,10 @@ m.gen_leave_one_out <- metagen(TE = TE_random,
 
 #summary(m.gen)
 
-forest(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+forest(m.gen_leave_one_out, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
@@ -683,6 +683,16 @@ forest(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
 [1] -0.09918367`
 
 
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen_leave_one_out$zval.common, 4), pval=round(m.gen_leave_one_out$pval.common,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 ### network meta-analysis 
