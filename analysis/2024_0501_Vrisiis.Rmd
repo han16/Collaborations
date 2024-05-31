@@ -7,3 +7,63 @@ date: "2024-05-20"
 ```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
 ```
+
+
+
+## sample size calculation 
+
+### Eskow Mealy 
+
+```{r, echo=T, message=F, warning=F}
+mean_difference=1.5; #  mean difference  
+SD=1.36;  
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", type="paired", sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="Cortical FDBA",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, echo=T, message=F, warning=F}
+mean_difference=2; #  mean difference  
+SD=1.5;  
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", type="paired", sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="Cancellous FDBA",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### walker 
+
+
+```{r, echo=T, message=F, warning=F}
+mean_difference=abs(-2.48+1.16); #  mean difference  
+SD=max(2.86, 1.97);  
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", type="paired", sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="Mid-Socket:3 mm vs 5 mm",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+

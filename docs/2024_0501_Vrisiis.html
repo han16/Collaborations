@@ -36,6 +36,22 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.31/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -388,7 +404,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-05-20
+<strong>Last updated:</strong> 2024-05-31
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -426,10 +442,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -548,15 +564,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree773c6c9084598c9adefd894b75b4fa952141d2e2targetblank773c6c9a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedf47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4targetblankdf47937a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/773c6c9084598c9adefd894b75b4fa952141d2e2" target="_blank">773c6c9</a>
+<a href="https://github.com/han16/Collaborations/tree/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4" target="_blank">df47937</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree773c6c9084598c9adefd894b75b4fa952141d2e2targetblank773c6c9a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedf47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4targetblankdf47937a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +582,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/773c6c9084598c9adefd894b75b4fa952141d2e2" target="_blank">773c6c9</a>.
+<a href="https://github.com/han16/Collaborations/tree/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4" target="_blank">df47937</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -585,11 +601,9 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2024_0501_Vrisiis.Rmd
-
 Unstaged changes:
     Modified:   analysis/2024.Rmd
+    Modified:   analysis/2024_0501_Vrisiis.Rmd
 
 </code></pre>
 <p>
@@ -604,14 +618,130 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2024_0501_Vrisiis.Rmd</code>) and
+HTML (<code>docs/2024_0501_Vrisiis.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ebf94624dedf4976019cf779a522a6d85a2983d3/analysis/2024_0501_Vrisiis.Rmd" target="_blank">ebf9462</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-20
+</td>
+<td>
+5/20/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ebf94624dedf4976019cf779a522a6d85a2983d3/docs/2024_0501_Vrisiis.html" target="_blank">ebf9462</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-20
+</td>
+<td>
+5/20/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
+<div id="sample-size-calculation" class="section level2">
+<h2>sample size calculation</h2>
+<div id="eskow-mealy" class="section level3">
+<h3>Eskow Mealy</h3>
+<pre class="r"><code>mean_difference=1.5; #  mean difference  
+SD=1.36;  
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = &quot;two.sided&quot;, type=&quot;paired&quot;, sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption=&quot;Cortical FDBA&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Cortical FDBA<\/caption>","data":[["1"],[1.5],[9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mean_difference<\/th>\n      <th>sample_size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"mean_difference","targets":1},{"name":"sample_size","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>mean_difference=2; #  mean difference  
+SD=1.5;  
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = &quot;two.sided&quot;, type=&quot;paired&quot;, sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption=&quot;Cancellous FDBA&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Cancellous FDBA<\/caption>","data":[["1"],[2],[7]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mean_difference<\/th>\n      <th>sample_size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"mean_difference","targets":1},{"name":"sample_size","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="walker" class="section level3">
+<h3>walker</h3>
+<pre class="r"><code>mean_difference=abs(-2.48+1.16); #  mean difference  
+SD=max(2.86, 1.97);  
+sample_size=numeric()
+for (i in 1:length(mean_difference))
+  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = &quot;two.sided&quot;, type=&quot;paired&quot;, sig.level=0.05, sd=SD)$n)
+
+data.frame(mean_difference, sample_size)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption=&quot;Mid-Socket:3 mm vs 5 mm&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Mid-Socket:3 mm vs 5 mm<\/caption>","data":[["1"],[1.32],[39]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>mean_difference<\/th>\n      <th>sample_size<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"mean_difference","targets":1},{"name":"sample_size","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -673,16 +803,19 @@ loaded via a namespace (and not attached):
 [46] shiny_1.8.0          withr_2.5.2          evaluate_0.23       
 [49] lambda.r_1.2.4       survival_3.5-7       urlchecker_1.0.1    
 [52] xml2_1.3.6           pillar_1.9.0         carData_3.0-5       
-[55] generics_0.1.3       rprojroot_2.0.4      hms_1.1.3           
-[58] munsell_0.5.0        scales_1.3.0         xtable_1.8-4        
-[61] glue_1.6.2           tools_4.3.2          webshot_0.5.5       
-[64] ggsignif_0.6.4       fs_1.6.3             colorspace_2.1-0    
-[67] cli_3.6.2            workflowr_1.7.1      futile.options_1.0.1
-[70] fansi_1.0.6          broom.helpers_1.14.0 viridisLite_0.4.2   
-[73] svglite_2.1.3        gt_0.10.0            gtable_0.3.4        
-[76] sass_0.4.8           digest_0.6.33        htmlwidgets_1.6.4   
-[79] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
-[82] httr_1.4.7           mime_0.12           </code></pre>
+[55] whisker_0.4.1        generics_0.1.3       rprojroot_2.0.4     
+[58] hms_1.1.3            munsell_0.5.0        scales_1.3.0        
+[61] xtable_1.8-4         glue_1.6.2           tools_4.3.2         
+[64] webshot_0.5.5        ggsignif_0.6.4       fs_1.6.3            
+[67] crosstalk_1.2.1      colorspace_2.1-0     cli_3.6.2           
+[70] workflowr_1.7.1      futile.options_1.0.1 fansi_1.0.6         
+[73] broom.helpers_1.14.0 viridisLite_0.4.2    svglite_2.1.3       
+[76] gt_0.10.0            gtable_0.3.4         sass_0.4.8          
+[79] digest_0.6.33        htmlwidgets_1.6.4    memoise_2.0.1       
+[82] htmltools_0.5.7      lifecycle_1.0.4      httr_1.4.7          
+[85] mime_0.12           </code></pre>
+</div>
+</div>
 </div>
 
 
