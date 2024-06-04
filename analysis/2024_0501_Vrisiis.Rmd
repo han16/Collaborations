@@ -6,6 +6,16 @@ date: "2024-05-20"
 
 ```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+changeCellColor <- function(row, col){
+  c(
+    "function(row, data, num, index){",
+    sprintf("  if(index == %d){", row-1),
+    sprintf("    $('td:eq(' + %d + ')', row)", col),
+    "    .css({'background-color': 'orange'});",
+    "  }",
+    "}"  
+  )
+}
 ```
 
 
@@ -16,54 +26,91 @@ source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunction
 
 ```{r, echo=T, message=F, warning=F}
 mean_difference=1.5; #  mean difference  
-SD=1.36;  
+SD=1.36*(1+c(0.05, 0.1, 0.1181, 0.12, 0.15, 0.2, 0.3, 0.5));  
 sample_size=numeric()
-for (i in 1:length(mean_difference))
-  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", type="paired", sig.level=0.05, sd=SD)$n)
+for (i in 1:length(SD))
+  sample_size[i]=round(power.t.test(power = .90, delta = mean_difference, alternative = "two.sided", type="paired", sig.level=0.05, sd=SD[i])$n)
 
-data.frame(mean_difference, sample_size)%>%
+data.frame(SD, sample_size)%>%
 datatable(extensions = 'Buttons',
           caption="Cortical FDBA",
             options = list(dom = 'Blfrtip',
+                           rowCallback = JS(changeCellColor(3, 2)),
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+* when SD increases by 11.81%, 13 samples are needed to reach 90% power. 
+
 
 
 ```{r, echo=T, message=F, warning=F}
 mean_difference=2; #  mean difference  
-SD=1.5;  
+SD=1.5*(1+c( 0.1, 0.16, 0.1618, 0.17, 0.18, 0.2, 0.3, 0.5));  
 sample_size=numeric()
-for (i in 1:length(mean_difference))
-  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", type="paired", sig.level=0.05, sd=SD)$n)
+for (i in 1:length(SD))
+  sample_size[i]=round(power.t.test(power = .90, delta = mean_difference, alternative = "two.sided", type="paired", sig.level=0.05, sd=SD[i])$n)
 
-data.frame(mean_difference, sample_size)%>%
+data.frame(SD, sample_size)%>%
 datatable(extensions = 'Buttons',
           caption="Cancellous FDBA",
             options = list(dom = 'Blfrtip',
+                           rowCallback = JS(changeCellColor(3, 2)),
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
 ```
 
+
+* when SD increases by 16.18%, 10 samples are needed to reach 90% power.
 
 ### walker 
 
 
 ```{r, echo=T, message=F, warning=F}
-mean_difference=abs(-2.48+1.16); #  mean difference  
-SD=max(2.86, 1.97);  
+mean_difference=2.48; #  mean difference  
+SD=c(2, 2.86, 3, 3.5);  
 sample_size=numeric()
-for (i in 1:length(mean_difference))
-  sample_size[i]=round(power.t.test(power = .80, delta = mean_difference[i], alternative = "two.sided", type="paired", sig.level=0.05, sd=SD)$n)
+for (i in 1:length(SD))
+  sample_size[i]=round(power.t.test(power = .90, delta = mean_difference, alternative = "two.sided", type="paired", sig.level=0.05, sd=SD[i])$n)
 
-data.frame(mean_difference, sample_size)%>%
+data.frame(SD, sample_size)%>%
 datatable(extensions = 'Buttons',
-          caption="Mid-Socket:3 mm vs 5 mm",
+          caption="Mid-Socket:3 mm",
             options = list(dom = 'Blfrtip',
+                           rowCallback = JS(changeCellColor(2, 2)),
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
 
+
+* when SD=2.86, 16 samples are needed to reach 90% power.
+
+
+```{r, echo=T, message=F, warning=F}
+
+mean_difference=1.16; #  mean difference  
+SD=c(1, 1.5, 1.9, 1.97, 2, 3);  
+sample_size=numeric()
+for (i in 1:length(SD))
+  sample_size[i]=round(power.t.test(power = .90, delta = mean_difference, alternative = "two.sided", type="paired", sig.level=0.05, sd=SD[i])$n)
+
+data.frame(SD, sample_size)%>%
+datatable(extensions = 'Buttons',
+          caption="Mid-Socket:5 mm",
+            options = list(dom = 'Blfrtip',
+                          # rowCallback = JS(changeCellColor(4, 1)), 
+                           rowCallback = JS(changeCellColor(4, 2)),
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+* when SD=1.97, 32 samples are needed to reach 90% power.
