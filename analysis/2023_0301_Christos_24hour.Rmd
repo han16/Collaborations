@@ -782,7 +782,7 @@ m.netmeta <- netmeta(TE = TE,
 long.labels=m.netmeta$trts
 
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE,  srt.labels = 35
+         labels = long.labels, number.of.studies = TRUE,  srt.labels = 0
          )
 
 

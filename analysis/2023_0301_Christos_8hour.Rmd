@@ -178,7 +178,7 @@ m.gen <- metagen(TE = m1$TE,
 forest(m.gen, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6.5,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -671,7 +671,7 @@ m.netmeta <- netmeta(TE = TE,
 long.labels=m.netmeta$trts
 
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE, srt.labels = 35
+         labels = long.labels, number.of.studies = TRUE, srt.labels = 0
          )
 
 

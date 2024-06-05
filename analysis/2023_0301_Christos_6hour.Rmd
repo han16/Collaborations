@@ -95,8 +95,8 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Pilatti, G._dexamethasone 4mg_vs_placebo",  
              "Pilatti, G._celecoxib 200mg_vs_placebo",
              
-             "Santos, B._ibuprofen 600mg_vs_placebo1",
-             "Santos, B._nimesilide 100mg_vs_placebo2", 
+             "Santos, B._ibuprofen 600mg_vs_placebo",
+             "Santos, B._nimesilide 100mg_vs_placebo", 
              
              "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
              "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
@@ -187,7 +187,7 @@ m.gen <- metagen(TE = m1$TE,
 forest(m.gen, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6.5,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
@@ -294,7 +294,7 @@ par(mar=rep(0,4))
 forest(m.gen2, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```

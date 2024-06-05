@@ -80,7 +80,7 @@ data.frame(SD, sample_size)%>%
 datatable(extensions = 'Buttons',
           caption="Mid-Socket:3 mm",
             options = list(dom = 'Blfrtip',
-                           rowCallback = JS(changeCellColor(2, 2)),
+                           rowCallback = JS(changeCellColor(2,2)),
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
