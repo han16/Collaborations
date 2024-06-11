@@ -292,6 +292,8 @@ datatable(extensions = 'Buttons',
 ```
 
 
+
+
 ```{r, echo=F, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_placement) %>% drop_na()
@@ -335,4 +337,151 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Comp_placement) %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Comp_placement) %>% drop_na()
+
+data_subset=data_frame(Comp_placement=c(1,3,8,9,"NR"), n=c(1+0, 1+0, 3+3, 50+19, 1))
+
+data_subset$Comp_placement[data_subset$Comp_placement==1]="Adjusted direction during drill sequence"; data_subset$Comp_placement[data_subset$Comp_placement==2]="Guide broke, did not fit"; 
+data_subset$Comp_placement[data_subset$Comp_placement==3]="Implant placed, immediately removed, reinserted";
+data_subset$Comp_placement[data_subset$Comp_placement==4]="Bone perforatio during drilling or implant placement";
+data_subset$Comp_placement[data_subset$Comp_placement==5]="Bone dehiscence during drilling or implant placement";
+data_subset$Comp_placement[data_subset$Comp_placement==6]="Damage to vital structures";
+data_subset$Comp_placement[data_subset$Comp_placement==7]="Flap tear/perforation/other damage";
+data_subset$Comp_placement[data_subset$Comp_placement==8]="other";
+data_subset$Comp_placement[data_subset$Comp_placement==9]="none/WNL";
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(HA) %>%  drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(HA)  %>% drop_na()
+
+data_subset=data_frame(HA=data_subset1$HA, n=data_subset1$n+data_subset2$n) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset$HA[data_subset$HA==1]="Yes"; 
+data_subset$HA[data_subset$HA==2]="No"; 
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+#### I_Brand
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Brand) %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(I_Brand)  %>% drop_na()
+
+all_variable=union(data_subset1$I_Brand, data_subset2$I_Brand)
+variable_count=sapply(all_variable, function(X)return(return(ifelse(length(data_subset1 %>% filter(I_Brand==X) %>% select(n) %>% pull())==0, 0, data_subset1 %>% filter(I_Brand==X) %>% select(n) %>% pull()))+return(ifelse(length(data_subset2 %>% filter(I_Brand==X) %>% select(n) %>% pull())==0, 0, data_subset2 %>% filter(I_Brand==X) %>% select(n) %>% pull()))))
+
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("RESTORE", nrow(data_subset1)), rep("CORR", nrow(data_subset2))))
+data_subset$I_Brand[data_subset$I_Brand==1]="Nobel Biocare";
+data_subset$I_Brand[data_subset$I_Brand==2]="Nobel Replace";
+data_subset$I_Brand[data_subset$I_Brand==3]="Straumann BLT"; 
+data_subset$I_Brand[data_subset$I_Brand==4]="Osseospeed Ev"; 
+data_subset$I_Brand[data_subset$I_Brand==5]="Nobel Replace Connical Connection";
+data_subset$I_Brand[data_subset$I_Brand==6]="Atra EV";
+data_subset$I_Brand[data_subset$I_Brand==7]="BioHorizons Tapered Plus";
+data_subset$I_Brand[data_subset$I_Brand==8]="Nobel Replace Select";
+data_subset$I_Brand[data_subset$I_Brand==9]="Nobel Replace Tapered Groovy";
+data_subset$I_Brand[data_subset$I_Brand==10]="Nobel Active Internal RP";
+data_subset$I_Brand[data_subset$I_Brand==11]="Straumann WN";
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+common_variable=intersect(data_subset %>% filter(sample=="RESTORE") %>% select(I_Brand) %>% pull(), data_subset %>% filter(sample=="CORR") %>% select(I_Brand) %>% pull())
+pvalue=numeric()
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(I_Brand==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
+}
+data.frame(variable=paste(common_variable, ":RESTORE_vs_CORR"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All")))) 
 ```
