@@ -39,6 +39,7 @@ data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\T
 ```
 
 
+### Gender
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -80,6 +81,7 @@ datatable(extensions = 'Buttons',
  * p value of 0.027 suggests different male proportions between two samples 
  
  
+### Smoking 
  
  
 ```{r, echo=F, message=F, warning=F}
@@ -117,6 +119,9 @@ datatable(extensions = 'Buttons',
 ```
 
 
+### Diabetes
+
+
 ```{r, echo=F, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Diabetes) %>% mutate(prop=round(n/num_indi1,4)) %>% drop_na()
@@ -149,6 +154,11 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All")))) 
 ```
+
+
+### Implant_site
+
+
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -191,6 +201,11 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All")))) 
 ```
+
+
+
+### Implant_site
+
 
 
 
@@ -243,6 +258,10 @@ datatable(extensions = 'Buttons',
 
 
 
+### Pre_implant_Procedure
+
+
+
 ```{r, echo=F, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Pre_implant_Procedure) %>% mutate(prop=round(n/num_indi1,4)) %>% drop_na()
@@ -279,6 +298,9 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All")))) 
 ```
+
+
+### I_placement
 
 
 
@@ -320,6 +342,9 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All")))) 
 ```
+
+
+### Comp_placement
 
 
 
@@ -364,7 +389,10 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All")))) 
 ```
 
-#### HA
+
+
+### HA
+
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -404,7 +432,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-#### I_Brand
+### I_Brand
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -453,7 +481,10 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All")))) 
 ```
 
-#### I_Surface
+
+### I_Surface
+
+
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -499,7 +530,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-#### I_Shape
+### I_Shape
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -541,7 +572,9 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All")))) 
 ```
 
-#### I_Techique
+
+
+### I_Techique
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -589,7 +622,7 @@ datatable(extensions = 'Buttons',
 
 
 
-#### I_Location
+### I_Location
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -635,7 +668,7 @@ datatable(extensions = 'Buttons',
 
 
 
-#### Postop_med
+### Postop_med
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -684,7 +717,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-#### Premed
+### Premed
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -729,7 +762,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-#### Provider_level
+### Provider_level
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -775,7 +808,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-#### Present_comp_post_placement
+### Present_comp_post_placement
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -819,7 +852,7 @@ datatable(extensions = 'Buttons',
 
 
 
-#### Coverscrew_exp_post_placement
+### Coverscrew_exp_post_placement
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -862,7 +895,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-#### Infection/pus_post_placement
+### Infection/pus_post_placement
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -906,7 +939,7 @@ datatable(extensions = 'Buttons',
 
 
 
-#### Other_post_placement
+### Other_post_placement
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -950,7 +983,7 @@ datatable(extensions = 'Buttons',
 
 
 
-#### Type_bone_loss
+### Type_bone_loss
 
 
 ```{r, echo=F, message=F, warning=F}

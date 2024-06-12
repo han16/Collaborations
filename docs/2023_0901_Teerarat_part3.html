@@ -404,13 +404,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-10
+<strong>Last updated:</strong> 2024-06-12
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -433,18 +433,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -561,15 +564,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeab2050bc7ff14f8842babda88e2206075da4b04ftargetblankab2050ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree05d29224fc53b518a0f3ca1710586a15f594ebd1targetblank05d2922a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/ab2050bc7ff14f8842babda88e2206075da4b04f" target="_blank">ab2050b</a>
+<a href="https://github.com/han16/Collaborations/tree/05d29224fc53b518a0f3ca1710586a15f594ebd1" target="_blank">05d2922</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeab2050bc7ff14f8842babda88e2206075da4b04ftargetblankab2050ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree05d29224fc53b518a0f3ca1710586a15f594ebd1targetblank05d2922a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -579,7 +582,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/ab2050bc7ff14f8842babda88e2206075da4b04f" target="_blank">ab2050b</a>.
+<a href="https://github.com/han16/Collaborations/tree/05d29224fc53b518a0f3ca1710586a15f594ebd1" target="_blank">05d2922</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -597,6 +600,10 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Unstaged changes:
+    Modified:   analysis/2023_0901_Teerarat_part3.Rmd
+    Modified:   analysis/2023_0901_Teerarat_part4.Rmd
 
 </code></pre>
 <p>
@@ -645,6 +652,23 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/05d29224fc53b518a0f3ca1710586a15f594ebd1/docs/2023_0901_Teerarat_part3.html" target="_blank">05d2922</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-11
+</td>
+<td>
+6/11/2024
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -687,6 +711,8 @@ han
 <div id="home" class="section level2">
 <h2>Home</h2>
 <p><a href="2023_0901_Teerarat.html">home</a></p>
+<div id="gender" class="section level3">
+<h3>Gender</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Male","Female","Male","Female"],[39,16,9,14],[0.7091,0.2909,0.3913,0.6087],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
@@ -696,127 +722,149 @@ han
 <li><p>p value of 0.027 suggests different male proportions between two
 samples</p></li>
 </ul>
+</div>
+<div id="smoking" class="section level3">
+<h3>Smoking</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8"],["Never","Past","Current","NR","Never","Past","Current","not reported"],[24,11,10,10,12,6,3,2],[0.4364,0.2,0.1818,0.1818,0.5217000000000001,0.2609,0.1304,0.08699999999999999],["RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Smoking<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Smoking","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["Never :RESTORE_vs_CORR","Past :RESTORE_vs_CORR","Current :RESTORE_vs_CORR"],[0.6595,0.7695,0.8242]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="diabetes" class="section level3">
+<h3>Diabetes</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["Yes","No","NR","Yes","No"],[3,41,11,9,14],[0.0545,0.7455000000000001,0.2,0.3913,0.6087],["RESTORE","RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Diabetes<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Diabetes","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Yes :RESTORE_vs_CORR","No :RESTORE_vs_CORR"],[0.0005999999999999999,0.3495]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="implant_site" class="section level3">
+<h3>Implant_site</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Maxilla","Mandible","Maxilla","Mandible"],[20,35,17,6],[0.3637,0.6364,0.7393,0.261],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Implant_site<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Implant_site","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2514ce28ae593bde0f73" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Maxilla :RESTORE_vs_CORR","Mandible :RESTORE_vs_CORR"],[0.0054,0.0054]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="implant_site-1" class="section level3">
+<h3>Implant_site</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8"],["Upper posterior","Upper anterior","Lower posterior","Lower anterior","Upper posterior","Upper anterior","Lower posterior","Lower anterior"],[15,5,26,9,13,4,4,2],[0.2727,0.091,0.4727,0.1637,0.5652999999999999,0.174,0.174,0.08699999999999999],["RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Implant_site<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Implant_site","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Upper posterior :RESTORE_vs_CORR","Upper anterior :RESTORE_vs_CORR","Lower posterior :RESTORE_vs_CORR","Lower anterior :RESTORE_vs_CORR"],[0.028,0.5108,0.0265,0.5958]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="pre_implant_procedure" class="section level3">
+<h3>Pre_implant_Procedure</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11"],["Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","6","not reported","Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","not reported"],[18,7,2,2,2,24,5,4,1,4,9],[0.3273,0.1273,0.0364,0.0364,0.0364,0.4364,0.2174,0.1739,0.0435,0.1739,0.3913],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Pre_implant_Procedure<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Pre_implant_Procedure","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["Extraction alone :RESTORE_vs_CORR","Extraction and bone graft :RESTORE_vs_CORR","Extraction, bone graft and membrane :RESTORE_vs_CORR","GBR :RESTORE_vs_CORR","not reported :RESTORE_vs_CORR"],[0.4851,0.8548,1,0.1068,0.9077]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="i_placement" class="section level3">
+<h3>I_placement</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11"],["Single implant placement","Placement with bone graft and membrane","Placement with indirect sinus lift","Immediate/delayed placement","NR","Single implant placement","Placement with bone graft","Placement with bone graft and membrane","Placement with indirect sinus lift","Immediate/delayed placement","other"],[38,7,3,5,2,13,1,3,3,2,1],[0.6909,0.1273,0.0545,0.09089999999999999,0.0364,0.5652,0.0435,0.1304,0.1304,0.08699999999999999,0.0435],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_placement<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_placement","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-873249b169eb6149d57e" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Single implant placement :RESTORE_vs_CORR","Placement with bone graft and membrane :RESTORE_vs_CORR","Placement with indirect sinus lift :RESTORE_vs_CORR","Immediate/delayed placement :RESTORE_vs_CORR"],[0.422,1,0.4959,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="comp_placement" class="section level3">
+<h3>Comp_placement</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7"],["Adjusted direction during drill sequence","other","none/WNL","NR","Implant placed, immediately removed, reinserted","other","none/WNL"],[1,3,50,1,1,3,19],[0.0182,0.0545,0.9091,0.0182,0.0435,0.1304,0.8260999999999999],["RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Comp_placement<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Comp_placement","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f25d4e1770d66a86dcce" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f25d4e1770d66a86dcce">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["other :RESTORE_vs_CORR","none/WNL :RESTORE_vs_CORR"],[0.4959,0.5108]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<div id="ha" class="section level4">
-<h4>HA</h4>
+</div>
+<div id="ha" class="section level3">
+<h3>HA</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-969965edfe9f869aa904" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Yes","No","Yes","No"],[32,23,3,20],[0.5818,0.4182,0.1304,0.8696],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>HA<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"HA","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-450f171f14364aa3ebed" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Yes :RESTORE_vs_CORR","No :RESTORE_vs_CORR"],[0.0007,0.0007]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="i_brand" class="section level4">
-<h4>I_Brand</h4>
+<div id="i_brand" class="section level3">
+<h3>I_Brand</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fbfc52d82635d988c6e1" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fbfc52d82635d988c6e1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Nobel Biocare","Straumann BLT","Osseospeed Ev","Nobel Replace Connical Connection","Atra EV","BioHorizons Tapered Plus","Nobel Replace Select","Nobel Replace Tapered Groovy","Nobel Active Internal RP","Straumann WN","Straumann BLT","Nobel Replace Connical Connection","Atra EV","BioHorizons Tapered Plus","Nobel Replace Select","Nobel Replace Tapered Groovy"],[1,13,1,26,6,1,1,4,1,1,15,4,1,1,1,1],[0.0182,0.2364,0.0182,0.4727,0.1091,0.0182,0.0182,0.0727,0.0182,0.0182,0.6522,0.1739,0.0435,0.0435,0.0435,0.0435],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Brand<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Brand","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2f4c52b7f36e26c300a7" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2f4c52b7f36e26c300a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Straumann BLT :RESTORE_vs_CORR","Nobel Replace Connical Connection :RESTORE_vs_CORR","Atra EV :RESTORE_vs_CORR","BioHorizons Tapered Plus :RESTORE_vs_CORR","Nobel Replace Select :RESTORE_vs_CORR","Nobel Replace Tapered Groovy :RESTORE_vs_CORR"],[0.0012,0.0265,0.6241,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="i_surface" class="section level4">
-<h4>I_Surface</h4>
+<div id="i_surface" class="section level3">
+<h3>I_Surface</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-1d5df3d80f5735caaf13" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-1d5df3d80f5735caaf13">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11"],["TiUltra","TiUnite","SLA","TiO2","Ti","TLXP3812","TiUnite","SLA","Ti","TLXP3812","Tiu"],[2,31,14,1,6,1,5,15,1,1,1],[0.0364,0.5636,0.2545,0.0182,0.1091,0.0182,0.2174,0.6522,0.0435,0.0435,0.0435],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Surface<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Surface","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-67c25ca3336b15b0293a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-67c25ca3336b15b0293a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["TiUnite :RESTORE_vs_CORR","SLA :RESTORE_vs_CORR","Ti :RESTORE_vs_CORR","TLXP3812 :RESTORE_vs_CORR"],[0.0108,0.0022,0.6241,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="i_shape" class="section level4">
-<h4>I_Shape</h4>
+<div id="i_shape" class="section level3">
+<h3>I_Shape</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-530a78b6872d546cc16a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-530a78b6872d546cc16a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["straight","tapered","straight","tapered"],[6,49,1,22],[0.1091,0.8909,0.0435,0.9565],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Shape<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Shape","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-4cadc5f8c7ab9ff923ac" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-4cadc5f8c7ab9ff923ac">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["straight :RESTORE_vs_CORR","tapered :RESTORE_vs_CORR"],[0.6241,0.6241]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="i_techique" class="section level4">
-<h4>I_Techique</h4>
+<div id="i_techique" class="section level3">
+<h3>I_Techique</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fc8df40fd67c2027a709" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fc8df40fd67c2027a709">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Free handed","Pilot guided","Fully guided","Surgical guide","NR","Free handed","Pilot guided","Fully guided","5","NR"],[2,5,6,23,19,2,10,7,3,1],[0.0364,0.09089999999999999,0.1091,0.4182,0.3455,0.08699999999999999,0.4348,0.3043,0.1304,0.0435],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Technique<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Technique","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d8c7d17cf4080686b93c" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d8c7d17cf4080686b93c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Free handed :RESTORE_vs_CORR","Pilot guided :RESTORE_vs_CORR","Fully guided :RESTORE_vs_CORR","NR :RESTORE_vs_CORR"],[0.7181999999999999,0.0014,0.0756,0.0124]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="i_location" class="section level4">
-<h4>I_Location</h4>
+<div id="i_location" class="section level3">
+<h3>I_Location</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fbc9973e359619ea20b8" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fbc9973e359619ea20b8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Supracrestal","Equicrestal","Subcrestal","NR","Equicrestal","Subcrestal"],[3,17,33,2,9,14],[0.0545,0.3091,0.6,0.0364,0.3913,0.6087],["RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Location<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Location","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fc9c72093435cc6a0a18" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fc9c72093435cc6a0a18">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Equicrestal :RESTORE_vs_CORR","Subcrestal :RESTORE_vs_CORR"],[0.6607,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="postop_med" class="section level4">
-<h4>Postop_med</h4>
+<div id="postop_med" class="section level3">
+<h3>Postop_med</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-33198698d6599fd3fc97" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-33198698d6599fd3fc97">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8"],["Amoxicillin","not reported","doxycycline","antibiotic not specified","Amoxicillin","Clindamycin","Azithromycin","not reported"],[17,35,2,1,11,3,2,7],[0.3091,0.6364,0.0364,0.0182,0.4783,0.1304,0.08699999999999999,0.3043],["RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Postop_med<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Postop_med","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-38c86864160d6d855a80" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-38c86864160d6d855a80">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Amoxicillin :RESTORE_vs_CORR","not reported :RESTORE_vs_CORR"],[0.2455,0.015]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="premed" class="section level4">
-<h4>Premed</h4>
+<div id="premed" class="section level3">
+<h3>Premed</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d96970b9501c191ad406" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d96970b9501c191ad406">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Amoxicillin","not reported","Amoxicillin","not reported"],[8,47,2,21],[0.1455,0.8545,0.08699999999999999,0.913],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Premed<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Premed","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-bbf49928d385f1dd9e5c" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-bbf49928d385f1dd9e5c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Amoxicillin :RESTORE_vs_CORR","not reported :RESTORE_vs_CORR"],[0.7389,0.7389]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="provider_level" class="section level4">
-<h4>Provider_level</h4>
+<div id="provider_level" class="section level3">
+<h3>Provider_level</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-90bfa43893a2d8eda041" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-90bfa43893a2d8eda041">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7"],["Faculty","Perio resident","Pros resident","AEGD resident","Faculty","Perio resident","Pros resident"],[14,23,17,1,3,17,3],[0.2545,0.4182,0.3091,0.0182,0.1304,0.7391,0.1304],["RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Provider_level<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Provider_level","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-0349e08474188736d854" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-0349e08474188736d854">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["Faculty :RESTORE_vs_CORR","Perio resident :RESTORE_vs_CORR","Pros resident :RESTORE_vs_CORR"],[0.3629,0.0194,0.1728]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="present_comp_post_placement" class="section level4">
-<h4>Present_comp_post_placement</h4>
+<div id="present_comp_post_placement" class="section level3">
+<h3>Present_comp_post_placement</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2c91a99e85c6bc68af90" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2c91a99e85c6bc68af90">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["yes","no","yes","no"],[21,34,15,8],[0.3818,0.6182,0.6522,0.3478],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Present_comp_post_placement<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Present_comp_post_placement","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f4acdbbe3467343ec6d3" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f4acdbbe3467343ec6d3">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes :RESTORE_vs_CORR","no :RESTORE_vs_CORR"],[0.053,0.053]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="coverscrew_exp_post_placement" class="section level4">
-<h4>Coverscrew_exp_post_placement</h4>
+<div id="coverscrew_exp_post_placement" class="section level3">
+<h3>Coverscrew_exp_post_placement</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d15c90e001b0818c17b0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d15c90e001b0818c17b0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["yes","no","yes","no"],[6,49,8,15],[0.1091,0.8909,0.3478,0.6522],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Coverscrew_exp_post_placement<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Coverscrew_exp_post_placement","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fec2d181a4be4b780ca9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fec2d181a4be4b780ca9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes :RESTORE_vs_CORR","no :RESTORE_vs_CORR"],[0.0291,0.0291]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="infectionpus_post_placement" class="section level4">
-<h4>Infection/pus_post_placement</h4>
+<div id="infectionpus_post_placement" class="section level3">
+<h3>Infection/pus_post_placement</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-bcc569e9a5fb6f3f4fe2" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-bcc569e9a5fb6f3f4fe2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["yes","no","yes","no"],[2,53,7,16],[0.0364,0.9636,0.3043,0.6957],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Infection/pus_post_placement<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Infection/pus_post_placement","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-23dada22fc5642de2fc1" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-23dada22fc5642de2fc1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes :RESTORE_vs_CORR","no :RESTORE_vs_CORR"],[0.0028,0.0028]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="other_post_placement" class="section level4">
-<h4>Other_post_placement</h4>
+<div id="other_post_placement" class="section level3">
+<h3>Other_post_placement</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6e16c2883c26dd1edd48" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-6e16c2883c26dd1edd48">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["yes","no","yes","no"],[8,47,3,20],[0.1455,0.8545,0.1304,0.8696],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Other_post_placement<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Other_post_placement","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-23e11579ab285b5c7c2a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-23e11579ab285b5c7c2a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes :RESTORE_vs_CORR","no :RESTORE_vs_CORR"],[1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="type_bone_loss" class="section level4">
-<h4>Type_bone_loss</h4>
+<div id="type_bone_loss" class="section level3">
+<h3>Type_bone_loss</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-26eca46a20528b6114d0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-26eca46a20528b6114d0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["vertical","horizontal","vertical","horizontal","NA","NR"],[39,16,17,4,1,1],[0.7091,0.2909,0.7391,0.1739,0.0435,0.0435],["RESTORE","RESTORE","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Type_bone_loss<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Type_bone_loss","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fe4b5d221dd8b1ae7542" style="width:100%;height:auto;"></div>

@@ -41,6 +41,8 @@ data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\T
 ```
 
 
+### Gender
+
 
 ```{r, echo=F, message=F, warning=F}
 num_indi1=55
@@ -78,6 +80,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
+### Smoking
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -116,6 +119,11 @@ datatable(extensions = 'Buttons',
 ```
 
 
+### Diabetes
+
+
+
+
 
 ```{r, echo=F, message=F, warning=F}
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Diabetes) %>% drop_na()
@@ -150,6 +158,10 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+
+### Implant_site
 
 
 
@@ -194,6 +206,10 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+
+### Implant_site
 
 
 
@@ -247,6 +263,12 @@ datatable(extensions = 'Buttons',
 ```
 
 
+
+### Pre_implant_Procedure
+
+
+
+
 ```{r, echo=F, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Pre_implant_Procedure)  %>% drop_na()
@@ -291,6 +313,9 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
+
+### I_placement
 
 
 
@@ -340,6 +365,10 @@ datatable(extensions = 'Buttons',
 ```
 
 
+### Comp_placement
+
+
+
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -387,6 +416,8 @@ datatable(extensions = 'Buttons',
 
 
 
+### HA
+
 
 
 
@@ -433,7 +464,7 @@ datatable(extensions = 'Buttons',
 
 
 
-#### I_Brand
+### I_Brand
 
 
 ```{r, echo=F, message=F, warning=F}
@@ -442,11 +473,28 @@ data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Brand) %>% drop_na()
 
 data_subset2=data2$`Data CORR` %>% dplyr::count(I_Brand)  %>% drop_na()
 
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(I_Brand==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(I_Brand==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(I_Brand==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(I_Brand==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(I_Brand==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(I_Brand==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
 all_variable=union(data_subset1$I_Brand, data_subset2$I_Brand)
-variable_count=sapply(all_variable, function(X)return(return(ifelse(length(data_subset1 %>% filter(I_Brand==X) %>% select(n) %>% pull())==0, 0, data_subset1 %>% filter(I_Brand==X) %>% select(n) %>% pull()))+return(ifelse(length(data_subset2 %>% filter(I_Brand==X) %>% select(n) %>% pull())==0, 0, data_subset2 %>% filter(I_Brand==X) %>% select(n) %>% pull()))))
+variable_count=sapply(all_variable, count_num)
 
 
-data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("RESTORE", nrow(data_subset1)), rep("CORR", nrow(data_subset2))))
+data_subset=data_frame(I_Brand=all_variable, n=variable_count)
 data_subset$I_Brand[data_subset$I_Brand==1]="Nobel Biocare";
 data_subset$I_Brand[data_subset$I_Brand==2]="Nobel Replace";
 data_subset$I_Brand[data_subset$I_Brand==3]="Straumann BLT"; 
@@ -471,17 +519,841 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 
-common_variable=intersect(data_subset %>% filter(sample=="RESTORE") %>% select(I_Brand) %>% pull(), data_subset %>% filter(sample=="CORR") %>% select(I_Brand) %>% pull())
+parameters=character()
 pvalue=numeric()
-for (i in 1:length(common_variable))
-{
-  variable_count=data_subset %>% filter(I_Brand==common_variable[i]) %>% select(n) %>% pull()
-  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
-}
-data.frame(variable=paste(common_variable, ":RESTORE_vs_CORR"), pvalue=pvalue)%>%
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
 datatable(extensions = 'Buttons',
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All")))) 
+```
+
+
+
+
+### I_Surface
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Surface) %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(I_Surface)  %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(I_Surface==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(I_Surface==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(I_Surface==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(I_Surface==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(I_Surface==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(I_Surface==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Surface, data_subset2$I_Surface)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Surface=all_variable, n=variable_count)
+
+data_subset$I_Surface[data_subset$I_Surface==1]="TiUltra";
+data_subset$I_Surface[data_subset$I_Surface==2]="TiUnite"; 
+data_subset$I_Surface[data_subset$I_Surface==3]="SLA";
+data_subset$I_Surface[data_subset$I_Surface==4]="TiO2";
+data_subset$I_Surface[data_subset$I_Surface==5]="Ti";
+data_subset$I_Surface[data_subset$I_Surface==6]="TLXP3812";
+data_subset$I_Surface[data_subset$I_Surface==7]="Tiu"; 
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### I_Shape
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Shape)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(I_Shape)  %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(I_Shape==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(I_Shape==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(I_Shape==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(I_Shape==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(I_Shape==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(I_Shape==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Shape, data_subset2$I_Shape)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Shape=all_variable, n=variable_count)
+
+
+data_subset$I_Shape[data_subset$I_Shape==1]="straight"; 
+data_subset$I_Shape[data_subset$I_Shape==2]="tapered"; 
+
+
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+### I_Techique
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Technique)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(I_Technique)  %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(I_Technique==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(I_Technique==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(I_Technique==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(I_Technique==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(I_Technique==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(I_Technique==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Technique, data_subset2$I_Technique)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Technique=all_variable, n=variable_count)
+
+data_subset$I_Technique[data_subset$I_Technique==1]="Free handed"; 
+data_subset$I_Technique[data_subset$I_Technique==2]="Pilot guided";
+data_subset$I_Technique[data_subset$I_Technique==3]="Fully guided";
+data_subset$I_Technique[data_subset$I_Technique==4]="Surgical guide";
+data_subset$I_Technique[data_subset$I_Technique==5]="NR"; 
+
+
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+
+
+### I_Location
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Location) %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(I_Location) %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(I_Location==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(I_Location==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(I_Location==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(I_Location==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(I_Location==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(I_Location==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Location, data_subset2$I_Location)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Location=all_variable, n=variable_count)
+
+data_subset$I_Location[data_subset$I_Location==1]="Supracrestal";
+data_subset$I_Location[data_subset$I_Location==2]="Equicrestal"; 
+data_subset$I_Location[data_subset$I_Location==3]="Subcrestal";
+
+
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+### Postop_med
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Postop_med) %>%  drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Postop_med) %>%  drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(Postop_med==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(Postop_med==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(Postop_med==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(Postop_med==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(Postop_med==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(Postop_med==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Postop_med, data_subset2$Postop_med)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Postop_med=all_variable, n=variable_count)
+
+data_subset$Postop_med[data_subset$Postop_med==1]="Amoxicillin";
+data_subset$Postop_med[data_subset$Postop_med==2]="Clindamycin"; 
+data_subset$Postop_med[data_subset$Postop_med==3]="Azithromycin";
+data_subset$Postop_med[data_subset$Postop_med==4]="not reported"; 
+data_subset$Postop_med[data_subset$Postop_med==5]="doxycycline"
+data_subset$Postop_med[data_subset$Postop_med==6]="antibiotic not specified"
+
+
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### Premed
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Premed) %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Premed)  %>% drop_na()
+
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(Premed==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(Premed==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(Premed==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(Premed==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(Premed==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(Premed==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Premed, data_subset2$Premed)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Premed=all_variable, n=variable_count)
+
+data_subset$Premed[data_subset$Premed==1]="Amoxicillin";
+data_subset$Premed[data_subset$Premed==2]="not reported"; 
+
+
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Provider_level
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Provider_level)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Provider_level) %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(Provider_level==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(Provider_level==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(Provider_level==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(Provider_level==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(Provider_level==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(Provider_level==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Provider_level, data_subset2$Provider_level)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Provider_level=all_variable, n=variable_count)
+
+data_subset$Provider_level[data_subset$Provider_level==1]="Faculty";
+data_subset$Provider_level[data_subset$Provider_level==2]="Perio resident";
+data_subset$Provider_level[data_subset$Provider_level==3]="Pros resident";
+data_subset$Provider_level[data_subset$Provider_level==4]="AEGD resident";
+
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Present_comp_post_placement
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Present_comp_post_placement) %>%  drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Present_comp_post_placement) %>% drop_na()
+
+
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(Present_comp_post_placement==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(Present_comp_post_placement==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(Present_comp_post_placement==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(Present_comp_post_placement==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(Present_comp_post_placement==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(Present_comp_post_placement==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Present_comp_post_placement, data_subset2$Present_comp_post_placement)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Present_comp_post_placement=all_variable, n=variable_count)
+
+
+data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==1]="yes";
+data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==2]="no";
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Coverscrew_exp_post_placement
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Coverscrew_exp_post_placement)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Coverscrew_exp_post_placement)  %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(Coverscrew_exp_post_placement==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(Coverscrew_exp_post_placement==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(Coverscrew_exp_post_placement==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(Coverscrew_exp_post_placement==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(Coverscrew_exp_post_placement==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(Coverscrew_exp_post_placement==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Coverscrew_exp_post_placement, data_subset2$Coverscrew_exp_post_placement)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Coverscrew_exp_post_placement=all_variable, n=variable_count)
+
+
+data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==1]="yes";
+data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==2]="no";
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+### Infection/pus_post_placement
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(`Infection/pus_post_placement`)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(`Infection/pus_post_placement`) %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(`Infection/pus_post_placement`==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(`Infection/pus_post_placement`==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(`Infection/pus_post_placement`==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(`Infection/pus_post_placement`==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(`Infection/pus_post_placement`==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(`Infection/pus_post_placement`==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$`Infection/pus_post_placement`, data_subset2$`Infection/pus_post_placement`)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(`Infection/pus_post_placement`=all_variable, n=variable_count)
+
+
+data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==1]="yes";
+data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==2]="no";
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Other_post_placement
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Other_post_placement)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Other_post_placement)  %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(Other_post_placement==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(Other_post_placement==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(Other_post_placement==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(Other_post_placement==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(Other_post_placement==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(Other_post_placement==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Other_post_placement, data_subset2$Other_post_placement)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Other_post_placement=all_variable, n=variable_count)
+
+
+data_subset$Other_post_placement[data_subset$Other_post_placement==1]="yes";
+data_subset$Other_post_placement[data_subset$Other_post_placement==2]="no";
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### Type_bone_loss
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(Type_bone_loss)  %>% drop_na()
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(Type_bone_loss)  %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(Type_bone_loss==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(Type_bone_loss==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(Type_bone_loss==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(Type_bone_loss==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(Type_bone_loss==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(Type_bone_loss==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Type_bone_loss, data_subset2$Type_bone_loss)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Type_bone_loss=all_variable, n=variable_count)
+
+
+data_subset$Type_bone_loss[data_subset$Type_bone_loss==1]="vertical";
+data_subset$Type_bone_loss[data_subset$Type_bone_loss==2]="horizontal";
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
