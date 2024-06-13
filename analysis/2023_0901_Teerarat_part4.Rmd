@@ -1357,3 +1357,70 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+
+### I_Survival
+
+
+```{r, echo=F, message=F, warning=F}
+
+data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Survival...45)  %>% drop_na()
+colnames(data_subset1)[1]="I_Survival"
+
+data_subset2=data2$`Data CORR` %>% dplyr::count(I_Survival)  %>% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %>% filter(I_Survival==X) %>% select(n) %>% pull())==0)
+    n1=0
+  if (length(data_subset1 %>% filter(I_Survival==X) %>% select(n) %>% pull())>0)
+    n1=data_subset1 %>% filter(I_Survival==X) %>% select(n) %>% pull()
+
+  if (length(data_subset2 %>% filter(I_Survival==X) %>% select(n) %>% pull())==0)
+    n2=0
+   if (length(data_subset2 %>% filter(I_Survival==X) %>% select(n) %>% pull())>0)
+    n2=data_subset2 %>% filter(I_Survival==X) %>% select(n) %>% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Survival, data_subset2$I_Survival)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Survival=all_variable, n=variable_count)
+
+
+data_subset$I_Survival[data_subset$I_Survival==1]="yes";
+data_subset$I_Survival[data_subset$I_Survival==2]="no";
+
+
+
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep="_vs_")
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%>% pull(), data_subset[j,2]%>% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
