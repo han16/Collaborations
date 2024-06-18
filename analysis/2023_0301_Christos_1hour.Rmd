@@ -1110,7 +1110,7 @@ forest(m.netmeta,
      #  xlim = c(-1.3, 0.5),
        smlab = paste("",
                      ""),
-       drop.reference.group = TRUE,
+       drop.reference.group = T,
        label.left = "",
        label.right = "",
        labels = long.labels)
