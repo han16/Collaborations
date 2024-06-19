@@ -337,10 +337,10 @@ m.gen3 <- metagen(TE = m3$TE,
 
 #summary(m.gen)
 
-forest(m.gen3, layout="JAMA", sortvar = TE, 
+forest(m.gen3, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6.5,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 
@@ -349,6 +349,18 @@ forest(m.gen3, layout="JAMA", sortvar = TE,
 
 `> -0.75*(9)^0.5*(-0.04+1.47)/3.92
 [1] -0.8207908`
+
+
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen3$zval.random, 4), pval=round(m.gen3$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 
@@ -379,13 +391,34 @@ m.gen4 <- metagen(TE = m4$TE,
 
 #summary(m.gen)
 
-forest(m.gen4, layout="JAMA", sortvar = TE, 
+forest(m.gen4, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=9,
+            fontsize=7,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 ```
+* raw difference -0.61
+
+`> -0.47*(2)^0.5*(1.33+2.27)/3.92
+[1] -0.6104208`
+
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen4$zval.random, 4), pval=round(m.gen4$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 
 * fixed effect model 
 
