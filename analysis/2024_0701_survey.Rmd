@@ -1,0 +1,31 @@
+---
+title: "07/31/2024"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+---
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+changeCellColor <- function(row, col){
+  c(
+    "function(row, data, num, index){",
+    sprintf("  if(index == %d){", row-1),
+    sprintf("    $('td:eq(' + %d + ')', row)", col),
+    "    .css({'background-color': 'orange'});",
+    "  }",
+    "}"  
+  )
+}
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+Dental_Hygienist=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dental Hygienist.xlsx")
+Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
+```
