@@ -29,3 +29,43 @@ changeCellColor <- function(row, col){
 Dental_Hygienist=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dental Hygienist.xlsx")
 Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
 ```
+
+
+
+```{r, message=F, warning=F}
+dim(Dental_Hygienist$`Dental H`)
+variables=colnames(Dental_Hygienist$`Dental H`)
+variables
+```
+
+
+```{r, message=F, warning=F}
+race=Dental_Hygienist$`Dental H` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+
+ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
+  geom_text(aes(label=race$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("year 2019 ")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("%")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
+  geom_text(aes(label=race$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("year 2019 ")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+race%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
