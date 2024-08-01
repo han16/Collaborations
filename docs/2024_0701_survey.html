@@ -753,13 +753,59 @@ variables</code></pre>
 
 ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
-  ylab(&quot;% unique ids&quot;)+xlab(&quot;&quot;)+
+  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
   geom_text(aes(label=race$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;year 2019 &quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/3614a507dbc7b6e01ff872bdbb8b2925e9648d64/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">3614a50</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+ # ylim(c(0, 0.7))+
+  ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
+  theme(legend.position=&quot;&quot;)+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
+  geom_text(aes(label=race$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle(&quot;year 2019 &quot;)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>race%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
