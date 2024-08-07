@@ -414,7 +414,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-08-01
+<strong>Last updated:</strong> 2024-08-07
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -574,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree64cf62882a79ab5f4674752ec14fce842b363160targetblank64cf628a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree466390e8f161b7fc7e19d0f2d273fc3dc6c4f32etargetblank466390ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/64cf62882a79ab5f4674752ec14fce842b363160" target="_blank">64cf628</a>
+<a href="https://github.com/han16/Collaborations/tree/466390e8f161b7fc7e19d0f2d273fc3dc6c4f32e" target="_blank">466390e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree64cf62882a79ab5f4674752ec14fce842b363160targetblank64cf628a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree466390e8f161b7fc7e19d0f2d273fc3dc6c4f32etargetblank466390ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/64cf62882a79ab5f4674752ec14fce842b363160" target="_blank">64cf628</a>.
+<a href="https://github.com/han16/Collaborations/tree/466390e8f161b7fc7e19d0f2d273fc3dc6c4f32e" target="_blank">466390e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -658,6 +658,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/466390e8f161b7fc7e19d0f2d273fc3dc6c4f32e/docs/2024_0701_survey.html" target="_blank">466390e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+8/1/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/3614a507dbc7b6e01ff872bdbb8b2925e9648d64/analysis/2024_0701_survey.Rmd" target="_blank">3614a50</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+8/1/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/3614a507dbc7b6e01ff872bdbb8b2925e9648d64/docs/2024_0701_survey.html" target="_blank">3614a50</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+8/1/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -750,14 +801,17 @@ variables</code></pre>
 [45] &quot;Other Race or Ethnicity&quot;                
 [46] &quot;Gender Identity&quot;                        </code></pre>
 <pre class="r"><code>race=Dental_Hygienist$`Dental H` %&gt;% dplyr::count(`Describe Your Race or Ethnicity`) %&gt;% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+south_east_asia=c(&quot;East Asian&quot;, &quot;Filipino&quot;, &quot;Hmong&quot;, &quot;Laotian&quot;, &quot;South Asian&quot;) # define south east asia countries 
+south_east_asia_race= race %&gt;% filter(`Describe Your Race or Ethnicity` %in% south_east_asia)
+race_new=race %&gt;% filter(`Describe Your Race or Ethnicity` %in% south_east_asia==F) %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;south east asia&quot;, n=south_east_asia_race %&gt;% select(n) %&gt;% sum(), prop=south_east_asia_race %&gt;% select(prop) %&gt;% sum()) # combine south east asia countries into one unit 
 
-ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
-  geom_text(aes(label=race$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;year 2019 &quot;)+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle(&quot;Hygienist &quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -784,6 +838,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/466390e8f161b7fc7e19d0f2d273fc3dc6c4f32e/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">466390e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/3614a507dbc7b6e01ff872bdbb8b2925e9648d64/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">3614a50</a>
 </td>
 <td>
@@ -797,16 +862,53 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+<pre class="r"><code>ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
-  geom_text(aes(label=race$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;year 2019 &quot;)+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle(&quot;Hygienist &quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>race%&gt;%
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/466390e8f161b7fc7e19d0f2d273fc3dc6c4f32e/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-2.png" target="_blank">466390e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>race_new%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -814,7 +916,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["Black or African American","Decline to answer","East Asian","Filipino","Hispanic or Latino/a/x","Hmong","Indigenous or Native American","Laotian","Native Hawaiian or Other Pacific Islander","Some other race or ethnicity","South Asian","White",null],[31,170,18,7,81,29,15,1,1,13,11,3557,57],[0.0078,0.0426,0.0045,0.0018,0.0203,0.0073,0.0038,0.0003,0.0003,0.0033,0.0028,0.8913,0.0143]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9"],["Black or African American","Decline to answer","Hispanic or Latino/a/x","Indigenous or Native American","Native Hawaiian or Other Pacific Islander","Some other race or ethnicity","White",null,"south east asia"],[31,170,81,15,1,13,3557,57,66],[0.0078,0.0426,0.0203,0.0038,0.0003,0.0033,0.8913,0.0143,0.0167]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

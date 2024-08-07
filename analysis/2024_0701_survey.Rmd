@@ -41,27 +41,30 @@ variables
 
 ```{r, message=F, warning=F}
 race=Dental_Hygienist$`Dental H` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+south_east_asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
+south_east_asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia)
+race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia==F) %>% add_row(`Describe Your Race or Ethnicity`="south east asia", n=south_east_asia_race %>% select(n) %>% sum(), prop=south_east_asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
-ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
-  geom_text(aes(label=race$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("year 2019 ")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Hygienist ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(race, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, size=8))+
-  geom_text(aes(label=race$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("year 2019 ")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Hygienist ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 
-race%>%
+race_new%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
