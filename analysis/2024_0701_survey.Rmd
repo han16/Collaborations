@@ -128,7 +128,7 @@ variables
 ### Race or Ethnicity
 
 ```{r, message=F, warning=F}
-race=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+race=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
 south_east_asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
 south_east_asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia==F) %>% add_row(`Describe Your Race or Ethnicity`="south east asia", n=south_east_asia_race %>% select(n) %>% sum(), prop=south_east_asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
@@ -172,7 +172,7 @@ datatable(extensions = 'Buttons',
 ### Gender Identity
 
 ```{r, message=F, warning=F}
-gender=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+gender=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
 
 ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
