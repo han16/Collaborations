@@ -47,6 +47,7 @@ south_east_asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") #
 south_east_asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia==F) %>% add_row(`Describe Your Race or Ethnicity`="south east asia", n=south_east_asia_race %>% select(n) %>% sum(), prop=south_east_asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
+
 ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
@@ -74,6 +75,8 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+* `south east asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
 
 
 
@@ -130,26 +133,28 @@ south_east_asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") #
 south_east_asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia==F) %>% add_row(`Describe Your Race or Ethnicity`="south east asia", n=south_east_asia_race %>% select(n) %>% sum(), prop=south_east_asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
-ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=race_new %>% filter(n<=10) %>% select(n) %>% sum(), prop=race_new %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
+
+ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
-  geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(aes(label=race_new2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
-  geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(aes(label=race_new2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 
-race_new%>%
+race_new2%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -157,6 +162,10 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+* `south east asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
+
+* `other` aggregates categories with less than 10 responses. 
 
 
 
