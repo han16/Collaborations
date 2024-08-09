@@ -245,3 +245,22 @@ datatable(extensions = 'Buttons',
 
 
 * `other` aggregates categories with less than 10 responses, such as `General dentistry; Oral surgery`
+
+
+
+
+
+## geographical distribution 
+
+```{r, message=F, warning=F, results=F}
+wisconsin_urban_rural_zip=multiplesheets("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\Wisconsin-Urban-Rural-zip.xlsx")
+```
+
+
+```{r, message=F, warning=F}
+unique(wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`)
+```
+
+
+
+
