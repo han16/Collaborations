@@ -201,3 +201,47 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+
+
+### Dental Specialties Board Certified
+
+
+```{r, message=F, warning=F}
+specialty=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+
+specialty2=specialty %>% filter(n>10)  %>% add_row(`Dental Specialties Board Certified`="other", n=specialty %>% filter(n<=10) %>% select(n) %>% sum(), prop=specialty %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
+
+
+
+ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=n, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  geom_text(aes(label=specialty2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist ")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("%")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  geom_text(aes(label=specialty2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist ")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+specialty2%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* `other` aggregates categories with less than 10 responses, such as `General dentistry; Oral surgery`
