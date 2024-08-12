@@ -304,3 +304,79 @@ datatable(extensions = 'Buttons',
 ```
 * only keep `Man` and `Woman` and ignore other reponses 
 
+
+
+
+```{r, message=F, warning=F}
+gender_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
+gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man"), sum(x=="Woman"))) 
+gender_geo_data=data.frame(geo=rep(region_code,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code))) %>% drop_na()
+
+
+ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist_Survey")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+#ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+#  ylab("%")+xlab("")+
+#  theme(legend.position="")+
+#  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+#  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+#  ggtitle("Hygienist ")+
+#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+gender_geo_data%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### specialty distribution 
+
+
+```{r, message=F, warning=F}
+specialty=c("General dentistry", "Endodontics", "Orthodontics", "Periodontics", "Prosthodontics", "Pediatric dentistry", "Oral surgery")
+specialty_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% filter(`Dental Specialties Board Certified` %in% specialty) %>% select(`Dental Specialties Board Certified`))
+specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
+specialty_geo_data=data.frame(geo=rep(region_code,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code))) %>% drop_na()
+
+
+ggplot(specialty_geo_data, aes(x=geo, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist_Survey")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+#ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+#  ylab("%")+xlab("")+
+#  theme(legend.position="")+
+#  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+#  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+#  ggtitle("Hygienist ")+
+#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+gender_geo_data%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
