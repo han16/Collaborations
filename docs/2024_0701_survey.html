@@ -574,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecf8aba6f83724be97f0ad0a933d3b60040912700targetblankcf8aba6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee33c9bf2885ee935186ad42575dc22b2b11a556atargetblanke33c9bfa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/cf8aba6f83724be97f0ad0a933d3b60040912700" target="_blank">cf8aba6</a>
+<a href="https://github.com/han16/Collaborations/tree/e33c9bf2885ee935186ad42575dc22b2b11a556a" target="_blank">e33c9bf</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecf8aba6f83724be97f0ad0a933d3b60040912700targetblankcf8aba6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee33c9bf2885ee935186ad42575dc22b2b11a556atargetblanke33c9bfa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/cf8aba6f83724be97f0ad0a933d3b60040912700" target="_blank">cf8aba6</a>.
+<a href="https://github.com/han16/Collaborations/tree/e33c9bf2885ee935186ad42575dc22b2b11a556a" target="_blank">e33c9bf</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -658,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e33c9bf2885ee935186ad42575dc22b2b11a556a/analysis/2024_0701_survey.Rmd" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+<td>
+8/14/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/e33c9bf2885ee935186ad42575dc22b2b11a556a/docs/2024_0701_survey.html" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+<td>
+8/14/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1916,16 +1950,25 @@ specialty_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey
 specialty_prop=sapply(specialty_geo, function(x) c(sum(x==&quot;General dentistry&quot;), sum(x==&quot;Endodontics&quot;), sum(x==&quot;Orthodontics&quot;), sum(x==&quot;Periodontics&quot;), sum(x==&quot;Prosthodontics&quot;), sum(x==&quot;Pediatric dentistry&quot;), sum(x==&quot;Oral surgery&quot;))) 
 specialty_geo_data=data.frame(geo=rep(region_code,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code))) %&gt;% drop_na()
 
-
-ggplot(specialty_geo_data %&gt;% filter(geo %in% region_code[1:2]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
-  ylim(c(0, max(specialty_geo_data %&gt;% filter(geo %in% region_code[1:2]) %&gt;% select(num)%&gt;% pull())+10))+
+figures=list()
+for (i in 1:length(region_code))
+  
+{
+   figures[[i]]=ggplot(specialty_geo_data %&gt;% filter(geo %in% region_code[i]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+  ylim(c(0, max(specialty_geo_data %&gt;% filter(geo %in% region_code[i]) %&gt;% select(num)%&gt;% pull())+10))+
   facet_grid(&quot;geo&quot;)+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;Dentist_Survey&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  
+  
+}
+  
+ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], figures[[7]], figures[[8]], figures[[9]], figures[[10]], figures[[11]], figures[[12]], figures[[13]], ncol=2)</code></pre>
+<pre><code>$`1`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
@@ -1951,6 +1994,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/e33c9bf2885ee935186ad42575dc22b2b11a556a/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/cf8aba6f83724be97f0ad0a933d3b60040912700/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" target="_blank">cf8aba6</a>
 </td>
 <td>
@@ -1964,15 +2018,8 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(specialty_geo_data %&gt;% filter(geo %in% region_code[3:4]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
-  ylim(c(0, max(specialty_geo_data %&gt;% filter(geo %in% region_code[3:4]) %&gt;% select(num)%&gt;% pull())+10))+
-  facet_grid(&quot;geo&quot;)+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist_Survey&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<pre><code>
+$`2`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
@@ -1998,6 +2045,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/e33c9bf2885ee935186ad42575dc22b2b11a556a/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-2.png" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/cf8aba6f83724be97f0ad0a933d3b60040912700/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-2.png" target="_blank">cf8aba6</a>
 </td>
 <td>
@@ -2011,46 +2069,172 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(specialty_geo_data %&gt;% filter(geo %in% region_code[5:6]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
-  ylim(c(0, max(specialty_geo_data %&gt;% filter(geo %in% region_code[5:6]) %&gt;% select(num)%&gt;% pull())+10))+
-  facet_grid(&quot;geo&quot;)+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist_Survey&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<pre><code>
+$`3`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(specialty_geo_data %&gt;% filter(geo %in% region_code[7:8]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
-  ylim(c(0, max(specialty_geo_data %&gt;% filter(geo %in% region_code[7:8]) %&gt;% select(num)%&gt;% pull())+10))+
-  facet_grid(&quot;geo&quot;)+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist_Survey&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-3">
+Past versions of unnamed-chunk-15-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e33c9bf2885ee935186ad42575dc22b2b11a556a/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-3.png" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+$`4`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(specialty_geo_data %&gt;% filter(geo %in% region_code[9:10]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
-  ylim(c(0, max(specialty_geo_data %&gt;% filter(geo %in% region_code[9:10]) %&gt;% select(num)%&gt;% pull())+10))+
-  facet_grid(&quot;geo&quot;)+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist_Survey&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-4">
+Past versions of unnamed-chunk-15-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e33c9bf2885ee935186ad42575dc22b2b11a556a/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-4.png" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+$`5`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-5.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(specialty_geo_data %&gt;% filter(geo %in% region_code[11:12]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
-  ylim(c(0, max(specialty_geo_data %&gt;% filter(geo %in% region_code[11:12]) %&gt;% select(num)%&gt;% pull())+10))+
-  facet_grid(&quot;geo&quot;)+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist_Survey&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-5">
+Past versions of unnamed-chunk-15-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e33c9bf2885ee935186ad42575dc22b2b11a556a/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-5.png" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+$`6`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-6">
+Past versions of unnamed-chunk-15-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e33c9bf2885ee935186ad42575dc22b2b11a556a/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-6.png" target="_blank">e33c9bf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+$`7`</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+attr(,&quot;class&quot;)
+[1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
 <pre class="r"><code>gender_geo_data%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,

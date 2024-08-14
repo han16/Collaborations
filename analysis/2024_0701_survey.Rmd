@@ -374,9 +374,12 @@ specialty_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey
 specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
 specialty_geo_data=data.frame(geo=rep(region_code,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code))) %>% drop_na()
 
-
-ggplot(specialty_geo_data %>% filter(geo %in% region_code[1:2]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[1:2]) %>% select(num)%>% pull())+10))+
+figures=list()
+for (i in 1:length(region_code))
+  
+{
+   figures[[i]]=ggplot(specialty_geo_data %>% filter(geo %in% region_code[i]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[i]) %>% select(num)%>% pull())+10))+
   facet_grid("geo")+
   ylab("n")+xlab("")+
   theme(legend.position="")+
@@ -384,60 +387,13 @@ ggplot(specialty_geo_data %>% filter(geo %in% region_code[1:2]), aes(x=spect, y=
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist_Survey")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-ggplot(specialty_geo_data %>% filter(geo %in% region_code[3:4]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[3:4]) %>% select(num)%>% pull())+10))+
-  facet_grid("geo")+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist_Survey")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  
+  
+}
+  
+ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], figures[[7]], figures[[8]], figures[[9]], figures[[10]], figures[[11]], figures[[12]], figures[[13]], ncol=2)
 
 
-ggplot(specialty_geo_data %>% filter(geo %in% region_code[5:6]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[5:6]) %>% select(num)%>% pull())+10))+
-  facet_grid("geo")+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist_Survey")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-
-ggplot(specialty_geo_data %>% filter(geo %in% region_code[7:8]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[7:8]) %>% select(num)%>% pull())+10))+
-  facet_grid("geo")+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist_Survey")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-
-ggplot(specialty_geo_data %>% filter(geo %in% region_code[9:10]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[9:10]) %>% select(num)%>% pull())+10))+
-  facet_grid("geo")+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist_Survey")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-
-ggplot(specialty_geo_data %>% filter(geo %in% region_code[11:12]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[11:12]) %>% select(num)%>% pull())+10))+
-  facet_grid("geo")+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist_Survey")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 
 gender_geo_data%>%
