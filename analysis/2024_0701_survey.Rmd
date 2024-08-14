@@ -34,10 +34,21 @@ Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\
 ## Dental_Hygienist
 
 ```{r, message=F, warning=F}
-dim(Dental_Hygienist$`Dental H`)
+#dim(Dental_Hygienist$`Dental H`)
 variables=colnames(Dental_Hygienist$`Dental H`)
-variables
+data.frame(questions=variables)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
+
+* in total 3991 responses and 46 questions 
+
+
+
 
 ### Race or Ethnicity
 
@@ -118,11 +129,18 @@ datatable(extensions = 'Buttons',
 ## Dentist Survey
 
 ```{r, message=F, warning=F}
-dim(Dentist_Survey$`Dentist Survey`)
+#dim(Dentist_Survey$`Dentist Survey`)
 variables=colnames(Dentist_Survey$`Dentist Survey`)
-variables
+data.frame(questions=variables)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
+* in total 2957 responses and 40 questions 
 
 
 ### Race or Ethnicity
@@ -257,6 +275,10 @@ wisconsin_urban_rural_zip=multiplesheets("C:\\Shengtong\\Research\\OralPublicHea
 ```
 
 
+* [Wisconsin state urban rural code](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/ETU5WgJJl9BIoNsBBNhPqocBR3DcuAN3q1H65LThX3eeuQ?e=Ozruo2)
+
+
+
 ```{r, message=F, warning=F}
 region_code=unique(wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`)
 ```
@@ -353,8 +375,8 @@ specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), 
 specialty_geo_data=data.frame(geo=rep(region_code,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code))) %>% drop_na()
 
 
-ggplot(specialty_geo_data %>% filter(geo %in% c("R1", "Metro W-O-W")), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
+ggplot(specialty_geo_data %>% filter(geo %in% region_code[1:2]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[1:2]) %>% select(num)%>% pull())+10))+
   facet_grid("geo")+
   ylab("n")+xlab("")+
   theme(legend.position="")+
@@ -363,8 +385,52 @@ ggplot(specialty_geo_data %>% filter(geo %in% c("R1", "Metro W-O-W")), aes(x=spe
   ggtitle("Dentist_Survey")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(specialty_geo_data %>% filter(geo %in% c("Urban", "R2/R1")), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
+ggplot(specialty_geo_data %>% filter(geo %in% region_code[3:4]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[3:4]) %>% select(num)%>% pull())+10))+
+  facet_grid("geo")+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist_Survey")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+ggplot(specialty_geo_data %>% filter(geo %in% region_code[5:6]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[5:6]) %>% select(num)%>% pull())+10))+
+  facet_grid("geo")+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist_Survey")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+ggplot(specialty_geo_data %>% filter(geo %in% region_code[7:8]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[7:8]) %>% select(num)%>% pull())+10))+
+  facet_grid("geo")+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist_Survey")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+ggplot(specialty_geo_data %>% filter(geo %in% region_code[9:10]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[9:10]) %>% select(num)%>% pull())+10))+
+  facet_grid("geo")+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("Dentist_Survey")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+ggplot(specialty_geo_data %>% filter(geo %in% region_code[11:12]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[11:12]) %>% select(num)%>% pull())+10))+
   facet_grid("geo")+
   ylab("n")+xlab("")+
   theme(legend.position="")+
