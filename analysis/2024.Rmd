@@ -19,4 +19,5 @@ library(tidyverse)
 7. [Apr-Zainab](2024_0401_Zainab.html)
 8. [May-Vrisiis](2024_0501_Vrisiis.html)
 9. [Jul-State Survey](2024_0701_survey.html)
+10. [Aug-Rawal](2024_0801_Rawal.html)
 
