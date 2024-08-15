@@ -396,7 +396,7 @@ pie_chart[[i]]=ggplot(data=pie_data)+
    
 }
   
-ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)
+ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=3)
 
 
 
