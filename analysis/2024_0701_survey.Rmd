@@ -368,6 +368,7 @@ specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), 
 specialty_geo_data=data.frame(geo=rep(region_code_update,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code_update))) %>% drop_na()
 
 figures=list()
+pie_chart=list()
 for (i in 1:length(region_code_update))
   
 {
@@ -381,10 +382,23 @@ for (i in 1:length(region_code_update))
   ggtitle("Dentist_Survey")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
   
-  
+  pie_data=specialty_geo_data %>% filter(geo %in% region_code_update[i])
+  pie_data <- pie_data %>% 
+  mutate(per=`num`/sum(`num`)) %>% 
+  arrange(desc(spect))
+pie_data$label <- scales::percent(pie_data$per)
+pie_chart[[i]]=ggplot(data=pie_data)+
+  geom_bar(aes(x="", y=per, fill=spect), stat="identity", width = 1)+
+  coord_polar("y", start=0)+
+  theme_void()+
+  geom_text(aes(x=1, y = cumsum(per) - per/2, label=label))
+   
+   
 }
   
 ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)
+
+
 
 
 
