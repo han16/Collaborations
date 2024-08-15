@@ -54,9 +54,9 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 race=Dental_Hygienist$`Dental H` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
-south_east_asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
-south_east_asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia)
-race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia==F) %>% add_row(`Describe Your Race or Ethnicity`="south east asia", n=south_east_asia_race %>% select(n) %>% sum(), prop=south_east_asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
+asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
+asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
+race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
 
 ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
@@ -87,7 +87,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* `south east asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
+* `asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
 
 
 
@@ -147,9 +147,9 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 race=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
-south_east_asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
-south_east_asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia)
-race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% south_east_asia==F) %>% add_row(`Describe Your Race or Ethnicity`="south east asia", n=south_east_asia_race %>% select(n) %>% sum(), prop=south_east_asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
+asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
+asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
+race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
 race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=race_new %>% filter(n<=10) %>% select(n) %>% sum(), prop=race_new %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
@@ -181,7 +181,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* `south east asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
+* `asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
 
 * `other` aggregates categories with less than 10 responses. 
 
@@ -281,11 +281,21 @@ wisconsin_urban_rural_zip=multiplesheets("C:\\Shengtong\\Research\\OralPublicHea
 
 ```{r, message=F, warning=F}
 region_code=unique(wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`)
+all_code=wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`
+all_code[which(all_code=="R2/R1")]="R2"   # raname regions 
+all_code[which(all_code=="Urban/R1")]="Urban"
+all_code[which(all_code=="Metro W-O-W/R1")]="Metro W-O-W"
+all_code[which(all_code=="R3/R1")]="R3"
+all_code[which(all_code=="R3/R2/R1")]="R3"
+all_code[which(all_code=="Urban/R2")]="Urban"
+all_code[which(all_code=="R1/Urban")]="R1"
+wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %>% mutate(new_region_code=all_code)
+region_code_update=unique(all_code)
 ```
 
 
 ```{r, message=F, warning=F}
-region_code_zip=sapply(region_code, function(x) wisconsin_urban_rural_zip$`Table 1` %>% filter(`2014 ZCTA-based WURC Code`==x) %>% select(`ZCTA/\r\nZIPCode`))
+region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
 
 ```
 
@@ -293,27 +303,19 @@ region_code_zip=sapply(region_code, function(x) wisconsin_urban_rural_zip$`Table
 
 ```{r, message=F, warning=F}
 gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
-gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man"), sum(x=="Woman"))) 
-gender_geo_data=data.frame(geo=rep(region_code,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code))) %>% drop_na()
+gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm = T), sum(x=="Woman", na.rm = T))) 
+gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
 
 
 ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Hygienist ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-#ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-#  ylab("%")+xlab("")+
-#  theme(legend.position="")+
-#  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
-#  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-#  ggtitle("Hygienist ")+
-#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 
 gender_geo_data%>%
@@ -324,34 +326,25 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
-* only keep `Man` and `Woman` and ignore other reponses 
+* only keep `Man` and `Woman` and ignore other responses 
 
 
 
 
 ```{r, message=F, warning=F}
 gender_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
-gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man"), sum(x=="Woman"))) 
-gender_geo_data=data.frame(geo=rep(region_code,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code))) %>% drop_na()
+gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
+gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
 
 
 ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist_Survey")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-#ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-#  ylab("%")+xlab("")+
-#  theme(legend.position="")+
-#  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
-#  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-#  ggtitle("Hygienist ")+
-#  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 
 gender_geo_data%>%
@@ -372,14 +365,14 @@ datatable(extensions = 'Buttons',
 specialty=c("General dentistry", "Endodontics", "Orthodontics", "Periodontics", "Prosthodontics", "Pediatric dentistry", "Oral surgery")
 specialty_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% filter(`Dental Specialties Board Certified` %in% specialty) %>% select(`Dental Specialties Board Certified`))
 specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
-specialty_geo_data=data.frame(geo=rep(region_code,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code))) %>% drop_na()
+specialty_geo_data=data.frame(geo=rep(region_code_update,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code_update))) %>% drop_na()
 
 figures=list()
-for (i in 1:length(region_code))
+for (i in 1:length(region_code_update))
   
 {
-   figures[[i]]=ggplot(specialty_geo_data %>% filter(geo %in% region_code[i]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code[i]) %>% select(num)%>% pull())+10))+
+   figures[[i]]=ggplot(specialty_geo_data %>% filter(geo %in% region_code_update[i]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code_update[i]) %>% select(num)%>% pull())+10))+
   facet_grid("geo")+
   ylab("n")+xlab("")+
   theme(legend.position="")+
@@ -391,7 +384,7 @@ for (i in 1:length(region_code))
   
 }
   
-ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], figures[[7]], figures[[8]], figures[[9]], figures[[10]], figures[[11]], figures[[12]], figures[[13]], ncol=2)
+ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)
 
 
 
