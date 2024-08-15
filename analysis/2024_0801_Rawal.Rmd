@@ -1,0 +1,48 @@
+---
+title: "08/15/2024"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+changeCellColor <- function(row, col){
+  c(
+    "function(row, data, num, index){",
+    sprintf("  if(index == %d){", row-1),
+    sprintf("    $('td:eq(' + %d + ')', row)", col),
+    "    .css({'background-color': 'orange'});",
+    "  }",
+    "}"  
+  )
+}
+```
+
+
+
+
+```{r, message=F, warning=F, results=F}
+grades=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202408\\Rawal\\DEIN 7114 101 Intro to Clinical Practice 1_GradesExport_2024-08-14-20-40.xlsx")
+sd=sd(grades$Grades$`Calculated Final Grade Numerator`)
+```
+
+
+```{r, message=F, warning=F}
+mean_difference=seq(1,15)
+power=sapply(mean_difference, function(x) power.t.test(n=100, delta=x, sd=sd, type="paired"))
+ggplot(data.frame(mean_difference=mean_difference, power=as.numeric(power[5,])), aes(x=mean_difference, y=power, group=1)) +
+  geom_line()+
+  geom_point()
+data.frame(mean_difference=mean_difference, power=round(as.numeric(power[5,]),4))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* with standard deviation of 2.6 and mean difference of 10, the power is 100%. 
