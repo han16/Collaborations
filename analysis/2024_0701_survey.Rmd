@@ -59,24 +59,34 @@ asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
 
-ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+g1=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
   geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Hygienist ")+
+  ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+g2=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
   geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Hygienist ")+
+  ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Hygienist", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold")
+
+)
 
 race_new%>%
 datatable(extensions = 'Buttons',
@@ -85,6 +95,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+sum(race_new$n)
 ```
 
 * `asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
@@ -96,23 +107,36 @@ datatable(extensions = 'Buttons',
 ```{r, message=F, warning=F}
 gender=Dental_Hygienist$`Dental H` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
 
-ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
+g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Hygienist ")+
+  ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
+g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Hygienist ")+
+  ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Hygienist", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold")
+
+)
+
 
 
 gender%>%
@@ -122,6 +146,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+sum(gender$n)
 ```
 
 
@@ -153,23 +178,37 @@ race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add
 
 race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=race_new %>% filter(n<=10) %>% select(n) %>% sum(), prop=race_new %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
-ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+g1=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
   geom_text(aes(label=race_new2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist ")+
+  ggtitle(" ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
+g2=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
   geom_text(aes(label=race_new2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist ")+
+  ggtitle(" ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Dentist", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold")
+
+)
+
+
 
 
 race_new2%>%
@@ -179,6 +218,8 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+sum(race_new2$n)
 ```
 
 * `asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
@@ -192,23 +233,34 @@ datatable(extensions = 'Buttons',
 ```{r, message=F, warning=F}
 gender=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
 
-ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
+g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
+g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist ")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Dentist", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold")
+
+)
 
 
 gender%>%
@@ -218,6 +270,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+sum(gender$n)
 ```
 
 
@@ -233,23 +286,34 @@ specialty2=specialty %>% filter(n>10)  %>% add_row(`Dental Specialties Board Cer
 
 
 
-ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=n, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
+g1=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=n, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   geom_text(aes(label=specialty2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist ")+
+  ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
-ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
+g2=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=13))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   geom_text(aes(label=specialty2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist ")+
+  ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+annotate_figure(figure,
+                top = text_grob("Dentist", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold")
+
+)
 
 
 specialty2%>%
@@ -259,6 +323,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+sum(specialty2$n)
 ```
 
 
@@ -296,12 +361,22 @@ region_code_update=unique(all_code)
 
 ```{r, message=F, warning=F}
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
+hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` ) %>% pull)
+
+#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
+# Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
+
+
+#dentist_zip=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
+#zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
+#Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
 
 ```
 
 ### Gender Identity
 
 ```{r, message=F, warning=F}
+
 gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
 gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm = T), sum(x=="Woman", na.rm = T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
@@ -325,6 +400,8 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow()  ?????????? 
 ```
 * only keep `Man` and `Woman` and ignore other responses 
 
@@ -354,11 +431,15 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+sum(gender_geo_data$num)
 ```
 
 
 
 ### specialty distribution 
+
+
+
 
 
 ```{r, message=F, warning=F}
@@ -410,4 +491,5 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+sum(gender_geo_data$num)
 ```
