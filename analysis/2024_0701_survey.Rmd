@@ -443,7 +443,7 @@ sum(gender_geo_data$num)
 
 
 ```{r, message=F, warning=F}
-specialty=c("General dentistry", "Endodontics", "Orthodontics", "Periodontics", "Prosthodontics", "Pediatric dentistry", "Oral surgery")
+specialty=c("General dentistry", "Endodontics", "Orthodontics","Periodontics",  "Prosthodontics", "Pediatric dentistry", "Oral surgery")
 specialty_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% filter(`Dental Specialties Board Certified` %in% specialty) %>% select(`Dental Specialties Board Certified`))
 specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
 specialty_geo_data=data.frame(geo=rep(region_code_update,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code_update))) %>% drop_na()
@@ -458,7 +458,7 @@ for (i in 1:length(region_code_update))
   facet_grid("geo")+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist_Survey")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
@@ -477,7 +477,7 @@ pie_chart[[i]]=ggplot(data=pie_data)+
    
 }
   
-ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=3)
+ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)
 
 
 
