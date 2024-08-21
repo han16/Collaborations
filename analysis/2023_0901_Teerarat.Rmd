@@ -132,12 +132,15 @@ datatable(extensions = 'Buttons',
 ### corr vs store 
 
 
-```{r, echo=F, message=F, warning=F}
-pvalue=numeric()
+```{r, message=F, warning=F}
+pvalue=numeric(); wilcox_pvalue=numeric()
 variable_index=c(1:9,16)
 for (i in 1:length(variable_index))
+{
   pvalue[i]=t.test(data_interest_corr[,variable_index[i]], data_interest_store[,variable_index[i]], na.rm=T)$p.value
-data.frame(variable=colnames(data_interest_corr)[variable_index], pvalue=pvalue_adjust(pvalue))%>%
+  wilcox_pvalue[i]=wilcox.test(data_interest_corr[,variable_index[i]], data_interest_store[,variable_index[i]], na.rm=T)$p.value
+  }
+data.frame(variable=colnames(data_interest_corr)[variable_index], pvalue=pvalue_adjust(pvalue), wilcox_pvalue=pvalue_adjust(wilcox_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption = "corr vs restore",
             options = list(dom = 'Blfrtip',
@@ -146,7 +149,11 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* two sample t test was used 
+* two sample t test (parametric test) was used 
+
+* `wilcox_pvalue` is the p value of non-parametric test, Wilcoxon test
+
+
 
 
 
