@@ -1,7 +1,9 @@
 ---
 title: "09/25 2023"
-output: html_document
-date: "2023-09-25"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 ---
 
 
@@ -40,7 +42,7 @@ data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\T
 ### CORR
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 group_corr=data2$`Data CORR`
 
 num_indi=23
@@ -80,6 +82,8 @@ datatable(extensions = 'Buttons',
 
 
 * `num_sample` numeric samples after removing NA's  
+
+*  Shapiro-Wilk’s test, `shapiro.test` in software was used to test the normality assumption. 
 
 
 

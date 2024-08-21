@@ -10,7 +10,6 @@
 
 
 
-<meta name="date" content="2023-09-25" />
 
 <title>09/25 2023</title>
 
@@ -34,6 +33,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -248,6 +248,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -372,10 +375,17 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">09/25 2023</h1>
-<h4 class="date">2023-09-25</h4>
 
 </div>
 
@@ -404,7 +414,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-05-21
+<strong>Last updated:</strong> 2024-08-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -564,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2af4afb4ae048fedc0b82dfaa1b5f3a1c95b542atargetblank2af4afba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7d181b067482346c83160fa93250c5dbbc6fb7dctargetblank7d181b0a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/2af4afb4ae048fedc0b82dfaa1b5f3a1c95b542a" target="_blank">2af4afb</a>
+<a href="https://github.com/han16/Collaborations/tree/7d181b067482346c83160fa93250c5dbbc6fb7dc" target="_blank">7d181b0</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2af4afb4ae048fedc0b82dfaa1b5f3a1c95b542atargetblank2af4afba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7d181b067482346c83160fa93250c5dbbc6fb7dctargetblank7d181b0a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/2af4afb4ae048fedc0b82dfaa1b5f3a1c95b542a" target="_blank">2af4afb</a>.
+<a href="https://github.com/han16/Collaborations/tree/7d181b067482346c83160fa93250c5dbbc6fb7dc" target="_blank">7d181b0</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -600,9 +610,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
-
-Untracked files:
-    Untracked:  analysis/2023_0901_Teerarat_part4.Rmd
 
 Unstaged changes:
     Modified:   analysis/2023_0901_Teerarat.Rmd
@@ -651,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a728cc0b706d7150f4b8c95113a7db075b5a5092/analysis/2023_0901_Teerarat.Rmd" target="_blank">a728cc0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-21
+</td>
+<td>
+5/21/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a728cc0b706d7150f4b8c95113a7db075b5a5092/docs/2023_0901_Teerarat.html" target="_blank">a728cc0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-21
+</td>
+<td>
+5/21/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1512,10 +1553,48 @@ Han
 <h2>continuous variables</h2>
 <div id="corr" class="section level3">
 <h3>CORR</h3>
+<pre class="r"><code>group_corr=data2$`Data CORR`
+
+num_indi=23
+Data=group_corr
+Age=as.numeric(Data$Age[1:num_indi])
+CBL_diagnosis_months=as.numeric(Data$CBL_diagnosis_months)[1:num_indi]
+I_Torque=as.numeric(Data$I_Torque)[1:num_indi]
+I_Diameter=as.numeric(Data$I_Diameter)[1:num_indi]
+I_Length=as.numeric(Data$I_Length)[1:num_indi]
+Time_comp_days=as.numeric(Data$Time_comp_days)[1:num_indi]
+Bone_loss_mm=as.numeric(Data$Bone_loss_mm)[1:num_indi]
+Bone_loss_percentage=as.numeric(Data$`Bone_loss_%`)[1:num_indi]
+Bone_loss_crest=as.numeric(Data$Bone_loss_crest)[1:num_indi]
+Bone_loss_post_regen_mm=as.numeric(Data$Bone_loss_post_regen_mm)[1:num_indi]
+Bone_loss_post_regen_percentage=as.numeric(Data$`Bone_loss_post_regen_%`)[1:num_indi]
+Month_post_regen=as.numeric(Data$Month_post_regen)[1:num_indi]
+RTR_post_regen_IP=as.numeric(Data$RTR_post_regen_IP)[1:num_indi]
+RTR_post_regen_CRP=as.numeric(Data$RTR_post_regen_CRP)[1:num_indi]
+Time_comp_post_regen=as.numeric(Data$Time_comp_post_regen)[1:num_indi]
+Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
+Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
+Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
+
+data_interest_corr=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
+
+#data_interest_corr=data_interest_corr[-1,]  # remove the first subject, requested by Vrisiis 
+
+data_summary=summary_statistics(data_interest_corr)
+data_summary %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;CORR&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>CORR<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["Age","CBL_diagnosis_months","I_Torque","I_Diameter","I_Length","Time_comp_days","Bone_loss_mm","Bone_loss_percentage","Bone_loss_crest","Bone_loss_post_regen_mm","Bone_loss_post_regen_percentage","Month_post_regen","RTR_post_regen_IP","RTR_post_regen_CRP","Time_comp_post_regen","Post_cr_del_months","Latest_bone_levels_mm","Latest_bone_levels_percentage"],[23,23,13,23,23,15,22,22,22,18,18,18,22,22,7,18,12,12],[65.913,4.2609,35,4.113,10.1087,37.8,4.1682,39.4509,1.5364,1.3222,13.1189,4.3889,8.2727,3.3864,10.8571,14.4444,1.1083,10.2725],[68,3,35,4.1,10,27,3.75,36.26,1.75,0.95,11.07,3.5,7.5,2.5,8,12.5,0.5,4.715],[11.0368,4.8168,12.2474,0.5888,1.2609,28.7978,2.0245,17.1528,0.9535,1.4611,14.0514,3.032,3.9543,2.9718,6.4402,11.4441,1.3111,12.1327],[2.3013,1.0044,3.3968,0.1228,0.2629,7.4356,0.4316,3.657,0.2033,0.3444,3.3119,0.7146,0.8431,0.6336000000000001,2.4342,2.6974,0.3785,3.5024],[58.5,1,30,3.65,10,18.5,3,29.2725,0.925,0,0,2,5.25,1,7.5,4.5,0,0],[75,3.5,45,4.55,10.5,51.5,4.95,48.75,2.075,2.475,24.28,5.75,9,4.75,15,21,2.05,19.05],[35,1,15,3.3,8,2,1,10,0,0,0,1,3,0.5,2,0,0,0],[80,18,50,5,12,111,9.4,86.23,3.2,4.4,37,12,18,13,21,43,3.5,33.04],[0.0814,0,0.1056,0.0131,0.0009,0.0497,0.2224,0.3146,0.3595,0.005,0.0037,0.0113,0.0239,0.0016,0.7713,0.2207,0.0139,0.0142]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"num_sample","targets":2},{"name":"Mean","targets":3},{"name":"Median","targets":4},{"name":"SD","targets":5},{"name":"SE","targets":6},{"name":"per_25_quantile","targets":7},{"name":"per_75_quantile","targets":8},{"name":"Range_low","targets":9},{"name":"Range_upper","targets":10},{"name":"normality_pvalue","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
-<li><code>num_sample</code> numeric samples after removing NA’s</li>
+<li><p><code>num_sample</code> numeric samples after removing
+NA’s</p></li>
+<li><p>Shapiro-Wilk’s test, <code>shapiro.test</code> in software was
+used to test the normality assumption.</p></li>
 </ul>
 </div>
 <div id="restore" class="section level3">
@@ -1687,6 +1766,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
