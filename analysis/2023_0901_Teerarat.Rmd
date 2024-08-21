@@ -83,7 +83,7 @@ datatable(extensions = 'Buttons',
 
 * `num_sample` numeric samples after removing NA's  
 
-*  Shapiro-Wilk’s test, `shapiro.test` in software was used to test the normality assumption. 
+*  Shapiro-Wilk’s test, `shapiro.test` in software R  was used to test the normality assumption. 
 
 
 
