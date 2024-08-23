@@ -63,23 +63,25 @@ g1=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 4))
 
 g2=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  guides(fill = guide_legend(nrow = 4))
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
 annotate_figure(figure,
-                top = text_grob("Hygienist", color = "red", face = "bold", size = 14),
+                top = text_grob("Hygienist: 3991 responses", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
@@ -96,6 +98,9 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 sum(race_new$n)
+
+
+## dual axis plot https://finchstudio.io/blog/ggplot-dual-y-axes/ https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html   # https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
 ```
 
 * `asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
@@ -111,7 +116,7 @@ g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_b
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
@@ -120,15 +125,15 @@ g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geo
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
 annotate_figure(figure,
-                top = text_grob("Hygienist", color = "red", face = "bold", size = 14),
+                top = text_grob("Hygienist: 3991 responses", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
@@ -182,24 +187,25 @@ g1=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describ
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(" ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  guides(fill = guide_legend(nrow = 5))
 
 g2=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(" ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  guides(fill = guide_legend(nrow = 5))
 
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
 annotate_figure(figure,
-                top = text_grob("Dentist", color = "red", face = "bold", size = 14),
+                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
@@ -237,23 +243,25 @@ g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_b
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 3))
 
 g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("Dentist ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 3))
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
 annotate_figure(figure,
-                top = text_grob("Dentist", color = "red", face = "bold", size = 14),
+                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
@@ -290,21 +298,23 @@ g1=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=n, fill=`Den
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=specialty2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 4))
 
 g2=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
   theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=specialty2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 4))
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="none") 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
 annotate_figure(figure,
                 top = text_grob("Dentist", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",

@@ -414,7 +414,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-08-20
+<strong>Last updated:</strong> 2024-08-23
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -574,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree810a5b03eb7ce469937551267e6cfb4833933025targetblank810a5b0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree26dbc7ac0a2194dbdfa24e2efb6e38b59fb8f61etargetblank26dbc7aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/810a5b03eb7ce469937551267e6cfb4833933025" target="_blank">810a5b0</a>
+<a href="https://github.com/han16/Collaborations/tree/26dbc7ac0a2194dbdfa24e2efb6e38b59fb8f61e" target="_blank">26dbc7a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree810a5b03eb7ce469937551267e6cfb4833933025targetblank810a5b0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree26dbc7ac0a2194dbdfa24e2efb6e38b59fb8f61etargetblank26dbc7aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/810a5b03eb7ce469937551267e6cfb4833933025" target="_blank">810a5b0</a>.
+<a href="https://github.com/han16/Collaborations/tree/26dbc7ac0a2194dbdfa24e2efb6e38b59fb8f61e" target="_blank">26dbc7a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -658,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7d181b067482346c83160fa93250c5dbbc6fb7dc/analysis/2024_0701_survey.Rmd" target="_blank">7d181b0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-20
+</td>
+<td>
+8/20/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/7d181b067482346c83160fa93250c5dbbc6fb7dc/docs/2024_0701_survey.html" target="_blank">7d181b0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-20
+</td>
+<td>
+8/20/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1305,23 +1339,25 @@ g1=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe
  # ylim(c(0, 0.7))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 4))
 
 g2=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  guides(fill = guide_legend(nrow = 4))
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;none&quot;) 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
 annotate_figure(figure,
-                top = text_grob(&quot;Hygienist&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
+                top = text_grob(&quot;Hygienist: 3991 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
 #                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
 #                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
 #                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
@@ -1422,6 +1458,7 @@ datatable(extensions = &#39;Buttons&#39;,
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9"],["Black or African American","Decline to answer","Hispanic or Latino/a/x","Indigenous or Native American","Native Hawaiian or Other Pacific Islander","Some other race or ethnicity","White",null,"asia"],[31,170,81,15,1,13,3557,57,66],[0.0078,0.0426,0.0203,0.0038,0.0003,0.0033,0.8913,0.0143,0.0167]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>sum(race_new$n)</code></pre>
 <pre><code>[1] 3991</code></pre>
+<pre class="r"><code>## dual axis plot https://finchstudio.io/blog/ggplot-dual-y-axes/ https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html   # https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales</code></pre>
 <ul>
 <li><code>asia</code> includes “East Asian”, “Filipino”, “Hmong”,
 “Laotian”, “South Asian”</li>
@@ -1435,7 +1472,7 @@ g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_b
  # ylim(c(0, 0.7))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
@@ -1444,15 +1481,15 @@ g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geo
  # ylim(c(0, 0.7))+
   ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
 
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;none&quot;) 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
 annotate_figure(figure,
-                top = text_grob(&quot;Hygienist&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
+                top = text_grob(&quot;Hygienist: 3991 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
 #                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
 #                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
 #                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
@@ -1551,24 +1588,25 @@ g1=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describ
  # ylim(c(0, 0.7))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot; &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  guides(fill = guide_legend(nrow = 5))
 
 g2=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=8))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=race_new2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot; &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  guides(fill = guide_legend(nrow = 5))
 
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;none&quot;) 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
 annotate_figure(figure,
-                top = text_grob(&quot;Dentist&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
+                top = text_grob(&quot;Dentist: 2957 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
 #                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
 #                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
 #                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
@@ -1684,23 +1722,25 @@ g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_b
  # ylim(c(0, 0.7))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;Dentist &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 3))
 
 g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;Dentist &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 3))
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;none&quot;) 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
 annotate_figure(figure,
-                top = text_grob(&quot;Dentist&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
+                top = text_grob(&quot;Dentist: 2957 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
 #                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
 #                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
 #                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
@@ -1781,21 +1821,23 @@ g1=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=n, fill=`Den
  # ylim(c(0, 0.7))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=specialty2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 4))
 
 g2=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`Dental Specialties Board Certified`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_blank())+
   geom_text(aes(label=specialty2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 4))
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;none&quot;) 
+figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
 annotate_figure(figure,
                 top = text_grob(&quot;Dentist&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
 #                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
@@ -2115,6 +2157,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/7d181b067482346c83160fa93250c5dbbc6fb7dc/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" target="_blank">7d181b0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/b0b512ab0e8bbdc3198281baf00938adc002ccf1/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" target="_blank">b0b512a</a>
 </td>
 <td>
@@ -2199,6 +2252,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/7d181b067482346c83160fa93250c5dbbc6fb7dc/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-2.png" target="_blank">7d181b0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/b0b512ab0e8bbdc3198281baf00938adc002ccf1/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-2.png" target="_blank">b0b512a</a>
 </td>
 <td>
@@ -2281,6 +2345,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7d181b067482346c83160fa93250c5dbbc6fb7dc/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-3.png" target="_blank">7d181b0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/6f9829aa17a61172a647e0faf5641a6bbc4419b2/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-3.png" target="_blank">6f9829a</a>
