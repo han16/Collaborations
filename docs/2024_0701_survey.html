@@ -574,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedcdabd3c11b270adf386359b48ec17c57ba8cb3dtargetblankdcdabd3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecd31233af20ebf2c85ea9b414482e6f6f2cca029targetblankcd31233a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/dcdabd3c11b270adf386359b48ec17c57ba8cb3d" target="_blank">dcdabd3</a>
+<a href="https://github.com/han16/Collaborations/tree/cd31233af20ebf2c85ea9b414482e6f6f2cca029" target="_blank">cd31233</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedcdabd3c11b270adf386359b48ec17c57ba8cb3dtargetblankdcdabd3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecd31233af20ebf2c85ea9b414482e6f6f2cca029targetblankcd31233a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/dcdabd3c11b270adf386359b48ec17c57ba8cb3d" target="_blank">dcdabd3</a>.
+<a href="https://github.com/han16/Collaborations/tree/cd31233af20ebf2c85ea9b414482e6f6f2cca029" target="_blank">cd31233</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -658,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/cd31233af20ebf2c85ea9b414482e6f6f2cca029/analysis/2024_0701_survey.Rmd" target="_blank">cd31233</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+<td>
+8/26/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/cd31233af20ebf2c85ea9b414482e6f6f2cca029/docs/2024_0701_survey.html" target="_blank">cd31233</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+<td>
+8/26/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2065,13 +2099,14 @@ threshold=20
 practice_setting2=practice_setting %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Best Describes This Practice Setting`=&quot;other&quot;, n=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
 
 
-
+y_limit=max(practice_setting2$n)*1.1
 g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, fill=`Best Describes This Practice Setting`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
+  ylim(c(0, y_limit))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
   theme(legend.position=&quot;&quot;, legend.title=element_text(size=10))+
   theme(axis.text.x = element_blank())+
-  geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(label = with(practice_setting2, paste(n, paste0(&quot;(&quot;, prop*100, &quot;%&quot;, &quot;)&quot;))), vjust=-1, size=3)+
   ggtitle(&quot;&quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
    guides(fill = guide_legend(nrow = 5))
@@ -2086,7 +2121,7 @@ g2=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=pro
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
    guides(fill = guide_legend(nrow = 5))
 
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
+figure=ggarrange(g1, common.legend = TRUE, legend=&quot;bottom&quot;) 
 annotate_figure(figure,
                 top = text_grob(&quot;Dentist: 2957 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
 #                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
@@ -2119,6 +2154,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/cd31233af20ebf2c85ea9b414482e6f6f2cca029/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-10-1.png" target="_blank">cd31233</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-10-1.png" target="_blank">dcdabd3</a>
@@ -2191,6 +2237,7 @@ ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = &qu
   theme(legend.position=&quot;bottom&quot;)+
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  #geom_text(label = with(gender_geo_data, paste(num, paste0(&#39;(&#39;, Percent, &#39;)&#39;))), vjust=-1)
   ggtitle(&quot;Hygienist &quot;)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
