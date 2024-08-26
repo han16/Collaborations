@@ -356,7 +356,7 @@ practice_setting2=practice_setting %>% filter(n>threshold)  %>% add_row(`Best De
 g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, fill=`Best Describes This Practice Setting`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("n")+xlab("")+
-  theme(legend.position="")+
+  theme(legend.position="", legend.title=element_text(size=10))+
   theme(axis.text.x = element_blank())+
   geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
@@ -366,7 +366,7 @@ g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, 
 g2=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=prop, fill=`Best Describes This Practice Setting`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
   ylab("%")+xlab("")+
-  theme(legend.position="")+
+  theme(legend.position="", legend.title=element_text(size=10))+
   theme(axis.text.x = element_blank())+
   geom_text(aes(label=practice_setting2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+

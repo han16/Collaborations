@@ -574,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb7d6426d4a4d24e302066e68b71abaaa906cca08targetblankb7d6426a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedcdabd3c11b270adf386359b48ec17c57ba8cb3dtargetblankdcdabd3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/b7d6426d4a4d24e302066e68b71abaaa906cca08" target="_blank">b7d6426</a>
+<a href="https://github.com/han16/Collaborations/tree/dcdabd3c11b270adf386359b48ec17c57ba8cb3d" target="_blank">dcdabd3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb7d6426d4a4d24e302066e68b71abaaa906cca08targetblankb7d6426a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedcdabd3c11b270adf386359b48ec17c57ba8cb3dtargetblankdcdabd3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/b7d6426d4a4d24e302066e68b71abaaa906cca08" target="_blank">b7d6426</a>.
+<a href="https://github.com/han16/Collaborations/tree/dcdabd3c11b270adf386359b48ec17c57ba8cb3d" target="_blank">dcdabd3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -658,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/analysis/2024_0701_survey.Rmd" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+<td>
+8/26/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/2024_0701_survey.html" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+<td>
+8/26/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1424,6 +1458,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/b7d6426d4a4d24e302066e68b71abaaa906cca08/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">b7d6426</a>
 </td>
 <td>
@@ -1950,6 +1995,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-9-1.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/b7d6426d4a4d24e302066e68b71abaaa906cca08/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-9-1.png" target="_blank">b7d6426</a>
 </td>
 <td>
@@ -2013,7 +2069,7 @@ practice_setting2=practice_setting %&gt;% filter(n&gt;threshold)  %&gt;% add_row
 g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, fill=`Best Describes This Practice Setting`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
+  theme(legend.position=&quot;&quot;, legend.title=element_text(size=10))+
   theme(axis.text.x = element_blank())+
   geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
@@ -2023,7 +2079,7 @@ g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, 
 g2=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=prop, fill=`Best Describes This Practice Setting`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
  # ylim(c(0, 0.7))+
   ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
+  theme(legend.position=&quot;&quot;, legend.title=element_text(size=10))+
   theme(axis.text.x = element_blank())+
   geom_text(aes(label=practice_setting2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle(&quot;&quot;)+
@@ -2041,6 +2097,43 @@ annotate_figure(figure,
 
 )</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-10-1.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>practice_setting2%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -2125,6 +2218,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-14-1.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/6f9829aa17a61172a647e0faf5641a6bbc4419b2/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-14-1.png" target="_blank">6f9829a</a>
 </td>
 <td>
@@ -2199,6 +2303,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/7d181b067482346c83160fa93250c5dbbc6fb7dc/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" target="_blank">7d181b0</a>
@@ -2320,12 +2435,123 @@ pie_chart[[i]]=ggplot(data=pie_data)+
 ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)</code></pre>
 <pre><code>$`1`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-16-1.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`2`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
+Past versions of unnamed-chunk-16-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-16-2.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`3`</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-16-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-3">
+Past versions of unnamed-chunk-16-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-16-3.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 attr(,&quot;class&quot;)
 [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
