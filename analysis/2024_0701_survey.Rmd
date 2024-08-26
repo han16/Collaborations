@@ -67,7 +67,7 @@ g1=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe
   geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 4))
+   guides(fill = guide_legend(nrow = 5))
 
 g2=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
  # ylim(c(0, 0.7))+
@@ -77,7 +77,7 @@ g2=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Descr
   geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   ggtitle("")+
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-  guides(fill = guide_legend(nrow = 4))
+  guides(fill = guide_legend(nrow = 5))
 
 figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
 annotate_figure(figure,
@@ -316,7 +316,7 @@ g2=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`
 
 figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
 annotate_figure(figure,
-                top = text_grob("Dentist", color = "red", face = "bold", size = 14),
+                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
 #                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
 #                                   hjust = 1, x = 1, face = "italic", size = 10),
 #                left = text_grob("Tooth length", color = "green", rot = 90),
@@ -341,6 +341,61 @@ sum(specialty2$n)
 
 
 
+
+### Best Describes This Practice Setting
+
+
+```{r, message=F, warning=F}
+practice_setting=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Best Describes This Practice Setting`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+
+threshold=20
+practice_setting2=practice_setting %>% filter(n>threshold)  %>% add_row(`Best Describes This Practice Setting`="other", n=practice_setting %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=practice_setting %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
+
+
+
+g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, fill=`Best Describes This Practice Setting`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_blank())+
+  geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 5))
+
+g2=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=prop, fill=`Best Describes This Practice Setting`)) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0, 0.7))+
+  ylab("%")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_blank())+
+  geom_text(aes(label=practice_setting2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle("")+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = 5))
+
+figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
+annotate_figure(figure,
+                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
+#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
+#                                   hjust = 1, x = 1, face = "italic", size = 10),
+#                left = text_grob("Tooth length", color = "green", rot = 90),
+#                right = "I'm done, thanks :-)!",
+#                fig.lab = "Figure 1", fig.lab.face = "bold")
+
+)
+
+
+practice_setting2%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(practice_setting2$n)
+```
+
+`other` aggregates categories with responses less than 20. 
 
 
 ## geographical distribution 
