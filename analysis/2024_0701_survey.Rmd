@@ -23,6 +23,31 @@ changeCellColor <- function(row, col){
 ```
 
 
+```{r, echo=F, message=F, warning=F}
+plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12)
+{
+  
+  x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
+
+  
+  y_limit=max(data$n)*1.1
+g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  #theme(legend.position="", legend.title=element_text(size=10))+
+  theme(legend.position="bottom", legend.title=element_blank(), legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_blank())+
+  theme(axis.text.y = element_text(size = y_axis_text))+
+  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))), vjust=-1, size=num_size)+
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = legend_rows))
+  return(g1)
+}
+```
+
+
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
@@ -58,37 +83,10 @@ asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define sou
 asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
+fig=plot_function("Describe Your Race or Ethnicity", race_new, legend_rows = 4, var_name = "Describe Your Race or Ethnicity")
 
-g1=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 5))
+fig
 
-g2=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("%")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-  guides(fill = guide_legend(nrow = 5))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
-annotate_figure(figure,
-                top = text_grob("Hygienist: 3991 responses", color = "red", face = "bold", size = 14),
-#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
-#                                   hjust = 1, x = 1, face = "italic", size = 10),
-#                left = text_grob("Tooth length", color = "green", rot = 90),
-#                right = "I'm done, thanks :-)!",
-#                fig.lab = "Figure 1", fig.lab.face = "bold")
-
-)
 
 race_new%>%
 datatable(extensions = 'Buttons',
@@ -112,35 +110,8 @@ sum(race_new$n)
 ```{r, message=F, warning=F}
 gender=Dental_Hygienist$`Dental H` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
 
-g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("%")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
-annotate_figure(figure,
-                top = text_grob("Hygienist: 3991 responses", color = "red", face = "bold", size = 14),
-#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
-#                                   hjust = 1, x = 1, face = "italic", size = 10),
-#                left = text_grob("Tooth length", color = "green", rot = 90),
-#                right = "I'm done, thanks :-)!",
-#                fig.lab = "Figure 1", fig.lab.face = "bold")
-
-)
+fig=plot_function("Gender Identity", gender, legend_rows=2, var_name = "Gender Identity", num_size = 4)
+fig
 
 
 
@@ -183,38 +154,9 @@ race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add
 
 race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=race_new %>% filter(n<=10) %>% select(n) %>% sum(), prop=race_new %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
-g1=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(" ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-  guides(fill = guide_legend(nrow = 5))
 
-g2=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("%")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(" ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-  guides(fill = guide_legend(nrow = 5))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
-annotate_figure(figure,
-                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
-#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
-#                                   hjust = 1, x = 1, face = "italic", size = 10),
-#                left = text_grob("Tooth length", color = "green", rot = 90),
-#                right = "I'm done, thanks :-)!",
-#                fig.lab = "Figure 1", fig.lab.face = "bold")
-
-)
-
-
+fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 5, var_name="Describe Your Race or Ethnicity")
+fig
 
 
 race_new2%>%
@@ -239,36 +181,9 @@ sum(race_new2$n)
 ```{r, message=F, warning=F}
 gender=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
 
-g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 3))
+fig=plot_function("Gender Identity", gender, legend_rows = 2, var_name = "Gender Identity", num_size = 4, legend_text_size = 13)
+fig
 
-g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("%")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 3))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
-annotate_figure(figure,
-                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
-#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
-#                                   hjust = 1, x = 1, face = "italic", size = 10),
-#                left = text_grob("Tooth length", color = "green", rot = 90),
-#                right = "I'm done, thanks :-)!",
-#                fig.lab = "Figure 1", fig.lab.face = "bold")
-
-)
 
 
 gender%>%
@@ -292,38 +207,9 @@ specialty=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Dental Specialties B
 
 specialty2=specialty %>% filter(n>10)  %>% add_row(`Dental Specialties Board Certified`="other", n=specialty %>% filter(n<=10) %>% select(n) %>% sum(), prop=specialty %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
+fig=plot_function("Dental Specialties Board Certified", specialty2, legend_rows = 3, var_name = "Dental Specialties Board Certified", legend_text_size = 12)
+fig
 
-
-g1=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=n, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=specialty2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 4))
-
-g2=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`Dental Specialties Board Certified`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("%")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=specialty2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 4))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend="bottom") 
-annotate_figure(figure,
-                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
-#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
-#                                   hjust = 1, x = 1, face = "italic", size = 10),
-#                left = text_grob("Tooth length", color = "green", rot = 90),
-#                right = "I'm done, thanks :-)!",
-#                fig.lab = "Figure 1", fig.lab.face = "bold")
-
-)
 
 
 specialty2%>%
@@ -350,40 +236,8 @@ practice_setting=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Best Describe
 
 threshold=20
 practice_setting2=practice_setting %>% filter(n>threshold)  %>% add_row(`Best Describes This Practice Setting`="other", n=practice_setting %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=practice_setting %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
-
-
-y_limit=max(practice_setting2$n)*1.1
-g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, fill=`Best Describes This Practice Setting`)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, y_limit))+
-  ylab("n")+xlab("")+
-  theme(legend.position="", legend.title=element_text(size=10))+
-  theme(axis.text.x = element_blank())+
-  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  geom_text(label = with(practice_setting2, paste(n, paste0("(", prop*100, "%", ")"))), vjust=-1, size=3)+
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 5))
-
-g2=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=prop, fill=`Best Describes This Practice Setting`)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("%")+xlab("")+
-  theme(legend.position="", legend.title=element_text(size=10))+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=practice_setting2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 5))
-
-figure=ggarrange(g1, common.legend = TRUE, legend="bottom") 
-annotate_figure(figure,
-                top = text_grob("Dentist: 2957 responses", color = "red", face = "bold", size = 14),
-#                bottom = text_grob("Data source: \n ToothGrowth data set", color = "blue",
-#                                   hjust = 1, x = 1, face = "italic", size = 10),
-#                left = text_grob("Tooth length", color = "green", rot = 90),
-#                right = "I'm done, thanks :-)!",
-#                fig.lab = "Figure 1", fig.lab.face = "bold")
-
-)
+fig=plot_function("Best Describes This Practice Setting", practice_setting2, legend_rows = 4, var_name = "Best Describes This Practice Setting")
+fig
 
 
 practice_setting2%>%
@@ -397,6 +251,149 @@ sum(practice_setting2$n)
 ```
 
 `other` aggregates categories with responses less than 20. 
+
+
+#### group office practice 
+
+
+
+
+
+```{r, message=F, warning=F}
+group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+
+group_practice2=group_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(group_practice),4))
+
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice2,1, var_name="Gender Identity", num_size=4, legend_text_size = 13)
+fig
+
+group_practice2%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(group_practice2$n)
+```
+
+
+
+```{r, message=F, warning=F}
+group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+
+group_practice2=group_practice%>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(group_practice),4))
+
+threshold=10
+group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=group_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=group_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
+fig
+
+group_practice3%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(group_practice3$n)
+```
+
+```{r, message=F, warning=F}
+group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+
+group_practice2=group_practice%>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(group_practice),4))
+
+threshold=10
+group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Specialties Board Certified`="other", n=group_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=group_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Dental Specialties Board Certified", num_size = 4)
+fig
+
+group_practice3%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(group_practice3$n)
+```
+
+
+
+
+#### solo office practice 
+
+
+
+```{r, message=F, warning=F}
+solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+
+solo_practice2=solo_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(solo_practice),4))
+
+fig=plot_function(title="Solo office practice", solo_practice2,1, var_name="Gender Identity", num_size = 4, legend_text_size = 13)
+fig
+
+solo_practice2%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(solo_practice2$n)
+```
+
+
+
+```{r, message=F, warning=F}
+solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+
+solo_practice2=solo_practice%>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(solo_practice),4))
+threshold=10
+solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=solo_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=solo_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Solo office practice", solo_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
+fig
+
+solo_practice3%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(solo_practice3$n)
+```
+
+
+```{r, message=F, warning=F}
+solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+
+solo_practice2=solo_practice%>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(solo_practice),4))
+threshold=10
+solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Specialties Board Certified`="other", n=solo_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=solo_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Solo office practice", solo_practice3,1, var_name="Dental Specialties Board Certified", num_size = 4, legend_text_size = 12)
+fig
+
+solo_practice3%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(solo_practice3$n)
+```
+
+
 
 
 ## geographical distribution 

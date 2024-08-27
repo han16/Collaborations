@@ -414,7 +414,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-08-26
+<strong>Last updated:</strong> 2024-08-27
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -574,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecd31233af20ebf2c85ea9b414482e6f6f2cca029targetblankcd31233a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb2d47a80f36f744a1c995f22ae71e30ae7daf5e6targetblankb2d47a8a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/cd31233af20ebf2c85ea9b414482e6f6f2cca029" target="_blank">cd31233</a>
+<a href="https://github.com/han16/Collaborations/tree/b2d47a80f36f744a1c995f22ae71e30ae7daf5e6" target="_blank">b2d47a8</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecd31233af20ebf2c85ea9b414482e6f6f2cca029targetblankcd31233a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb2d47a80f36f744a1c995f22ae71e30ae7daf5e6targetblankb2d47a8a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/cd31233af20ebf2c85ea9b414482e6f6f2cca029" target="_blank">cd31233</a>.
+<a href="https://github.com/han16/Collaborations/tree/b2d47a80f36f744a1c995f22ae71e30ae7daf5e6" target="_blank">b2d47a8</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -658,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/b2d47a80f36f744a1c995f22ae71e30ae7daf5e6/analysis/2024_0701_survey.Rmd" target="_blank">b2d47a8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+<td>
+8/26/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/b2d47a80f36f744a1c995f22ae71e30ae7daf5e6/docs/2024_0701_survey.html" target="_blank">b2d47a8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+<td>
+8/26/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1436,191 +1470,9 @@ asia=c(&quot;East Asian&quot;, &quot;Filipino&quot;, &quot;Hmong&quot;, &quot;La
 asia_race= race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia==F) %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;asia&quot;, n=asia_race %&gt;% select(n) %&gt;% sum(), prop=asia_race %&gt;% select(prop) %&gt;% sum()) # combine south east asia countries into one unit 
 
+fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new, legend_rows = 4, var_name = &quot;Describe Your Race or Ethnicity&quot;)
 
-g1=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 5))
-
-g2=ggplot(race_new, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-  guides(fill = guide_legend(nrow = 5))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
-annotate_figure(figure,
-                top = text_grob(&quot;Hygienist: 3991 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
-#                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
-#                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
-#                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
-#                right = &quot;I&#39;m done, thanks :-)!&quot;,
-#                fig.lab = &quot;Figure 1&quot;, fig.lab.face = &quot;bold&quot;)
-
-)</code></pre>
-<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">dcdabd3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-26
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/b7d6426d4a4d24e302066e68b71abaaa906cca08/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">b7d6426</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-23
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/810a5b03eb7ce469937551267e6cfb4833933025/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">810a5b0</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-16
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/6f9829aa17a61172a647e0faf5641a6bbc4419b2/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">6f9829a</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-15
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/a6fe9dcce8d4a29a347c25f3aa85dc46373a9f8c/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">a6fe9dc</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-07
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/466390e8f161b7fc7e19d0f2d273fc3dc6c4f32e/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">466390e</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-01
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/3614a507dbc7b6e01ff872bdbb8b2925e9648d64/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-4-1.png" target="_blank">3614a50</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-01
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>race_new%&gt;%
-datatable(extensions = &#39;Buttons&#39;,
-          caption = &quot;&quot;,
-            options = list(dom = &#39;Blfrtip&#39;,
-                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9"],["Black or African American","Decline to answer","Hispanic or Latino/a/x","Indigenous or Native American","Native Hawaiian or Other Pacific Islander","Some other race or ethnicity","White",null,"asia"],[31,170,81,15,1,13,3557,57,66],[0.0078,0.0426,0.0203,0.0038,0.0003,0.0033,0.8913,0.0143,0.0167]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(race_new$n)</code></pre>
-<pre><code>[1] 3991</code></pre>
-<pre class="r"><code>## dual axis plot https://finchstudio.io/blog/ggplot-dual-y-axes/ https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html   # https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales</code></pre>
-<ul>
-<li><code>asia</code> includes “East Asian”, “Filipino”, “Hmong”,
-“Laotian”, “South Asian”</li>
-</ul>
-</div>
-<div id="gender-identity" class="section level3">
-<h3>Gender Identity</h3>
-<pre class="r"><code>gender=Dental_Hygienist$`Dental H` %&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
-
-g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
-annotate_figure(figure,
-                top = text_grob(&quot;Hygienist: 3991 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
-#                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
-#                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
-#                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
-#                right = &quot;I&#39;m done, thanks :-)!&quot;,
-#                fig.lab = &quot;Figure 1&quot;, fig.lab.face = &quot;bold&quot;)
-
-)</code></pre>
+fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1681,6 +1533,30 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>race_new%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9"],["Black or African American","Decline to answer","Hispanic or Latino/a/x","Indigenous or Native American","Native Hawaiian or Other Pacific Islander","Some other race or ethnicity","White",null,"asia"],[31,170,81,15,1,13,3557,57,66],[0.0078,0.0426,0.0203,0.0038,0.0003,0.0033,0.8913,0.0143,0.0167]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(race_new$n)</code></pre>
+<pre><code>[1] 3991</code></pre>
+<pre class="r"><code>## dual axis plot https://finchstudio.io/blog/ggplot-dual-y-axes/ https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html   # https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales</code></pre>
+<ul>
+<li><code>asia</code> includes “East Asian”, “Filipino”, “Hmong”,
+“Laotian”, “South Asian”</li>
+</ul>
+</div>
+<div id="gender-identity" class="section level3">
+<h3>Gender Identity</h3>
+<pre class="r"><code>gender=Dental_Hygienist$`Dental H` %&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+
+fig=plot_function(&quot;Gender Identity&quot;, gender, legend_rows=2, var_name = &quot;Gender Identity&quot;, num_size = 4)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gender%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -1719,181 +1595,9 @@ race_new=race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia==F) %&gt
 
 race_new2=race_new %&gt;% filter(n&gt;10)  %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;other&quot;, n=race_new %&gt;% filter(n&lt;=10) %&gt;% select(n) %&gt;% sum(), prop=race_new %&gt;% filter(n&lt;=10) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
 
-g1=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=n, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot; &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-  guides(fill = guide_legend(nrow = 5))
 
-g2=ggplot(race_new2, aes(x=`Describe Your Race or Ethnicity`, y=prop, fill=`Describe Your Race or Ethnicity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=race_new2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot; &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-  guides(fill = guide_legend(nrow = 5))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
-annotate_figure(figure,
-                top = text_grob(&quot;Dentist: 2957 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
-#                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
-#                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
-#                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
-#                right = &quot;I&#39;m done, thanks :-)!&quot;,
-#                fig.lab = &quot;Figure 1&quot;, fig.lab.face = &quot;bold&quot;)
-
-)</code></pre>
-<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/b7d6426d4a4d24e302066e68b71abaaa906cca08/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-7-1.png" target="_blank">b7d6426</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-23
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/810a5b03eb7ce469937551267e6cfb4833933025/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-7-1.png" target="_blank">810a5b0</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-16
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/6f9829aa17a61172a647e0faf5641a6bbc4419b2/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-7-1.png" target="_blank">6f9829a</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-15
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/a5101d33ccf120165fb4ed7d2987c0e17e12864a/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-7-1.png" target="_blank">a5101d3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/b35bcf81cc03c42e81fa6167918def7089483a4d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-7-1.png" target="_blank">b35bcf8</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-07
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/d2b6989234f39215aa94b73a95f4ff8c7fdff404/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-7-1.png" target="_blank">d2b6989</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>race_new2%&gt;%
-datatable(extensions = &#39;Buttons&#39;,
-          caption = &quot;&quot;,
-            options = list(dom = &#39;Blfrtip&#39;,
-                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Black or African American","Decline to answer","Hispanic or Latino/a/x","Some other race or ethnicity","White","White; Hispanic or Latino/a/x","White; Indigenous or Native American",null,"asia","other"],[49,227,74,18,2182,13,13,59,258,64],[0.0166,0.07679999999999999,0.025,0.0061,0.7379,0.0044,0.0044,0.02,0.0872,0.0213]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(race_new2$n)</code></pre>
-<pre><code>[1] 2957</code></pre>
-<ul>
-<li><p><code>asia</code> includes “East Asian”, “Filipino”, “Hmong”,
-“Laotian”, “South Asian”</p></li>
-<li><p><code>other</code> aggregates categories with less than 10
-responses.</p></li>
-</ul>
-</div>
-<div id="gender-identity-1" class="section level3">
-<h3>Gender Identity</h3>
-<pre class="r"><code>gender=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
-
-g1=ggplot(gender, aes(x=`Gender Identity`, y=n, fill=`Gender Identity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 3))
-
-g2=ggplot(gender, aes(x=`Gender Identity`, y=prop, fill=`Gender Identity`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=gender$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 3))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
-annotate_figure(figure,
-                top = text_grob(&quot;Dentist: 2957 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
-#                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
-#                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
-#                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
-#                right = &quot;I&#39;m done, thanks :-)!&quot;,
-#                fig.lab = &quot;Figure 1&quot;, fig.lab.face = &quot;bold&quot;)
-
-)</code></pre>
+fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new2, legend_rows = 5, var_name=&quot;Describe Your Race or Ethnicity&quot;)
+fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1954,56 +1658,30 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>gender%&gt;%
+<pre class="r"><code>race_new2%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6"],["Decline to answer","Man","Option not listed above","Transgender","Woman",null],[109,1764,3,1,1025,55],[0.0369,0.5966,0.001,0.0003,0.3466,0.0186]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender Identity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender Identity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(gender$n)</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Black or African American","Decline to answer","Hispanic or Latino/a/x","Some other race or ethnicity","White","White; Hispanic or Latino/a/x","White; Indigenous or Native American",null,"asia","other"],[49,227,74,18,2182,13,13,59,258,64],[0.0166,0.07679999999999999,0.025,0.0061,0.7379,0.0044,0.0044,0.02,0.0872,0.0213]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(race_new2$n)</code></pre>
 <pre><code>[1] 2957</code></pre>
+<ul>
+<li><p><code>asia</code> includes “East Asian”, “Filipino”, “Hmong”,
+“Laotian”, “South Asian”</p></li>
+<li><p><code>other</code> aggregates categories with less than 10
+responses.</p></li>
+</ul>
 </div>
-<div id="dental-specialties-board-certified" class="section level3">
-<h3>Dental Specialties Board Certified</h3>
-<pre class="r"><code>specialty=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Dental Specialties Board Certified`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+<div id="gender-identity-1" class="section level3">
+<h3>Gender Identity</h3>
+<pre class="r"><code>gender=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
 
-specialty2=specialty %&gt;% filter(n&gt;10)  %&gt;% add_row(`Dental Specialties Board Certified`=&quot;other&quot;, n=specialty %&gt;% filter(n&lt;=10) %&gt;% select(n) %&gt;% sum(), prop=specialty %&gt;% filter(n&lt;=10) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
-
-
-
-g1=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=n, fill=`Dental Specialties Board Certified`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=specialty2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 4))
-
-g2=ggplot(specialty2, aes(x=`Dental Specialties Board Certified`, y=prop, fill=`Dental Specialties Board Certified`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;)+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=specialty2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 4))
-
-figure=ggarrange(g1, g2, common.legend = TRUE, legend=&quot;bottom&quot;) 
-annotate_figure(figure,
-                top = text_grob(&quot;Dentist: 2957 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
-#                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
-#                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
-#                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
-#                right = &quot;I&#39;m done, thanks :-)!&quot;,
-#                fig.lab = &quot;Figure 1&quot;, fig.lab.face = &quot;bold&quot;)
-
-)</code></pre>
+fig=plot_function(&quot;Gender Identity&quot;, gender, legend_rows = 2, var_name = &quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13)
+fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
@@ -2075,62 +1753,26 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>specialty2%&gt;%
+<pre class="r"><code>gender%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9"],["Endodontics","General dentistry","Oral surgery","Orthodontics","Pediatric dentistry","Periodontics","Prosthodontics",null,"other"],[41,1726,83,93,84,32,15,866,17],[0.0139,0.5837,0.0281,0.0315,0.0284,0.0108,0.0051,0.2929,0.0055]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dental Specialties Board Certified<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Dental Specialties Board Certified","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(specialty2$n)</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6"],["Decline to answer","Man","Option not listed above","Transgender","Woman",null],[109,1764,3,1,1025,55],[0.0369,0.5966,0.001,0.0003,0.3466,0.0186]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender Identity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender Identity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(gender$n)</code></pre>
 <pre><code>[1] 2957</code></pre>
-<ul>
-<li><code>other</code> aggregates categories with less than 10
-responses, such as <code>General dentistry; Oral surgery</code></li>
-</ul>
 </div>
-<div id="best-describes-this-practice-setting" class="section level3">
-<h3>Best Describes This Practice Setting</h3>
-<pre class="r"><code>practice_setting=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Best Describes This Practice Setting`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+<div id="dental-specialties-board-certified" class="section level3">
+<h3>Dental Specialties Board Certified</h3>
+<pre class="r"><code>specialty=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Dental Specialties Board Certified`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
 
-threshold=20
-practice_setting2=practice_setting %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Best Describes This Practice Setting`=&quot;other&quot;, n=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
+specialty2=specialty %&gt;% filter(n&gt;10)  %&gt;% add_row(`Dental Specialties Board Certified`=&quot;other&quot;, n=specialty %&gt;% filter(n&lt;=10) %&gt;% select(n) %&gt;% sum(), prop=specialty %&gt;% filter(n&lt;=10) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
 
-
-y_limit=max(practice_setting2$n)*1.1
-g1=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=n, fill=`Best Describes This Practice Setting`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
-  ylim(c(0, y_limit))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;, legend.title=element_text(size=10))+
-  theme(axis.text.x = element_blank())+
-  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  geom_text(label = with(practice_setting2, paste(n, paste0(&quot;(&quot;, prop*100, &quot;%&quot;, &quot;)&quot;))), vjust=-1, size=3)+
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 5))
-
-g2=ggplot(practice_setting2, aes(x=`Best Describes This Practice Setting`, y=prop, fill=`Best Describes This Practice Setting`)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;%&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;&quot;, legend.title=element_text(size=10))+
-  theme(axis.text.x = element_blank())+
-  geom_text(aes(label=practice_setting2$prop*100), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
-   guides(fill = guide_legend(nrow = 5))
-
-figure=ggarrange(g1, common.legend = TRUE, legend=&quot;bottom&quot;) 
-annotate_figure(figure,
-                top = text_grob(&quot;Dentist: 2957 responses&quot;, color = &quot;red&quot;, face = &quot;bold&quot;, size = 14),
-#                bottom = text_grob(&quot;Data source: \n ToothGrowth data set&quot;, color = &quot;blue&quot;,
-#                                   hjust = 1, x = 1, face = &quot;italic&quot;, size = 10),
-#                left = text_grob(&quot;Tooth length&quot;, color = &quot;green&quot;, rot = 90),
-#                right = &quot;I&#39;m done, thanks :-)!&quot;,
-#                fig.lab = &quot;Figure 1&quot;, fig.lab.face = &quot;bold&quot;)
-
-)</code></pre>
+fig=plot_function(&quot;Dental Specialties Board Certified&quot;, specialty2, legend_rows = 3, var_name = &quot;Dental Specialties Board Certified&quot;, legend_text_size = 12)
+fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
@@ -2154,6 +1796,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/b2d47a80f36f744a1c995f22ae71e30ae7daf5e6/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-10-1.png" target="_blank">b2d47a8</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/cd31233af20ebf2c85ea9b414482e6f6f2cca029/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-10-1.png" target="_blank">cd31233</a>
@@ -2180,6 +1833,31 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>specialty2%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9"],["Endodontics","General dentistry","Oral surgery","Orthodontics","Pediatric dentistry","Periodontics","Prosthodontics",null,"other"],[41,1726,83,93,84,32,15,866,17],[0.0139,0.5837,0.0281,0.0315,0.0284,0.0108,0.0051,0.2929,0.0055]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dental Specialties Board Certified<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Dental Specialties Board Certified","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(specialty2$n)</code></pre>
+<pre><code>[1] 2957</code></pre>
+<ul>
+<li><code>other</code> aggregates categories with less than 10
+responses, such as <code>General dentistry; Oral surgery</code></li>
+</ul>
+</div>
+<div id="best-describes-this-practice-setting" class="section level3">
+<h3>Best Describes This Practice Setting</h3>
+<pre class="r"><code>practice_setting=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Best Describes This Practice Setting`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+
+threshold=20
+practice_setting2=practice_setting %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Best Describes This Practice Setting`=&quot;other&quot;, n=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
+fig=plot_function(&quot;Best Describes This Practice Setting&quot;, practice_setting2, legend_rows = 4, var_name = &quot;Best Describes This Practice Setting&quot;)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>practice_setting2%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -2193,53 +1871,106 @@ datatable(extensions = &#39;Buttons&#39;,
 <pre><code>[1] 2957</code></pre>
 <p><code>other</code> aggregates categories with responses less than
 20.</p>
+<div id="group-office-practice" class="section level4">
+<h4>group office practice</h4>
+<pre class="r"><code>group_practice=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Group office practice (any number of dentists &gt;1)&quot;) 
+
+group_practice2=group_practice%&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(group_practice),4))
+
+fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice2,1, var_name=&quot;Gender Identity&quot;, num_size=4, legend_text_size = 13)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>group_practice2%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Decline to answer","Man","Option not listed above","Woman",null],[43,735,1,496,7],[0.0335,0.5733,0.0008,0.3869,0.0055]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender Identity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender Identity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(group_practice2$n)</code></pre>
+<pre><code>[1] 1282</code></pre>
+<pre class="r"><code>group_practice=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Group office practice (any number of dentists &gt;1)&quot;) 
+
+group_practice2=group_practice%&gt;% dplyr::count(`Describe Your Race or Ethnicity`) %&gt;% mutate(prop=round(n/nrow(group_practice),4))
+
+threshold=10
+group_practice3=group_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;other&quot;, n=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
+
+
+fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6f9829aa17a61172a647e0faf5641a6bbc4419b2/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-13-1.png" target="_blank">6f9829a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-15
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/b0656d2fcae713d15c6eaef9c3178f01a537982e/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-13-1.png" target="_blank">b0656d2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-12
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div id="geographical-distribution" class="section level2">
-<h2>geographical distribution</h2>
-<pre class="r"><code>wisconsin_urban_rural_zip=multiplesheets(&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\Wisconsin-Urban-Rural-zip.xlsx&quot;)</code></pre>
-<ul>
-<li><a
-href="https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/ETU5WgJJl9BIoNsBBNhPqocBR3DcuAN3q1H65LThX3eeuQ?e=Ozruo2">Wisconsin
-state urban rural code</a></li>
-</ul>
-<pre class="r"><code>region_code=unique(wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`)
-all_code=wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`
-all_code[which(all_code==&quot;R2/R1&quot;)]=&quot;R2&quot;   # raname regions 
-all_code[which(all_code==&quot;Urban/R1&quot;)]=&quot;Urban&quot;
-all_code[which(all_code==&quot;Metro W-O-W/R1&quot;)]=&quot;Metro W-O-W&quot;
-all_code[which(all_code==&quot;R3/R1&quot;)]=&quot;R3&quot;
-all_code[which(all_code==&quot;R3/R2/R1&quot;)]=&quot;R3&quot;
-all_code[which(all_code==&quot;Urban/R2&quot;)]=&quot;Urban&quot;
-all_code[which(all_code==&quot;R1/Urban&quot;)]=&quot;R1&quot;
-wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %&gt;% mutate(new_region_code=all_code)
-region_code_update=unique(all_code)</code></pre>
-<pre class="r"><code>region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %&gt;% filter(new_region_code==x) %&gt;% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
-hygienist_zip=unique(Dental_Hygienist$`Dental H` %&gt;% select(`5-digit Zip code` ) %&gt;% pull)
+<pre class="r"><code>group_practice3%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7"],["Black or African American","Decline to answer","East Asian","Hispanic or Latino/a/x","South Asian","White","other"],[12,83,41,29,70,980,67],[0.0094,0.06469999999999999,0.032,0.0226,0.0546,0.7644,0.0526]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(group_practice3$n)</code></pre>
+<pre><code>[1] 1282</code></pre>
+<pre class="r"><code>group_practice=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Group office practice (any number of dentists &gt;1)&quot;) 
 
-#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
-# Dental_Hygienist$`Dental H` %&gt;% filter(`5-digit Zip code` %in% zip_in_hygie_only)%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
+group_practice2=group_practice%&gt;% dplyr::count(`Dental Specialties Board Certified`) %&gt;% mutate(prop=round(n/nrow(group_practice),4))
+
+threshold=10
+group_practice3=group_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Dental Specialties Board Certified`=&quot;other&quot;, n=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
 
 
-#dentist_zip=unique(Dentist_Survey$`Dentist Survey` %&gt;% select(`5-digit Zip code` ) %&gt;% pull)
-#zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
-#Dentist_Survey$`Dentist Survey` %&gt;% filter(`5-digit Zip code` %in% zip_in_dentist_only)%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data</code></pre>
-<div id="gender-identity-2" class="section level3">
-<h3>Gender Identity</h3>
-<pre class="r"><code>gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist$`Dental H` %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% select(`Gender Identity`))
-gender_prop=sapply(gender_geo, function(x) c(sum(x==&quot;Man&quot;, na.rm = T), sum(x==&quot;Woman&quot;, na.rm = T))) 
-gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(region_code_update))) %&gt;% drop_na()
-
-
-ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;bottom&quot;)+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  #geom_text(label = with(gender_geo_data, paste(num, paste0(&#39;(&#39;, Percent, &#39;)&#39;))), vjust=-1)
-  ggtitle(&quot;Hygienist &quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4)
+fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -2300,33 +2031,26 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>gender_geo_data%&gt;%
+<pre class="r"><code>group_practice3%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[1,278,2,223,15,1234,0,339,1,234,8,260],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow()  ?????????? </code></pre>
-<ul>
-<li>only keep <code>Man</code> and <code>Woman</code> and ignore other
-responses</li>
-</ul>
-<pre class="r"><code>gender_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% select(`Gender Identity`))
-gender_prop=sapply(gender_geo, function(x) c(sum(x==&quot;Man&quot;, na.rm=T), sum(x==&quot;Woman&quot;, na.rm=T))) 
-gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(region_code_update))) %&gt;% drop_na()
+<div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8"],["Endodontics","General dentistry","Oral surgery","Orthodontics","Pediatric dentistry","Periodontics",null,"other"],[32,937,63,48,55,24,108,15],[0.025,0.7309,0.0491,0.0374,0.0429,0.0187,0.0842,0.0117]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dental Specialties Board Certified<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Dental Specialties Board Certified","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(group_practice3$n)</code></pre>
+<pre><code>[1] 1282</code></pre>
+</div>
+<div id="solo-office-practice" class="section level4">
+<h4>solo office practice</h4>
+<pre class="r"><code>solo_practice=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Solo office practice&quot;) 
 
+solo_practice2=solo_practice%&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(solo_practice),4))
 
-ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
- # ylim(c(0, 0.7))+
-  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
-  theme(legend.position=&quot;bottom&quot;)+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(&quot;Dentist_Survey&quot;)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice2,1, var_name=&quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13)
+fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
@@ -2431,6 +2155,145 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>solo_practice2%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Decline to answer","Man","Option not listed above","Woman",null],[30,432,1,189,4],[0.0457,0.6585,0.0015,0.2881,0.0061]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender Identity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender Identity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(solo_practice2$n)</code></pre>
+<pre><code>[1] 656</code></pre>
+<pre class="r"><code>solo_practice=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Solo office practice&quot;) 
+
+solo_practice2=solo_practice%&gt;% dplyr::count(`Describe Your Race or Ethnicity`) %&gt;% mutate(prop=round(n/nrow(solo_practice),4))
+threshold=10
+solo_practice3=solo_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;other&quot;, n=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
+
+
+fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-16-1.png" target="_blank">dcdabd3</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>solo_practice3%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6"],["Decline to answer","East Asian","Hispanic or Latino/a/x","South Asian","White","other"],[56,14,17,15,518,36],[0.0854,0.0213,0.0259,0.0229,0.7896,0.0545]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(solo_practice3$n)</code></pre>
+<pre><code>[1] 656</code></pre>
+<pre class="r"><code>solo_practice=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Solo office practice&quot;) 
+
+solo_practice2=solo_practice%&gt;% dplyr::count(`Dental Specialties Board Certified`) %&gt;% mutate(prop=round(n/nrow(solo_practice),4))
+threshold=10
+solo_practice3=solo_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Dental Specialties Board Certified`=&quot;other&quot;, n=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
+
+
+fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,1, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4, legend_text_size = 12)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>solo_practice3%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-873249b169eb6149d57e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["General dentistry","Orthodontics","Pediatric dentistry",null,"other"],[506,38,15,62,35],[0.7713,0.0579,0.0229,0.0945,0.0532]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dental Specialties Board Certified<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Dental Specialties Board Certified","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(solo_practice3$n)</code></pre>
+<pre><code>[1] 656</code></pre>
+</div>
+</div>
+</div>
+<div id="geographical-distribution" class="section level2">
+<h2>geographical distribution</h2>
+<pre class="r"><code>wisconsin_urban_rural_zip=multiplesheets(&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\Wisconsin-Urban-Rural-zip.xlsx&quot;)</code></pre>
+<ul>
+<li><a
+href="https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/ETU5WgJJl9BIoNsBBNhPqocBR3DcuAN3q1H65LThX3eeuQ?e=Ozruo2">Wisconsin
+state urban rural code</a></li>
+</ul>
+<pre class="r"><code>region_code=unique(wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`)
+all_code=wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`
+all_code[which(all_code==&quot;R2/R1&quot;)]=&quot;R2&quot;   # raname regions 
+all_code[which(all_code==&quot;Urban/R1&quot;)]=&quot;Urban&quot;
+all_code[which(all_code==&quot;Metro W-O-W/R1&quot;)]=&quot;Metro W-O-W&quot;
+all_code[which(all_code==&quot;R3/R1&quot;)]=&quot;R3&quot;
+all_code[which(all_code==&quot;R3/R2/R1&quot;)]=&quot;R3&quot;
+all_code[which(all_code==&quot;Urban/R2&quot;)]=&quot;Urban&quot;
+all_code[which(all_code==&quot;R1/Urban&quot;)]=&quot;R1&quot;
+wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %&gt;% mutate(new_region_code=all_code)
+region_code_update=unique(all_code)</code></pre>
+<pre class="r"><code>region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %&gt;% filter(new_region_code==x) %&gt;% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
+hygienist_zip=unique(Dental_Hygienist$`Dental H` %&gt;% select(`5-digit Zip code` ) %&gt;% pull)
+
+#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
+# Dental_Hygienist$`Dental H` %&gt;% filter(`5-digit Zip code` %in% zip_in_hygie_only)%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
+
+
+#dentist_zip=unique(Dentist_Survey$`Dentist Survey` %&gt;% select(`5-digit Zip code` ) %&gt;% pull)
+#zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
+#Dentist_Survey$`Dentist Survey` %&gt;% filter(`5-digit Zip code` %in% zip_in_dentist_only)%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data</code></pre>
+<div id="gender-identity-2" class="section level3">
+<h3>Gender Identity</h3>
+<pre class="r"><code>gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist$`Dental H` %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% select(`Gender Identity`))
+gender_prop=sapply(gender_geo, function(x) c(sum(x==&quot;Man&quot;, na.rm = T), sum(x==&quot;Woman&quot;, na.rm = T))) 
+gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(region_code_update))) %&gt;% drop_na()
+
+
+ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+ # ylim(c(0, 0.7))+
+  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
+  theme(legend.position=&quot;bottom&quot;)+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  #geom_text(label = with(gender_geo_data, paste(num, paste0(&#39;(&#39;, Percent, &#39;)&#39;))), vjust=-1)
+  ggtitle(&quot;Hygienist &quot;)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gender_geo_data%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -2438,8 +2301,36 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[1,278,2,223,15,1234,0,339,1,234,8,260],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow()  ?????????? </code></pre>
+<ul>
+<li>only keep <code>Man</code> and <code>Woman</code> and ignore other
+responses</li>
+</ul>
+<pre class="r"><code>gender_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% select(`Gender Identity`))
+gender_prop=sapply(gender_geo, function(x) c(sum(x==&quot;Man&quot;, na.rm=T), sum(x==&quot;Woman&quot;, na.rm=T))) 
+gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(region_code_update))) %&gt;% drop_na()
+
+
+ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;)+
+ # ylim(c(0, 0.7))+
+  ylab(&quot;n&quot;)+xlab(&quot;&quot;)+
+  theme(legend.position=&quot;bottom&quot;)+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle(&quot;Dentist_Survey&quot;)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title</code></pre>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gender_geo_data%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f25d4e1770d66a86dcce" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f25d4e1770d66a86dcce">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>sum(gender_geo_data$num)</code></pre>
 <pre><code>[1] 1913</code></pre>
 </div>
@@ -2481,124 +2372,13 @@ pie_chart[[i]]=ggplot(data=pie_data)+
   
 ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)</code></pre>
 <pre><code>$`1`</code></pre>
-<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-16-1.png" target="_blank">dcdabd3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>
 $`2`</code></pre>
-<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
-Past versions of unnamed-chunk-16-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-16-2.png" target="_blank">dcdabd3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>
 $`3`</code></pre>
-<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-16-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-3">
-Past versions of unnamed-chunk-16-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/dcdabd3c11b270adf386359b48ec17c57ba8cb3d/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-16-3.png" target="_blank">dcdabd3</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>
 attr(,&quot;class&quot;)
 [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
@@ -2609,8 +2389,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-969965edfe9f869aa904" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>sum(gender_geo_data$num)</code></pre>
 <pre><code>[1] 1913</code></pre>
 <br>
