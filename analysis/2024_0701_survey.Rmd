@@ -438,22 +438,36 @@ hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` )
 
 ### Gender Identity
 
+
+```{r, echo=F, message=F, warning=F}
+side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title)
+{
+  y_limit=max(data$num)*1.1
+  g=ggplot(data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ return(g)
+  
+}
+```
+
+
+
+
 ```{r, message=F, warning=F}
 
 gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
 gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm = T), sum(x=="Woman", na.rm = T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
 
-
-ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("n")+xlab("")+
-  theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
-  ggtitle("Hygienist ")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 4, x_text_size=12, legend_text_size=12, title="Hygenist")
+fig
 
 
 
@@ -477,15 +491,8 @@ gender_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %
 gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
 
-
-ggplot(gender_geo_data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0, 0.7))+
-  ylab("n")+xlab("")+
-  theme(legend.position="bottom")+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist_Survey")+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 4, x_text_size=12, legend_text_size=12, title="Dentist_Survey")
+fig
 
 
 gender_geo_data%>%
@@ -519,12 +526,12 @@ for (i in 1:length(region_code_update))
 {
    figures[[i]]=ggplot(specialty_geo_data %>% filter(geo %in% region_code_update[i]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
   ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code_update[i]) %>% select(num)%>% pull())+10))+
-  facet_grid("geo")+
+ # facet_grid("geo")+
   ylab("n")+xlab("")+
   theme(legend.position="")+
   theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
   geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle("Dentist_Survey")+
+  ggtitle(region_code_update[i])+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
   
   pie_data=specialty_geo_data %>% filter(geo %in% region_code_update[i])
