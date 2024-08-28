@@ -113,8 +113,8 @@ RTR_post_regen_IP=as.numeric(Data$RTR_post_regen_IP)[1:num_indi]
 RTR_post_regen_CRP=as.numeric(Data$RTR_post_regen_CRP)[1:num_indi]
 Time_comp_post_regen=as.numeric(Data$Time_comp_post_regen)[1:num_indi]
 Post_cr_del_months=as.numeric(Data$Post_cr_del_months)[1:num_indi]
-Latest_bone_levels_mm=as.numeric(Data$Latest_bone_levels_mm)[1:num_indi]
-Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%`)[1:num_indi]
+Latest_bone_levels_mm=as.numeric(Data$`Latest_bone_levels_mm...46`)[1:num_indi]
+Latest_bone_levels_percentage=as.numeric(Data$`Latest_bone_levels_%...47`)[1:num_indi]
 
 data_interest_store=data.frame(Age, CBL_diagnosis_months, I_Torque, I_Diameter, I_Length, Time_comp_days, Bone_loss_mm, Bone_loss_percentage, Bone_loss_crest, Bone_loss_post_regen_mm, Bone_loss_post_regen_percentage, Month_post_regen, RTR_post_regen_IP,RTR_post_regen_CRP, Time_comp_post_regen, Post_cr_del_months, Latest_bone_levels_mm, Latest_bone_levels_percentage )
 
