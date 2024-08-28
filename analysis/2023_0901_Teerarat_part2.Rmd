@@ -1,7 +1,9 @@
 ---
 title: "RESTORE"
-output: html_document
-date: "2024-05-20"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 ---
 
 ```{r, echo=F, message=F, warning=F}
@@ -339,6 +341,7 @@ datatable(extensions = 'Buttons',
 ```{r, echo=F, message=F, warning=F}
 #Data$Pre_implant_Procedure[1]=1
 data_subset=Data %>% dplyr::count(Pre_implant_Procedure) %>% mutate(prop=n/num_indi)
+data_subset=data_subset %>% filter(`Pre_implant_Procedure`!=6)  # remove 6 that is not  a procedure 
 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]="Extraction alone"; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]="Extraction and bone graft"; 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]="Extraction, bone graft and membrane";
