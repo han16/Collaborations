@@ -1,6 +1,9 @@
 ---
 title: "one hour"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-05-24"
 ---
 
