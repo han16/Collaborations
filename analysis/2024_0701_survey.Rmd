@@ -410,7 +410,7 @@ wisconsin_urban_rural_zip=multiplesheets("C:\\Shengtong\\Research\\OralPublicHea
 ```{r, message=F, warning=F}
 region_code=unique(wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`)
 all_code=wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`
-all_code[which(all_code=="R2/R1")]="R2"   # raname regions 
+all_code[which(all_code=="R2/R1")]="R2"   # rename regions 
 all_code[which(all_code=="Urban/R1")]="Urban"
 all_code[which(all_code=="Metro W-O-W/R1")]="Metro W-O-W"
 all_code[which(all_code=="R3/R1")]="R3"
@@ -430,11 +430,62 @@ hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` )
 # Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
 
 
-#dentist_zip=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
-#zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
-#Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
+dentist_zip=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
+#sum(is.na(Dentist_Survey_zipcode)==T) 893 zip codes are missing 
+
+
+zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
+Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
+
+data.frame(zip_in_dentist_only)%>%
+datatable(extensions = 'Buttons',
+          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
+
+* there are 77 zip codes missing, i.e. not in Wisconsin zip code list, involving in 886 dentist, mainly because some code (46/77=59.7%) have sub-code like `53574-8881`, but Wisconsin zip code don't have sub-code 
+
+* in dentist survey data, 891 zip codes are missing. 
+
+
+
+
+```{r, message=F, warning=F}
+region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
+hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` ) %>% pull)
+
+#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
+# Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
+
+
+dentist_zip_raw=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
+dentist_zip=str_sub(dentist_zip_raw, 1, 5)
+
+zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
+Dentist_Survey_zipcode=Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code`) %>% pull()
+
+
+Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
+
+data.frame(zip_in_dentist_only)%>%
+datatable(extensions = 'Buttons',
+          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+dentist_zip_in_dentist_only=sapply(zip_in_dentist_only, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow())
+
+```
+
+
 
 ### Gender Identity
 
