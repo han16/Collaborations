@@ -333,6 +333,7 @@ data_subset2=data2$`Data CORR` %>% dplyr::count(I_placement)  %>% drop_na()
 data_subset=data_frame(I_placement=c(seq(1,8),"NR"), n=c(38+13, 0+1, 0+0, 7+3, 3+3, 0+0, 5+2, 0+1, 2+0)) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
 
 data_subset$I_placement[data_subset$I_placement==1]="Single implant placement"; data_subset$I_placement[data_subset$I_placement==2]="Placement with bone graft"; 
+data_subset$I_placement[data_subset$I_placement==3]="Placement with membrane";
 data_subset$I_placement[data_subset$I_placement==4]="Placement with bone graft and membrane";
 data_subset$I_placement[data_subset$I_placement==5]="Placement with indirect sinus lift";
 data_subset$I_placement[data_subset$I_placement==6]="Placement with direct sinus lift";
