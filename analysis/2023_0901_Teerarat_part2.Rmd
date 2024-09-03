@@ -516,9 +516,11 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 data_subset=Data %>% dplyr::count(I_Brand) %>% mutate(prop=n/num_indi)
 
+data_subset$I_Brand[data_subset$I_Brand==1]="Nobel Biocare";
+data_subset$I_Brand[data_subset$I_Brand==2]="Nobel Replace";
 data_subset$I_Brand[data_subset$I_Brand==3]="Straumann BLT"; 
 data_subset$I_Brand[data_subset$I_Brand==4]="Osseospeed Ev"; 
 data_subset$I_Brand[data_subset$I_Brand==5]="Nobel Replace Connical Connection";
@@ -574,11 +576,14 @@ datatable(extensions = 'Buttons',
 ```
 
 
+*  10, 11 don't have coding variable names 
+
 
 
 ```{r, echo=F, message=F, warning=F}
 data_subset=Data %>% dplyr::count(I_Surface) %>% mutate(prop=n/num_indi)
 
+data_subset$I_Surface[data_subset$I_Surface==1]="TiUltra";
 data_subset$I_Surface[data_subset$I_Surface==2]="TiUnite"; 
 data_subset$I_Surface[data_subset$I_Surface==3]="SLA";
 data_subset$I_Surface[data_subset$I_Surface==4]="TiO2";
@@ -695,6 +700,7 @@ data_subset=Data %>% dplyr::count(I_Technique) %>% mutate(prop=n/num_indi)
 data_subset$I_Technique[data_subset$I_Technique==1]="Free handed"; 
 data_subset$I_Technique[data_subset$I_Technique==2]="Pilot guided";
 data_subset$I_Technique[data_subset$I_Technique==3]="Fully guided";
+data_subset$I_Technique[data_subset$I_Technique==4]="Surgical guide";
 data_subset$I_Technique[data_subset$I_Technique==5]="NR"; 
 
 
@@ -747,16 +753,17 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 data_subset=Data %>% dplyr::count(I_Location) %>% mutate(prop=n/num_indi)
 
+data_subset$I_Location[data_subset$I_Location==1]="Supracrestal";
 data_subset$I_Location[data_subset$I_Location==2]="Equicrestal"; 
 data_subset$I_Location[data_subset$I_Location==3]="Subcrestal"; 
 
 
 g1=ggplot(data_subset, aes(x=I_Location, y=prop, fill=I_Location)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   ylab("%")+ylim(c(0,1))+
     xlab("")+
   geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
@@ -765,7 +772,7 @@ g1=ggplot(data_subset, aes(x=I_Location, y=prop, fill=I_Location)) +geom_bar(sta
 #g1
   g2=ggplot(data_subset, aes(x=I_Location, y=n, fill=I_Location)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=10))+
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5, size=10))+
   ylab("count")+ylim(c(0, max(data_subset$n)+2))+
     xlab("")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
@@ -1144,7 +1151,7 @@ data_subset$Wound_Dehis_post_placement[data_subset$Wound_Dehis_post_placement==2
 
 g1=ggplot(data_subset, aes(x=Wound_Dehis_post_placement, y=prop, fill=Wound_Dehis_post_placement)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=7))+
+  theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=9))+
   ylab("%")+ylim(c(0,1))+
     xlab("")+
   geom_text(aes(label=round(prop,4)*100), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
@@ -1153,7 +1160,7 @@ g1=ggplot(data_subset, aes(x=Wound_Dehis_post_placement, y=prop, fill=Wound_Dehi
 #g1
   g2=ggplot(data_subset, aes(x=Wound_Dehis_post_placement, y=n, fill=Wound_Dehis_post_placement)) +geom_bar(stat="identity")+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=7))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, size=9))+
   ylab("count")+ylim(c(0, max(data_subset$n)+2))+
     xlab("")+
   geom_text(aes(label=n), position=position_dodge(width=0.6), vjust=-0.25, size=4)#+  # add numbers over bars
@@ -1463,7 +1470,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 data_subset=Data %>% dplyr::count(Type_bone_loss) %>% mutate(prop=n/num_indi)
 
 data_subset$Type_bone_loss[data_subset$Type_bone_loss==1]="vertical"; 
