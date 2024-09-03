@@ -1,6 +1,9 @@
 ---
 title: "combing corr and restore"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-05-21"
 ---
 
@@ -34,7 +37,7 @@ multiplesheets <- function(fname) {
 ## corr+restore
 
 
-```{r, echo=F, message=F, warning=F, results=F}
+```{r, message=F, warning=F, results=F}
 
 data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-Implant DATA CLEAN 111023_without_header.xlsx")
 
@@ -44,7 +47,7 @@ data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\T
 ### Gender
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 num_indi1=55
 num_indi2=23
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Gender) %>% drop_na()
@@ -277,7 +280,7 @@ data_subset2=data2$`Data CORR` %>% dplyr::count(Pre_implant_Procedure)  %>% drop
 
 
 
-data_subset=data_frame(Pre_implant_Procedure=data_subset1$Pre_implant_Procedure, n=data_subset1$n+c(data_subset2$n, 0)) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+data_subset=data_frame(Pre_implant_Procedure=data_subset1$Pre_implant_Procedure, n=data_subset1$n+c(data_subset2$n[1:4], 0, data_subset2$n[5])) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]="Extraction alone"; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]="Extraction and bone graft"; 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]="Extraction, bone graft and membrane";

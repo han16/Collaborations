@@ -34,6 +34,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -248,6 +249,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -372,6 +376,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">combing corr and restore</h1>
@@ -404,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-13
+<strong>Last updated:</strong> 2024-09-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -564,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree01db41f8940dd895e4cc2c085be8792d11a5f63dtargetblank01db41fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7a0fd0f36968524b5356f211f2e4b8cec55a50ebtargetblank7a0fd0fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/01db41f8940dd895e4cc2c085be8792d11a5f63d" target="_blank">01db41f</a>
+<a href="https://github.com/han16/Collaborations/tree/7a0fd0f36968524b5356f211f2e4b8cec55a50eb" target="_blank">7a0fd0f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree01db41f8940dd895e4cc2c085be8792d11a5f63dtargetblank01db41fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7a0fd0f36968524b5356f211f2e4b8cec55a50ebtargetblank7a0fd0fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/01db41f8940dd895e4cc2c085be8792d11a5f63d" target="_blank">01db41f</a>.
+<a href="https://github.com/han16/Collaborations/tree/7a0fd0f36968524b5356f211f2e4b8cec55a50eb" target="_blank">7a0fd0f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -602,6 +614,7 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
+    Modified:   analysis/2023_0301_Christos_1hour.Rmd
     Modified:   analysis/2023_0901_Teerarat_part4.Rmd
 
 </code></pre>
@@ -649,6 +662,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/efdd0450dde60387b9a84775ce9f175589836055/analysis/2023_0901_Teerarat_part4.Rmd" target="_blank">efdd045</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-13
+</td>
+<td>
+6/13/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/efdd0450dde60387b9a84775ce9f175589836055/docs/2023_0901_Teerarat_part4.html" target="_blank">efdd045</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-13
+</td>
+<td>
+6/13/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -764,10 +811,41 @@ han
 </div>
 <div id="corrrestore" class="section level2">
 <h2>corr+restore</h2>
+<pre class="r"><code>data2=multiplesheets(&quot;C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-Implant DATA CLEAN 111023_without_header.xlsx&quot;)</code></pre>
 <div id="gender" class="section level3">
 <h3>Gender</h3>
+<pre class="r"><code>num_indi1=55
+num_indi2=23
+data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Gender) %&gt;% drop_na()
+data_subset1$Gender[data_subset1$Gender==1]=&quot;Male&quot;; data_subset1$Gender[data_subset1$Gender==2]=&quot;Female&quot;
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Gender)  %&gt;% drop_na()
+data_subset2$Gender[data_subset2$Gender==1]=&quot;Male&quot;; data_subset2$Gender[data_subset2$Gender==2]=&quot;Female&quot;
+data_subset=data_frame(Gender=data_subset1$Gender, n=data_subset1$n+data_subset2$n) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Male","Female"],[48,30],[0.6153999999999999,0.3846]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Male_vs_Female"],[0.0535]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
@@ -802,9 +880,9 @@ han
 <div id="pre_implant_procedure" class="section level3">
 <h3>Pre_implant_Procedure</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","other","not reported"],[23,11,3,6,11,24],[0.2949,0.141,0.0385,0.0769,0.141,0.3077]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Pre_implant_Procedure<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Pre_implant_Procedure","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","other","not reported"],[23,11,3,6,2,33],[0.2949,0.141,0.0385,0.0769,0.0256,0.4231]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Pre_implant_Procedure<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Pre_implant_Procedure","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Extraction alone_vs_Extraction and bone graft","Extraction alone_vs_Extraction, bone graft and membrane","Extraction alone_vs_GBR","Extraction alone_vs_other","Extraction alone_vs_not reported","Extraction and bone graft_vs_Extraction, bone graft and membrane","Extraction and bone graft_vs_GBR","Extraction and bone graft_vs_other","Extraction and bone graft_vs_not reported","Extraction, bone graft and membrane_vs_GBR","Extraction, bone graft and membrane_vs_other","Extraction, bone graft and membrane_vs_not reported","GBR_vs_other","GBR_vs_not reported","other_vs_not reported"],["0.0576","&lt;0.0001","0.0023","0.0576","1","0.0574","0.3323","1","0.041","0.5078","0.0574","&lt;0.0001","0.3323","0.0014","0.041"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Extraction alone_vs_Extraction and bone graft","Extraction alone_vs_Extraction, bone graft and membrane","Extraction alone_vs_GBR","Extraction alone_vs_other","Extraction alone_vs_not reported","Extraction and bone graft_vs_Extraction, bone graft and membrane","Extraction and bone graft_vs_GBR","Extraction and bone graft_vs_other","Extraction and bone graft_vs_not reported","Extraction, bone graft and membrane_vs_GBR","Extraction, bone graft and membrane_vs_other","Extraction, bone graft and membrane_vs_not reported","GBR_vs_other","GBR_vs_not reported","other_vs_not reported"],["0.0576","&lt;0.0001","0.0023","&lt;0.0001","0.2288","0.0574","0.3323","0.0225","0.0013","0.5078","1","&lt;0.0001","0.2891","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_placement" class="section level3">
 <h3>I_placement</h3>
@@ -1049,6 +1127,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
