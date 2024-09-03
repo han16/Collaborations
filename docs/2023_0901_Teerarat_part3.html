@@ -34,6 +34,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -248,6 +249,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -372,6 +376,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">corr vs restore</h1>
@@ -404,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-12
+<strong>Last updated:</strong> 2024-09-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -564,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree05d29224fc53b518a0f3ca1710586a15f594ebd1targetblank05d2922a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree304febd1a454148b9cdf703bebd0d51fce6db088targetblank304febda">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/05d29224fc53b518a0f3ca1710586a15f594ebd1" target="_blank">05d2922</a>
+<a href="https://github.com/han16/Collaborations/tree/304febd1a454148b9cdf703bebd0d51fce6db088" target="_blank">304febd</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree05d29224fc53b518a0f3ca1710586a15f594ebd1targetblank05d2922a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree304febd1a454148b9cdf703bebd0d51fce6db088targetblank304febda"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/05d29224fc53b518a0f3ca1710586a15f594ebd1" target="_blank">05d2922</a>.
+<a href="https://github.com/han16/Collaborations/tree/304febd1a454148b9cdf703bebd0d51fce6db088" target="_blank">304febd</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -603,7 +615,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2023_0901_Teerarat_part3.Rmd
-    Modified:   analysis/2023_0901_Teerarat_part4.Rmd
 
 </code></pre>
 <p>
@@ -650,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/01db41f8940dd895e4cc2c085be8792d11a5f63d/analysis/2023_0901_Teerarat_part3.Rmd" target="_blank">01db41f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-12
+</td>
+<td>
+6/12/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/01db41f8940dd895e4cc2c085be8792d11a5f63d/docs/2023_0901_Teerarat_part3.html" target="_blank">01db41f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-12
+</td>
+<td>
+6/12/2024
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -754,7 +799,7 @@ samples</p></li>
 <div id="pre_implant_procedure" class="section level3">
 <h3>Pre_implant_Procedure</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11"],["Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","6","not reported","Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","not reported"],[18,7,2,2,2,24,5,4,1,4,9],[0.3273,0.1273,0.0364,0.0364,0.0364,0.4364,0.2174,0.1739,0.0435,0.1739,0.3913],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Pre_implant_Procedure<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Pre_implant_Procedure","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11"],["Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","other","not reported","Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","not reported"],[18,7,2,2,2,24,5,4,1,4,9],[0.3273,0.1273,0.0364,0.0364,0.0364,0.4364,0.2174,0.1739,0.0435,0.1739,0.3913],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Pre_implant_Procedure<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Pre_implant_Procedure","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["Extraction alone :RESTORE_vs_CORR","Extraction and bone graft :RESTORE_vs_CORR","Extraction, bone graft and membrane :RESTORE_vs_CORR","GBR :RESTORE_vs_CORR","not reported :RESTORE_vs_CORR"],[0.4851,0.8548,1,0.1068,0.9077]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
@@ -803,7 +848,7 @@ samples</p></li>
 <div id="i_techique" class="section level3">
 <h3>I_Techique</h3>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fc8df40fd67c2027a709" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fc8df40fd67c2027a709">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Free handed","Pilot guided","Fully guided","Surgical guide","NR","Free handed","Pilot guided","Fully guided","5","NR"],[2,5,6,23,19,2,10,7,3,1],[0.0364,0.09089999999999999,0.1091,0.4182,0.3455,0.08699999999999999,0.4348,0.3043,0.1304,0.0435],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Technique<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Technique","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-fc8df40fd67c2027a709">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Free handed","Pilot guided","Fully guided","Surgical guide","NR","Free handed","Pilot guided","Fully guided","not reported","NR"],[2,5,6,23,19,2,10,7,3,1],[0.0364,0.09089999999999999,0.1091,0.4182,0.3455,0.08699999999999999,0.4348,0.3043,0.1304,0.0435],["RESTORE","RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Technique<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Technique","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d8c7d17cf4080686b93c" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d8c7d17cf4080686b93c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Free handed :RESTORE_vs_CORR","Pilot guided :RESTORE_vs_CORR","Fully guided :RESTORE_vs_CORR","NR :RESTORE_vs_CORR"],[0.7181999999999999,0.0014,0.0756,0.0124]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
@@ -994,6 +1039,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

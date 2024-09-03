@@ -1,6 +1,9 @@
 ---
 title: "corr vs restore"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-05-20"
 ---
 
@@ -272,6 +275,7 @@ data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("RESTORE",
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]="Extraction alone"; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]="Extraction and bone graft"; 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]="Extraction, bone graft and membrane";
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==4]="GBR";
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==6]="other";
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==7]="not reported";
 
 
@@ -589,7 +593,7 @@ data_subset$I_Technique[data_subset$I_Technique==1]="Free handed";
 data_subset$I_Technique[data_subset$I_Technique==2]="Pilot guided";
 data_subset$I_Technique[data_subset$I_Technique==3]="Fully guided";
 data_subset$I_Technique[data_subset$I_Technique==4]="Surgical guide";
-#data_subset$I_Technique[data_subset$I_Technique==5]="NR"; 
+data_subset$I_Technique[data_subset$I_Technique==5]="not reported"; 
 
 
 
