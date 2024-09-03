@@ -1025,7 +1025,7 @@ datatable(extensions = 'Buttons',
 ```
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=Data %>% dplyr::count(Coverscrew_exp_post_placement) %>% mutate(prop=n/24)
+data_subset=Data %>% dplyr::count(Coverscrew_exp_post_placement) %>% mutate(prop=n/num_indi)
 
 data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==1]="yes"; 
 data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==2]="no"; 
@@ -1520,7 +1520,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
-data_subset=Data %>% dplyr::count(`Latest_bone_levels_mm...46`) %>% mutate(prop=n/num_indi)
+data_subset=Data %>% dplyr::count(`Type_bone_loss`) %>% mutate(prop=n/num_indi)
 
 data_subset$Type_bone_loss[data_subset$Type_bone_loss==1]="vertical"; 
 data_subset$Type_bone_loss[data_subset$Type_bone_loss==2]="horizontal"; 
