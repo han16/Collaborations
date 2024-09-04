@@ -253,7 +253,78 @@ sum(practice_setting2$n)
 `other` aggregates categories with responses less than 20. 
 
 
-#### group office practice 
+
+### practice setting distribution 
+
+
+```{r, echo=F, message=F, warning=F}
+side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title)
+{
+  y_limit=max(data$n)*1.1
+  g=ggplot(data, aes(x=gender, y=n, fill=class)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ return(g)
+  
+}
+
+```
+
+
+
+```{r, message=F, warning=F}
+man_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Gender Identity`=="Man") %>% dplyr::count(`Best Describes This Practice Setting`)
+settings=c("Group office practice (any number of dentists >1)", "Solo office practice")
+nums=sapply(settings, function(x) man_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=man_practice_setting$n[is.na(man_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(man_practice_setting$n)-sum(nums[1:2])-nums[4]
+man_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+woman_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Gender Identity`=="Woman") %>% dplyr::count(`Best Describes This Practice Setting`)
+nums=sapply(settings, function(x) woman_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=woman_practice_setting$n[is.na(woman_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(woman_practice_setting$n)-sum(nums[1:2])-nums[4]
+woman_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n=c(man_practice_setting2$n, woman_practice_setting2$n), prop=c(man_practice_setting2$prop, woman_practice_setting2$prop), gender=rep(c("man", "women"), each=4))
+
+
+side_by_side_barplot2(practice_setting_combine, title="practice setting")
+```
+
+
+```{r, message=F, warning=F}
+white_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Describe Your Race or Ethnicity`=="White") %>% dplyr::count(`Best Describes This Practice Setting`)
+settings=c("Group office practice (any number of dentists >1)", "Solo office practice")
+nums=sapply(settings, function(x) white_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=white_practice_setting$n[is.na(white_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(white_practice_setting$n)-sum(nums[1:2])-nums[4]
+white_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries
+asia_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Describe Your Race or Ethnicity`%in% asia) %>% dplyr::count(`Best Describes This Practice Setting`)
+nums=sapply(settings, function(x) asia_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=asia_practice_setting$n[is.na(asia_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(asia_practice_setting$n)-sum(nums[1:2])-nums[4]
+asia_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n=c(white_practice_setting2$n, asia_practice_setting2$n), prop=c(white_practice_setting2$prop, asia_practice_setting2$prop), gender=rep(c("White", "Asia"), each=4))
+
+
+side_by_side_barplot2(practice_setting_combine, title="practice setting")
+```
+
+
+
+
+### group office practice 
 
 
 
@@ -326,7 +397,7 @@ sum(group_practice3$n)
 
 
 
-#### solo office practice 
+### solo office practice 
 
 
 
@@ -447,9 +518,9 @@ datatable(extensions = 'Buttons',
 
 ```
 
-* there are 77 zip codes missing, i.e. not in Wisconsin zip code list, involving in 886 dentist, mainly because some code (46/77=59.7%) have sub-code like `53574-8881`, but Wisconsin zip code don't have sub-code 
+* in dentist survey data, 891 zip codes are missing, i.e. the responses are blank 
 
-* in dentist survey data, 891 zip codes are missing. 
+* among  77 zip codes missing, i.e. not in Wisconsin zip code list,  some code (46/77=59.7%) have sub-code like `53574-8881`, but Wisconsin zip code don't have sub-code.  
 
 
 
