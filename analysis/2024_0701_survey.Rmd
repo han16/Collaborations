@@ -258,7 +258,7 @@ sum(practice_setting2$n)
 
 
 ```{r, echo=F, message=F, warning=F}
-side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title)
+side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1)
 {
   y_limit=max(data$n)*1.1
   g=ggplot(data, aes(x=gender, y=n, fill=class)) +geom_bar(position = "dodge", stat="identity")+
@@ -270,7 +270,8 @@ side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend
   geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
   #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
   ggtitle(title)+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+    guides(fill = guide_legend(nrow = legend_rows))
  return(g)
   
 }
@@ -296,7 +297,7 @@ woman_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>
 practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n=c(man_practice_setting2$n, woman_practice_setting2$n), prop=c(man_practice_setting2$prop, woman_practice_setting2$prop), gender=rep(c("man", "women"), each=4))
 
 
-side_by_side_barplot2(practice_setting_combine, title="practice setting")
+side_by_side_barplot2(practice_setting_combine, title="practice setting", legend_rows = 2)
 ```
 
 
@@ -318,7 +319,7 @@ asia_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>%
 practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n=c(white_practice_setting2$n, asia_practice_setting2$n), prop=c(white_practice_setting2$prop, asia_practice_setting2$prop), gender=rep(c("White", "Asia"), each=4))
 
 
-side_by_side_barplot2(practice_setting_combine, title="practice setting")
+side_by_side_barplot2(practice_setting_combine, title="practice setting", legend_rows = 2)
 ```
 
 
