@@ -574,15 +574,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreebf9902418870bff7b124f9c7e870b2d677e77616targetblankbf99024a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0af905612153265ea258df860f1b224e6300734btargetblank0af9056a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/bf9902418870bff7b124f9c7e870b2d677e77616" target="_blank">bf99024</a>
+<a href="https://github.com/han16/Collaborations/tree/0af905612153265ea258df860f1b224e6300734b" target="_blank">0af9056</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreebf9902418870bff7b124f9c7e870b2d677e77616targetblankbf99024a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0af905612153265ea258df860f1b224e6300734btargetblank0af9056a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +592,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/bf9902418870bff7b124f9c7e870b2d677e77616" target="_blank">bf99024</a>.
+<a href="https://github.com/han16/Collaborations/tree/0af905612153265ea258df860f1b224e6300734b" target="_blank">0af9056</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -658,6 +658,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/0af905612153265ea258df860f1b224e6300734b/analysis/2024_0701_survey.Rmd" target="_blank">0af9056</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-05
+</td>
+<td>
+9/5/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/0af905612153265ea258df860f1b224e6300734b/docs/2024_0701_survey.html" target="_blank">0af9056</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-05
+</td>
+<td>
+9/5/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2170,6 +2204,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/0af905612153265ea258df860f1b224e6300734b/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-13-1.png" target="_blank">0af9056</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/bf9902418870bff7b124f9c7e870b2d677e77616/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-13-1.png" target="_blank">bf99024</a>
 </td>
 <td>
@@ -2257,6 +2302,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/0af905612153265ea258df860f1b224e6300734b/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-14-1.png" target="_blank">0af9056</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/bf9902418870bff7b124f9c7e870b2d677e77616/docs/figure/2024_0701_survey.Rmd/unnamed-chunk-14-1.png" target="_blank">bf99024</a>
@@ -2892,7 +2948,14 @@ datatable(extensions = &#39;Buttons&#39;,
 gender_prop=sapply(gender_geo, function(x) c(sum(x==&quot;Man&quot;, na.rm = T), sum(x==&quot;Woman&quot;, na.rm = T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(region_code_update))) %&gt;% drop_na()
 
-fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 4, x_text_size=12, legend_text_size=12, title=&quot;Hygenist&quot;)
+man_total=sum(gender_geo_data %&gt;% filter(gender==&quot;Man&quot;) %&gt;% select(num) %&gt;% pull())
+woman_total=sum(gender_geo_data %&gt;% filter(gender==&quot;Woman&quot;) %&gt;% select(num) %&gt;% pull())
+prop=numeric()
+prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
+prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
+gender_geo_data=gender_geo_data %&gt;% mutate(prop=round(prop,4))
+
+fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Hygenist&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2940,7 +3003,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-969965edfe9f869aa904" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[1,278,2,223,15,1234,0,339,1,234,8,260],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[1,278,2,223,15,1234,0,339,1,234,8,260],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.037,0.1083,0.0741,0.0868,0.5556,0.4805,0,0.132,0.037,0.0911,0.2963,0.1012]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow()  ?????????? </code></pre>
 <ul>
 <li>only keep <code>Man</code> and <code>Woman</code> and ignore other
@@ -2950,7 +3013,15 @@ responses</li>
 gender_prop=sapply(gender_geo, function(x) c(sum(x==&quot;Man&quot;, na.rm=T), sum(x==&quot;Woman&quot;, na.rm=T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(region_code_update))) %&gt;% drop_na()
 
-fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 4, x_text_size=12, legend_text_size=12, title=&quot;Dentist_Survey&quot;)
+
+man_total=sum(gender_geo_data %&gt;% filter(gender==&quot;Man&quot;) %&gt;% select(num) %&gt;% pull())
+woman_total=sum(gender_geo_data %&gt;% filter(gender==&quot;Woman&quot;) %&gt;% select(num) %&gt;% pull())
+prop=numeric()
+prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
+prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
+gender_geo_data=gender_geo_data %&gt;% mutate(prop=round(prop,4))
+
+fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 2.5, x_text_size=12, legend_text_size=12, title=&quot;Dentist_Survey&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2998,7 +3069,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-450f171f14364aa3ebed" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.08359999999999999,0.0809,0.1003,0.099,0.4607,0.4421,0.1229,0.1185,0.08359999999999999,0.08790000000000001,0.1488,0.1715]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>sum(gender_geo_data$num)</code></pre>
 <pre><code>[1] 1913</code></pre>
 </div>
@@ -3169,7 +3240,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fbfc52d82635d988c6e1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fbfc52d82635d988c6e1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-fbfc52d82635d988c6e1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.08359999999999999,0.0809,0.1003,0.099,0.4607,0.4421,0.1229,0.1185,0.08359999999999999,0.08790000000000001,0.1488,0.1715]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>sum(gender_geo_data$num)</code></pre>
 <pre><code>[1] 1913</code></pre>
 <br>
