@@ -1194,7 +1194,7 @@ netsplit(m.netmeta) %>% forest()  # visualize the net split results
 
 
 ```{r, message=F, warning=F}
-funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T, pos.legend = 1)
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)
 ```
 
 
