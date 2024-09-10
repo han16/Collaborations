@@ -16,7 +16,7 @@ date: "2024-05-24"
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, results=F}
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
 library(meta)
 library(netmeta)
@@ -25,7 +25,6 @@ library(dmetar)
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
-
 data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Christos\\Data for VAS 09182023_han.xlsx")
 ```
 
@@ -150,6 +149,19 @@ m.gen <- metagen(TE = m1$TE,
                  title = "Different treatments")
 
 #summary(m.gen)
+
+m.gen_weighted <- metagen(TE = m1$TE,
+                 seTE =m1$seTE,
+                 studlab = comparison[1:11],
+                 data = data_meta[1:11,],
+                 sm = "WMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+
 ```
 
 
@@ -168,6 +180,13 @@ forest(m.gen, layout="RevMan5", sortvar = TE,
 #            prediction = FALSE, 
 #            print.tau2 = FALSE, 
 #            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
+
+forest(m.gen_weighted, layout="RevMan5", sortvar = TE, 
+            prediction = F, 
+            print.tau2 = F,
+            fontsize=6,
+            leftlabs = c("study")) # sortvar = TE: sort studies by effect size 
+
 
 ```
 
@@ -219,7 +238,7 @@ $\mu$ is the true pooled effect size; $\theta_k$ is the true effect size of stud
 * We use R package-meta to calculate standardised mean difference (SMD) and 95% confidence interval (CI) in every study between each treatment and placebo, reported in the Table on the left and visualized on the right. Pooled effect was calculated as `Total` in the last row. Heterogeneity measure was presented under the table.  
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 # https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pub-bias.html
 # Define fill colors for contour
 col.contour = c("gray75", "pink", "red")
@@ -264,7 +283,7 @@ datatable(extensions = 'Buttons',
 
 ##### random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 ##################### forest plot without Pereira
 variable_include_index=c(1,3:11)
 
@@ -320,7 +339,7 @@ datatable(extensions = 'Buttons',
 
 *  random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 #####################
 variable_include_index=c(2,3,4,5,6,7,8,9,10)
 
@@ -374,7 +393,7 @@ datatable(extensions = 'Buttons',
 
 * random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 variable_include_index=c(1, 11)
 
@@ -477,7 +496,7 @@ $\widehat{\theta}$ is the pooled effect size, $\widehat{\theta}_k$ is kth study 
 * random effect model 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 variable_include_index=c(1, 2, 5)
 
@@ -510,7 +529,7 @@ forest(m.gen5, layout="JAMA", sortvar = TE,
 * fixed effect model 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 #####################
 variable_include_index=c(1, 2, 5)
 
@@ -548,7 +567,7 @@ forest(m.gen5, layout="JAMA", sortvar = TE,
 
 * random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 #####################
 variable_include_index=c(3, 7, 8)
 
@@ -580,7 +599,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 * fixed  effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 variable_include_index=c(3, 7, 8)
 
@@ -617,7 +636,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 * random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 variable_include_index=c(2, 5)
 
@@ -650,7 +669,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 * fixed effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 #####################
 variable_include_index=c(2, 5)
 
@@ -686,7 +705,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 * random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 variable_include_index=c(3, 7)
 
@@ -719,7 +738,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 * fixed effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 variable_include_index=c(3, 7)
 
@@ -756,7 +775,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 * random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 #####################
 variable_include_index=c(4, 9)
 
@@ -789,7 +808,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 * fixed effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 variable_include_index=c(4, 9)
 
@@ -825,7 +844,7 @@ forest(m.gen6, layout="JAMA", sortvar = TE,
 
 *  random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 TE_random=numeric(); seTE_random=numeric()
 for (i in 1:11)
@@ -864,7 +883,7 @@ forest(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
 
 *  fixed effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 #####################
 TE_random=numeric(); seTE_random=numeric()
 for (i in 1:11)
@@ -1161,6 +1180,22 @@ decomp.design(m.netmeta)
 * higher P-score, the better it is 
 
 * placebo is used as the reference group 
+
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta)
+```
+* netsplit was used to check the consistency among direct/indirect comparisons, with p values less than 5% being disagree 
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta) %>% forest()  # visualize the net split results 
+```
+
+
+
+```{r, message=F, warning=F}
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T, pos.legend = 1)
+```
 
 
 #### fixed effect model 

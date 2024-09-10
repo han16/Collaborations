@@ -105,6 +105,12 @@ data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Ch
 ```
 
 
+* [methods to handle double counting](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/i.html) unit of analysis error, and [others](https://handbook-5-1.cochrane.org/chapter_16/16_5_4_how_to_include_multiple_groups_from_one_study.htm). 
+
+
+
+
+
 ## 1 hour 
 
 
