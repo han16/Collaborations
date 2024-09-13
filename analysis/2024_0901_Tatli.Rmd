@@ -1,0 +1,74 @@
+---
+title: "09/13/2024"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-09-13"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+```
+
+
+```{r, message=F, warning=F, results=F}
+data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202409\\Tatli\\Data_Dr.Tatli.xlsx")
+data=data_raw$Sayfa1
+```
+
+
+```{r, message=F, warning=F}
+library(survival)
+data_survival=data.frame(Augmentation=data$Augmentation, Augmentation_tech=data$`Augmentation tech`, time=data$`Follow up`, status=data$Failure)
+
+data_survival$Augmentation[data_survival$Augmentation=="1"]="Yes"
+data_survival$Augmentation[data_survival$Augmentation=="2"]="No"
+data_survival$Augmentation_tech[data_survival$Augmentation_tech=="1"]="GBR"
+data_survival$Augmentation_tech[data_survival$Augmentation_tech=="2"]="Split"
+data_survival$Augmentation_tech[data_survival$Augmentation_tech=="3"]="Onlay"
+data_survival$Augmentation_tech[data_survival$Augmentation_tech=="4"]="Control"
+data_survival$status[data_survival$status=="1.00"]="1"
+data_survival$status[data_survival$status=="2.00"]="0"
+```
+
+
+
+
+```{r, message=F, warning=F}
+survfit2(Surv(as.numeric(time), as.numeric(status)) ~ Augmentation, data = data_survival) %>% 
+  ggsurvfit() +
+  labs(
+    x = "Months",
+    y = "Overall survival probability"
+  ) +
+  add_confidence_interval()+
+  add_risktable()
+```
+
+
+
+```{r, message=F, warning=F}
+survfit2(Surv(as.numeric(time), as.numeric(status)) ~ Augmentation_tech, data = data_survival) %>% 
+  ggsurvfit() +
+  labs(
+    x = "Months",
+    y = "Overall survival probability"
+  ) +
+  add_confidence_interval()+
+  add_risktable()
+```
