@@ -58,7 +58,7 @@ summary(s1)
 survfit2(Surv(as.numeric(time), as.numeric(status)) ~ Augmentation, data = data_survival) %>% 
   ggsurvfit() +
   labs(
-    x = "Months",
+    x = "Time",
     y = "Overall survival probability"
   ) +
   add_confidence_interval()+
