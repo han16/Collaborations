@@ -34,6 +34,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -248,6 +249,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -372,6 +376,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">6 hours</h1>
@@ -404,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-05
+<strong>Last updated:</strong> 2024-10-02
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -564,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree72577238699442a556310bc732b146bd31a7b2f0targetblank7257723a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4213e4fa0bfdb7c3f777dca3ea76b31ef77162d7targetblank4213e4fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/72577238699442a556310bc732b146bd31a7b2f0" target="_blank">7257723</a>
+<a href="https://github.com/han16/Collaborations/tree/4213e4fa0bfdb7c3f777dca3ea76b31ef77162d7" target="_blank">4213e4f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree72577238699442a556310bc732b146bd31a7b2f0targetblank7257723a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4213e4fa0bfdb7c3f777dca3ea76b31ef77162d7targetblank4213e4fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/72577238699442a556310bc732b146bd31a7b2f0" target="_blank">7257723</a>.
+<a href="https://github.com/han16/Collaborations/tree/4213e4fa0bfdb7c3f777dca3ea76b31ef77162d7" target="_blank">4213e4f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -602,9 +614,7 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
-    Modified:   analysis/2023_0301_Christos_1hour.Rmd
     Modified:   analysis/2023_0301_Christos_6hour.Rmd
-    Modified:   analysis/2024_0501_Vrisiis.Rmd
 
 </code></pre>
 <p>
@@ -651,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/analysis/2023_0301_Christos_6hour.Rmd" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+<td>
+6/5/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/2023_0301_Christos_6hour.html" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+<td>
+6/5/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -770,6 +814,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-5-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/4e76c786bdbecc9180c85da0a039a2b60becfb67/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-5-1.png" target="_blank">4e76c78</a>
 </td>
 <td>
@@ -809,6 +864,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-6-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/4e76c786bdbecc9180c85da0a039a2b60becfb67/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-6-1.png" target="_blank">4e76c78</a>
@@ -862,6 +928,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-8-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/4e76c786bdbecc9180c85da0a039a2b60becfb67/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-8-1.png" target="_blank">4e76c78</a>
 </td>
 <td>
@@ -903,6 +980,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-9-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-9-1.png" target="_blank">ba6d4d5</a>
@@ -968,6 +1056,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-11-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-11-1.png" target="_blank">ba6d4d5</a>
 </td>
 <td>
@@ -1018,6 +1117,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-12-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-12-1.png" target="_blank">ba6d4d5</a>
@@ -1287,6 +1397,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-17-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-17-1.png" target="_blank">ba6d4d5</a>
@@ -1614,6 +1735,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-23-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-23-1.png" target="_blank">ba6d4d5</a>
 </td>
 <td>
@@ -1664,6 +1796,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-24-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-24-1.png" target="_blank">ba6d4d5</a>
@@ -1829,6 +1972,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-27-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-27-1.png" target="_blank">ba6d4d5</a>
 </td>
 <td>
@@ -1879,6 +2033,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-28-1.png" target="_blank">ab2050b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-28-1.png" target="_blank">ba6d4d5</a>
@@ -2089,6 +2254,65 @@ a full design-by-treatment interaction random effects model
                    Q df p-value tau.within tau2.within
 Between designs 3.20  5  0.6693          0           0</code></pre>
 </div>
+<div id="transitivity-analysis-consistency-between-direct-vs-indir"
+class="section level4">
+<h4>transitivity analysis (consistency between direct vs indir)</h4>
+<pre class="r"><code>netsplit(m.netmeta) </code></pre>
+<pre><code>Separate indirect from direct evidence (SIDE) using back-calculation method
+
+Random effects model: 
+
+                             comparison k prop     nma  direct  indir.    Diff     z p-value
+   celecoxib 200mg vs dexamethasone 4mg 1 0.63 -0.3807 -0.4091 -0.3313 -0.0778 -0.15  0.8832
+   celecoxib 200mg vs dexamethasone 8mg 0    0  0.1980       .  0.1980       .     .       .
+    celecoxib 200mg vs etoricoxib 120mg 1 0.64  0.2581  0.3984  0.0102  0.3882  0.69  0.4912
+     celecoxib 200mg vs ibuprofen 600mg 0    0  0.1897       .  0.1897       .     .       .
+      celecoxib 200mg vs ketorolac 10mg 0    0 -0.1696       . -0.1696       .     .       .
+    celecoxib 200mg vs nimesilide 100mg 0    0  0.5008       .  0.5008       .     .       .
+             celecoxib 200mg vs placebo 2 0.88 -0.6208 -0.6691 -0.2698 -0.3993 -0.60  0.5466
+ dexamethasone 4mg vs dexamethasone 8mg 1 0.63  0.5787  0.6454  0.4633  0.1820  0.33  0.7447
+  dexamethasone 4mg vs etoricoxib 120mg 0    0  0.6388       .  0.6388       .     .       .
+   dexamethasone 4mg vs ibuprofen 600mg 0    0  0.5704       .  0.5704       .     .       .
+    dexamethasone 4mg vs ketorolac 10mg 0    0  0.2111       .  0.2111       .     .       .
+  dexamethasone 4mg vs nimesilide 100mg 0    0  0.8815       .  0.8815       .     .       .
+           dexamethasone 4mg vs placebo 2 0.88 -0.2401 -0.2811  0.0737 -0.3547 -0.53  0.5941
+  dexamethasone 8mg vs etoricoxib 120mg 1 0.60  0.0601  0.0721  0.0420  0.0300  0.05  0.9585
+   dexamethasone 8mg vs ibuprofen 600mg 0    0 -0.0083       . -0.0083       .     .       .
+    dexamethasone 8mg vs ketorolac 10mg 0    0 -0.3676       . -0.3676       .     .       .
+  dexamethasone 8mg vs nimesilide 100mg 0    0  0.3028       .  0.3028       .     .       .
+           dexamethasone 8mg vs placebo 2 0.87 -0.8188 -0.7880 -1.0177  0.2297  0.33  0.7398
+    etoricoxib 120mg vs ibuprofen 600mg 0    0 -0.0684       . -0.0684       .     .       .
+     etoricoxib 120mg vs ketorolac 10mg 0    0 -0.4277       . -0.4277       .     .       .
+   etoricoxib 120mg vs nimesilide 100mg 0    0  0.2428       .  0.2428       .     .       .
+            etoricoxib 120mg vs placebo 2 0.86 -0.8788 -0.7876 -1.4343  0.6467  0.94  0.3457
+      ibuprofen 600mg vs ketorolac 10mg 0    0 -0.3593       . -0.3593       .     .       .
+    ibuprofen 600mg vs nimesilide 100mg 1 0.91  0.3112  0.2890  0.5259 -0.2370 -0.23  0.8196
+             ibuprofen 600mg vs placebo 2 1.00 -0.8104 -0.7377       .       .     .       .
+     ketorolac 10mg vs nimesilide 100mg 0    0  0.6705       .  0.6705       .     .       .
+              ketorolac 10mg vs placebo 1 1.00 -0.4511 -0.4511       .       .     .       .
+            nimesilide 100mg vs placebo 1 0.84 -1.1216 -1.1529 -0.9560 -0.1969 -0.23  0.8196
+
+Legend:
+ comparison - Treatment comparison
+ k          - Number of studies providing direct evidence
+ prop       - Direct evidence proportion
+ nma        - Estimated treatment effect (SMD) in network meta-analysis
+ direct     - Estimated treatment effect (SMD) derived from direct evidence
+ indir.     - Estimated treatment effect (SMD) derived from indirect evidence
+ Diff       - Difference between direct and indirect treatment estimates
+ z          - z-value of test for disagreement (direct versus indirect)
+ p-value    - p-value of test for disagreement (direct versus indirect)</code></pre>
+<ul>
+<li>netsplit was used to check the consistency among direct/indirect
+comparisons, with p values less than 5% being disagree</li>
+<li>none of these comparisons show inconsistency with small p
+values.</li>
+</ul>
+<pre class="r"><code>netsplit(m.netmeta) %&gt;% forest(fontsize = 8, spacing = .4)  # visualize the net split results</code></pre>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)</code></pre>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 <div id="fixed-effect-model" class="section level4">
 <h4>fixed effect model</h4>
 <pre><code>                  P-score
@@ -2100,44 +2324,7 @@ celecoxib 200mg    0.4840
 ketorolac 10mg     0.3587
 dexamethasone 4mg  0.1852
 placebo            0.0292</code></pre>
-<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
-Past versions of unnamed-chunk-33-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-33-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-33-1.png" target="_blank">ba6d4d5</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-31
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Q statistics to assess homogeneity / consistency
 
                    Q df p-value
@@ -2297,6 +2484,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
