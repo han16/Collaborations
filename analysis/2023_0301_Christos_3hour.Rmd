@@ -1,6 +1,9 @@
 ---
 title: "3 hours"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-05-29"
 ---
 
@@ -835,6 +838,25 @@ decomp.design(m.netmeta)
 ```
 
 * higher P-score, the better it is 
+
+#### transitivity analysis (consistency between direct vs indir)
+
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta)
+```
+
+* netsplit was used to check the consistency among direct/indirect comparisons, with p values less than 5% being disagree
+* none of these comparisons show inconsistency with small p values.
+
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta) %>% forest(fontsize = 8, spacing = .4)  # visualize the net split results 
+```
+```{r, message=F, warning=F}
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:9), col=seq(1:9), linreg = T,  legend = F, digits.pval=2)
+```
+
 
 
 
