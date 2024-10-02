@@ -1,6 +1,9 @@
 ---
 title: "24 hours"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-05-30"
 ---
 
@@ -14,6 +17,7 @@ date: "2024-05-30"
 
 
 ```{r, echo=F, message=F, warning=F}
+rm(list=ls())
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
 library(meta)
 library(netmeta)
@@ -816,6 +820,25 @@ forest(m.netmeta,
 #summary(m.netmeta)
 decomp.design(m.netmeta)
 ```
+
+
+
+#### transitivity analysis (consistency between direct vs indir)
+
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta)
+```
+
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta) %>% forest(fontsize = 8, spacing = .4)  # visualize the net split results 
+```
+
+```{r, message=F, warning=F}
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:5), col=seq(1:5), linreg = T,  legend = F, digits.pval=2)
+```
+
 
 
 
