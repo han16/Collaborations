@@ -17,6 +17,8 @@ date: "2024-05-24"
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
+rm(list=ls())
+set.seed(123)
 source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
 library(meta)
 library(netmeta)
@@ -170,7 +172,7 @@ m.gen_weighted <- metagen(TE = m1$TE,
 ```{r, echo=F, message=F, warning=F}
 
 forest(m.gen, layout="RevMan5", sortvar = TE, 
-            prediction = F, 
+            prediction = T, 
             print.tau2 = F,
             fontsize=6,
             leftlabs = c("study")) # sortvar = TE: sort studies by effect size 
@@ -197,7 +199,7 @@ forest(m.gen_weighted, layout="RevMan5", sortvar = TE,
 ```{r, echo=F, message=F, warning=F, eval=F}
 par(mar=c(10.8,0,1.3,1.3), mgp=c(3,0.2,0), tcl=-0.2)
 sav=forest(m.gen, layout="RevMan5", sortvar = TE, 
-            prediction = FALSE, 
+            prediction = F, 
             print.tau2 = FALSE,
             fontsize=7,
             leftlabs = c("study", "SE", "g"), cex=0.78) # sortvar = TE: sort studies by effect size 
@@ -308,7 +310,7 @@ m.gen2 <- metagen(TE = m2$TE,
 #summary(m.gen)
 
 forest(m.gen2, layout="RevMan5", sortvar = TE, 
-            prediction = FALSE, 
+            prediction = T, 
             print.tau2 = FALSE,
             fontsize=6.5,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
