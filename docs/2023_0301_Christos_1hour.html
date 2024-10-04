@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-03
+<strong>Last updated:</strong> 2024-10-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec576e55186e0a53e193b868fb319c10c2d34beb5targetblankc576e55a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeceb5af09b739860233734fb37df73368e5849140targetblankceb5af0a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/c576e55186e0a53e193b868fb319c10c2d34beb5" target="_blank">c576e55</a>
+<a href="https://github.com/han16/Collaborations/tree/ceb5af09b739860233734fb37df73368e5849140" target="_blank">ceb5af0</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec576e55186e0a53e193b868fb319c10c2d34beb5targetblankc576e55a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeceb5af09b739860233734fb37df73368e5849140targetblankceb5af0a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/c576e55186e0a53e193b868fb319c10c2d34beb5" target="_blank">c576e55</a>.
+<a href="https://github.com/han16/Collaborations/tree/ceb5af09b739860233734fb37df73368e5849140" target="_blank">ceb5af0</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -661,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ceb5af09b739860233734fb37df73368e5849140/analysis/2023_0301_Christos_1hour.Rmd" target="_blank">ceb5af0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-03
+</td>
+<td>
+10/3/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ceb5af09b739860233734fb37df73368e5849140/docs/2023_0301_Christos_1hour.html" target="_blank">ceb5af0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-03
+</td>
+<td>
+10/3/2024
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1291,6 +1325,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/ceb5af09b739860233734fb37df73368e5849140/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-5-1.png" target="_blank">ceb5af0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/92d73bb3c97e2238965b388c8106be181dd4ac4c/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-5-1.png" target="_blank">92d73bb</a>
 </td>
 <td>
@@ -1537,6 +1582,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ceb5af09b739860233734fb37df73368e5849140/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-9-1.png" target="_blank">ceb5af0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-9-1.png" target="_blank">ab2050b</a>
@@ -3159,8 +3215,119 @@ effect size of n unique treatments, its estimate is the goal</p></li>
 following <span class="math inline">\(\epsilon_m \sim N(0,
 \sigma_m^2)\)</span>.</p></li>
 </ul>
+<pre class="r"><code>############# an example 
+#data(TherapyFormats)
+
+#head(TherapyFormats[1:5])
+#as.matrix(table(TherapyFormats$author))
+#m.netmeta &lt;- netmeta(TE = TE,
+#                     seTE = seTE,
+#                     treat1 = treat1,
+#                     treat2 = treat2,
+#                     studlab = author,
+#                     data = TherapyFormats,
+#                     sm = &quot;SMD&quot;,
+#                     fixed = TRUE,
+#                     random = FALSE,
+#                     reference.group = &quot;cau&quot;,
+#                     details.chkmultiarm = TRUE,
+#                     sep.trts = &quot; vs &quot;)
+#summary(m.netmeta)
+
+#########################
+
+
+######## manually create the data matrix 
+study_data=matrix(nrow=15, ncol=6)
+study_data[1,]=c(as.numeric(data_1hour_full[1,3:5]), as.numeric(data_1hour_full[2,3:5]))
+
+study_data[2,]=c(as.numeric(data_1hour_full[3,3:5]), as.numeric(data_1hour_full[4,3:5]))
+
+study_data[3,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[5,3:5]))
+study_data[4,]=c(as.numeric(data_1hour_full[7,3:5]), as.numeric(data_1hour_full[5,3:5]))
+
+study_data[5,]=c(as.numeric(data_1hour_full[8,3:5]), as.numeric(data_1hour_full[9,3:5]))
+study_data[6,]=c(as.numeric(data_1hour_full[10,3:5]), as.numeric(data_1hour_full[11,3:5]))
+
+study_data[7,]=c(as.numeric(data_1hour_full[12,3:5]), as.numeric(data_1hour_full[14,3:5]))
+study_data[8,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full[14,3:5]))
+
+study_data[9,]=c(as.numeric(data_1hour_full[15,3:5]), as.numeric(data_1hour_full[17,3:5]))
+study_data[10,]=c(as.numeric(data_1hour_full[16,3:5]), as.numeric(data_1hour_full[17,3:5]))
+
+study_data[11,]=c(as.numeric(data_1hour_full[18,3:5]), as.numeric(data_1hour_full[19,3:5]))
+
+study_data[12,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[7,3:5]))
+study_data[13,]=c(as.numeric(data_1hour_full[8,3:5]), as.numeric(data_1hour_full[10,3:5]))
+study_data[14,]=c(as.numeric(data_1hour_full[12,3:5]), as.numeric(data_1hour_full[13,3:5]))
+study_data[15,]=c(as.numeric(data_1hour_full[15,3:5]), as.numeric(data_1hour_full[16,3:5]))
+
+
+comparison=c(&quot;Pearlman, B._ibuprofen 400mg_vs_placebo&quot;, 
+             
+             &quot;Pereira, G._ibuprofen 600mg_vs_placebo&quot;, 
+             
+             &quot;Pilatti, G._dexamethasone 4mg_vs_placebo&quot;, 
+             &quot;Pilatti, G._celecoxib 200mg_vs_placebo&quot;, 
+             
+             &quot;Santos, B._ibuprofen 600mg_vs_placebo&quot;,  
+             &quot;Santos, B._nimesilide 100mg_vs_placebo&quot;, 
+             
+             &quot;Steffens, J 2011_dexamethasone 4mg_vs_placebo&quot;, 
+             &quot;Steffens, J 2011_dexamethasone 8mg_vs_placebo&quot;, 
+             
+             &quot;Steffens, J 2011 @_celecoxib 200mg_vs_placebo&quot;, 
+             &quot;Steffens, J 2011 @_etoricoxib 120mg_vs_placebo&quot;,
+             
+             &quot;Trombelli, L._ketorolac 10mg_vs_placebo&quot;,
+             
+             &quot;Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg&quot;, 
+             &quot;Santos, B._ibuprofen 600mg_vs_nimesilide 100mg&quot;, 
+             &quot;Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg&quot;, 
+             &quot;Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg&quot;
+        )
+data_meta=data.frame(comparison=comparison, samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
+
+colnames(study_data)=c(&quot;samplesize_exp&quot;, &quot;mean_exp&quot;, &quot;sd_exp&quot;, &quot;samplesize_contr&quot;, &quot;mean_contr&quot;, &quot;sd_contr&quot;)
+rownames(study_data)=comparison
+
+data_meta=data.frame(study_data)
+
+
+treat1=treat2=study=character()
+for (i in 1:length(comparison))
+{
+  position=unlist(gregexpr(&#39;_&#39;, comparison[i]))
+  treat1[i]=substring(comparison[i],position[1]+1,last=position[2]-1)
+  treat2[i]=substring(comparison[i],position[3]+1,last=1000000L)
+  study[i]=substring(comparison[i], 1,last=position[1]-1)
+}
+
+m1 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta, sm = &quot;SMD&quot;)</code></pre>
 <div id="random-effect-model-1" class="section level4">
 <h4>random effect model</h4>
+<pre class="r"><code>data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, &quot;VS&quot;, treat2, sep=&quot; &quot;))
+m.netmeta &lt;- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = &quot;SMD&quot;,
+                     fixed = FALSE,
+                     random = TRUE,
+                     reference.group = &quot;placebo&quot;,
+                     details.chkmultiarm = TRUE,
+                     sep.trts = &quot; vs &quot;)
+
+long.labels=m.netmeta$trts
+
+netgraph(m.netmeta, 
+         labels = long.labels, number.of.studies = TRUE
+         )</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
@@ -3223,8 +3390,8 @@ han
 </div>
 <ul>
 <li><p>we use R package-netmeta for network meta analysis.</p></li>
-<li><p>dependence among multi-arm studies has been taken into
-account</p></li>
+<li><p>dependence among multi-arm studies has been taken into account,
+by argument <code>tol.multiarm=0.2</code></p></li>
 <li><p>overall comparison structure</p></li>
 <li><p>direct links mean there are direct comparison, otherwise indirect
 comparisons</p></li>

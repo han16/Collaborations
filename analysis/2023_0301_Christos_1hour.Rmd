@@ -1014,7 +1014,7 @@ $$\bf \hat{\theta}=X\theta_{treat}+\epsilon$$
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 ############# an example 
 #data(TherapyFormats)
@@ -1113,7 +1113,7 @@ m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, s
 
 #### random effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
 m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
@@ -1142,7 +1142,7 @@ netgraph(m.netmeta,
 
 * we use R package-netmeta for network meta analysis. 
 
-* dependence among multi-arm studies has been taken into account 
+* dependence among multi-arm studies has been taken into account, by argument ` tol.multiarm=0.2` 
 
 * overall comparison structure 
 * direct links mean there are direct comparison, otherwise indirect comparisons 
