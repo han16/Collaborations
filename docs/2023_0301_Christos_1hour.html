@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeceb5af09b739860233734fb37df73368e5849140targetblankceb5af0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree28d7bd7573ee7befd2b0edf653561ee4740bd143targetblank28d7bd7a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/ceb5af09b739860233734fb37df73368e5849140" target="_blank">ceb5af0</a>
+<a href="https://github.com/han16/Collaborations/tree/28d7bd7573ee7befd2b0edf653561ee4740bd143" target="_blank">28d7bd7</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeceb5af09b739860233734fb37df73368e5849140targetblankceb5af0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree28d7bd7573ee7befd2b0edf653561ee4740bd143targetblank28d7bd7a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/ceb5af09b739860233734fb37df73368e5849140" target="_blank">ceb5af0</a>.
+<a href="https://github.com/han16/Collaborations/tree/28d7bd7573ee7befd2b0edf653561ee4740bd143" target="_blank">28d7bd7</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -661,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/28d7bd7573ee7befd2b0edf653561ee4740bd143/analysis/2023_0301_Christos_1hour.Rmd" target="_blank">28d7bd7</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-04
+</td>
+<td>
+10/4/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/28d7bd7573ee7befd2b0edf653561ee4740bd143/docs/2023_0301_Christos_1hour.html" target="_blank">28d7bd7</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-04
+</td>
+<td>
+10/4/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -3776,6 +3810,33 @@ another, although nimesilide 100mg is higher than ibuprofen 600mg in the
 ranking. It’s safe to say ibuprofen 600mg is better than dexamethasone
 4mg, since no overlap between their CI’s.</p></li>
 </ul>
+</div>
+</div>
+<div id="risk-of-bias-plot" class="section level3">
+<h3>Risk of bias plot</h3>
+<ul>
+<li><a
+href="https://han16.github.io/Collaborations/2023_0301_Christos_1hour.html">reference</a></li>
+</ul>
+<pre class="r"><code>#install.packages(&quot;robvis&quot;)
+library(robvis)
+library(tidyverse)
+glimpse(data_robins)</code></pre>
+<pre><code>Rows: 12
+Columns: 10
+$ Study   &lt;fct&gt; Study 1, Study 2, Study 3, Study 4, Study 5, Study 6, Study 7,…
+$ D1      &lt;fct&gt; Critical, Moderate, Moderate, Low, Serious, Critical, Critical…
+$ D2      &lt;fct&gt; Low, Low, Low, Low, Serious, Serious, Moderate, Moderate, Low,…
+$ D3      &lt;fct&gt; Critical, Low, Moderate, Serious, Low, Moderate, Moderate, Low…
+$ D4      &lt;fct&gt; Critical, Critical, Critical, Critical, Low, Critical, Serious…
+$ D5      &lt;fct&gt; Low, Low, Critical, Moderate, Moderate, Critical, Critical, Lo…
+$ D6      &lt;fct&gt; Low, Moderate, Low, Low, Low, Moderate, Serious, Low, Serious,…
+$ D7      &lt;fct&gt; Serious, Low, Serious, Critical, Moderate, Serious, Serious, C…
+$ Overall &lt;fct&gt; Critical, Low, Serious, Low, Serious, Serious, Moderate, Moder…
+$ Weight  &lt;dbl&gt; 33.3333333, 33.3333333, 0.1428571, 9.0909091, 12.5000000, 25.0…</code></pre>
+<pre class="r"><code>rob_summary(data = data_rob2, 
+            tool = &quot;ROB2&quot;)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3807,17 +3868,17 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] dmetar_0.1.0        netmeta_2.9-0       meta_7.0-0         
- [4] metadat_1.2-0       VennDiagram_1.7.3   futile.logger_1.4.3
- [7] condsurv_1.0.0      devtools_2.4.5      usethis_2.2.2      
-[10] tidycmprsk_1.0.0    gtsummary_1.7.2     ggsurvfit_1.0.0    
-[13] irr_0.84.1          lpSolve_5.6.20      readxl_1.4.3       
-[16] cowplot_1.1.2       matrixStats_1.2.0   gridExtra_2.3      
-[19] DT_0.31             rstatix_0.7.2       ggpubr_0.6.0       
-[22] kableExtra_1.3.4    lubridate_1.9.3     forcats_1.0.0      
-[25] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
-[28] readr_2.1.4         tidyr_1.3.0         tibble_3.2.1       
-[31] ggplot2_3.4.4       tidyverse_2.0.0    
+ [1] robvis_0.3.0        dmetar_0.1.0        netmeta_2.9-0      
+ [4] meta_7.0-0          metadat_1.2-0       VennDiagram_1.7.3  
+ [7] futile.logger_1.4.3 condsurv_1.0.0      devtools_2.4.5     
+[10] usethis_2.2.2       tidycmprsk_1.0.0    gtsummary_1.7.2    
+[13] ggsurvfit_1.0.0     irr_0.84.1          lpSolve_5.6.20     
+[16] readxl_1.4.3        cowplot_1.1.2       matrixStats_1.2.0  
+[19] gridExtra_2.3       DT_0.31             rstatix_0.7.2      
+[22] ggpubr_0.6.0        kableExtra_1.3.4    lubridate_1.9.3    
+[25] forcats_1.0.0       stringr_1.5.1       dplyr_1.1.4        
+[28] purrr_1.0.2         readr_2.1.4         tidyr_1.3.0        
+[31] tibble_3.2.1        ggplot2_3.4.4       tidyverse_2.0.0    
 
 loaded via a namespace (and not attached):
   [1] mathjaxr_1.6-0       rstudioapi_0.15.0    jsonlite_1.8.8      
@@ -3859,7 +3920,6 @@ loaded via a namespace (and not attached):
 [109] viridisLite_0.4.2    broom.helpers_1.14.0 scales_1.3.0        
 [112] fpc_2.2-11           rlang_1.1.2          rvest_1.0.3         
 [115] formatR_1.14        </code></pre>
-</div>
 </div>
 </div>
 </div>

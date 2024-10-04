@@ -1262,6 +1262,21 @@ decomp.design(m.netmeta)
 
 
 
+### Risk of bias plot 
+
+* [reference](https://han16.github.io/Collaborations/2023_0301_Christos_1hour.html)
+
+```{r, message=F, warning=F}
+#install.packages("robvis")
+library(robvis)
+library(tidyverse)
+glimpse(data_robins)
+rob_summary(data = data_rob2, 
+            tool = "ROB2")
+```
+
+
+
 
 ```{r, echo=F, message=F, warning=F}
 #netheat(m.netmeta, nchar.trts=3, random = TRUE)
