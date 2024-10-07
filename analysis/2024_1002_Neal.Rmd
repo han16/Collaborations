@@ -1,0 +1,9 @@
+---
+title: "2024/10/07"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-10-07"
+---
+

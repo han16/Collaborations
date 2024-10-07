@@ -10,9 +10,9 @@
 
 
 
-<meta name="date" content="2024-01-08" />
+<meta name="date" content="2024-10-07" />
 
-<title>2024</title>
+<title>2024/10/07</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -34,6 +34,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
@@ -232,6 +233,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -356,10 +360,18 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">2024</h1>
-<h4 class="date">2024-01-08</h4>
+
+<h1 class="title toc-ignore">2024/10/07</h1>
+<h4 class="date">2024-10-07</h4>
 
 </div>
 
@@ -392,7 +404,7 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 1
 </p>
@@ -426,96 +438,12 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading">
-<p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
-</p>
-</div>
-<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
-<div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the
-global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity it’s best to always run the code in an
-empty environment.</p>
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading">
-<p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210523code">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Seed:</strong>
-<code>set.seed(20210523)</code> </a>
-</p>
-</div>
-<div id="strongSeedstrongcodesetseed20210523code"
-class="panel-collapse collapse">
-<div class="panel-body">
-<p>The command <code>set.seed(20210523)</code> was run prior to running
-the code in the R Markdown file. Setting a seed ensures that any results
-that rely on randomness, e.g. subsampling or permutations, are
-reproducible.</p>
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading">
-<p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Session information:</strong>
-recorded </a>
-</p>
-</div>
-<div id="strongSessioninformationstrongrecorded"
-class="panel-collapse collapse">
-<div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package
-versions is critical for reproducibility.</p>
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading">
-<p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Cache:</strong> none </a>
-</p>
-</div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
-<div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be
-confident that you successfully produced the results during this
-run.</p>
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading">
-<p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
-</p>
-</div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
-<div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -559,6 +487,10 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
+Untracked files:
+    Untracked:  analysis/2024_1001_Samah.Rmd
+    Untracked:  analysis/2024_1002_Neal.Rmd
+
 Unstaged changes:
     Modified:   analysis/2024.Rmd
 
@@ -575,566 +507,12 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/2024.Rmd</code>) and HTML
-(<code>docs/2024.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/0b8ef1769f1c3c48ef47f4e2ecad783f3cb9f977/docs/2024.html" target="_blank">0b8ef17</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-09-13
-</td>
-<td>
-9/13/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/be726d173861a35f222ee19ddc00d79bd636d384/analysis/2024.Rmd" target="_blank">be726d1</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-09-13
-</td>
-<td>
-9/13/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/be726d173861a35f222ee19ddc00d79bd636d384/docs/2024.html" target="_blank">be726d1</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-09-13
-</td>
-<td>
-9/13/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/1640354060aec670cc52c050cf94f760c3578a7a/analysis/2024.Rmd" target="_blank">1640354</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-15
-</td>
-<td>
-8/15/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/1640354060aec670cc52c050cf94f760c3578a7a/docs/2024.html" target="_blank">1640354</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-08-15
-</td>
-<td>
-8/15/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/64cf62882a79ab5f4674752ec14fce842b363160/analysis/2024.Rmd" target="_blank">64cf628</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-07-31
-</td>
-<td>
-7/31/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/64cf62882a79ab5f4674752ec14fce842b363160/docs/2024.html" target="_blank">64cf628</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-07-31
-</td>
-<td>
-7/31/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/c897ae5f24e32be09ccb4ef53ff8bf7eb44719d7/analysis/2024.Rmd" target="_blank">c897ae5</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-31
-</td>
-<td>
-5/31/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/c897ae5f24e32be09ccb4ef53ff8bf7eb44719d7/docs/2024.html" target="_blank">c897ae5</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-31
-</td>
-<td>
-5/31/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ebf94624dedf4976019cf779a522a6d85a2983d3/analysis/2024.Rmd" target="_blank">ebf9462</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-20
-</td>
-<td>
-5/20/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/ebf94624dedf4976019cf779a522a6d85a2983d3/docs/2024.html" target="_blank">ebf9462</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-20
-</td>
-<td>
-5/20/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f892f808ff03bc0a8adbb46662a7c377ab941c05/analysis/2024.Rmd" target="_blank">f892f80</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-04-11
-</td>
-<td>
-4/11/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/f892f808ff03bc0a8adbb46662a7c377ab941c05/docs/2024.html" target="_blank">f892f80</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-04-11
-</td>
-<td>
-4/11/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/70d0605f757163cdf5625015647a627d465bf84e/analysis/2024.Rmd" target="_blank">70d0605</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-03-27
-</td>
-<td>
-3/27/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/70d0605f757163cdf5625015647a627d465bf84e/docs/2024.html" target="_blank">70d0605</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-03-27
-</td>
-<td>
-3/27/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/fee08fe068018983d320378aacfe74da1ed6936b/analysis/2024.Rmd" target="_blank">fee08fe</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-03-08
-</td>
-<td>
-3/8/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/fee08fe068018983d320378aacfe74da1ed6936b/docs/2024.html" target="_blank">fee08fe</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-03-08
-</td>
-<td>
-3/8/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f791627496daac78d4a4c3bfa6f6006bb9ce8640/analysis/2024.Rmd" target="_blank">f791627</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-03-04
-</td>
-<td>
-3/4/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/f791627496daac78d4a4c3bfa6f6006bb9ce8640/docs/2024.html" target="_blank">f791627</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-03-04
-</td>
-<td>
-3/4/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/dcca02425658577c79141203c574caed9549f621/analysis/2024.Rmd" target="_blank">dcca024</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-21
-</td>
-<td>
-2/21/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/dcca02425658577c79141203c574caed9549f621/docs/2024.html" target="_blank">dcca024</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-21
-</td>
-<td>
-2/21/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/761c4ce898190b2afafa4465bd22187e5e59d3c6/analysis/2024.Rmd" target="_blank">761c4ce</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-14
-</td>
-<td>
-2/14/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/761c4ce898190b2afafa4465bd22187e5e59d3c6/docs/2024.html" target="_blank">761c4ce</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-14
-</td>
-<td>
-2/14/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/b84b61ef953e89b5adb63c3d024d3466227dfa6d/analysis/2024.Rmd" target="_blank">b84b61e</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-12
-</td>
-<td>
-2/12/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/b84b61ef953e89b5adb63c3d024d3466227dfa6d/docs/2024.html" target="_blank">b84b61e</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-02-12
-</td>
-<td>
-2/12/2024
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d/analysis/2024.Rmd" target="_blank">9c63f4b</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-08
-</td>
-<td>
-1/8/2024
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/han16/Collaborations/9c63f4b1e81c5a3065ff8f49b2d15b6c2e04559d/docs/2024.html" target="_blank">9c63f4b</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-01-08
-</td>
-<td>
-1/8/2024
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
-</div>
-</div>
-<div id="projects" class="section level2">
-<h2>projects</h2>
-<ol style="list-style-type: decimal">
-<li><a href="2024_0201_Linda.html">Feb-Linda</a></li>
-<li><a href="2024_0202_Ann.html">Feb-Ann</a></li>
-<li><a href="2024_0203_Suvagia.html">Feb-Suvagia</a></li>
-<li><a href="2024_0204_Zaid.html">Feb-Zaid</a></li>
-<li><a href="2024_0301_Youssef.html">Mar-Youssef</a></li>
-<li><a href="2024_0302_Arndt.html">Mar-Arndt</a></li>
-<li><a href="2024_0401_Zainab.html">Apr-Zainab</a></li>
-<li><a href="2024_0501_Vrisiis.html">May-Vrisiis</a></li>
-<li><a href="2024_0701_survey.html">Jul-State Survey</a></li>
-<li><a href="2024_0801_Rawal.html">Aug-Rawal</a></li>
-<li><a href="2024_0901_Tatli.html">Sep-Tatli</a></li>
-<li><a href="2024_1001_Samah.html">Oct-Samah</a></li>
-<li><a href="2024_1002_Neal.html">Oct-Neal</a></li>
-</ol>
-<br>
-<p>
-<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-Session information
-</button>
-</p>
-<div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.2 (2023-10-31 ucrt)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 19045)
-
-Matrix products: default
-
-
-locale:
-[1] LC_COLLATE=English_United States.utf8 
-[2] LC_CTYPE=English_United States.utf8   
-[3] LC_MONETARY=English_United States.utf8
-[4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.utf8    
-
-time zone: America/Chicago
-tzcode source: internal
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
- [1] lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
- [5] purrr_1.0.2     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   
- [9] ggplot2_3.4.4   tidyverse_2.0.0
-
-loaded via a namespace (and not attached):
- [1] sass_0.4.8        utf8_1.2.4        generics_0.1.3    stringi_1.8.3    
- [5] hms_1.1.3         digest_0.6.33     magrittr_2.0.3    timechange_0.2.0 
- [9] evaluate_0.23     grid_4.3.2        fastmap_1.1.1     rprojroot_2.0.4  
-[13] workflowr_1.7.1   jsonlite_1.8.8    whisker_0.4.1     promises_1.2.1   
-[17] fansi_1.0.6       scales_1.3.0      jquerylib_0.1.4   cli_3.6.2        
-[21] rlang_1.1.2       munsell_0.5.0     withr_2.5.2       cachem_1.0.8     
-[25] yaml_2.3.8        tools_4.3.2       tzdb_0.4.0        colorspace_2.1-0 
-[29] httpuv_1.6.13     vctrs_0.6.5       R6_2.5.1          lifecycle_1.0.4  
-[33] git2r_0.33.0      fs_1.6.3          pkgconfig_2.0.3   pillar_1.9.0     
-[37] bslib_0.6.1       later_1.3.2       gtable_0.3.4      glue_1.6.2       
-[41] Rcpp_1.0.11       xfun_0.41         tidyselect_1.2.0  rstudioapi_0.15.0
-[45] knitr_1.45        htmltools_0.5.7   rmarkdown_2.25    compiler_4.3.2   </code></pre>
 </div>
 </div>
 
@@ -1187,6 +565,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

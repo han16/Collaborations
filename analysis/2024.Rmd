@@ -21,4 +21,6 @@ library(tidyverse)
 9. [Jul-State Survey](2024_0701_survey.html)
 10. [Aug-Rawal](2024_0801_Rawal.html)
 11. [Sep-Tatli](2024_0901_Tatli.html)
+12. [Oct-Samah](2024_1001_Samah.html)
+13. [Oct-Neal](2024_1002_Neal.html)
 
