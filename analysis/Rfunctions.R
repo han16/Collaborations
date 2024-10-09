@@ -72,6 +72,9 @@ summary_statistics=function(data)
       per_75_quantile[i]=round(quantile(observation, prob=0.75),4)
       range_min[i]=round(min(observation),4)
       range_max[i]=round(max(observation),4)
+      if (length(observation)<=3 | var(observation)==0)
+        normality_pvalue[i]="NA: sample size too small or no variantion"
+       if (length(observation)>3 & var(observation)>0)
       normality_pvalue[i]=round(shapiro.test(observation)$p.value,4)
     }
     if (num_sample[i]==0)
