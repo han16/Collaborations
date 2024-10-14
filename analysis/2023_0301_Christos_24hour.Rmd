@@ -837,6 +837,7 @@ netsplit(m.netmeta) %>% forest(fontsize = 8, spacing = .4)  # visualize the net 
 
 ```{r, message=F, warning=F}
 funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:5), col=seq(1:5), linreg = T,  legend = F, digits.pval=2)
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:5), col=seq(1:5), linreg = F,  legend = F, digits.pval=2)
 ```
 
 
