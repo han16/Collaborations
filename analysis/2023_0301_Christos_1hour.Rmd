@@ -1205,6 +1205,9 @@ netsplit(m.netmeta) %>% forest(fontsize = 8, spacing = .4)  # visualize the net 
 
 ```
 
+* [I2 is pairwise comparisons with direct evidence](https://cran.r-project.org/web/packages/netmeta/news/news.html)
+
+
 
 
 ```{r, message=F, warning=F}
