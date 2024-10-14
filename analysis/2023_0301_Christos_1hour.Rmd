@@ -1264,7 +1264,7 @@ decomp.design(m.netmeta)
 
 ### Risk of bias plot 
 
-* [reference](https://han16.github.io/Collaborations/2023_0301_Christos_1hour.html)
+* [reference](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/risk-of-bias-plots.html)
 
 ```{r, message=F, warning=F}
 #install.packages("robvis")
