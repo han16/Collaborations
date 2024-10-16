@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-14
+<strong>Last updated:</strong> 2024-10-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3956566e84b257a0108a838b7a7775b15bd06b61targetblank3956566a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee32c0195de76521f23c1ddc935f31c9731b30e46targetblanke32c019a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/3956566e84b257a0108a838b7a7775b15bd06b61" target="_blank">3956566</a>
+<a href="https://github.com/han16/Collaborations/tree/e32c0195de76521f23c1ddc935f31c9731b30e46" target="_blank">e32c019</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3956566e84b257a0108a838b7a7775b15bd06b61targetblank3956566a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee32c0195de76521f23c1ddc935f31c9731b30e46targetblanke32c019a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/3956566e84b257a0108a838b7a7775b15bd06b61" target="_blank">3956566</a>.
+<a href="https://github.com/han16/Collaborations/tree/e32c0195de76521f23c1ddc935f31c9731b30e46" target="_blank">e32c019</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -661,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e32c0195de76521f23c1ddc935f31c9731b30e46/analysis/2023_0301_Christos_1hour.Rmd" target="_blank">e32c019</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-14
+</td>
+<td>
+10/14/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/e32c0195de76521f23c1ddc935f31c9731b30e46/docs/2023_0301_Christos_1hour.html" target="_blank">e32c019</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-14
+</td>
+<td>
+10/14/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1665,20 +1699,17 @@ class="math inline">\(p&lt;0.01\)</span>.</p></li>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-2.8252],[0.018]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="hour---studies-per-surgery" class="section level4">
-<h4>1 hour - Studies per surgery</h4>
-<div id="random-effect-model" class="section level5">
-<h5>random effect model</h5>
-<pre class="r"><code>##################### forest plot without Pereira
-variable_include_index=c(1,3:11)
+<div id="parallel-rcts" class="section level4">
+<h4>parallel RCTs</h4>
+<pre class="r"><code>variable_include_index=c(2,11, 8, 10, 1, 9, 7)
 
-m2 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+m22 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
 
 ########### generate object for plot 
 
-m.gen2 &lt;- metagen(TE = m2$TE,
-                 seTE =m2$seTE,
+m.gen22 &lt;- metagen(TE = m22$TE,
+                 seTE =m22$seTE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
@@ -1690,7 +1721,7 @@ m.gen2 &lt;- metagen(TE = m2$TE,
 
 #summary(m.gen)
 
-forest(m.gen2, layout=&quot;RevMan5&quot;, sortvar = TE, 
+forest(m.gen22, layout=&quot;RevMan5&quot;, sortvar = TE, 
             prediction = T, 
             print.tau2 = FALSE,
             fontsize=6.5,
@@ -1777,35 +1808,95 @@ han
 </table>
 </div>
 </div>
-<ul>
-<li>raw difference -0.72</li>
-</ul>
-<p><code>&gt; -0.71*(10)^0.5*(-0.08+1.34)/3.92 [1] -0.7216769</code></p>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-2.5609],[0.0306]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div
-id="hour---studies-per-timing-of-preemptive-medication-administration"
-class="section level4">
-<h4>1 hour - Studies per timing of preemptive medication
-administration</h4>
-<div id="preemptive-medication-given-1-hour-prior-to-surgery-or-longer"
-class="section level5">
-<h5>Preemptive medication given 1 hour prior to surgery or longer</h5>
-<ul>
-<li>random effect model</li>
-</ul>
-<pre class="r"><code>#####################
-variable_include_index=c(2,3,4,5,6,7,8,9,10)
+<pre class="r"><code>variable_include_index=c(2,11, 8, 10, 1, 9, 7)
 
-m3 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+m22 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
 
 ########### generate object for plot 
 
-m.gen3 &lt;- metagen(TE = m3$TE,
-                 seTE =m3$seTE,
+m.gen22 &lt;- metagen(TE = m22$TE,
+                 seTE =m22$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = T,
+                 random = F,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen22, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = F, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" target="_blank">2f814fa</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" target="_blank">d32b3b6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="hour---studies-per-surgery" class="section level4">
+<h4>1 hour - Studies per surgery</h4>
+<div id="random-effect-model" class="section level5">
+<h5>random effect model</h5>
+<pre class="r"><code>##################### forest plot without Pereira
+variable_include_index=c(1,3:11)
+
+m2 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen2 &lt;- metagen(TE = m2$TE,
+                 seTE =m2$seTE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
@@ -1817,8 +1908,8 @@ m.gen3 &lt;- metagen(TE = m3$TE,
 
 #summary(m.gen)
 
-forest(m.gen3, layout=&quot;RevMan5&quot;, sortvar = TE, 
-            prediction = FALSE, 
+forest(m.gen2, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = T, 
             print.tau2 = FALSE,
             fontsize=6.5,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
@@ -1894,28 +1985,34 @@ han
 </div>
 </div>
 <ul>
-<li>raw difference -0.82</li>
+<li>raw difference -0.72</li>
 </ul>
-<p><code>&gt; -0.75*(9)^0.5*(-0.04+1.47)/3.92 [1] -0.8207908</code></p>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-2.4264],[0.0414]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<p><code>&gt; -0.71*(10)^0.5*(-0.08+1.34)/3.92 [1] -0.7216769</code></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-2.5609],[0.0306]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="preemptive-medication-given-less-than-1-hour-prior-to-surgery"
+</div>
+<div
+id="hour---studies-per-timing-of-preemptive-medication-administration"
+class="section level4">
+<h4>1 hour - Studies per timing of preemptive medication
+administration</h4>
+<div id="preemptive-medication-given-1-hour-prior-to-surgery-or-longer"
 class="section level5">
-<h5>Preemptive medication given less than 1 hour prior to surgery</h5>
+<h5>Preemptive medication given 1 hour prior to surgery or longer</h5>
 <ul>
 <li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(1, 11)
+variable_include_index=c(2,3,4,5,6,7,8,9,10)
 
-m4 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+m3 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
 
 ########### generate object for plot 
 
-m.gen4 &lt;- metagen(TE = m4$TE,
-                 seTE =m4$seTE,
+m.gen3 &lt;- metagen(TE = m3$TE,
+                 seTE =m3$seTE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
@@ -1927,10 +2024,10 @@ m.gen4 &lt;- metagen(TE = m4$TE,
 
 #summary(m.gen)
 
-forest(m.gen4, layout=&quot;RevMan5&quot;, sortvar = TE, 
+forest(m.gen3, layout=&quot;RevMan5&quot;, sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6.5,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2004,14 +2101,44 @@ han
 </div>
 </div>
 <ul>
-<li>raw difference -0.61</li>
+<li>raw difference -0.82</li>
 </ul>
-<p><code>&gt; -0.47*(2)^0.5*(1.33+2.27)/3.92 [1] -0.6104208</code></p>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-3.3153],[0.1865]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<p><code>&gt; -0.75*(9)^0.5*(-0.04+1.47)/3.92 [1] -0.8207908</code></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-2.4264],[0.0414]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="preemptive-medication-given-less-than-1-hour-prior-to-surgery"
+class="section level5">
+<h5>Preemptive medication given less than 1 hour prior to surgery</h5>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
+<pre class="r"><code>#####################
+variable_include_index=c(1, 11)
+
+m4 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen4 &lt;- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen4, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
@@ -2084,155 +2211,14 @@ han
 </div>
 </div>
 <ul>
-<li>raw difference -0.11</li>
+<li>raw difference -0.61</li>
 </ul>
-<p><code>&gt; -0.47*(2)^0.5*(-0.16+0.78)/3.92 [1] -0.105128</code></p>
-<ul>
-<li><a
-href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es">pooled
-effect size under the fixed-effect model simply uses a weighted average
-of all studies</a> Inverse-variance meta analysis</li>
-</ul>
-<p><span class="math display">\[\widehat{\theta}=\frac{\sum_k
-\widehat{\theta}_kw_k}{\sum_k w_k}\]</span></p>
-<p><span class="math inline">\(\widehat{\theta}\)</span> is the pooled
-effect size, <span class="math inline">\(\widehat{\theta}_k\)</span> is
-kth study effect size, and <span class="math inline">\(w_k\)</span> is
-the weight as <span class="math inline">\(w_k=\frac{1}{s_k^2}\)</span>,
-<span class="math inline">\(s_k^2\)</span> is the variance.</p>
-</div>
-</div>
-<div id="hour---studies-only-with-ibuproben" class="section level4">
-<h4>1 hour - Studies only with ibuproben</h4>
-<ul>
-<li>random effect model</li>
-</ul>
-<pre class="r"><code>#####################
-variable_include_index=c(1, 2, 5)
-
-m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
-  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
-
-########### generate object for plot 
-
-m.gen5 &lt;- metagen(TE = m5$TE,
-                 seTE =m5$seTE,
-                 studlab = comparison[variable_include_index],
-                 data = data_meta[variable_include_index,],
-                 sm = &quot;SMD&quot;,
-                 fixed = FALSE,
-                 random = TRUE,
-                 method.tau = &quot;REML&quot;,
-                 hakn = TRUE,
-                 title = &quot;Different treatments&quot;)
-
-#summary(m.gen)
-
-forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
-            prediction = FALSE, 
-            print.tau2 = FALSE,
-            fontsize=7,
-            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">7d82242</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">df47937</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-30
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">2f814fa</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">d32b3b6</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><code>&gt; -0.47*(2)^0.5*(1.33+2.27)/3.92 [1] -0.6104208</code></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-3.3153],[0.1865]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>fixed effect model</li>
 </ul>
-<pre class="r"><code>#####################
-variable_include_index=c(1, 2, 5)
-
-m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
-  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
-
-########### generate object for plot 
-
-m.gen5 &lt;- metagen(TE = m5$TE,
-                 seTE =m5$seTE,
-                 studlab = comparison[variable_include_index],
-                 data = data_meta[variable_include_index,],
-                 sm = &quot;SMD&quot;,
-                 fixed = TRUE,
-                 random = FALSE,
-                 method.tau = &quot;REML&quot;,
-                 hakn = TRUE,
-                 title = &quot;Different treatments&quot;)
-
-#summary(m.gen)
-
-forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
-            prediction = FALSE, 
-            print.tau2 = FALSE,
-            fontsize=7,
-            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
@@ -2304,22 +2290,40 @@ han
 </table>
 </div>
 </div>
+<ul>
+<li>raw difference -0.11</li>
+</ul>
+<p><code>&gt; -0.47*(2)^0.5*(-0.16+0.78)/3.92 [1] -0.105128</code></p>
+<ul>
+<li><a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es">pooled
+effect size under the fixed-effect model simply uses a weighted average
+of all studies</a> Inverse-variance meta analysis</li>
+</ul>
+<p><span class="math display">\[\widehat{\theta}=\frac{\sum_k
+\widehat{\theta}_kw_k}{\sum_k w_k}\]</span></p>
+<p><span class="math inline">\(\widehat{\theta}\)</span> is the pooled
+effect size, <span class="math inline">\(\widehat{\theta}_k\)</span> is
+kth study effect size, and <span class="math inline">\(w_k\)</span> is
+the weight as <span class="math inline">\(w_k=\frac{1}{s_k^2}\)</span>,
+<span class="math inline">\(s_k^2\)</span> is the variance.</p>
 </div>
-<div id="hour---studies-only-with-dexamethasone" class="section level4">
-<h4>1 hour - Studies only with dexamethasone</h4>
+</div>
+<div id="hour---studies-only-with-ibuproben" class="section level4">
+<h4>1 hour - Studies only with ibuproben</h4>
 <ul>
 <li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(3, 7, 8)
+variable_include_index=c(1, 2, 5)
 
-m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
 
 ########### generate object for plot 
 
-m.gen6 &lt;- metagen(TE = m6$TE,
-                 seTE =m6$seTE,
+m.gen5 &lt;- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
@@ -2331,7 +2335,7 @@ m.gen6 &lt;- metagen(TE = m6$TE,
 
 #summary(m.gen)
 
-forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
@@ -2411,15 +2415,15 @@ han
 <li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(3, 7, 8)
+variable_include_index=c(1, 2, 5)
 
-m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
 
 ########### generate object for plot 
 
-m.gen6 &lt;- metagen(TE = m6$TE,
-                 seTE =m6$seTE,
+m.gen5 &lt;- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
@@ -2431,7 +2435,7 @@ m.gen6 &lt;- metagen(TE = m6$TE,
 
 #summary(m.gen)
 
-forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
@@ -2508,15 +2512,13 @@ han
 </div>
 </div>
 </div>
-<div id="hour-per-drug-analysis" class="section level4">
-<h4>1 hour per drug analysis</h4>
-<div id="ibuprofen-600mg" class="section level5">
-<h5>Ibuprofen 600mg</h5>
+<div id="hour---studies-only-with-dexamethasone" class="section level4">
+<h4>1 hour - Studies only with dexamethasone</h4>
 <ul>
 <li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(2, 5)
+variable_include_index=c(3, 7, 8)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -2616,7 +2618,7 @@ han
 <li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(2, 5)
+variable_include_index=c(3, 7, 8)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -2713,13 +2715,15 @@ han
 </div>
 </div>
 </div>
-<div id="dexamethasone-4mg" class="section level5">
-<h5>dexamethasone 4mg</h5>
+<div id="hour-per-drug-analysis" class="section level4">
+<h4>1 hour per drug analysis</h4>
+<div id="ibuprofen-600mg" class="section level5">
+<h5>Ibuprofen 600mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(3, 7)
+variable_include_index=c(2, 5)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -2819,7 +2823,7 @@ han
 <li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(3, 7)
+variable_include_index=c(2, 5)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -2905,13 +2909,13 @@ han
 </div>
 </div>
 </div>
-<div id="celecoxib-200mg" class="section level5">
-<h5>celecoxib 200mg</h5>
+<div id="dexamethasone-4mg" class="section level5">
+<h5>dexamethasone 4mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(4, 9)
+variable_include_index=c(3, 7)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -3000,7 +3004,7 @@ han
 <li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(4, 9)
+variable_include_index=c(3, 7)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -3086,27 +3090,23 @@ han
 </div>
 </div>
 </div>
-</div>
-<div id="hour---sensitivity-analysis" class="section level4">
-<h4>1 hour - Sensitivity analysis</h4>
+<div id="celecoxib-200mg" class="section level5">
+<h5>celecoxib 200mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-TE_random=numeric(); seTE_random=numeric()
-for (i in 1:11)
-{
- m_leave_one_out &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
-  data = data_meta[-i,], sm = &quot;SMD&quot;)
- TE_random[i]=m_leave_one_out$TE.random
- seTE_random[i]=m_leave_one_out$seTE.random
-}
+variable_include_index=c(4, 9)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
 ########### generate object for plot 
-comparison_leave_one_out=paste(&quot;omitting&quot;, comparison[1:11], sep=&quot;_&quot;)
-m.gen_leave_one_out &lt;- metagen(TE = TE_random,
-                 seTE =seTE_random,
-                 studlab = comparison_leave_one_out,
-             #    data = data_meta[variable_include_index,],
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
                  fixed = FALSE,
                  random = TRUE,
@@ -3116,7 +3116,7 @@ m.gen_leave_one_out &lt;- metagen(TE = TE_random,
 
 #summary(m.gen)
 
-forest(m.gen_leave_one_out, layout=&quot;JAMA&quot;, sortvar = TE, 
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
@@ -3171,26 +3171,20 @@ han
 </div>
 </div>
 <ul>
-<li><p>we remove one study at a time, and re-do the same analysis, to
-see how the removed study influences the results from all studies
-included.</p></li>
-<li><p>fixed effect model</p></li>
+<li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
-TE_random=numeric(); seTE_random=numeric()
-for (i in 1:11)
-{
- m_leave_one_out &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
-  data = data_meta[-i,], sm = &quot;SMD&quot;)
- TE_random[i]=m_leave_one_out$TE.random
- seTE_random[i]=m_leave_one_out$seTE.random
-}
+variable_include_index=c(4, 9)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
 ########### generate object for plot 
-comparison_leave_one_out=paste(&quot;omitting&quot;, comparison[1:11], sep=&quot;_&quot;)
-m.gen_leave_one_out &lt;- metagen(TE = TE_random,
-                 seTE =seTE_random,
-                 studlab = comparison_leave_one_out,
-             #    data = data_meta[variable_include_index,],
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
                  fixed = TRUE,
                  random = FALSE,
@@ -3200,10 +3194,10 @@ m.gen_leave_one_out &lt;- metagen(TE = TE_random,
 
 #summary(m.gen)
 
-forest(m.gen_leave_one_out, layout=&quot;RevMan5&quot;, sortvar = TE, 
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=6,
+            fontsize=7,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3242,6 +3236,186 @@ han
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" target="_blank">d32b3b6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="hour---sensitivity-analysis" class="section level4">
+<h4>1 hour - Sensitivity analysis</h4>
+<ul>
+<li>random effect model</li>
+</ul>
+<pre class="r"><code>#####################
+TE_random=numeric(); seTE_random=numeric()
+for (i in 1:11)
+{
+ m_leave_one_out &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = &quot;SMD&quot;)
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste(&quot;omitting&quot;, comparison[1:11], sep=&quot;_&quot;)
+m.gen_leave_one_out &lt;- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen_leave_one_out, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" target="_blank">2f814fa</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" target="_blank">d32b3b6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>we remove one study at a time, and re-do the same analysis, to
+see how the removed study influences the results from all studies
+included.</p></li>
+<li><p>fixed effect model</p></li>
+</ul>
+<pre class="r"><code>#####################
+TE_random=numeric(); seTE_random=numeric()
+for (i in 1:11)
+{
+ m_leave_one_out &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = &quot;SMD&quot;)
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste(&quot;omitting&quot;, comparison[1:11], sep=&quot;_&quot;)
+m.gen_leave_one_out &lt;- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen_leave_one_out, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=6,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" target="_blank">df47937</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" target="_blank">2f814fa</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -3464,141 +3638,6 @@ long.labels=m.netmeta$trts
 netgraph(m.netmeta, 
          labels = long.labels, number.of.studies = TRUE
          )</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
-Past versions of unnamed-chunk-32-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-32-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-32-1.png" target="_blank">7d82242</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-32-1.png" target="_blank">ba6d4d5</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-32-1.png" target="_blank">df47937</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li><p>we use R package-netmeta for network meta analysis.</p></li>
-<li><p>dependence among multi-arm studies has been taken into account,
-by argument <code>tol.multiarm=0.2</code></p></li>
-<li><p>overall comparison structure</p></li>
-<li><p>direct links mean there are direct comparison, otherwise indirect
-comparisons</p></li>
-<li><p>degree of thickness represents how often we find a specific
-comparison</p></li>
-<li><p>numbers on the edge indicate how many studies involve that
-comparison</p></li>
-</ul>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
-Past versions of unnamed-chunk-33-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-33-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-33-1.png" target="_blank">7d82242</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-33-1.png" target="_blank">ba6d4d5</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-31
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>a mean path length &gt; 2 means that a comparison estimate should be
-interpreted with particular caution.</li>
-</ul>
-<pre><code>                  P-score
-nimesilide 100mg   0.9185
-ibuprofen 600mg    0.8320
-dexamethasone 8mg  0.5577
-ketorolac 10mg     0.5559
-etoricoxib 120mg   0.4775
-ibuprofen 400mg    0.4165
-celecoxib 200mg    0.3492
-placebo            0.1986
-dexamethasone 4mg  0.1941</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
@@ -3631,6 +3670,119 @@ han
 </td>
 <td>
 2024-06-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>we use R package-netmeta for network meta analysis.</p></li>
+<li><p>dependence among multi-arm studies has been taken into account,
+by argument <code>tol.multiarm=0.2</code></p></li>
+<li><p>overall comparison structure</p></li>
+<li><p>direct links mean there are direct comparison, otherwise indirect
+comparisons</p></li>
+<li><p>degree of thickness represents how often we find a specific
+comparison</p></li>
+<li><p>numbers on the edge indicate how many studies involve that
+comparison</p></li>
+</ul>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
+Past versions of unnamed-chunk-35-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-35-1.png" target="_blank">7d82242</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>a mean path length &gt; 2 means that a comparison estimate should be
+interpreted with particular caution.</li>
+</ul>
+<pre><code>                  P-score
+nimesilide 100mg   0.9185
+ibuprofen 600mg    0.8320
+dexamethasone 8mg  0.5577
+ketorolac 10mg     0.5559
+etoricoxib 120mg   0.4775
+ibuprofen 400mg    0.4165
+celecoxib 200mg    0.3492
+placebo            0.1986
+dexamethasone 4mg  0.1941</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
+Past versions of unnamed-chunk-36-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-36-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f89c990aa733efd692bc1d0c8acd8194afa7098d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" target="_blank">f89c990</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-11
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1754ebd922709048159383a3369803a2340e7885/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" target="_blank">1754ebd</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-10
 </td>
 </tr>
 </tbody>
@@ -3725,125 +3877,6 @@ comparisons, with p values less than 5% being disagree</li>
 values.</li>
 </ul>
 <pre class="r"><code>netsplit(m.netmeta) %&gt;% forest(fontsize = 8, spacing = .4)  # visualize the net split results </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
-Past versions of unnamed-chunk-36-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-36-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f89c990aa733efd692bc1d0c8acd8194afa7098d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" target="_blank">f89c990</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-09-11
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/1754ebd922709048159383a3369803a2340e7885/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" target="_blank">1754ebd</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-09-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li><a
-href="https://cran.r-project.org/web/packages/netmeta/news/news.html">I2
-is pairwise comparisons with direct evidence</a></li>
-</ul>
-<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
-Past versions of unnamed-chunk-37-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-37-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/f89c990aa733efd692bc1d0c8acd8194afa7098d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-37-1.png" target="_blank">f89c990</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-09-11
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/1754ebd922709048159383a3369803a2340e7885/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-37-1.png" target="_blank">1754ebd</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-09-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = F,  legend = F, digits.pval=2)</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="fixed-effect-model" class="section level4">
-<h4>fixed effect model</h4>
-<pre><code>                  P-score
-nimesilide 100mg   0.9474
-ibuprofen 600mg    0.8790
-ketorolac 10mg     0.6286
-dexamethasone 8mg  0.6186
-etoricoxib 120mg   0.5072
-ibuprofen 400mg    0.4213
-celecoxib 200mg    0.3101
-placebo            0.1024
-dexamethasone 4mg  0.0855</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
@@ -3882,6 +3915,66 @@ han
 </table>
 </div>
 </div>
+<ul>
+<li><a
+href="https://cran.r-project.org/web/packages/netmeta/news/news.html">I2
+is pairwise comparisons with direct evidence</a></li>
+</ul>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
+Past versions of unnamed-chunk-39-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-39-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/83416e27aef331234c2940670ce5d732c6962047/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" target="_blank">83416e2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = F,  legend = F, digits.pval=2)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fixed-effect-model" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+nimesilide 100mg   0.9474
+ibuprofen 600mg    0.8790
+ketorolac 10mg     0.6286
+dexamethasone 8mg  0.6186
+etoricoxib 120mg   0.5072
+ibuprofen 400mg    0.4213
+celecoxib 200mg    0.3101
+placebo            0.1024
+dexamethasone 4mg  0.0855</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Q statistics to assess homogeneity / consistency
 
                     Q df p-value
@@ -3945,44 +4038,7 @@ $ Overall &lt;fct&gt; Critical, Low, Serious, Low, Serious, Serious, Moderate, M
 $ Weight  &lt;dbl&gt; 33.3333333, 33.3333333, 0.1428571, 9.0909091, 12.5000000, 25.0…</code></pre>
 <pre class="r"><code>rob_summary(data = data_rob2, 
             tool = &quot;ROB2&quot;)</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
-Past versions of unnamed-chunk-39-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-39-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/83416e27aef331234c2940670ce5d732c6962047/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" target="_blank">83416e2</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-10-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
