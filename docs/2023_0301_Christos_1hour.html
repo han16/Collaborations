@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee32c0195de76521f23c1ddc935f31c9731b30e46targetblanke32c019a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee90324b841faff95e89887898a3205c1a5e10069targetblanke90324ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/e32c0195de76521f23c1ddc935f31c9731b30e46" target="_blank">e32c019</a>
+<a href="https://github.com/han16/Collaborations/tree/e90324b841faff95e89887898a3205c1a5e10069" target="_blank">e90324b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee32c0195de76521f23c1ddc935f31c9731b30e46targetblanke32c019a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee90324b841faff95e89887898a3205c1a5e10069targetblanke90324ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/e32c0195de76521f23c1ddc935f31c9731b30e46" target="_blank">e32c019</a>.
+<a href="https://github.com/han16/Collaborations/tree/e90324b841faff95e89887898a3205c1a5e10069" target="_blank">e90324b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -661,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/analysis/2023_0301_Christos_1hour.Rmd" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+<td>
+10/16/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/e90324b841faff95e89887898a3205c1a5e10069/docs/2023_0301_Christos_1hour.html" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+<td>
+10/16/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1713,8 +1747,8 @@ m.gen22 &lt;- metagen(TE = m22$TE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
-                 fixed = FALSE,
-                 random = TRUE,
+                 fixed = T,
+                 random = F,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)
@@ -1722,7 +1756,7 @@ m.gen22 &lt;- metagen(TE = m22$TE,
 #summary(m.gen)
 
 forest(m.gen22, layout=&quot;RevMan5&quot;, sortvar = TE, 
-            prediction = T, 
+            prediction = F, 
             print.tau2 = FALSE,
             fontsize=6.5,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
@@ -1749,6 +1783,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-9-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ceb5af09b739860233734fb37df73368e5849140/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-9-1.png" target="_blank">ceb5af0</a>
@@ -1808,80 +1853,6 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>variable_include_index=c(2,11, 8, 10, 1, 9, 7)
-
-m22 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
-  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
-
-########### generate object for plot 
-
-m.gen22 &lt;- metagen(TE = m22$TE,
-                 seTE =m22$seTE,
-                 studlab = comparison[variable_include_index],
-                 data = data_meta[variable_include_index,],
-                 sm = &quot;SMD&quot;,
-                 fixed = T,
-                 random = F,
-                 method.tau = &quot;REML&quot;,
-                 hakn = TRUE,
-                 title = &quot;Different treatments&quot;)
-
-#summary(m.gen)
-
-forest(m.gen22, layout=&quot;RevMan5&quot;, sortvar = TE, 
-            prediction = F, 
-            print.tau2 = FALSE,
-            fontsize=6.5,
-            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" target="_blank">2f814fa</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" target="_blank">d32b3b6</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div id="hour---studies-per-surgery" class="section level4">
 <h4>1 hour - Studies per surgery</h4>
@@ -1913,13 +1884,13 @@ forest(m.gen2, layout=&quot;RevMan5&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=6.5,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div id="fig-unnamed-chunk-10-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1938,29 +1909,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-11-1.png" target="_blank">7d82242</a>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" target="_blank">e90324b</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-06-19
+2024-10-16
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-11-1.png" target="_blank">df47937</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-30
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-11-1.png" target="_blank">2f814fa</a>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" target="_blank">2f814fa</a>
 </td>
 <td>
 han
@@ -1971,7 +1931,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-11-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-10-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -2029,13 +1989,13 @@ forest(m.gen3, layout=&quot;RevMan5&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=6.5,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div id="fig-unnamed-chunk-12-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2054,18 +2014,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-13-1.png" target="_blank">7d82242</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-13-1.png" target="_blank">df47937</a>
+<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-12-1.png" target="_blank">df47937</a>
 </td>
 <td>
 han
@@ -2076,7 +2025,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-13-1.png" target="_blank">2f814fa</a>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-12-1.png" target="_blank">2f814fa</a>
 </td>
 <td>
 han
@@ -2087,7 +2036,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-13-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-12-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -2139,13 +2088,13 @@ forest(m.gen4, layout=&quot;RevMan5&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=7,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div id="fig-unnamed-chunk-14-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2164,18 +2113,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-15-1.png" target="_blank">7d82242</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-15-1.png" target="_blank">df47937</a>
+<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-14-1.png" target="_blank">df47937</a>
 </td>
 <td>
 han
@@ -2186,7 +2124,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-15-1.png" target="_blank">2f814fa</a>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-14-1.png" target="_blank">2f814fa</a>
 </td>
 <td>
 han
@@ -2197,7 +2135,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-15-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-14-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -2219,13 +2157,13 @@ han
 <ul>
 <li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
-Past versions of unnamed-chunk-17-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div id="fig-unnamed-chunk-16-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2244,7 +2182,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">7d82242</a>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">7d82242</a>
 </td>
 <td>
 han
@@ -2255,7 +2193,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">df47937</a>
+<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">df47937</a>
 </td>
 <td>
 han
@@ -2266,7 +2204,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">2f814fa</a>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">2f814fa</a>
 </td>
 <td>
 han
@@ -2277,7 +2215,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-16-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -2340,6 +2278,117 @@ forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=7,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">7d82242</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">df47937</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">2f814fa</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-17-1.png" target="_blank">d32b3b6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>fixed effect model</li>
+</ul>
+<pre class="r"><code>#####################
+variable_include_index=c(1, 2, 5)
+
+m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen5 &lt;- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
@@ -2363,6 +2412,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-18-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-18-1.png" target="_blank">7d82242</a>
@@ -2411,31 +2471,34 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="hour---studies-only-with-dexamethasone" class="section level4">
+<h4>1 hour - Studies only with dexamethasone</h4>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(1, 2, 5)
+variable_include_index=c(3, 7, 8)
 
-m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
 
 ########### generate object for plot 
 
-m.gen5 &lt;- metagen(TE = m5$TE,
-                 seTE =m5$seTE,
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
-                 fixed = TRUE,
-                 random = FALSE,
+                 fixed = FALSE,
+                 random = TRUE,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)
 
 #summary(m.gen)
 
-forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
@@ -2463,6 +2526,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-19-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-19-1.png" target="_blank">7d82242</a>
@@ -2511,11 +2585,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="hour---studies-only-with-dexamethasone" class="section level4">
-<h4>1 hour - Studies only with dexamethasone</h4>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
 variable_include_index=c(3, 7, 8)
@@ -2530,8 +2601,8 @@ m.gen6 &lt;- metagen(TE = m6$TE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
-                 fixed = FALSE,
-                 random = TRUE,
+                 fixed = TRUE,
+                 random = FALSE,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)
@@ -2566,6 +2637,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-20-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-20-1.png" target="_blank">7d82242</a>
@@ -2614,11 +2696,16 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="hour-per-drug-analysis" class="section level4">
+<h4>1 hour per drug analysis</h4>
+<div id="ibuprofen-600mg" class="section level5">
+<h5>Ibuprofen 600mg</h5>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(3, 7, 8)
+variable_include_index=c(2, 5)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -2630,8 +2717,8 @@ m.gen6 &lt;- metagen(TE = m6$TE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
-                 fixed = TRUE,
-                 random = FALSE,
+                 fixed = FALSE,
+                 random = TRUE,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)
@@ -2666,6 +2753,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-21-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-21-1.png" target="_blank">7d82242</a>
@@ -2714,13 +2812,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="hour-per-drug-analysis" class="section level4">
-<h4>1 hour per drug analysis</h4>
-<div id="ibuprofen-600mg" class="section level5">
-<h5>Ibuprofen 600mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
 variable_include_index=c(2, 5)
@@ -2735,8 +2828,8 @@ m.gen6 &lt;- metagen(TE = m6$TE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
-                 fixed = FALSE,
-                 random = TRUE,
+                 fixed = TRUE,
+                 random = FALSE,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)
@@ -2771,6 +2864,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-22-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-22-1.png" target="_blank">7d82242</a>
@@ -2819,11 +2923,14 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="dexamethasone-4mg" class="section level5">
+<h5>dexamethasone 4mg</h5>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <pre class="r"><code>#####################
-variable_include_index=c(2, 5)
+variable_include_index=c(3, 7)
 
 m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -2835,8 +2942,8 @@ m.gen6 &lt;- metagen(TE = m6$TE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
-                 fixed = TRUE,
-                 random = FALSE,
+                 fixed = FALSE,
+                 random = TRUE,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)
@@ -2871,6 +2978,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-23-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-23-1.png" target="_blank">7d82242</a>
@@ -2908,11 +3026,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="dexamethasone-4mg" class="section level5">
-<h5>dexamethasone 4mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <pre class="r"><code>#####################
 variable_include_index=c(3, 7)
@@ -2927,8 +3042,8 @@ m.gen6 &lt;- metagen(TE = m6$TE,
                  studlab = comparison[variable_include_index],
                  data = data_meta[variable_include_index,],
                  sm = &quot;SMD&quot;,
-                 fixed = FALSE,
-                 random = TRUE,
+                 fixed = TRUE,
+                 random = FALSE,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)
@@ -2965,6 +3080,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-24-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-24-1.png" target="_blank">7d82242</a>
 </td>
 <td>
@@ -2994,95 +3120,6 @@ han
 </td>
 <td>
 2024-05-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>fixed effect model</li>
-</ul>
-<pre class="r"><code>#####################
-variable_include_index=c(3, 7)
-
-m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
-  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
-
-########### generate object for plot 
-
-m.gen6 &lt;- metagen(TE = m6$TE,
-                 seTE =m6$seTE,
-                 studlab = comparison[variable_include_index],
-                 data = data_meta[variable_include_index,],
-                 sm = &quot;SMD&quot;,
-                 fixed = TRUE,
-                 random = FALSE,
-                 method.tau = &quot;REML&quot;,
-                 hakn = TRUE,
-                 title = &quot;Different treatments&quot;)
-
-#summary(m.gen)
-
-forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
-            prediction = FALSE, 
-            print.tau2 = FALSE,
-            fontsize=7,
-            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
-Past versions of unnamed-chunk-25-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-25-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" target="_blank">7d82242</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" target="_blank">ba6d4d5</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" target="_blank">df47937</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-30
 </td>
 </tr>
 </tbody>
@@ -3121,13 +3158,13 @@ forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=7,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
-Past versions of unnamed-chunk-26-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div id="fig-unnamed-chunk-25-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -3146,7 +3183,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-26-1.png" target="_blank">7d82242</a>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" target="_blank">7d82242</a>
 </td>
 <td>
 han
@@ -3157,13 +3205,24 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-26-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" target="_blank">ba6d4d5</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-05-24
+2024-05-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-25-1.png" target="_blank">df47937</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-30
 </td>
 </tr>
 </tbody>
@@ -3199,13 +3258,13 @@ forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=7,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
-Past versions of unnamed-chunk-27-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div id="fig-unnamed-chunk-26-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -3224,7 +3283,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" target="_blank">7d82242</a>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-26-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-26-1.png" target="_blank">7d82242</a>
 </td>
 <td>
 han
@@ -3235,7 +3305,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-26-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -3284,13 +3354,13 @@ forest(m.gen_leave_one_out, layout=&quot;JAMA&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=7,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
-Past versions of unnamed-chunk-28-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div id="fig-unnamed-chunk-27-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -3309,18 +3379,29 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" target="_blank">2f814fa</a>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" target="_blank">e90324b</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-05-29
+2024-10-16
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" target="_blank">7d82242</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-27-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -3368,13 +3449,13 @@ forest(m.gen_leave_one_out, layout=&quot;RevMan5&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=6,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
-Past versions of unnamed-chunk-29-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div id="fig-unnamed-chunk-28-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -3393,18 +3474,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/df47937d5ac73bb4f2a6dd9b1cc1998edf2ae6a4/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" target="_blank">df47937</a>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" target="_blank">e90324b</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-05-30
+2024-10-16
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" target="_blank">2f814fa</a>
+<a href="https://github.com/han16/Collaborations/blob/2f814fa9a80d1615692153520cb44d95aa41460b/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" target="_blank">2f814fa</a>
 </td>
 <td>
 han
@@ -3415,7 +3496,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-29-1.png" target="_blank">d32b3b6</a>
+<a href="https://github.com/han16/Collaborations/blob/d32b3b63f540d86165c01e3ac2afb9c8f7ca37fa/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-28-1.png" target="_blank">d32b3b6</a>
 </td>
 <td>
 han
@@ -3638,6 +3719,67 @@ long.labels=m.netmeta$trts
 netgraph(m.netmeta, 
          labels = long.labels, number.of.studies = TRUE
          )</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-33-1.png" target="_blank">7d82242</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-33-1.png" target="_blank">ba6d4d5</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>we use R package-netmeta for network meta analysis.</p></li>
+<li><p>dependence among multi-arm studies has been taken into account,
+by argument <code>tol.multiarm=0.2</code></p></li>
+<li><p>overall comparison structure</p></li>
+<li><p>direct links mean there are direct comparison, otherwise indirect
+comparisons</p></li>
+<li><p>degree of thickness represents how often we find a specific
+comparison</p></li>
+<li><p>numbers on the edge indicate how many studies involve that
+comparison</p></li>
+</ul>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
@@ -3663,57 +3805,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-34-1.png" target="_blank">7d82242</a>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-34-1.png" target="_blank">e90324b</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-06-19
+2024-10-16
 </td>
 </tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li><p>we use R package-netmeta for network meta analysis.</p></li>
-<li><p>dependence among multi-arm studies has been taken into account,
-by argument <code>tol.multiarm=0.2</code></p></li>
-<li><p>overall comparison structure</p></li>
-<li><p>direct links mean there are direct comparison, otherwise indirect
-comparisons</p></li>
-<li><p>degree of thickness represents how often we find a specific
-comparison</p></li>
-<li><p>numbers on the edge indicate how many studies involve that
-comparison</p></li>
-</ul>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
-Past versions of unnamed-chunk-35-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-35-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-35-1.png" target="_blank">7d82242</a>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-34-1.png" target="_blank">7d82242</a>
 </td>
 <td>
 han
@@ -3740,13 +3843,13 @@ ibuprofen 400mg    0.4165
 celecoxib 200mg    0.3492
 placebo            0.1986
 dexamethasone 4mg  0.1941</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
-Past versions of unnamed-chunk-36-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
+Past versions of unnamed-chunk-35-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-36-1" class="collapse">
+<div id="fig-unnamed-chunk-35-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -3765,24 +3868,24 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/f89c990aa733efd692bc1d0c8acd8194afa7098d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" target="_blank">f89c990</a>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-35-1.png" target="_blank">e90324b</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-09-11
+2024-10-16
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/1754ebd922709048159383a3369803a2340e7885/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-36-1.png" target="_blank">1754ebd</a>
+<a href="https://github.com/han16/Collaborations/blob/7d82242aeb94e099a116373541e4ad2f966d008d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-35-1.png" target="_blank">7d82242</a>
 </td>
 <td>
 han
 </td>
 <td>
-2024-09-10
+2024-06-19
 </td>
 </tr>
 </tbody>
@@ -3877,6 +3980,61 @@ comparisons, with p values less than 5% being disagree</li>
 values.</li>
 </ul>
 <pre class="r"><code>netsplit(m.netmeta) %&gt;% forest(fontsize = 8, spacing = .4)  # visualize the net split results </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
+Past versions of unnamed-chunk-37-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f89c990aa733efd692bc1d0c8acd8194afa7098d/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-37-1.png" target="_blank">f89c990</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-11
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1754ebd922709048159383a3369803a2340e7885/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-37-1.png" target="_blank">1754ebd</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><a
+href="https://cran.r-project.org/web/packages/netmeta/news/news.html">I2
+is pairwise comparisons with direct evidence</a></li>
+</ul>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
@@ -3902,6 +4060,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-38-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/1754ebd922709048159383a3369803a2340e7885/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-38-1.png" target="_blank">1754ebd</a>
 </td>
 <td>
@@ -3915,12 +4084,21 @@ han
 </table>
 </div>
 </div>
-<ul>
-<li><a
-href="https://cran.r-project.org/web/packages/netmeta/news/news.html">I2
-is pairwise comparisons with direct evidence</a></li>
-</ul>
-<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)</code></pre>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = F,  legend = F, digits.pval=2)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fixed-effect-model" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+nimesilide 100mg   0.9474
+ibuprofen 600mg    0.8790
+ketorolac 10mg     0.6286
+dexamethasone 8mg  0.6186
+etoricoxib 120mg   0.5072
+ibuprofen 400mg    0.4213
+celecoxib 200mg    0.3101
+placebo            0.1024
+dexamethasone 4mg  0.0855</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
@@ -3946,6 +4124,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/83416e27aef331234c2940670ce5d732c6962047/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-1.png" target="_blank">83416e2</a>
 </td>
 <td>
@@ -3959,22 +4148,6 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = F,  legend = F, digits.pval=2)</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="fixed-effect-model" class="section level4">
-<h4>fixed effect model</h4>
-<pre><code>                  P-score
-nimesilide 100mg   0.9474
-ibuprofen 600mg    0.8790
-ketorolac 10mg     0.6286
-dexamethasone 8mg  0.6186
-etoricoxib 120mg   0.5072
-ibuprofen 400mg    0.4213
-celecoxib 200mg    0.3101
-placebo            0.1024
-dexamethasone 4mg  0.0855</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Q statistics to assess homogeneity / consistency
 
                     Q df p-value
@@ -4038,7 +4211,44 @@ $ Overall &lt;fct&gt; Critical, Low, Serious, Low, Serious, Serious, Moderate, M
 $ Weight  &lt;dbl&gt; 33.3333333, 33.3333333, 0.1428571, 9.0909091, 12.5000000, 25.0…</code></pre>
 <pre class="r"><code>rob_summary(data = data_rob2, 
             tool = &quot;ROB2&quot;)</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-1">
+Past versions of unnamed-chunk-40-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-40-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e90324b841faff95e89887898a3205c1a5e10069/docs/figure/2023_0301_Christos_1hour.Rmd/unnamed-chunk-40-1.png" target="_blank">e90324b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
