@@ -256,7 +256,7 @@ m.gen22 <- metagen(TE = m22$TE,
 forest(m.gen22, layout="RevMan5", sortvar = TE, 
             prediction = FALSE, 
             print.tau2 = FALSE,
-            fontsize=7,
+            fontsize=6.5,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 ```
 

@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-14
+<strong>Last updated:</strong> 2024-10-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3956566e84b257a0108a838b7a7775b15bd06b61targetblank3956566a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5e06614ca7c1599656475500400581cd826d3eb4targetblank5e06614a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/3956566e84b257a0108a838b7a7775b15bd06b61" target="_blank">3956566</a>
+<a href="https://github.com/han16/Collaborations/tree/5e06614ca7c1599656475500400581cd826d3eb4" target="_blank">5e06614</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3956566e84b257a0108a838b7a7775b15bd06b61targetblank3956566a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5e06614ca7c1599656475500400581cd826d3eb4targetblank5e06614a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/3956566e84b257a0108a838b7a7775b15bd06b61" target="_blank">3956566</a>.
+<a href="https://github.com/han16/Collaborations/tree/5e06614ca7c1599656475500400581cd826d3eb4" target="_blank">5e06614</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -614,8 +614,6 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
-    Modified:   analysis/2023_0301_Christos_1hour.Rmd
-    Modified:   analysis/2023_0301_Christos_3hour.Rmd
     Modified:   analysis/2023_0301_Christos_6hour.Rmd
 
 </code></pre>
@@ -663,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e32c0195de76521f23c1ddc935f31c9731b30e46/analysis/2023_0301_Christos_6hour.Rmd" target="_blank">e32c019</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-14
+</td>
+<td>
+10/14/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/e32c0195de76521f23c1ddc935f31c9731b30e46/docs/2023_0301_Christos_6hour.html" target="_blank">e32c019</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-14
+</td>
+<td>
+10/14/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -933,12 +965,33 @@ han
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-6.9382],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="hours---studies-per-surgery" class="section level4">
-<h4>6 hours - Studies per surgery</h4>
-<p>MA 1 – periodontal surgery</p>
-<ul>
-<li>random effect model</li>
-</ul>
+<div id="parallel-rcts" class="section level4">
+<h4>parallel RCTs</h4>
+<pre class="r"><code>variable_include_index=c(1, 6:9, 12)
+
+m22 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen22 &lt;- metagen(TE = m22$TE,
+                 seTE =m22$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = T,
+                 random = F,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen22, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -988,10 +1041,22 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>#########################
+data_meta%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;6 hours&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>6 hours<\/caption>","data":[["Pereira, G._ibuprofen 600mg_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Santos, B._ibuprofen 600mg_vs_placebo","Santos, B._nimesilide 100mg_vs_placebo","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_dexamethasone 8mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo"],[27,20,20,20,20,19,18,20,16,15,15,22],[4.1,7.52,3.42,32,26,7.15,1.23,3,1,1.1,0.9,14.73],[5.7,12.34,6.38,20.4,20.3,12.13,3.17,6,3,2.7,2.7,12.95],[27,20,20,20,20,20,20,20,20,15,15,21],[15.6,10.94,10.94,37.5,44,11.9,11.9,12,12,10.1,10.1,22.95],[13.6,14.81,14.81,11.6,7.5,16.71,16.71,17,17,17.1,17.1,21.9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"samplesize_exp","targets":1},{"name":"mean_exp","targets":2},{"name":"sd_exp","targets":3},{"name":"samplesize_contr","targets":4},{"name":"mean_contr","targets":5},{"name":"sd_contr","targets":6}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="hours---studies-per-surgery" class="section level4">
+<h4>6 hours - Studies per surgery</h4>
+<p>MA 1 – periodontal surgery</p>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1053,27 +1118,18 @@ han
 </table>
 </div>
 </div>
-<ul>
-<li>raw difference -0.21</li>
-</ul>
-<p><code>&gt; -0.61*(11)^0.5*(-0.41+0.81)/3.92 [1]  -0.206443</code></p>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-6.0593],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-</div>
-<div id="hours---studies-per-medication" class="section level4">
-<h4>6 hours - Studies per medication</h4>
-<div id="ibuprofen-600mg" class="section level5">
-<h5>ibuprofen 600mg</h5>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>6 hours<\/caption>","data":[["Pereira, G._ibuprofen 600mg_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Santos, B._ibuprofen 600mg_vs_placebo","Santos, B._nimesilide 100mg_vs_placebo","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Steffens, J 2010_dexamethasone 8mg_vs_placebo","Steffens, J 2010_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo"],[27,20,20,20,20,19,18,20,16,15,15,22],[4.1,7.52,3.42,32,26,7.15,1.23,3,1,1.1,0.9,14.73],[5.7,12.34,6.38,20.4,20.3,12.13,3.17,6,3,2.7,2.7,12.95],[27,20,20,20,20,20,20,20,20,15,15,21],[15.6,10.94,10.94,37.5,44,11.9,11.9,12,12,10.1,10.1,22.95],[13.6,14.81,14.81,11.6,7.5,16.71,16.71,17,17,17.1,17.1,21.9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"samplesize_exp","targets":1},{"name":"mean_exp","targets":2},{"name":"sd_exp","targets":3},{"name":"samplesize_contr","targets":4},{"name":"mean_contr","targets":5},{"name":"sd_contr","targets":6}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
-<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div id="fig-unnamed-chunk-10-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1092,29 +1148,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/ab2050bc7ff14f8842babda88e2206075da4b04f/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-11-1.png" target="_blank">ab2050b</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-06-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-11-1.png" target="_blank">ba6d4d5</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-05-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/4e76c786bdbecc9180c85da0a039a2b60becfb67/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-11-1.png" target="_blank">4e76c78</a>
+<a href="https://github.com/han16/Collaborations/blob/4e76c786bdbecc9180c85da0a039a2b60becfb67/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-10-1.png" target="_blank">4e76c78</a>
 </td>
 <td>
 han
@@ -1128,7 +1162,18 @@ han
 </div>
 </div>
 <ul>
-<li>fixed effect model</li>
+<li>raw difference -0.21</li>
+</ul>
+<p><code>&gt; -0.61*(11)^0.5*(-0.41+0.81)/3.92 [1]  -0.206443</code></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-6.0593],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="hours---studies-per-medication" class="section level4">
+<h4>6 hours - Studies per medication</h4>
+<div id="ibuprofen-600mg" class="section level5">
+<h5>ibuprofen 600mg</h5>
+<ul>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1190,11 +1235,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="dexamethasone-4mg" class="section level5">
-<h5>dexamethasone 4mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1245,8 +1287,11 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="dexamethasone-4mg" class="section level5">
+<h5>dexamethasone 4mg</h5>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1297,11 +1342,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="celecoxib-200mg" class="section level5">
-<h5>celecoxib 200mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1352,8 +1394,11 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="celecoxib-200mg" class="section level5">
+<h5>celecoxib 200mg</h5>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1404,11 +1449,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="nimesulide-100mg" class="section level5">
-<h5>nimesulide 100mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1471,8 +1513,8 @@ han
 </div>
 </div>
 </div>
-<div id="dexamethasone-8mg" class="section level5">
-<h5>dexamethasone 8mg</h5>
+<div id="nimesulide-100mg" class="section level5">
+<h5>nimesulide 100mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -1525,8 +1567,11 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="dexamethasone-8mg" class="section level5">
+<h5>dexamethasone 8mg</h5>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1577,11 +1622,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="etoricoxib-120mg" class="section level5">
-<h5>etoricoxib 120mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1632,8 +1674,11 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="etoricoxib-120mg" class="section level5">
+<h5>etoricoxib 120mg</h5>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1684,11 +1729,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="ketorolac-10mg" class="section level5">
-<h5>ketorolac 10mg</h5>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1740,9 +1782,8 @@ han
 </div>
 </div>
 </div>
-</div>
-<div id="hours---studies-only-with-ibuproben" class="section level4">
-<h4>6 hours - Studies only with ibuproben</h4>
+<div id="ketorolac-10mg" class="section level5">
+<h5>ketorolac 10mg</h5>
 <ul>
 <li>random effect model</li>
 </ul>
@@ -1806,8 +1847,12 @@ han
 </table>
 </div>
 </div>
+</div>
+</div>
+<div id="hours---studies-only-with-ibuproben" class="section level4">
+<h4>6 hours - Studies only with ibuproben</h4>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1869,12 +1914,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="hours---studies-only-with-dexamethazone"
-class="section level4">
-<h4>6 hours - Studies only with dexamethazone</h4>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1925,8 +1966,12 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="hours---studies-only-with-dexamethazone"
+class="section level4">
+<h4>6 hours - Studies only with dexamethazone</h4>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1977,11 +2022,8 @@ han
 </table>
 </div>
 </div>
-</div>
-<div id="hours---sensitivity-analysis" class="section level4">
-<h4>6 hours - Sensitivity analysis</h4>
 <ul>
-<li>random effect model</li>
+<li>fixed effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2043,8 +2085,11 @@ han
 </table>
 </div>
 </div>
+</div>
+<div id="hours---sensitivity-analysis" class="section level4">
+<h4>6 hours - Sensitivity analysis</h4>
 <ul>
-<li>fixed effect model</li>
+<li>random effect model</li>
 </ul>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2107,24 +2152,15 @@ han
 </div>
 </div>
 <ul>
-<li>raw difference -0.06</li>
+<li>fixed effect model</li>
 </ul>
-<p><code>&gt; -0.66*(12)^0.5*(-0.61+0.72)/3.92 [1]  -0.206443</code></p>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-23.0113],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div id="network-meta-analysis" class="section level3">
-<h3>network meta-analysis</h3>
-<div id="random-effect-model" class="section level4">
-<h4>random effect model</h4>
-<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
-Past versions of unnamed-chunk-30-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div id="fig-unnamed-chunk-29-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2143,7 +2179,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-30-1.png" target="_blank">ba6d4d5</a>
+<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-29-1.png" target="_blank">ba6d4d5</a>
 </td>
 <td>
 han
@@ -2154,7 +2190,7 @@ han
 </tr>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/4e76c786bdbecc9180c85da0a039a2b60becfb67/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-30-1.png" target="_blank">4e76c78</a>
+<a href="https://github.com/han16/Collaborations/blob/4e76c786bdbecc9180c85da0a039a2b60becfb67/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-29-1.png" target="_blank">4e76c78</a>
 </td>
 <td>
 han
@@ -2167,6 +2203,18 @@ han
 </table>
 </div>
 </div>
+<ul>
+<li>raw difference -0.06</li>
+</ul>
+<p><code>&gt; -0.66*(12)^0.5*(-0.61+0.72)/3.92 [1]  -0.206443</code></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-23.0113],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="network-meta-analysis" class="section level3">
+<h3>network meta-analysis</h3>
+<div id="random-effect-model" class="section level4">
+<h4>random effect model</h4>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
@@ -2216,19 +2264,6 @@ han
 </table>
 </div>
 </div>
-<ul>
-<li>a mean path length &gt; 2 means that a comparison estimate should be
-interpreted with particular caution.</li>
-</ul>
-<pre><code>                  P-score
-nimesilide 100mg   0.8839
-etoricoxib 120mg   0.7308
-dexamethasone 8mg  0.6725
-ibuprofen 600mg    0.6557
-celecoxib 200mg    0.4840
-ketorolac 10mg     0.3587
-dexamethasone 4mg  0.1852
-placebo            0.0292</code></pre>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
@@ -2255,6 +2290,57 @@ Date
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-32-1.png" target="_blank">ba6d4d5</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>a mean path length &gt; 2 means that a comparison estimate should be
+interpreted with particular caution.</li>
+</ul>
+<pre><code>                  P-score
+nimesilide 100mg   0.8839
+etoricoxib 120mg   0.7308
+dexamethasone 8mg  0.6725
+ibuprofen 600mg    0.6557
+celecoxib 200mg    0.4840
+ketorolac 10mg     0.3587
+dexamethasone 4mg  0.1852
+placebo            0.0292</code></pre>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ba6d4d557e8d5a9453e7abe6a5df406bcdaf29a9/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-33-1.png" target="_blank">ba6d4d5</a>
 </td>
 <td>
 han
@@ -2345,45 +2431,6 @@ comparisons, with p values less than 5% being disagree</li>
 values.</li>
 </ul>
 <pre class="r"><code>netsplit(m.netmeta) %&gt;% forest(fontsize = 8, spacing = .4)  # visualize the net split results</code></pre>
-<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
-Past versions of unnamed-chunk-34-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-34-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/e0f90c001b74f08ca3fcbd95a0875de01a9c6d7d/docs/figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-34-1.png" target="_blank">e0f90c0</a>
-</td>
-<td>
-han
-</td>
-<td>
-2024-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)</code></pre>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
@@ -2422,20 +2469,7 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = F,  legend = F, digits.pval=2)</code></pre>
-<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="fixed-effect-model" class="section level4">
-<h4>fixed effect model</h4>
-<pre><code>                  P-score
-nimesilide 100mg   0.8839
-etoricoxib 120mg   0.7308
-dexamethasone 8mg  0.6725
-ibuprofen 600mg    0.6557
-celecoxib 200mg    0.4840
-ketorolac 10mg     0.3587
-dexamethasone 4mg  0.1852
-placebo            0.0292</code></pre>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = T,  legend = F, digits.pval=2)</code></pre>
 <p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
@@ -2474,6 +2508,21 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:12), col=seq(1:12), linreg = F,  legend = F, digits.pval=2)</code></pre>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fixed-effect-model" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+nimesilide 100mg   0.8839
+etoricoxib 120mg   0.7308
+dexamethasone 8mg  0.6725
+ibuprofen 600mg    0.6557
+celecoxib 200mg    0.4840
+ketorolac 10mg     0.3587
+dexamethasone 4mg  0.1852
+placebo            0.0292</code></pre>
+<p><img src="figure/2023_0301_Christos_6hour.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>Q statistics to assess homogeneity / consistency
 
                    Q df p-value

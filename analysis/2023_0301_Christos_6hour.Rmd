@@ -219,6 +219,51 @@ datatable(extensions = 'Buttons',
 ```
 
 
+#### parallel RCTs
+
+
+
+```{r,  message=F, warning=F}
+
+variable_include_index=c(1, 6:9, 12)
+
+m22 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen22 <- metagen(TE = m22$TE,
+                 seTE =m22$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = T,
+                 random = F,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen22, layout="RevMan5", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+#########################
+data_meta%>%
+datatable(extensions = 'Buttons',
+          caption = "6 hours", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 
 #### 6 hours - Studies per surgery
 
