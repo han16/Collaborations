@@ -15,6 +15,7 @@ library(lubridate)
 library(ggsurvfit)
 library(gtsummary)
 library(tidycmprsk)
+library(ggplot2)
 
 #install.packages("devtools")
 library(devtools)

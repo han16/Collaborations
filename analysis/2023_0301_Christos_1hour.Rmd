@@ -184,7 +184,7 @@ forest(m.gen, layout="RevMan5", sortvar = TE,
 #            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
 
 forest(m.gen_weighted, layout="RevMan5", sortvar = TE, 
-            prediction = F, 
+            prediction = T, 
             print.tau2 = F,
             fontsize=6,
             leftlabs = c("study")) # sortvar = TE: sort studies by effect size 
@@ -407,7 +407,7 @@ m.gen3 <- metagen(TE = m3$TE,
 #summary(m.gen)
 
 forest(m.gen3, layout="RevMan5", sortvar = TE, 
-            prediction = FALSE, 
+            prediction = T, 
             print.tau2 = FALSE,
             fontsize=6.5,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
