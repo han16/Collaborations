@@ -491,7 +491,7 @@ datatable(extensions = 'Buttons',
 
 * fixed effect model 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 #####################
 variable_include_index=c(1, 11)
 
