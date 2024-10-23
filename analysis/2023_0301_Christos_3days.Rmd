@@ -597,7 +597,7 @@ datatable(extensions = 'Buttons',
 #### random effect model 
 
 
-```{r, echo=F, message=F, warning=F, eval=T}
+```{r,  message=F, warning=F, eval=T}
 #########################
 treat1=treat2=study=character()
 
@@ -634,10 +634,15 @@ m.netmeta <- netmeta(TE = TE,
 
 long.labels=m.netmeta$trts
 
+#netgraph(m.netmeta, 
+#         labels = long.labels, number.of.studies = TRUE,  srt.labels = 0, points=FALSE
+#         )
+
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE,  srt.labels = 0, points=FALSE
+         labels = long.labels, number.of.studies = TRUE,  srt.labels = 0,  lwd.max=13
          )
 
+# lwd.max setting the line thickness  
 
 
 ```
