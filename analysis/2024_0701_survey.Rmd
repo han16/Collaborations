@@ -88,7 +88,7 @@ fig=plot_function("Describe Your Race or Ethnicity", race_new, legend_rows = 4, 
 fig
 
 
-race_new%>%
+race_new %>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -115,7 +115,7 @@ fig
 
 
 
-gender%>%
+gender %>% arrange(desc(n)) %>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -159,7 +159,7 @@ fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 5,
 fig
 
 
-race_new2%>%
+race_new2%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -186,7 +186,7 @@ fig
 
 
 
-gender%>%
+gender%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -212,7 +212,7 @@ fig
 
 
 
-specialty2%>%
+specialty2%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -240,7 +240,7 @@ fig=plot_function("Best Describes This Practice Setting", practice_setting2, leg
 fig
 
 
-practice_setting2%>%
+practice_setting2%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -339,7 +339,7 @@ group_practice2=group_practice%>% dplyr::count(`Gender Identity`) %>% mutate(pro
 fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice2,1, var_name="Gender Identity", num_size=4, legend_text_size = 13)
 fig
 
-group_practice2%>%
+group_practice2%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -363,7 +363,7 @@ group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Describe Y
 fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
 fig
 
-group_practice3%>%
+group_practice3%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -388,7 +388,7 @@ group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Spe
 fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Dental Specialties Board Certified", num_size = 4)
 fig
 
-group_practice3%>%
+group_practice3%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -413,7 +413,7 @@ solo_practice2=solo_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=
 fig=plot_function(title="Solo office practice", solo_practice2,1, var_name="Gender Identity", num_size = 4, legend_text_size = 13)
 fig
 
-solo_practice2%>%
+solo_practice2%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -436,7 +436,7 @@ solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Describe You
 fig=plot_function(title="Solo office practice", solo_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
 fig
 
-solo_practice3%>%
+solo_practice3%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -458,7 +458,7 @@ solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Speci
 fig=plot_function(title="Solo office practice", solo_practice3,1, var_name="Dental Specialties Board Certified", num_size = 4, legend_text_size = 12)
 fig
 
-solo_practice3%>%
+solo_practice3%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -604,7 +604,7 @@ fig
 
 
 
-gender_geo_data%>%
+gender_geo_data%>% 
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
