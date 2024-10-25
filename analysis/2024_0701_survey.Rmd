@@ -87,6 +87,10 @@ fig=plot_function("Describe Your Race or Ethnicity", race_new, legend_rows = 4, 
 
 fig
 
+fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 4, var_name = "Describe Your Race or Ethnicity")
+
+fig
+
 
 race_new %>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
@@ -113,6 +117,9 @@ gender=Dental_Hygienist$`Dental H` %>% dplyr::count(`Gender Identity`) %>% mutat
 fig=plot_function("Gender Identity", gender, legend_rows=2, var_name = "Gender Identity", num_size = 4)
 fig
 
+
+fig=plot_function("Gender Identity (without Woman)", gender %>% filter(`Gender Identity`!="Woman"), legend_rows=2, var_name = "Gender Identity", num_size = 4)
+fig
 
 
 gender %>% arrange(desc(n)) %>%
@@ -158,6 +165,9 @@ race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicit
 fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 5, var_name="Describe Your Race or Ethnicity")
 fig
 
+
+fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 5, var_name="Describe Your Race or Ethnicity")
+fig
 
 race_new2%>% arrange(desc(n))%>%
 datatable(extensions = 'Buttons',
@@ -575,7 +585,7 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
   theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
   theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
   #geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
-  geom_text(label = with(gender_geo_data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)
+  geom_text(label = with(gender_geo_data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
  return(g)
@@ -606,7 +616,7 @@ fig
 
 gender_geo_data%>% 
 datatable(extensions = 'Buttons',
-          caption = "",
+          caption = "Hygienist",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -638,7 +648,7 @@ fig
 
 gender_geo_data%>%
 datatable(extensions = 'Buttons',
-          caption = "",
+          caption = "Dentist",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
