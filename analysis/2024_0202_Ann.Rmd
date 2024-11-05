@@ -374,3 +374,98 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+
+```{r, message=F, warning=F}
+variable="I understand the impact MSD's can have on productivity as a future dental professional"
+
+data_subset1=data$intervention %>% dplyr::count(!!rlang::sym(variable))%>% drop_na() 
+num_indi1=sum(data_subset1$n)
+data_subset1=data_subset1%>% mutate(prop=round(n/num_indi1,4)) %>% drop_na()
+
+data_subset2=data$control %>% dplyr::count(!!rlang::sym(variable))%>% drop_na() 
+num_indi2=sum(data_subset2$n)
+data_subset2=data_subset2%>% mutate(prop=round(n/num_indi2,4)) %>% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("intervention", nrow(data_subset1)), rep("control", nrow(data_subset2))))
+#data_subset$Smoking[data_subset$Smoking==1]="Never"; data_subset$Smoking[data_subset$Smoking==2]="Past"
+#data_subset$Smoking[data_subset$Smoking==3]="Current"; data_subset$Smoking[data_subset$Smoking==4]="not reported"
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+
+common_variable=intersect(data_subset %>% filter(sample=="intervention") %>% select(!!rlang::sym(variable)) %>% pull(), data_subset %>% filter(sample=="control") %>% select(!!rlang::sym(variable)) %>% pull())
+pvalue=numeric()
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(!!rlang::sym(variable)==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
+}
+data.frame(variable=paste(common_variable, ":intervention_vs_control"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+```{r, message=F, warning=F}
+variable="I understand the importance of proper body mechanics"
+
+data_subset1=data$intervention %>% dplyr::count(!!rlang::sym(variable))%>% drop_na() 
+num_indi1=sum(data_subset1$n)
+data_subset1=data_subset1%>% mutate(prop=round(n/num_indi1,4)) %>% drop_na()
+
+data_subset2=data$control %>% dplyr::count(!!rlang::sym(variable))%>% drop_na() 
+num_indi2=sum(data_subset2$n)
+data_subset2=data_subset2%>% mutate(prop=round(n/num_indi2,4)) %>% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("intervention", nrow(data_subset1)), rep("control", nrow(data_subset2))))
+#data_subset$Smoking[data_subset$Smoking==1]="Never"; data_subset$Smoking[data_subset$Smoking==2]="Past"
+#data_subset$Smoking[data_subset$Smoking==3]="Current"; data_subset$Smoking[data_subset$Smoking==4]="not reported"
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+
+common_variable=intersect(data_subset %>% filter(sample=="intervention") %>% select(!!rlang::sym(variable)) %>% pull(), data_subset %>% filter(sample=="control") %>% select(!!rlang::sym(variable)) %>% pull())
+pvalue=numeric()
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(!!rlang::sym(variable)==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
+}
+data.frame(variable=paste(common_variable, ":intervention_vs_control"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
