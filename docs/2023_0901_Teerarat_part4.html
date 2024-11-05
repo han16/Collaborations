@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-03
+<strong>Last updated:</strong> 2024-11-05
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedca031edd59da271c26309487f8aea0be2089555targetblankdca031ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb96fdfd09471affbd7f5e6de39d5da4ce029a825targetblankb96fdfda">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/dca031edd59da271c26309487f8aea0be2089555" target="_blank">dca031e</a>
+<a href="https://github.com/han16/Collaborations/tree/b96fdfd09471affbd7f5e6de39d5da4ce029a825" target="_blank">b96fdfd</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedca031edd59da271c26309487f8aea0be2089555targetblankdca031ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb96fdfd09471affbd7f5e6de39d5da4ce029a825targetblankb96fdfda"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/dca031edd59da271c26309487f8aea0be2089555" target="_blank">dca031e</a>.
+<a href="https://github.com/han16/Collaborations/tree/b96fdfd09471affbd7f5e6de39d5da4ce029a825" target="_blank">b96fdfd</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -614,7 +614,9 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
+    Modified:   analysis/2023_0901_Teerarat_part3.Rmd
     Modified:   analysis/2023_0901_Teerarat_part4.Rmd
+    Modified:   analysis/2024_0202_Ann.Rmd
 
 </code></pre>
 <p>
@@ -661,6 +663,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/d0046989863111cdec85d091a0444285bfd39f55/analysis/2023_0901_Teerarat_part4.Rmd" target="_blank">d004698</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-03
+</td>
+<td>
+9/3/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/d0046989863111cdec85d091a0444285bfd39f55/docs/2023_0901_Teerarat_part4.html" target="_blank">d004698</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-03
+</td>
+<td>
+9/3/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -884,155 +920,1246 @@ datatable(extensions = &#39;Buttons&#39;,
 </div>
 <div id="smoking" class="section level3">
 <h3>Smoking</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Smoking) %&gt;% drop_na()
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Smoking)  %&gt;% drop_na()
+
+
+data_subset=data_frame(Smoking=data_subset1$Smoking, n=data_subset1$n+data_subset2$n) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+data_subset$Smoking[data_subset$Smoking==1]=&quot;Never&quot;; data_subset$Smoking[data_subset$Smoking==2]=&quot;Past&quot;
+data_subset$Smoking[data_subset$Smoking==3]=&quot;Current&quot;; data_subset$Smoking[data_subset$Smoking==4]=&quot;not reported&quot;
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Never","Past","Current","NR"],[36,17,13,12],[0.4615,0.2179,0.1667,0.1538]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Smoking<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Smoking","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Never_vs_Past","Never_vs_Current","Never_vs_NR","Past_vs_Current","Past_vs_NR","Current_vs_NR"],[0.0127,0.0014,0.0007,0.5847,0.4583,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="diabetes" class="section level3">
 <h3>Diabetes</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Diabetes) %&gt;% drop_na()
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Diabetes)  %&gt;% drop_na()
+
+
+data_subset=data_frame(Diabetes=data_subset1$Diabetes, n=data_subset1$n+c(data_subset2$n,0)) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+data_subset$Diabetes[data_subset$Diabetes==1]=&quot;Yes&quot;; data_subset$Diabetes[data_subset$Diabetes==2]=&quot;No&quot;
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["Yes","No","NR"],[12,55,11],[0.1538,0.7050999999999999,0.141]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Diabetes<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Diabetes","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["Yes_vs_No","Yes_vs_NR","No_vs_NR"],["&lt;0.0001","1","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="implant_site" class="section level3">
 <h3>Implant_site</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Implant_site)  %&gt;% drop_na()
+index1=which(data_subset1$Implant_site&lt;=16); index2=which(data_subset1$Implant_site&gt;16)
+n=c(sum(data_subset1$n[index1]), sum(data_subset1$n[index2]))
+data_subset11=data.frame(Implant_site=c(&quot;Maxilla&quot;, &quot;Mandible&quot;), n=n)
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Implant_site)  %&gt;% drop_na()
+index1=which(data_subset2$Implant_site&lt;=16); index2=which(data_subset2$Implant_site&gt;16)
+n=c(sum(data_subset2$n[index1]), sum(data_subset2$n[index2]))
+data_subset22=data.frame(Implant_site=c(&quot;Maxilla&quot;, &quot;Mandible&quot;), n=n)
+
+
+
+data_subset=data_frame(Implant_site=data_subset11$Implant_site, n=data_subset11$n+data_subset22$n) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Maxilla","Mandible"],[37,41],[0.4744,0.5256]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Implant_site<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Implant_site","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2514ce28ae593bde0f73" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Maxilla_vs_Mandible"],[0.7343]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="implant_site-1" class="section level3">
 <h3>Implant_site</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Implant_site)  %&gt;% drop_na()
+index1=union(which(data_subset1$Implant_site&lt;=5), which(data_subset1$Implant_site&lt;=16 &amp; data_subset1$Implant_site&gt;=12)); index2=which(data_subset1$Implant_site&gt;=6 &amp;data_subset1$Implant_site&lt;=11);
+index3=union(which(data_subset1$Implant_site&gt;=17 &amp; data_subset1$Implant_site&lt;=21), which(data_subset1$Implant_site&lt;=31 &amp; data_subset1$Implant_site&gt;=28));
+index4=which(data_subset1$Implant_site&gt;=22 &amp;data_subset1$Implant_site&lt;=27 )
+
+n=c(sum(data_subset1$n[index1]), sum(data_subset1$n[index2]), sum(data_subset1$n[index3]), sum(data_subset1$n[index4]))
+prop=c(sum(data_subset1$prop[index1]), sum(data_subset1$prop[index2]), sum(data_subset1$prop[index3]), sum(data_subset1$prop[index4]))
+data_subset11=data.frame(Implant_site=c(&quot;Upper posterior&quot;, &quot;Upper anterior&quot;, &quot;Lower posterior&quot;, &quot;Lower anterior&quot;), n=n, prop=prop)
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Implant_site)  %&gt;% drop_na()
+index1=union(which(data_subset2$Implant_site&lt;=5), which(data_subset2$Implant_site&lt;=16 &amp; data_subset2$Implant_site&gt;=12)); index2=which(data_subset2$Implant_site&gt;=6 &amp;data_subset2$Implant_site&lt;=11);
+index3=union(which(data_subset2$Implant_site&gt;=17 &amp; data_subset2$Implant_site&lt;=21), which(data_subset2$Implant_site&lt;=31 &amp; data_subset2$Implant_site&gt;=28));
+index4=which(data_subset2$Implant_site&gt;=22 &amp;data_subset2$Implant_site&lt;=27 )
+
+n=c(sum(data_subset2$n[index1]), sum(data_subset2$n[index2]), sum(data_subset2$n[index3]), sum(data_subset2$n[index4]))
+prop=c(sum(data_subset2$prop[index1]), sum(data_subset2$prop[index2]), sum(data_subset2$prop[index3]), sum(data_subset2$prop[index4]))
+data_subset22=data.frame(Implant_site=c(&quot;Upper posterior&quot;, &quot;Upper anterior&quot;, &quot;Lower posterior&quot;, &quot;Lower anterior&quot;), n=n, prop=prop)
+
+
+data_subset=data_frame(Implant_site=data_subset11$Implant_site, n=data_subset11$n+data_subset22$n) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Upper posterior","Upper anterior","Lower posterior","Lower anterior"],[28,9,30,11],[0.359,0.1154,0.3846,0.141]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Implant_site<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Implant_site","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Upper posterior_vs_Upper anterior","Upper posterior_vs_Lower posterior","Upper posterior_vs_Lower anterior","Upper anterior_vs_Lower posterior","Upper anterior_vs_Lower anterior","Lower posterior_vs_Lower anterior"],[0.0026,0.8957000000000001,0.0095,0.0011,0.8238,0.0043]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="pre_implant_procedure" class="section level3">
 <h3>Pre_implant_Procedure</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Pre_implant_Procedure)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Pre_implant_Procedure)  %&gt;% drop_na()
+
+
+
+data_subset=data_frame(Pre_implant_Procedure=data_subset1$Pre_implant_Procedure, n=data_subset1$n+c(data_subset2$n[1:4], 0, data_subset2$n[5])) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]=&quot;Extraction alone&quot;; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]=&quot;Extraction and bone graft&quot;; 
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]=&quot;Extraction, bone graft and membrane&quot;;
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==4]=&quot;GBR&quot;;
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==5]=&quot;Sinus lift&quot;;
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==6]=&quot;other&quot;;
+data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==7]=&quot;not reported&quot;;
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Extraction alone","Extraction and bone graft","Extraction, bone graft and membrane","GBR","other","not reported"],[23,11,3,6,2,33],[0.2949,0.141,0.0385,0.0769,0.0256,0.4231]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Pre_implant_Procedure<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Pre_implant_Procedure","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Extraction alone_vs_Extraction and bone graft","Extraction alone_vs_Extraction, bone graft and membrane","Extraction alone_vs_GBR","Extraction alone_vs_other","Extraction alone_vs_not reported","Extraction and bone graft_vs_Extraction, bone graft and membrane","Extraction and bone graft_vs_GBR","Extraction and bone graft_vs_other","Extraction and bone graft_vs_not reported","Extraction, bone graft and membrane_vs_GBR","Extraction, bone graft and membrane_vs_other","Extraction, bone graft and membrane_vs_not reported","GBR_vs_other","GBR_vs_not reported","other_vs_not reported"],["0.0576","&lt;0.0001","0.0023","&lt;0.0001","0.2288","0.0574","0.3323","0.0225","0.0013","0.5078","1","&lt;0.0001","0.2891","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_placement" class="section level3">
 <h3>I_placement</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(I_placement) %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(I_placement)  %&gt;% drop_na()
+
+
+
+data_subset=data_frame(I_placement=c(seq(1,8),&quot;NR&quot;), n=c(38+13, 0+1, 0+0, 7+3, 3+3, 0+0, 5+2, 0+1, 2+0)) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset$I_placement[data_subset$I_placement==1]=&quot;Single implant placement&quot;; data_subset$I_placement[data_subset$I_placement==2]=&quot;Placement with bone graft&quot;; 
+data_subset$I_placement[data_subset$I_placement==3]=&quot;Placement with membrane&quot;;
+data_subset$I_placement[data_subset$I_placement==4]=&quot;Placement with bone graft and membrane&quot;;
+data_subset$I_placement[data_subset$I_placement==5]=&quot;Placement with indirect sinus lift&quot;;
+data_subset$I_placement[data_subset$I_placement==6]=&quot;Placement with direct sinus lift&quot;;
+data_subset$I_placement[data_subset$I_placement==7]=&quot;Immediate/delayed placement&quot;;
+data_subset$I_placement[data_subset$I_placement==8]=&quot;other&quot;;
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9"],["Single implant placement","Placement with bone graft","Placement with membrane","Placement with bone graft and membrane","Placement with indirect sinus lift","Placement with direct sinus lift","Immediate/delayed placement","other","NR"],[51,1,0,10,6,0,7,1,2],[0.6538,0.0128,0,0.1282,0.0769,0,0.0897,0.0128,0.0256]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_placement<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_placement","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-873249b169eb6149d57e" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"],["Single implant placement_vs_Placement with bone graft","Single implant placement_vs_Placement with membrane","Single implant placement_vs_Placement with bone graft and membrane","Single implant placement_vs_Placement with indirect sinus lift","Single implant placement_vs_Placement with direct sinus lift","Single implant placement_vs_Immediate/delayed placement","Single implant placement_vs_other","Single implant placement_vs_NR","Placement with bone graft_vs_Placement with membrane","Placement with bone graft_vs_Placement with bone graft and membrane","Placement with bone graft_vs_Placement with indirect sinus lift","Placement with bone graft_vs_Placement with direct sinus lift","Placement with bone graft_vs_Immediate/delayed placement","Placement with bone graft_vs_other","Placement with bone graft_vs_NR","Placement with membrane_vs_Placement with bone graft and membrane","Placement with membrane_vs_Placement with indirect sinus lift","Placement with membrane_vs_Placement with direct sinus lift","Placement with membrane_vs_Immediate/delayed placement","Placement with membrane_vs_other","Placement with membrane_vs_NR","Placement with bone graft and membrane_vs_Placement with indirect sinus lift","Placement with bone graft and membrane_vs_Placement with direct sinus lift","Placement with bone graft and membrane_vs_Immediate/delayed placement","Placement with bone graft and membrane_vs_other","Placement with bone graft and membrane_vs_NR","Placement with indirect sinus lift_vs_Placement with direct sinus lift","Placement with indirect sinus lift_vs_Immediate/delayed placement","Placement with indirect sinus lift_vs_other","Placement with indirect sinus lift_vs_NR","Placement with direct sinus lift_vs_Immediate/delayed placement","Placement with direct sinus lift_vs_other","Placement with direct sinus lift_vs_NR","Immediate/delayed placement_vs_other","Immediate/delayed placement_vs_NR","other_vs_NR"],["&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","1","0.0117","0.125","1","0.0703","1","1","0.002","0.0313","1","0.0156","1","0.5","0.4545","0.002","0.6291","0.0117","0.0386","0.0313","1","0.125","0.2891","0.0156","1","0.5","0.0703","0.1797","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="comp_placement" class="section level3">
 <h3>Comp_placement</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Comp_placement) %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Comp_placement) %&gt;% drop_na()
+
+data_subset=data_frame(Comp_placement=c(1,3,8,9,&quot;NR&quot;), n=c(1+0, 1+0, 3+3, 50+19, 1))
+
+data_subset$Comp_placement[data_subset$Comp_placement==1]=&quot;Adjusted direction during drill sequence&quot;; data_subset$Comp_placement[data_subset$Comp_placement==2]=&quot;Guide broke, did not fit&quot;; 
+data_subset$Comp_placement[data_subset$Comp_placement==3]=&quot;Implant placed, immediately removed, reinserted&quot;;
+data_subset$Comp_placement[data_subset$Comp_placement==4]=&quot;Bone perforatio during drilling or implant placement&quot;;
+data_subset$Comp_placement[data_subset$Comp_placement==5]=&quot;Bone dehiscence during drilling or implant placement&quot;;
+data_subset$Comp_placement[data_subset$Comp_placement==6]=&quot;Damage to vital structures&quot;;
+data_subset$Comp_placement[data_subset$Comp_placement==7]=&quot;Flap tear/perforation/other damage&quot;;
+data_subset$Comp_placement[data_subset$Comp_placement==8]=&quot;other&quot;;
+data_subset$Comp_placement[data_subset$Comp_placement==9]=&quot;none/WNL&quot;;
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["Adjusted direction during drill sequence","Implant placed, immediately removed, reinserted","other","none/WNL","NR"],[1,1,6,69,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Comp_placement<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Comp_placement","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f25d4e1770d66a86dcce" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f25d4e1770d66a86dcce">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Adjusted direction during drill sequence_vs_Implant placed, immediately removed, reinserted","Adjusted direction during drill sequence_vs_other","Adjusted direction during drill sequence_vs_none/WNL","Adjusted direction during drill sequence_vs_NR","Implant placed, immediately removed, reinserted_vs_other","Implant placed, immediately removed, reinserted_vs_none/WNL","Implant placed, immediately removed, reinserted_vs_NR","other_vs_none/WNL","other_vs_NR","none/WNL_vs_NR"],["1","0.125","&lt;0.0001","1","0.125","&lt;0.0001","1","&lt;0.0001","0.125","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="ha" class="section level3">
 <h3>HA</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(HA) %&gt;%  drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(HA)  %&gt;% drop_na()
+
+data_subset=data_frame(HA=data_subset1$HA, n=data_subset1$n+data_subset2$n) %&gt;% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset$HA[data_subset$HA==1]=&quot;Yes&quot;; 
+data_subset$HA[data_subset$HA==2]=&quot;No&quot;; 
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-969965edfe9f869aa904" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Yes","No"],[35,43],[0.4487,0.5513]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>HA<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"HA","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-450f171f14364aa3ebed" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Yes_vs_No"],[0.4282]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_brand" class="section level3">
 <h3>I_Brand</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(I_Brand) %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(I_Brand)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(I_Brand==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(I_Brand==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(I_Brand==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(I_Brand==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(I_Brand==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(I_Brand==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Brand, data_subset2$I_Brand)
+variable_count=sapply(all_variable, count_num)
+
+
+data_subset=data_frame(I_Brand=all_variable, n=variable_count)
+data_subset$I_Brand[data_subset$I_Brand==1]=&quot;Nobel Biocare&quot;;
+data_subset$I_Brand[data_subset$I_Brand==2]=&quot;Nobel Replace&quot;;
+data_subset$I_Brand[data_subset$I_Brand==3]=&quot;Straumann BLT&quot;; 
+data_subset$I_Brand[data_subset$I_Brand==4]=&quot;Osseospeed Ev&quot;; 
+data_subset$I_Brand[data_subset$I_Brand==5]=&quot;Nobel Replace Connical Connection&quot;;
+data_subset$I_Brand[data_subset$I_Brand==6]=&quot;Atra EV&quot;;
+data_subset$I_Brand[data_subset$I_Brand==7]=&quot;BioHorizons Tapered Plus&quot;;
+data_subset$I_Brand[data_subset$I_Brand==8]=&quot;Nobel Replace Select&quot;;
+data_subset$I_Brand[data_subset$I_Brand==9]=&quot;Nobel Replace Tapered Groovy&quot;;
+data_subset$I_Brand[data_subset$I_Brand==10]=&quot;Nobel Active Internal RP&quot;;
+data_subset$I_Brand[data_subset$I_Brand==11]=&quot;Straumann WN&quot;;
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fbfc52d82635d988c6e1" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fbfc52d82635d988c6e1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10"],["Nobel Biocare","Straumann BLT","Osseospeed Ev","Nobel Replace Connical Connection","Atra EV","BioHorizons Tapered Plus","Nobel Replace Select","Nobel Replace Tapered Groovy","Nobel Active Internal RP","Straumann WN"],[1,28,1,30,7,2,2,5,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Brand<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Brand","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;)))) </code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2f4c52b7f36e26c300a7" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2f4c52b7f36e26c300a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45"],["Nobel Biocare_vs_Straumann BLT","Nobel Biocare_vs_Osseospeed Ev","Nobel Biocare_vs_Nobel Replace Connical Connection","Nobel Biocare_vs_Atra EV","Nobel Biocare_vs_BioHorizons Tapered Plus","Nobel Biocare_vs_Nobel Replace Select","Nobel Biocare_vs_Nobel Replace Tapered Groovy","Nobel Biocare_vs_Nobel Active Internal RP","Nobel Biocare_vs_Straumann WN","Straumann BLT_vs_Osseospeed Ev","Straumann BLT_vs_Nobel Replace Connical Connection","Straumann BLT_vs_Atra EV","Straumann BLT_vs_BioHorizons Tapered Plus","Straumann BLT_vs_Nobel Replace Select","Straumann BLT_vs_Nobel Replace Tapered Groovy","Straumann BLT_vs_Nobel Active Internal RP","Straumann BLT_vs_Straumann WN","Osseospeed Ev_vs_Nobel Replace Connical Connection","Osseospeed Ev_vs_Atra EV","Osseospeed Ev_vs_BioHorizons Tapered Plus","Osseospeed Ev_vs_Nobel Replace Select","Osseospeed Ev_vs_Nobel Replace Tapered Groovy","Osseospeed Ev_vs_Nobel Active Internal RP","Osseospeed Ev_vs_Straumann WN","Nobel Replace Connical Connection_vs_Atra EV","Nobel Replace Connical Connection_vs_BioHorizons Tapered Plus","Nobel Replace Connical Connection_vs_Nobel Replace Select","Nobel Replace Connical Connection_vs_Nobel Replace Tapered Groovy","Nobel Replace Connical Connection_vs_Nobel Active Internal RP","Nobel Replace Connical Connection_vs_Straumann WN","Atra EV_vs_BioHorizons Tapered Plus","Atra EV_vs_Nobel Replace Select","Atra EV_vs_Nobel Replace Tapered Groovy","Atra EV_vs_Nobel Active Internal RP","Atra EV_vs_Straumann WN","BioHorizons Tapered Plus_vs_Nobel Replace Select","BioHorizons Tapered Plus_vs_Nobel Replace Tapered Groovy","BioHorizons Tapered Plus_vs_Nobel Active Internal RP","BioHorizons Tapered Plus_vs_Straumann WN","Nobel Replace Select_vs_Nobel Replace Tapered Groovy","Nobel Replace Select_vs_Nobel Active Internal RP","Nobel Replace Select_vs_Straumann WN","Nobel Replace Tapered Groovy_vs_Nobel Active Internal RP","Nobel Replace Tapered Groovy_vs_Straumann WN","Nobel Active Internal RP_vs_Straumann WN"],["&lt;0.0001","1","&lt;0.0001","0.0703","1","1","0.2188","1","1","&lt;0.0001","0.8957","5e-04","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0703","1","1","0.2188","1","1","2e-04","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.1797","0.1797","0.7744","0.0703","0.0703","1","0.4531","1","1","0.4531","1","1","0.2188","0.2188","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_surface" class="section level3">
 <h3>I_Surface</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(I_Surface) %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(I_Surface)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(I_Surface==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(I_Surface==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(I_Surface==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(I_Surface==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(I_Surface==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(I_Surface==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Surface, data_subset2$I_Surface)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Surface=all_variable, n=variable_count)
+
+data_subset$I_Surface[data_subset$I_Surface==1]=&quot;TiUltra&quot;;
+data_subset$I_Surface[data_subset$I_Surface==2]=&quot;TiUnite&quot;; 
+data_subset$I_Surface[data_subset$I_Surface==3]=&quot;SLA&quot;;
+data_subset$I_Surface[data_subset$I_Surface==4]=&quot;TiO2&quot;;
+data_subset$I_Surface[data_subset$I_Surface==5]=&quot;Ti&quot;;
+data_subset$I_Surface[data_subset$I_Surface==6]=&quot;TLXP3812&quot;;
+data_subset$I_Surface[data_subset$I_Surface==7]=&quot;Tiu&quot;; 
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-1d5df3d80f5735caaf13" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-1d5df3d80f5735caaf13">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7"],["TiUltra","TiUnite","SLA","TiO2","Ti","TLXP3812","Tiu"],[2,36,29,1,7,2,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Surface<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Surface","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-67c25ca3336b15b0293a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-67c25ca3336b15b0293a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["TiUltra_vs_TiUnite","TiUltra_vs_SLA","TiUltra_vs_TiO2","TiUltra_vs_Ti","TiUltra_vs_TLXP3812","TiUltra_vs_Tiu","TiUnite_vs_SLA","TiUnite_vs_TiO2","TiUnite_vs_Ti","TiUnite_vs_TLXP3812","TiUnite_vs_Tiu","SLA_vs_TiO2","SLA_vs_Ti","SLA_vs_TLXP3812","SLA_vs_Tiu","TiO2_vs_Ti","TiO2_vs_TLXP3812","TiO2_vs_Tiu","Ti_vs_TLXP3812","Ti_vs_Tiu","TLXP3812_vs_Tiu"],["&lt;0.0001","&lt;0.0001","1","0.1797","1","1","0.457","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","3e-04","&lt;0.0001","&lt;0.0001","0.0703","1","1","0.1797","0.0703","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_shape" class="section level3">
 <h3>I_Shape</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(I_Shape)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(I_Shape)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(I_Shape==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(I_Shape==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(I_Shape==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(I_Shape==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(I_Shape==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(I_Shape==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Shape, data_subset2$I_Shape)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Shape=all_variable, n=variable_count)
+
+
+data_subset$I_Shape[data_subset$I_Shape==1]=&quot;straight&quot;; 
+data_subset$I_Shape[data_subset$I_Shape==2]=&quot;tapered&quot;; 
+
+
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-530a78b6872d546cc16a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-530a78b6872d546cc16a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["straight","tapered"],[7,71]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Shape<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Shape","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-4cadc5f8c7ab9ff923ac" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-4cadc5f8c7ab9ff923ac">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["straight_vs_tapered"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_techique" class="section level3">
 <h3>I_Techique</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(I_Technique)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(I_Technique)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(I_Technique==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(I_Technique==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(I_Technique==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(I_Technique==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(I_Technique==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(I_Technique==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Technique, data_subset2$I_Technique)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Technique=all_variable, n=variable_count)
+
+data_subset$I_Technique[data_subset$I_Technique==1]=&quot;Free handed&quot;; 
+data_subset$I_Technique[data_subset$I_Technique==2]=&quot;Pilot guided&quot;;
+data_subset$I_Technique[data_subset$I_Technique==3]=&quot;Fully guided&quot;;
+data_subset$I_Technique[data_subset$I_Technique==4]=&quot;Surgical guide&quot;;
+data_subset$I_Technique[data_subset$I_Technique==5]=&quot;NR&quot;; 
+
+
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fc8df40fd67c2027a709" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fc8df40fd67c2027a709">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Free handed","Pilot guided","Fully guided","Surgical guide","NR","NR"],[4,15,13,23,20,3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Technique<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Technique","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d8c7d17cf4080686b93c" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d8c7d17cf4080686b93c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Free handed_vs_Pilot guided","Free handed_vs_Fully guided","Free handed_vs_Surgical guide","Free handed_vs_NR","Free handed_vs_NR","Pilot guided_vs_Fully guided","Pilot guided_vs_Surgical guide","Pilot guided_vs_NR","Pilot guided_vs_NR","Fully guided_vs_Surgical guide","Fully guided_vs_NR","Fully guided_vs_NR","Surgical guide_vs_NR","Surgical guide_vs_NR","NR_vs_NR"],["0.0192","0.049","3e-04","0.0015","1","0.8506","0.2559","0.4996","0.0075","0.1325","0.2962","0.0213","0.7608","&lt;0.0001","5e-04"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_location" class="section level3">
 <h3>I_Location</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(I_Location) %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(I_Location) %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(I_Location==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(I_Location==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(I_Location==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(I_Location==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(I_Location==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(I_Location==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Location, data_subset2$I_Location)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Location=all_variable, n=variable_count)
+
+data_subset$I_Location[data_subset$I_Location==1]=&quot;Supracrestal&quot;;
+data_subset$I_Location[data_subset$I_Location==2]=&quot;Equicrestal&quot;; 
+data_subset$I_Location[data_subset$I_Location==3]=&quot;Subcrestal&quot;;
+
+
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fbc9973e359619ea20b8" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fbc9973e359619ea20b8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Supracrestal","Equicrestal","Subcrestal","NR"],[3,26,47,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Location<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Location","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fc9c72093435cc6a0a18" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fc9c72093435cc6a0a18">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Supracrestal_vs_Equicrestal","Supracrestal_vs_Subcrestal","Supracrestal_vs_NR","Equicrestal_vs_Subcrestal","Equicrestal_vs_NR","Subcrestal_vs_NR"],["&lt;0.0001","&lt;0.0001","1","0.0186","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="postop_med" class="section level3">
 <h3>Postop_med</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Postop_med) %&gt;%  drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Postop_med) %&gt;%  drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(Postop_med==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(Postop_med==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(Postop_med==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(Postop_med==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(Postop_med==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(Postop_med==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Postop_med, data_subset2$Postop_med)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Postop_med=all_variable, n=variable_count)
+
+data_subset$Postop_med[data_subset$Postop_med==1]=&quot;Amoxicillin&quot;;
+data_subset$Postop_med[data_subset$Postop_med==2]=&quot;Clindamycin&quot;; 
+data_subset$Postop_med[data_subset$Postop_med==3]=&quot;Azithromycin&quot;;
+data_subset$Postop_med[data_subset$Postop_med==4]=&quot;not reported&quot;; 
+data_subset$Postop_med[data_subset$Postop_med==5]=&quot;doxycycline&quot;
+data_subset$Postop_med[data_subset$Postop_med==6]=&quot;antibiotic not specified&quot;
+
+
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-33198698d6599fd3fc97" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-33198698d6599fd3fc97">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Amoxicillin","not reported","doxycycline","antibiotic not specified","Clindamycin","Azithromycin"],[28,42,2,1,3,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Postop_med<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Postop_med","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-38c86864160d6d855a80" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-38c86864160d6d855a80">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Amoxicillin_vs_not reported","Amoxicillin_vs_doxycycline","Amoxicillin_vs_antibiotic not specified","Amoxicillin_vs_Clindamycin","Amoxicillin_vs_Azithromycin","not reported_vs_doxycycline","not reported_vs_antibiotic not specified","not reported_vs_Clindamycin","not reported_vs_Azithromycin","doxycycline_vs_antibiotic not specified","doxycycline_vs_Clindamycin","doxycycline_vs_Azithromycin","antibiotic not specified_vs_Clindamycin","antibiotic not specified_vs_Azithromycin","Clindamycin_vs_Azithromycin"],["0.1196","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","1","1","1","0.625","1","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="premed" class="section level3">
 <h3>Premed</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Premed) %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Premed)  %&gt;% drop_na()
+
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(Premed==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(Premed==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(Premed==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(Premed==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(Premed==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(Premed==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Premed, data_subset2$Premed)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Premed=all_variable, n=variable_count)
+
+data_subset$Premed[data_subset$Premed==1]=&quot;Amoxicillin&quot;;
+data_subset$Premed[data_subset$Premed==2]=&quot;not reported&quot;; 
+
+
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d96970b9501c191ad406" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d96970b9501c191ad406">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Amoxicillin","not reported"],[10,68]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Premed<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Premed","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-bbf49928d385f1dd9e5c" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-bbf49928d385f1dd9e5c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["Amoxicillin_vs_not reported"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="provider_level" class="section level3">
 <h3>Provider_level</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Provider_level)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Provider_level) %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(Provider_level==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(Provider_level==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(Provider_level==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(Provider_level==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(Provider_level==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(Provider_level==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Provider_level, data_subset2$Provider_level)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Provider_level=all_variable, n=variable_count)
+
+data_subset$Provider_level[data_subset$Provider_level==1]=&quot;Faculty&quot;;
+data_subset$Provider_level[data_subset$Provider_level==2]=&quot;Perio resident&quot;;
+data_subset$Provider_level[data_subset$Provider_level==3]=&quot;Pros resident&quot;;
+data_subset$Provider_level[data_subset$Provider_level==4]=&quot;AEGD resident&quot;;
+
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-90bfa43893a2d8eda041" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-90bfa43893a2d8eda041">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Faculty","Perio resident","Pros resident","AEGD resident"],[17,40,20,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Provider_level<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Provider_level","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-0349e08474188736d854" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-0349e08474188736d854">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["Faculty_vs_Perio resident","Faculty_vs_Pros resident","Faculty_vs_AEGD resident","Perio resident_vs_Pros resident","Perio resident_vs_AEGD resident","Pros resident_vs_AEGD resident"],["0.0032","0.7428","1e-04","0.0135","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="present_comp_post_placement" class="section level3">
 <h3>Present_comp_post_placement</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Present_comp_post_placement) %&gt;%  drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Present_comp_post_placement) %&gt;% drop_na()
+
+
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(Present_comp_post_placement==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(Present_comp_post_placement==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(Present_comp_post_placement==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(Present_comp_post_placement==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(Present_comp_post_placement==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(Present_comp_post_placement==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Present_comp_post_placement, data_subset2$Present_comp_post_placement)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Present_comp_post_placement=all_variable, n=variable_count)
+
+
+data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==1]=&quot;yes&quot;;
+data_subset$Present_comp_post_placement[data_subset$Present_comp_post_placement==2]=&quot;no&quot;;
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2c91a99e85c6bc68af90" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2c91a99e85c6bc68af90">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes","no"],[36,42]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Present_comp_post_placement<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Present_comp_post_placement","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f4acdbbe3467343ec6d3" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f4acdbbe3467343ec6d3">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],[0.5716]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="coverscrew_exp_post_placement" class="section level3">
 <h3>Coverscrew_exp_post_placement</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Coverscrew_exp_post_placement)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Coverscrew_exp_post_placement)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(Coverscrew_exp_post_placement==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(Coverscrew_exp_post_placement==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(Coverscrew_exp_post_placement==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(Coverscrew_exp_post_placement==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(Coverscrew_exp_post_placement==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(Coverscrew_exp_post_placement==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Coverscrew_exp_post_placement, data_subset2$Coverscrew_exp_post_placement)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Coverscrew_exp_post_placement=all_variable, n=variable_count)
+
+
+data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==1]=&quot;yes&quot;;
+data_subset$Coverscrew_exp_post_placement[data_subset$Coverscrew_exp_post_placement==2]=&quot;no&quot;;
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d15c90e001b0818c17b0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d15c90e001b0818c17b0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes","no"],[14,64]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Coverscrew_exp_post_placement<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Coverscrew_exp_post_placement","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fec2d181a4be4b780ca9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fec2d181a4be4b780ca9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="infectionpus_post_placement" class="section level3">
 <h3>Infection/pus_post_placement</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(`Infection/pus_post_placement`)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(`Infection/pus_post_placement`) %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(`Infection/pus_post_placement`==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(`Infection/pus_post_placement`==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(`Infection/pus_post_placement`==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(`Infection/pus_post_placement`==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(`Infection/pus_post_placement`==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(`Infection/pus_post_placement`==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$`Infection/pus_post_placement`, data_subset2$`Infection/pus_post_placement`)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(`Infection/pus_post_placement`=all_variable, n=variable_count)
+
+
+data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==1]=&quot;yes&quot;;
+data_subset$`Infection/pus_post_placement`[data_subset$`Infection/pus_post_placement`==2]=&quot;no&quot;;
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-bcc569e9a5fb6f3f4fe2" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-bcc569e9a5fb6f3f4fe2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes","no"],[9,69]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Infection/pus_post_placement<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Infection/pus_post_placement","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-23dada22fc5642de2fc1" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-23dada22fc5642de2fc1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="other_post_placement" class="section level3">
 <h3>Other_post_placement</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Other_post_placement)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Other_post_placement)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(Other_post_placement==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(Other_post_placement==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(Other_post_placement==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(Other_post_placement==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(Other_post_placement==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(Other_post_placement==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Other_post_placement, data_subset2$Other_post_placement)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Other_post_placement=all_variable, n=variable_count)
+
+
+data_subset$Other_post_placement[data_subset$Other_post_placement==1]=&quot;yes&quot;;
+data_subset$Other_post_placement[data_subset$Other_post_placement==2]=&quot;no&quot;;
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6e16c2883c26dd1edd48" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-6e16c2883c26dd1edd48">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["yes","no"],[11,67]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Other_post_placement<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Other_post_placement","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-23e11579ab285b5c7c2a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-23e11579ab285b5c7c2a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["yes_vs_no"],["&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="type_bone_loss" class="section level3">
 <h3>Type_bone_loss</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Type_bone_loss)  %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Type_bone_loss)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(Type_bone_loss==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(Type_bone_loss==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(Type_bone_loss==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(Type_bone_loss==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(Type_bone_loss==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(Type_bone_loss==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$Type_bone_loss, data_subset2$Type_bone_loss)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(Type_bone_loss=all_variable, n=variable_count)
+
+
+data_subset$Type_bone_loss[data_subset$Type_bone_loss==1]=&quot;vertical&quot;;
+data_subset$Type_bone_loss[data_subset$Type_bone_loss==2]=&quot;horizontal&quot;;
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-26eca46a20528b6114d0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-26eca46a20528b6114d0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["vertical","horizontal","NA","NR"],[56,20,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Type_bone_loss<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Type_bone_loss","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-fe4b5d221dd8b1ae7542" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-fe4b5d221dd8b1ae7542">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["vertical_vs_horizontal","vertical_vs_NA","vertical_vs_NR","horizontal_vs_NA","horizontal_vs_NR","NA_vs_NR"],["&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="i_survival" class="section level3">
 <h3>I_Survival</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(I_Survival...45)  %&gt;% drop_na()
+colnames(data_subset1)[1]=&quot;I_Survival&quot;
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(I_Survival)  %&gt;% drop_na()
+
+count_num=function(X)
+{
+  if (length(data_subset1 %&gt;% filter(I_Survival==X) %&gt;% select(n) %&gt;% pull())==0)
+    n1=0
+  if (length(data_subset1 %&gt;% filter(I_Survival==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n1=data_subset1 %&gt;% filter(I_Survival==X) %&gt;% select(n) %&gt;% pull()
+
+  if (length(data_subset2 %&gt;% filter(I_Survival==X) %&gt;% select(n) %&gt;% pull())==0)
+    n2=0
+   if (length(data_subset2 %&gt;% filter(I_Survival==X) %&gt;% select(n) %&gt;% pull())&gt;0)
+    n2=data_subset2 %&gt;% filter(I_Survival==X) %&gt;% select(n) %&gt;% pull()
+
+  
+  return(n1+n2)
+    
+}
+
+all_variable=union(data_subset1$I_Survival, data_subset2$I_Survival)
+variable_count=sapply(all_variable, count_num)
+data_subset=data_frame(I_Survival=all_variable, n=variable_count)
+
+
+data_subset$I_Survival[data_subset$I_Survival==1]=&quot;yes&quot;;
+data_subset$I_Survival[data_subset$I_Survival==2]=&quot;no&quot;;
+
+
+
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-7278515fd065a9a7a95f" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-7278515fd065a9a7a95f">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["yes","no","NR"],[62,2,14]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I_Survival<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I_Survival","targets":1},{"name":"n","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameters=character()
+pvalue=numeric()
+k=0
+for (i in 1:(nrow(data_subset)-1))
+  for (j in (i+1):nrow(data_subset))
+  {
+    k=k+1
+    parameters[k]=paste(data_subset[i,1], data_subset[j,1], sep=&quot;_vs_&quot;)
+    pvalue[k]=pvalue_adjust(binom.test(c(data_subset[i,2]%&gt;% pull(), data_subset[j,2]%&gt;% pull()), p = 0.5)$p.value)
+  }
+data.frame(comparison=parameters, pvalue=pvalue) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-198c93e593dcd35da8ef" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-198c93e593dcd35da8ef">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["yes_vs_no","yes_vs_NR","no_vs_NR"],["&lt;0.0001","&lt;0.0001","0.0042"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>comparison<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"comparison","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <br>

@@ -1,6 +1,9 @@
 ---
 title: "2024/02/12"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2024-02-12"
 ---
 
@@ -13,7 +16,7 @@ data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202402
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 variable_index=1
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -48,7 +51,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 variable_index=2
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -82,7 +85,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 variable_index=3
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -112,7 +115,7 @@ t.test(sub_data$control_pre, sub_data$control_post, paired = T)
 t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 ```
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 variable_index=4
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -144,7 +147,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 variable_index=5
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -177,7 +180,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 variable_index=6
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -211,7 +214,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 variable_index=7
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -242,7 +245,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 ```
 
 
-```{r, echo=F, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=T}
 variable_index=8
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -273,7 +276,7 @@ t.test(sub_data$case_pre, sub_data$case_post, paired = T)
 ```
 
 
-```{r, echo=F, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=T}
 variable_index=10
 variable=names(data_raw)[variable_index]
 data=data_raw[[variable_index]]
@@ -301,4 +304,24 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 t.test(sub_data$control_pre, sub_data$control_post, paired = T)
 t.test(sub_data$case_pre, sub_data$case_post, paired = T)
+```
+
+
+
+## further analysis 
+
+```{r, echo=F, message=F, warning=F}
+#questionnaire_data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202402\\Ann\\Control and Intervention groups outtake questionnaire.xlsx")
+#data=list(intervention=questionnaire_data$Intervention, control=questionnaire_data$Control)
+#save(data, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202402\\Ann\\questionnaire_data.RData")
+load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202402\\Ann\\questionnaire_data.RData")
+```
+
+
+### questions 
+
+
+```{r, message=F, warning=F}
+colnames(data$intervention)[2:19]==colnames(data$control)[2:19]
+colnames(data$intervention)[2:19]
 ```

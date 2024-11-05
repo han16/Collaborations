@@ -86,7 +86,7 @@ datatable(extensions = 'Buttons',
 ### Smoking
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Smoking) %>% drop_na()
 data_subset2=data2$`Data CORR` %>% dplyr::count(Smoking)  %>% drop_na()
 
@@ -128,7 +128,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Diabetes) %>% drop_na()
 data_subset2=data2$`Data CORR` %>% dplyr::count(Diabetes)  %>% drop_na()
 
@@ -168,7 +168,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Implant_site)  %>% drop_na()
 index1=which(data_subset1$Implant_site<=16); index2=which(data_subset1$Implant_site>16)
@@ -216,7 +216,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Implant_site)  %>% drop_na()
 index1=union(which(data_subset1$Implant_site<=5), which(data_subset1$Implant_site<=16 & data_subset1$Implant_site>=12)); index2=which(data_subset1$Implant_site>=6 &data_subset1$Implant_site<=11);
@@ -272,7 +272,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Pre_implant_Procedure)  %>% drop_na()
 
@@ -322,7 +322,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_placement) %>% drop_na()
 
@@ -374,7 +374,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Comp_placement) %>% drop_na()
 
@@ -425,7 +425,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(HA) %>%  drop_na()
 
@@ -471,7 +471,7 @@ datatable(extensions = 'Buttons',
 ### I_Brand
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Brand) %>% drop_na()
 
@@ -548,7 +548,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Surface) %>% drop_na()
 
@@ -617,7 +617,7 @@ datatable(extensions = 'Buttons',
 ### I_Shape
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Shape)  %>% drop_na()
 
@@ -686,7 +686,7 @@ datatable(extensions = 'Buttons',
 ### I_Techique
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Technique)  %>% drop_na()
 
@@ -760,7 +760,7 @@ datatable(extensions = 'Buttons',
 ### I_Location
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Location) %>% drop_na()
 
@@ -829,7 +829,7 @@ datatable(extensions = 'Buttons',
 ### Postop_med
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Postop_med) %>%  drop_na()
 
@@ -899,7 +899,7 @@ datatable(extensions = 'Buttons',
 ### Premed
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Premed) %>% drop_na()
 
@@ -967,7 +967,7 @@ datatable(extensions = 'Buttons',
 ### Provider_level
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Provider_level)  %>% drop_na()
 
@@ -1035,7 +1035,7 @@ datatable(extensions = 'Buttons',
 ### Present_comp_post_placement
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Present_comp_post_placement) %>%  drop_na()
 
@@ -1103,7 +1103,7 @@ datatable(extensions = 'Buttons',
 ### Coverscrew_exp_post_placement
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Coverscrew_exp_post_placement)  %>% drop_na()
 
@@ -1170,7 +1170,7 @@ datatable(extensions = 'Buttons',
 ### Infection/pus_post_placement
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(`Infection/pus_post_placement`)  %>% drop_na()
 
@@ -1236,7 +1236,7 @@ datatable(extensions = 'Buttons',
 ### Other_post_placement
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Other_post_placement)  %>% drop_na()
 
@@ -1301,7 +1301,7 @@ datatable(extensions = 'Buttons',
 ### Type_bone_loss
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Type_bone_loss)  %>% drop_na()
 
@@ -1367,7 +1367,7 @@ datatable(extensions = 'Buttons',
 ### I_Survival
 
 
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(I_Survival...45)  %>% drop_na()
 colnames(data_subset1)[1]="I_Survival"

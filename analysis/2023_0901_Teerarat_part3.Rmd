@@ -45,7 +45,7 @@ data2=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\T
 ### Gender
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 num_indi1=55
 num_indi2=23
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Gender) %>% mutate(prop=round(n/num_indi1,4)) %>% drop_na()
@@ -87,7 +87,7 @@ datatable(extensions = 'Buttons',
 ### Smoking 
  
  
-```{r, echo=F, message=F, warning=F}
+```{r,  message=F, warning=F}
 
 data_subset1=data2$`Data RESTORE` %>% dplyr::count(Smoking) %>% mutate(prop=round(n/num_indi1,4)) %>% drop_na()
 

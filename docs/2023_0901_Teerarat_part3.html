@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-03
+<strong>Last updated:</strong> 2024-11-05
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree304febd1a454148b9cdf703bebd0d51fce6db088targetblank304febda">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb96fdfd09471affbd7f5e6de39d5da4ce029a825targetblankb96fdfda">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/304febd1a454148b9cdf703bebd0d51fce6db088" target="_blank">304febd</a>
+<a href="https://github.com/han16/Collaborations/tree/b96fdfd09471affbd7f5e6de39d5da4ce029a825" target="_blank">b96fdfd</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree304febd1a454148b9cdf703bebd0d51fce6db088targetblank304febda"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb96fdfd09471affbd7f5e6de39d5da4ce029a825targetblankb96fdfda"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/304febd1a454148b9cdf703bebd0d51fce6db088" target="_blank">304febd</a>.
+<a href="https://github.com/han16/Collaborations/tree/b96fdfd09471affbd7f5e6de39d5da4ce029a825" target="_blank">b96fdfd</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -615,6 +615,7 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2023_0901_Teerarat_part3.Rmd
+    Modified:   analysis/2024_0202_Ann.Rmd
 
 </code></pre>
 <p>
@@ -661,6 +662,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dca031edd59da271c26309487f8aea0be2089555/analysis/2023_0901_Teerarat_part3.Rmd" target="_blank">dca031e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-03
+</td>
+<td>
+9/3/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/dca031edd59da271c26309487f8aea0be2089555/docs/2023_0901_Teerarat_part3.html" target="_blank">dca031e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-03
+</td>
+<td>
+9/3/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -758,8 +793,38 @@ han
 <p><a href="2023_0901_Teerarat.html">home</a></p>
 <div id="gender" class="section level3">
 <h3>Gender</h3>
+<pre class="r"><code>num_indi1=55
+num_indi2=23
+data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Gender) %&gt;% mutate(prop=round(n/num_indi1,4)) %&gt;% drop_na()
+data_subset1$Gender[data_subset1$Gender==1]=&quot;Male&quot;; data_subset1$Gender[data_subset1$Gender==2]=&quot;Female&quot;
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Gender) %&gt;% mutate(prop=round(n/num_indi2,4)) %&gt;% drop_na()
+data_subset2$Gender[data_subset2$Gender==1]=&quot;Male&quot;; data_subset2$Gender[data_subset2$Gender==2]=&quot;Female&quot;
+data_subset=rbind(data_subset1, data_subset2) %&gt;% mutate(sample=rep(c(&quot;RESTORE&quot;, &quot;CORR&quot;), each=nrow(data_subset1)))
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["Male","Female","Male","Female"],[39,16,9,14],[0.7091,0.2909,0.3913,0.6087],["RESTORE","RESTORE","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>#num_male=data_subset %&gt;% filter(Gender==&quot;Male&quot;) %&gt;% select(n)%&gt;% pull()
+#prop.test(x=num_male,n=c(num_indi1, num_indi2))
+
+common_variable=intersect(data_subset %&gt;% filter(sample==&quot;RESTORE&quot;) %&gt;% select(Gender) %&gt;% pull(), data_subset %&gt;% filter(sample==&quot;CORR&quot;) %&gt;% select(Gender) %&gt;% pull())
+pvalue=numeric()
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %&gt;% filter(Gender==common_variable[i]) %&gt;% select(n) %&gt;% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
+}
+data.frame(variable=paste(common_variable, &quot;:RESTORE_vs_CORR&quot;), pvalue=pvalue)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["Male :RESTORE_vs_CORR","Female :RESTORE_vs_CORR"],[0.0175,0.0175]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
@@ -770,8 +835,36 @@ samples</p></li>
 </div>
 <div id="smoking" class="section level3">
 <h3>Smoking</h3>
+<pre class="r"><code>data_subset1=data2$`Data RESTORE` %&gt;% dplyr::count(Smoking) %&gt;% mutate(prop=round(n/num_indi1,4)) %&gt;% drop_na()
+
+data_subset2=data2$`Data CORR` %&gt;% dplyr::count(Smoking) %&gt;% mutate(prop=round(n/num_indi2,4)) %&gt;% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %&gt;% mutate(sample=c(rep(&quot;RESTORE&quot;, nrow(data_subset1)), rep(&quot;CORR&quot;, nrow(data_subset2))))
+data_subset$Smoking[data_subset$Smoking==1]=&quot;Never&quot;; data_subset$Smoking[data_subset$Smoking==2]=&quot;Past&quot;
+data_subset$Smoking[data_subset$Smoking==3]=&quot;Current&quot;; data_subset$Smoking[data_subset$Smoking==4]=&quot;not reported&quot;
+
+
+data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8"],["Never","Past","Current","NR","Never","Past","Current","not reported"],[24,11,10,10,12,6,3,2],[0.4364,0.2,0.1818,0.1818,0.5217000000000001,0.2609,0.1304,0.08699999999999999],["RESTORE","RESTORE","RESTORE","RESTORE","CORR","CORR","CORR","CORR"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Smoking<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Smoking","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>common_variable=intersect(data_subset %&gt;% filter(sample==&quot;RESTORE&quot;) %&gt;% select(Smoking) %&gt;% pull(), data_subset %&gt;% filter(sample==&quot;CORR&quot;) %&gt;% select(Smoking) %&gt;% pull())
+pvalue=numeric()
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %&gt;% filter(Smoking==common_variable[i]) %&gt;% select(n) %&gt;% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
+}
+data.frame(variable=paste(common_variable, &quot;:RESTORE_vs_CORR&quot;), pvalue=pvalue)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;)))) </code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["Never :RESTORE_vs_CORR","Past :RESTORE_vs_CORR","Current :RESTORE_vs_CORR"],[0.6595,0.7695,0.8242]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
