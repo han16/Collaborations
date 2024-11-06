@@ -421,8 +421,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -442,8 +442,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -462,8 +462,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -484,8 +484,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -504,8 +504,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -526,8 +526,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -547,8 +547,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -570,8 +570,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
@@ -591,8 +591,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 main_function(questions[k])$comparison%>%
 datatable(extensions = 'Buttons',
+          caption = questions[k],
             options = list(dom = 'Blfrtip',
-                           caption = questions[k],
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
