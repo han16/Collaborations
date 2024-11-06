@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-11-05
+<strong>Last updated:</strong> 2024-11-06
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed17d3ec88bb0e8b638691c1ef8b99e78b7a13360targetblankd17d3eca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee7d700f6a8d3bc37d1d1c07752c87cff3f9836c7targetblanke7d700fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/d17d3ec88bb0e8b638691c1ef8b99e78b7a13360" target="_blank">d17d3ec</a>
+<a href="https://github.com/han16/Collaborations/tree/e7d700f6a8d3bc37d1d1c07752c87cff3f9836c7" target="_blank">e7d700f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed17d3ec88bb0e8b638691c1ef8b99e78b7a13360targetblankd17d3eca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee7d700f6a8d3bc37d1d1c07752c87cff3f9836c7targetblanke7d700fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/d17d3ec88bb0e8b638691c1ef8b99e78b7a13360" target="_blank">d17d3ec</a>.
+<a href="https://github.com/han16/Collaborations/tree/e7d700f6a8d3bc37d1d1c07752c87cff3f9836c7" target="_blank">e7d700f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -660,6 +660,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e7d700f6a8d3bc37d1d1c07752c87cff3f9836c7/analysis/2024_0202_Ann.Rmd" target="_blank">e7d700f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-05
+</td>
+<td>
+11/5/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/e7d700f6a8d3bc37d1d1c07752c87cff3f9836c7/docs/2024_0202_Ann.html" target="_blank">e7d700f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-05
+</td>
+<td>
+11/5/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1718,7 +1752,8 @@ mean difference
 <pre class="r"><code>colnames(data$intervention)[2:19]==colnames(data$control)[2:19]</code></pre>
 <pre><code> [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 [16] TRUE TRUE TRUE</code></pre>
-<pre class="r"><code>colnames(data$intervention)[3:19]</code></pre>
+<pre class="r"><code>questions=colnames(data$intervention)[3:19]
+questions</code></pre>
 <pre><code> [1] &quot;I understand and can describe what common musculoskeletal disorders (MSD) are:&quot;                                                
  [2] &quot;I understand the impact MSD&#39;s can have on productivity as a future dental professional&quot;                                        
  [3] &quot;I understand the importance of proper body mechanics&quot;                                                                          
@@ -1736,122 +1771,271 @@ mean difference
 [15] &quot;I will continue to use intervention strategies&quot;                                                                                
 [16] &quot;The interventions and educational materials were easy to understand and implement&quot;                                             
 [17] &quot;I found the intervention group to be helpful and worthwhile&quot;                                                                   </code></pre>
-<pre class="r"><code>num_indi1=nrow(data$intervention)
-num_indi2=nrow(data$control)
-variable=&quot;I understand and can describe what common musculoskeletal disorders (MSD) are:&quot;
-
-data_subset1=data$intervention %&gt;% dplyr::count(!!rlang::sym(variable))%&gt;% drop_na() 
-num_indi1=sum(data_subset1$n)
-data_subset1=data_subset1%&gt;% mutate(prop=round(n/num_indi1,4)) %&gt;% drop_na()
-
-data_subset2=data$control %&gt;% dplyr::count(!!rlang::sym(variable))%&gt;% drop_na() 
-num_indi2=sum(data_subset2$n)
-data_subset2=data_subset2%&gt;% mutate(prop=round(n/num_indi2,4)) %&gt;% drop_na()
-
-data_subset=rbind(data_subset1, data_subset2) %&gt;% mutate(sample=c(rep(&quot;intervention&quot;, nrow(data_subset1)), rep(&quot;control&quot;, nrow(data_subset2))))
-#data_subset$Smoking[data_subset$Smoking==1]=&quot;Never&quot;; data_subset$Smoking[data_subset$Smoking==2]=&quot;Past&quot;
-#data_subset$Smoking[data_subset$Smoking==3]=&quot;Current&quot;; data_subset$Smoking[data_subset$Smoking==4]=&quot;not reported&quot;
-
-
-data_subset%&gt;%
+<pre class="r"><code>k=1
+main_function(questions[k])$data_subset%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],[3,4,5,3,4,5],[2,4,9,1,7,1],[0.1333,0.2667,0.6,0.1111,0.7778,0.1111],["intervention","intervention","intervention","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand and can describe what common musculoskeletal disorders (MSD) are:<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand and can describe what common musculoskeletal disorders (MSD) are:","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>common_variable=intersect(data_subset %&gt;% filter(sample==&quot;intervention&quot;) %&gt;% select(!!rlang::sym(variable)) %&gt;% pull(), data_subset %&gt;% filter(sample==&quot;control&quot;) %&gt;% select(!!rlang::sym(variable)) %&gt;% pull())
-pvalue=numeric()
-for (i in 1:length(common_variable))
-{
-  variable_count=data_subset %&gt;% filter(!!rlang::sym(variable)==common_variable[i]) %&gt;% select(n) %&gt;% pull()
-  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
-}
-data.frame(variable=paste(common_variable, &quot;:intervention_vs_control&quot;), pvalue=pvalue)%&gt;%
+<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6"],["neutral","agree","strongly agree","neutral","agree","strongly agree"],[2,4,9,1,7,1],[0.1333,0.2667,0.6,0.1111,0.7778,0.1111],["intervention","intervention","intervention","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand and can describe what common musculoskeletal disorders (MSD) are:<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand and can describe what common musculoskeletal disorders (MSD) are:","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
+          caption = questions[k], 
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["3 :intervention_vs_control","4 :intervention_vs_control","5 :intervention_vs_control"],[1,0.0445,0.0543]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>variable=&quot;I understand the impact MSD&#39;s can have on productivity as a future dental professional&quot;
-
-data_subset1=data$intervention %&gt;% dplyr::count(!!rlang::sym(variable))%&gt;% drop_na() 
-num_indi1=sum(data_subset1$n)
-data_subset1=data_subset1%&gt;% mutate(prop=round(n/num_indi1,4)) %&gt;% drop_na()
-
-data_subset2=data$control %&gt;% dplyr::count(!!rlang::sym(variable))%&gt;% drop_na() 
-num_indi2=sum(data_subset2$n)
-data_subset2=data_subset2%&gt;% mutate(prop=round(n/num_indi2,4)) %&gt;% drop_na()
-
-data_subset=rbind(data_subset1, data_subset2) %&gt;% mutate(sample=c(rep(&quot;intervention&quot;, nrow(data_subset1)), rep(&quot;control&quot;, nrow(data_subset2))))
-#data_subset$Smoking[data_subset$Smoking==1]=&quot;Never&quot;; data_subset$Smoking[data_subset$Smoking==2]=&quot;Past&quot;
-#data_subset$Smoking[data_subset$Smoking==3]=&quot;Current&quot;; data_subset$Smoking[data_subset$Smoking==4]=&quot;not reported&quot;
-
-
-data_subset%&gt;%
+<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>I understand and can describe what common musculoskeletal disorders (MSD) are:<\/caption>","data":[["1","2","3"],["neutral :intervention_vs_control","agree :intervention_vs_control","strongly agree :intervention_vs_control"],[1,0.0445,0.0543]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[2])$data_subset%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],[4,5,4,5],[3,12,3,6],[0.2,0.8,0.3333,0.6667],["intervention","intervention","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand the impact MSD's can have on productivity as a future dental professional<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand the impact MSD's can have on productivity as a future dental professional","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>common_variable=intersect(data_subset %&gt;% filter(sample==&quot;intervention&quot;) %&gt;% select(!!rlang::sym(variable)) %&gt;% pull(), data_subset %&gt;% filter(sample==&quot;control&quot;) %&gt;% select(!!rlang::sym(variable)) %&gt;% pull())
-pvalue=numeric()
-for (i in 1:length(common_variable))
-{
-  variable_count=data_subset %&gt;% filter(!!rlang::sym(variable)==common_variable[i]) %&gt;% select(n) %&gt;% pull()
-  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
-}
-data.frame(variable=paste(common_variable, &quot;:intervention_vs_control&quot;), pvalue=pvalue)%&gt;%
+<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["agree","strongly agree","agree","strongly agree"],[3,12,3,6],[0.2,0.8,0.3333,0.6667],["intervention","intervention","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand the impact MSD's can have on productivity as a future dental professional<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand the impact MSD's can have on productivity as a future dental professional","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[2])$comparison%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["4 :intervention_vs_control","5 :intervention_vs_control"],[0.8077,0.8077]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>variable=&quot;I understand the importance of proper body mechanics&quot;
-
-data_subset1=data$intervention %&gt;% dplyr::count(!!rlang::sym(variable))%&gt;% drop_na() 
-num_indi1=sum(data_subset1$n)
-data_subset1=data_subset1%&gt;% mutate(prop=round(n/num_indi1,4)) %&gt;% drop_na()
-
-data_subset2=data$control %&gt;% dplyr::count(!!rlang::sym(variable))%&gt;% drop_na() 
-num_indi2=sum(data_subset2$n)
-data_subset2=data_subset2%&gt;% mutate(prop=round(n/num_indi2,4)) %&gt;% drop_na()
-
-data_subset=rbind(data_subset1, data_subset2) %&gt;% mutate(sample=c(rep(&quot;intervention&quot;, nrow(data_subset1)), rep(&quot;control&quot;, nrow(data_subset2))))
-#data_subset$Smoking[data_subset$Smoking==1]=&quot;Never&quot;; data_subset$Smoking[data_subset$Smoking==2]=&quot;Past&quot;
-#data_subset$Smoking[data_subset$Smoking==3]=&quot;Current&quot;; data_subset$Smoking[data_subset$Smoking==4]=&quot;not reported&quot;
-
-
-data_subset%&gt;%
+<script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["agree :intervention_vs_control","strongly agree :intervention_vs_control"],[0.8077,0.8077]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=3
+main_function(questions[k])$data_subset%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-873249b169eb6149d57e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],[4,5,4,5],[2,13,3,6],[0.1333,0.8667,0.3333,0.6667],["intervention","intervention","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand the importance of proper body mechanics<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand the importance of proper body mechanics","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>common_variable=intersect(data_subset %&gt;% filter(sample==&quot;intervention&quot;) %&gt;% select(!!rlang::sym(variable)) %&gt;% pull(), data_subset %&gt;% filter(sample==&quot;control&quot;) %&gt;% select(!!rlang::sym(variable)) %&gt;% pull())
-pvalue=numeric()
-for (i in 1:length(common_variable))
-{
-  variable_count=data_subset %&gt;% filter(!!rlang::sym(variable)==common_variable[i]) %&gt;% select(n) %&gt;% pull()
-  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(num_indi1, num_indi2))$p.value)
-}
-data.frame(variable=paste(common_variable, &quot;:intervention_vs_control&quot;), pvalue=pvalue)%&gt;%
+<script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["agree","strongly agree","agree","strongly agree"],[2,13,3,6],[0.1333,0.8667,0.3333,0.6667],["intervention","intervention","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand the importance of proper body mechanics<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand the importance of proper body mechanics","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["4 :intervention_vs_control","5 :intervention_vs_control"],[0.5164,0.5164]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["agree :intervention_vs_control","strongly agree :intervention_vs_control"],[0.5164,0.5164]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=4
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f25d4e1770d66a86dcce" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f25d4e1770d66a86dcce">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["agree","strongly agree","disagree","neutral","agree"],[6,9,1,2,6],[0.4,0.6,0.1111,0.2222,0.6667],["intervention","intervention","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand how to prevent common MSDs<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand how to prevent common MSDs","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-969965edfe9f869aa904" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-969965edfe9f869aa904">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["agree :intervention_vs_control"],[0.3991]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=5
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-450f171f14364aa3ebed" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-450f171f14364aa3ebed">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["agree","strongly agree","neutral","agree","strongly agree"],[2,13,4,3,2],[0.1333,0.8667,0.4444,0.3333,0.2222],["intervention","intervention","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand the importance of completing preventative exercises...7<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand the importance of completing preventative exercises...7","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-fbfc52d82635d988c6e1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fbfc52d82635d988c6e1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["agree :intervention_vs_control","strongly agree :intervention_vs_control"],[0.5164,0.0065]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=6
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2f4c52b7f36e26c300a7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2f4c52b7f36e26c300a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7"],["neutral","agree","strongly agree","disagree","neutral","agree","strongly agree"],[2,4,9,1,3,4,1],[0.1333,0.2667,0.6,0.1111,0.3333,0.4444,0.1111],["intervention","intervention","intervention","control","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand the importance of completing preventative exercises...8<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand the importance of completing preventative exercises...8","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1d5df3d80f5735caaf13" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1d5df3d80f5735caaf13">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["neutral :intervention_vs_control","agree :intervention_vs_control","strongly agree :intervention_vs_control"],[0.5164,0.6546999999999999,0.0543]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=7
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-67c25ca3336b15b0293a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-67c25ca3336b15b0293a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7"],["neutral","agree","strongly agree","disagree","neutral","agree","strongly agree"],[1,7,7,2,2,4,1],[0.0667,0.4667,0.4667,0.2222,0.2222,0.4444,0.1111],["intervention","intervention","intervention","control","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I understand the signs and symptoms indicating early signs od MSD<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I understand the signs and symptoms indicating early signs od MSD","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-530a78b6872d546cc16a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-530a78b6872d546cc16a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3"],["neutral :intervention_vs_control","agree :intervention_vs_control","strongly agree :intervention_vs_control"],[0.6326000000000001,1,0.1797]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=8
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-4cadc5f8c7ab9ff923ac" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4cadc5f8c7ab9ff923ac">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["agree","strongly agree","disagree","neutral","agree"],[10,5,1,1,7],[0.6667,0.3333,0.1111,0.1111,0.7778],["intervention","intervention","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I feel more confident in using both hands to manage dental instruments<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I feel more confident in using both hands to manage dental instruments","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-fc8df40fd67c2027a709" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fc8df40fd67c2027a709">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["agree :intervention_vs_control"],[0.9077]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=9
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-d8c7d17cf4080686b93c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d8c7d17cf4080686b93c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["None","cramping","cramping, numbness","none","numbness","other","other: weakness/ mucle fatigue","shaking sometimes","cramping","cramping, numbness sometimes","hypermobility, cramping","shaking, hypermobility"],[1,4,2,2,2,1,1,1,4,1,2,1],[0.07140000000000001,0.2857,0.1429,0.1429,0.1429,0.07140000000000001,0.07140000000000001,0.07140000000000001,0.5,0.125,0.25,0.125],["intervention","intervention","intervention","intervention","intervention","intervention","intervention","intervention","control","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I experience any of the following while using dental instruments<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I experience any of the following while using dental instruments","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-fbc9973e359619ea20b8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fbc9973e359619ea20b8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],["cramping :intervention_vs_control"],[0.5862000000000001]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=10
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-fc9c72093435cc6a0a18" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fc9c72093435cc6a0a18">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5"],["agree","strongly agree","neutral","agree","strongly agree"],[5,10,2,5,2],[0.3333,0.6667,0.2222,0.5556,0.2222],["intervention","intervention","control","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>I will continue to use intervention strategies throughout the dental program and into my career<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"I will continue to use intervention strategies throughout the dental program and into my career","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-33198698d6599fd3fc97" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-33198698d6599fd3fc97">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["agree :intervention_vs_control","strongly agree :intervention_vs_control"],[0.5212,0.0917]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=11
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-38c86864160d6d855a80" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-38c86864160d6d855a80">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4"],["agree","strongly agree","agree","strongly agree"],[3,12,4,5],[0.2,0.8,0.4444,0.5556],["intervention","intervention","control","control"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Incorporating education and preventative strategies into the dental curriculum will be helpful for my professional development<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n      <th>sample<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Incorporating education and preventative strategies into the dental curriculum will be helpful for my professional development","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3},{"name":"sample","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-d96970b9501c191ad406" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d96970b9501c191ad406">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2"],["agree :intervention_vs_control","strongly agree :intervention_vs_control"],[0.417,0.417]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>k=12
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))
+main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<pre class="r"><code>k=13
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))
+main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<pre class="r"><code>k=14
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))
+main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<pre class="r"><code>k=15
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))
+main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<pre class="r"><code>k=16
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))
+main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<pre class="r"><code>k=17
+main_function(questions[k])$data_subset%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))
+main_function(questions[k])$comparison%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
