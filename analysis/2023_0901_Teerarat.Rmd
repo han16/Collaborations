@@ -87,6 +87,64 @@ datatable(extensions = 'Buttons',
 
 
 
+#### Pearson correlation 
+
+```{r, message=F, warning=F}
+################ compute p values 
+cormat2=round(cor(data_interest_corr, method="pearson", use = "na.or.complete"),2)
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:ncol(cormat2))
+    cormat2_pvalue[i,j]=round(cor.test(data_interest_corr[,i], data_interest_corr[,j], method="pearson", use = "na.or.complete")$p.value,4)
+row.names(cormat2_pvalue)=rownames(cormat2) 
+colnames(cormat2_pvalue)=rownames(cormat2) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+#### spearman correlation 
+
+```{r, message=F, warning=F}
+################ compute p values 
+cormat2=round(cor(data_interest_corr, method="spearman", use = "na.or.complete"),2)
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:ncol(cormat2))
+    cormat2_pvalue[i,j]=round(cor.test(data_interest_corr[,i], data_interest_corr[,j], method="spearman", use = "na.or.complete")$p.value,4)
+row.names(cormat2_pvalue)=rownames(cormat2) 
+colnames(cormat2_pvalue)=rownames(cormat2) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
 
 
 
@@ -122,6 +180,66 @@ data_summary=summary_statistics(data_interest_store)
 data_summary %>%
 datatable(extensions = 'Buttons',
           caption = "restore",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+#### Pearson correlation 
+
+```{r, message=F, warning=F}
+################ compute p values 
+cormat2=round(cor(data_interest_corr, method="pearson", use = "na.or.complete"),2)
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:ncol(cormat2))
+    cormat2_pvalue[i,j]=round(cor.test(data_interest_corr[,i], data_interest_corr[,j], method="pearson", use = "na.or.complete")$p.value,4)
+row.names(cormat2_pvalue)=rownames(cormat2) 
+colnames(cormat2_pvalue)=rownames(cormat2) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+#### spearman correlation 
+
+```{r, message=F, warning=F}
+################ compute p values 
+cormat2=round(cor(data_interest_corr, method="spearman", use = "na.or.complete"),2)
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:ncol(cormat2))
+    cormat2_pvalue[i,j]=round(cor.test(data_interest_corr[,i], data_interest_corr[,j], method="spearman", use = "na.or.complete")$p.value,4)
+row.names(cormat2_pvalue)=rownames(cormat2) 
+colnames(cormat2_pvalue)=rownames(cormat2) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -167,6 +285,66 @@ data_summary=summary_statistics(data_interest_combined)
 data_summary %>%
 datatable(extensions = 'Buttons',
           caption = "restore",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+#### Pearson correlation 
+
+```{r, message=F, warning=F}
+################ compute p values 
+cormat2=round(cor(data_interest_corr, method="pearson", use = "na.or.complete"),2)
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:ncol(cormat2))
+    cormat2_pvalue[i,j]=round(cor.test(data_interest_corr[,i], data_interest_corr[,j], method="pearson", use = "na.or.complete")$p.value,4)
+row.names(cormat2_pvalue)=rownames(cormat2) 
+colnames(cormat2_pvalue)=rownames(cormat2) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+#### spearman correlation 
+
+```{r, message=F, warning=F}
+################ compute p values 
+cormat2=round(cor(data_interest_corr, method="spearman", use = "na.or.complete"),2)
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:ncol(cormat2))
+    cormat2_pvalue[i,j]=round(cor.test(data_interest_corr[,i], data_interest_corr[,j], method="spearman", use = "na.or.complete")$p.value,4)
+row.names(cormat2_pvalue)=rownames(cormat2) 
+colnames(cormat2_pvalue)=rownames(cormat2) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
