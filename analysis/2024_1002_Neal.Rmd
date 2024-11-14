@@ -15,13 +15,15 @@ source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunction
 
 
 ```{r, message=F, warning=F, results=F}
-#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\Neal CBCT Thesis data.xlsx")
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK111324.xlsx")
 #finalized_data=data_raw$`Finalized Data`
 #finalized_with_omitted_data=data_raw$`Finalized with Omitted data`
-#variables=data_raw$`Variables `
 #coding=data_raw$`Coding`
 #save(finalized_with_omitted_data, finalized_data, coding, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
 load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+col_names=as.character(finalized_data[1,])
+finalized_data=finalized_data[-1,]
+colnames(finalized_data)=col_names
 ```
 
 
@@ -29,8 +31,7 @@ load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData"
 
 
 ```{r, message=F, warning=F}
-#colnames(finalized_data)
-as.character(finalized_data[1,])
+colnames(finalized_data)
 ```
 
 
@@ -39,7 +40,7 @@ as.character(finalized_data[1,])
 ### continuous variables 
 
 ```{r, message=F, warning=F, eval=F}
-data_conti=data.frame(data$Age, data$Cigarrettes_per_day, data$VAS_pain_anticipated, data$VAS_pain_preop, data$VAS_swell_anticipated, data$VAS_swell_preop, data[,60:90])
+data_conti=data.frame(finalized_data$Age, finalized_data$Cigarrettes_per_day, finalized_data$VAS_pain_anticipated, finalized_data$VAS_pain_preop, finalized_data$VAS_swell_anticipated, finalized_data$VAS_swell_preop, finalized_data[,60:90])
 
 res=summary_statistics(data_conti)
 data.frame(res) %>%

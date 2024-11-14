@@ -1,6 +1,9 @@
 ---
 title: "9/14/2022"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: '2022-09-14'
 ---
 
@@ -3014,7 +3017,7 @@ datatable(extensions = 'Buttons',
 #### correlation matrix 1 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 library(reshape2)
 sub_data=data.frame(Ging_width_T1=data$Ging_width_T1, Ging_width_T6=data$Ging_width_T6, Ging_thick=data$Ging_thick, Muc_thick=data$Muc_thick,Wound_open_bl_T3=data$Wound_open_bl_T3, Wound_open_bl_T4=data$Wound_open_bl_T4, Wound_open_bl_T5=data$Wound_open_bl_T5, Wound_open_bl_T6=data$Wound_open_bl_T6,Width_3mm_T1=data$Width_3mm_T1
 ,Width_3mm_T2=data$Width_3mm_T2, Width_3mm_T3=data$width_3mm_T3, Width_3mm_T4=data$Width_3mm_T4,
