@@ -39,8 +39,40 @@ colnames(finalized_data)
 
 ### continuous variables 
 
-```{r, message=F, warning=F, eval=F}
-data_conti=data.frame(finalized_data$Age, finalized_data$Cigarrettes_per_day, finalized_data$VAS_pain_anticipated, finalized_data$VAS_pain_preop, finalized_data$VAS_swell_anticipated, finalized_data$VAS_swell_preop, finalized_data[,60:90])
+```{r, message=F, warning=F, eval=T}
+continuous_var=c("Age", 
+"Months_btwn_CBCTS",  
+"Months_btwn_Ext_CBCT#1",
+"mesial_tooth_bone_loss_CBCT#2__mm",   
+"mesial_tooth_bone_loss_DIFF",         
+"distal_tooth_bone_loss_CBCT#1__mm",    
+"distal_tooth_bone_loss_CBCT#2__mm",   
+"distal_tooth_bone_loss_DIFF",    
+"ANPNS_Crest_Coronal_CBCT1",
+"ANSPNS_Crest_Coronal_CBCT2",          
+"ANSPNS_Crest_Coronal_DIFF",           
+"ANSPNS_Crest_Sagittal_CBCT1",        
+"ANSPNS_Crest_Sagittal_CBCT2",         
+"ANSPNS_Crest_Sagittal_DIFF",          
+"ANSPNS_Sinus_Floor_Coronal_CBCT1",   
+"ANSPNS_Sinus_Floor_Coronal_CBCT2",    
+"ANSPNS_Sinus_Floor_Coronal_DIFF",     
+"ANSPNS_Sinus_Floor_Sagittal_CBCT1",   
+"ANSPNS_Sinus_Floor_Sagittal_CBCT2",   
+"ANSPNS_Sinus_Floor_Sagittal_DIFF",    
+"MENTAL_Crest_Coronal_CBCT1",         
+"MENTAL_Crest_Coronal_CBCT2",         
+ "MENTAL_Crest_Coronal_DIFF",           
+"MENTAL_Crest_Sagittal_CBCT1",         
+"MENTAL_Crest_Sagittal_CBCT2",         
+"MENTAL_Crest_Sagittal_DIFF",
+"Width_3mm_CBCT1",                     
+"Width_3mm_CBCT2",                     
+"Width_3mm_DIFF",                      
+"Width_5mm_CBCT1",                     
+"Width_5mm_CBCT2",                     
+"Width_5mm_DIFF")
+data_conti=finalized_data[,which(colnames(finalized_data)%in%continuous_var)]
 
 res=summary_statistics(data_conti)
 data.frame(res) %>%
@@ -51,6 +83,56 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>1)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="pearson", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=1)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
 
 
 
