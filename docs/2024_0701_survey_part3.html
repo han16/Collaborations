@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-11-15
+<strong>Last updated:</strong> 2024-11-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -454,10 +454,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3394d0ee5f9c8a07e7fffcf417ff029564e82015targetblank3394d0ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbb9ccc5712b3826cdb1a3acc3dcba3f250e99ctargetblankafbb9cca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/3394d0ee5f9c8a07e7fffcf417ff029564e82015" target="_blank">3394d0e</a>
+<a href="https://github.com/han16/Collaborations/tree/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c" target="_blank">afbb9cc</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3394d0ee5f9c8a07e7fffcf417ff029564e82015targetblank3394d0ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbb9ccc5712b3826cdb1a3acc3dcba3f250e99ctargetblankafbb9cca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/3394d0ee5f9c8a07e7fffcf417ff029564e82015" target="_blank">3394d0e</a>.
+<a href="https://github.com/han16/Collaborations/tree/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c" target="_blank">afbb9cc</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -613,13 +613,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2024_0701_survey_part1.Rmd
-    Untracked:  analysis/2024_0701_survey_part2.Rmd
-    Untracked:  analysis/2024_0701_survey_part3.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2024_0701_survey.Rmd
+    Modified:   analysis/2024_0701_survey_part3.Rmd
 
 </code></pre>
 <p>
@@ -634,10 +629,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/2024_0701_survey_part3.Rmd</code>) and HTML
+(<code>docs/2024_0701_survey_part3.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/analysis/2024_0701_survey_part3.Rmd" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+<td>
+11/18/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/2024_0701_survey_part3.html" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+<td>
+11/18/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -662,9 +722,21 @@ datatable(extensions = &#39;Buttons&#39;,
 <ul>
 <li>in total 2295 responses and 40 questions</li>
 </ul>
+<pre class="r"><code>variables_of_interest=variables[-c(6,7,19:37)]
+dentist_in_WI_of_interest=Dentist_in_WI[,-c(6,7,19:37)]
+num_non_missing=apply(dentist_in_WI_of_interest,2, function(x) sum(is.na(x)==F) )
+data.frame(variable=variables_of_interest, non_missing=num_non_missing)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot; Interesting variables with non-missing numbers &quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption> Interesting variables with non-missing numbers <\/caption>","data":[["Date of Birth","License Number","Preliminary Application Reference: Name","Regulatory Authorization Type: Name","direct care as a dentist in Wisconsin","Dental Specialties Board Certified","dentist in Wisconsin","Clinic Name","Street Address","City","State","5-digit Zip code","Best Describes This Practice Setting","Other Practice Setting","number of hours","Additional Practice Locations","Describe Your Race or Ethnicity","Other Race or Ethnicity","Gender Identity"],["Date of Birth","License Number","Preliminary Application Reference: Name","Regulatory Authorization Type: Name","direct care as a dentist in Wisconsin","Dental Specialties Board Certified","dentist in Wisconsin","Clinic Name","Street Address","City","State","5-digit Zip code","Best Describes This Practice Setting","Other Practice Setting","number of hours","Additional Practice Locations","Describe Your Race or Ethnicity","Other Race or Ethnicity","Gender Identity"],[2295,2295,2295,2295,2295,2091,2294,2087,2062,2084,2082,2064,2247,35,2206,2190,2255,10,2259]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>non_missing<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"non_missing","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <div id="race-or-ethnicity" class="section level3">
 <h3>Race or Ethnicity</h3>
-<pre class="r"><code>race=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Describe Your Race or Ethnicity`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+<pre class="r"><code>race=dentist_in_WI_of_interest %&gt;% dplyr::count(`Describe Your Race or Ethnicity`) %&gt;% mutate(prop=round(n/nrow(dentist_in_WI_of_interest),4))
 asia=c(&quot;East Asian&quot;, &quot;Filipino&quot;, &quot;Hmong&quot;, &quot;Laotian&quot;, &quot;South Asian&quot;) # define south east asia countries 
 asia_race= race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia==F) %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;asia&quot;, n=asia_race %&gt;% select(n) %&gt;% sum(), prop=asia_race %&gt;% select(prop) %&gt;% sum()) # combine south east asia countries into one unit 
@@ -672,22 +744,23 @@ race_new=race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia==F) %&gt
 race_new2=race_new %&gt;% filter(n&gt;10)  %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;other&quot;, n=race_new %&gt;% filter(n&lt;=10) %&gt;% select(n) %&gt;% sum(), prop=race_new %&gt;% filter(n&lt;=10) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
 
 
-fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new2, legend_rows = 5, var_name=&quot;Describe Your Race or Ethnicity&quot;)
-fig
-
-
-fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new2 %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 5, var_name=&quot;Describe Your Race or Ethnicity&quot;)
-fig
-
-race_new2%&gt;% arrange(desc(n))%&gt;%
+fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new2, legend_rows = 4, var_name=&quot;Describe Your Race or Ethnicity&quot;)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new2 %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 3, var_name=&quot;Describe Your Race or Ethnicity&quot;)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>race_new2%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,&quot;All&quot;))))
-
-sum(race_new2$n)</code></pre>
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8"],["White","asia","Decline to answer","other","Hispanic or Latino/a/x",null,"Black or African American","Some other race or ethnicity"],[1706,205,170,70,56,40,34,14],[0.7433999999999999,0.0893,0.0741,0.0302,0.0244,0.0174,0.0148,0.0061]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(race_new2$n)</code></pre>
+<pre><code>[1] 2295</code></pre>
 <ul>
 <li><p><code>asia</code> includes “East Asian”, “Filipino”, “Hmong”,
 “Laotian”, “South Asian”</p></li>
@@ -1106,30 +1179,31 @@ loaded via a namespace (and not attached):
  [4] magrittr_2.0.3       git2r_0.33.0         compiler_4.3.2      
  [7] systemfonts_1.0.5    vctrs_0.6.5          rvest_1.0.3         
 [10] profvis_0.3.8        pkgconfig_2.0.3      fastmap_1.1.1       
-[13] backports_1.4.1      ellipsis_0.3.2       utf8_1.2.4          
-[16] promises_1.2.1       rmarkdown_2.25       sessioninfo_1.2.2   
-[19] tzdb_0.4.0           xfun_0.41            cachem_1.0.8        
-[22] jsonlite_1.8.8       highr_0.10           later_1.3.2         
-[25] broom_1.0.5          R6_2.5.1             bslib_0.6.1         
-[28] stringi_1.8.3        car_3.1-2            pkgload_1.3.3       
-[31] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.0.11         
-[34] knitr_1.45           httpuv_1.6.13        Matrix_1.6-1.1      
-[37] splines_4.3.2        timechange_0.2.0     tidyselect_1.2.0    
-[40] rstudioapi_0.15.0    abind_1.4-5          yaml_2.3.8          
-[43] miniUI_0.1.1.1       pkgbuild_1.4.3       lattice_0.21-9      
-[46] shiny_1.8.0          withr_2.5.2          evaluate_0.23       
-[49] lambda.r_1.2.4       survival_3.5-7       urlchecker_1.0.1    
-[52] xml2_1.3.6           pillar_1.9.0         carData_3.0-5       
-[55] generics_0.1.3       rprojroot_2.0.4      hms_1.1.3           
-[58] munsell_0.5.0        scales_1.3.0         xtable_1.8-4        
-[61] glue_1.6.2           tools_4.3.2          webshot_0.5.5       
-[64] ggsignif_0.6.4       fs_1.6.3             crosstalk_1.2.1     
-[67] colorspace_2.1-0     cli_3.6.2            workflowr_1.7.1     
-[70] futile.options_1.0.1 fansi_1.0.6          broom.helpers_1.14.0
-[73] viridisLite_0.4.2    svglite_2.1.3        gt_0.10.0           
-[76] gtable_0.3.4         sass_0.4.8           digest_0.6.33       
-[79] htmlwidgets_1.6.4    memoise_2.0.1        htmltools_0.5.7     
-[82] lifecycle_1.0.4      httr_1.4.7           mime_0.12           </code></pre>
+[13] backports_1.4.1      ellipsis_0.3.2       labeling_0.4.3      
+[16] utf8_1.2.4           promises_1.2.1       rmarkdown_2.25      
+[19] sessioninfo_1.2.2    tzdb_0.4.0           xfun_0.41           
+[22] cachem_1.0.8         jsonlite_1.8.8       highr_0.10          
+[25] later_1.3.2          broom_1.0.5          R6_2.5.1            
+[28] bslib_0.6.1          stringi_1.8.3        car_3.1-2           
+[31] pkgload_1.3.3        jquerylib_0.1.4      cellranger_1.1.0    
+[34] Rcpp_1.0.11          knitr_1.45           httpuv_1.6.13       
+[37] Matrix_1.6-1.1       splines_4.3.2        timechange_0.2.0    
+[40] tidyselect_1.2.0     rstudioapi_0.15.0    abind_1.4-5         
+[43] yaml_2.3.8           miniUI_0.1.1.1       pkgbuild_1.4.3      
+[46] lattice_0.21-9       shiny_1.8.0          withr_2.5.2         
+[49] evaluate_0.23        lambda.r_1.2.4       survival_3.5-7      
+[52] urlchecker_1.0.1     xml2_1.3.6           pillar_1.9.0        
+[55] carData_3.0-5        whisker_0.4.1        generics_0.1.3      
+[58] rprojroot_2.0.4      hms_1.1.3            munsell_0.5.0       
+[61] scales_1.3.0         xtable_1.8-4         glue_1.6.2          
+[64] tools_4.3.2          webshot_0.5.5        ggsignif_0.6.4      
+[67] fs_1.6.3             crosstalk_1.2.1      colorspace_2.1-0    
+[70] cli_3.6.2            workflowr_1.7.1      futile.options_1.0.1
+[73] fansi_1.0.6          broom.helpers_1.14.0 viridisLite_0.4.2   
+[76] svglite_2.1.3        gt_0.10.0            gtable_0.3.4        
+[79] sass_0.4.8           digest_0.6.33        farver_2.1.1        
+[82] htmlwidgets_1.6.4    memoise_2.0.1        htmltools_0.5.7     
+[85] lifecycle_1.0.4      httr_1.4.7           mime_0.12           </code></pre>
 </div>
 </div>
 </div>

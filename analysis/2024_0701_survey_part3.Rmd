@@ -82,10 +82,27 @@ dim(Dentist_in_WI)
 * in total 2295 responses and 40 questions 
 
 
+
+
+```{r, message=F, warning=F}
+variables_of_interest=variables[-c(6,7,19:37)]
+dentist_in_WI_of_interest=Dentist_in_WI[,-c(6,7,19:37)]
+num_non_missing=apply(dentist_in_WI_of_interest,2, function(x) sum(is.na(x)==F) )
+data.frame(variable=variables_of_interest, non_missing=num_non_missing)%>%
+datatable(extensions = 'Buttons',
+          caption = " Interesting variables with non-missing numbers ",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
 ### Race or Ethnicity
 
-```{r, message=F, warning=F, eval=F}
-race=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+```{r, message=F, warning=F, eval=T}
+race=dentist_in_WI_of_interest %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(dentist_in_WI_of_interest),4))
 asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
 asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
@@ -93,11 +110,11 @@ race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add
 race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=race_new %>% filter(n<=10) %>% select(n) %>% sum(), prop=race_new %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
 
-fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 5, var_name="Describe Your Race or Ethnicity")
+fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 4, var_name="Describe Your Race or Ethnicity")
 fig
 
 
-fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 5, var_name="Describe Your Race or Ethnicity")
+fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name="Describe Your Race or Ethnicity")
 fig
 
 race_new2%>% arrange(desc(n))%>%

@@ -34,6 +34,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -248,6 +249,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -372,6 +376,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">dentist data analysis</h1>
@@ -404,13 +416,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-11-15
+<strong>Last updated:</strong> 2024-11-18
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 2
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -433,21 +445,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -564,15 +573,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3394d0ee5f9c8a07e7fffcf417ff029564e82015targetblank3394d0ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbb9ccc5712b3826cdb1a3acc3dcba3f250e99ctargetblankafbb9cca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/3394d0ee5f9c8a07e7fffcf417ff029564e82015" target="_blank">3394d0e</a>
+<a href="https://github.com/han16/Collaborations/tree/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c" target="_blank">afbb9cc</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3394d0ee5f9c8a07e7fffcf417ff029564e82015targetblank3394d0ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbb9ccc5712b3826cdb1a3acc3dcba3f250e99ctargetblankafbb9cca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -582,7 +591,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/3394d0ee5f9c8a07e7fffcf417ff029564e82015" target="_blank">3394d0e</a>.
+<a href="https://github.com/han16/Collaborations/tree/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c" target="_blank">afbb9cc</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -601,13 +610,6 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2024_0701_survey_part1.Rmd
-    Untracked:  analysis/2024_0701_survey_part2.Rmd
-
-Unstaged changes:
-    Modified:   analysis/2024_0701_survey.Rmd
-
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -621,10 +623,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/2024_0701_survey_part1.Rmd</code>) and HTML
+(<code>docs/2024_0701_survey_part1.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/analysis/2024_0701_survey_part1.Rmd" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+<td>
+11/18/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/2024_0701_survey_part1.html" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+<td>
+11/18/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -659,9 +726,83 @@ race_new2=race_new %&gt;% filter(n&gt;10)  %&gt;% add_row(`Describe Your Race or
 fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new2, legend_rows = 5, var_name=&quot;Describe Your Race or Ethnicity&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-5-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new2 %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 5, var_name=&quot;Describe Your Race or Ethnicity&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-5-2.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>race_new2%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -687,6 +828,43 @@ responses.</p></li>
 fig=plot_function(&quot;Gender Identity&quot;, gender, legend_rows = 2, var_name = &quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-6-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -708,6 +886,43 @@ specialty2=specialty %&gt;% filter(n&gt;10)  %&gt;% add_row(`Dental Specialties 
 fig=plot_function(&quot;Dental Specialties Board Certified&quot;, specialty2, legend_rows = 3, var_name = &quot;Dental Specialties Board Certified&quot;, legend_text_size = 12)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-7-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>specialty2%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -733,6 +948,43 @@ practice_setting2=practice_setting %&gt;% filter(n&gt;threshold)  %&gt;% add_row
 fig=plot_function(&quot;Best Describes This Practice Setting&quot;, practice_setting2, legend_rows = 4, var_name = &quot;Best Describes This Practice Setting&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-8-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>practice_setting2%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -767,6 +1019,43 @@ practice_setting_combine=data.frame(class=rep(c(settings, &quot;others&quot;, &q
 
 side_by_side_barplot2(practice_setting_combine, title=&quot;practice setting&quot;, legend_rows = 2)</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-10-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>white_practice_setting=Dentist_Survey$`Dentist Survey` %&gt;% filter(`Describe Your Race or Ethnicity`==&quot;White&quot;) %&gt;% dplyr::count(`Best Describes This Practice Setting`)
 settings=c(&quot;Group office practice (any number of dentists &gt;1)&quot;, &quot;Solo office practice&quot;)
 nums=sapply(settings, function(x) white_practice_setting %&gt;% filter(`Best Describes This Practice Setting`==x) %&gt;% select(n) %&gt;%  pull())
@@ -786,6 +1075,43 @@ practice_setting_combine=data.frame(class=rep(c(settings, &quot;others&quot;, &q
 
 side_by_side_barplot2(practice_setting_combine, title=&quot;practice setting&quot;, legend_rows = 2)</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-11-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="group-office-practice" class="section level3">
 <h3>group office practice</h3>
@@ -796,6 +1122,43 @@ group_practice2=group_practice%&gt;% dplyr::count(`Gender Identity`) %&gt;% muta
 fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice2,1, var_name=&quot;Gender Identity&quot;, num_size=4, legend_text_size = 13)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-12-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>group_practice2%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -818,6 +1181,43 @@ group_practice3=group_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`D
 fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-13-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>group_practice3%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -840,6 +1240,43 @@ group_practice3=group_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`D
 fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-14-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>group_practice3%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -861,6 +1298,43 @@ solo_practice2=solo_practice%&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate
 fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice2,1, var_name=&quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-15-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>solo_practice2%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -882,6 +1356,43 @@ solo_practice3=solo_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Des
 fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-16-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>solo_practice3%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -903,6 +1414,43 @@ solo_practice3=solo_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Den
 fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,1, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4, legend_text_size = 12)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-17-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>solo_practice3%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -1007,6 +1555,43 @@ gender_geo_data=gender_geo_data %&gt;% mutate(prop=round(prop,4))
 fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Hygenist&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-23-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender_geo_data%&gt;% 
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;Hygienist&quot;,
@@ -1036,6 +1621,43 @@ gender_geo_data=gender_geo_data %&gt;% mutate(prop=round(prop,4))
 fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 2.5, x_text_size=12, legend_text_size=12, title=&quot;Dentist_Survey&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-24-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender_geo_data%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;Dentist&quot;,
@@ -1087,12 +1709,123 @@ pie_chart[[i]]=ggplot(data=pie_data)+
 ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)</code></pre>
 <pre><code>$`1`</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-25-1.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`2`</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-2">
+Past versions of unnamed-chunk-25-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-25-2.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`3`</code></pre>
 <p><img src="figure/2024_0701_survey_part1.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-3">
+Past versions of unnamed-chunk-25-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part1.Rmd/unnamed-chunk-25-3.png" target="_blank">afbb9cc</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 attr(,&quot;class&quot;)
 [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
@@ -1168,17 +1901,17 @@ loaded via a namespace (and not attached):
 [46] lattice_0.21-9       shiny_1.8.0          withr_2.5.2         
 [49] evaluate_0.23        lambda.r_1.2.4       survival_3.5-7      
 [52] urlchecker_1.0.1     xml2_1.3.6           pillar_1.9.0        
-[55] carData_3.0-5        generics_0.1.3       rprojroot_2.0.4     
-[58] hms_1.1.3            munsell_0.5.0        scales_1.3.0        
-[61] xtable_1.8-4         glue_1.6.2           tools_4.3.2         
-[64] webshot_0.5.5        ggsignif_0.6.4       fs_1.6.3            
-[67] crosstalk_1.2.1      colorspace_2.1-0     cli_3.6.2           
-[70] workflowr_1.7.1      futile.options_1.0.1 fansi_1.0.6         
-[73] broom.helpers_1.14.0 viridisLite_0.4.2    svglite_2.1.3       
-[76] gt_0.10.0            gtable_0.3.4         sass_0.4.8          
-[79] digest_0.6.33        farver_2.1.1         htmlwidgets_1.6.4   
-[82] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
-[85] httr_1.4.7           mime_0.12           </code></pre>
+[55] carData_3.0-5        whisker_0.4.1        generics_0.1.3      
+[58] rprojroot_2.0.4      hms_1.1.3            munsell_0.5.0       
+[61] scales_1.3.0         xtable_1.8-4         glue_1.6.2          
+[64] tools_4.3.2          webshot_0.5.5        ggsignif_0.6.4      
+[67] fs_1.6.3             crosstalk_1.2.1      colorspace_2.1-0    
+[70] cli_3.6.2            workflowr_1.7.1      futile.options_1.0.1
+[73] fansi_1.0.6          broom.helpers_1.14.0 viridisLite_0.4.2   
+[76] svglite_2.1.3        gt_0.10.0            gtable_0.3.4        
+[79] sass_0.4.8           digest_0.6.33        farver_2.1.1        
+[82] htmlwidgets_1.6.4    memoise_2.0.1        htmltools_0.5.7     
+[85] lifecycle_1.0.4      httr_1.4.7           mime_0.12           </code></pre>
 </div>
 </div>
 </div>
@@ -1232,6 +1965,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
