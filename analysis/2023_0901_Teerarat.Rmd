@@ -113,8 +113,21 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
+* number in the parentheses are p values 
 
 
 #### spearman correlation 
@@ -139,6 +152,20 @@ datatable(extensions = 'Buttons',
 cormat2_pvalue %>%
 datatable(extensions = 'Buttons',
           caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -214,6 +241,17 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -240,6 +278,18 @@ datatable(extensions = 'Buttons',
 cormat2_pvalue %>%
 datatable(extensions = 'Buttons',
           caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -319,6 +369,17 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -345,6 +406,17 @@ datatable(extensions = 'Buttons',
 cormat2_pvalue %>%
 datatable(extensions = 'Buttons',
           caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),

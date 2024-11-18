@@ -1,0 +1,641 @@
+---
+title: "dentist data analysis"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-11-15"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+changeCellColor <- function(row, col){
+  c(
+    "function(row, data, num, index){",
+    sprintf("  if(index == %d){", row-1),
+    sprintf("    $('td:eq(' + %d + ')', row)", col),
+    "    .css({'background-color': 'orange'});",
+    "  }",
+    "}"  
+  )
+}
+```
+
+
+```{r, echo=F, message=F, warning=F}
+plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12)
+{
+  
+  x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
+
+  
+  y_limit=max(data$n)*1.1
+g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  #theme(legend.position="", legend.title=element_text(size=10))+
+  theme(legend.position="bottom", legend.title=element_blank(), legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_blank())+
+  theme(axis.text.y = element_text(size = y_axis_text))+
+  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))), vjust=-1, size=num_size)+
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = legend_rows))
+  return(g1)
+}
+```
+
+
+## Home 
+
+[Home](2024_0701_survey.html)
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+Dental_Hygienist=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dental Hygienist.xlsx")
+Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
+```
+
+
+
+```{r, message=F, warning=F}
+#dim(Dentist_Survey$`Dentist Survey`)
+variables=colnames(Dentist_Survey$`Dentist Survey`)
+data.frame(questions=variables)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* in total 2957 responses and 40 questions 
+
+
+### Race or Ethnicity
+
+```{r, message=F, warning=F}
+race=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
+asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
+race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
+
+race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=race_new %>% filter(n<=10) %>% select(n) %>% sum(), prop=race_new %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
+
+
+fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 5, var_name="Describe Your Race or Ethnicity")
+fig
+
+
+fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 5, var_name="Describe Your Race or Ethnicity")
+fig
+
+race_new2%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+sum(race_new2$n)
+```
+
+* `asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
+
+* `other` aggregates categories with less than 10 responses. 
+
+
+
+### Gender Identity
+
+```{r, message=F, warning=F}
+gender=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+
+fig=plot_function("Gender Identity", gender, legend_rows = 2, var_name = "Gender Identity", num_size = 4, legend_text_size = 13)
+fig
+
+
+
+gender%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(gender$n)
+```
+
+
+
+
+### Dental Specialties Board Certified
+
+
+```{r, message=F, warning=F}
+specialty=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+
+specialty2=specialty %>% filter(n>10)  %>% add_row(`Dental Specialties Board Certified`="other", n=specialty %>% filter(n<=10) %>% select(n) %>% sum(), prop=specialty %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
+
+fig=plot_function("Dental Specialties Board Certified", specialty2, legend_rows = 3, var_name = "Dental Specialties Board Certified", legend_text_size = 12)
+fig
+
+
+
+specialty2%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(specialty2$n)
+```
+
+
+* `other` aggregates categories with less than 10 responses, such as `General dentistry; Oral surgery`
+
+
+
+
+### Best Describes This Practice Setting
+
+
+```{r, message=F, warning=F}
+practice_setting=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Best Describes This Practice Setting`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+
+threshold=20
+practice_setting2=practice_setting %>% filter(n>threshold)  %>% add_row(`Best Describes This Practice Setting`="other", n=practice_setting %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=practice_setting %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
+fig=plot_function("Best Describes This Practice Setting", practice_setting2, legend_rows = 4, var_name = "Best Describes This Practice Setting")
+fig
+
+
+practice_setting2%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(practice_setting2$n)
+```
+
+`other` aggregates categories with responses less than 20. 
+
+
+
+### practice setting distribution 
+
+
+```{r, echo=F, message=F, warning=F}
+side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1)
+{
+  y_limit=max(data$n)*1.1
+  g=ggplot(data, aes(x=gender, y=n, fill=class)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+    guides(fill = guide_legend(nrow = legend_rows))
+ return(g)
+  
+}
+
+```
+
+
+
+```{r, message=F, warning=F}
+man_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Gender Identity`=="Man") %>% dplyr::count(`Best Describes This Practice Setting`)
+settings=c("Group office practice (any number of dentists >1)", "Solo office practice")
+nums=sapply(settings, function(x) man_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=man_practice_setting$n[is.na(man_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(man_practice_setting$n)-sum(nums[1:2])-nums[4]
+man_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+woman_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Gender Identity`=="Woman") %>% dplyr::count(`Best Describes This Practice Setting`)
+nums=sapply(settings, function(x) woman_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=woman_practice_setting$n[is.na(woman_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(woman_practice_setting$n)-sum(nums[1:2])-nums[4]
+woman_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n=c(man_practice_setting2$n, woman_practice_setting2$n), prop=c(man_practice_setting2$prop, woman_practice_setting2$prop), gender=rep(c("man", "women"), each=4))
+
+
+side_by_side_barplot2(practice_setting_combine, title="practice setting", legend_rows = 2)
+```
+
+
+```{r, message=F, warning=F}
+white_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Describe Your Race or Ethnicity`=="White") %>% dplyr::count(`Best Describes This Practice Setting`)
+settings=c("Group office practice (any number of dentists >1)", "Solo office practice")
+nums=sapply(settings, function(x) white_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=white_practice_setting$n[is.na(white_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(white_practice_setting$n)-sum(nums[1:2])-nums[4]
+white_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries
+asia_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Describe Your Race or Ethnicity`%in% asia) %>% dplyr::count(`Best Describes This Practice Setting`)
+nums=sapply(settings, function(x) asia_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
+nums[4]=asia_practice_setting$n[is.na(asia_practice_setting$`Best Describes This Practice Setting`)]
+nums[3]=sum(asia_practice_setting$n)-sum(nums[1:2])-nums[4]
+asia_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
+
+practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n=c(white_practice_setting2$n, asia_practice_setting2$n), prop=c(white_practice_setting2$prop, asia_practice_setting2$prop), gender=rep(c("White", "Asia"), each=4))
+
+
+side_by_side_barplot2(practice_setting_combine, title="practice setting", legend_rows = 2)
+```
+
+
+
+
+### group office practice 
+
+
+
+
+
+```{r, message=F, warning=F}
+group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+
+group_practice2=group_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(group_practice),4))
+
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice2,1, var_name="Gender Identity", num_size=4, legend_text_size = 13)
+fig
+
+group_practice2%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(group_practice2$n)
+```
+
+
+
+```{r, message=F, warning=F}
+group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+
+group_practice2=group_practice%>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(group_practice),4))
+
+threshold=10
+group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=group_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=group_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
+fig
+
+group_practice3%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(group_practice3$n)
+```
+
+
+
+
+```{r, message=F, warning=F}
+group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+
+group_practice2=group_practice%>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(group_practice),4))
+
+threshold=10
+group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Specialties Board Certified`="other", n=group_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=group_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Dental Specialties Board Certified", num_size = 4)
+fig
+
+group_practice3%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(group_practice3$n)
+```
+
+
+
+
+### solo office practice 
+
+
+
+```{r, message=F, warning=F}
+solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+
+solo_practice2=solo_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(solo_practice),4))
+
+fig=plot_function(title="Solo office practice", solo_practice2,1, var_name="Gender Identity", num_size = 4, legend_text_size = 13)
+fig
+
+solo_practice2%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(solo_practice2$n)
+```
+
+
+
+```{r, message=F, warning=F}
+solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+
+solo_practice2=solo_practice%>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(solo_practice),4))
+threshold=10
+solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=solo_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=solo_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Solo office practice", solo_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
+fig
+
+solo_practice3%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(solo_practice3$n)
+```
+
+
+```{r, message=F, warning=F}
+solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+
+solo_practice2=solo_practice%>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(solo_practice),4))
+threshold=10
+solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Specialties Board Certified`="other", n=solo_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=solo_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
+
+
+fig=plot_function(title="Solo office practice", solo_practice3,1, var_name="Dental Specialties Board Certified", num_size = 4, legend_text_size = 12)
+fig
+
+solo_practice3%>% arrange(desc(n))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(solo_practice3$n)
+```
+
+
+
+
+## geographical distribution 
+
+```{r, message=F, warning=F, results=F}
+wisconsin_urban_rural_zip=multiplesheets("C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\Wisconsin-Urban-Rural-zip.xlsx")
+```
+
+
+* [Wisconsin state urban rural code](https://marq-my.sharepoint.com/:x:/g/personal/shengtong_han_marquette_edu/ETU5WgJJl9BIoNsBBNhPqocBR3DcuAN3q1H65LThX3eeuQ?e=Ozruo2)
+
+
+
+```{r, message=F, warning=F}
+region_code=unique(wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`)
+all_code=wisconsin_urban_rural_zip$`Table 1`$`2014 ZCTA-based WURC Code`
+all_code[which(all_code=="R2/R1")]="R2"   # rename regions 
+all_code[which(all_code=="Urban/R1")]="Urban"
+all_code[which(all_code=="Metro W-O-W/R1")]="Metro W-O-W"
+all_code[which(all_code=="R3/R1")]="R3"
+all_code[which(all_code=="R3/R2/R1")]="R3"
+all_code[which(all_code=="Urban/R2")]="Urban"
+all_code[which(all_code=="R1/Urban")]="R1"
+wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %>% mutate(new_region_code=all_code)
+region_code_update=unique(all_code)
+```
+
+
+```{r, message=F, warning=F, eval=T}
+region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
+hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` ) %>% pull)
+
+#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
+# Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
+
+
+dentist_zip=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
+#sum(is.na(Dentist_Survey_zipcode)==T) 893 zip codes are missing 
+
+
+zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
+Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
+
+data.frame(zip_in_dentist_only)%>%
+datatable(extensions = 'Buttons',
+          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* in dentist survey data, 891 zip codes are missing, i.e. the responses are blank 
+
+* among  77 zip codes missing, i.e. not in Wisconsin zip code list,  some code (46/77=59.7%) have sub-code like `53574-8881`, but Wisconsin zip code don't have sub-code.  
+
+
+
+
+```{r, message=F, warning=F, eval=T}
+region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
+hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` ) %>% pull)
+
+#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
+# Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
+
+
+dentist_zip_raw=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
+dentist_zip=str_sub(dentist_zip_raw, 1, 5)
+
+zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
+Dentist_Survey_zipcode=Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code`) %>% pull()
+
+
+Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
+
+data.frame(zip_in_dentist_only)%>%
+datatable(extensions = 'Buttons',
+          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+dentist_zip_in_dentist_only=sapply(zip_in_dentist_only, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow())
+
+```
+
+
+
+### Gender Identity
+
+
+```{r, echo=F, message=F, warning=F}
+side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title)
+{
+  y_limit=max(data$num)*1.1
+  g=ggplot(data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  geom_text(label = with(gender_geo_data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+ return(g)
+  
+}
+```
+
+
+
+
+```{r, message=F, warning=F}
+
+gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
+gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm = T), sum(x=="Woman", na.rm = T))) 
+gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
+
+man_total=sum(gender_geo_data %>% filter(gender=="Man") %>% select(num) %>% pull())
+woman_total=sum(gender_geo_data %>% filter(gender=="Woman") %>% select(num) %>% pull())
+prop=numeric()
+prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
+prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
+gender_geo_data=gender_geo_data %>% mutate(prop=round(prop,4))
+
+fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygenist")
+fig
+
+
+
+gender_geo_data%>% 
+datatable(extensions = 'Buttons',
+          caption = "Hygienist",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow()  ?????????? 
+```
+* only keep `Man` and `Woman` and ignore other responses 
+
+
+
+
+```{r, message=F, warning=F}
+gender_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
+gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
+gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
+
+
+man_total=sum(gender_geo_data %>% filter(gender=="Man") %>% select(num) %>% pull())
+woman_total=sum(gender_geo_data %>% filter(gender=="Woman") %>% select(num) %>% pull())
+prop=numeric()
+prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
+prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
+gender_geo_data=gender_geo_data %>% mutate(prop=round(prop,4))
+
+fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 2.5, x_text_size=12, legend_text_size=12, title="Dentist_Survey")
+fig
+
+
+gender_geo_data%>%
+datatable(extensions = 'Buttons',
+          caption = "Dentist",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(gender_geo_data$num)
+```
+
+
+
+### specialty distribution 
+
+
+
+
+
+```{r, message=F, warning=F}
+specialty=c("General dentistry", "Endodontics", "Orthodontics","Periodontics",  "Prosthodontics", "Pediatric dentistry", "Oral surgery")
+specialty_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% filter(`Dental Specialties Board Certified` %in% specialty) %>% select(`Dental Specialties Board Certified`))
+specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
+specialty_geo_data=data.frame(geo=rep(region_code_update,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code_update))) %>% drop_na()
+
+figures=list()
+pie_chart=list()
+for (i in 1:length(region_code_update))
+  
+{
+   figures[[i]]=ggplot(specialty_geo_data %>% filter(geo %in% region_code_update[i]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code_update[i]) %>% select(num)%>% pull())+10))+
+ # facet_grid("geo")+
+  ylab("n")+xlab("")+
+  theme(legend.position="")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
+  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  ggtitle(region_code_update[i])+
+  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  
+  pie_data=specialty_geo_data %>% filter(geo %in% region_code_update[i])
+  pie_data <- pie_data %>% 
+  mutate(per=`num`/sum(`num`)) %>% 
+  arrange(desc(spect))
+pie_data$label <- scales::percent(pie_data$per)
+pie_chart[[i]]=ggplot(data=pie_data)+
+  geom_bar(aes(x="", y=per, fill=spect), stat="identity", width = 1)+
+  coord_polar("y", start=0)+
+  theme_void()+
+  geom_text(aes(x=1, y = cumsum(per) - per/2, label=label))
+   
+   
+}
+  
+ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)
+
+
+
+
+
+
+gender_geo_data%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(gender_geo_data$num)
+```
