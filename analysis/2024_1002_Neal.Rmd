@@ -130,6 +130,18 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 ```
 
 
@@ -137,4 +149,238 @@ datatable(extensions = 'Buttons',
 
 
 ### discrete variables 
+
+
+```{r, message=F, warning=F}
+discrete_var=c("Tooth_site_number", 
+               "Gender", 
+               "Smoking", 
+               "Tooth_migration", 
+               "M_Tooth_Migration",  
+               "D_Tooth_Migration",  
+               "Migration_Notes", 
+               "mesial_tooth_bone_loss_CBCT#1__mm", 
+               "Jaw",                        
+                "Arch_Fully_edentulous_both_CBCTs",
+                "Partially_edentulous",
+               "Partial_Edentulous_Space_\r\nLength",
+                "Adjacent_teeth_number",
+               "Adjacent_Note",                      
+                "Restoration_type",
+               "Restoration_Notes",                  
+                "Ext_Reason",                                   
+                "Coronal_sinus_floor_shift",  
+                "Sinus_Pathology",
+                 "Sites_10mm_height_or_more",          
+                 "1st_CBCT_10mm_or_more",
+               "2nd_CBCT_10mm_or_more" )
+data_discrete=finalized_data[,which(colnames(finalized_data)%in%discrete_var)]
+
+res=apply(data_discrete, 2, discrete_summary)
+```
+
+
+
+```{r, message=F, warning=F}
+k=1
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=2
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=3
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=4
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=5
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=6
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=7
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=8
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=9
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=10
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=11
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=12
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=13
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=14
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=15
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=16
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=17
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=18
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=19
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=20
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=21
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+k=22
+data.frame(res[[k]]) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 

@@ -118,3 +118,11 @@ multiplesheets <- function(fname) {
   # print data frame
   print(data_frame)
 }
+
+discrete_summary=function(data)
+{
+  res=data.frame(var=data) %>% dplyr::count(var) %>% mutate(prop=round(n/(sum(n)),4))
+  return(res)
+}  
+  
+
