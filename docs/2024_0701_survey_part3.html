@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-11-18
+<strong>Last updated:</strong> 2024-11-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbb9ccc5712b3826cdb1a3acc3dcba3f250e99ctargetblankafbb9cca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree149befe48b13393d1f342d535e18c462bb496ac1targetblank149befea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c" target="_blank">afbb9cc</a>
+<a href="https://github.com/han16/Collaborations/tree/149befe48b13393d1f342d535e18c462bb496ac1" target="_blank">149befe</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeafbb9ccc5712b3826cdb1a3acc3dcba3f250e99ctargetblankafbb9cca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree149befe48b13393d1f342d535e18c462bb496ac1targetblank149befea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c" target="_blank">afbb9cc</a>.
+<a href="https://github.com/han16/Collaborations/tree/149befe48b13393d1f342d535e18c462bb496ac1" target="_blank">149befe</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -615,6 +615,7 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2024_0701_survey_part3.Rmd
+    Modified:   analysis/2024_1002_Neal.Rmd
 
 </code></pre>
 <p>
@@ -661,6 +662,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8e4cd77f7287d22df02d625ad4199a1fed15924c/analysis/2024_0701_survey_part3.Rmd" target="_blank">8e4cd77</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+<td>
+11/18/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/8e4cd77f7287d22df02d625ad4199a1fed15924c/docs/2024_0701_survey_part3.html" target="_blank">8e4cd77</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+<td>
+11/18/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -734,8 +769,9 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption> Interesting variables with non-missing numbers <\/caption>","data":[["Date of Birth","License Number","Preliminary Application Reference: Name","Regulatory Authorization Type: Name","direct care as a dentist in Wisconsin","Dental Specialties Board Certified","dentist in Wisconsin","Clinic Name","Street Address","City","State","5-digit Zip code","Best Describes This Practice Setting","Other Practice Setting","number of hours","Additional Practice Locations","Describe Your Race or Ethnicity","Other Race or Ethnicity","Gender Identity"],["Date of Birth","License Number","Preliminary Application Reference: Name","Regulatory Authorization Type: Name","direct care as a dentist in Wisconsin","Dental Specialties Board Certified","dentist in Wisconsin","Clinic Name","Street Address","City","State","5-digit Zip code","Best Describes This Practice Setting","Other Practice Setting","number of hours","Additional Practice Locations","Describe Your Race or Ethnicity","Other Race or Ethnicity","Gender Identity"],[2295,2295,2295,2295,2295,2091,2294,2087,2062,2084,2082,2064,2247,35,2206,2190,2255,10,2259]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>non_missing<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"non_missing","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<div id="race-or-ethnicity" class="section level3">
-<h3>Race or Ethnicity</h3>
+</div>
+<div id="race-or-ethnicity" class="section level2">
+<h2>Race or Ethnicity</h2>
 <pre class="r"><code>race=dentist_in_WI_of_interest %&gt;% dplyr::count(`Describe Your Race or Ethnicity`) %&gt;% mutate(prop=round(n/nrow(dentist_in_WI_of_interest),4))
 asia=c(&quot;East Asian&quot;, &quot;Filipino&quot;, &quot;Hmong&quot;, &quot;Laotian&quot;, &quot;South Asian&quot;) # define south east asia countries 
 asia_race= race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia)
@@ -747,9 +783,83 @@ race_new2=race_new %&gt;% filter(n&gt;10)  %&gt;% add_row(`Describe Your Race or
 fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new2, legend_rows = 4, var_name=&quot;Describe Your Race or Ethnicity&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8e4cd77f7287d22df02d625ad4199a1fed15924c/docs/figure/2024_0701_survey_part3.Rmd/unnamed-chunk-6-1.png" target="_blank">8e4cd77</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new2 %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 3, var_name=&quot;Describe Your Race or Ethnicity&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-2">
+Past versions of unnamed-chunk-6-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8e4cd77f7287d22df02d625ad4199a1fed15924c/docs/figure/2024_0701_survey_part3.Rmd/unnamed-chunk-6-2.png" target="_blank">8e4cd77</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>race_new2%&gt;% arrange(desc(n))%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -768,8 +878,50 @@ datatable(extensions = &#39;Buttons&#39;,
 responses.</p></li>
 </ul>
 </div>
-<div id="gender-identity" class="section level3">
-<h3>Gender Identity</h3>
+<div id="association-between-race-and-other-factors"
+class="section level2">
+<h2>association between race and other factors</h2>
+<pre class="r"><code>date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
+year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
+ages=2024-as.numeric(year_of_birth)
+ggplot(data.frame(ages=ages), aes(x=ages)) + geom_histogram(color=&quot;black&quot;, fill=&quot;blue&quot;)+
+  geom_vline(aes(xintercept=mean(ages)),
+            color=&quot;red&quot;, linetype=&quot;dashed&quot;, size=1)</code></pre>
+<p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>races=race_new2$`Describe Your Race or Ethnicity`
+dentist_in_WI_of_interest1=dentist_in_WI_of_interest %&gt;% mutate(ages=ages)
+asia=c(&quot;East Asian&quot;, &quot;Filipino&quot;, &quot;Hmong&quot;, &quot;Laotian&quot;, &quot;South Asian&quot;) # define south east asia countries
+count_race=function(data)
+{
+num=sapply(races[1:6], function(x) data %&gt;% filter(`Describe Your Race or Ethnicity` %in% x) %&gt;% nrow())
+num[7]=data %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia) %&gt;% nrow()
+num[8]=data %&gt;% filter(!`Describe Your Race or Ethnicity` %in% c(races[1:6], asia)) %&gt;% nrow()
+return(num)
+}</code></pre>
+<pre class="r"><code>age_groups=paste(&quot;age&quot;, c(&quot;&lt;40&quot;, &quot;40-50&quot;, &quot;50-60&quot;, &quot;60-70&quot;, &quot;&lt;70&quot;), sep=&quot;:&quot;)
+age_groups_count=matrix(nrow=length(age_groups), ncol=length(races))
+  age_groups_count[1,]=count_race(dentist_in_WI_of_interest1 %&gt;% filter(ages&lt;40))
+  age_groups_count[2,]=count_race(dentist_in_WI_of_interest1 %&gt;% filter(ages&gt;=40 &amp; ages&lt;50))
+  age_groups_count[3,]=count_race(dentist_in_WI_of_interest1 %&gt;% filter(ages&gt;=50 &amp; ages&lt;60))
+  age_groups_count[4,]=count_race(dentist_in_WI_of_interest1 %&gt;% filter(ages&gt;=60 &amp; ages&lt;70))
+  age_groups_count[5,]=count_race(dentist_in_WI_of_interest1 %&gt;% filter(ages&gt;=70))
+ rownames(age_groups_count)=age_groups; 
+ colnames(age_groups_count)=races 
+ 
+ age_groups_count %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["age:&lt;40","age:40-50","age:50-60","age:60-70","age:&lt;70"],[13,10,5,4,2],[46,45,26,36,17],[17,17,10,12,0],[4,5,3,1,1],[600,371,261,307,167],[17,6,9,5,3],[111,56,26,9,3],[32,17,12,7,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Black or African American<\/th>\n      <th>Decline to answer<\/th>\n      <th>Hispanic or Latino/a/x<\/th>\n      <th>Some other race or ethnicity<\/th>\n      <th>White<\/th>\n      <th>NA<\/th>\n      <th>asia<\/th>\n      <th>other<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Black or African American","targets":1},{"name":"Decline to answer","targets":2},{"name":"Hispanic or Latino/a/x","targets":3},{"name":"Some other race or ethnicity","targets":4},{"name":"White","targets":5},{"name":null,"targets":6},{"name":"asia","targets":7},{"name":"other","targets":8}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code> sum(age_groups_count)</code></pre>
+<pre><code>[1] 2295</code></pre>
+</div>
+<div id="gender-identity" class="section level2">
+<h2>Gender Identity</h2>
 <pre class="r"><code>gender=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
 
 fig=plot_function(&quot;Gender Identity&quot;, gender, legend_rows = 2, var_name = &quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13)
@@ -785,7 +937,6 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))
 sum(gender$n)</code></pre>
-</div>
 <div id="dental-specialties-board-certified" class="section level3">
 <h3>Dental Specialties Board Certified</h3>
 <pre class="r"><code>specialty=Dentist_Survey$`Dentist Survey` %&gt;% dplyr::count(`Dental Specialties Board Certified`) %&gt;% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))

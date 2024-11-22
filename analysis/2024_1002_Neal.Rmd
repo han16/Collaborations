@@ -382,5 +382,9 @@ datatable(extensions = 'Buttons',
 ```
 
 
+```{r, message=F, warning=F}
+group2_maxilla=finalized_data %>% filter(Jaw==1)
+group3_mandible=finalized_data %>% filter(Jaw==2)
+```
 
 

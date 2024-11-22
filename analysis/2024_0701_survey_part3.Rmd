@@ -99,7 +99,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### Race or Ethnicity
+## Race or Ethnicity
 
 ```{r, message=F, warning=F, eval=T}
 race=dentist_in_WI_of_interest %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(dentist_in_WI_of_interest),4))
@@ -134,7 +134,62 @@ sum(race_new2$n)
 
 
 
-### Gender Identity
+## association between race and other factors 
+
+
+```{r, message=F, warning=F}
+date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
+year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
+ages=2024-as.numeric(year_of_birth)
+ggplot(data.frame(ages=ages), aes(x=ages)) + geom_histogram(color="black", fill="blue")+
+  geom_vline(aes(xintercept=mean(ages)),
+            color="red", linetype="dashed", size=1)
+```
+
+
+```{r, message=F, warning=F}
+races=race_new2$`Describe Your Race or Ethnicity`
+dentist_in_WI_of_interest1=dentist_in_WI_of_interest %>% mutate(ages=ages)
+asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries
+count_race=function(data)
+{
+num=sapply(races[1:6], function(x) data %>% filter(`Describe Your Race or Ethnicity` %in% x) %>% nrow())
+num[7]=data %>% filter(`Describe Your Race or Ethnicity` %in% asia) %>% nrow()
+num[8]=data %>% filter(!`Describe Your Race or Ethnicity` %in% c(races[1:6], asia)) %>% nrow()
+return(num)
+}
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+age_groups=paste("age", c("<40", "40-50", "50-60", "60-70", "<70"), sep=":")
+age_groups_count=matrix(nrow=length(age_groups), ncol=length(races))
+  age_groups_count[1,]=count_race(dentist_in_WI_of_interest1 %>% filter(ages<40))
+  age_groups_count[2,]=count_race(dentist_in_WI_of_interest1 %>% filter(ages>=40 & ages<50))
+  age_groups_count[3,]=count_race(dentist_in_WI_of_interest1 %>% filter(ages>=50 & ages<60))
+  age_groups_count[4,]=count_race(dentist_in_WI_of_interest1 %>% filter(ages>=60 & ages<70))
+  age_groups_count[5,]=count_race(dentist_in_WI_of_interest1 %>% filter(ages>=70))
+ rownames(age_groups_count)=age_groups; 
+ colnames(age_groups_count)=races 
+ 
+ age_groups_count %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+ sum(age_groups_count)
+```
+
+
+
+
+
+## Gender Identity
 
 ```{r, message=F, warning=F, eval=F}
 gender=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
