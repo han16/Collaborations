@@ -57,7 +57,7 @@ g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge",
 
 
 
-```{r, echo=F, message=F, warning=F, results=F, eval=F}
+```{r, echo=F, message=F, warning=F, results=F, eval=T}
 Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
 Dentist_in_WI=Dentist_Survey$`Dentist Survey` %>% filter(`direct care as a dentist in Wisconsin`=="Yes")
 #save(Dentist_in_WI, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\Dentist_in_WI.RData")
@@ -137,6 +137,10 @@ sum(race_new2$n)
 ## association between race and other factors 
 
 
+### race vs ages 
+
+
+
 ```{r, message=F, warning=F}
 date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
 year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
@@ -183,7 +187,46 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
  sum(age_groups_count)
+ 
+ chisq.test(age_groups_count)
+ 
 ```
+
+* small p value indicates significant association between ages and races  
+
+
+###  races vs gender 
+
+```{r, message=F, warning=F}
+genders=unique(dentist_in_WI_of_interest1$`Gender Identity`)
+genders_group_count=matrix(nrow=length(genders), ncol=length(races))
+for (i in 1:length(genders))
+ genders_group_count[i,]=count_race(dentist_in_WI_of_interest1 %>% filter(`Gender Identity` %in% genders[i]))
+
+rownames(genders_group_count)=genders; 
+ colnames(genders_group_count)=races 
+
+genders_group_count %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+sum(genders_group_count)
+chisq.test(genders_group_count)
+
+chisq.test(genders_group_count[1:2,])
+
+```
+
+
+* small p value indicates significant association between genders  and races  
+
+
+
 
 
 
@@ -191,8 +234,8 @@ datatable(extensions = 'Buttons',
 
 ## Gender Identity
 
-```{r, message=F, warning=F, eval=F}
-gender=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+```{r, message=F, warning=F, eval=T}
+gender=dentist_in_WI_of_interest1 %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(dentist_in_WI_of_interest1),4))
 
 fig=plot_function("Gender Identity", gender, legend_rows = 2, var_name = "Gender Identity", num_size = 4, legend_text_size = 13)
 fig
@@ -212,11 +255,11 @@ sum(gender$n)
 
 
 
-### Dental Specialties Board Certified
+## Dental Specialties Board Certified
 
 
-```{r, message=F, warning=F, eval=F}
-specialty=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+```{r, message=F, warning=F, eval=T}
+specialty=dentist_in_WI_of_interest1 %>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(dentist_in_WI_of_interest1),4))
 
 specialty2=specialty %>% filter(n>10)  %>% add_row(`Dental Specialties Board Certified`="other", n=specialty %>% filter(n<=10) %>% select(n) %>% sum(), prop=specialty %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
@@ -241,11 +284,11 @@ sum(specialty2$n)
 
 
 
-### Best Describes This Practice Setting
+## Best Describes This Practice Setting
 
 
-```{r, message=F, warning=F, eval=F}
-practice_setting=Dentist_Survey$`Dentist Survey` %>% dplyr::count(`Best Describes This Practice Setting`) %>% mutate(prop=round(n/nrow(Dentist_Survey$`Dentist Survey`),4))
+```{r, message=F, warning=F, eval=T}
+practice_setting=dentist_in_WI_of_interest1 %>% dplyr::count(`Best Describes This Practice Setting`) %>% mutate(prop=round(n/nrow(dentist_in_WI_of_interest1),4))
 
 threshold=20
 practice_setting2=practice_setting %>% filter(n>threshold)  %>% add_row(`Best Describes This Practice Setting`="other", n=practice_setting %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=practice_setting %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
@@ -267,10 +310,10 @@ sum(practice_setting2$n)
 
 
 
-### practice setting distribution 
+## practice setting distribution 
 
 
-```{r, echo=F, message=F, warning=F, eval=F}
+```{r, echo=F, message=F, warning=F, eval=T}
 side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1)
 {
   y_limit=max(data$n)*1.1
@@ -293,15 +336,15 @@ side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend
 
 
 
-```{r, message=F, warning=F, eval=F}
-man_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Gender Identity`=="Man") %>% dplyr::count(`Best Describes This Practice Setting`)
+```{r, message=F, warning=F, eval=T}
+man_practice_setting=dentist_in_WI_of_interest1 %>% filter(`Gender Identity`=="Man") %>% dplyr::count(`Best Describes This Practice Setting`)
 settings=c("Group office practice (any number of dentists >1)", "Solo office practice")
 nums=sapply(settings, function(x) man_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
 nums[4]=man_practice_setting$n[is.na(man_practice_setting$`Best Describes This Practice Setting`)]
 nums[3]=sum(man_practice_setting$n)-sum(nums[1:2])-nums[4]
 man_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
 
-woman_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Gender Identity`=="Woman") %>% dplyr::count(`Best Describes This Practice Setting`)
+woman_practice_setting=dentist_in_WI_of_interest1 %>% filter(`Gender Identity`=="Woman") %>% dplyr::count(`Best Describes This Practice Setting`)
 nums=sapply(settings, function(x) woman_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
 nums[4]=woman_practice_setting$n[is.na(woman_practice_setting$`Best Describes This Practice Setting`)]
 nums[3]=sum(woman_practice_setting$n)-sum(nums[1:2])-nums[4]
@@ -314,8 +357,8 @@ side_by_side_barplot2(practice_setting_combine, title="practice setting", legend
 ```
 
 
-```{r, message=F, warning=F, eval=F}
-white_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Describe Your Race or Ethnicity`=="White") %>% dplyr::count(`Best Describes This Practice Setting`)
+```{r, message=F, warning=F, eval=T}
+white_practice_setting=dentist_in_WI_of_interest1 %>% filter(`Describe Your Race or Ethnicity`=="White") %>% dplyr::count(`Best Describes This Practice Setting`)
 settings=c("Group office practice (any number of dentists >1)", "Solo office practice")
 nums=sapply(settings, function(x) white_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
 nums[4]=white_practice_setting$n[is.na(white_practice_setting$`Best Describes This Practice Setting`)]
@@ -323,7 +366,7 @@ nums[3]=sum(white_practice_setting$n)-sum(nums[1:2])-nums[4]
 white_practice_setting2=data.frame(class=c(settings, "others", "NA"), n=nums) %>% mutate(prop=round(n/sum(nums),4))
 
 asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries
-asia_practice_setting=Dentist_Survey$`Dentist Survey` %>% filter(`Describe Your Race or Ethnicity`%in% asia) %>% dplyr::count(`Best Describes This Practice Setting`)
+asia_practice_setting=dentist_in_WI_of_interest1 %>% filter(`Describe Your Race or Ethnicity`%in% asia) %>% dplyr::count(`Best Describes This Practice Setting`)
 nums=sapply(settings, function(x) asia_practice_setting %>% filter(`Best Describes This Practice Setting`==x) %>% select(n) %>%  pull())
 nums[4]=asia_practice_setting$n[is.na(asia_practice_setting$`Best Describes This Practice Setting`)]
 nums[3]=sum(asia_practice_setting$n)-sum(nums[1:2])-nums[4]
@@ -338,14 +381,14 @@ side_by_side_barplot2(practice_setting_combine, title="practice setting", legend
 
 
 
-### group office practice 
+## group office practice 
 
 
 
 
 
 ```{r, message=F, warning=F, eval=F}
-group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+group_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
 
 group_practice2=group_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(group_practice),4))
 
@@ -364,8 +407,8 @@ sum(group_practice2$n)
 
 
 
-```{r, message=F, warning=F, eval=F}
-group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+```{r, message=F, warning=F, eval=T}
+group_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
 
 group_practice2=group_practice%>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(group_practice),4))
 
@@ -389,8 +432,8 @@ sum(group_practice3$n)
 
 
 
-```{r, message=F, warning=F, eval=F}
-group_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
+```{r, message=F, warning=F, eval=T}
+group_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This Practice Setting`=="Group office practice (any number of dentists >1)") 
 
 group_practice2=group_practice%>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(group_practice),4))
 
@@ -414,12 +457,12 @@ sum(group_practice3$n)
 
 
 
-### solo office practice 
+## solo office practice 
 
 
 
-```{r, message=F, warning=F, eval=F}
-solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+```{r, message=F, warning=F, eval=T}
+solo_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
 
 solo_practice2=solo_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(solo_practice),4))
 
@@ -438,8 +481,8 @@ sum(solo_practice2$n)
 
 
 
-```{r, message=F, warning=F, eval=F}
-solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+```{r, message=F, warning=F, eval=T}
+solo_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
 
 solo_practice2=solo_practice%>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(solo_practice),4))
 threshold=10
@@ -460,8 +503,8 @@ sum(solo_practice3$n)
 ```
 
 
-```{r, message=F, warning=F, eval=F}
-solo_practice=Dentist_Survey$`Dentist Survey` %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
+```{r, message=F, warning=F, eval=T}
+solo_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This Practice Setting`=="Solo office practice") 
 
 solo_practice2=solo_practice%>% dplyr::count(`Dental Specialties Board Certified`) %>% mutate(prop=round(n/nrow(solo_practice),4))
 threshold=10
@@ -510,7 +553,7 @@ region_code_update=unique(all_code)
 ```
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
 
 
@@ -518,12 +561,12 @@ region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip
 # Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
 
 
-dentist_zip=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
+dentist_zip=unique(dentist_in_WI_of_interest1 %>% select(`5-digit Zip code` ) %>% pull)
 #sum(is.na(Dentist_Survey_zipcode)==T) 893 zip codes are missing 
 
 
 zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
-Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
+dentist_in_WI_of_interest1 %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
 
 data.frame(zip_in_dentist_only)%>%
 datatable(extensions = 'Buttons',
@@ -535,14 +578,14 @@ datatable(extensions = 'Buttons',
 
 ```
 
-* in dentist survey data, 891 zip codes are missing, i.e. the responses are blank 
+
 
 * among  77 zip codes missing, i.e. not in Wisconsin zip code list,  some code (46/77=59.7%) have sub-code like `53574-8881`, but Wisconsin zip code don't have sub-code.  
 
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
 
 
@@ -550,14 +593,14 @@ region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip
 # Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
 
 
-dentist_zip_raw=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
+dentist_zip_raw=unique(dentist_in_WI_of_interest1 %>% select(`5-digit Zip code` ) %>% pull)
 dentist_zip=str_sub(dentist_zip_raw, 1, 5)
 
 zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
-Dentist_Survey_zipcode=Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code`) %>% pull()
+Dentist_Survey_zipcode=dentist_in_WI_of_interest1 %>% select(`5-digit Zip code`) %>% pull()
 
 
-Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
+dentist_in_WI_of_interest1 %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
 
 data.frame(zip_in_dentist_only)%>%
 datatable(extensions = 'Buttons',
@@ -603,8 +646,8 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
 
 
 
-```{r, message=F, warning=F, eval=F}
-gender_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
+```{r, message=F, warning=F, eval=T}
+gender_geo=sapply(region_code_zip, function(x) dentist_in_WI_of_interest1 %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
 gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
 
@@ -638,9 +681,9 @@ sum(gender_geo_data$num)
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 specialty=c("General dentistry", "Endodontics", "Orthodontics","Periodontics",  "Prosthodontics", "Pediatric dentistry", "Oral surgery")
-specialty_geo=sapply(region_code_zip, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x) %>% filter(`Dental Specialties Board Certified` %in% specialty) %>% select(`Dental Specialties Board Certified`))
+specialty_geo=sapply(region_code_zip, function(x) dentist_in_WI_of_interest1 %>% filter(`5-digit Zip code` %in% x) %>% filter(`Dental Specialties Board Certified` %in% specialty) %>% select(`Dental Specialties Board Certified`))
 specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
 specialty_geo_data=data.frame(geo=rep(region_code_update,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code_update))) %>% drop_na()
 
