@@ -420,9 +420,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -445,18 +445,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -573,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreead68e53aace5c2eb9a5359fe989f2c7af9cc4599targetblankad68e53a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree58e490e1f3fbcc3b74147a51fbbbdbc0205b8368targetblank58e490ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/ad68e53aace5c2eb9a5359fe989f2c7af9cc4599" target="_blank">ad68e53</a>
+<a href="https://github.com/han16/Collaborations/tree/58e490e1f3fbcc3b74147a51fbbbdbc0205b8368" target="_blank">58e490e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreead68e53aace5c2eb9a5359fe989f2c7af9cc4599targetblankad68e53a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree58e490e1f3fbcc3b74147a51fbbbdbc0205b8368targetblank58e490ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -591,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/ad68e53aace5c2eb9a5359fe989f2c7af9cc4599" target="_blank">ad68e53</a>.
+<a href="https://github.com/han16/Collaborations/tree/58e490e1f3fbcc3b74147a51fbbbdbc0205b8368" target="_blank">58e490e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -609,6 +612,9 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Unstaged changes:
+    Modified:   analysis/2024_1002_Neal.Rmd
 
 </code></pre>
 <p>
@@ -654,6 +660,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/58e490e1f3fbcc3b74147a51fbbbdbc0205b8368/docs/2024_1002_Neal.html" target="_blank">58e490e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-25
+</td>
+<td>
+11/25/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1241,8 +1264,41 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-d8c7d17cf4080686b93c" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-d8c7d17cf4080686b93c">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>2nd_CBCT_10mm_or_more<\/caption>","data":[["1","2","3"],["N","Y",null],[149,104,1],[0.5866,0.4094,0.0039]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>var<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"var","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="group-2-vs-3" class="section level2">
+<h2>group 2 vs 3</h2>
 <pre class="r"><code>group2_maxilla=finalized_data %&gt;% filter(Jaw==1)
 group3_mandible=finalized_data %&gt;% filter(Jaw==2)</code></pre>
+<div id="continuous-variables-1" class="section level3">
+<h3>continuous variables</h3>
+<pre class="r"><code>two_sample_test=function(var)
+{
+#  cat(var, &quot;\n&quot;)
+  sample1=as.numeric(group2_maxilla %&gt;% select(var) %&gt;% pull())
+  sample2=as.numeric(group3_mandible %&gt;% select(var) %&gt;% pull())
+  if (sum(!is.na(sample1))&gt;0 &amp; sum(!is.na(sample2))&gt;0)
+  { 
+   wilcox_test &lt;- wilcox.test(sample1, sample2)
+   return(wilcox_test$p.value)
+  }
+  else
+    return(&quot;NA&quot;)
+  
+}
+pvalue=sapply(continuous_var, two_sample_test)
+data.frame(variables=continuous_var, pvalue=pvalue_adjust(as.numeric(pvalue)))%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-fbc9973e359619ea20b8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fbc9973e359619ea20b8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32"],["Age","Months_btwn_CBCTS","Months_btwn_Ext_CBCT#1","mesial_tooth_bone_loss_CBCT#2__mm","mesial_tooth_bone_loss_DIFF","distal_tooth_bone_loss_CBCT#1__mm","distal_tooth_bone_loss_CBCT#2__mm","distal_tooth_bone_loss_DIFF","ANPNS_Crest_Coronal_CBCT1","ANSPNS_Crest_Coronal_CBCT2","ANSPNS_Crest_Coronal_DIFF","ANSPNS_Crest_Sagittal_CBCT1","ANSPNS_Crest_Sagittal_CBCT2","ANSPNS_Crest_Sagittal_DIFF","ANSPNS_Sinus_Floor_Coronal_CBCT1","ANSPNS_Sinus_Floor_Coronal_CBCT2","ANSPNS_Sinus_Floor_Coronal_DIFF","ANSPNS_Sinus_Floor_Sagittal_CBCT1","ANSPNS_Sinus_Floor_Sagittal_CBCT2","ANSPNS_Sinus_Floor_Sagittal_DIFF","MENTAL_Crest_Coronal_CBCT1","MENTAL_Crest_Coronal_CBCT2","MENTAL_Crest_Coronal_DIFF","MENTAL_Crest_Sagittal_CBCT1","MENTAL_Crest_Sagittal_CBCT2","MENTAL_Crest_Sagittal_DIFF","Width_3mm_CBCT1","Width_3mm_CBCT2","Width_3mm_DIFF","Width_5mm_CBCT1","Width_5mm_CBCT2","Width_5mm_DIFF"],["0.6578","0.1032","0.5213","0.891","0.7162","0.9061","0.637","0.1313",null,null,"&lt;0.0001",null,null,"&lt;0.0001",null,null,"1",null,null,"0.3179",null,null,"&lt;0.0001",null,null,"&lt;0.0001","0.1577","0.2892","0.2256","0.0313","0.0347","0.8633"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variables","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li>nonparametric <code>wilcox.test</code> was used to test the
+difference</li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

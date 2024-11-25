@@ -382,9 +382,40 @@ datatable(extensions = 'Buttons',
 ```
 
 
+
+## group 2 vs 3
+
+
 ```{r, message=F, warning=F}
 group2_maxilla=finalized_data %>% filter(Jaw==1)
 group3_mandible=finalized_data %>% filter(Jaw==2)
 ```
 
 
+### continuous variables 
+
+```{r, message=F, warning=F}
+two_sample_test=function(var)
+{
+#  cat(var, "\n")
+  sample1=as.numeric(group2_maxilla %>% select(var) %>% pull())
+  sample2=as.numeric(group3_mandible %>% select(var) %>% pull())
+  if (sum(!is.na(sample1))>0 & sum(!is.na(sample2))>0)
+  { 
+   wilcox_test <- wilcox.test(sample1, sample2)
+   return(wilcox_test$p.value)
+  }
+  else
+    return("NA")
+  
+}
+pvalue=sapply(continuous_var, two_sample_test)
+data.frame(variables=continuous_var, pvalue=pvalue_adjust(as.numeric(pvalue)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* nonparametric  `wilcox.test` was used to test the difference 
