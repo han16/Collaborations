@@ -419,3 +419,97 @@ datatable(extensions = 'Buttons',
 ```
 
 * nonparametric  `wilcox.test` was used to test the difference 
+
+
+
+
+
+### discrete variables
+
+```{r, message=F, warning=F}
+#discrete_var
+k=1
+
+data_subset1=group2_maxilla %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group2_maxilla),4)) %>% drop_na()
+
+data_subset2=group3_mandible %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group3_mandible),4)) %>% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("group2_maxilla", nrow(data_subset1)), rep("group3_mandible", nrow(data_subset2))))
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, message=F, warning=F}
+
+common_variable=intersect(data_subset %>% filter(sample=="group2_maxilla") %>% select(rlang::sym(discrete_var[k])) %>% pull(), data_subset %>% filter(sample=="group3_mandible") %>% select(rlang::sym(discrete_var[k])) %>% pull())
+pvalue=numeric()
+if (length(common_variable)>0)
+{
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(!!rlang::sym(discrete_var[k])==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(nrow(group2_maxilla), nrow(group3_mandible)))$p.value)
+}
+data.frame(variable=paste(common_variable, ":group2_maxilla_vs_group3_mandible"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k], 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All")))) 
+}
+if (length(common_variable)==0)
+  cat("no common variables between two groups", "\n")
+```
+
+
+
+```{r, message=F, warning=F}
+#discrete_var
+k=2
+
+data_subset1=group2_maxilla %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group2_maxilla),4)) %>% drop_na()
+
+data_subset2=group3_mandible %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group3_mandible),4)) %>% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("group2_maxilla", nrow(data_subset1)), rep("group3_mandible", nrow(data_subset2))))
+
+
+data_subset%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+```{r, message=F, warning=F}
+
+common_variable=intersect(data_subset %>% filter(sample=="group2_maxilla") %>% select(rlang::sym(discrete_var[k])) %>% pull(), data_subset %>% filter(sample=="group3_mandible") %>% select(rlang::sym(discrete_var[k])) %>% pull())
+pvalue=numeric()
+if (length(common_variable)>0)
+{
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(!!rlang::sym(discrete_var[k])==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(nrow(group2_maxilla), nrow(group3_mandible)))$p.value)
+}
+data.frame(variable=paste(common_variable, ":group2_maxilla_vs_group3_mandible"), pvalue=pvalue)%>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k], 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All")))) 
+}
+if (length(common_variable)==0)
+  cat("no common variables between two groups", "\n")
+```
