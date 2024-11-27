@@ -330,7 +330,7 @@ output_list2
 ```
 
 
-
+* two  sample proportion test was used. 
 
 
 
