@@ -9,8 +9,15 @@ date: "2024-11-15"
 
 
 
+```{r, echo=F, message=F, warning=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
 ```{r, echo=F, message=F, warning=F, results=F}
-source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+source(file.path(root, "analysis/Rfunctions.R"))
 changeCellColor <- function(row, col){
   c(
     "function(row, data, num, index){",
@@ -48,7 +55,47 @@ g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge",
    guides(fill = guide_legend(nrow = legend_rows))
   return(g1)
 }
+
+
+side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1)
+{
+  y_limit=max(data$n)*1.1
+  g=ggplot(data, aes(x=gender, y=n, fill=class)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+    guides(fill = guide_legend(nrow = legend_rows))
+ return(g)
+  
+}
+
+
+side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1)
+{
+  y_limit=max(data$n)*1.1
+  g=ggplot(data, aes(x=races, y=n, fill=ages_group)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+    guides(fill = guide_legend(nrow = legend_rows))
+ return(g)
+  
+}
+
 ```
+
 
 
 ## Home 
@@ -57,11 +104,15 @@ g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge",
 
 
 
-```{r, echo=F, message=F, warning=F, results=F, eval=T}
+```{r, message=F, warning=F, results=F, eval=T}
+#Dentist_Survey=multiplesheets(file.path(root, "..\\2024\\202407\\state_survey\\Dentist Survey.xlsx"))
 Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
 Dentist_in_WI=Dentist_Survey$`Dentist Survey` %>% filter(`direct care as a dentist in Wisconsin`=="Yes")
 #save(Dentist_in_WI, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\Dentist_in_WI.RData")
 ```
+
+
+* select individuals who respond Yes to `direct care as a dentist in Wisconsin`
 
 
 
@@ -125,7 +176,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-sum(race_new2$n)
+stopifnot(sum(race_new2$n)==nrow(Dentist_in_WI))
 ```
 
 * `asia` includes "East Asian", "Filipino", "Hmong", "Laotian", "South Asian"
@@ -141,14 +192,18 @@ sum(race_new2$n)
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, results=F}
 date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
 year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
 ages=2024-as.numeric(year_of_birth)
+mean(ages)
 ggplot(data.frame(ages=ages), aes(x=ages)) + geom_histogram(color="black", fill="blue")+
   geom_vline(aes(xintercept=mean(ages)),
             color="red", linetype="dashed", size=1)
 ```
+
+
+
 
 
 ```{r, message=F, warning=F}
@@ -186,13 +241,39 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
- sum(age_groups_count)
+ 
  
  chisq.test(age_groups_count)
+ stopifnot(sum(age_groups_count)==nrow(Dentist_in_WI))
+ 
  
 ```
 
 * small p value indicates significant association between ages and races  
+
+
+```{r, message=F, warning=F}
+
+data.frame(age_groups_count[,-c(2,4, 6,8)]) %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(age_groups_count[,-c(2,4, 6,8)])
+
+
+
+prop=c(age_groups_count[,-c(2,4, 6,8)][,1]/(sum(age_groups_count[,-c(2,4, 6,8)][,1])), 
+       age_groups_count[,-c(2,4, 6,8)][,2]/(sum(age_groups_count[,-c(2,4, 6,8)][,2])), 
+       age_groups_count[,-c(2,4, 6,8)][,3]/(sum(age_groups_count[,-c(2,4, 6,8)][,3])), 
+       age_groups_count[,-c(2,4, 6,8)][,4]/(sum(age_groups_count[,-c(2,4, 6,8)][,4])))
+age_groups_count_subset=data.frame(races=rep(colnames(age_groups_count[,-c(2,4, 6,8)]), each=length(age_groups)), ages_group=paste(seq(1,5), rep(rownames(age_groups_count[,-c(2,4, 6,8)])), sep=":"), n=c(age_groups_count[,-c(2,4, 6,8)][,1], age_groups_count[,-c(2,4, 6,8)][,2], age_groups_count[,-c(2,4, 6,8)][,3], age_groups_count[,-c(2,4, 6,8)][,4]), prop=round(prop,2))
+side_by_side_barplot3(age_groups_count_subset, title="age distrbituon by races", num_size=2)
+
+```
+
 
 
 ###  races vs gender 
