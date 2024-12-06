@@ -1205,7 +1205,7 @@ plot(d.evidence)
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 netrank(m.netmeta, small.values = "good")
 
 forest(m.netmeta, 
@@ -1220,6 +1220,9 @@ forest(m.netmeta,
        labels = long.labels)
 #summary(m.netmeta)
 decomp.design(m.netmeta)
+
+
+m.netmeta$pval.random
 ```
 
 * random effect model is used, due to significant p values  
