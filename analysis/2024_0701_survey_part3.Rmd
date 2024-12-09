@@ -353,7 +353,7 @@ prop=c(genders_group_count[1:2,-c(2,4, 6,8)][,1]/(sum(genders_group_count[1:2,-c
        genders_group_count[1:2,-c(2,4, 6,8)][,3]/(sum(genders_group_count[1:2,-c(2,4, 6,8)][,3])), 
        genders_group_count[1:2,-c(2,4, 6,8)][,4]/(sum(genders_group_count[1:2,-c(2,4, 6,8)][,4])))
 genders_group_count_subset=data.frame(races=rep(colnames(genders_group_count[,-c(2,4, 6,8)]), each=2), genders_group=rep(rownames(genders_group_count[1:2,-c(2,4, 6,8)]), 4), n=c(genders_group_count[1:2,-c(2,4, 6,8)][,1], genders_group_count[1:2,-c(2,4, 6,8)][,2], genders_group_count[1:2,-c(2,4, 6,8)][,3], genders_group_count[1:2,-c(2,4, 6,8)][,4]), prop=round(prop,2))
-side_by_side_barplot3(genders_group_count_subset, title="age distrbituon by races", fill_var="genders_group", num_size=2.5)
+side_by_side_barplot3(genders_group_count_subset, title="gender distrbituon by races", fill_var="genders_group", num_size=2.5)
 
 
 

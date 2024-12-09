@@ -70,7 +70,9 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
 ```
+
 
 * in total 2957 responses and 40 questions 
 
