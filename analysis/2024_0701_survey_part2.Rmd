@@ -75,6 +75,8 @@ datatable(extensions = 'Buttons',
 
 * in total 3991 responses and 46 questions 
 
+* 3244 respond "yes" to `Dental Hygienist in Wisconsin`. 
+
 
 
 
