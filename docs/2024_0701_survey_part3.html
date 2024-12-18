@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-12-09
+<strong>Last updated:</strong> 2024-12-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3ca531fb4d81d1e1678faac889e55d1a75e79d33targetblank3ca531fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree94912986933da19a83f9e65ae8318837617496a6targetblank9491298a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/3ca531fb4d81d1e1678faac889e55d1a75e79d33" target="_blank">3ca531f</a>
+<a href="https://github.com/han16/Collaborations/tree/94912986933da19a83f9e65ae8318837617496a6" target="_blank">9491298</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3ca531fb4d81d1e1678faac889e55d1a75e79d33targetblank3ca531fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree94912986933da19a83f9e65ae8318837617496a6targetblank9491298a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/3ca531fb4d81d1e1678faac889e55d1a75e79d33" target="_blank">3ca531f</a>.
+<a href="https://github.com/han16/Collaborations/tree/94912986933da19a83f9e65ae8318837617496a6" target="_blank">9491298</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -586,6 +586,7 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+    Ignored:    analysis/figure/
 
 Unstaged changes:
     Modified:   analysis/2024_0701_survey_part3.Rmd
@@ -635,6 +636,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/428fd6942afd39163a1d637bc07b17275ee604a0/analysis/2024_0701_survey_part3.Rmd" target="_blank">428fd69</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-12-09
+</td>
+<td>
+12/9/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/428fd6942afd39163a1d637bc07b17275ee604a0/docs/2024_0701_survey_part3.html" target="_blank">428fd69</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-12-09
+</td>
+<td>
+12/9/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -931,7 +966,7 @@ race_new=race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia==F) %&gt
 race_new2=race_new %&gt;% filter(n&gt;10)  %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;other&quot;, n=race_new %&gt;% filter(n&lt;=10) %&gt;% select(n) %&gt;% sum(), prop=race_new %&gt;% filter(n&lt;=10) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
 
 
-fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new2, legend_rows = 4, var_name=&quot;Describe Your Race or Ethnicity&quot;)
+fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new2, legend_rows = 4, var_name=&quot;Describe Your Race or Ethnicity&quot;, custom_colors= c(&quot;asia&quot; = &quot;red&quot;, &quot;Black or African American&quot; = &quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Hispanic or Latino/a/x&quot; = &quot;purple&quot;, &quot;other&quot;=&quot;brown&quot;, &quot;Some other race or ethnicity&quot;=&quot;pink&quot;, &quot;White&quot;=&quot;orange&quot;, &quot; &quot;=&quot;black&quot;))
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -982,7 +1017,7 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new2 %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 3, var_name=&quot;Describe Your Race or Ethnicity&quot;)
+<pre class="r"><code>fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new2 %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 3, var_name=&quot;Describe Your Race or Ethnicity&quot;, custom_colors= c(&quot;asia&quot; = &quot;red&quot;, &quot;Black or African American&quot; = &quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Hispanic or Latino/a/x&quot; = &quot;purple&quot;, &quot;other&quot;=&quot;brown&quot;, &quot;Some other race or ethnicity&quot;=&quot;pink&quot;, &quot;White&quot;=&quot;orange&quot;, &quot; &quot;=&quot;black&quot;))
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1145,7 +1180,7 @@ datatable(extensions = &#39;Buttons&#39;,
        age_groups_count[,-c(2,4, 6,8)][,3]/(sum(age_groups_count[,-c(2,4, 6,8)][,3])), 
        age_groups_count[,-c(2,4, 6,8)][,4]/(sum(age_groups_count[,-c(2,4, 6,8)][,4])))
 age_groups_count_subset=data.frame(races=rep(colnames(age_groups_count[,-c(2,4, 6,8)]), each=length(age_groups)), ages_group=paste(seq(1,5), rep(rownames(age_groups_count[,-c(2,4, 6,8)])), sep=&quot;:&quot;), n=c(age_groups_count[,-c(2,4, 6,8)][,1], age_groups_count[,-c(2,4, 6,8)][,2], age_groups_count[,-c(2,4, 6,8)][,3], age_groups_count[,-c(2,4, 6,8)][,4]), prop=round(prop,2))
-side_by_side_barplot3(age_groups_count_subset, title=&quot;age distrbituon by races&quot;, num_size=2.5, fill_var = &quot;ages_group&quot;)</code></pre>
+side_by_side_barplot3(age_groups_count_subset, title=&quot;age distrbituon by races&quot;, num_size=2.5, fill_var = &quot;ages_group&quot;, custom_colors = c(&quot;1:age:&lt;40&quot;=&quot;red&quot;, &quot;2:age:40-50&quot;=&quot;blue&quot;, &quot;3:age:50-60&quot;=&quot;green&quot;, &quot;4:age:60-70&quot;=&quot;orange&quot;, &quot;5:age:&gt;70&quot;=&quot;purple&quot;))</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
@@ -1366,7 +1401,7 @@ datatable(extensions = &#39;Buttons&#39;,
        genders_group_count[1:2,-c(2,4, 6,8)][,3]/(sum(genders_group_count[1:2,-c(2,4, 6,8)][,3])), 
        genders_group_count[1:2,-c(2,4, 6,8)][,4]/(sum(genders_group_count[1:2,-c(2,4, 6,8)][,4])))
 genders_group_count_subset=data.frame(races=rep(colnames(genders_group_count[,-c(2,4, 6,8)]), each=2), genders_group=rep(rownames(genders_group_count[1:2,-c(2,4, 6,8)]), 4), n=c(genders_group_count[1:2,-c(2,4, 6,8)][,1], genders_group_count[1:2,-c(2,4, 6,8)][,2], genders_group_count[1:2,-c(2,4, 6,8)][,3], genders_group_count[1:2,-c(2,4, 6,8)][,4]), prop=round(prop,2))
-side_by_side_barplot3(genders_group_count_subset, title=&quot;gender distrbituon by races&quot;, fill_var=&quot;genders_group&quot;, num_size=2.5)</code></pre>
+side_by_side_barplot3(genders_group_count_subset, title=&quot;gender distrbituon by races&quot;, fill_var=&quot;genders_group&quot;, num_size=2.5, custom_colors=c(&quot;Man&quot; = &quot;blue&quot;, &quot;Woman&quot; = &quot;red&quot;))</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
@@ -1390,6 +1425,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/428fd6942afd39163a1d637bc07b17275ee604a0/docs/figure/2024_0701_survey_part3.Rmd/unnamed-chunk-14-2.png" target="_blank">428fd69</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-12-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/3ca531fb4d81d1e1678faac889e55d1a75e79d33/docs/figure/2024_0701_survey_part3.Rmd/unnamed-chunk-14-2.png" target="_blank">3ca531f</a>
@@ -1553,7 +1599,7 @@ han
 <h2>Gender Identity</h2>
 <pre class="r"><code>gender=dentist_in_WI_of_interest1 %&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(dentist_in_WI_of_interest1),4))
 
-fig=plot_function(&quot;Gender Identity&quot;, gender, legend_rows = 2, var_name = &quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13)
+fig=plot_function(&quot;Gender Identity&quot;, gender, legend_rows = 2, var_name = &quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1644,7 +1690,7 @@ datatable(extensions = &#39;Buttons&#39;,
 
 specialty2=specialty %&gt;% filter(n&gt;10)  %&gt;% add_row(`Dental Specialties Board Certified`=&quot;other&quot;, n=specialty %&gt;% filter(n&lt;=10) %&gt;% select(n) %&gt;% sum(), prop=specialty %&gt;% filter(n&lt;=10) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
 
-fig=plot_function(&quot;Dental Specialties Board Certified&quot;, specialty2, legend_rows = 3, var_name = &quot;Dental Specialties Board Certified&quot;, legend_text_size = 12)
+fig=plot_function(&quot;Dental Specialties Board Certified&quot;, specialty2, legend_rows = 3, var_name = &quot;Dental Specialties Board Certified&quot;, legend_text_size = 12, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1728,7 +1774,7 @@ responses, such as <code>General dentistry; Oral surgery</code></li>
 
 threshold=20
 practice_setting2=practice_setting %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Best Describes This Practice Setting`=&quot;other&quot;, n=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=practice_setting %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=10 
-fig=plot_function(&quot;Best Describes This Practice Setting&quot;, practice_setting2, legend_rows = 4, var_name = &quot;Best Describes This Practice Setting&quot;)
+fig=plot_function(&quot;Best Describes This Practice Setting&quot;, practice_setting2, legend_rows = 4, var_name = &quot;Best Describes This Practice Setting&quot;, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2001,7 +2047,7 @@ han
 
 group_practice2=group_practice%&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(group_practice),4))
 
-fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice2,1, var_name=&quot;Gender Identity&quot;, num_size=4, legend_text_size = 13)
+fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice2,1, var_name=&quot;Gender Identity&quot;, num_size=4, legend_text_size = 13, custom_colors = NULL)
 fig
 
 group_practice2%&gt;% arrange(desc(n))%&gt;%
@@ -2020,7 +2066,7 @@ threshold=10
 group_practice3=group_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;other&quot;, n=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
 
 
-fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4)
+fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2101,7 +2147,7 @@ threshold=10
 group_practice3=group_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Dental Specialties Board Certified`=&quot;other&quot;, n=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=group_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
 
 
-fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4)
+fig=plot_function(title=&quot;Group office practice (any number of dentists &gt;1)&quot;, group_practice3,2, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2181,7 +2227,7 @@ datatable(extensions = &#39;Buttons&#39;,
 
 solo_practice2=solo_practice%&gt;% dplyr::count(`Gender Identity`) %&gt;% mutate(prop=round(n/nrow(solo_practice),4))
 
-fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice2,1, var_name=&quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13)
+fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice2,1, var_name=&quot;Gender Identity&quot;, num_size = 4, legend_text_size = 13, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2250,7 +2296,7 @@ threshold=10
 solo_practice3=solo_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;other&quot;, n=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
 
 
-fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4)
+fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,2, var_name=&quot;Describe Your Race or Ethnicity&quot;, num_size = 4, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2319,7 +2365,7 @@ threshold=10
 solo_practice3=solo_practice2 %&gt;% filter(n&gt;threshold)  %&gt;% add_row(`Dental Specialties Board Certified`=&quot;other&quot;, n=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(n) %&gt;% sum(), prop=solo_practice2 %&gt;% filter(n&lt;=threshold) %&gt;% select(prop) %&gt;% sum()) # aggregate categories with n&lt;=threshold 
 
 
-fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,1, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4, legend_text_size = 12)
+fig=plot_function(title=&quot;Solo office practice&quot;, solo_practice3,1, var_name=&quot;Dental Specialties Board Certified&quot;, num_size = 4, legend_text_size = 12, custom_colors = NULL)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>

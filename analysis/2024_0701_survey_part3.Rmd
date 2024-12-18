@@ -34,9 +34,8 @@ changeCellColor <- function(row, col){
 
 
 ```{r, echo=F, message=F, warning=F}
-plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12)
+plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12, custom_colors=Null)
 {
-  
   x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
 
   
@@ -50,6 +49,34 @@ g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge",
   theme(axis.text.y = element_text(size = y_axis_text))+
   #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
   geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))), vjust=-1, size=num_size)+
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = legend_rows))
+
+if (!is.null(custom_colors)) {
+    g1 <- g1 + scale_fill_manual(values = custom_colors)
+  }
+
+  return(g1)
+}
+
+
+plot_function2=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12)
+{
+  
+  x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
+
+  
+  y_limit=1
+g1=ggplot(data, aes(x=!!x_var, y=prop, fill=!!x_var)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("%")+xlab("")+
+  #theme(legend.position="", legend.title=element_text(size=10))+
+  theme(legend.position="bottom", legend.title=element_blank(), legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_blank())+
+  theme(axis.text.y = element_text(size = y_axis_text))+
+  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(label = with(data, paste(paste0(prop*100, "%", "(", n, ")"))), vjust=-1, size=num_size)+
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
    guides(fill = guide_legend(nrow = legend_rows))
@@ -76,7 +103,7 @@ side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend
 }
 
 
-side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1, fill_var="genders_group")
+side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1, fill_var="genders_group", custom_colors=Null)
 {
   y_limit=max(data$n)*1.1
   g=ggplot(data, aes(x=races, y=prop, fill=!!sym(fill_var))) +geom_bar(position = "dodge", stat="identity")+
@@ -91,6 +118,10 @@ side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
     guides(fill = guide_legend(nrow = legend_rows))
+  
+  if (!is.null(custom_colors)) {
+    g <- g + scale_fill_manual(values = custom_colors)
+  }
  return(g)
   
 }
@@ -162,11 +193,11 @@ race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add
 race_new2=race_new %>% filter(n>10)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=race_new %>% filter(n<=10) %>% select(n) %>% sum(), prop=race_new %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
 
-fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 4, var_name="Describe Your Race or Ethnicity")
+fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 4, var_name="Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
 fig
 
 
-fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name="Describe Your Race or Ethnicity")
+fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name="Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
 fig
 
 race_new2%>% arrange(desc(n))%>%
@@ -271,7 +302,7 @@ prop=c(age_groups_count[,-c(2,4, 6,8)][,1]/(sum(age_groups_count[,-c(2,4, 6,8)][
        age_groups_count[,-c(2,4, 6,8)][,3]/(sum(age_groups_count[,-c(2,4, 6,8)][,3])), 
        age_groups_count[,-c(2,4, 6,8)][,4]/(sum(age_groups_count[,-c(2,4, 6,8)][,4])))
 age_groups_count_subset=data.frame(races=rep(colnames(age_groups_count[,-c(2,4, 6,8)]), each=length(age_groups)), ages_group=paste(seq(1,5), rep(rownames(age_groups_count[,-c(2,4, 6,8)])), sep=":"), n=c(age_groups_count[,-c(2,4, 6,8)][,1], age_groups_count[,-c(2,4, 6,8)][,2], age_groups_count[,-c(2,4, 6,8)][,3], age_groups_count[,-c(2,4, 6,8)][,4]), prop=round(prop,2))
-side_by_side_barplot3(age_groups_count_subset, title="age distrbituon by races", num_size=2.5, fill_var = "ages_group")
+side_by_side_barplot3(age_groups_count_subset, title="age distrbituon by races", num_size=2.5, fill_var = "ages_group", custom_colors = c("1:age:<40"="red", "2:age:40-50"="blue", "3:age:50-60"="green", "4:age:60-70"="orange", "5:age:>70"="purple"))
 
 
 
@@ -353,7 +384,7 @@ prop=c(genders_group_count[1:2,-c(2,4, 6,8)][,1]/(sum(genders_group_count[1:2,-c
        genders_group_count[1:2,-c(2,4, 6,8)][,3]/(sum(genders_group_count[1:2,-c(2,4, 6,8)][,3])), 
        genders_group_count[1:2,-c(2,4, 6,8)][,4]/(sum(genders_group_count[1:2,-c(2,4, 6,8)][,4])))
 genders_group_count_subset=data.frame(races=rep(colnames(genders_group_count[,-c(2,4, 6,8)]), each=2), genders_group=rep(rownames(genders_group_count[1:2,-c(2,4, 6,8)]), 4), n=c(genders_group_count[1:2,-c(2,4, 6,8)][,1], genders_group_count[1:2,-c(2,4, 6,8)][,2], genders_group_count[1:2,-c(2,4, 6,8)][,3], genders_group_count[1:2,-c(2,4, 6,8)][,4]), prop=round(prop,2))
-side_by_side_barplot3(genders_group_count_subset, title="gender distrbituon by races", fill_var="genders_group", num_size=2.5)
+side_by_side_barplot3(genders_group_count_subset, title="gender distrbituon by races", fill_var="genders_group", num_size=2.5, custom_colors=c("Man" = "blue", "Woman" = "red"))
 
 
 
@@ -389,7 +420,7 @@ sum(genders_group_count[1:2,c(1,3,5,7)])
 ```{r, message=F, warning=F, eval=T}
 gender=dentist_in_WI_of_interest1 %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(dentist_in_WI_of_interest1),4))
 
-fig=plot_function("Gender Identity", gender, legend_rows = 2, var_name = "Gender Identity", num_size = 4, legend_text_size = 13)
+fig=plot_function("Gender Identity", gender, legend_rows = 2, var_name = "Gender Identity", num_size = 4, legend_text_size = 13, custom_colors = NULL)
 fig
 
 
@@ -415,7 +446,7 @@ specialty=dentist_in_WI_of_interest1 %>% dplyr::count(`Dental Specialties Board 
 
 specialty2=specialty %>% filter(n>10)  %>% add_row(`Dental Specialties Board Certified`="other", n=specialty %>% filter(n<=10) %>% select(n) %>% sum(), prop=specialty %>% filter(n<=10) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
 
-fig=plot_function("Dental Specialties Board Certified", specialty2, legend_rows = 3, var_name = "Dental Specialties Board Certified", legend_text_size = 12)
+fig=plot_function("Dental Specialties Board Certified", specialty2, legend_rows = 3, var_name = "Dental Specialties Board Certified", legend_text_size = 12, custom_colors = NULL)
 fig
 
 
@@ -444,7 +475,7 @@ practice_setting=dentist_in_WI_of_interest1 %>% dplyr::count(`Best Describes Thi
 
 threshold=20
 practice_setting2=practice_setting %>% filter(n>threshold)  %>% add_row(`Best Describes This Practice Setting`="other", n=practice_setting %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=practice_setting %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=10 
-fig=plot_function("Best Describes This Practice Setting", practice_setting2, legend_rows = 4, var_name = "Best Describes This Practice Setting")
+fig=plot_function("Best Describes This Practice Setting", practice_setting2, legend_rows = 4, var_name = "Best Describes This Practice Setting", custom_colors = NULL)
 fig
 
 
@@ -544,7 +575,7 @@ group_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This
 
 group_practice2=group_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(group_practice),4))
 
-fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice2,1, var_name="Gender Identity", num_size=4, legend_text_size = 13)
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice2,1, var_name="Gender Identity", num_size=4, legend_text_size = 13, custom_colors = NULL)
 fig
 
 group_practice2%>% arrange(desc(n))%>%
@@ -568,7 +599,7 @@ threshold=10
 group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=group_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=group_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
 
 
-fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4, custom_colors = NULL)
 fig
 
 group_practice3%>% arrange(desc(n))%>%
@@ -593,7 +624,7 @@ threshold=10
 group_practice3=group_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Specialties Board Certified`="other", n=group_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=group_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
 
 
-fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Dental Specialties Board Certified", num_size = 4)
+fig=plot_function(title="Group office practice (any number of dentists >1)", group_practice3,2, var_name="Dental Specialties Board Certified", num_size = 4, custom_colors = NULL)
 fig
 
 group_practice3%>% arrange(desc(n))%>%
@@ -618,7 +649,7 @@ solo_practice=dentist_in_WI_of_interest1 %>% dplyr::filter(`Best Describes This 
 
 solo_practice2=solo_practice%>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(solo_practice),4))
 
-fig=plot_function(title="Solo office practice", solo_practice2,1, var_name="Gender Identity", num_size = 4, legend_text_size = 13)
+fig=plot_function(title="Solo office practice", solo_practice2,1, var_name="Gender Identity", num_size = 4, legend_text_size = 13, custom_colors = NULL)
 fig
 
 solo_practice2%>% arrange(desc(n))%>%
@@ -641,7 +672,7 @@ threshold=10
 solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Describe Your Race or Ethnicity`="other", n=solo_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=solo_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
 
 
-fig=plot_function(title="Solo office practice", solo_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4)
+fig=plot_function(title="Solo office practice", solo_practice3,2, var_name="Describe Your Race or Ethnicity", num_size = 4, custom_colors = NULL)
 fig
 
 solo_practice3%>% arrange(desc(n))%>%
@@ -663,7 +694,7 @@ threshold=10
 solo_practice3=solo_practice2 %>% filter(n>threshold)  %>% add_row(`Dental Specialties Board Certified`="other", n=solo_practice2 %>% filter(n<=threshold) %>% select(n) %>% sum(), prop=solo_practice2 %>% filter(n<=threshold) %>% select(prop) %>% sum()) # aggregate categories with n<=threshold 
 
 
-fig=plot_function(title="Solo office practice", solo_practice3,1, var_name="Dental Specialties Board Certified", num_size = 4, legend_text_size = 12)
+fig=plot_function(title="Solo office practice", solo_practice3,1, var_name="Dental Specialties Board Certified", num_size = 4, legend_text_size = 12, custom_colors = NULL)
 fig
 
 solo_practice3%>% arrange(desc(n))%>%
