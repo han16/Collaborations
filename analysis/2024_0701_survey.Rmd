@@ -10,9 +10,12 @@ output:
 
 
 
-* [Hygienist analysis](2024_0701_survey_part2.html)
+## 1.  [Hygienist analysis](2024_0701_survey_part2.html)
 
-* [Dentist Survey analysis](2024_0701_survey_part1.html)
 
-* [Dentist in WI analysis](2024_0701_survey_part3.html)
+## 2.    [Dentist Survey analysis](2024_0701_survey_part1.html)
+
+## 3.   [Dentist in WI analysis](2024_0701_survey_part3.html)
+
+### 3.1  [association between race and  other factors](2024_0701_survry_part3_01_racevsothers.html)
 
