@@ -270,11 +270,39 @@ for (k in 1:length(res))
     )
   )
   
+  ############# calculate p values 
+parameters=character()
+pvalue=numeric()
+kk=0
+  for (i in 1:(nrow(res[[k]])-1))
+  for (j in (i+1):nrow(res[[k]]))
+  {
+    kk=kk+1
+    parameters[kk]=paste(res[[k]][i,1], res[[k]][j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(res[[k]][i,2], res[[k]][j,2]), p = 0.5)$p.value)
+  }
+output_list <- tagAppendChild(
+    output_list,
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+)
+
+
+  
+  
+  
 }
 
 # Render all datatables
 output_list
 ```
+
+
 
 
 
