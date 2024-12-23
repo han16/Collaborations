@@ -19,3 +19,5 @@ output:
 
 ### 3.1  [association between race and  other factors](2024_0701_survry_part3_01_racevsothers.html)
 
+### 3.2 [geographical distribution of dentists](2024_0701_survey_part3_02_geographicaldistribution.html)
+

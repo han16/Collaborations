@@ -329,7 +329,7 @@ datatable(extensions = 'Buttons',
 ```{r, message=F, warning=F, results='asis'}
 # Create a tagList to collect all datatables
 library(htmltools)
-output_list1 <- tagList(); output_list2<- tagList()
+output_list1 <- tagList()
 for (k in 1:length(discrete_var))
   
 {
@@ -366,9 +366,11 @@ for (i in 1:length(common_variable))
   pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(nrow(group2_maxilla), nrow(group3_mandible)))$p.value)
 }
   
-# Append the datatable to the output list
-  output_list2 <- tagAppendChild(
-    output_list2,
+  
+  ###########################
+  # Append the datatable to the output list
+  output_list1 <- tagAppendChild(
+    output_list1,
     datatable(
       data.frame(variable=paste(common_variable, ":group2_maxilla_vs_group3_mandible"), pvalue=pvalue),
       extensions = 'Buttons',
@@ -380,6 +382,7 @@ for (i in 1:length(common_variable))
       )
     )
   )  
+  
 }
 if (length(common_variable)==0)
   cat("no common variables between two groups", "\n")
@@ -389,7 +392,7 @@ if (length(common_variable)==0)
 
 # Render all datatables
 output_list1
-output_list2
+
 ```
 
 

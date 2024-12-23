@@ -1,7 +1,7 @@
-name: Collaborations
+name: all projects
 output_dir: ../docs
 navbar:
-  title: Collaborations
+  title: all projects
   left:
   - text: Home
     href: index.html

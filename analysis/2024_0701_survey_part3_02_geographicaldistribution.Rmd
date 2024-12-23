@@ -1,0 +1,189 @@
+---
+title: "geographical distribution"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-12-19"
+---
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+source(file.path(root, "analysis/Rfunctions.R"))
+changeCellColor <- function(row, col){
+  c(
+    "function(row, data, num, index){",
+    sprintf("  if(index == %d){", row-1),
+    sprintf("    $('td:eq(' + %d + ')', row)", col),
+    "    .css({'background-color': 'orange'});",
+    "  }",
+    "}"  
+  )
+}
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12, custom_colors=Null)
+{
+  x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
+
+  
+  y_limit=max(data$n)*1.1
+g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  #theme(legend.position="", legend.title=element_text(size=10))+
+  theme(legend.position="bottom", legend.title=element_blank(), legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_blank())+
+  theme(axis.text.y = element_text(size = y_axis_text))+
+  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))), vjust=-1, size=num_size)+
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = legend_rows))
+
+if (!is.null(custom_colors)) {
+    g1 <- g1 + scale_fill_manual(values = custom_colors)
+  }
+
+  return(g1)
+}
+
+
+plot_function2=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12)
+{
+  
+  x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
+
+  
+  y_limit=1
+g1=ggplot(data, aes(x=!!x_var, y=prop, fill=!!x_var)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("%")+xlab("")+
+  #theme(legend.position="", legend.title=element_text(size=10))+
+  theme(legend.position="bottom", legend.title=element_blank(), legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_blank())+
+  theme(axis.text.y = element_text(size = y_axis_text))+
+  #geom_text(aes(label=practice_setting2$n), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
+  geom_text(label = with(data, paste(paste0(prop*100, "%", "(", n, ")"))), vjust=-1, size=num_size)+
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+   guides(fill = guide_legend(nrow = legend_rows))
+  return(g1)
+}
+
+
+side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1)
+{
+  y_limit=max(data$n)*1.1
+  g=ggplot(data, aes(x=gender, y=n, fill=class)) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0, y_limit))+
+  ylab("n")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+    guides(fill = guide_legend(nrow = legend_rows))
+ return(g)
+  
+}
+
+
+side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1, fill_var="genders_group", custom_colors=Null)
+{
+  y_limit=max(data$n)*1.1
+  g=ggplot(data, aes(x=races, y=prop, fill=!!sym(fill_var))) +geom_bar(position = "dodge", stat="identity")+
+ # ylim(c(0,y_limit))+
+  ylab("prop")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  #geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+    geom_text(label = with(data, paste(paste0(prop*100, "%", "(", n, ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+    guides(fill = guide_legend(nrow = legend_rows))
+  
+  if (!is.null(custom_colors)) {
+    g <- g + scale_fill_manual(values = custom_colors)
+  }
+ return(g)
+  
+}
+
+```
+
+
+
+## Home 
+
+[Home](2024_0701_survey.html)
+
+
+
+```{r, message=F, warning=F, results=F, eval=T}
+#Dentist_Survey=multiplesheets(file.path(root, "..\\2024\\202407\\state_survey\\Dentist Survey.xlsx"))
+Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
+Dentist_in_WI=Dentist_Survey$`Dentist Survey` %>% filter(`direct care as a dentist in Wisconsin`=="Yes")
+#save(Dentist_in_WI, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\Dentist_in_WI.RData")
+```
+
+
+* select individuals who respond Yes to `direct care as a dentist in Wisconsin`
+
+
+
+```{r, message=F, warning=F}
+#dim(Dentist_Survey$`Dentist Survey`)
+load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\Dentist_in_WI.RData")
+variables=colnames(Dentist_in_WI)
+data.frame(questions=variables)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+dim(Dentist_in_WI)
+```
+
+* in total 2295 responses and 40 questions 
+
+
+
+
+```{r, message=F, warning=F}
+variables_of_interest=variables[-c(6,7,19:37)]
+dentist_in_WI_of_interest=Dentist_in_WI[,-c(6,7,19:37)]
+num_non_missing=apply(dentist_in_WI_of_interest,2, function(x) sum(is.na(x)==F) )
+data.frame(variable=variables_of_interest, non_missing=num_non_missing)%>%
+datatable(extensions = 'Buttons',
+          caption = " Interesting variables with non-missing numbers ",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
+year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
+ages=2024-as.numeric(year_of_birth)
+
+dentist_in_WI_of_interest1=dentist_in_WI_of_interest %>% mutate(ages=ages)
+
+```
