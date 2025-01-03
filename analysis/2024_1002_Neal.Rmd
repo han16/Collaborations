@@ -22,7 +22,8 @@ source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunction
 #save(finalized_with_omitted_data, finalized_data, coding, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
 load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
 col_names=as.character(finalized_data[1,])
-finalized_data=finalized_data[-1,]
+finalized_data=finalized_data[-c(1,2),]
+
 colnames(finalized_data)=col_names
 ```
 
@@ -31,6 +32,7 @@ colnames(finalized_data)=col_names
 
 
 ```{r, message=F, warning=F}
+
 colnames(finalized_data)
 ```
 
@@ -425,6 +427,10 @@ output_list1
 
 
 * two  sample proportion test was used. 
+
+
+
+## group 4 
 
 
 
