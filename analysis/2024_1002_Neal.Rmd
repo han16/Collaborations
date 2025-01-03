@@ -28,6 +28,18 @@ colnames(finalized_data)=col_names
 ```
 
 
+
+```{r, message=F, warning=F}
+upper_posterior=c(2, 3, 4, 5, 12, 13, 14, 15)
+upper_anterior=6:11
+lower_posterior=c(18, 19, 20, 21, 28, 29, 30, 31)
+lower_anterior=22:27
+```
+
+
+
+
+
 ## Finalized data 
 
 
@@ -306,6 +318,12 @@ output_list
 
 
 
+
+### tooth site groups 
+
+```{r, message=F, warning=F}
+
+```
 
 
 
