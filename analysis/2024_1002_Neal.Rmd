@@ -327,7 +327,7 @@ n=c(finalized_data %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow()
     finalized_data %>% filter(Tooth_site_number %in% lower_posterior) %>% nrow(), 
     finalized_data %>% filter(Tooth_site_number %in% lower_anterior) %>% nrow())
 
-tooth_site_groups=data.frame(groups=c("upper_posterior", "upper_anterior", "lower_posterior", "lower_anterior"), n=n)
+tooth_site_groups=data.frame(groups=c("upper_posterior", "upper_anterior", "lower_posterior", "lower_anterior"), n=n) %>% mutate(prop=round(n/sum(n),4))
 
 tooth_site_groups%>%
 datatable(extensions = 'Buttons',
@@ -479,6 +479,38 @@ output_list1
 
 
 * two  sample proportion test was used. 
+
+
+
+### tooth site groups
+
+
+```{r, message=F, warning=F}
+n1=c(group2_maxilla %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
+    group2_maxilla %>% filter(Tooth_site_number %in% upper_anterior) %>% nrow(), 
+    group2_maxilla %>% filter(Tooth_site_number %in% lower_posterior) %>% nrow(), 
+    group2_maxilla %>% filter(Tooth_site_number %in% lower_anterior) %>% nrow())
+
+n2=c(group3_mandible %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
+    group3_mandible %>% filter(Tooth_site_number %in% upper_anterior) %>% nrow(), 
+    group3_mandible %>% filter(Tooth_site_number %in% lower_posterior) %>% nrow(), 
+    group3_mandible %>% filter(Tooth_site_number %in% lower_anterior) %>% nrow())
+
+
+
+tooth_site_groups=data.frame(tooth_site=rep(c("upper_posterior", "upper_anterior", "lower_posterior", "lower_anterior"),2), n=c(n1, n2), groups=rep(c("group2_maxilla","group3_mandible"), each=4 ))  %>% mutate(prop=c(round(n1/sum(n1),4), round(n2/sum(n2),4)))
+
+tooth_site_groups%>%
+datatable(extensions = 'Buttons',
+          caption = "tooth site groups",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+```
 
 
 
