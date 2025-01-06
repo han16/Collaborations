@@ -322,7 +322,41 @@ output_list
 ### tooth site groups 
 
 ```{r, message=F, warning=F}
+n=c(finalized_data %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
+    finalized_data %>% filter(Tooth_site_number %in% upper_anterior) %>% nrow(), 
+    finalized_data %>% filter(Tooth_site_number %in% lower_posterior) %>% nrow(), 
+    finalized_data %>% filter(Tooth_site_number %in% lower_anterior) %>% nrow())
 
+tooth_site_groups=data.frame(groups=c("upper_posterior", "upper_anterior", "lower_posterior", "lower_anterior"), n=n)
+
+tooth_site_groups%>%
+datatable(extensions = 'Buttons',
+          caption = "tooth site groups",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+kk=0
+  for (i in 1:(nrow(tooth_site_groups)-1))
+  for (j in (i+1):nrow(tooth_site_groups))
+  {
+    kk=kk+1
+    parameters[kk]=paste(tooth_site_groups[i,1], tooth_site_groups[j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(tooth_site_groups[i,2], tooth_site_groups[j,2]), p = 0.5)$p.value)
+  }
+
+
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = "tooth site groups",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
