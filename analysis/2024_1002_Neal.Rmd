@@ -517,4 +517,286 @@ datatable(extensions = 'Buttons',
 ## group 4 
 
 
+```{r, message=F, warning=F}
+group4_data=finalized_data %>% filter(Patient %in% c(25, 26, 44, 58, 78, 81))
+```
 
+
+### continuous variables
+
+
+
+```{r, message=F, warning=F}
+data_conti=group4_data[,which(colnames(group4_data)%in%continuous_var)]
+
+res=summary_statistics(data_conti)
+data.frame(res) %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>2)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="pearson", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=2)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>2)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=2)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "Spearman correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+### discrete variables 
+
+
+```{r, message=F, warning=F}
+discrete_var=c("Tooth_site_number", 
+               "Gender", 
+               "Smoking", 
+               "Tooth_migration", 
+               "M_Tooth_Migration",  
+               "D_Tooth_Migration",  
+               "Migration_Notes", 
+               "mesial_tooth_bone_loss_CBCT#1__mm", 
+               "Jaw",                        
+                "Arch_Fully_edentulous_both_CBCTs",
+                "Partially_edentulous",
+               "Partial_Edentulous_Space_\r\nLength",
+                "Adjacent_teeth_number",
+               "Adjacent_Note",                      
+                "Restoration_type",
+               "Restoration_Notes",                  
+                "Ext_Reason",                                   
+                "Coronal_sinus_floor_shift",  
+                "Sinus_Pathology",
+                 "Sites_10mm_height_or_more",          
+                 "1st_CBCT_10mm_or_more",
+               "2nd_CBCT_10mm_or_more" )
+data_discrete=group4_data[,which(colnames(group4_data)%in%discrete_var)]
+
+res=apply(data_discrete, 2, discrete_summary)
+```
+
+
+
+
+
+```{r, message=F, warning=F, results='asis'}
+# Create a tagList to collect all datatables
+library(htmltools)
+output_list <- tagList()
+for (k in 1:length(res))
+  
+{
+
+  res_df <- data.frame(res[[k]]) # Convert the current list element to a data frame
+# Append the datatable to the output list
+  output_list <- tagAppendChild(
+    output_list,
+    datatable(
+      res_df,
+      extensions = 'Buttons',
+      caption = discrete_var[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+  
+  ############# calculate p values 
+parameters=character()
+pvalue=numeric()
+kk=0
+
+if (nrow(res[[k]])>1)
+  for (i in 1:(nrow(res[[k]])-1))
+  for (j in (i+1):nrow(res[[k]]))
+  {
+    kk=kk+1
+    parameters[kk]=paste(res[[k]][i,1], res[[k]][j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(res[[k]][i,2], res[[k]][j,2]), p = 0.5)$p.value)
+  }
+output_list <- tagAppendChild(
+    output_list,
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = discrete_var[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+)
+
+
+  
+  
+  
+}
+
+# Render all datatables
+output_list
+```
+
+
+
+### tooth site groups 
+
+```{r, message=F, warning=F}
+n=c(group4_data %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
+    group4_data %>% filter(Tooth_site_number %in% upper_anterior) %>% nrow(), 
+    group4_data %>% filter(Tooth_site_number %in% lower_posterior) %>% nrow(), 
+    group4_data %>% filter(Tooth_site_number %in% lower_anterior) %>% nrow())
+
+tooth_site_groups=data.frame(groups=c("upper_posterior", "upper_anterior", "lower_posterior", "lower_anterior"), n=n) %>% mutate(prop=round(n/sum(n),4))
+
+tooth_site_groups%>%
+datatable(extensions = 'Buttons',
+          caption = "tooth site groups",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+parameters=character()
+pvalue=numeric()
+kk=0
+  for (i in 1:(nrow(tooth_site_groups)-1))
+  for (j in (i+1):nrow(tooth_site_groups))
+  {
+    kk=kk+1
+    parameters[kk]=paste(tooth_site_groups[i,1], tooth_site_groups[j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(tooth_site_groups[i,2], tooth_site_groups[j,2]), p = 0.5)$p.value)
+  }
+
+
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = "tooth site groups",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
