@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-07
+<strong>Last updated:</strong> 2025-01-08
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6f852a9b9fec0d9808f122fbf4e69c15912d8d6ftargetblank6f852a9a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8ab1285c4302193885775c2fa04d2f2fbcc33dd3targetblank8ab1285a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/6f852a9b9fec0d9808f122fbf4e69c15912d8d6f" target="_blank">6f852a9</a>
+<a href="https://github.com/han16/Collaborations/tree/8ab1285c4302193885775c2fa04d2f2fbcc33dd3" target="_blank">8ab1285</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6f852a9b9fec0d9808f122fbf4e69c15912d8d6ftargetblank6f852a9a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8ab1285c4302193885775c2fa04d2f2fbcc33dd3targetblank8ab1285a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/6f852a9b9fec0d9808f122fbf4e69c15912d8d6f" target="_blank">6f852a9</a>.
+<a href="https://github.com/han16/Collaborations/tree/8ab1285c4302193885775c2fa04d2f2fbcc33dd3" target="_blank">8ab1285</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -587,13 +587,9 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2025.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2024_0701_survey_part3.Rmd
     Modified:   analysis/2024_0701_survey_part3_02_geographicaldistribution.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/2025.Rmd
 
 </code></pre>
 <p>
@@ -641,6 +637,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/analysis/2024_0701_survey_part3_02_geographicaldistribution.Rmd" target="_blank">8ab1285</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-07
+</td>
+<td>
+1/7/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/2024_0701_survey_part3_02_geographicaldistribution.html" target="_blank">8ab1285</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-07
+</td>
+<td>
+1/7/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -795,8 +825,9 @@ datatable(extensions = &#39;Buttons&#39;,
 
 
 dentist_zip_in_dentist_only=sapply(zip_in_dentist_only, function(x) Dentist_Survey$`Dentist Survey` %&gt;% filter(`5-digit Zip code` %in% x)%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow())</code></pre>
-<div id="gender-identity" class="section level3">
-<h3>Gender Identity</h3>
+</div>
+<div id="gender-identity" class="section level2">
+<h2>Gender Identity</h2>
 <pre class="r"><code>gender_geo=sapply(region_code_zip, function(x) dentist_in_WI_of_interest1 %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% select(`Gender Identity`))
 gender_prop=sapply(gender_geo, function(x) c(sum(x==&quot;Man&quot;, na.rm=T), sum(x==&quot;Woman&quot;, na.rm=T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(region_code_update))) %&gt;% drop_na()
@@ -809,9 +840,46 @@ prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
 prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
 gender_geo_data=gender_geo_data %&gt;% mutate(prop=round(prop,4))
 
-fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 2.5, x_text_size=12, legend_text_size=12, title=&quot;Dentist_Survey&quot;, custom_colors= c(&quot;Woman&quot; = &quot;red&quot;, &quot;Man&quot; = &quot;blue&quot;))
+fig=side_by_side_barplot(gender_geo_data, angle=10, num_size = 2.5, x_text_size=12, legend_text_size=12, title=&quot;Dentist_Survey&quot;, custom_colors= c(&quot;Woman&quot; = &quot;red&quot;, &quot;Man&quot; = &quot;blue&quot;))
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-1.png" target="_blank">8ab1285</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender_geo_data%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;Dentist&quot;,
@@ -824,8 +892,8 @@ datatable(extensions = &#39;Buttons&#39;,
 <pre class="r"><code>sum(gender_geo_data$num)</code></pre>
 <pre><code>[1] 1913</code></pre>
 </div>
-<div id="specialty-distribution" class="section level3">
-<h3>specialty distribution</h3>
+<div id="specialty-distribution" class="section level2">
+<h2>specialty distribution</h2>
 <pre class="r"><code>specialty=c(&quot;General dentistry&quot;, &quot;Endodontics&quot;, &quot;Orthodontics&quot;,&quot;Periodontics&quot;,  &quot;Prosthodontics&quot;, &quot;Pediatric dentistry&quot;, &quot;Oral surgery&quot;)
 specialty_geo=sapply(region_code_zip, function(x) dentist_in_WI_of_interest1 %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% filter(`Dental Specialties Board Certified` %in% specialty) %&gt;% select(`Dental Specialties Board Certified`))
 specialty_prop=sapply(specialty_geo, function(x) c(sum(x==&quot;General dentistry&quot;), sum(x==&quot;Endodontics&quot;), sum(x==&quot;Orthodontics&quot;), sum(x==&quot;Periodontics&quot;), sum(x==&quot;Prosthodontics&quot;), sum(x==&quot;Pediatric dentistry&quot;), sum(x==&quot;Oral surgery&quot;))) 
@@ -863,12 +931,123 @@ pie_chart[[i]]=ggplot(data=pie_data)+
 ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)</code></pre>
 <pre><code>$`1`</code></pre>
 <p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-1.png" target="_blank">8ab1285</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`2`</code></pre>
 <p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
+Past versions of unnamed-chunk-13-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-2.png" target="_blank">8ab1285</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`3`</code></pre>
 <p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-3">
+Past versions of unnamed-chunk-13-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-3.png" target="_blank">8ab1285</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 attr(,&quot;class&quot;)
 [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
@@ -883,6 +1062,10 @@ datatable(extensions = &#39;Buttons&#39;,
 <script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.08359999999999999,0.0809,0.1003,0.099,0.4607,0.4421,0.1229,0.1185,0.08359999999999999,0.08790000000000001,0.1488,0.1715]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>sum(gender_geo_data$num)</code></pre>
 <pre><code>[1] 1913</code></pre>
+</div>
+<div id="zip-codes" class="section level2">
+<h2>zip codes</h2>
+<pre class="r"><code>zip_code_details=multiplesheets(&quot;C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\ZIP code details.xlsx&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -955,7 +1138,6 @@ loaded via a namespace (and not attached):
 [79] digest_0.6.33        farver_2.1.1         htmlwidgets_1.6.4   
 [82] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
 [85] httr_1.4.7           mime_0.12           </code></pre>
-</div>
 </div>
 </div>
 
