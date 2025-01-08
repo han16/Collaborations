@@ -7,8 +7,17 @@ output:
 date: "2024-11-15"
 ---
 
+
+
+```{r, echo=F, message=F, warning=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
 ```{r, echo=F, message=F, warning=F, results=F}
-source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+source(file.path(root, "analysis/Rfunctions.R"))
 changeCellColor <- function(row, col){
   c(
     "function(row, data, num, index){",
@@ -22,10 +31,13 @@ changeCellColor <- function(row, col){
 ```
 
 
+
+
 ```{r, echo=F, message=F, warning=F}
-plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12)
+
+
+plot_function=function(title, data, legend_rows=1, var_name, num_size=3, legend_text_size=11, y_axis_text=12, custom_colors=Null)
 {
-  
   x_var <- sym(var_name)  ########## https://stackoverflow.com/questions/4856849/looping-over-variables-in-ggplot this is the key step for the loop 
 
   
@@ -42,6 +54,11 @@ g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge",
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
    guides(fill = guide_legend(nrow = legend_rows))
+
+if (!is.null(custom_colors)) {
+    g1 <- g1 + scale_fill_manual(values = custom_colors)
+  }
+
   return(g1)
 }
 ```
@@ -51,7 +68,7 @@ g1=ggplot(data, aes(x=!!x_var, y=n, fill=!!x_var)) +geom_bar(position = "dodge",
 
 ```{r, echo=F, message=F, warning=F, results=F}
 Dental_Hygienist=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dental Hygienist.xlsx")
-Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
+#Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
 ```
 
 ## Home 
@@ -88,11 +105,11 @@ asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define sou
 asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
-fig=plot_function("Describe Your Race or Ethnicity", race_new, legend_rows = 4, var_name = "Describe Your Race or Ethnicity")
+fig=plot_function("Describe Your Race or Ethnicity", race_new, legend_rows = 3, var_name = "Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
 
 fig
 
-fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 4, var_name = "Describe Your Race or Ethnicity")
+fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name = "Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
 
 fig
 
@@ -119,11 +136,11 @@ sum(race_new$n)
 ```{r, message=F, warning=F}
 gender=Dental_Hygienist$`Dental H` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
 
-fig=plot_function("Gender Identity", gender, legend_rows=2, var_name = "Gender Identity", num_size = 4)
+fig=plot_function("Gender Identity", gender, legend_rows=2, var_name = "Gender Identity", num_size = 4, custom_colors= c("Woman" = "red","Man"="blue", "Decline to answer" = "green", "Nonbinary"="pink", "Option not listed above"="black"))
 fig
 
 
-fig=plot_function("Gender Identity (without Woman)", gender %>% filter(`Gender Identity`!="Woman"), legend_rows=2, var_name = "Gender Identity", num_size = 4)
+fig=plot_function("Gender Identity (without Woman)", gender %>% filter(`Gender Identity`!="Woman"), legend_rows=2, var_name = "Gender Identity", num_size = 4, custom_colors= c("Woman" = "red","Man"="blue", "Decline to answer" = "green", "Nonbinary"="pink", "Option not listed above"="black"))
 fig
 
 
@@ -161,71 +178,11 @@ all_code[which(all_code=="Urban/R2")]="Urban"
 all_code[which(all_code=="R1/Urban")]="R1"
 wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %>% mutate(new_region_code=all_code)
 region_code_update=unique(all_code)
-```
 
-
-```{r, message=F, warning=F, eval=T}
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
-hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` ) %>% pull)
-
-#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
-# Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
-
-
-dentist_zip=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
-#sum(is.na(Dentist_Survey_zipcode)==T) 893 zip codes are missing 
-
-
-zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
-Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
-
-data.frame(zip_in_dentist_only)%>%
-datatable(extensions = 'Buttons',
-          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
 ```
 
-* in dentist survey data, 891 zip codes are missing, i.e. the responses are blank 
 
-* among  77 zip codes missing, i.e. not in Wisconsin zip code list,  some code (46/77=59.7%) have sub-code like `53574-8881`, but Wisconsin zip code don't have sub-code.  
-
-
-
-
-```{r, message=F, warning=F, eval=T}
-region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
-hygienist_zip=unique(Dental_Hygienist$`Dental H` %>% select(`5-digit Zip code` ) %>% pull)
-
-#zip_in_hygie_only=setdiff(hygienist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in wisconsin urban rural zip data 
-# Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% zip_in_hygie_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() these man/woman in the survey, but missed in wisconsin urban/rural data 
-
-
-dentist_zip_raw=unique(Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code` ) %>% pull)
-dentist_zip=str_sub(dentist_zip_raw, 1, 5)
-
-zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
-Dentist_Survey_zipcode=Dentist_Survey$`Dentist Survey` %>% select(`5-digit Zip code`) %>% pull()
-
-
-Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
-
-data.frame(zip_in_dentist_only)%>%
-datatable(extensions = 'Buttons',
-          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-
-
-dentist_zip_in_dentist_only=sapply(zip_in_dentist_only, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow())
-
-```
 
 
 
@@ -233,7 +190,7 @@ dentist_zip_in_dentist_only=sapply(zip_in_dentist_only, function(x) Dentist_Surv
 
 
 ```{r, echo=F, message=F, warning=F}
-side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title)
+side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, custom_colors=Null)
 {
   y_limit=max(data$num)*1.1
   g=ggplot(data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
@@ -245,6 +202,12 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
   geom_text(label = with(gender_geo_data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
+  
+  
+  if (!is.null(custom_colors)) {
+    g <- g + scale_fill_manual(values = custom_colors)
+  }
+  
  return(g)
   
 }
@@ -266,7 +229,7 @@ prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
 prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
 gender_geo_data=gender_geo_data %>% mutate(prop=round(prop,4))
 
-fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygenist")
+fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygenist", custom_colors=c("Man"="blue", "Woman"="red"))
 fig
 
 
