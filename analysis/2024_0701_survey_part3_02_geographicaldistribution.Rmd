@@ -292,7 +292,7 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
   theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
   theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
   #geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
-  geom_text(label = with(gender_geo_data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  geom_text(label = with(data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
   
@@ -404,10 +404,63 @@ sum(gender_geo_data$num)
 
 
 
-## zip codes 
+## analysis for DHS zones 
 
 
 ```{r, message=F, warning=F, results=F}
-zip_code_details=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\ZIP code details.xlsx")
+#zip_code_details=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\ZIP code details.xlsx")
 
+
+# Assign the columns to new objects in the environment
+#zip_codes_and_counties <- zip_code_details$`ZIP codes and counties`
+#dhs_zones <- zip_code_details$`dhs_zone`
+
+# Save the objects
+#save(zip_codes_and_counties, dhs_zones, file = file.path(root, "..\\2024\\202407\\zip_code_details.RData"))
+load(file.path(root, "..\\2024\\202407\\zip_code_details.RData"))
+
+zip_code_county_zone=zip_codes_and_counties %>% left_join(dhs_zones, by="county")
+zip_code_county_zone$zip_code=as.character(zip_code_county_zone$zip_code)
+
+dentist_in_WI_of_interest1 =dentist_in_WI_of_interest1%>% mutate(zip_code = dentist_in_WI_of_interest1$`5-digit Zip code`)
+
+dentist_in_WI_of_interest1=dentist_in_WI_of_interest1 %>% left_join(zip_code_county_zone, by="zip_code")
 ```
+
+
+### gender distribution 
+
+
+
+
+```{r, message=F, warning=F, eval=T}
+zones=unique(dentist_in_WI_of_interest1$zone)
+zones=zones[is.na(zones)==F]
+
+gender_zones=sapply(zones, function(x) dentist_in_WI_of_interest1 %>% filter(zone %in% x) %>% select(`Gender Identity`))
+
+gender_prop=sapply(gender_zones, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
+gender_zones_data=data.frame(geo=rep(zones,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(zones))) %>% drop_na()
+
+
+man_total=sum(gender_zones_data %>% filter(gender=="Man") %>% select(num) %>% pull())
+woman_total=sum(gender_zones_data %>% filter(gender=="Woman") %>% select(num) %>% pull())
+prop=numeric()
+prop[seq(1,9,by=2)]=gender_zones_data$num[seq(1,11,by=2)]/man_total
+prop[seq(2,10,by=2)]=gender_zones_data$num[seq(2,12,by=2)]/woman_total
+gender_zones_data=gender_zones_data %>% mutate(prop=round(prop,4))
+
+fig=side_by_side_barplot(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title="Dentist_Survey", custom_colors= c("Woman" = "red", "Man" = "blue"))
+fig
+
+
+gender_zones_data%>%
+datatable(extensions = 'Buttons',
+          caption = "Dentist",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(gender_zones_data$num)
+```
+

@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-08
+<strong>Last updated:</strong> 2025-01-09
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8ab1285c4302193885775c2fa04d2f2fbcc33dd3targetblank8ab1285a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2ftargetblankc5e3eaea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/8ab1285c4302193885775c2fa04d2f2fbcc33dd3" target="_blank">8ab1285</a>
+<a href="https://github.com/han16/Collaborations/tree/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f" target="_blank">c5e3eae</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree8ab1285c4302193885775c2fa04d2f2fbcc33dd3targetblank8ab1285a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2ftargetblankc5e3eaea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/8ab1285c4302193885775c2fa04d2f2fbcc33dd3" target="_blank">8ab1285</a>.
+<a href="https://github.com/han16/Collaborations/tree/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f" target="_blank">c5e3eae</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -589,7 +589,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2024_0701_survey_part3_02_geographicaldistribution.Rmd
-    Modified:   analysis/2025.Rmd
 
 </code></pre>
 <p>
@@ -637,6 +636,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/fe962788d596cc7b8bc2eed3f1c836c4f511facc/analysis/2024_0701_survey_part3_02_geographicaldistribution.Rmd" target="_blank">fe96278</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+<td>
+1/8/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/fe962788d596cc7b8bc2eed3f1c836c4f511facc/docs/2024_0701_survey_part3_02_geographicaldistribution.html" target="_blank">fe96278</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+<td>
+1/8/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -867,6 +900,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/fe962788d596cc7b8bc2eed3f1c836c4f511facc/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-1.png" target="_blank">fe96278</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-1.png" target="_blank">8ab1285</a>
 </td>
 <td>
@@ -1063,9 +1107,57 @@ datatable(extensions = &#39;Buttons&#39;,
 <pre class="r"><code>sum(gender_geo_data$num)</code></pre>
 <pre><code>[1] 1913</code></pre>
 </div>
-<div id="zip-codes" class="section level2">
-<h2>zip codes</h2>
-<pre class="r"><code>zip_code_details=multiplesheets(&quot;C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\ZIP code details.xlsx&quot;)</code></pre>
+<div id="analysis-for-dhs-zones" class="section level2">
+<h2>analysis for DHS zones</h2>
+<pre class="r"><code>#zip_code_details=multiplesheets(&quot;C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\ZIP code details.xlsx&quot;)
+
+
+# Assign the columns to new objects in the environment
+#zip_codes_and_counties &lt;- zip_code_details$`ZIP codes and counties`
+#dhs_zones &lt;- zip_code_details$`dhs_zone`
+
+# Save the objects
+#save(zip_codes_and_counties, dhs_zones, file = file.path(root, &quot;..\\2024\\202407\\zip_code_details.RData&quot;))
+load(file.path(root, &quot;..\\2024\\202407\\zip_code_details.RData&quot;))
+
+zip_code_county_zone=zip_codes_and_counties %&gt;% left_join(dhs_zones, by=&quot;county&quot;)
+zip_code_county_zone$zip_code=as.character(zip_code_county_zone$zip_code)
+
+dentist_in_WI_of_interest1 =dentist_in_WI_of_interest1%&gt;% mutate(zip_code = dentist_in_WI_of_interest1$`5-digit Zip code`)
+
+dentist_in_WI_of_interest1=dentist_in_WI_of_interest1 %&gt;% left_join(zip_code_county_zone, by=&quot;zip_code&quot;)</code></pre>
+<div id="gender-distribution" class="section level3">
+<h3>gender distribution</h3>
+<pre class="r"><code>zones=unique(dentist_in_WI_of_interest1$zone)
+zones=zones[is.na(zones)==F]
+
+gender_zones=sapply(zones, function(x) dentist_in_WI_of_interest1 %&gt;% filter(zone %in% x) %&gt;% select(`Gender Identity`))
+
+gender_prop=sapply(gender_zones, function(x) c(sum(x==&quot;Man&quot;, na.rm=T), sum(x==&quot;Woman&quot;, na.rm=T))) 
+gender_zones_data=data.frame(geo=rep(zones,each=2), num=as.vector(gender_prop), gender=rep(c(&quot;Man&quot;, &quot;Woman&quot;), length(zones))) %&gt;% drop_na()
+
+
+man_total=sum(gender_zones_data %&gt;% filter(gender==&quot;Man&quot;) %&gt;% select(num) %&gt;% pull())
+woman_total=sum(gender_zones_data %&gt;% filter(gender==&quot;Woman&quot;) %&gt;% select(num) %&gt;% pull())
+prop=numeric()
+prop[seq(1,9,by=2)]=gender_zones_data$num[seq(1,11,by=2)]/man_total
+prop[seq(2,10,by=2)]=gender_zones_data$num[seq(2,12,by=2)]/woman_total
+gender_zones_data=gender_zones_data %&gt;% mutate(prop=round(prop,4))
+
+fig=side_by_side_barplot(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Dentist_Survey&quot;, custom_colors= c(&quot;Woman&quot; = &quot;red&quot;, &quot;Man&quot; = &quot;blue&quot;))
+fig</code></pre>
+<p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>gender_zones_data%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Dentist&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Dentist<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Southeastern","Southeastern","Northeastern","Northeastern","Southern","Southern","Northern","Northern","Western","Western"],[376,258,258,135,189,128,101,48,129,74],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.3571,0.4012,0.245,0.21,0.1795,0.1991,0.0959,0.0747,0.1225,0.1151]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>sum(gender_zones_data$num)</code></pre>
+<pre><code>[1] 1696</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1138,6 +1230,7 @@ loaded via a namespace (and not attached):
 [79] digest_0.6.33        farver_2.1.1         htmlwidgets_1.6.4   
 [82] memoise_2.0.1        htmltools_0.5.7      lifecycle_1.0.4     
 [85] httr_1.4.7           mime_0.12           </code></pre>
+</div>
 </div>
 </div>
 
