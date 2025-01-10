@@ -311,7 +311,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(gender_geo_data$num)
+sum(gender_geo_data$n)
 ```
 
 
@@ -328,38 +328,28 @@ specialty_geo=sapply(region_code_zip, function(x) dentist_in_WI_of_interest1 %>%
 specialty_prop=sapply(specialty_geo, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
 specialty_geo_data=data.frame(geo=rep(region_code_update,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(region_code_update))) %>% drop_na()
 
-figures=list()
-pie_chart=list()
-for (i in 1:length(region_code_update))
+# Function to create bar plots
+create_bar_plot <- function(region) {
+  data <- specialty_geo_data %>% filter(geo == region)
+  max_y <- max(data$num) + 10
   
-{
-   figures[[i]]=ggplot(specialty_geo_data %>% filter(geo %in% region_code_update[i]), aes(x=spect, y=num, fill=spect)) +geom_bar(position = "dodge", stat="identity")+
-  ylim(c(0, max(specialty_geo_data %>% filter(geo %in% region_code_update[i]) %>% select(num)%>% pull())+10))+
- # facet_grid("geo")+
-  ylab("n")+xlab("")+
-  theme(legend.position="")+
-  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size=10))+
-  geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=3)+  # add numbers over bars
-  ggtitle(region_code_update[i])+
-  theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
-  
-  pie_data=specialty_geo_data %>% filter(geo %in% region_code_update[i])
-  pie_data <- pie_data %>% 
-  mutate(per=`num`/sum(`num`)) %>% 
-  arrange(desc(spect))
-pie_data$label <- scales::percent(pie_data$per)
-pie_chart[[i]]=ggplot(data=pie_data)+
-  geom_bar(aes(x="", y=per, fill=spect), stat="identity", width = 1)+
-  coord_polar("y", start=0)+
-  theme_void()+
-  geom_text(aes(x=1, y = cumsum(per) - per/2, label=label))
-   
-   
+  ggplot(data, aes(x = spect, y = num, fill = spect)) +
+    geom_bar(position = "dodge", stat = "identity") +
+    ylim(0, max_y) +
+    ylab("n") +
+    xlab("") +
+    theme(legend.position = "") +
+    theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size = 10)) +
+    geom_text(aes(label = num), position = position_dodge(width = 0.9), vjust = -0.25, size = 3) +
+    ggtitle(region) +
+    theme(plot.title = element_text(hjust = 0.5, size = 15))
 }
-  
-ggarrange(figures[[1]], figures[[2]], figures[[3]], figures[[4]], figures[[5]], figures[[6]], ncol=2)
 
+# Generate bar plots for all regions
+figures <- map(region_code_update, create_bar_plot)
 
+# Arrange the plots in a grid
+ggarrange(plotlist = figures, ncol = 2)
 
 
 
@@ -373,6 +363,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 sum(gender_geo_data$num)
 ```
+
+
 
 
 
@@ -441,3 +433,55 @@ datatable(extensions = 'Buttons',
 sum(gender_zones_data$n)
 ```
 
+
+### specialty distribution 
+
+
+
+```{r, message=F, warning=F, eval=T}
+specialty=c("General dentistry", "Endodontics", "Orthodontics","Periodontics",  "Prosthodontics", "Pediatric dentistry", "Oral surgery")
+specialty_zones=sapply(zones, function(x) dentist_in_WI_of_interest1 %>% filter(zone %in% x) %>% filter(`Dental Specialties Board Certified` %in% specialty) %>% select(`Dental Specialties Board Certified`))
+
+specialty_prop=sapply(specialty_zones, function(x) c(sum(x=="General dentistry"), sum(x=="Endodontics"), sum(x=="Orthodontics"), sum(x=="Periodontics"), sum(x=="Prosthodontics"), sum(x=="Pediatric dentistry"), sum(x=="Oral surgery"))) 
+
+
+specialty_zones_data=data.frame(geo=rep(zones,each=length(specialty)), num=as.vector(specialty_prop), spect=rep(specialty, length(zones))) %>% drop_na()
+
+
+
+# Function to create bar plots
+create_bar_plot <- function(region) {
+  data <- specialty_zones_data %>% filter(geo == region)
+  max_y <- max(data$num) + 10
+  
+  ggplot(data, aes(x = spect, y = num, fill = spect)) +
+    geom_bar(position = "dodge", stat = "identity") +
+    ylim(0, max_y) +
+    ylab("n") +
+    xlab("") +
+    theme(legend.position = "") +
+    theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size = 10)) +
+    geom_text(aes(label = num), position = position_dodge(width = 0.9), vjust = -0.25, size = 3) +
+    ggtitle(region) +
+    theme(plot.title = element_text(hjust = 0.5, size = 15))
+}
+
+# Generate bar plots for all regions
+figures <- map(zones, create_bar_plot)
+
+# Arrange the plots in a grid
+ggarrange(plotlist = figures, ncol = 2)
+
+
+
+
+
+gender_geo_data%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(gender_zones_data$num)
+```
