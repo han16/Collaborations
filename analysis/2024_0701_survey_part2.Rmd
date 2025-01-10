@@ -105,11 +105,11 @@ asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define sou
 asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
 
-fig=plot_function("Describe Your Race or Ethnicity", race_new, legend_rows = 3, var_name = "Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
+fig=plot_function("Describe Your Race or Ethnicity", race_new, legend_rows = 3, var_name = "Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "Native Hawaiian or Other Pacific Islander"="brown", "Some other race or ethnicity"="pink", "White"="orange", "NA"="black", "Indigenous or Native American"="yellow"))
 
 fig
 
-fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name = "Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
+fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name = "Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "Native Hawaiian or Other Pacific Islander"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black", "Indigenous or Native American"="yellow"))
 
 fig
 

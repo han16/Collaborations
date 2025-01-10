@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-08
+<strong>Last updated:</strong> 2025-01-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefe962788d596cc7b8bc2eed3f1c836c4f511facctargetblankfe96278a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5993c9d48d632dda4a9aa40119dea4e136be8175targetblank5993c9da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/fe962788d596cc7b8bc2eed3f1c836c4f511facc" target="_blank">fe96278</a>
+<a href="https://github.com/han16/Collaborations/tree/5993c9d48d632dda4a9aa40119dea4e136be8175" target="_blank">5993c9d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefe962788d596cc7b8bc2eed3f1c836c4f511facctargetblankfe96278a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5993c9d48d632dda4a9aa40119dea4e136be8175targetblank5993c9da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/fe962788d596cc7b8bc2eed3f1c836c4f511facc" target="_blank">fe96278</a>.
+<a href="https://github.com/han16/Collaborations/tree/5993c9d48d632dda4a9aa40119dea4e136be8175" target="_blank">5993c9d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -586,7 +586,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
-    Ignored:    analysis/figure/
 
 Unstaged changes:
     Modified:   analysis/2024_0701_survey_part2.Rmd
@@ -636,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/analysis/2024_0701_survey_part2.Rmd" target="_blank">c5e3eae</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+<td>
+1/8/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/2024_0701_survey_part2.html" target="_blank">c5e3eae</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+<td>
+1/8/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -723,7 +756,7 @@ asia=c(&quot;East Asian&quot;, &quot;Filipino&quot;, &quot;Hmong&quot;, &quot;La
 asia_race= race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %&gt;% filter(`Describe Your Race or Ethnicity` %in% asia==F) %&gt;% add_row(`Describe Your Race or Ethnicity`=&quot;asia&quot;, n=asia_race %&gt;% select(n) %&gt;% sum(), prop=asia_race %&gt;% select(prop) %&gt;% sum()) # combine south east asia countries into one unit 
 
-fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new, legend_rows = 3, var_name = &quot;Describe Your Race or Ethnicity&quot;, custom_colors= c(&quot;asia&quot; = &quot;red&quot;, &quot;Black or African American&quot; = &quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Hispanic or Latino/a/x&quot; = &quot;purple&quot;, &quot;other&quot;=&quot;brown&quot;, &quot;Some other race or ethnicity&quot;=&quot;pink&quot;, &quot;White&quot;=&quot;orange&quot;, &quot; &quot;=&quot;black&quot;))
+fig=plot_function(&quot;Describe Your Race or Ethnicity&quot;, race_new, legend_rows = 3, var_name = &quot;Describe Your Race or Ethnicity&quot;, custom_colors= c(&quot;asia&quot; = &quot;red&quot;, &quot;Black or African American&quot; = &quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Hispanic or Latino/a/x&quot; = &quot;purple&quot;, &quot;Native Hawaiian or Other Pacific Islander&quot;=&quot;brown&quot;, &quot;Some other race or ethnicity&quot;=&quot;pink&quot;, &quot;White&quot;=&quot;orange&quot;, &quot;NA&quot;=&quot;black&quot;, &quot;Indigenous or Native American&quot;=&quot;yellow&quot;))
 
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -751,6 +784,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-1.png" target="_blank">c5e3eae</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-1.png" target="_blank">afbb9cc</a>
 </td>
 <td>
@@ -764,7 +808,7 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 3, var_name = &quot;Describe Your Race or Ethnicity&quot;, custom_colors= c(&quot;asia&quot; = &quot;red&quot;, &quot;Black or African American&quot; = &quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Hispanic or Latino/a/x&quot; = &quot;purple&quot;, &quot;other&quot;=&quot;brown&quot;, &quot;Some other race or ethnicity&quot;=&quot;pink&quot;, &quot;White&quot;=&quot;orange&quot;, &quot; &quot;=&quot;black&quot;))
+<pre class="r"><code>fig=plot_function(&quot;Describe Your Race or Ethnicity (without White)&quot;, race_new %&gt;% filter(`Describe Your Race or Ethnicity`!=&quot;White&quot;), legend_rows = 3, var_name = &quot;Describe Your Race or Ethnicity&quot;, custom_colors= c(&quot;asia&quot; = &quot;red&quot;, &quot;Black or African American&quot; = &quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Hispanic or Latino/a/x&quot; = &quot;purple&quot;, &quot;Native Hawaiian or Other Pacific Islander&quot;=&quot;brown&quot;, &quot;Some other race or ethnicity&quot;=&quot;pink&quot;, &quot;White&quot;=&quot;orange&quot;, &quot; &quot;=&quot;black&quot;, &quot;Indigenous or Native American&quot;=&quot;yellow&quot;))
 
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
@@ -790,6 +834,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-2.png" target="_blank">c5e3eae</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/afbb9ccc5712b3826cdb1a3acc3dcba3f250e99c/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-2.png" target="_blank">afbb9cc</a>
@@ -829,9 +884,83 @@ datatable(extensions = &#39;Buttons&#39;,
 fig=plot_function(&quot;Gender Identity&quot;, gender, legend_rows=2, var_name = &quot;Gender Identity&quot;, num_size = 4, custom_colors= c(&quot;Woman&quot; = &quot;red&quot;,&quot;Man&quot;=&quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Nonbinary&quot;=&quot;pink&quot;, &quot;Option not listed above&quot;=&quot;black&quot;))
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-1.png" target="_blank">c5e3eae</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig=plot_function(&quot;Gender Identity (without Woman)&quot;, gender %&gt;% filter(`Gender Identity`!=&quot;Woman&quot;), legend_rows=2, var_name = &quot;Gender Identity&quot;, num_size = 4, custom_colors= c(&quot;Woman&quot; = &quot;red&quot;,&quot;Man&quot;=&quot;blue&quot;, &quot;Decline to answer&quot; = &quot;green&quot;, &quot;Nonbinary&quot;=&quot;pink&quot;, &quot;Option not listed above&quot;=&quot;black&quot;))
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
+Past versions of unnamed-chunk-7-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-2.png" target="_blank">c5e3eae</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender %&gt;% arrange(desc(n)) %&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
@@ -882,6 +1011,43 @@ gender_geo_data=gender_geo_data %&gt;% mutate(prop=round(prop,4))
 fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Hygenist&quot;, custom_colors=c(&quot;Man&quot;=&quot;blue&quot;, &quot;Woman&quot;=&quot;red&quot;))
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-1.png" target="_blank">c5e3eae</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender_geo_data%&gt;% 
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;Hygienist&quot;,
