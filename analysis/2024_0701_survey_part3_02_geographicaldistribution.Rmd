@@ -103,11 +103,11 @@ side_by_side_barplot2=function(data, angle=0, num_size=3, x_text_size=10, legend
 }
 
 
-side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1, fill_var="genders_group", custom_colors=Null)
+side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1, fill_var="genders_group", custom_colors=Null, x_var="geo")
 {
-  y_limit=max(data$n)*1.1
-  g=ggplot(data, aes(x=races, y=prop, fill=!!sym(fill_var))) +geom_bar(position = "dodge", stat="identity")+
- # ylim(c(0,y_limit))+
+  y_limit=max(data$prop)*1.1
+  g=ggplot(data, aes(x=!!sym(x_var), y=prop, fill=!!sym(fill_var))) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0,y_limit))+
   ylab("prop")+xlab("")+
   theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
   theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
@@ -153,13 +153,13 @@ root <- rprojroot::find_rstudio_root_file()
 load(file.path(root,"..\\2024\\202407\\Dentist_in_WI.RData"))
 
 variables=colnames(Dentist_in_WI)
-data.frame(questions=variables)%>%
-datatable(extensions = 'Buttons',
-          caption = "",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
+#data.frame(questions=variables)%>%
+#datatable(extensions = 'Buttons',
+#          caption = "",
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
 dim(Dentist_in_WI)
 ```
 
@@ -172,13 +172,13 @@ dim(Dentist_in_WI)
 variables_of_interest=variables[-c(6,7,19:37)]
 dentist_in_WI_of_interest=Dentist_in_WI[,-c(6,7,19:37)]
 num_non_missing=apply(dentist_in_WI_of_interest,2, function(x) sum(is.na(x)==F) )
-data.frame(variable=variables_of_interest, non_missing=num_non_missing)%>%
-datatable(extensions = 'Buttons',
-          caption = " Interesting variables with non-missing numbers ",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
+#data.frame(variable=variables_of_interest, non_missing=num_non_missing)%>%
+#datatable(extensions = 'Buttons',
+#          caption = " Interesting variables with non-missing numbers ",
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
 
 
 date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
@@ -248,35 +248,6 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, message=F, warning=F, eval=F}
-region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
-
-
-
-
-dentist_zip_raw=unique(dentist_in_WI_of_interest1 %>% select(`5-digit Zip code` ) %>% pull)
-dentist_zip=str_sub(dentist_zip_raw, 1, 5)  # extract the first 5 numbers as zip code 
-
-zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
-Dentist_Survey_zipcode=dentist_in_WI_of_interest1 %>% select(`5-digit Zip code`) %>% pull()
-
-
-dentist_in_WI_of_interest1 %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
-
-data.frame(zip_in_dentist_only)%>%
-datatable(extensions = 'Buttons',
-          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-
-
-dentist_zip_in_dentist_only=sapply(zip_in_dentist_only, function(x) Dentist_Survey$`Dentist Survey` %>% filter(`5-digit Zip code` %in% x)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow())
-
-```
-
 
 
 ## Gender Identity
@@ -285,14 +256,14 @@ dentist_zip_in_dentist_only=sapply(zip_in_dentist_only, function(x) Dentist_Surv
 ```{r, echo=F, message=F, warning=F}
 side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, custom_colors=Null)
 {
-  y_limit=max(data$num)*1.1
-  g=ggplot(data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
+  y_limit=max(data$n)*1.1
+  g=ggplot(data, aes(x=geo, y=n, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
   ylim(c(0, y_limit))+
   ylab("n")+xlab("")+
   theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
   theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
   #geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
-  geom_text(label = with(data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  geom_text(label = with(data, paste(n, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
   
@@ -316,19 +287,22 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
 ```{r, message=F, warning=F, eval=T}
 gender_geo=sapply(region_code_zip, function(x) dentist_in_WI_of_interest1 %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
 gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
-gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
+gender_geo_data=data.frame(geo=rep(region_code_update,each=2), n=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
 
 
-man_total=sum(gender_geo_data %>% filter(gender=="Man") %>% select(num) %>% pull())
-woman_total=sum(gender_geo_data %>% filter(gender=="Woman") %>% select(num) %>% pull())
+man_total=sum(gender_geo_data %>% filter(gender=="Man") %>% select(n) %>% pull())
+woman_total=sum(gender_geo_data %>% filter(gender=="Woman") %>% select(n) %>% pull())
 prop=numeric()
-prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
-prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
+prop[seq(1,11,by=2)]=gender_geo_data$n[seq(1,11,by=2)]/man_total
+prop[seq(2,12,by=2)]=gender_geo_data$n[seq(2,12,by=2)]/woman_total
 gender_geo_data=gender_geo_data %>% mutate(prop=round(prop,4))
 
-fig=side_by_side_barplot(gender_geo_data, angle=10, num_size = 2.5, x_text_size=12, legend_text_size=12, title="Dentist_Survey", custom_colors= c("Woman" = "red", "Man" = "blue"))
+fig=side_by_side_barplot(gender_geo_data, angle=10, num_size = 2.5, x_text_size=12, legend_text_size=12, title="Dentist_Survey", custom_colors= c("Woman" = "red", "Man" = "green"))
 fig
 
+
+fig=side_by_side_barplot3(gender_geo_data, angle=10, num_size = 2.5, x_text_size=12, legend_text_size=12, title="Dentist_Survey", custom_colors= c("Woman" = "red", "Man" = "green"), x_var="geo", fill_var = "gender")
+fig
 
 gender_geo_data%>%
 datatable(extensions = 'Buttons',
@@ -440,19 +414,22 @@ zones=zones[is.na(zones)==F]
 gender_zones=sapply(zones, function(x) dentist_in_WI_of_interest1 %>% filter(zone %in% x) %>% select(`Gender Identity`))
 
 gender_prop=sapply(gender_zones, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
-gender_zones_data=data.frame(geo=rep(zones,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(zones))) %>% drop_na()
+gender_zones_data=data.frame(geo=rep(zones,each=2), n=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(zones))) %>% drop_na()
 
 
-man_total=sum(gender_zones_data %>% filter(gender=="Man") %>% select(num) %>% pull())
-woman_total=sum(gender_zones_data %>% filter(gender=="Woman") %>% select(num) %>% pull())
+man_total=sum(gender_zones_data %>% filter(gender=="Man") %>% select(n) %>% pull())
+woman_total=sum(gender_zones_data %>% filter(gender=="Woman") %>% select(n) %>% pull())
 prop=numeric()
-prop[seq(1,9,by=2)]=gender_zones_data$num[seq(1,11,by=2)]/man_total
-prop[seq(2,10,by=2)]=gender_zones_data$num[seq(2,12,by=2)]/woman_total
+prop[seq(1,9,by=2)]=gender_zones_data$n[seq(1,11,by=2)]/man_total
+prop[seq(2,10,by=2)]=gender_zones_data$n[seq(2,12,by=2)]/woman_total
 gender_zones_data=gender_zones_data %>% mutate(prop=round(prop,4))
 
-fig=side_by_side_barplot(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title="Dentist_Survey", custom_colors= c("Woman" = "red", "Man" = "blue"))
+fig=side_by_side_barplot(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title="Dentist_Survey", custom_colors= c("Woman" = "red", "Man" = "green"))
 fig
 
+
+fig=side_by_side_barplot3(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title="Dentist_Survey", custom_colors= c("Woman" = "red", "Man" = "green"), x_var="geo", fill_var = "gender")
+fig
 
 gender_zones_data%>%
 datatable(extensions = 'Buttons',
@@ -461,6 +438,6 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(gender_zones_data$num)
+sum(gender_zones_data$n)
 ```
 
