@@ -1,5 +1,5 @@
 ---
-title: "Hygienist analysis"
+title: "Hygienist analysis in Wisconsin"
 output:
   workflowr::wflow_html:
     code_folding: hide
@@ -9,15 +9,15 @@ date: "2024-11-15"
 
 
 
-```{r, echo=F, message=F, warning=F}
-library(rprojroot)
-root <- rprojroot::find_rstudio_root_file()
-```
 
 
 
 ```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
 source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+
 changeCellColor <- function(row, col){
   c(
     "function(row, data, num, index){",
@@ -66,9 +66,11 @@ if (!is.null(custom_colors)) {
 
 
 
-```{r, echo=F, message=F, warning=F, results=F}
+```{r, echo=F, message=F, warning=F, results=F, eval=F}
 Dental_Hygienist=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dental Hygienist.xlsx")
 #Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
+Dental_Hygienist_WI=Dental_Hygienist$`Dental H` %>% filter(`Dental Hygienist in Wisconsin`=="Yes")
+#save(Dental_Hygienist_WI, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\Dental_Hygienist_WI.RData")
 ```
 
 ## Home 
@@ -80,7 +82,8 @@ Dental_Hygienist=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024
 
 ```{r, message=F, warning=F}
 #dim(Dental_Hygienist$`Dental H`)
-variables=colnames(Dental_Hygienist$`Dental H`)
+load(file.path(root, "..\\2024\\202407\\Dental_Hygienist_WI.RData"))
+variables=colnames(Dental_Hygienist_WI)
 data.frame(questions=variables)%>%
 datatable(extensions = 'Buttons',
           caption = "",
@@ -90,9 +93,9 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* in total 3991 responses and 46 questions 
+* in total 3244 hygienists in WI (``Dental Hygienist in Wisconsin`=="Yes"`)  and 46 questions 
 
-* 3244 respond "yes" to `Dental Hygienist in Wisconsin`. 
+3244 respond "yes" to `Dental Hygienist in Wisconsin`. 
 
 
 
@@ -100,7 +103,7 @@ datatable(extensions = 'Buttons',
 ### Race or Ethnicity
 
 ```{r, message=F, warning=F}
-race=Dental_Hygienist$`Dental H` %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+race=Dental_Hygienist_WI %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist_WI),4))
 asia=c("East Asian", "Filipino", "Hmong", "Laotian", "South Asian") # define south east asia countries 
 asia_race= race %>% filter(`Describe Your Race or Ethnicity` %in% asia)
 race_new=race %>% filter(`Describe Your Race or Ethnicity` %in% asia==F) %>% add_row(`Describe Your Race or Ethnicity`="asia", n=asia_race %>% select(n) %>% sum(), prop=asia_race %>% select(prop) %>% sum()) # combine south east asia countries into one unit 
@@ -134,7 +137,7 @@ sum(race_new$n)
 ### Gender Identity
 
 ```{r, message=F, warning=F}
-gender=Dental_Hygienist$`Dental H` %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist$`Dental H`),4))
+gender=Dental_Hygienist_WI %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist_WI),4))
 
 fig=plot_function("Gender Identity", gender, legend_rows=2, var_name = "Gender Identity", num_size = 4, custom_colors= c("Woman" = "red","Man"="blue", "Decline to answer" = "green", "Nonbinary"="pink", "Option not listed above"="black"))
 fig
@@ -199,7 +202,7 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
   theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
   theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
   #geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
-  geom_text(label = with(gender_geo_data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  geom_text(label = with(data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
   ggtitle(title)+
   theme(plot.title = element_text(hjust = 0.5, size=15))  #center the title
   
@@ -211,6 +214,30 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
  return(g)
   
 }
+
+
+side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend_text_size=10, title, legend_rows=1, fill_var="genders_group", custom_colors=Null, x_var="geo")
+{
+  y_limit=max(data$prop)*1.1
+  g=ggplot(data, aes(x=!!sym(x_var), y=prop, fill=!!sym(fill_var))) +geom_bar(position = "dodge", stat="identity")+
+  ylim(c(0,y_limit))+
+  ylab("prop")+xlab("")+
+  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
+  #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
+  #geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+    geom_text(label = with(data, paste(paste0(prop*100, "%", "(", n, ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
+  #geom_text(label = with(gender_geo_data, paste(num, paste0('(', Percent, ')'))), vjust=-1)
+  ggtitle(title)+
+  theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+    guides(fill = guide_legend(nrow = legend_rows))
+  
+  if (!is.null(custom_colors)) {
+    g <- g + scale_fill_manual(values = custom_colors)
+  }
+ return(g)
+  
+}
 ```
 
 
@@ -218,7 +245,7 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
 
 ```{r, message=F, warning=F}
 
-gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist$`Dental H` %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
+gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist_WI %>% filter(`5-digit Zip code` %in% x) %>% select(`Gender Identity`))
 gender_prop=sapply(gender_geo, function(x) c(sum(x=="Man", na.rm = T), sum(x=="Woman", na.rm = T))) 
 gender_geo_data=data.frame(geo=rep(region_code_update,each=2), num=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(region_code_update))) %>% drop_na()
 
@@ -245,4 +272,64 @@ datatable(extensions = 'Buttons',
 ### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow()  ?????????? 
 ```
 * only keep `Man` and `Woman` and ignore other responses 
+
+
+## DHS zone analysis 
+
+```{r, message=F, warning=F, eval=T}
+
+
+load(file.path(root, "..\\2024\\202407\\zip_code_details.RData"))
+
+zip_code_county_zone=zip_codes_and_counties %>% left_join(dhs_zones, by="county")
+zip_code_county_zone$zip_code=as.character(zip_code_county_zone$zip_code)
+
+Hygienist_in_WI =Dental_Hygienist_WI%>% mutate(zip_code = Dental_Hygienist_WI$`5-digit Zip code`)
+
+Hygienist_in_WI=Hygienist_in_WI %>% left_join(zip_code_county_zone, by="zip_code")
+```
+
+
+
+
+### gender distribution 
+
+
+
+
+```{r, message=F, warning=F, eval=T}
+zones=unique(Hygienist_in_WI$zone)
+zones=zones[is.na(zones)==F]
+
+gender_zones=sapply(zones, function(x) Hygienist_in_WI %>% filter(zone %in% x) %>% select(`Gender Identity`))
+
+gender_prop=sapply(gender_zones, function(x) c(sum(x=="Man", na.rm=T), sum(x=="Woman", na.rm=T))) 
+gender_zones_data=data.frame(geo=rep(zones,each=2), n=as.vector(gender_prop), gender=rep(c("Man", "Woman"), length(zones))) %>% drop_na()
+
+
+man_total=sum(gender_zones_data %>% filter(gender=="Man") %>% select(n) %>% pull())
+woman_total=sum(gender_zones_data %>% filter(gender=="Woman") %>% select(n) %>% pull())
+prop=numeric()
+prop[seq(1,9,by=2)]=gender_zones_data$n[seq(1,11,by=2)]/man_total
+prop[seq(2,10,by=2)]=gender_zones_data$n[seq(2,12,by=2)]/woman_total
+gender_zones_data=gender_zones_data %>% mutate(prop=round(prop,4))
+
+gender_zones_data=gender_zones_data %>% mutate(num=gender_zones_data$n)
+fig=side_by_side_barplot(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygienist", custom_colors= c("Woman" = "red", "Man" = "green"))
+fig
+
+
+fig=side_by_side_barplot3(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygienist", custom_colors= c("Woman" = "red", "Man" = "green"), x_var="geo", fill_var = "gender")
+fig
+
+gender_zones_data%>%
+datatable(extensions = 'Buttons',
+          caption = "Dentist",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+sum(gender_zones_data$n)
+```
+
 
