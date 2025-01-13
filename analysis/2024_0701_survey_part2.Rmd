@@ -256,7 +256,7 @@ prop[seq(1,11,by=2)]=gender_geo_data$num[seq(1,11,by=2)]/man_total
 prop[seq(2,12,by=2)]=gender_geo_data$num[seq(2,12,by=2)]/woman_total
 gender_geo_data=gender_geo_data %>% mutate(prop=round(prop,4))
 
-fig=side_by_side_barplot(gender_geo_data, angle=30, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygenist", custom_colors=c("Man"="blue", "Woman"="red"))
+fig=side_by_side_barplot(gender_geo_data, angle=10, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygenist", custom_colors=c("Man"="blue", "Woman"="red"))
 fig
 
 
@@ -270,6 +270,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow()  ?????????? 
+
+sum(gender_geo_data$num)
 ```
 * only keep `Man` and `Woman` and ignore other responses 
 
@@ -324,7 +326,7 @@ fig
 
 gender_zones_data%>%
 datatable(extensions = 'Buttons',
-          caption = "Dentist",
+          caption = "Hygienist",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
