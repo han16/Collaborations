@@ -1,0 +1,40 @@
+---
+title: "1/14 2025"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-01-14"
+---
+
+## sample size calculation 
+
+
+The following factors influences the sample size 
+
+
+* Power: the desired probability we correctly reject the null hypothesis of no treatment effect assuming the experimental treatment really is efficacious. 
+
+* Significance level: the type I error we’re willing to assume.
+
+* Marginal probabilities: the probability that a subject will be in a response level, averaged over the two treatment groups.
+
+* Reference improvement: the odds ratio that expresses the improvement of experimental treatment over control.
+
+* Fraction: the fraction of subjects allocated to the control group.
+
+
+```{r, message=F, warning=F}
+#install.packages("Hmisc")
+library(Hmisc)
+marg_probs=c(0.2888889, 0.4861111, 0.153125, 0.071875)
+OR=2.428571
+posamsize(p = marg_probs, odds.ratio = OR, fraction = 0.5, 
+          alpha = 0.05, power = 0.9)
+
+```
+
+
+
+* [reference](https://library.virginia.edu/data/articles/power-and-sample-size-calculations-ordered-categorical-data)
+
