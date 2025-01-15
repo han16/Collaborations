@@ -124,7 +124,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(race_new$n)
+cat("total people:", sum(race_new$n), "\n")
 
 
 ## dual axis plot https://finchstudio.io/blog/ggplot-dual-y-axes/ https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html   # https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
@@ -154,7 +154,8 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(gender$n)
+cat("total people:", sum(gender$n), "\t")
+cat("total man or woman:", sum(gender %>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% select(n)), "\n")
 ```
 
 
@@ -183,6 +184,9 @@ wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %>% mutate(ne
 region_code_update=unique(all_code)
 
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
+
+cat("people not mapped to geo ragion by zip code:", nrow(Dental_Hygienist_WI %>% filter(!`5-digit Zip code` %in% unlist(region_code_zip))), "\n")
+
 ```
 
 
@@ -259,6 +263,10 @@ gender_geo_data=gender_geo_data %>% mutate(prop=round(prop,4))
 fig=side_by_side_barplot(gender_geo_data, angle=10, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygenist", custom_colors=c("Man"="blue", "Woman"="red"))
 fig
 
+gender_geo_data =gender_geo_data %>% mutate(n=gender_geo_data$num)
+fig=side_by_side_barplot3(gender_geo_data, angle=10, num_size = 3, x_text_size=12, legend_text_size=12, title="Hygenist", custom_colors=c("Man"="blue", "Woman"="red"), fill_var = "gender")
+fig
+
 
 
 gender_geo_data%>% 
@@ -271,9 +279,12 @@ datatable(extensions = 'Buttons',
 
 ### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow()  ?????????? 
 
-sum(gender_geo_data$num)
+cat("total man or woman mapped to geo regions:", sum(gender_geo_data$num), "||\t")
+cat("not mapped to geo regions and thus missed:", 3130-sum(gender_geo_data$num), "\n")
 ```
 * only keep `Man` and `Woman` and ignore other responses 
+
+* 
 
 
 ## DHS zone analysis 
@@ -331,7 +342,8 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(gender_zones_data$n)
+cat("total man or woman mapped to zones:", sum(gender_zones_data$n), "||\t")
+cat("total man or woman not mapped to zone regions and thus missed",  3130-sum(gender_zones_data$n), "\n")
 ```
 
 

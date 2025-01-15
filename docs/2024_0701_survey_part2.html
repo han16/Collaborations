@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-13
+<strong>Last updated:</strong> 2025-01-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee7750ee397905d7e55e713b433039f6348e9f17etargetblanke7750eea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5d06f45108ad7d199a7bf295bc15426c47c42cc9targetblank5d06f45a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/e7750ee397905d7e55e713b433039f6348e9f17e" target="_blank">e7750ee</a>
+<a href="https://github.com/han16/Collaborations/tree/5d06f45108ad7d199a7bf295bc15426c47c42cc9" target="_blank">5d06f45</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee7750ee397905d7e55e713b433039f6348e9f17etargetblanke7750eea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5d06f45108ad7d199a7bf295bc15426c47c42cc9targetblank5d06f45a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/e7750ee397905d7e55e713b433039f6348e9f17e" target="_blank">e7750ee</a>.
+<a href="https://github.com/han16/Collaborations/tree/5d06f45108ad7d199a7bf295bc15426c47c42cc9" target="_blank">5d06f45</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -588,6 +588,7 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
+    Modified:   analysis/2024_0701_survey.Rmd
     Modified:   analysis/2024_0701_survey_part2.Rmd
 
 </code></pre>
@@ -635,6 +636,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a84ab29fa8b717ba468f2374bdba61bad905079/analysis/2024_0701_survey_part2.Rmd" target="_blank">6a84ab2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-13
+</td>
+<td>
+1/13/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/6a84ab29fa8b717ba468f2374bdba61bad905079/docs/2024_0701_survey_part2.html" target="_blank">6a84ab2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-13
+</td>
+<td>
+1/13/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -939,8 +974,8 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9"],["White","Decline to answer","Hispanic or Latino/a/x","asia",null,"Black or African American","Indigenous or Native American","Some other race or ethnicity","Native Hawaiian or Other Pacific Islander"],[2886,141,69,52,47,26,12,10,1],[0.8895999999999999,0.0435,0.0213,0.016,0.0145,0.008,0.0037,0.0031,0.0003]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(race_new$n)</code></pre>
-<pre><code>[1] 3244</code></pre>
+<pre class="r"><code>cat(&quot;total people:&quot;, sum(race_new$n), &quot;\n&quot;)</code></pre>
+<pre><code>total people: 3244 </code></pre>
 <pre class="r"><code>## dual axis plot https://finchstudio.io/blog/ggplot-dual-y-axes/ https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html   # https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales</code></pre>
 <ul>
 <li><code>asia</code> includes “East Asian”, “Filipino”, “Hmong”,
@@ -1106,8 +1141,10 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6"],["Woman","Decline to answer","Man",null,"Nonbinary","Option not listed above"],[3089,71,41,41,1,1],[0.9522,0.0219,0.0126,0.0126,0.0003,0.0003]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender Identity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender Identity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(gender$n)</code></pre>
-<pre><code>[1] 3244</code></pre>
+<pre class="r"><code>cat(&quot;total people:&quot;, sum(gender$n), &quot;\t&quot;)</code></pre>
+<pre><code>total people: 3244  </code></pre>
+<pre class="r"><code>cat(&quot;total man or woman:&quot;, sum(gender %&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% select(n)), &quot;\n&quot;)</code></pre>
+<pre><code>total man or woman: 3130 </code></pre>
 </div>
 </div>
 <div id="geographical-distribution" class="section level2">
@@ -1130,7 +1167,10 @@ all_code[which(all_code==&quot;R1/Urban&quot;)]=&quot;R1&quot;
 wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %&gt;% mutate(new_region_code=all_code)
 region_code_update=unique(all_code)
 
-region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %&gt;% filter(new_region_code==x) %&gt;% select(`ZCTA/\r\nZIPCode`)) # extract zip codes </code></pre>
+region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %&gt;% filter(new_region_code==x) %&gt;% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
+
+cat(&quot;people not mapped to geo ragion by zip code:&quot;, nrow(Dental_Hygienist_WI %&gt;% filter(!`5-digit Zip code` %in% unlist(region_code_zip))), &quot;\n&quot;)</code></pre>
+<pre><code>people not mapped to geo ragion by zip code: 621 </code></pre>
 <div id="gender-identity-1" class="section level3">
 <h3>Gender Identity</h3>
 <pre class="r"><code>gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist_WI %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% select(`Gender Identity`))
@@ -1171,6 +1211,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/6a84ab29fa8b717ba468f2374bdba61bad905079/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-10-1.png" target="_blank">6a84ab2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/e7750ee397905d7e55e713b433039f6348e9f17e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-10-1.png" target="_blank">e7750ee</a>
 </td>
 <td>
@@ -1184,6 +1235,10 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>gender_geo_data =gender_geo_data %&gt;% mutate(n=gender_geo_data$num)
+fig=side_by_side_barplot3(gender_geo_data, angle=10, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Hygenist&quot;, custom_colors=c(&quot;Man&quot;=&quot;blue&quot;, &quot;Woman&quot;=&quot;red&quot;), fill_var = &quot;gender&quot;)
+fig</code></pre>
+<p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gender_geo_data%&gt;% 
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;Hygienist&quot;,
@@ -1192,14 +1247,17 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Hygienist<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[1,278,2,223,15,1234,0,339,1,234,8,260],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.037,0.1083,0.0741,0.0868,0.5556,0.4805,0,0.132,0.037,0.0911,0.2963,0.1012]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Hygienist<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[1,278,2,223,15,1234,0,339,1,234,8,260],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.037,0.1083,0.0741,0.0868,0.5556,0.4805,0,0.132,0.037,0.0911,0.2963,0.1012],[1,278,2,223,15,1234,0,339,1,234,8,260]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>num<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"num","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4},{"name":"n","targets":5}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>### sum(gender_geo_data$num) is not but should be equal to Dental_Hygienist$`Dental H`%&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;) %&gt;% nrow()  ?????????? 
 
-sum(gender_geo_data$num)</code></pre>
-<pre><code>[1] 2595</code></pre>
+cat(&quot;total man or woman mapped to geo regions:&quot;, sum(gender_geo_data$num), &quot;||\t&quot;)</code></pre>
+<pre><code>total man or woman mapped to geo regions: 2595 ||   </code></pre>
+<pre class="r"><code>cat(&quot;not mapped to geo regions and thus missed:&quot;, 3130-sum(gender_geo_data$num), &quot;\n&quot;)</code></pre>
+<pre><code>not mapped to geo regions and thus missed: 535 </code></pre>
 <ul>
-<li>only keep <code>Man</code> and <code>Woman</code> and ignore other
-responses</li>
+<li><p>only keep <code>Man</code> and <code>Woman</code> and ignore
+other responses</p></li>
+<li></li>
 </ul>
 </div>
 </div>
@@ -1332,8 +1390,10 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Hygienist<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Western","Western","Northeastern","Northeastern","Southern","Southern","Southeastern","Southeastern","Northern","Northern"],[0,336,4,586,10,461,8,674,2,251],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0,0.1456,0.1667,0.2539,0.4167,0.1997,0.3333,0.292,0.0833,0.1088],[0,336,4,586,10,461,8,674,2,251]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>n<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n      <th>num<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"n","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4},{"name":"num","targets":5}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(gender_zones_data$n)</code></pre>
-<pre><code>[1] 2332</code></pre>
+<pre class="r"><code>cat(&quot;total man or woman mapped to zones:&quot;, sum(gender_zones_data$n), &quot;||\t&quot;)</code></pre>
+<pre><code>total man or woman mapped to zones: 2332 || </code></pre>
+<pre class="r"><code>cat(&quot;total man or woman not mapped to zone regions and thus missed&quot;,  3130-sum(gender_zones_data$n), &quot;\n&quot;)</code></pre>
+<pre><code>total man or woman not mapped to zone regions and thus missed 798 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

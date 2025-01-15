@@ -10,7 +10,7 @@ output:
 
 
 
-## 1.  [Hygienist analysis](2024_0701_survey_part2.html)
+## 1.  [Hygienist analysis in WI](2024_0701_survey_part2.html)
 
 
 ## 2.    [Dentist Survey analysis](2024_0701_survey_part1.html)
