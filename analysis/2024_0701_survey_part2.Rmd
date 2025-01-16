@@ -78,7 +78,7 @@ Dental_Hygienist_WI=Dental_Hygienist$`Dental H` %>% filter(`Dental Hygienist in 
 [Home](2024_0701_survey.html)
 
 
-## Dental_Hygienist
+## questions in the survey 
 
 ```{r, message=F, warning=F}
 #dim(Dental_Hygienist$`Dental H`)
@@ -99,8 +99,24 @@ datatable(extensions = 'Buttons',
 
 
 
+## age distribution
 
-### Race or Ethnicity
+```{r, message=F, warning=F}
+date_of_birth=Dental_Hygienist_WI$`Date of Birth`
+year_of_birth=str_sub(date_of_birth, 1, 4)
+ages=2024-as.numeric(year_of_birth)
+
+Dental_Hygienist_WI=Dental_Hygienist_WI %>% mutate(ages=ages)
+
+cat("average age (in years) is:", round(mean(ages),1), "\n")
+ggplot(data.frame(ages=ages), aes(x=ages)) + geom_histogram(color="black", fill="blue")+
+  geom_vline(aes(xintercept=mean(ages)),
+            color="red", linetype="dashed", size=1)
+```
+
+
+
+## Race or Ethnicity
 
 ```{r, message=F, warning=F}
 race=Dental_Hygienist_WI %>% dplyr::count(`Describe Your Race or Ethnicity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist_WI),4))
@@ -134,7 +150,7 @@ cat("total people:", sum(race_new$n), "\n")
 
 
 
-### Gender Identity
+## Gender Identity
 
 ```{r, message=F, warning=F}
 gender=Dental_Hygienist_WI %>% dplyr::count(`Gender Identity`) %>% mutate(prop=round(n/nrow(Dental_Hygienist_WI),4))
@@ -300,6 +316,7 @@ zip_code_county_zone$zip_code=as.character(zip_code_county_zone$zip_code)
 Hygienist_in_WI =Dental_Hygienist_WI%>% mutate(zip_code = Dental_Hygienist_WI$`5-digit Zip code`)
 
 Hygienist_in_WI=Hygienist_in_WI %>% left_join(zip_code_county_zone, by="zip_code")
+
 ```
 
 
