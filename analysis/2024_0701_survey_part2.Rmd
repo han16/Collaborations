@@ -101,19 +101,48 @@ datatable(extensions = 'Buttons',
 
 ## age distribution
 
+
 ```{r, message=F, warning=F}
 date_of_birth=Dental_Hygienist_WI$`Date of Birth`
 year_of_birth=str_sub(date_of_birth, 1, 4)
-ages=2024-as.numeric(year_of_birth)
+ages=2025-as.numeric(year_of_birth)
 
 Dental_Hygienist_WI=Dental_Hygienist_WI %>% mutate(ages=ages)
 
-cat("average age (in years) is:", round(mean(ages),1), "\n")
-ggplot(data.frame(ages=ages), aes(x=ages)) + geom_histogram(color="black", fill="blue")+
-  geom_vline(aes(xintercept=mean(ages)),
-            color="red", linetype="dashed", size=1)
+
+df <- data.frame(
+  genders = c(rep("Man", 41), rep("Woman", 3089), rep("total", 3130)),
+  ages = c(
+    Dental_Hygienist_WI %>% filter(`Gender Identity`=="Man") %>% select(ages)%>% pull(),      
+    Dental_Hygienist_WI %>% filter(`Gender Identity`=="Woman")%>% select(ages)%>% pull() , 
+    Dental_Hygienist_WI %>% filter(`Gender Identity`=="Man" |`Gender Identity`=="Woman" ) %>% select(ages)%>% pull())
+)
+
+# Draw a boxplot
+df_counts <- aggregate(ages ~ genders, data = df, FUN = length)
+
+ggplot(df, aes(x = genders, y = ages, fill = genders)) +
+   geom_boxplot() +
+  stat_summary(fun = median, geom = "text", aes(label = round(..y.., 2)), 
+               vjust = -1.5, color = "black") +  # Median values
+  stat_summary(fun = mean, geom = "text", aes(label = round(..y.., 2)), 
+               vjust = 2.5, color = "blue", fontface = "bold") +  # Mean values
+  geom_text(data = df_counts, aes(x = genders, y = max(df$ages) + 2, 
+                                  label = paste("n =", ages)), 
+            color = "red", fontface = "bold") +  # Sample size
+  theme_minimal() +
+  labs(title = "", x = "", y = "ages")
+
+
+t.test(x=Dental_Hygienist_WI %>% filter(`Gender Identity`=="Man") %>% select(ages)%>% pull(), y=Dental_Hygienist_WI %>% filter(`Gender Identity`=="Woman")%>% select(ages)%>% pull())
+
+
 ```
 
+
+* mean ages in blue, median in black and sample size in red 
+
+* two sample t test suggests no age difference between man and woman. 
 
 
 ## Race or Ethnicity
@@ -201,7 +230,7 @@ region_code_update=unique(all_code)
 
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
 
-cat("people not mapped to geo ragion by zip code:", nrow(Dental_Hygienist_WI %>% filter(!`5-digit Zip code` %in% unlist(region_code_zip))), "\n")
+cat("people not mapped to geo region by zip code:", nrow(Dental_Hygienist_WI %>% filter(!`5-digit Zip code` %in% unlist(region_code_zip))), "\n")
 
 ```
 

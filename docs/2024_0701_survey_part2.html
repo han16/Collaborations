@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree88d7f500ac24dfd9a25c3af90e1bc01048dbad4etargetblank88d7f50a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6a3ef3e392b436d6e77eb7d1a436bc3683264214targetblank6a3ef3ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/88d7f500ac24dfd9a25c3af90e1bc01048dbad4e" target="_blank">88d7f50</a>
+<a href="https://github.com/han16/Collaborations/tree/6a3ef3e392b436d6e77eb7d1a436bc3683264214" target="_blank">6a3ef3e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree88d7f500ac24dfd9a25c3af90e1bc01048dbad4etargetblank88d7f50a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6a3ef3e392b436d6e77eb7d1a436bc3683264214targetblank6a3ef3ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/88d7f500ac24dfd9a25c3af90e1bc01048dbad4e" target="_blank">88d7f50</a>.
+<a href="https://github.com/han16/Collaborations/tree/6a3ef3e392b436d6e77eb7d1a436bc3683264214" target="_blank">6a3ef3e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/analysis/2024_0701_survey_part2.Rmd" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+<td>
+1/16/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/2024_0701_survey_part2.html" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+<td>
+1/16/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -892,15 +926,33 @@ questions</li>
 <h2>age distribution</h2>
 <pre class="r"><code>date_of_birth=Dental_Hygienist_WI$`Date of Birth`
 year_of_birth=str_sub(date_of_birth, 1, 4)
-ages=2024-as.numeric(year_of_birth)
+ages=2025-as.numeric(year_of_birth)
 
 Dental_Hygienist_WI=Dental_Hygienist_WI %&gt;% mutate(ages=ages)
 
-cat(&quot;average age (in years) is:&quot;, round(mean(ages),1), &quot;\n&quot;)</code></pre>
-<pre><code>average age (in years) is: 45 </code></pre>
-<pre class="r"><code>ggplot(data.frame(ages=ages), aes(x=ages)) + geom_histogram(color=&quot;black&quot;, fill=&quot;blue&quot;)+
-  geom_vline(aes(xintercept=mean(ages)),
-            color=&quot;red&quot;, linetype=&quot;dashed&quot;, size=1)</code></pre>
+
+df &lt;- data.frame(
+  genders = c(rep(&quot;Man&quot;, 41), rep(&quot;Woman&quot;, 3089), rep(&quot;total&quot;, 3130)),
+  ages = c(
+    Dental_Hygienist_WI %&gt;% filter(`Gender Identity`==&quot;Man&quot;) %&gt;% select(ages)%&gt;% pull(),      
+    Dental_Hygienist_WI %&gt;% filter(`Gender Identity`==&quot;Woman&quot;)%&gt;% select(ages)%&gt;% pull() , 
+    Dental_Hygienist_WI %&gt;% filter(`Gender Identity`==&quot;Man&quot; |`Gender Identity`==&quot;Woman&quot; ) %&gt;% select(ages)%&gt;% pull())
+)
+
+# Draw a boxplot
+df_counts &lt;- aggregate(ages ~ genders, data = df, FUN = length)
+
+ggplot(df, aes(x = genders, y = ages, fill = genders)) +
+   geom_boxplot() +
+  stat_summary(fun = median, geom = &quot;text&quot;, aes(label = round(..y.., 2)), 
+               vjust = -1.5, color = &quot;black&quot;) +  # Median values
+  stat_summary(fun = mean, geom = &quot;text&quot;, aes(label = round(..y.., 2)), 
+               vjust = 2.5, color = &quot;blue&quot;, fontface = &quot;bold&quot;) +  # Mean values
+  geom_text(data = df_counts, aes(x = genders, y = max(df$ages) + 2, 
+                                  label = paste(&quot;n =&quot;, ages)), 
+            color = &quot;red&quot;, fontface = &quot;bold&quot;) +  # Sample size
+  theme_minimal() +
+  labs(title = &quot;&quot;, x = &quot;&quot;, y = &quot;ages&quot;)</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -924,6 +976,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-5-1.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/e7750ee397905d7e55e713b433039f6348e9f17e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-5-1.png" target="_blank">e7750ee</a>
@@ -950,6 +1013,24 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>t.test(x=Dental_Hygienist_WI %&gt;% filter(`Gender Identity`==&quot;Man&quot;) %&gt;% select(ages)%&gt;% pull(), y=Dental_Hygienist_WI %&gt;% filter(`Gender Identity`==&quot;Woman&quot;)%&gt;% select(ages)%&gt;% pull())</code></pre>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Dental_Hygienist_WI %&gt;% filter(`Gender Identity` == &quot;Man&quot;) %&gt;% select(ages) %&gt;% pull() and Dental_Hygienist_WI %&gt;% filter(`Gender Identity` == &quot;Woman&quot;) %&gt;% select(ages) %&gt;% pull()
+t = -0.86237, df = 41.093, p-value = 0.3935
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -5.461928  2.192972
+sample estimates:
+mean of x mean of y 
+ 44.29268  45.92716 </code></pre>
+<ul>
+<li><p>mean ages in blue, median in black and sample size in
+red</p></li>
+<li><p>two sample t test suggests no age difference between man and
+woman.</p></li>
+</ul>
 </div>
 <div id="race-or-ethnicity" class="section level2">
 <h2>Race or Ethnicity</h2>
@@ -984,6 +1065,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-1.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/e7750ee397905d7e55e713b433039f6348e9f17e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-1.png" target="_blank">e7750ee</a>
@@ -1058,6 +1150,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-2.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/e7750ee397905d7e55e713b433039f6348e9f17e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-6-2.png" target="_blank">e7750ee</a>
@@ -1154,6 +1257,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-1.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-1.png" target="_blank">c5e3eae</a>
 </td>
 <td>
@@ -1192,6 +1306,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-2.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-7-2.png" target="_blank">c5e3eae</a>
@@ -1243,8 +1368,8 @@ region_code_update=unique(all_code)
 
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %&gt;% filter(new_region_code==x) %&gt;% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
 
-cat(&quot;people not mapped to geo ragion by zip code:&quot;, nrow(Dental_Hygienist_WI %&gt;% filter(!`5-digit Zip code` %in% unlist(region_code_zip))), &quot;\n&quot;)</code></pre>
-<pre><code>people not mapped to geo ragion by zip code: 621 </code></pre>
+cat(&quot;people not mapped to geo region by zip code:&quot;, nrow(Dental_Hygienist_WI %&gt;% filter(!`5-digit Zip code` %in% unlist(region_code_zip))), &quot;\n&quot;)</code></pre>
+<pre><code>people not mapped to geo region by zip code: 621 </code></pre>
 <div id="gender-identity-1" class="section level3">
 <h3>Gender Identity</h3>
 <pre class="r"><code>gender_geo=sapply(region_code_zip, function(x) Dental_Hygienist_WI %&gt;% filter(`5-digit Zip code` %in% x) %&gt;% select(`Gender Identity`))
@@ -1285,6 +1410,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-1.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/c5e3eaec814ccd5b8a0c7b9b15deb218d8a5bf2f/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-1.png" target="_blank">c5e3eae</a>
 </td>
 <td>
@@ -1302,6 +1438,43 @@ han
 fig=side_by_side_barplot3(gender_geo_data, angle=10, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Hygenist&quot;, custom_colors=c(&quot;Man&quot;=&quot;blue&quot;, &quot;Woman&quot;=&quot;red&quot;), fill_var = &quot;gender&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
+Past versions of unnamed-chunk-11-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-2.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender_geo_data%&gt;% 
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;Hygienist&quot;,
@@ -1356,9 +1529,83 @@ gender_zones_data=gender_zones_data %&gt;% mutate(num=gender_zones_data$n)
 fig=side_by_side_barplot(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Hygienist&quot;, custom_colors= c(&quot;Woman&quot; = &quot;red&quot;, &quot;Man&quot; = &quot;green&quot;))
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-1.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig=side_by_side_barplot3(gender_zones_data, angle=0, num_size = 3, x_text_size=12, legend_text_size=12, title=&quot;Hygienist&quot;, custom_colors= c(&quot;Woman&quot; = &quot;red&quot;, &quot;Man&quot; = &quot;green&quot;), x_var=&quot;geo&quot;, fill_var = &quot;gender&quot;)
 fig</code></pre>
 <p><img src="figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
+Past versions of unnamed-chunk-13-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6a3ef3e392b436d6e77eb7d1a436bc3683264214/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-2.png" target="_blank">6a3ef3e</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gender_zones_data%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;Hygienist&quot;,
