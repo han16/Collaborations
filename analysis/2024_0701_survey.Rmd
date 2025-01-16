@@ -21,3 +21,5 @@ output:
 
 ### 3.2 [geographical distribution of dentists](2024_0701_survey_part3_02_geographicaldistribution.html)
 
+## 4. [Hygienist/Dentist analysis](2024_0701_survey_part4.html)
+
