@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-14
+<strong>Last updated:</strong> 2025-01-20
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6a84ab29fa8b717ba468f2374bdba61bad905079targetblank6a84ab2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1620c2118dd8f6dac5dbcbb1f84a2097f183052ftargetblank1620c21a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/6a84ab29fa8b717ba468f2374bdba61bad905079" target="_blank">6a84ab2</a>
+<a href="https://github.com/han16/Collaborations/tree/1620c2118dd8f6dac5dbcbb1f84a2097f183052f" target="_blank">1620c21</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6a84ab29fa8b717ba468f2374bdba61bad905079targetblank6a84ab2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1620c2118dd8f6dac5dbcbb1f84a2097f183052ftargetblank1620c21a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/6a84ab29fa8b717ba468f2374bdba61bad905079" target="_blank">6a84ab2</a>.
+<a href="https://github.com/han16/Collaborations/tree/1620c2118dd8f6dac5dbcbb1f84a2097f183052f" target="_blank">1620c21</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,11 +571,9 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2025_0102_Shah.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2025.Rmd
+    Modified:   analysis/2024_0701_survey_part3.Rmd
+    Modified:   analysis/2025_0102_Shah.Rmd
 
 </code></pre>
 <p>
@@ -590,10 +588,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2025_0102_Shah.Rmd</code>) and
+HTML (<code>docs/2025_0102_Shah.html</code>) files. If you’ve configured
+a remote Git repository (see <code>?wflow_git_remote</code>), click on
+the hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/5d06f45108ad7d199a7bf295bc15426c47c42cc9/analysis/2025_0102_Shah.Rmd" target="_blank">5d06f45</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-14
+</td>
+<td>
+1/14/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/5d06f45108ad7d199a7bf295bc15426c47c42cc9/docs/2025_0102_Shah.html" target="_blank">5d06f45</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-14
+</td>
+<td>
+1/14/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -616,12 +678,20 @@ group.</p></li>
 </ul>
 <pre class="r"><code>#install.packages(&quot;Hmisc&quot;)
 library(Hmisc)
-marg_probs=c(0.2888889, 0.4861111, 0.153125, 0.071875)
-OR=2.428571
+marg_probs=c(0.2, 0.2, 0.2, 0.2, 0.2) # equal probability 
+OR=2
+posamsize(p = marg_probs, odds.ratio = OR, fraction = 0.5, 
+          alpha = 0.05, power = 0.8)</code></pre>
+<pre><code>Total sample size: 204.2 
+Efficiency of design compared with continuous response: 0.96 </code></pre>
+<pre class="r"><code>#install.packages(&quot;Hmisc&quot;)
+library(Hmisc)
+marg_probs=c(0.2, 0.2, 0.2, 0.2, 0.2) # equal probability 
+OR=2
 posamsize(p = marg_probs, odds.ratio = OR, fraction = 0.5, 
           alpha = 0.05, power = 0.9)</code></pre>
-<pre><code>Total sample size: 186.9 
-Efficiency of design compared with continuous response: 0.857 </code></pre>
+<pre><code>Total sample size: 273.4 
+Efficiency of design compared with continuous response: 0.96 </code></pre>
 <ul>
 <li><a
 href="https://library.virginia.edu/data/articles/power-and-sample-size-calculations-ordered-categorical-data">reference</a></li>
@@ -662,18 +732,18 @@ loaded via a namespace (and not attached):
  [1] sass_0.4.8         utf8_1.2.4         generics_0.1.3     stringi_1.8.3     
  [5] digest_0.6.33      magrittr_2.0.3     evaluate_0.23      grid_4.3.2        
  [9] fastmap_1.1.1      rprojroot_2.0.4    workflowr_1.7.1    jsonlite_1.8.8    
-[13] backports_1.4.1    nnet_7.3-19        Formula_1.2-5      gridExtra_2.3     
-[17] promises_1.2.1     fansi_1.0.6        scales_1.3.0       jquerylib_0.1.4   
-[21] cli_3.6.2          rlang_1.1.2        munsell_0.5.0      base64enc_0.1-3   
-[25] cachem_1.0.8       yaml_2.3.8         tools_4.3.2        checkmate_2.3.1   
-[29] htmlTable_2.4.3    dplyr_1.1.4        colorspace_2.1-0   ggplot2_3.4.4     
-[33] httpuv_1.6.13      vctrs_0.6.5        R6_2.5.1           rpart_4.1.21      
-[37] lifecycle_1.0.4    git2r_0.33.0       stringr_1.5.1      htmlwidgets_1.6.4 
-[41] fs_1.6.3           foreign_0.8-85     cluster_2.1.4      pkgconfig_2.0.3   
-[45] pillar_1.9.0       bslib_0.6.1        later_1.3.2        gtable_0.3.4      
-[49] data.table_1.14.10 glue_1.6.2         Rcpp_1.0.11        xfun_0.41         
-[53] tibble_3.2.1       tidyselect_1.2.0   rstudioapi_0.15.0  knitr_1.45        
-[57] htmltools_0.5.7    rmarkdown_2.25     compiler_4.3.2    </code></pre>
+[13] whisker_0.4.1      backports_1.4.1    nnet_7.3-19        Formula_1.2-5     
+[17] gridExtra_2.3      promises_1.2.1     fansi_1.0.6        scales_1.3.0      
+[21] jquerylib_0.1.4    cli_3.6.2          rlang_1.1.2        munsell_0.5.0     
+[25] base64enc_0.1-3    cachem_1.0.8       yaml_2.3.8         tools_4.3.2       
+[29] checkmate_2.3.1    htmlTable_2.4.3    dplyr_1.1.4        colorspace_2.1-0  
+[33] ggplot2_3.4.4      httpuv_1.6.13      vctrs_0.6.5        R6_2.5.1          
+[37] rpart_4.1.21       lifecycle_1.0.4    git2r_0.33.0       stringr_1.5.1     
+[41] htmlwidgets_1.6.4  fs_1.6.3           foreign_0.8-85     cluster_2.1.4     
+[45] pkgconfig_2.0.3    pillar_1.9.0       bslib_0.6.1        later_1.3.2       
+[49] gtable_0.3.4       data.table_1.14.10 glue_1.6.2         Rcpp_1.0.11       
+[53] xfun_0.41          tibble_3.2.1       tidyselect_1.2.0   rstudioapi_0.15.0 
+[57] knitr_1.45         htmltools_0.5.7    rmarkdown_2.25     compiler_4.3.2    </code></pre>
 </div>
 </div>
 

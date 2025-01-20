@@ -27,8 +27,18 @@ The following factors influences the sample size
 ```{r, message=F, warning=F}
 #install.packages("Hmisc")
 library(Hmisc)
-marg_probs=c(0.2888889, 0.4861111, 0.153125, 0.071875)
-OR=2.428571
+marg_probs=c(0.2, 0.2, 0.2, 0.2, 0.2) # equal probability 
+OR=2
+posamsize(p = marg_probs, odds.ratio = OR, fraction = 0.5, 
+          alpha = 0.05, power = 0.8)
+
+```
+
+```{r, message=F, warning=F}
+#install.packages("Hmisc")
+library(Hmisc)
+marg_probs=c(0.2, 0.2, 0.2, 0.2, 0.2) # equal probability 
+OR=2
 posamsize(p = marg_probs, odds.ratio = OR, fraction = 0.5, 
           alpha = 0.05, power = 0.9)
 

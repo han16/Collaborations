@@ -18,6 +18,7 @@ root <- rprojroot::find_rstudio_root_file()
 
 ```{r, echo=F, message=F, warning=F, results=F}
 source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
 changeCellColor <- function(row, col){
   c(
     "function(row, data, num, index){",
@@ -136,7 +137,7 @@ side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend
 
 
 
-```{r, message=F, warning=F, results=F, eval=T}
+```{r, message=F, warning=F, results=F, eval=F}
 #Dentist_Survey=multiplesheets(file.path(root, "..\\2024\\202407\\state_survey\\Dentist Survey.xlsx"))
 Dentist_Survey=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\Dentist Survey.xlsx")
 Dentist_in_WI=Dentist_Survey$`Dentist Survey` %>% filter(`direct care as a dentist in Wisconsin`=="Yes")
@@ -159,7 +160,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-dim(Dentist_in_WI)
+cat("total number of dentist:", nrow(Dentist_in_WI), "\n")
 ```
 
 * in total 2295 responses and 40 questions 
@@ -216,7 +217,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(gender$n)
+stopifnot(sum(gender$n)==2295)
 ```
 
 
@@ -242,7 +243,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(specialty2$n)
+stopifnot(sum(specialty2$n)==2295)
 ```
 
 
@@ -270,7 +271,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(practice_setting2$n)
+stopifnot(sum(practice_setting2$n)==2295)
 ```
 
 `other` aggregates categories with responses less than 20. 
@@ -321,7 +322,11 @@ practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n
 
 
 side_by_side_barplot2(practice_setting_combine, title="practice setting", legend_rows = 2)
+
+chisq.test( matrix(practice_setting_combine$n, nrow=4))
 ```
+* genders are significantly associated with practice settings. 
+
 
 
 ```{r, message=F, warning=F, eval=T}
@@ -343,7 +348,11 @@ practice_setting_combine=data.frame(class=rep(c(settings, "others", "NA"), 2), n
 
 
 side_by_side_barplot2(practice_setting_combine, title="practice setting", legend_rows = 2)
+
+chisq.test( matrix(practice_setting_combine$n, nrow=4))
 ```
+
+* practice setting is significantly different between Asia and White. 
 
 
 
@@ -351,7 +360,7 @@ side_by_side_barplot2(practice_setting_combine, title="practice setting", legend
 ## group office practice 
 
 
-
+### gender distribution 
 
 
 ```{r, message=F, warning=F, eval=F}
@@ -369,9 +378,16 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(group_practice2$n)
+cat("number of dentists with group office practce: ", sum(group_practice2$n), "\n")
+
+binom.test(group_practice2 %>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman")%>% select(n) %>% pull())
 ```
 
+
+* gender bias: Man are significantly more likely to practice in group office than woman. 
+
+
+### race distribution 
 
 
 ```{r, message=F, warning=F, eval=T}
@@ -396,6 +412,8 @@ datatable(extensions = 'Buttons',
 sum(group_practice3$n)
 ```
 
+
+### specialties distribution 
 
 
 
@@ -443,7 +461,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(solo_practice2$n)
+cat("number of dentists in solo practice:", sum(solo_practice2$n), "\n")
 ```
 
 
