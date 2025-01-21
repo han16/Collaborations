@@ -7,3 +7,11 @@ output:
 date: "2025-01-16"
 ---
 
+
+
+
+
+## Home 
+
+[Home](2024_0701_survey.html)
+

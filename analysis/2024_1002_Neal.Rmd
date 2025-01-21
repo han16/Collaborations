@@ -10,19 +10,22 @@ date: "2024-10-07"
 
 
 ```{r, echo=F, message=F, warning=F}
-source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
 ```
 
 
 ```{r, message=F, warning=F, results=F}
-#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK111324.xlsx")
-#finalized_data=data_raw$`Finalized Data`
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525.xlsx")
+finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525_Finalized_Data.csv")))
+
 #finalized_with_omitted_data=data_raw$`Finalized with Omitted data`
 #coding=data_raw$`Coding`
 #save(finalized_with_omitted_data, finalized_data, coding, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
-load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
-col_names=as.character(finalized_data[1,])
-finalized_data=finalized_data[-c(1,2),]
+#load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+
 
 colnames(finalized_data)=col_names
 ```

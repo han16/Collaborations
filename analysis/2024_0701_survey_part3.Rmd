@@ -217,10 +217,15 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+binom.test(gender %>% filter(`Gender Identity`=="Man"| `Gender Identity`=="Woman") %>% select(n) %>% pull())
+
 stopifnot(sum(gender$n)==2295)
+
+
 ```
 
 
+* significant gender bias 
 
 
 ## Dental Specialties Board Certified
@@ -461,8 +466,14 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+binom.test(solo_practice2 %>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman")%>% select(n) %>% pull())
+
 cat("number of dentists in solo practice:", sum(solo_practice2$n), "\n")
 ```
+
+
+* significant gender bias 
 
 
 
@@ -484,7 +495,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(solo_practice3$n)
+cat("dentists in solo office practice:", sum(solo_practice3$n), "\n")
 ```
 
 
@@ -506,7 +517,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(solo_practice3$n)
+cat("dentists in solo office practice:", sum(solo_practice3$n), "\n")
 ```
 
 

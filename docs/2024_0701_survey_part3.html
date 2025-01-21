@@ -416,7 +416,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-17
+<strong>Last updated:</strong> 2025-01-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1620c2118dd8f6dac5dbcbb1f84a2097f183052ftargetblank1620c21a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree449c0a6be9c73d1524781333722935461c4bf8f1targetblank449c0a6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/1620c2118dd8f6dac5dbcbb1f84a2097f183052f" target="_blank">1620c21</a>
+<a href="https://github.com/han16/Collaborations/tree/449c0a6be9c73d1524781333722935461c4bf8f1" target="_blank">449c0a6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1620c2118dd8f6dac5dbcbb1f84a2097f183052ftargetblank1620c21a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree449c0a6be9c73d1524781333722935461c4bf8f1targetblank449c0a6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/1620c2118dd8f6dac5dbcbb1f84a2097f183052f" target="_blank">1620c21</a>.
+<a href="https://github.com/han16/Collaborations/tree/449c0a6be9c73d1524781333722935461c4bf8f1" target="_blank">449c0a6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -589,6 +589,8 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2024_0701_survey_part3.Rmd
+    Modified:   analysis/2024_0701_survey_part4.Rmd
+    Modified:   analysis/2024_1002_Neal.Rmd
 
 </code></pre>
 <p>
@@ -635,6 +637,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/449c0a6be9c73d1524781333722935461c4bf8f1/analysis/2024_0701_survey_part3.Rmd" target="_blank">449c0a6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-20
+</td>
+<td>
+1/20/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/449c0a6be9c73d1524781333722935461c4bf8f1/docs/2024_0701_survey_part3.html" target="_blank">449c0a6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-20
+</td>
+<td>
+1/20/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1148,7 +1184,22 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Man","Woman","Decline to answer",null,"Option not listed above"],[1350,818,89,36,2],[0.5881999999999999,0.3564,0.0388,0.0157,0.0009]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender Identity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender Identity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>binom.test(gender %&gt;% filter(`Gender Identity`==&quot;Man&quot;| `Gender Identity`==&quot;Woman&quot;) %&gt;% select(n) %&gt;% pull())</code></pre>
+<pre><code>
+    Exact binomial test
+
+data:  gender %&gt;% filter(`Gender Identity` == &quot;Man&quot; | `Gender Identity` == &quot;Woman&quot;) %&gt;% select(n) %&gt;% pull()
+number of successes = 1350, number of trials = 2168, p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.6019049 0.6431503
+sample estimates:
+probability of success 
+             0.6226937 </code></pre>
 <pre class="r"><code>stopifnot(sum(gender$n)==2295)</code></pre>
+<ul>
+<li>significant gender bias</li>
+</ul>
 </div>
 <div id="dental-specialties-board-certified" class="section level2">
 <h2>Dental Specialties Board Certified</h2>
@@ -1774,8 +1825,23 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2514ce28ae593bde0f73" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["Man","Woman","Decline to answer",null,"Option not listed above"],[432,189,30,4,1],[0.6585,0.2881,0.0457,0.0061,0.0015]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Gender Identity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Gender Identity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>binom.test(solo_practice2 %&gt;% filter(`Gender Identity`==&quot;Man&quot; | `Gender Identity`==&quot;Woman&quot;)%&gt;% select(n) %&gt;% pull())</code></pre>
+<pre><code>
+    Exact binomial test
+
+data:  solo_practice2 %&gt;% filter(`Gender Identity` == &quot;Man&quot; | `Gender Identity` == &quot;Woman&quot;) %&gt;% select(n) %&gt;% pull()
+number of successes = 432, number of trials = 621, p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.6577886 0.7316432
+sample estimates:
+probability of success 
+             0.6956522 </code></pre>
 <pre class="r"><code>cat(&quot;number of dentists in solo practice:&quot;, sum(solo_practice2$n), &quot;\n&quot;)</code></pre>
 <pre><code>number of dentists in solo practice: 656 </code></pre>
+<ul>
+<li>significant gender bias</li>
+</ul>
 <pre class="r"><code>solo_practice=dentist_in_WI_of_interest1 %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Solo office practice&quot;) 
 
 solo_practice2=solo_practice%&gt;% dplyr::count(`Describe Your Race or Ethnicity`) %&gt;% mutate(prop=round(n/nrow(solo_practice),4))
@@ -1865,8 +1931,8 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6"],["White","Decline to answer","other","Hispanic or Latino/a/x","South Asian","East Asian"],[518,56,36,17,15,14],[0.7896,0.0854,0.0545,0.0259,0.0229,0.0213]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Describe Your Race or Ethnicity<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Describe Your Race or Ethnicity","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(solo_practice3$n)</code></pre>
-<pre><code>[1] 656</code></pre>
+<pre class="r"><code>cat(&quot;dentists in solo office practice:&quot;, sum(solo_practice3$n), &quot;\n&quot;)</code></pre>
+<pre><code>dentists in solo office practice: 656 </code></pre>
 <pre class="r"><code>solo_practice=dentist_in_WI_of_interest1 %&gt;% dplyr::filter(`Best Describes This Practice Setting`==&quot;Solo office practice&quot;) 
 
 solo_practice2=solo_practice%&gt;% dplyr::count(`Dental Specialties Board Certified`) %&gt;% mutate(prop=round(n/nrow(solo_practice),4))
@@ -1967,8 +2033,8 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["General dentistry",null,"Orthodontics","other","Pediatric dentistry"],[506,62,38,35,15],[0.7713,0.0945,0.0579,0.0532,0.0229]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dental Specialties Board Certified<\/th>\n      <th>n<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Dental Specialties Board Certified","targets":1},{"name":"n","targets":2},{"name":"prop","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>sum(solo_practice3$n)</code></pre>
-<pre><code>[1] 656</code></pre>
+<pre class="r"><code>cat(&quot;dentists in solo office practice:&quot;, sum(solo_practice3$n), &quot;\n&quot;)</code></pre>
+<pre><code>dentists in solo office practice: 656 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
