@@ -160,7 +160,7 @@ variables=colnames(Dentist_in_WI)
 #                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
 #                           lengthMenu = list(c(10,25,50,-1),
 #                                             c(10,25,50,"All"))))
-dim(Dentist_in_WI)
+cat("total number of dentists: ", nrow(Dentist_in_WI), "\n")
 ```
 
 * in total 2295 responses and 40 questions 
@@ -311,8 +311,12 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(gender_geo_data$n)
+
+chisq.test(data.frame(man=gender_geo_data %>% filter(gender=="Man") %>% select(n) %>% pull(), woman=gender_geo_data %>% filter(gender=="Woman") %>% select(n) %>% pull()))
+cat("total man or woman dentists: ", sum(gender_geo_data$n), "\n")
 ```
+
+* no gender difference in different regions 
 
 
 
@@ -354,14 +358,6 @@ ggarrange(plotlist = figures, ncol = 2)
 
 
 
-gender_geo_data%>%
-datatable(extensions = 'Buttons',
-          caption = "",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-sum(gender_geo_data$num)
 ```
 
 
@@ -430,9 +426,13 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-sum(gender_zones_data$n)
-```
 
+chisq.test(data.frame(man=gender_zones_data %>% filter(gender=="Man") %>% select(n) %>% pull(), woman=gender_zones_data %>% filter(gender=="Woman") %>% select(n) %>% pull()))
+
+
+cat("total dentists mapped to zones: ", sum(gender_zones_data$n), "\n")
+```
+ * no gender difference in different zones 
 
 ### specialty distribution 
 
@@ -474,14 +474,4 @@ ggarrange(plotlist = figures, ncol = 2)
 
 
 
-
-
-gender_geo_data%>%
-datatable(extensions = 'Buttons',
-          caption = "",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-sum(gender_zones_data$num)
 ```
