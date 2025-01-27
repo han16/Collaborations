@@ -7,8 +7,54 @@ output:
 date: "2025-01-13"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
 ```
 
 
+
+```{r, message=F, warning=F, results=F}
+data_raw=multiplesheets((file.path(root, "..\\2025\\202501\\Ardita\\T1, T2, T3, T4, HWCVMS Comparisons copy.xlsx")))
+```
+
+
+
+
+
+## Intra-rater reliability 
+
+
+### Cohen’s kappa
+
+
+```{r, message=F, warning=F}
+
+kappa_pvalue=numeric()
+kappa_value=numeric()
+for (i in 1:6)
+{
+sub_data=data_raw[[i]]
+ratings=sub_data[,2:3] %>% drop_na()
+kappa_test=kappa2(ratings,weight="squared")
+kappa_pvalue[i]=kappa_test$p.value
+kappa_value[i]=kappa_test$value
+}
+
+data.frame(Time=names(data_raw)[1:6], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+* weighed Kappa test was used 
+
+* [reference](https://www.andywills.info/rminr/irr.html)
