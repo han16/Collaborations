@@ -370,6 +370,26 @@ ggarrange(plotlist = figures, ncol = 2)
 
 
 ```{r, message=F, warning=F, results=F}
+variables_of_interest=variables[-c(6,7,19:37)]
+dentist_in_WI_of_interest=Dentist_in_WI[,-c(6,7,19:37)]
+num_non_missing=apply(dentist_in_WI_of_interest,2, function(x) sum(is.na(x)==F) )
+#data.frame(variable=variables_of_interest, non_missing=num_non_missing)%>%
+#datatable(extensions = 'Buttons',
+#          caption = " Interesting variables with non-missing numbers ",
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
+
+
+date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
+year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
+ages=2024-as.numeric(year_of_birth)
+
+dentist_in_WI_of_interest1=dentist_in_WI_of_interest %>% mutate(ages=ages)
+
+
+
 #zip_code_details=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202407\\state_survey\\ZIP code details.xlsx")
 
 
@@ -387,6 +407,12 @@ zip_code_county_zone$zip_code=as.character(zip_code_county_zone$zip_code)
 dentist_in_WI_of_interest1 =dentist_in_WI_of_interest1%>% mutate(zip_code = dentist_in_WI_of_interest1$`5-digit Zip code`)
 
 dentist_in_WI_of_interest1=dentist_in_WI_of_interest1 %>% left_join(zip_code_county_zone, by="zip_code")
+
+sum(!is.na(dentist_in_WI_of_interest1$zone))  # 1764 dentists mapped 
+
+#dentist_in_WI_of_interest1=dentist_in_WI_of_interest1 %>% left_join(zip_code_county_zone, by="city")
+#sum(!is.na(dentist_in_WI_of_interest1$zone.x))
+#sum(!is.na(dentist_in_WI_of_interest1$zone.y))
 ```
 
 

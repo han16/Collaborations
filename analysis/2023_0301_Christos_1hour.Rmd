@@ -1173,8 +1173,10 @@ m.netmeta <- netmeta(TE = TE,
 
 long.labels=m.netmeta$trts
 
+node_size <- sqrt(m.netmeta$n / max(m.netmeta$n)) * 3
+
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE
+         labels = long.labels, number.of.studies = TRUE,  cex.point=  node_size  # Adjust node size
          )
 
 
