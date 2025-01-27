@@ -1176,11 +1176,21 @@ long.labels=m.netmeta$trts
 node_size <- sqrt(m.netmeta$n / max(m.netmeta$n)) * 3
 
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE,  cex.point=  node_size  # Adjust node size
+         labels = long.labels, number.of.studies = TRUE,  lty="solid", cex.point=  node_size  # Adjust node size
          )
 
 
 
+netgraph(m.netmeta, 
+         labels = long.labels, 
+         number.of.studies = TRUE, 
+         plastic = FALSE,  # Ensures standard network layout
+         lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
+         lwd = 2,  # Increase line width for clarity
+         col = "black",  # Set edge color to black
+         cex.point=  node_size, 
+         col.number = "cyan"  # Change the color of numbers on edges
+)
 ```
 
 * we use R package-netmeta for network meta analysis. 
