@@ -27,14 +27,70 @@ data_raw=multiplesheets((file.path(root, "..\\2025\\202501\\Ardita\\T1, T2, T3, 
 ## Intra-rater reliability 
 
 
-### Cohen’s kappa
+### Weighted Cohen’s Kappa
+
+
+```{r, echo=F, message=F, warning=F}
+
+kappa_pvalue=numeric()
+kappa_value=numeric()
+for (i in 1:5)
+{
+sub_data=data_raw[[i+2]]
+ratings=sub_data[,2:3] %>% drop_na()
+kappa_test=kappa2(ratings,weight="squared")
+kappa_pvalue[i]=kappa_test$p.value
+kappa_value[i]=kappa_test$value
+}
+
+data.frame(para=names(data_raw)[3:7], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+### ICC
+
+```{r, echo=F, message=F, warning=F}
+
+icc_pvalue=numeric()
+icc_value=numeric()
+for (i in 1:4)
+{
+sub_data=data_raw[[i+2]]
+ratings=sub_data[,2:3] %>% drop_na()
+icc_test=icc(ratings, model ="oneway",  type = "consistency")
+icc_pvalue[i]=icc_test$p.value
+icc_value[i]=icc_test$value
+}
+
+
+data.frame(para=names(data_raw)[3:6], icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+## Inter-rater reliability 
+
+### 
 
 
 ```{r, message=F, warning=F}
 
 kappa_pvalue=numeric()
 kappa_value=numeric()
-for (i in 1:6)
+for (i in 1:2)
 {
 sub_data=data_raw[[i]]
 ratings=sub_data[,2:3] %>% drop_na()
@@ -43,7 +99,7 @@ kappa_pvalue[i]=kappa_test$p.value
 kappa_value[i]=kappa_test$value
 }
 
-data.frame(Time=names(data_raw)[1:6], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+data.frame(Time=names(data_raw)[1:2], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "", 
             options = list(dom = 'Blfrtip',
