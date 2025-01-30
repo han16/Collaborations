@@ -27,10 +27,10 @@ data_raw=multiplesheets((file.path(root, "..\\2025\\202501\\Ardita\\T1, T2, T3, 
 ## Inter rater reliability 
 
 
-### Weighted Cohen’s Kappa
+###  Cohen’s Kappa
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, message=F, warning=F}
 
 kappa_pvalue=numeric()
 kappa_value=numeric()
@@ -56,24 +56,47 @@ datatable(extensions = 'Buttons',
 * the last row probably is because of 0 variation of column `CVMS`.  
 
 
+### ICC 
+
+
+```{r,  message=F, warning=F}
 
 ### ICC
 
-```{r, echo=F, message=F, warning=F}
-
 icc_pvalue=numeric()
 icc_value=numeric()
-for (i in 1:5)
+for (i in 1:2)
 {
-sub_data=data_raw[[i+2]]
+sub_data=data_raw[[i]]
 ratings=sub_data[,2:3] %>% drop_na()
+#ratings$`T3 Growth`[ratings$`T3 Growth`=="Pre"]=1
+#ratings$`T3 Growth`[ratings$`T3 Growth`=="Peak"]=2
+#ratings$`T3 Growth`[ratings$`T3 Growth`=="Post"]=3
+
+#ratings$`T4 Growth`[ratings$`T4 Growth`=="Pre"]=1
+#ratings$`T4 Growth`[ratings$`T4 Growth`=="Peak"]=2
+#ratings$`T4 Growth`[ratings$`T4 Growth`=="Post"]=3
+
+### input of icc must be numeric numbers 
+ratings[,1][ratings[,1]=="Pre"]=1
+ratings[,1][ratings[,1]=="Peak"]=2
+ratings[,1][ratings[,1]=="Post"]=3
+
+ratings[,2][ratings[,2]=="Pre"]=1
+ratings[,2][ratings[,2]=="Peak"]=2
+ratings[,2][ratings[,2]=="Post"]=3
+
+ratings <- as.data.frame(ratings)  # Convert list to data frame
+ratings <- as.matrix(ratings)      # Convert data frame to matrix
+ratings <- apply(ratings, 2, as.numeric)
+
 icc_test=icc(ratings, model ="oneway",  type = "consistency")
 icc_pvalue[i]=icc_test$p.value
 icc_value[i]=icc_test$value
 }
 
 
-data.frame(para=names(data_raw)[3:7], icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+data.frame(para=names(data_raw)[1:2], icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "", 
             options = list(dom = 'Blfrtip',
@@ -82,6 +105,8 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
 
 
 ## Intra-rater reliability 

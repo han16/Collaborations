@@ -550,15 +550,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree665fc3ca4bb826893e5dbcbffaed7b16642e502ftargetblank665fc3ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree542982c2ffc4d81b945fe30cf0fd29eab7686b89targetblank542982ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/665fc3ca4bb826893e5dbcbffaed7b16642e502f" target="_blank">665fc3c</a>
+<a href="https://github.com/han16/Collaborations/tree/542982c2ffc4d81b945fe30cf0fd29eab7686b89" target="_blank">542982c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree665fc3ca4bb826893e5dbcbffaed7b16642e502ftargetblank665fc3ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree542982c2ffc4d81b945fe30cf0fd29eab7686b89targetblank542982ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -568,7 +568,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/665fc3ca4bb826893e5dbcbffaed7b16642e502f" target="_blank">665fc3c</a>.
+<a href="https://github.com/han16/Collaborations/tree/542982c2ffc4d81b945fe30cf0fd29eab7686b89" target="_blank">542982c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -634,6 +634,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/542982c2ffc4d81b945fe30cf0fd29eab7686b89/analysis/2025_0101_Ardita.Rmd" target="_blank">542982c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-30
+</td>
+<td>
+1/30/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/542982c2ffc4d81b945fe30cf0fd29eab7686b89/docs/2025_0101_Ardita.html" target="_blank">542982c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-30
+</td>
+<td>
+1/30/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -746,8 +780,26 @@ han
 <pre class="r"><code>data_raw=multiplesheets((file.path(root, &quot;..\\2025\\202501\\Ardita\\T1, T2, T3, T4, HWCVMS Comparisons copy.xlsx&quot;)))</code></pre>
 <div id="inter-rater-reliability" class="section level2">
 <h2>Inter rater reliability</h2>
-<div id="weighted-cohens-kappa" class="section level3">
-<h3>Weighted Cohen’s Kappa</h3>
+<div id="cohens-kappa" class="section level3">
+<h3>Cohen’s Kappa</h3>
+<pre class="r"><code>kappa_pvalue=numeric()
+kappa_value=numeric()
+for (i in 1:5)
+{
+sub_data=data_raw[[i+2]]
+ratings=sub_data[,2:3] %&gt;% drop_na()
+kappa_test=kappa2(ratings, weight = )
+kappa_pvalue[i]=kappa_test$p.value
+kappa_value[i]=kappa_test$value
+}
+
+data.frame(para=names(data_raw)[3:7], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["T1 vs T3 FINAL","T1 vs T4 FINAL","T2 vs T3 FINAL","T2 vs T4 FINAL","HW vs CVMS FINAL"],[0.8309,0.8296,0.8675,0.8665,0],["&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","NaN"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>para<\/th>\n      <th>kappa_value<\/th>\n      <th>kappa_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"para","targets":1},{"name":"kappa_value","targets":2},{"name":"kappa_pvalue","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
@@ -757,13 +809,55 @@ han
 </div>
 <div id="icc" class="section level3">
 <h3>ICC</h3>
+<pre class="r"><code>### ICC
+
+icc_pvalue=numeric()
+icc_value=numeric()
+for (i in 1:2)
+{
+sub_data=data_raw[[i]]
+ratings=sub_data[,2:3] %&gt;% drop_na()
+#ratings$`T3 Growth`[ratings$`T3 Growth`==&quot;Pre&quot;]=1
+#ratings$`T3 Growth`[ratings$`T3 Growth`==&quot;Peak&quot;]=2
+#ratings$`T3 Growth`[ratings$`T3 Growth`==&quot;Post&quot;]=3
+
+#ratings$`T4 Growth`[ratings$`T4 Growth`==&quot;Pre&quot;]=1
+#ratings$`T4 Growth`[ratings$`T4 Growth`==&quot;Peak&quot;]=2
+#ratings$`T4 Growth`[ratings$`T4 Growth`==&quot;Post&quot;]=3
+
+### input of icc must be numeric numbers 
+ratings[,1][ratings[,1]==&quot;Pre&quot;]=1
+ratings[,1][ratings[,1]==&quot;Peak&quot;]=2
+ratings[,1][ratings[,1]==&quot;Post&quot;]=3
+
+ratings[,2][ratings[,2]==&quot;Pre&quot;]=1
+ratings[,2][ratings[,2]==&quot;Peak&quot;]=2
+ratings[,2][ratings[,2]==&quot;Post&quot;]=3
+
+ratings &lt;- as.data.frame(ratings)  # Convert list to data frame
+ratings &lt;- as.matrix(ratings)      # Convert data frame to matrix
+ratings &lt;- apply(ratings, 2, as.numeric)
+
+icc_test=icc(ratings, model =&quot;oneway&quot;,  type = &quot;consistency&quot;)
+icc_pvalue[i]=icc_test$p.value
+icc_value[i]=icc_test$value
+}
+
+
+data.frame(para=names(data_raw)[1:2], icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["T1 vs T3 FINAL","T1 vs T4 FINAL","T2 vs T3 FINAL","T2 vs T4 FINAL","HW vs CVMS FINAL"],[null,null,null,null,null],[null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>para<\/th>\n      <th>icc_value<\/th>\n      <th>icc_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"para","targets":1},{"name":"icc_value","targets":2},{"name":"icc_pvalue","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2"],["T1 vs T2 FINAL","T3 vs T4 FINAL"],[0.9826,0.956],["&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>para<\/th>\n      <th>icc_value<\/th>\n      <th>icc_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"para","targets":1},{"name":"icc_value","targets":2},{"name":"icc_pvalue","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="intra-rater-reliability" class="section level2">
 <h2>Intra-rater reliability</h2>
-<div id="cohens-kappa" class="section level3">
+<div id="cohens-kappa-1" class="section level3">
 <h3>Cohen’s Kappa</h3>
 <pre class="r"><code>kappa_pvalue=numeric()
 kappa_value=numeric()
