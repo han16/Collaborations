@@ -24,7 +24,7 @@ data_raw=multiplesheets((file.path(root, "..\\2025\\202501\\Ardita\\T1, T2, T3, 
 
 
 
-## Intra-rater reliability 
+## Inter rater reliability 
 
 
 ### Weighted Cohen’s Kappa
@@ -38,7 +38,7 @@ for (i in 1:5)
 {
 sub_data=data_raw[[i+2]]
 ratings=sub_data[,2:3] %>% drop_na()
-kappa_test=kappa2(ratings,weight="squared")
+kappa_test=kappa2(ratings, weight = )
 kappa_pvalue[i]=kappa_test$p.value
 kappa_value[i]=kappa_test$value
 }
@@ -53,6 +53,9 @@ datatable(extensions = 'Buttons',
 
 ```
 
+* the last row probably is because of 0 variation of column `CVMS`.  
+
+
 
 ### ICC
 
@@ -60,7 +63,7 @@ datatable(extensions = 'Buttons',
 
 icc_pvalue=numeric()
 icc_value=numeric()
-for (i in 1:4)
+for (i in 1:5)
 {
 sub_data=data_raw[[i+2]]
 ratings=sub_data[,2:3] %>% drop_na()
@@ -70,7 +73,7 @@ icc_value[i]=icc_test$value
 }
 
 
-data.frame(para=names(data_raw)[3:6], icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
+data.frame(para=names(data_raw)[3:7], icc_value=round(icc_value,4), icc_pvalue=pvalue_adjust(icc_pvalue)) %>%
 datatable(extensions = 'Buttons',
           caption = "", 
             options = list(dom = 'Blfrtip',
@@ -81,9 +84,10 @@ datatable(extensions = 'Buttons',
 ```
 
 
-## Inter-rater reliability 
+## Intra-rater reliability 
 
-### 
+
+### Cohen’s Kappa
 
 
 ```{r, message=F, warning=F}
@@ -94,7 +98,7 @@ for (i in 1:2)
 {
 sub_data=data_raw[[i]]
 ratings=sub_data[,2:3] %>% drop_na()
-kappa_test=kappa2(ratings,weight="squared")
+kappa_test=kappa2(ratings)
 kappa_pvalue[i]=kappa_test$p.value
 kappa_value[i]=kappa_test$value
 }
@@ -111,6 +115,6 @@ datatable(extensions = 'Buttons',
 
 
 
-* weighed Kappa test was used 
+*  Cohen’s Kappa was used 
 
 * [reference](https://www.andywills.info/rminr/irr.html)
