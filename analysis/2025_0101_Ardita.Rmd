@@ -56,6 +56,47 @@ datatable(extensions = 'Buttons',
 * the last row probably is because of 0 variation of column `CVMS`.  
 
 
+
+
+
+
+## Intra-rater reliability 
+
+
+### Cohen’s Kappa
+
+
+```{r, message=F, warning=F}
+
+kappa_pvalue=numeric()
+kappa_value=numeric()
+for (i in 1:2)
+{
+sub_data=data_raw[[i]]
+ratings=sub_data[,2:3] %>% drop_na()
+kappa_test=kappa2(ratings)
+kappa_pvalue[i]=kappa_test$p.value
+kappa_value[i]=kappa_test$value
+}
+
+data.frame(Time=names(data_raw)[1:2], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+*  Cohen’s Kappa was used 
+
+* [reference](https://www.andywills.info/rminr/irr.html)
+
+
+
 ### ICC 
 
 
@@ -105,41 +146,3 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
-
-
-
-
-## Intra-rater reliability 
-
-
-### Cohen’s Kappa
-
-
-```{r, message=F, warning=F}
-
-kappa_pvalue=numeric()
-kappa_value=numeric()
-for (i in 1:2)
-{
-sub_data=data_raw[[i]]
-ratings=sub_data[,2:3] %>% drop_na()
-kappa_test=kappa2(ratings)
-kappa_pvalue[i]=kappa_test$p.value
-kappa_value[i]=kappa_test$value
-}
-
-data.frame(Time=names(data_raw)[1:2], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
-datatable(extensions = 'Buttons',
-          caption = "", 
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-```
-
-
-
-*  Cohen’s Kappa was used 
-
-* [reference](https://www.andywills.info/rminr/irr.html)
