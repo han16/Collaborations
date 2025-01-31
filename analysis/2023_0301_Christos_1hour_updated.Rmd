@@ -1,0 +1,1369 @@
+---
+title: "one hour updated"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-01-31"
+---
+
+
+
+## Home 
+
+
+[Home](2023_0301_Christos.html)
+
+
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+rm(list=ls())
+set.seed(123)
+source("C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R")
+library(meta)
+library(netmeta)
+library(dmetar)
+```
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+data=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202301\\Christos\\Data for VAS 09182023_han.xlsx")
+```
+
+
+
+
+
+
+### sample data 
+
+```{r,  message=F, warning=F}
+data_1hour=data$`1 Hour`[-1,c(1,3,8, 5,7)]
+data_1hour=data_1hour[-c(10,11),]  # remove Pearlman study, requested by Vrisiis 
+data_1hour_full=as_tibble(data_1hour[complete.cases(data_1hour), ]) 
+colnames(data_1hour_full)=c("study", "treatment", "n", "mean", "sd")
+
+data_1hour_full%>%
+datatable(extensions = 'Buttons',
+          caption = "one hour", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+### forest plots 
+
+
+#### ALL studies per author – no groups
+
+
+*  random effect model 
+
+
+```{r,  message=F, warning=F}
+##### https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/forest.html
+
+
+#data(Fleiss1993cont)
+
+#m1 <- metacont(n.psyc, mean.psyc, sd.psyc, n.cont, mean.cont, sd.cont,
+ # data = Fleiss1993cont, sm = "SMD")
+#m1
+#forest(m1)
+
+######## manually create the data matrix 
+study_data=matrix(nrow=10, ncol=6)
+study_data[1,]=c(as.numeric(data_1hour_full[1,3:5]), as.numeric(data_1hour_full[2,3:5]))
+
+study_data[2,]=c(as.numeric(data_1hour_full[4,3:5]), as.numeric(data_1hour_full[3,3:5]))
+study_data[3,]=c(as.numeric(data_1hour_full[5,3:5]), as.numeric(data_1hour_full[3,3:5]))
+
+study_data[4,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[7,3:5]))
+study_data[5,]=c(as.numeric(data_1hour_full[8,3:5]), as.numeric(data_1hour_full[9,3:5]))
+
+study_data[6,]=c(as.numeric(data_1hour_full[10,3:5]), as.numeric(data_1hour_full[12,3:5]))
+study_data[7,]=c(as.numeric(data_1hour_full[11,3:5]), as.numeric(data_1hour_full[12,3:5]))
+
+study_data[8,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full[15,3:5]))
+study_data[9,]=c(as.numeric(data_1hour_full[14,3:5]), as.numeric(data_1hour_full[15,3:5]))
+
+study_data[10,]=c(as.numeric(data_1hour_full[16,3:5]), as.numeric(data_1hour_full[17,3:5]))
+
+
+
+comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo", 
+             
+             "Pilatti, G._dexamethasone 4mg_vs_placebo", 
+             "Pilatti, G._celecoxib 200mg_vs_placebo", 
+             
+             "Santos, B._ibuprofen 600mg_vs_placebo",  
+             "Santos, B._nimesilide 100mg_vs_placebo", 
+             
+             "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
+             "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
+             
+             "Steffens, J 2011 @_celecoxib 200mg_vs_placebo", 
+             "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo",
+             
+             "Trombelli, L._ketorolac 10mg_vs_placebo"
+             
+        )
+
+
+data_meta=data.frame(comparison=comparison, samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
+
+colnames(study_data)=c("samplesize_exp", "mean_exp", "sd_exp", "samplesize_contr", "mean_contr", "sd_contr")
+rownames(study_data)=comparison
+
+data_meta=data.frame(study_data)
+
+m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[1:11,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen <- metagen(TE = m1$TE,
+                 seTE =m1$seTE,
+                 studlab = comparison[1:11],
+                 data = data_meta[1:11,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+m.gen_weighted <- metagen(TE = m1$TE,
+                 seTE =m1$seTE,
+                 studlab = comparison[1:11],
+                 data = data_meta[1:11,],
+                 sm = "WMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+
+forest(m.gen, layout="RevMan5", sortvar = TE, 
+            prediction = T, 
+            print.tau2 = F,
+            fontsize=6,
+            leftlabs = c("study")) # sortvar = TE: sort studies by effect size 
+
+### add text for test of overall effect https://www.metafor-project.org/doku.php/plots:forest_plot_revman#code
+#forest.meta(m.gen, sortvar = TE, 
+#            prediction = FALSE, 
+#            print.tau2 = FALSE, 
+#            leftlabs = c("sudy", "g", "SE")) # sortvar = TE: sort studies by effect size 
+
+forest(m.gen_weighted, layout="RevMan5", sortvar = TE, 
+            prediction = T, 
+            print.tau2 = F,
+            fontsize=6,
+            leftlabs = c("study")) # sortvar = TE: sort studies by effect size 
+
+
+```
+
+
+* both SMD and WMD produce same results 
+
+
+
+
+
+
+* because $confidence~interval=mean+/-1.96 \times\frac{SD}{\sqrt{sample~size}}$, so $SD=\sqrt{sample~size} \times(CI~upper~limit-CI~lower~limit)/3.92$, then the raw mean difference could be calculated as 
+
+
+$$Total \times SD=Total \times \sqrt{sample~size} \times(CI~upper~limit-CI~lower~limit)/3.92 $$
+In above example, the raw mean difference is $-0.7\times \sqrt{11} \times (-0.15+1.26)/3.92=-0.657$.  
+
+
+* [Random effect model](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es), effects of individual studies do not only deviate due to sampling error alone but that there is another source of variance, 
+
+$$\widehat{\theta}_k=\underbrace{\mu+\zeta_k}_{\theta_k}+\epsilon_k$$
+
+$\mu$ is the true pooled effect size; $\theta_k$ is the true effect size of study k. [here](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#fig:random) is the relationships among them. $\zeta_k$ is a product of chance alone. 
+
+* We use R package-meta to calculate standardised mean difference (SMD) and 95% confidence interval (CI) in every study between each treatment and placebo, reported in the Table on the left and visualized on the right. Pooled effect was calculated as `Total` in the last row. Heterogeneity measure was presented under the table.  
+
+
+```{r, message=F, warning=F}
+# https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pub-bias.html
+# Define fill colors for contour
+col.contour = c("gray75", "pink", "red")
+
+# Generate funnel plot (we do not include study labels here)
+meta::funnel(m.gen, 
+             #xlim = c(-0.5, 2),
+             contour = c(0.9, 0.95, 0.99),
+             col.contour = col.contour)
+
+# Add a legend
+legend(x = -2.5, y = 0.1, 
+       legend = c("p < 0.1", "p < 0.05", "p < 0.01"),
+       fill = col.contour)
+
+# Add a title
+title("Contour-Enhanced Funnel Plot")
+```
+
+* When there is no publication bias, the data points in such a plot should form a roughly symmetrical, upside-down funnel. Studies in the top part of the plot (those with low standard errors), should lie closely together, and not far away from the pooled effect size. In the lower part of the plot, with increasing standard errors, the funnel “opens up”, and effect sizes are expected to scatter more heavily to the left and right of the pooled effect.
+
+* The vertical line in the middle of the funnel shows the average effect size 
+
+* overall it is not symmetric 
+
+* significant studies are in interested areas with $p<0.05$, and $p<0.01$.  
+
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen$zval.random, 4), pval=round(m.gen$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+#### parallel RCTs
+
+variable_include_index=c(2,11, 8, 10, 1, 9, 7)   # need to update the index 
+
+m22 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen22 <- metagen(TE = m22$TE,
+                 seTE =m22$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = T,
+                 random = F,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen22, layout="RevMan5", sortvar = TE, 
+            prediction = F, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+
+```
+
+
+
+#### 1 hour - Studies per surgery
+
+##### random effect model
+
+
+```{r, message=F, warning=F, eval=T}
+
+#### 1 hour - Studies per surgery
+
+##### random effect model 
+
+
+##################### forest plot without Pereira
+variable_include_index=c(2:10)
+
+m2 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen2 <- metagen(TE = m2$TE,
+                 seTE =m2$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen2, layout="RevMan5", sortvar = TE, 
+            prediction = T, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+
+
+# raw difference -0.72
+
+#`> -0.71*(10)^0.5*(-0.08+1.34)/3.92
+#[1] -0.7216769`
+
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+data.frame(Zval=round(m.gen2$zval.random, 4), pval=round(m.gen2$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+#### 1 hour - Studies per timing of preemptive medication administration
+
+
+##### Preemptive medication given 1 hour prior to surgery or longer 
+
+
+#  random effect model 
+
+
+#####################
+variable_include_index=c(2,3,4,5,6,7,8,9,10)
+
+m3 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen3 <- metagen(TE = m3$TE,
+                 seTE =m3$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen3, layout="RevMan5", sortvar = TE, 
+            prediction = T, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+
+* raw difference -0.82
+
+`> -0.75*(9)^0.5*(-0.04+1.47)/3.92
+[1] -0.8207908`
+
+
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+data.frame(Zval=round(m.gen3$zval.random, 4), pval=round(m.gen3$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+ 
+
+```{r,  message=F, warning=F, eval=F}
+
+##### Preemptive medication given less than 1 hour prior to surgery
+
+
+* random effect model 
+
+
+#####################
+variable_include_index=c(1, 11)
+
+m4 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen4 <- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen4, layout="RevMan5", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+
+* raw difference -0.61
+
+`> -0.47*(2)^0.5*(1.33+2.27)/3.92
+[1] -0.6104208`
+
+
+```
+
+
+
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+data.frame(Zval=round(m.gen4$zval.random, 4), pval=round(m.gen4$pval.random,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+* fixed effect model 
+#####################
+variable_include_index=c(1, 11)
+
+m4 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen4 <- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen4, layout="RevMan5", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+* raw difference -0.11
+
+`> -0.47*(2)^0.5*(-0.16+0.78)/3.92
+[1] -0.105128`
+
+
+
+* [pooled effect size under the fixed-effect model simply uses a weighted average of all studies](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es) Inverse-variance meta analysis 
+
+$$\widehat{\theta}=\frac{\sum_k \widehat{\theta}_kw_k}{\sum_k w_k}$$
+
+$\widehat{\theta}$ is the pooled effect size, $\widehat{\theta}_k$ is kth study effect size, and $w_k$ is the weight as $w_k=\frac{1}{s_k^2}$, $s_k^2$ is the variance. 
+
+
+
+```
+
+
+
+
+
+
+
+
+```{r,  message=F, warning=F, eval=F}
+#### 1 hour - Studies only with ibuproben
+
+* random effect model 
+
+#####################
+variable_include_index=c(1, 2, 5)
+
+m5 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen5 <- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen5, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+* fixed effect model 
+
+#####################
+variable_include_index=c(1, 2, 5)
+
+m5 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen5 <- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen5, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+ 
+
+```{r, message=F, warning=F, eval=F}
+
+#### 1 hour - Studies only with dexamethasone
+
+
+* random effect model
+
+#####################
+variable_include_index=c(3, 7, 8)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+```{r,  message=F, warning=F, eval=F}
+
+* fixed  effect model 
+
+#####################
+variable_include_index=c(3, 7, 8)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+
+```{r,  message=F, warning=F, eval=F}
+
+#### 1 hour per drug analysis
+
+##### Ibuprofen 600mg
+
+
+* random effect model 
+
+#####################
+variable_include_index=c(2, 5)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+* fixed effect model 
+
+#####################
+variable_include_index=c(2, 5)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+```{r,  message=F, warning=F, eval=F}
+
+##### dexamethasone 4mg 
+
+
+* random effect model 
+
+#####################
+variable_include_index=c(3, 7)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+```{r,  message=F, warning=F, eval=F}
+
+* fixed effect model 
+
+#####################
+variable_include_index=c(3, 7)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+##### celecoxib 200mg  
+
+
+* random effect model
+
+#####################
+variable_include_index=c(4, 9)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+
+
+```{r,  message=F, warning=F, eval=F}
+
+* fixed effect model 
+
+#####################
+variable_include_index=c(4, 9)
+
+m6 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = "SMD")
+
+########### generate object for plot 
+
+m.gen6 <- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen6, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+
+#### 1 hour - Sensitivity analysis
+
+
+*  random effect model 
+
+```{r,  message=F, warning=F}
+#####################
+TE_random=numeric(); seTE_random=numeric()
+for (i in 1:10)
+{
+ m_leave_one_out <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = "SMD")
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste("omitting", comparison[1:10], sep="_")
+m.gen_leave_one_out <- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen_leave_one_out, layout="JAMA", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+
+* we remove  one study at a time, and re-do the same analysis, to see how the removed study influences the results from all studies included.   
+
+
+
+*  fixed effect model 
+
+```{r,  message=F, warning=F}
+#####################
+TE_random=numeric(); seTE_random=numeric()
+for (i in 1:10)
+{
+ m_leave_one_out <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = "SMD")
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste("omitting", comparison[1:10], sep="_")
+m.gen_leave_one_out <- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = "SMD",
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = "REML",
+                 hakn = TRUE,
+                 title = "Different treatments")
+
+#summary(m.gen)
+
+forest(m.gen_leave_one_out, layout="RevMan5", sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=6,
+            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+
+```
+* raw difference -0.17
+
+`> -0.68*(11)^0.5*(-0.54+0.83)/3.92
+[1] -0.1668465`
+
+
+
+```{r, echo=F, message=F, warning=F}
+data.frame(Zval=round(m.gen_leave_one_out$zval.common, 4), pval=round(m.gen_leave_one_out$pval.common,4))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+############################
+data_meta%>%
+datatable(extensions = 'Buttons',
+          caption = "one hour", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+* For an individual study, a square with treatment estimate in the center and confidence interval as line extending either side of the square.  The size of this square is determined by the weight. 
+
+* vertical reference lines indicates the point of no effect 
+
+
+* For meta-analysis results, a diamond with treatment estimate in the center and right and left side corresponding to lower and upper confidence limits
+
+* heterogeneity (null hypothesis: all studies estimate the same effect) is measured by [Cochran’s Q](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/heterogeneity.html), which is calculated as the weighted sum of squared differences between individual study effects and the pooled effect across studies, following $\chi^2$ distribution with number of studies-1 DF. 
+
+* $I^2$ statistic describes the percentage of variation across studies that is due to heterogeneity rather than chance
+[more details](https://www.statsdirect.com/help/meta_analysis/heterogeneity.htm#:~:text=Heterogeneity%20in%20meta%2Danalysis%20refers,the%20inconsistency%20of%20studies'%20results). 
+
+* [SMD interpretations](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-30#:~:text=Firstly%2C%20the%20SMD%20can%20be,a%20large%20effect%20%5B2%5D.), and [calculations](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/effects.html), $SMD=\frac{\bar{X}_1-\bar{X}_2}{s_{pooled}}$. 
+
+
+##### calculate SMD using example of Pearlman, B._ibuprofen 400mg_vs_placebo
+
+
+```{r, echo=T, message=F, warning=F}
+n1=63; s1=21; n2=61; s2=25
+# Calculate s_pooled
+s_pooled <- sqrt(  # s_pooled is pooled standard deviation
+  (((n1-1)*s1^2) + ((n2-1)*s2^2))/
+    ((n1-1)+(n2-1))
+)
+
+# Calculate the standard error
+se <- s_pooled*sqrt((1/n1)+(1/n2))
+#se
+
+mean1=10; mean2=19
+(mean1-mean2)/s_pooled  # this is SMD for Pearlman, B._ibuprofen 400mg_vs_placebo
+```
+
+
+
+### network meta-analysis 
+
+
+[network Meta-Analysis](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/netwma.html)
+
+In traditional meta-analysis, direct comparison between two treatments may not be available because in typical clinical trials, what often happens is the comparison between specific treatment and placebo. So network meta analysis enables the assessment of  relative effectiveness of several treatments by incorporating indirect comparisons using multivariate linear regression models. for more details see [Evidence Synthesis for Decision Making 2:
+A Generalized Linear Modeling Framework
+for Pairwise and Network Meta-analysis of
+Randomized Controlled Trials](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3704203/pdf/10.1177_0272989X12458724.pdf) and [Automating network meta-analysis](https://onlinelibrary.wiley.com/doi/epdf/10.1002/jrsm.1054)
+
+Assume K trials and M comparisons, $\hat{\theta}_m$ is effect size of every comparison, to model the observed effect size ${\bf \hat{\theta}}=c(\hat{\theta}_1, \hat{\theta}_2, \cdots, \hat{\theta}_M)$, 
+
+$$\bf \hat{\theta}=X\theta_{treat}+\epsilon$$
+
+* $\bf \hat{\theta}$:  observed effect size vector
+
+* $\bf X$: $m \times n$ design matrix, columns represent different treatment, rows represent comparisons,it's not full rank and Moore-Penrose pseudoinverse matrix was used in netmeta for parameter estimate  
+
+* $\bf \theta_{treat}$: true effect size of n unique treatments, its estimate is the goal 
+
+* $\bf \epsilon$ errors following $\epsilon_m \sim N(0, \sigma_m^2)$. 
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+############# an example 
+#data(TherapyFormats)
+
+#head(TherapyFormats[1:5])
+#as.matrix(table(TherapyFormats$author))
+#m.netmeta <- netmeta(TE = TE,
+#                     seTE = seTE,
+#                     treat1 = treat1,
+#                     treat2 = treat2,
+#                     studlab = author,
+#                     data = TherapyFormats,
+#                     sm = "SMD",
+#                     fixed = TRUE,
+#                     random = FALSE,
+#                     reference.group = "cau",
+#                     details.chkmultiarm = TRUE,
+#                     sep.trts = " vs ")
+#summary(m.netmeta)
+
+#########################
+
+
+######## manually create the data matrix 
+study_data=matrix(nrow=14, ncol=6)
+study_data[1,]=c(as.numeric(data_1hour_full[1,3:5]), as.numeric(data_1hour_full[2,3:5]))
+
+study_data[2,]=c(as.numeric(data_1hour_full[4,3:5]), as.numeric(data_1hour_full[3,3:5]))
+study_data[3,]=c(as.numeric(data_1hour_full[5,3:5]), as.numeric(data_1hour_full[3,3:5]))
+
+study_data[4,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[7,3:5]))
+study_data[5,]=c(as.numeric(data_1hour_full[8,3:5]), as.numeric(data_1hour_full[9,3:5]))
+
+study_data[6,]=c(as.numeric(data_1hour_full[10,3:5]), as.numeric(data_1hour_full[12,3:5]))
+study_data[7,]=c(as.numeric(data_1hour_full[11,3:5]), as.numeric(data_1hour_full[12,3:5]))
+
+study_data[8,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full[15,3:5]))
+study_data[9,]=c(as.numeric(data_1hour_full[14,3:5]), as.numeric(data_1hour_full[15,3:5]))
+
+study_data[10,]=c(as.numeric(data_1hour_full[16,3:5]), as.numeric(data_1hour_full[17,3:5]))
+
+
+study_data[11,]=c(as.numeric(data_1hour_full[4,3:5]), as.numeric(data_1hour_full[5,3:5]))
+study_data[12,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[8,3:5]))
+study_data[13,]=c(as.numeric(data_1hour_full[10,3:5]), as.numeric(data_1hour_full[11,3:5]))
+study_data[14,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full[14,3:5]))
+
+
+comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo", 
+             
+             "Pilatti, G._dexamethasone 4mg_vs_placebo", 
+             "Pilatti, G._celecoxib 200mg_vs_placebo", 
+             
+             "Santos, B._ibuprofen 600mg_vs_placebo",  
+             "Santos, B._nimesilide 100mg_vs_placebo", 
+             
+             "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
+             "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
+             
+             "Steffens, J 2011 @_celecoxib 200mg_vs_placebo", 
+             "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo",
+             
+             "Trombelli, L._ketorolac 10mg_vs_placebo",
+             
+             "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg", 
+             "Santos, B._ibuprofen 600mg_vs_nimesilide 100mg", 
+             "Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg", 
+             "Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg"
+        )
+data_meta=data.frame(comparison=comparison, samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
+
+colnames(study_data)=c("samplesize_exp", "mean_exp", "sd_exp", "samplesize_contr", "mean_contr", "sd_contr")
+rownames(study_data)=comparison
+
+data_meta=data.frame(study_data)
+
+
+treat1=treat2=study=character()
+for (i in 1:length(comparison))
+{
+  position=unlist(gregexpr('_', comparison[i]))
+  treat1[i]=substring(comparison[i],position[1]+1,last=position[2]-1)
+  treat2[i]=substring(comparison[i],position[3]+1,last=1000000L)
+  study[i]=substring(comparison[i], 1,last=position[1]-1)
+}
+
+m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta, sm = "SMD")
+
+
+```
+
+
+#### random effect model 
+
+```{r,  message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = FALSE,
+                     random = TRUE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+long.labels=m.netmeta$trts
+
+node_size <- sqrt(m.netmeta$n / max(m.netmeta$n)) * 3
+
+netgraph(m.netmeta, 
+         labels = long.labels, number.of.studies = TRUE,  lty="solid", cex.point=  node_size  # Adjust node size
+         )
+
+
+
+netgraph(m.netmeta, 
+         labels = long.labels, 
+         number.of.studies = TRUE, 
+         plastic = FALSE,  # Ensures standard network layout
+         lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
+         lwd = 2,  # Increase line width for clarity
+         col = "black",  # Set edge color to black
+         cex.point=  node_size, 
+         col.number = "cyan"  # Change the color of numbers on edges
+)
+```
+
+* we use R package-netmeta for network meta analysis. 
+
+* dependence among multi-arm studies has been taken into account, by argument ` tol.multiarm=0.2` 
+
+* overall comparison structure 
+* direct links mean there are direct comparison, otherwise indirect comparisons 
+* degree of thickness represents how often we find a specific comparison
+* numbers on the edge indicate how many studies involve that comparison
+
+
+
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+## Visualizing Direct and Indirect Evidence
+d.evidence <- direct.evidence.plot(m.netmeta)
+plot(d.evidence)
+```
+
+* a mean path length > 2 means that a comparison estimate should be interpreted with particular caution.
+
+
+
+
+```{r, message=F, warning=F}
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = T,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+
+
+m.netmeta$pval.random
+```
+
+* random effect model is used, due to significant p values  
+
+* higher P-score, the better it is 
+
+* placebo is used as the reference group 
+
+
+
+#### transitivity analysis  (consistency between direct vs indir)
+
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta) 
+```
+
+* netsplit was used to check the consistency among direct/indirect comparisons, with p values less than 5% being disagree 
+* only the last two comparisons show inconsistency with small p values. 
+
+
+```{r, message=F, warning=F}
+netsplit(m.netmeta) %>% forest(fontsize = 8, spacing = .4)  # visualize the net split results 
+
+```
+
+* [I2 is pairwise comparisons with direct evidence](https://cran.r-project.org/web/packages/netmeta/news/news.html)
+
+
+
+
+```{r, message=F, warning=F}
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:11), col=seq(1:11), linreg = T,  legend = F, digits.pval=2)
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:11), col=seq(1:11), linreg = F,  legend = F, digits.pval=2)
+```
+
+
+#### fixed effect model 
+
+```{r, echo=F, message=F, warning=F}
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, "VS", treat2, sep=" "))
+m.netmeta <- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = "SMD",
+                     fixed = TRUE,
+                     random = FALSE,
+                     reference.group = "placebo",
+                     details.chkmultiarm = TRUE,
+                     sep.trts = " vs ")
+
+
+
+netrank(m.netmeta, small.values = "good")
+
+forest(m.netmeta, 
+       reference.group = "placebo",
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste("",
+                     ""),
+       drop.reference.group = TRUE,
+       label.left = "",
+       label.right = "",
+       labels = long.labels)
+#summary(m.netmeta)
+decomp.design(m.netmeta)
+```
+
+* in this analysis, placebo is treated as reference. 
+
+* P score is a frequentist analogue to SUCRA, for [details](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-015-0060-8). It measures the certainty the one treatment is better than other competing treatments. The larger P score, the better the treatment is.
+
+
+* from P-score ranking, the nimesilide 100mg might be the most effective treatment, however solely because it has the highest score in the ranking, doesn't mean it's the best one, need further information from forest plot 
+
+* In the forest plot, if two treatments have overlapping, then these two are not significantly different, and they are otherwise. For example, nimesilide 100mg   and  ibuprofen 600mg are not different from one another, although nimesilide 100mg is higher than ibuprofen 600mg in the ranking. It's safe to say ibuprofen 600mg is better than dexamethasone 4mg, since no overlap between their CI's. 
+
+
+
+
+
+### Risk of bias plot 
+
+* [reference](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/risk-of-bias-plots.html)
+
+```{r, message=F, warning=F}
+#install.packages("robvis")
+library(robvis)
+library(tidyverse)
+glimpse(data_robins)
+rob_summary(data = data_rob2, 
+            tool = "ROB2")
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+#netheat(m.netmeta, nchar.trts=3, random = TRUE)
+#netsplit(m.netmeta) %>% forest()
+```
+
+

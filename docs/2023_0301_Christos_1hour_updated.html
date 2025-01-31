@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2025-01-31" />
+
+<title>one hour updated</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.31/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">all projects</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/han16/Collaborations">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">one hour updated</h1>
+<h4 class="date">2025-01-31</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2025-01-31
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 2
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Collaborations/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210523code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20210523)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210523code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210523)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
+</p>
+</div>
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Using absolute paths to the files within your workflowr project makes it
+difficult for you and others to run your code on a different machine.
+Change the absolute path(s) below to the suggested relative path(s) to
+make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+C:/Shengtong/Research/AllCollaboration/Collaborations/analysis/Rfunctions.R
+</td>
+<td style="text-align:left;">
+analysis/Rfunctions.R
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cctargetblank1a28d7fa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/han16/Collaborations/tree/1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cc" target="_blank">1a28d7f</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cctargetblank1a28d7fa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/han16/Collaborations/tree/1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cc" target="_blank">1a28d7f</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    analysis/.Rhistory
+    Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Untracked files:
+    Untracked:  analysis/2023_0301_Christos_1hour_updated.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="home" class="section level2">
+<h2>Home</h2>
+<p><a href="2023_0301_Christos.html">Home</a></p>
+<div id="sample-data" class="section level3">
+<h3>sample data</h3>
+<pre class="r"><code>data_1hour=data$`1 Hour`[-1,c(1,3,8, 5,7)]
+data_1hour=data_1hour[-c(10,11),]  # remove Pearlman study, requested by Vrisiis 
+data_1hour_full=as_tibble(data_1hour[complete.cases(data_1hour), ]) 
+colnames(data_1hour_full)=c(&quot;study&quot;, &quot;treatment&quot;, &quot;n&quot;, &quot;mean&quot;, &quot;sd&quot;)
+
+data_1hour_full%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;one hour&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>one hour<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["Pereira, G.","Pereira, G.","Pilatti, G.","Pilatti, G.","Pilatti, G.","Santos, B.","Santos, B.","Santos, B.","Santos, B.","Steffens, J 2011","Steffens, J 2011","Steffens, J 2011","Steffens, J 2011 @","Steffens, J 2011 @","Steffens, J 2011 @","Trombelli, L.","Trombelli, L."],["ibuprofen 600mg","placebo","placebo","dexamethasone 4mg","celecoxib 200mg","ibuprofen 600mg","placebo 1","nimesulide 100mg","placebo 2","dexamethasone 4mg","dexamethasone 8mg","placebo","celecoxib 200mg","etoricoxib 120mg","placebo","ketorolac 10mg","placebo"],[27,27,20,20,20,20,20,20,20,19,18,20,20,16,20,22,21],[1.5,7.4,18.1,14.57,8.779999999999999,10,40,12,44,13.85,1.76,9.9,8,3,10,5.32,14],[5.7,10.5,23.01,20.36,17.57,14.8,12.1,15.4,7.5,20.08,2.92,17.1,17,12,17,6.5,15.69]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>study<\/th>\n      <th>treatment<\/th>\n      <th>n<\/th>\n      <th>mean<\/th>\n      <th>sd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"study","targets":1},{"name":"treatment","targets":2},{"name":"n","targets":3},{"name":"mean","targets":4},{"name":"sd","targets":5}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="forest-plots" class="section level3">
+<h3>forest plots</h3>
+<div id="all-studies-per-author-no-groups" class="section level4">
+<h4>ALL studies per author – no groups</h4>
+<ul>
+<li>random effect model</li>
+</ul>
+<pre class="r"><code>##### https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/forest.html
+
+
+#data(Fleiss1993cont)
+
+#m1 &lt;- metacont(n.psyc, mean.psyc, sd.psyc, n.cont, mean.cont, sd.cont,
+ # data = Fleiss1993cont, sm = &quot;SMD&quot;)
+#m1
+#forest(m1)
+
+######## manually create the data matrix 
+study_data=matrix(nrow=10, ncol=6)
+study_data[1,]=c(as.numeric(data_1hour_full[1,3:5]), as.numeric(data_1hour_full[2,3:5]))
+
+study_data[2,]=c(as.numeric(data_1hour_full[4,3:5]), as.numeric(data_1hour_full[3,3:5]))
+study_data[3,]=c(as.numeric(data_1hour_full[5,3:5]), as.numeric(data_1hour_full[3,3:5]))
+
+study_data[4,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[7,3:5]))
+study_data[5,]=c(as.numeric(data_1hour_full[8,3:5]), as.numeric(data_1hour_full[9,3:5]))
+
+study_data[6,]=c(as.numeric(data_1hour_full[10,3:5]), as.numeric(data_1hour_full[12,3:5]))
+study_data[7,]=c(as.numeric(data_1hour_full[11,3:5]), as.numeric(data_1hour_full[12,3:5]))
+
+study_data[8,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full[15,3:5]))
+study_data[9,]=c(as.numeric(data_1hour_full[14,3:5]), as.numeric(data_1hour_full[15,3:5]))
+
+study_data[10,]=c(as.numeric(data_1hour_full[16,3:5]), as.numeric(data_1hour_full[17,3:5]))
+
+
+
+comparison=c(&quot;Pereira, G._ibuprofen 600mg_vs_placebo&quot;, 
+             
+             &quot;Pilatti, G._dexamethasone 4mg_vs_placebo&quot;, 
+             &quot;Pilatti, G._celecoxib 200mg_vs_placebo&quot;, 
+             
+             &quot;Santos, B._ibuprofen 600mg_vs_placebo&quot;,  
+             &quot;Santos, B._nimesilide 100mg_vs_placebo&quot;, 
+             
+             &quot;Steffens, J 2011_dexamethasone 4mg_vs_placebo&quot;, 
+             &quot;Steffens, J 2011_dexamethasone 8mg_vs_placebo&quot;, 
+             
+             &quot;Steffens, J 2011 @_celecoxib 200mg_vs_placebo&quot;, 
+             &quot;Steffens, J 2011 @_etoricoxib 120mg_vs_placebo&quot;,
+             
+             &quot;Trombelli, L._ketorolac 10mg_vs_placebo&quot;
+             
+        )
+
+
+data_meta=data.frame(comparison=comparison, samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
+
+colnames(study_data)=c(&quot;samplesize_exp&quot;, &quot;mean_exp&quot;, &quot;sd_exp&quot;, &quot;samplesize_contr&quot;, &quot;mean_contr&quot;, &quot;sd_contr&quot;)
+rownames(study_data)=comparison
+
+data_meta=data.frame(study_data)
+
+m1 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[1:11,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen &lt;- metagen(TE = m1$TE,
+                 seTE =m1$seTE,
+                 studlab = comparison[1:11],
+                 data = data_meta[1:11,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+m.gen_weighted &lt;- metagen(TE = m1$TE,
+                 seTE =m1$seTE,
+                 studlab = comparison[1:11],
+                 data = data_meta[1:11,],
+                 sm = &quot;WMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>both SMD and WMD produce same results</p></li>
+<li><p>because <span
+class="math inline">\(confidence~interval=mean+/-1.96
+\times\frac{SD}{\sqrt{sample~size}}\)</span>, so <span
+class="math inline">\(SD=\sqrt{sample~size}
+\times(CI~upper~limit-CI~lower~limit)/3.92\)</span>, then the raw mean
+difference could be calculated as</p></li>
+</ul>
+<p><span class="math display">\[Total \times SD=Total \times
+\sqrt{sample~size} \times(CI~upper~limit-CI~lower~limit)/3.92 \]</span>
+In above example, the raw mean difference is <span
+class="math inline">\(-0.7\times \sqrt{11} \times
+(-0.15+1.26)/3.92=-0.657\)</span>.</p>
+<ul>
+<li><a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es">Random
+effect model</a>, effects of individual studies do not only deviate due
+to sampling error alone but that there is another source of
+variance,</li>
+</ul>
+<p><span
+class="math display">\[\widehat{\theta}_k=\underbrace{\mu+\zeta_k}_{\theta_k}+\epsilon_k\]</span></p>
+<p><span class="math inline">\(\mu\)</span> is the true pooled effect
+size; <span class="math inline">\(\theta_k\)</span> is the true effect
+size of study k. <a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#fig:random">here</a>
+is the relationships among them. <span
+class="math inline">\(\zeta_k\)</span> is a product of chance alone.</p>
+<ul>
+<li>We use R package-meta to calculate standardised mean difference
+(SMD) and 95% confidence interval (CI) in every study between each
+treatment and placebo, reported in the Table on the left and visualized
+on the right. Pooled effect was calculated as <code>Total</code> in the
+last row. Heterogeneity measure was presented under the table.</li>
+</ul>
+<pre class="r"><code># https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pub-bias.html
+# Define fill colors for contour
+col.contour = c(&quot;gray75&quot;, &quot;pink&quot;, &quot;red&quot;)
+
+# Generate funnel plot (we do not include study labels here)
+meta::funnel(m.gen, 
+             #xlim = c(-0.5, 2),
+             contour = c(0.9, 0.95, 0.99),
+             col.contour = col.contour)
+
+# Add a legend
+legend(x = -2.5, y = 0.1, 
+       legend = c(&quot;p &lt; 0.1&quot;, &quot;p &lt; 0.05&quot;, &quot;p &lt; 0.01&quot;),
+       fill = col.contour)
+
+# Add a title
+title(&quot;Contour-Enhanced Funnel Plot&quot;)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>When there is no publication bias, the data points in such a plot
+should form a roughly symmetrical, upside-down funnel. Studies in the
+top part of the plot (those with low standard errors), should lie
+closely together, and not far away from the pooled effect size. In the
+lower part of the plot, with increasing standard errors, the funnel
+“opens up”, and effect sizes are expected to scatter more heavily to the
+left and right of the pooled effect.</p></li>
+<li><p>The vertical line in the middle of the funnel shows the average
+effect size</p></li>
+<li><p>overall it is not symmetric</p></li>
+<li><p>significant studies are in interested areas with <span
+class="math inline">\(p&lt;0.05\)</span>, and <span
+class="math inline">\(p&lt;0.01\)</span>.</p></li>
+</ul>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-2.6981],[0.0245]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>#### parallel RCTs
+
+variable_include_index=c(2,11, 8, 10, 1, 9, 7)   # need to update the index 
+
+m22 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen22 &lt;- metagen(TE = m22$TE,
+                 seTE =m22$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = T,
+                 random = F,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen22, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = F, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+</div>
+<div id="hour---studies-per-surgery" class="section level4">
+<h4>1 hour - Studies per surgery</h4>
+<div id="random-effect-model" class="section level5">
+<h5>random effect model</h5>
+<pre class="r"><code>#### 1 hour - Studies per surgery
+
+##### random effect model 
+
+
+##################### forest plot without Pereira
+variable_include_index=c(2:10)
+
+m2 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen2 &lt;- metagen(TE = m2$TE,
+                 seTE =m2$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen2, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = T, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># raw difference -0.72
+
+#`&gt; -0.71*(10)^0.5*(-0.08+1.34)/3.92
+#[1] -0.7216769`</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-2.4341],[0.0409]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>#### 1 hour - Studies per timing of preemptive medication administration
+
+
+##### Preemptive medication given 1 hour prior to surgery or longer 
+
+
+#  random effect model 
+
+
+#####################
+variable_include_index=c(2,3,4,5,6,7,8,9,10)
+
+m3 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen3 &lt;- metagen(TE = m3$TE,
+                 seTE =m3$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen3, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = T, 
+            print.tau2 = FALSE,
+            fontsize=6.5,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size 
+
+
+* raw difference -0.82
+
+`&gt; -0.75*(9)^0.5*(-0.04+1.47)/3.92
+[1] -0.8207908`</code></pre>
+<pre class="r"><code>##### Preemptive medication given less than 1 hour prior to surgery
+
+
+* random effect model 
+
+
+#####################
+variable_include_index=c(1, 11)
+
+m4 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen4 &lt;- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen4, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size 
+
+
+* raw difference -0.61
+
+`&gt; -0.47*(2)^0.5*(1.33+2.27)/3.92
+[1] -0.6104208`</code></pre>
+<pre class="r"><code>* fixed effect model 
+#####################
+variable_include_index=c(1, 11)
+
+m4 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen4 &lt;- metagen(TE = m4$TE,
+                 seTE =m4$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen4, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size 
+
+* raw difference -0.11
+
+`&gt; -0.47*(2)^0.5*(-0.16+0.78)/3.92
+[1] -0.105128`
+
+
+
+* [pooled effect size under the fixed-effect model simply uses a weighted average of all studies](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/pooling-es.html#pooling-es) Inverse-variance meta analysis 
+
+$$\widehat{\theta}=\frac{\sum_k \widehat{\theta}_kw_k}{\sum_k w_k}$$
+
+$\widehat{\theta}$ is the pooled effect size, $\widehat{\theta}_k$ is kth study effect size, and $w_k$ is the weight as $w_k=\frac{1}{s_k^2}$, $s_k^2$ is the variance. </code></pre>
+<pre class="r"><code>#### 1 hour - Studies only with ibuproben
+
+* random effect model 
+
+#####################
+variable_include_index=c(1, 2, 5)
+
+m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen5 &lt;- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>* fixed effect model 
+
+#####################
+variable_include_index=c(1, 2, 5)
+
+m5 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen5 &lt;- metagen(TE = m5$TE,
+                 seTE =m5$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen5, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>#### 1 hour - Studies only with dexamethasone
+
+
+* random effect model
+
+#####################
+variable_include_index=c(3, 7, 8)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>* fixed  effect model 
+
+#####################
+variable_include_index=c(3, 7, 8)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>#### 1 hour per drug analysis
+
+##### Ibuprofen 600mg
+
+
+* random effect model 
+
+#####################
+variable_include_index=c(2, 5)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>* fixed effect model 
+
+#####################
+variable_include_index=c(2, 5)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>##### dexamethasone 4mg 
+
+
+* random effect model 
+
+#####################
+variable_include_index=c(3, 7)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>* fixed effect model 
+
+#####################
+variable_include_index=c(3, 7)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>##### celecoxib 200mg  
+
+
+* random effect model
+
+#####################
+variable_include_index=c(4, 9)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<pre class="r"><code>* fixed effect model 
+
+#####################
+variable_include_index=c(4, 9)
+
+m6 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
+
+########### generate object for plot 
+
+m.gen6 &lt;- metagen(TE = m6$TE,
+                 seTE =m6$seTE,
+                 studlab = comparison[variable_include_index],
+                 data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen6, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+</div>
+</div>
+<div id="hour---sensitivity-analysis" class="section level4">
+<h4>1 hour - Sensitivity analysis</h4>
+<ul>
+<li>random effect model</li>
+</ul>
+<pre class="r"><code>#####################
+TE_random=numeric(); seTE_random=numeric()
+for (i in 1:10)
+{
+ m_leave_one_out &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = &quot;SMD&quot;)
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste(&quot;omitting&quot;, comparison[1:10], sep=&quot;_&quot;)
+m.gen_leave_one_out &lt;- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = FALSE,
+                 random = TRUE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen_leave_one_out, layout=&quot;JAMA&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=7,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>we remove one study at a time, and re-do the same analysis, to
+see how the removed study influences the results from all studies
+included.</p></li>
+<li><p>fixed effect model</p></li>
+</ul>
+<pre class="r"><code>#####################
+TE_random=numeric(); seTE_random=numeric()
+for (i in 1:10)
+{
+ m_leave_one_out &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta[-i,], sm = &quot;SMD&quot;)
+ TE_random[i]=m_leave_one_out$TE.random
+ seTE_random[i]=m_leave_one_out$seTE.random
+}
+########### generate object for plot 
+comparison_leave_one_out=paste(&quot;omitting&quot;, comparison[1:10], sep=&quot;_&quot;)
+m.gen_leave_one_out &lt;- metagen(TE = TE_random,
+                 seTE =seTE_random,
+                 studlab = comparison_leave_one_out,
+             #    data = data_meta[variable_include_index,],
+                 sm = &quot;SMD&quot;,
+                 fixed = TRUE,
+                 random = FALSE,
+                 method.tau = &quot;REML&quot;,
+                 hakn = TRUE,
+                 title = &quot;Different treatments&quot;)
+
+#summary(m.gen)
+
+forest(m.gen_leave_one_out, layout=&quot;RevMan5&quot;, sortvar = TE, 
+            prediction = FALSE, 
+            print.tau2 = FALSE,
+            fontsize=6,
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+* raw difference -0.17</p>
+<p><code>&gt; -0.68*(11)^0.5*(-0.54+0.83)/3.92 [1] -0.1668465</code></p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-8.315899999999999],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>one hour<\/caption>","data":[["Pereira, G._ibuprofen 600mg_vs_placebo","Pilatti, G._dexamethasone 4mg_vs_placebo","Pilatti, G._celecoxib 200mg_vs_placebo","Santos, B._ibuprofen 600mg_vs_placebo","Santos, B._nimesilide 100mg_vs_placebo","Steffens, J 2011_dexamethasone 4mg_vs_placebo","Steffens, J 2011_dexamethasone 8mg_vs_placebo","Steffens, J 2011 @_celecoxib 200mg_vs_placebo","Steffens, J 2011 @_etoricoxib 120mg_vs_placebo","Trombelli, L._ketorolac 10mg_vs_placebo"],[27,20,20,20,20,19,18,20,16,22],[1.5,14.57,8.779999999999999,10,12,13.85,1.76,8,3,5.32],[5.7,20.36,17.57,14.8,15.4,20.08,2.92,17,12,6.5],[27,20,20,20,20,20,20,20,20,21],[7.4,18.1,18.1,40,44,9.9,9.9,10,10,14],[10.5,23.01,23.01,12.1,7.5,17.1,17.1,17,17,15.69]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>samplesize_exp<\/th>\n      <th>mean_exp<\/th>\n      <th>sd_exp<\/th>\n      <th>samplesize_contr<\/th>\n      <th>mean_contr<\/th>\n      <th>sd_contr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"samplesize_exp","targets":1},{"name":"mean_exp","targets":2},{"name":"sd_exp","targets":3},{"name":"samplesize_contr","targets":4},{"name":"mean_contr","targets":5},{"name":"sd_contr","targets":6}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li><p>For an individual study, a square with treatment estimate in the
+center and confidence interval as line extending either side of the
+square. The size of this square is determined by the weight.</p></li>
+<li><p>vertical reference lines indicates the point of no
+effect</p></li>
+<li><p>For meta-analysis results, a diamond with treatment estimate in
+the center and right and left side corresponding to lower and upper
+confidence limits</p></li>
+<li><p>heterogeneity (null hypothesis: all studies estimate the same
+effect) is measured by <a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/heterogeneity.html">Cochran’s
+Q</a>, which is calculated as the weighted sum of squared differences
+between individual study effects and the pooled effect across studies,
+following <span class="math inline">\(\chi^2\)</span> distribution with
+number of studies-1 DF.</p></li>
+<li><p><span class="math inline">\(I^2\)</span> statistic describes the
+percentage of variation across studies that is due to heterogeneity
+rather than chance <a
+href="https://www.statsdirect.com/help/meta_analysis/heterogeneity.htm#:~:text=Heterogeneity%20in%20meta%2Danalysis%20refers,the%20inconsistency%20of%20studies&#39;%20results">more
+details</a>.</p></li>
+<li><p><a
+href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-30#:~:text=Firstly%2C%20the%20SMD%20can%20be,a%20large%20effect%20%5B2%5D.">SMD
+interpretations</a>, and <a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/effects.html">calculations</a>,
+<span
+class="math inline">\(SMD=\frac{\bar{X}_1-\bar{X}_2}{s_{pooled}}\)</span>.</p></li>
+</ul>
+<div
+id="calculate-smd-using-example-of-pearlman-b._ibuprofen-400mg_vs_placebo"
+class="section level5">
+<h5>calculate SMD using example of Pearlman, B._ibuprofen
+400mg_vs_placebo</h5>
+<pre class="r"><code>n1=63; s1=21; n2=61; s2=25
+# Calculate s_pooled
+s_pooled &lt;- sqrt(  # s_pooled is pooled standard deviation
+  (((n1-1)*s1^2) + ((n2-1)*s2^2))/
+    ((n1-1)+(n2-1))
+)
+
+# Calculate the standard error
+se &lt;- s_pooled*sqrt((1/n1)+(1/n2))
+#se
+
+mean1=10; mean2=19
+(mean1-mean2)/s_pooled  # this is SMD for Pearlman, B._ibuprofen 400mg_vs_placebo</code></pre>
+<pre><code>[1] -0.390386</code></pre>
+</div>
+</div>
+</div>
+<div id="network-meta-analysis" class="section level3">
+<h3>network meta-analysis</h3>
+<p><a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/netwma.html">network
+Meta-Analysis</a></p>
+<p>In traditional meta-analysis, direct comparison between two
+treatments may not be available because in typical clinical trials, what
+often happens is the comparison between specific treatment and placebo.
+So network meta analysis enables the assessment of relative
+effectiveness of several treatments by incorporating indirect
+comparisons using multivariate linear regression models. for more
+details see <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3704203/pdf/10.1177_0272989X12458724.pdf">Evidence
+Synthesis for Decision Making 2: A Generalized Linear Modeling Framework
+for Pairwise and Network Meta-analysis of Randomized Controlled
+Trials</a> and <a
+href="https://onlinelibrary.wiley.com/doi/epdf/10.1002/jrsm.1054">Automating
+network meta-analysis</a></p>
+<p>Assume K trials and M comparisons, <span
+class="math inline">\(\hat{\theta}_m\)</span> is effect size of every
+comparison, to model the observed effect size <span
+class="math inline">\({\bf \hat{\theta}}=c(\hat{\theta}_1,
+\hat{\theta}_2, \cdots, \hat{\theta}_M)\)</span>,</p>
+<p><span class="math display">\[\bf
+\hat{\theta}=X\theta_{treat}+\epsilon\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\bf \hat{\theta}\)</span>: observed
+effect size vector</p></li>
+<li><p><span class="math inline">\(\bf X\)</span>: <span
+class="math inline">\(m \times n\)</span> design matrix, columns
+represent different treatment, rows represent comparisons,it’s not full
+rank and Moore-Penrose pseudoinverse matrix was used in netmeta for
+parameter estimate</p></li>
+<li><p><span class="math inline">\(\bf \theta_{treat}\)</span>: true
+effect size of n unique treatments, its estimate is the goal</p></li>
+<li><p><span class="math inline">\(\bf \epsilon\)</span> errors
+following <span class="math inline">\(\epsilon_m \sim N(0,
+\sigma_m^2)\)</span>.</p></li>
+</ul>
+<pre class="r"><code>############# an example 
+#data(TherapyFormats)
+
+#head(TherapyFormats[1:5])
+#as.matrix(table(TherapyFormats$author))
+#m.netmeta &lt;- netmeta(TE = TE,
+#                     seTE = seTE,
+#                     treat1 = treat1,
+#                     treat2 = treat2,
+#                     studlab = author,
+#                     data = TherapyFormats,
+#                     sm = &quot;SMD&quot;,
+#                     fixed = TRUE,
+#                     random = FALSE,
+#                     reference.group = &quot;cau&quot;,
+#                     details.chkmultiarm = TRUE,
+#                     sep.trts = &quot; vs &quot;)
+#summary(m.netmeta)
+
+#########################
+
+
+######## manually create the data matrix 
+study_data=matrix(nrow=14, ncol=6)
+study_data[1,]=c(as.numeric(data_1hour_full[1,3:5]), as.numeric(data_1hour_full[2,3:5]))
+
+study_data[2,]=c(as.numeric(data_1hour_full[4,3:5]), as.numeric(data_1hour_full[3,3:5]))
+study_data[3,]=c(as.numeric(data_1hour_full[5,3:5]), as.numeric(data_1hour_full[3,3:5]))
+
+study_data[4,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[7,3:5]))
+study_data[5,]=c(as.numeric(data_1hour_full[8,3:5]), as.numeric(data_1hour_full[9,3:5]))
+
+study_data[6,]=c(as.numeric(data_1hour_full[10,3:5]), as.numeric(data_1hour_full[12,3:5]))
+study_data[7,]=c(as.numeric(data_1hour_full[11,3:5]), as.numeric(data_1hour_full[12,3:5]))
+
+study_data[8,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full[15,3:5]))
+study_data[9,]=c(as.numeric(data_1hour_full[14,3:5]), as.numeric(data_1hour_full[15,3:5]))
+
+study_data[10,]=c(as.numeric(data_1hour_full[16,3:5]), as.numeric(data_1hour_full[17,3:5]))
+
+
+study_data[11,]=c(as.numeric(data_1hour_full[4,3:5]), as.numeric(data_1hour_full[5,3:5]))
+study_data[12,]=c(as.numeric(data_1hour_full[6,3:5]), as.numeric(data_1hour_full[8,3:5]))
+study_data[13,]=c(as.numeric(data_1hour_full[10,3:5]), as.numeric(data_1hour_full[11,3:5]))
+study_data[14,]=c(as.numeric(data_1hour_full[13,3:5]), as.numeric(data_1hour_full[14,3:5]))
+
+
+comparison=c(&quot;Pereira, G._ibuprofen 600mg_vs_placebo&quot;, 
+             
+             &quot;Pilatti, G._dexamethasone 4mg_vs_placebo&quot;, 
+             &quot;Pilatti, G._celecoxib 200mg_vs_placebo&quot;, 
+             
+             &quot;Santos, B._ibuprofen 600mg_vs_placebo&quot;,  
+             &quot;Santos, B._nimesilide 100mg_vs_placebo&quot;, 
+             
+             &quot;Steffens, J 2011_dexamethasone 4mg_vs_placebo&quot;, 
+             &quot;Steffens, J 2011_dexamethasone 8mg_vs_placebo&quot;, 
+             
+             &quot;Steffens, J 2011 @_celecoxib 200mg_vs_placebo&quot;, 
+             &quot;Steffens, J 2011 @_etoricoxib 120mg_vs_placebo&quot;,
+             
+             &quot;Trombelli, L._ketorolac 10mg_vs_placebo&quot;,
+             
+             &quot;Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg&quot;, 
+             &quot;Santos, B._ibuprofen 600mg_vs_nimesilide 100mg&quot;, 
+             &quot;Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg&quot;, 
+             &quot;Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg&quot;
+        )
+data_meta=data.frame(comparison=comparison, samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )
+
+colnames(study_data)=c(&quot;samplesize_exp&quot;, &quot;mean_exp&quot;, &quot;sd_exp&quot;, &quot;samplesize_contr&quot;, &quot;mean_contr&quot;, &quot;sd_contr&quot;)
+rownames(study_data)=comparison
+
+data_meta=data.frame(study_data)
+
+
+treat1=treat2=study=character()
+for (i in 1:length(comparison))
+{
+  position=unlist(gregexpr(&#39;_&#39;, comparison[i]))
+  treat1[i]=substring(comparison[i],position[1]+1,last=position[2]-1)
+  treat2[i]=substring(comparison[i],position[3]+1,last=1000000L)
+  study[i]=substring(comparison[i], 1,last=position[1]-1)
+}
+
+m1 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
+  data = data_meta, sm = &quot;SMD&quot;)</code></pre>
+<div id="random-effect-model-1" class="section level4">
+<h4>random effect model</h4>
+<pre class="r"><code>data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2, versus=paste(treat1, &quot;VS&quot;, treat2, sep=&quot; &quot;))
+m.netmeta &lt;- netmeta(TE = TE,
+                     seTE = seTE,
+                     treat1 = treat1,
+                     treat2 = treat2,
+                     studlab = study,
+                     tol.multiarm=0.2,
+                #     tol.multiarm.se = NULL,
+                     data = data_meta_network,
+                     sm = &quot;SMD&quot;,
+                     fixed = FALSE,
+                     random = TRUE,
+                     reference.group = &quot;placebo&quot;,
+                     details.chkmultiarm = TRUE,
+                     sep.trts = &quot; vs &quot;)
+
+long.labels=m.netmeta$trts
+
+node_size &lt;- sqrt(m.netmeta$n / max(m.netmeta$n)) * 3
+
+netgraph(m.netmeta, 
+         labels = long.labels, number.of.studies = TRUE,  lty=&quot;solid&quot;, cex.point=  node_size  # Adjust node size
+         )</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>netgraph(m.netmeta, 
+         labels = long.labels, 
+         number.of.studies = TRUE, 
+         plastic = FALSE,  # Ensures standard network layout
+         lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
+         lwd = 2,  # Increase line width for clarity
+         col = &quot;black&quot;,  # Set edge color to black
+         cex.point=  node_size, 
+         col.number = &quot;cyan&quot;  # Change the color of numbers on edges
+)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>we use R package-netmeta for network meta analysis.</p></li>
+<li><p>dependence among multi-arm studies has been taken into account,
+by argument <code>tol.multiarm=0.2</code></p></li>
+<li><p>overall comparison structure</p></li>
+<li><p>direct links mean there are direct comparison, otherwise indirect
+comparisons</p></li>
+<li><p>degree of thickness represents how often we find a specific
+comparison</p></li>
+<li><p>numbers on the edge indicate how many studies involve that
+comparison</p></li>
+</ul>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>a mean path length &gt; 2 means that a comparison estimate should be
+interpreted with particular caution.</li>
+</ul>
+<pre class="r"><code>netrank(m.netmeta, small.values = &quot;good&quot;)</code></pre>
+<pre><code>                  P-score
+nimesilide 100mg   0.9145
+ibuprofen 600mg    0.8204
+dexamethasone 8mg  0.5464
+ketorolac 10mg     0.5437
+etoricoxib 120mg   0.4661
+celecoxib 200mg    0.3380
+placebo            0.1894
+dexamethasone 4mg  0.1816</code></pre>
+<pre class="r"><code>forest(m.netmeta, 
+       reference.group = &quot;placebo&quot;,
+       sortvar = TE,
+     #  xlim = c(-1.3, 0.5),
+       smlab = paste(&quot;&quot;,
+                     &quot;&quot;),
+       drop.reference.group = T,
+       label.left = &quot;&quot;,
+       label.right = &quot;&quot;,
+       labels = long.labels)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#summary(m.netmeta)
+decomp.design(m.netmeta)</code></pre>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                    Q df p-value
+Total           10.02  3  0.0184
+Within designs   0.00  0      --
+Between designs 10.02  3  0.0184
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.0184)
+
+                                 Detached design    Q df p-value
+                      placebo vs ibuprofen 600mg 0.96  2  0.6180
+ placebo vs celecoxib 200mg vs dexamethasone 4mg 9.06  1  0.0026
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                    Q df p-value tau.within tau2.within
+Between designs 10.02  3  0.0184          0           0</code></pre>
+<pre class="r"><code>m.netmeta$pval.random</code></pre>
+<pre><code>                  celecoxib 200mg dexamethasone 4mg dexamethasone 8mg
+celecoxib 200mg               NaN        0.57862817         0.5444488
+dexamethasone 4mg      0.57862817               NaN         0.2354955
+dexamethasone 8mg      0.54444883        0.23549547               NaN
+etoricoxib 120mg       0.67196674        0.44129038         0.8368413
+ibuprofen 600mg        0.06979444        0.02320263         0.3420563
+ketorolac 10mg         0.56180651        0.33952208         0.9825029
+nimesilide 100mg       0.04777091        0.01849663         0.2108750
+placebo                0.58500354        0.90640971         0.2687438
+                  etoricoxib 120mg ibuprofen 600mg ketorolac 10mg
+celecoxib 200mg          0.6719667     0.069794438      0.5618065
+dexamethasone 4mg        0.4412904     0.023202629      0.3395221
+dexamethasone 8mg        0.8368413     0.342056253      0.9825029
+etoricoxib 120mg               NaN     0.239950815      0.8271231
+ibuprofen 600mg          0.2399508             NaN      0.3721072
+ketorolac 10mg           0.8271231     0.372107209            NaN
+nimesilide 100mg         0.1481870     0.534691833      0.2314550
+placebo                  0.4141296     0.002548417      0.2814728
+                  nimesilide 100mg     placebo
+celecoxib 200mg        0.047770909 0.585003539
+dexamethasone 4mg      0.018496628 0.906409707
+dexamethasone 8mg      0.210875038 0.268743809
+etoricoxib 120mg       0.148186999 0.414129587
+ibuprofen 600mg        0.534691833 0.002548417
+ketorolac 10mg         0.231454974 0.281472769
+nimesilide 100mg               NaN 0.005470687
+placebo                0.005470687         NaN</code></pre>
+<ul>
+<li><p>random effect model is used, due to significant p values</p></li>
+<li><p>higher P-score, the better it is</p></li>
+<li><p>placebo is used as the reference group</p></li>
+</ul>
+</div>
+<div id="transitivity-analysis-consistency-between-direct-vs-indir"
+class="section level4">
+<h4>transitivity analysis (consistency between direct vs indir)</h4>
+<pre class="r"><code>netsplit(m.netmeta) </code></pre>
+<pre><code>Separate indirect from direct evidence (SIDE) using back-calculation method
+
+Random effects model: 
+
+                             comparison k prop     nma  direct  indir.    Diff     z p-value
+   celecoxib 200mg vs dexamethasone 4mg 1 0.67 -0.3019 -0.2984 -0.3090  0.0106  0.01  0.9927
+   celecoxib 200mg vs dexamethasone 8mg 0    0  0.4472       .  0.4472       .     .       .
+    celecoxib 200mg vs etoricoxib 120mg 1 0.87  0.2671  0.3259 -0.1339  0.4598  0.24  0.8076
+     celecoxib 200mg vs ibuprofen 600mg 0    0  1.1986       .  1.1986       .     .       .
+      celecoxib 200mg vs ketorolac 10mg 0    0  0.4672       .  0.4672       .     .       .
+    celecoxib 200mg vs nimesilide 100mg 0    0  1.5892       .  1.5892       .     .       .
+             celecoxib 200mg vs placebo 2 0.93 -0.2485 -0.2803  0.1993 -0.4796 -0.26  0.7930
+ dexamethasone 4mg vs dexamethasone 8mg 1 0.87  0.7491  0.8134  0.3317  0.4817  0.26  0.7954
+  dexamethasone 4mg vs etoricoxib 120mg 0    0  0.5690       .  0.5690       .     .       .
+   dexamethasone 4mg vs ibuprofen 600mg 0    0  1.5006       .  1.5006       .     .       .
+    dexamethasone 4mg vs ketorolac 10mg 0    0  0.7692       .  0.7692       .     .       .
+  dexamethasone 4mg vs nimesilide 100mg 0    0  1.8912       .  1.8912       .     .       .
+           dexamethasone 4mg vs placebo 2 0.93  0.0535  0.0237  0.4666 -0.4429 -0.24  0.8075
+  dexamethasone 8mg vs etoricoxib 120mg 0    0 -0.1801       . -0.1801       .     .       .
+   dexamethasone 8mg vs ibuprofen 600mg 0    0  0.7515       .  0.7515       .     .       .
+    dexamethasone 8mg vs ketorolac 10mg 0    0  0.0201       .  0.0201       .     .       .
+  dexamethasone 8mg vs nimesilide 100mg 0    0  1.1421       .  1.1421       .     .       .
+           dexamethasone 8mg vs placebo 1 0.87 -0.6956 -0.6333 -1.1225  0.4892  0.26  0.7954
+    etoricoxib 120mg vs ibuprofen 600mg 0    0  0.9316       .  0.9316       .     .       .
+     etoricoxib 120mg vs ketorolac 10mg 0    0  0.2002       .  0.2002       .     .       .
+   etoricoxib 120mg vs nimesilide 100mg 0    0  1.3222       .  1.3222       .     .       .
+            etoricoxib 120mg vs placebo 1 0.87 -0.5155 -0.4563 -0.9144  0.4581  0.24  0.8076
+      ibuprofen 600mg vs ketorolac 10mg 0    0 -0.7314       . -0.7314       .     .       .
+    ibuprofen 600mg vs nimesilide 100mg 1 0.90  0.3906 -0.1298  4.8303 -4.9601 -2.42  0.0157
+             ibuprofen 600mg vs placebo 2 1.00 -1.4471 -1.3624       .       .     .       .
+     ketorolac 10mg vs nimesilide 100mg 0    0  1.1220       .  1.1220       .     .       .
+              ketorolac 10mg vs placebo 1 1.00 -0.7157 -0.7157       .       .     .       .
+            nimesilide 100mg vs placebo 1 0.82 -1.8377 -2.5894  1.5605 -4.1499 -2.42  0.0157
+
+Legend:
+ comparison - Treatment comparison
+ k          - Number of studies providing direct evidence
+ prop       - Direct evidence proportion
+ nma        - Estimated treatment effect (SMD) in network meta-analysis
+ direct     - Estimated treatment effect (SMD) derived from direct evidence
+ indir.     - Estimated treatment effect (SMD) derived from indirect evidence
+ Diff       - Difference between direct and indirect treatment estimates
+ z          - z-value of test for disagreement (direct versus indirect)
+ p-value    - p-value of test for disagreement (direct versus indirect)</code></pre>
+<ul>
+<li>netsplit was used to check the consistency among direct/indirect
+comparisons, with p values less than 5% being disagree</li>
+<li>only the last two comparisons show inconsistency with small p
+values.</li>
+</ul>
+<pre class="r"><code>netsplit(m.netmeta) %&gt;% forest(fontsize = 8, spacing = .4)  # visualize the net split results </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><a
+href="https://cran.r-project.org/web/packages/netmeta/news/news.html">I2
+is pairwise comparisons with direct evidence</a></li>
+</ul>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:11), col=seq(1:11), linreg = T,  legend = F, digits.pval=2)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:11), col=seq(1:11), linreg = F,  legend = F, digits.pval=2)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fixed-effect-model" class="section level4">
+<h4>fixed effect model</h4>
+<pre><code>                  P-score
+nimesilide 100mg   0.9405
+ibuprofen 600mg    0.8621
+ketorolac 10mg     0.6018
+dexamethasone 8mg  0.5928
+etoricoxib 120mg   0.4888
+celecoxib 200mg    0.3102
+placebo            0.1147
+dexamethasone 4mg  0.0891</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Q statistics to assess homogeneity / consistency
+
+                    Q df p-value
+Total           10.02  3  0.0184
+Within designs   0.00  0      --
+Between designs 10.02  3  0.0184
+
+Between-designs Q statistic after detaching of single designs
+(influential designs have p-value markedly different from 0.0184)
+
+                                 Detached design    Q df p-value
+                      placebo vs ibuprofen 600mg 0.96  2  0.6180
+ placebo vs celecoxib 200mg vs dexamethasone 4mg 9.06  1  0.0026
+
+Q statistic to assess consistency under the assumption of
+a full design-by-treatment interaction random effects model
+
+                    Q df p-value tau.within tau2.within
+Between designs 10.02  3  0.0184          0           0</code></pre>
+<ul>
+<li><p>in this analysis, placebo is treated as reference.</p></li>
+<li><p>P score is a frequentist analogue to SUCRA, for <a
+href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-015-0060-8">details</a>.
+It measures the certainty the one treatment is better than other
+competing treatments. The larger P score, the better the treatment
+is.</p></li>
+<li><p>from P-score ranking, the nimesilide 100mg might be the most
+effective treatment, however solely because it has the highest score in
+the ranking, doesn’t mean it’s the best one, need further information
+from forest plot</p></li>
+<li><p>In the forest plot, if two treatments have overlapping, then
+these two are not significantly different, and they are otherwise. For
+example, nimesilide 100mg and ibuprofen 600mg are not different from one
+another, although nimesilide 100mg is higher than ibuprofen 600mg in the
+ranking. It’s safe to say ibuprofen 600mg is better than dexamethasone
+4mg, since no overlap between their CI’s.</p></li>
+</ul>
+</div>
+</div>
+<div id="risk-of-bias-plot" class="section level3">
+<h3>Risk of bias plot</h3>
+<ul>
+<li><a
+href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/risk-of-bias-plots.html">reference</a></li>
+</ul>
+<pre class="r"><code>#install.packages(&quot;robvis&quot;)
+library(robvis)
+library(tidyverse)
+glimpse(data_robins)</code></pre>
+<pre><code>Rows: 12
+Columns: 10
+$ Study   &lt;fct&gt; Study 1, Study 2, Study 3, Study 4, Study 5, Study 6, Study 7,…
+$ D1      &lt;fct&gt; Critical, Moderate, Moderate, Low, Serious, Critical, Critical…
+$ D2      &lt;fct&gt; Low, Low, Low, Low, Serious, Serious, Moderate, Moderate, Low,…
+$ D3      &lt;fct&gt; Critical, Low, Moderate, Serious, Low, Moderate, Moderate, Low…
+$ D4      &lt;fct&gt; Critical, Critical, Critical, Critical, Low, Critical, Serious…
+$ D5      &lt;fct&gt; Low, Low, Critical, Moderate, Moderate, Critical, Critical, Lo…
+$ D6      &lt;fct&gt; Low, Moderate, Low, Low, Low, Moderate, Serious, Low, Serious,…
+$ D7      &lt;fct&gt; Serious, Low, Serious, Critical, Moderate, Serious, Serious, C…
+$ Overall &lt;fct&gt; Critical, Low, Serious, Low, Serious, Serious, Moderate, Moder…
+$ Weight  &lt;dbl&gt; 33.3333333, 33.3333333, 0.1428571, 9.0909091, 12.5000000, 25.0…</code></pre>
+<pre class="r"><code>rob_summary(data = data_rob2, 
+            tool = &quot;ROB2&quot;)</code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.2 (2023-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] robvis_0.3.0        dmetar_0.1.0        netmeta_2.9-0      
+ [4] meta_7.0-0          metadat_1.2-0       VennDiagram_1.7.3  
+ [7] futile.logger_1.4.3 condsurv_1.0.0      devtools_2.4.5     
+[10] usethis_2.2.2       tidycmprsk_1.0.0    gtsummary_1.7.2    
+[13] ggsurvfit_1.0.0     irr_0.84.1          lpSolve_5.6.20     
+[16] readxl_1.4.3        cowplot_1.1.2       matrixStats_1.2.0  
+[19] gridExtra_2.3       DT_0.31             rstatix_0.7.2      
+[22] ggpubr_0.6.0        kableExtra_1.3.4    lubridate_1.9.3    
+[25] forcats_1.0.0       stringr_1.5.1       dplyr_1.1.4        
+[28] purrr_1.0.2         readr_2.1.4         tidyr_1.3.0        
+[31] tibble_3.2.1        ggplot2_3.4.4       tidyverse_2.0.0    
+
+loaded via a namespace (and not attached):
+  [1] mathjaxr_1.6-0       rstudioapi_0.15.0    jsonlite_1.8.8      
+  [4] magrittr_2.0.3       modeltools_0.2-23    farver_2.1.1        
+  [7] nloptr_2.0.3         rmarkdown_2.25       fs_1.6.3            
+ [10] vctrs_0.6.5          memoise_2.0.1        minqa_1.2.6         
+ [13] CompQuadForm_1.4.3   webshot_0.5.5        htmltools_0.5.7     
+ [16] lambda.r_1.2.4       tictoc_1.2.1         broom_1.0.5         
+ [19] cellranger_1.1.0     sass_0.4.8           bslib_0.6.1         
+ [22] htmlwidgets_1.6.4    poibin_1.5           futile.options_1.0.1
+ [25] cachem_1.0.8         gt_0.10.0            mime_0.12           
+ [28] lifecycle_1.0.4      pkgconfig_2.0.3      Matrix_1.6-1.1      
+ [31] R6_2.5.1             fastmap_1.1.1        shiny_1.8.0         
+ [34] magic_1.6-1          digest_0.6.33        numDeriv_2016.8-1.1 
+ [37] colorspace_2.1-0     rprojroot_2.0.4      pkgload_1.3.3       
+ [40] crosstalk_1.2.1      labeling_0.4.3       fansi_1.0.6         
+ [43] timechange_0.2.0     httr_1.4.7           abind_1.4-5         
+ [46] compiler_4.3.2       remotes_2.4.2.1      withr_2.5.2         
+ [49] backports_1.4.1      metafor_4.4-0        carData_3.0-5       
+ [52] pkgbuild_1.4.3       highr_0.10           ggsignif_0.6.4      
+ [55] MASS_7.3-60          sessioninfo_1.2.2    tools_4.3.2         
+ [58] prabclus_2.3-3       httpuv_1.6.13        nnet_7.3-19         
+ [61] glue_1.6.2           nlme_3.1-163         promises_1.2.1      
+ [64] cluster_2.1.4        generics_0.1.3       gtable_0.3.4        
+ [67] tzdb_0.4.0           class_7.3-22         hms_1.1.3           
+ [70] flexmix_2.3-19       xml2_1.3.6           car_3.1-2           
+ [73] utf8_1.2.4           ggrepel_0.9.4        pillar_1.9.0        
+ [76] later_1.3.2          robustbase_0.99-2    splines_4.3.2       
+ [79] lattice_0.21-9       survival_3.5-7       tidyselect_1.2.0    
+ [82] miniUI_0.1.1.1       knitr_1.45           git2r_0.33.0        
+ [85] svglite_2.1.3        stats4_4.3.2         xfun_0.41           
+ [88] diptest_0.77-0       DEoptimR_1.1-3       MuMIn_1.47.5        
+ [91] stringi_1.8.3        workflowr_1.7.1      yaml_2.3.8          
+ [94] boot_1.3-28.1        evaluate_0.23        kernlab_0.9-32      
+ [97] cli_3.6.2            xtable_1.8-4         systemfonts_1.0.5   
+[100] munsell_0.5.0        jquerylib_0.1.4      Rcpp_1.0.11         
+[103] parallel_4.3.2       ellipsis_0.3.2       mclust_6.0.1        
+[106] profvis_0.3.8        urlchecker_1.0.1     lme4_1.1-35.1       
+[109] viridisLite_0.4.2    broom.helpers_1.14.0 scales_1.3.0        
+[112] fpc_2.2-11           rlang_1.1.2          rvest_1.0.3         
+[115] formatR_1.14        </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
