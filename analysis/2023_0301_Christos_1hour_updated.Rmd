@@ -416,18 +416,19 @@ datatable(extensions = 'Buttons',
 
 
 
- 
-
-```{r,  message=F, warning=F, eval=F}
-
 ##### Preemptive medication given less than 1 hour prior to surgery
 
 
-* random effect model 
+* random effect model
+
+ 
+
+```{r,  message=F, warning=F, eval=T}
+
 
 
 #####################
-variable_include_index=c(1, 11)
+variable_include_index=c(10)
 
 m4 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = "SMD")
@@ -454,13 +455,9 @@ forest(m.gen4, layout="RevMan5", sortvar = TE,
             leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
 
 
-* raw difference -0.61
-
-`> -0.47*(2)^0.5*(1.33+2.27)/3.92
-[1] -0.6104208`
-
 
 ```
+
 
 
 

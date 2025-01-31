@@ -454,10 +454,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -576,15 +576,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cctargetblank1a28d7fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1449d4ad8537a8494116d684c901b28d60ecd751targetblank1449d4aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cc" target="_blank">1a28d7f</a>
+<a href="https://github.com/han16/Collaborations/tree/1449d4ad8537a8494116d684c901b28d60ecd751" target="_blank">1449d4a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cctargetblank1a28d7fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1449d4ad8537a8494116d684c901b28d60ecd751targetblank1449d4aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -594,7 +594,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/1a28d7f5f5db9b6a9b5cdc5fcea9d52fcef238cc" target="_blank">1a28d7f</a>.
+<a href="https://github.com/han16/Collaborations/tree/1449d4ad8537a8494116d684c901b28d60ecd751" target="_blank">1449d4a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -613,8 +613,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2023_0301_Christos_1hour_updated.Rmd
+Unstaged changes:
+    Modified:   analysis/2023_0301_Christos_1hour_updated.Rmd
 
 </code></pre>
 <p>
@@ -629,10 +629,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/2023_0301_Christos_1hour_updated.Rmd</code>) and HTML
+(<code>docs/2023_0301_Christos_1hour_updated.html</code>) files. If
+you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/analysis/2023_0301_Christos_1hour_updated.Rmd" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+<td>
+1/31/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/1449d4ad8537a8494116d684c901b28d60ecd751/docs/2023_0301_Christos_1hour_updated.html" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+<td>
+1/31/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -748,7 +813,82 @@ m.gen_weighted &lt;- metagen(TE = m1$TE,
                  method.tau = &quot;REML&quot;,
                  hakn = TRUE,
                  title = &quot;Different treatments&quot;)</code></pre>
-<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-5-2.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li><p>both SMD and WMD produce same results</p></li>
 <li><p>because <span
@@ -803,6 +943,43 @@ legend(x = -2.5, y = 0.1,
 # Add a title
 title(&quot;Contour-Enhanced Funnel Plot&quot;)</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-6-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li><p>When there is no publication bias, the data points in such a plot
 should form a roughly symmetrical, upside-down funnel. Studies in the
@@ -884,6 +1061,43 @@ forest(m.gen2, layout=&quot;RevMan5&quot;, sortvar = TE,
             fontsize=6.5,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-9-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># raw difference -0.72
 
 #`&gt; -0.71*(10)^0.5*(-0.08+1.34)/3.92
@@ -931,14 +1145,15 @@ forest(m.gen3, layout=&quot;RevMan5&quot;, sortvar = TE,
 
 `&gt; -0.75*(9)^0.5*(-0.04+1.47)/3.92
 [1] -0.8207908`</code></pre>
-<pre class="r"><code>##### Preemptive medication given less than 1 hour prior to surgery
-
-
-* random effect model 
-
-
-#####################
-variable_include_index=c(1, 11)
+</div>
+<div id="preemptive-medication-given-less-than-1-hour-prior-to-surgery"
+class="section level5">
+<h5>Preemptive medication given less than 1 hour prior to surgery</h5>
+<ul>
+<li>random effect model</li>
+</ul>
+<pre class="r"><code>#####################
+variable_include_index=c(10)
 
 m4 &lt;- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta[variable_include_index,], sm = &quot;SMD&quot;)
@@ -962,13 +1177,8 @@ forest(m.gen4, layout=&quot;RevMan5&quot;, sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
-            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size 
-
-
-* raw difference -0.61
-
-`&gt; -0.47*(2)^0.5*(1.33+2.27)/3.92
-[1] -0.6104208`</code></pre>
+            leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>* fixed effect model 
 #####################
 variable_include_index=c(1, 11)
@@ -1342,6 +1552,43 @@ forest(m.gen_leave_one_out, layout=&quot;JAMA&quot;, sortvar = TE,
             fontsize=7,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-26-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li><p>we remove one study at a time, and re-do the same analysis, to
 see how the removed study influences the results from all studies
@@ -1377,8 +1624,47 @@ forest(m.gen_leave_one_out, layout=&quot;RevMan5&quot;, sortvar = TE,
             print.tau2 = FALSE,
             fontsize=6,
             leftlabs = c(&quot;study&quot;, &quot;SE&quot;, &quot;g&quot;)) # sortvar = TE: sort studies by effect size </code></pre>
-<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
-* raw difference -0.17</p>
+<p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-27-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>raw difference -0.17</li>
+</ul>
 <p><code>&gt; -0.68*(11)^0.5*(-0.54+0.83)/3.92 [1] -0.1668465</code></p>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["1"],[-8.315899999999999],[0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zval<\/th>\n      <th>pval<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Zval","targets":1},{"name":"pval","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
@@ -1586,6 +1872,43 @@ netgraph(m.netmeta,
          labels = long.labels, number.of.studies = TRUE,  lty=&quot;solid&quot;, cex.point=  node_size  # Adjust node size
          )</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-32-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>netgraph(m.netmeta, 
          labels = long.labels, 
          number.of.studies = TRUE, 
@@ -1597,6 +1920,43 @@ netgraph(m.netmeta,
          col.number = &quot;cyan&quot;  # Change the color of numbers on edges
 )</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-2">
+Past versions of unnamed-chunk-32-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-32-2.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li><p>we use R package-netmeta for network meta analysis.</p></li>
 <li><p>dependence among multi-arm studies has been taken into account,
@@ -1610,6 +1970,43 @@ comparison</p></li>
 comparison</p></li>
 </ul>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-33-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li>a mean path length &gt; 2 means that a comparison estimate should be
 interpreted with particular caution.</li>
@@ -1635,6 +2032,43 @@ dexamethasone 4mg  0.1816</code></pre>
        label.right = &quot;&quot;,
        labels = long.labels)</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-34-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#summary(m.netmeta)
 decomp.design(m.netmeta)</code></pre>
 <pre><code>Q statistics to assess homogeneity / consistency
@@ -1746,6 +2180,43 @@ values.</li>
 </ul>
 <pre class="r"><code>netsplit(m.netmeta) %&gt;% forest(fontsize = 8, spacing = .4)  # visualize the net split results </code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
+Past versions of unnamed-chunk-36-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-36-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-36-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ul>
 <li><a
 href="https://cran.r-project.org/web/packages/netmeta/news/news.html">I2
@@ -1753,8 +2224,82 @@ is pairwise comparisons with direct evidence</a></li>
 </ul>
 <pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:11), col=seq(1:11), linreg = T,  legend = F, digits.pval=2)</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
+Past versions of unnamed-chunk-37-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-37-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:11), col=seq(1:11), linreg = F,  legend = F, digits.pval=2)</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-2">
+Past versions of unnamed-chunk-37-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-37-2.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="fixed-effect-model" class="section level4">
 <h4>fixed effect model</h4>
@@ -1768,6 +2313,43 @@ celecoxib 200mg    0.3102
 placebo            0.1147
 dexamethasone 4mg  0.0891</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
+Past versions of unnamed-chunk-38-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-38-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-38-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>Q statistics to assess homogeneity / consistency
 
                     Q df p-value
@@ -1832,6 +2414,43 @@ $ Weight  &lt;dbl&gt; 33.3333333, 33.3333333, 0.1428571, 9.0909091, 12.5000000, 
 <pre class="r"><code>rob_summary(data = data_rob2, 
             tool = &quot;ROB2&quot;)</code></pre>
 <p><img src="figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
+Past versions of unnamed-chunk-39-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-39-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/1449d4ad8537a8494116d684c901b28d60ecd751/docs/figure/2023_0301_Christos_1hour_updated.Rmd/unnamed-chunk-39-1.png" target="_blank">1449d4a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-01-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1884,37 +2503,37 @@ loaded via a namespace (and not attached):
  [16] lambda.r_1.2.4       tictoc_1.2.1         broom_1.0.5         
  [19] cellranger_1.1.0     sass_0.4.8           bslib_0.6.1         
  [22] htmlwidgets_1.6.4    poibin_1.5           futile.options_1.0.1
- [25] cachem_1.0.8         gt_0.10.0            mime_0.12           
- [28] lifecycle_1.0.4      pkgconfig_2.0.3      Matrix_1.6-1.1      
- [31] R6_2.5.1             fastmap_1.1.1        shiny_1.8.0         
- [34] magic_1.6-1          digest_0.6.33        numDeriv_2016.8-1.1 
- [37] colorspace_2.1-0     rprojroot_2.0.4      pkgload_1.3.3       
- [40] crosstalk_1.2.1      labeling_0.4.3       fansi_1.0.6         
- [43] timechange_0.2.0     httr_1.4.7           abind_1.4-5         
- [46] compiler_4.3.2       remotes_2.4.2.1      withr_2.5.2         
- [49] backports_1.4.1      metafor_4.4-0        carData_3.0-5       
- [52] pkgbuild_1.4.3       highr_0.10           ggsignif_0.6.4      
- [55] MASS_7.3-60          sessioninfo_1.2.2    tools_4.3.2         
- [58] prabclus_2.3-3       httpuv_1.6.13        nnet_7.3-19         
- [61] glue_1.6.2           nlme_3.1-163         promises_1.2.1      
- [64] cluster_2.1.4        generics_0.1.3       gtable_0.3.4        
- [67] tzdb_0.4.0           class_7.3-22         hms_1.1.3           
- [70] flexmix_2.3-19       xml2_1.3.6           car_3.1-2           
- [73] utf8_1.2.4           ggrepel_0.9.4        pillar_1.9.0        
- [76] later_1.3.2          robustbase_0.99-2    splines_4.3.2       
- [79] lattice_0.21-9       survival_3.5-7       tidyselect_1.2.0    
- [82] miniUI_0.1.1.1       knitr_1.45           git2r_0.33.0        
- [85] svglite_2.1.3        stats4_4.3.2         xfun_0.41           
- [88] diptest_0.77-0       DEoptimR_1.1-3       MuMIn_1.47.5        
- [91] stringi_1.8.3        workflowr_1.7.1      yaml_2.3.8          
- [94] boot_1.3-28.1        evaluate_0.23        kernlab_0.9-32      
- [97] cli_3.6.2            xtable_1.8-4         systemfonts_1.0.5   
-[100] munsell_0.5.0        jquerylib_0.1.4      Rcpp_1.0.11         
-[103] parallel_4.3.2       ellipsis_0.3.2       mclust_6.0.1        
-[106] profvis_0.3.8        urlchecker_1.0.1     lme4_1.1-35.1       
-[109] viridisLite_0.4.2    broom.helpers_1.14.0 scales_1.3.0        
-[112] fpc_2.2-11           rlang_1.1.2          rvest_1.0.3         
-[115] formatR_1.14        </code></pre>
+ [25] cachem_1.0.8         gt_0.10.0            whisker_0.4.1       
+ [28] mime_0.12            lifecycle_1.0.4      pkgconfig_2.0.3     
+ [31] Matrix_1.6-1.1       R6_2.5.1             fastmap_1.1.1       
+ [34] shiny_1.8.0          magic_1.6-1          digest_0.6.33       
+ [37] numDeriv_2016.8-1.1  colorspace_2.1-0     rprojroot_2.0.4     
+ [40] pkgload_1.3.3        crosstalk_1.2.1      labeling_0.4.3      
+ [43] fansi_1.0.6          timechange_0.2.0     httr_1.4.7          
+ [46] abind_1.4-5          compiler_4.3.2       remotes_2.4.2.1     
+ [49] withr_2.5.2          backports_1.4.1      metafor_4.4-0       
+ [52] carData_3.0-5        pkgbuild_1.4.3       highr_0.10          
+ [55] ggsignif_0.6.4       MASS_7.3-60          sessioninfo_1.2.2   
+ [58] tools_4.3.2          prabclus_2.3-3       httpuv_1.6.13       
+ [61] nnet_7.3-19          glue_1.6.2           nlme_3.1-163        
+ [64] promises_1.2.1       cluster_2.1.4        generics_0.1.3      
+ [67] gtable_0.3.4         tzdb_0.4.0           class_7.3-22        
+ [70] hms_1.1.3            flexmix_2.3-19       xml2_1.3.6          
+ [73] car_3.1-2            utf8_1.2.4           ggrepel_0.9.4       
+ [76] pillar_1.9.0         later_1.3.2          robustbase_0.99-2   
+ [79] splines_4.3.2        lattice_0.21-9       survival_3.5-7      
+ [82] tidyselect_1.2.0     miniUI_0.1.1.1       knitr_1.45          
+ [85] git2r_0.33.0         svglite_2.1.3        stats4_4.3.2        
+ [88] xfun_0.41            diptest_0.77-0       DEoptimR_1.1-3      
+ [91] MuMIn_1.47.5         stringi_1.8.3        workflowr_1.7.1     
+ [94] yaml_2.3.8           boot_1.3-28.1        evaluate_0.23       
+ [97] kernlab_0.9-32       cli_3.6.2            xtable_1.8-4        
+[100] systemfonts_1.0.5    munsell_0.5.0        jquerylib_0.1.4     
+[103] Rcpp_1.0.11          parallel_4.3.2       ellipsis_0.3.2      
+[106] mclust_6.0.1         profvis_0.3.8        urlchecker_1.0.1    
+[109] lme4_1.1-35.1        viridisLite_0.4.2    broom.helpers_1.14.0
+[112] scales_1.3.0         fpc_2.2-11           rlang_1.1.2         
+[115] rvest_1.0.3          formatR_1.14        </code></pre>
 </div>
 </div>
 </div>
