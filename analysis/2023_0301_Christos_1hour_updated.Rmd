@@ -105,7 +105,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Pilatti, G._celecoxib 200mg_vs_placebo", 
              
              "Santos, B._ibuprofen 600mg_vs_placebo",  
-             "Santos, B._nimesilide 100mg_vs_placebo", 
+             "Santos, B._nimesulide 100mg_vs_placebo", 
              
              "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
              "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
@@ -1133,7 +1133,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Pilatti, G._celecoxib 200mg_vs_placebo", 
              
              "Santos, B._ibuprofen 600mg_vs_placebo",  
-             "Santos, B._nimesilide 100mg_vs_placebo", 
+             "Santos, B._nimesulide 100mg_vs_placebo", 
              
              "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
              "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
@@ -1144,7 +1144,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Trombelli, L._ketorolac 10mg_vs_placebo",
              
              "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg", 
-             "Santos, B._ibuprofen 600mg_vs_nimesilide 100mg", 
+             "Santos, B._ibuprofen 600mg_vs_nimesulide 100mg", 
              "Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg", 
              "Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg"
         )
@@ -1334,9 +1334,9 @@ decomp.design(m.netmeta)
 * P score is a frequentist analogue to SUCRA, for [details](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-015-0060-8). It measures the certainty the one treatment is better than other competing treatments. The larger P score, the better the treatment is.
 
 
-* from P-score ranking, the nimesilide 100mg might be the most effective treatment, however solely because it has the highest score in the ranking, doesn't mean it's the best one, need further information from forest plot 
+* from P-score ranking, the nimesulide 100mg might be the most effective treatment, however solely because it has the highest score in the ranking, doesn't mean it's the best one, need further information from forest plot 
 
-* In the forest plot, if two treatments have overlapping, then these two are not significantly different, and they are otherwise. For example, nimesilide 100mg   and  ibuprofen 600mg are not different from one another, although nimesilide 100mg is higher than ibuprofen 600mg in the ranking. It's safe to say ibuprofen 600mg is better than dexamethasone 4mg, since no overlap between their CI's. 
+* In the forest plot, if two treatments have overlapping, then these two are not significantly different, and they are otherwise. For example, nimesulide 100mg   and  ibuprofen 600mg are not different from one another, although nimesulide 100mg is higher than ibuprofen 600mg in the ranking. It's safe to say ibuprofen 600mg is better than dexamethasone 4mg, since no overlap between their CI's. 
 
 
 
