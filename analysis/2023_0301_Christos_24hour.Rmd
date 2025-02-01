@@ -91,7 +91,7 @@ study_data[6,]=c(as.numeric(data_24hour_full[18,3:5]), as.numeric(data_24hour_fu
 comparison=c( "Pereira, G._ibuprofen 600mg_vs_placebo", 
              
              "Santos, B._ibuprofen 600mg_vs_placebo",
-             "Santos, B._nimesilide 100mg_vs_placebo", 
+             "Santos, B._nimesulide 100mg_vs_placebo", 
              
              "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo", 
              
@@ -771,7 +771,7 @@ study_data[7,]=c(as.numeric(data_24hour_full[8,3:5]), as.numeric(data_24hour_ful
 comparison=c( "Pereira, G._ibuprofen 600mg_vs_placebo", 
              
              "Santos, B._ibuprofen 600mg_vs_placebo",
-             "Santos, B._nimesilide 100mg_vs_placebo", 
+             "Santos, B._nimesulide 100mg_vs_placebo", 
              
              "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo", 
              
@@ -779,7 +779,7 @@ comparison=c( "Pereira, G._ibuprofen 600mg_vs_placebo",
              
              "Trombelli, L._ketorolac 10mg_vs_placebo", 
              
-             "Santos, B._ibuprofen 600mg_vs_nimesilide 100mg")
+             "Santos, B._ibuprofen 600mg_vs_nimesulide 100mg")
 
 
 data_meta=data.frame(comparison=comparison, samplesize_exp=study_data[,1], mean_exp=study_data[,2], sd_exp=study_data[,3], samplesize_contr=study_data[,4], mean_contr=study_data[,5], sd_contr=study_data[,6] )

@@ -100,7 +100,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Pilatti, G._celecoxib 200mg_vs_placebo",
              
              "Santos, B._ibuprofen 600mg_vs_placebo",
-             "Santos, B._nimesilide 100mg_vs_placebo", 
+             "Santos, B._nimesulide 100mg_vs_placebo", 
              
              "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
              "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
@@ -114,7 +114,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Trombelli, L._ketorolac 10mg_vs_placebo") 
              
          #    "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg",
-        #     "Santos, B._ibuprofen 600mg_vs_nimesilide 100mg",
+        #     "Santos, B._ibuprofen 600mg_vs_nimesulide 100mg",
         #    "Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg", 
         #    "Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg",  
         #    "Steffens, J 2010_dexamethasone 8mg_vs_etoricoxib 120mg" )
@@ -1046,7 +1046,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Pilatti, G._celecoxib 200mg_vs_placebo",
              
              "Santos, B._ibuprofen 600mg_vs_placebo1",
-             "Santos, B._nimesilide 100mg_vs_placebo2", 
+             "Santos, B._nimesulide 100mg_vs_placebo2", 
              
              "Steffens, J 2011_dexamethasone 4mg_vs_placebo", 
              "Steffens, J 2011_dexamethasone 8mg_vs_placebo", 
@@ -1060,7 +1060,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Trombelli, L._ketorolac 10mg_vs_placebo",
              
              "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg",
-             "Santos, B._ibuprofen 600mg_vs_nimesilide 100mg",
+             "Santos, B._ibuprofen 600mg_vs_nimesulide 100mg",
             "Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg", 
             "Steffens, J 2011 @_celecoxib 200mg_vs_etoricoxib 120mg",  
             "Steffens, J 2010_dexamethasone 8mg_vs_etoricoxib 120mg" )
@@ -1075,7 +1075,7 @@ data_meta=data.frame(study_data)
 
 
 comparison[4]="Santos, B._ibuprofen 600mg_vs_placebo"  # unify placebo1 placebo2 into placebo 
-comparison[5]="Santos, B._nimesilide 100mg_vs_placebo"
+comparison[5]="Santos, B._nimesulide 100mg_vs_placebo"
 #########################
 treat1=treat2=study=character()
 for (i in 1:length(comparison))

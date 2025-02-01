@@ -87,7 +87,7 @@ study_data[4,]=c(as.numeric(data_3day_full[13,3:5]), as.numeric(data_3day_full[1
 comparison=c( "Pereira, G._ibuprofen 600mg_vs_placebo", 
              
              "Santos, B._ibuprofen 600mg_vs_placebo",
-             "Santos, B._nimesilide 100mg_vs_placebo", 
+             "Santos, B._nimesulide 100mg_vs_placebo", 
              
              "Steffens, J 2010_etoricoxib 120mg_vs_placebo" 
              )
