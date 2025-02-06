@@ -19,6 +19,8 @@ set.seed(123)
 ```
 
 
+
+
 ```{r, echo=F, warning=F, message=F}
 pvalue_adjust=function(p_value)
 {
@@ -4144,6 +4146,40 @@ datatable(extensions = 'Buttons',
 
 
 ```
+
+
+## Question 2 
+
+
+Do single tooth anterior sites tend to swell more or less than posterior sites?
+
+
+```{r, message=F, warning=F}
+group1_esthetic_zone=c(12, 16, 25, 41, 43, 44, 49, 52, 59, 63, 64)
+group2_non_esthetic_zone=c(14, 26, 28, 32, 36, 50, 51, 53, 54, 58, 61, 65, 66, 67, 68)
+pvalue=numeric()
+variables_index=c(6:36, 45:49)
+for (i in 1:length(variables_index))
+{
+  sample1=data %>% filter(Subject %in% group1_esthetic_zone) %>% select(all_of(colnames(data))[variables_index[i]]) %>% pull()
+  sample2=data %>% filter(Subject %in% group2_non_esthetic_zone) %>% select(all_of(colnames(data))[variables_index[i]]) %>% pull()
+  pvalue[i]=t.test(sample1, sample2)$p.value
+  
+}
+
+data.frame(variables=colnames(data)[variables_index], pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption="",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* two sample t test was used. 
+
+
 
 ## statistical software 
 
