@@ -1159,7 +1159,7 @@ long.labels=m.netmeta$trts
 
 sample_size=c(40, 39, 18, 36, 47, 47, 22, 10, 148)
 
-node_size <- sqrt(sample_size / max(sample_size))*8
+node_size <- sqrt(sample_size / max(sample_size))*10
 
 
 netgraph(m.netmeta, 
