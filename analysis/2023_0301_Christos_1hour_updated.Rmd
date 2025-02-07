@@ -113,7 +113,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Steffens, J 2011 @_celecoxib 200mg_vs_placebo", 
              "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo",
              
-             "Trombelli, L._ketorolac 10mg_vs_placebo"
+             "Trombelli, L._ketorolac 20mg_vs_placebo"
              
         )
 
@@ -1141,7 +1141,7 @@ comparison=c("Pereira, G._ibuprofen 600mg_vs_placebo",
              "Steffens, J 2011 @_celecoxib 200mg_vs_placebo", 
              "Steffens, J 2011 @_etoricoxib 120mg_vs_placebo",
              
-             "Trombelli, L._ketorolac 10mg_vs_placebo",
+             "Trombelli, L._ketorolac 20mg_vs_placebo",
              
              "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg", 
              "Santos, B._ibuprofen 600mg_vs_nimesulide 100mg", 
@@ -1193,7 +1193,21 @@ m.netmeta <- netmeta(TE = TE,
 
 long.labels=m.netmeta$trts
 
-node_size <- sqrt(m.netmeta$n / max(m.netmeta$n)) * 3
+
+#Nimesulide 100mg – 10 
+#Ibuprofen 600mg – 47 
+#Ketorolac 20mg – 22
+#Dexamethasone 8mg – 18 
+#Etoricoxib 120mg – 36 
+#Celecoxib 200mg – 40 
+#Dexamethasone 4mg – 39 
+#Placebo – 148 
+
+
+sample_size=c(40, 39, 18, 36, 47, 22, 10, 148)
+
+node_size <- sqrt(sample_size / max(sample_size))*10
+
 
 netgraph(m.netmeta, 
          labels = long.labels, number.of.studies = TRUE,  lty="solid", cex.point=  node_size  # Adjust node size
@@ -1208,6 +1222,7 @@ netgraph(m.netmeta,
          lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
          lwd = 2,  # Increase line width for clarity
          col = "black",  # Set edge color to black
+         col.points = "red",
          cex.point=  node_size, 
          col.number = "cyan"  # Change the color of numbers on edges
 )

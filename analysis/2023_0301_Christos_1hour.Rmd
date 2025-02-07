@@ -1175,7 +1175,7 @@ netgraph(m.netmeta,
          lwd = 2,  # Increase line width for clarity
          col = "black",  # Set edge color to black
          cex.point=  node_size, 
-         col.points = "blue",  # Set node color to blue
+         col.points = "red",  # Set node color to blue
          #cex.number.of.studies = sample_size,
          col.number = "white"  # Change the color of numbers on edges
 )

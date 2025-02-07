@@ -112,7 +112,7 @@ comparison=c("Pilatti, G._dexamethasone 4mg_vs_placebo",
              "Steffens, J 2010_dexamethasone 8mg_vs_placebo", 
              "Steffens, J 2010_etoricoxib 120mg_vs_placebo",
              
-             "Trombelli, L._ketorolac 10mg_vs_placebo" 
+             "Trombelli, L._ketorolac 20mg_vs_placebo" 
              
          #   "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg", 
         #    "Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg", 
@@ -156,7 +156,7 @@ forest(m.gen, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 
 #forest.meta(m.gen, sortvar = TE, 
 #            prediction = FALSE, 
@@ -297,7 +297,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
@@ -329,7 +329,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
@@ -364,7 +364,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
@@ -396,7 +396,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
@@ -430,7 +430,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
@@ -461,7 +461,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
@@ -496,7 +496,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 * fixed effect model 
@@ -526,12 +526,12 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
 
-##### ketorolac 10mg 
+##### ketorolac 20mg 
 
 
 * random effect model 
@@ -562,7 +562,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 ```
 
 
@@ -599,7 +599,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 
 ```
 
@@ -633,7 +633,7 @@ forest(m.gen2, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=8,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 
 ```
 
@@ -675,7 +675,7 @@ forest(m.gen_leave_one_out, layout="JAMA", sortvar = TE,
             prediction = FALSE, 
             print.tau2 = FALSE,
             fontsize=7,
-            leftlabs = c("study", "SE", "g")) # sortvar = TE: sort studies by effect size 
+            leftlabs = c("study", "SE")) # sortvar = TE: sort studies by effect size 
 
 ```
 
@@ -778,7 +778,7 @@ comparison=c("Pilatti, G._dexamethasone 4mg_vs_placebo",
              "Steffens, J 2010_dexamethasone 8mg_vs_placebo", 
              "Steffens, J 2010_etoricoxib 120mg_vs_placebo",
              
-             "Trombelli, L._ketorolac 10mg_vs_placebo", 
+             "Trombelli, L._ketorolac 20mg_vs_placebo", 
              
             "Pilatti, G._dexamethasone 4mg_vs_celecoxib 200mg", 
             "Steffens, J 2011_dexamethasone 4mg_vs_dexamethasone 8mg", 
@@ -826,14 +826,42 @@ m.netmeta <- netmeta(TE = TE,
                      sep.trts = " vs ")
 #summary(m.netmeta)
 
+
+
+
+#3 hours 
+
+#Ketorolac 20mg – 22
+#Celecoxib 200mg – 40 
+#Dexamethasone 8mg – 33
+#Etoricoxib 120mg – 31
+#Dexamethasone 4mg – 39
+#Placebo – 96
+
+
+sample_size=c(40, 39, 33, 31,  22, 96)
+
+node_size <- sqrt(sample_size / max(sample_size))*10
+
+
 long.labels=m.netmeta$trts
 
+#netgraph(m.netmeta, 
+#         labels = long.labels, number.of.studies = TRUE, 
+#         )
+
+
 netgraph(m.netmeta, 
-         labels = long.labels, number.of.studies = TRUE, 
-         )
-
-
-
+         labels = long.labels, 
+         number.of.studies = TRUE, 
+         plastic = FALSE,  # Ensures standard network layout
+         lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
+         lwd = 2,  # Increase line width for clarity
+         col = "black",  # Set edge color to black
+         col.points = "red",
+         cex.point=  node_size, 
+         col.number = "cyan"  # Change the color of numbers on edges
+)
 ```
 
 * overall comparison structure 
