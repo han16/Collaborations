@@ -421,9 +421,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -446,18 +446,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -574,15 +577,15 @@ analysis/Rfunctions.R
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef13ec9c3796ef526b75f4e76310b3f96d8d7c357targetblankf13ec9ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeec6e39f90289aa6144bdcfb90ba8ca11d92614fbtargetblankec6e39fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/f13ec9c3796ef526b75f4e76310b3f96d8d7c357" target="_blank">f13ec9c</a>
+<a href="https://github.com/han16/Collaborations/tree/ec6e39f90289aa6144bdcfb90ba8ca11d92614fb" target="_blank">ec6e39f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef13ec9c3796ef526b75f4e76310b3f96d8d7c357targetblankf13ec9ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeec6e39f90289aa6144bdcfb90ba8ca11d92614fbtargetblankec6e39fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -592,7 +595,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/f13ec9c3796ef526b75f4e76310b3f96d8d7c357" target="_blank">f13ec9c</a>.
+<a href="https://github.com/han16/Collaborations/tree/ec6e39f90289aa6144bdcfb90ba8ca11d92614fb" target="_blank">ec6e39f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -610,6 +613,13 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Unstaged changes:
+    Modified:   analysis/2023_0301_Christos_1hour_updated.Rmd
+    Modified:   analysis/2023_0301_Christos_24hour.Rmd
+    Modified:   analysis/2023_0301_Christos_3hour.Rmd
+    Modified:   analysis/2023_0301_Christos_6hour.Rmd
+    Modified:   analysis/2023_0301_Christos_8hour.Rmd
 
 </code></pre>
 <p>
@@ -656,6 +666,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ec6e39f90289aa6144bdcfb90ba8ca11d92614fb/docs/2023_0301_Christos_1hour_updated.html" target="_blank">ec6e39f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-02-10
+</td>
+<td>
+2/10/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2179,7 +2206,10 @@ long.labels=m.netmeta$trts
 
 sample_size=c(40, 39, 18, 36, 47, 22, 10, 148)
 
-node_size &lt;- sqrt(sample_size / max(sample_size))*10
+max_num=163  # maximum number across all time points 
+
+node_size &lt;- sqrt(sample_size /max_num)*10
+
 
 
 netgraph(m.netmeta, 
@@ -2247,7 +2277,7 @@ han
 </div>
 <pre class="r"><code>netgraph(m.netmeta, 
          labels = long.labels, 
-         number.of.studies = TRUE, 
+         number.of.studies = F, 
          plastic = FALSE,  # Ensures standard network layout
          lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
          lwd = 2,  # Increase line width for clarity

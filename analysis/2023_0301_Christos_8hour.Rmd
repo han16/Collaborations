@@ -715,7 +715,10 @@ m.netmeta <- netmeta(TE = TE,
 
 sample_size=c(40, 33, 31,  22, 96)
 
-node_size <- sqrt(sample_size / max(sample_size))*10
+max_num=163  # maximum number across all time points 
+
+node_size <- sqrt(sample_size /max_num)*10
+
 
 
 long.labels=m.netmeta$trts
@@ -727,7 +730,7 @@ long.labels=m.netmeta$trts
 
 netgraph(m.netmeta, 
          labels = long.labels, 
-         number.of.studies = TRUE, 
+         number.of.studies = F, 
          plastic = FALSE,  # Ensures standard network layout
          lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
          lwd = 2,  # Increase line width for clarity
