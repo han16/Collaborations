@@ -137,6 +137,8 @@ forest(m.gen, layout="JAMA", sortvar = TE,
 
 
 
+
+
 * fixed effect model 
 
 
@@ -596,6 +598,8 @@ datatable(extensions = 'Buttons',
 ```{r,  message=F, warning=F, eval=T}
 #########################
 treat1=treat2=study=character()
+#comparison[1]="Pereira, G._ibuprofen 600mg (1)_vs_placebo"
+#comparison[2]="Santos, B._ibuprofen 600mg (2)_vs_placebo"
 
 for (i in 1:length(comparison))
 {
@@ -609,9 +613,20 @@ for (i in 1:length(comparison))
 m1 <- metacont(samplesize_exp, mean_exp, sd_exp, samplesize_contr, mean_contr, sd_contr,
   data = data_meta, sm = "SMD")
 
-remove_index=2 # remove one ibuprofen 600mg in Santos, B. 
+#remove_index=2 # remove one ibuprofen 600mg in Santos, B. 
 
-data_meta_network=data.frame(study=study[-remove_index], TE=m1$TE[-remove_index], seTE=m1$seTE[-remove_index], treat1=treat1[-remove_index], treat2=treat2[-remove_index])
+data_meta_network=data.frame(study=study, TE=m1$TE, seTE=m1$seTE, treat1=treat1, treat2=treat2)
+
+## this is from ChatGPT 
+#TE_ibuprofen_vs_nimesulide <- (0 - (-0.9061814))  # 0.9061814  ##### effect size calculation TE_ibuprofen_vs_nimesulide <- (TE_ibuprofen_vs_placebo - TE_nimesulide_vs_placebo)
+#seTE_ibuprofen_vs_nimesulide <- sqrt(0.3162278^2 + 0.3336537^2)  # 0.4593 ##### standard error calculation seTE_ibuprofen_vs_nimesulide <- sqrt(seTE_ibuprofen_vs_placebo^2 + seTE_nimesulide_vs_placebo^2)
+
+data_meta_network <- rbind(data_meta_network, 
+                           data.frame(study = "Santos, B.", 
+                                      TE = 0.9061814, 
+                                      seTE = 0.4593, 
+                                      treat1 = "ibuprofen 600mg", 
+                                      treat2 = "nimesulide 100mg"))
 m.netmeta <- netmeta(TE = TE,
                      seTE = seTE,
                      treat1 = treat1,
@@ -640,8 +655,9 @@ m.netmeta <- netmeta(TE = TE,
 
 
 sample_size=c(15,  47,  20, 82)
+max_num=163  # maximum number across all time points 
 
-node_size <- sqrt(sample_size / max(sample_size))*10
+node_size <- sqrt(sample_size /max_num)*10
 
 
 long.labels=m.netmeta$trts
@@ -653,7 +669,7 @@ long.labels=m.netmeta$trts
 
 netgraph(m.netmeta, 
          labels = long.labels, 
-         number.of.studies = TRUE, 
+         number.of.studies = F, 
          plastic = FALSE,  # Ensures standard network layout
          lty = rep(1, length(m.netmeta$trts)),  # Set all links to solid lines
          lwd = 2,  # Increase line width for clarity
@@ -709,8 +725,8 @@ netsplit(m.netmeta) %>% forest(fontsize = 8, spacing = .4)  # visualize the net 
 
 
 ```{r, message=F, warning=F}
-funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:3), col=seq(1:3), linreg = T,  legend = F, digits.pval=2)
-funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:3), col=seq(1:3), linreg = F,  legend = F, digits.pval=2)
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:4), col=seq(1:4), linreg = T,  legend = F, digits.pval=2)
+funnel(m.netmeta, order=unique(m.netmeta$treat1), pch=seq(1:4), col=seq(1:4), linreg = F,  legend = F, digits.pval=2)
 ```
 
 
