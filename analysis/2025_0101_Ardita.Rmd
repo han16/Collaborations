@@ -18,6 +18,7 @@ root <- rprojroot::find_rstudio_root_file()
 
 ```{r, message=F, warning=F, results=F}
 data_raw=multiplesheets((file.path(root, "..\\2025\\202501\\Ardita\\T1, T2, T3, T4, HWCVMS Comparisons copy.xlsx")))
+data_raw2=multiplesheets((file.path(root, "..\\2025\\202501\\Ardita\\book2.xlsx")))
 ```
 
 
@@ -34,7 +35,7 @@ data_raw=multiplesheets((file.path(root, "..\\2025\\202501\\Ardita\\T1, T2, T3, 
 
 kappa_pvalue=numeric()
 kappa_value=numeric()
-for (i in 1:5)
+for (i in 1:4)
 {
 sub_data=data_raw[[i+2]]
 ratings=sub_data[,2:3] %>% drop_na()
@@ -42,6 +43,13 @@ kappa_test=kappa2(ratings, weight = )
 kappa_pvalue[i]=kappa_test$p.value
 kappa_value[i]=kappa_test$value
 }
+
+sub_data=data_raw2$Sheet1
+ratings=sub_data[,2:3] %>% drop_na()
+kappa_test=kappa2(ratings, weight = )
+kappa_pvalue[i+1]=kappa_test$p.value
+kappa_value[i+1]=kappa_test$value
+
 
 data.frame(para=names(data_raw)[3:7], kappa_value=round(kappa_value,4), kappa_pvalue=pvalue_adjust(kappa_pvalue)) %>%
 datatable(extensions = 'Buttons',
@@ -53,7 +61,6 @@ datatable(extensions = 'Buttons',
 
 ```
 
-* the last row probably is because of 0 variation of column `CVMS`.  
 
 
 
