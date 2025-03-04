@@ -1,0 +1,61 @@
+---
+title: "02/24 2025"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-02-24"
+---
+
+
+```{r, echo=F, message=F, warning=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+changeCellColor <- function(row, col){
+  c(
+    "function(row, data, num, index){",
+    sprintf("  if(index == %d){", row-1),
+    sprintf("    $('td:eq(' + %d + ')', row)", col),
+    "    .css({'background-color': 'orange'});",
+    "  }",
+    "}"  
+  )
+}
+```
+
+
+
+```{r, message=F, warning=F}
+size_data=multiplesheets((file.path(root, "..\\2025\\202502\\Amal\\Data Submission for Statistical Analysis\\size Amal.xlsx")))
+zeta_data=multiplesheets((file.path(root, "..\\2025\\202502\\Amal\\Data Submission for Statistical Analysis\\zeta Amal.xlsx")))
+```
+
+
+```{r, message=F, warning=F}
+size_data_annova=data.frame(mcns=paste("MCNr", rep(c(0,1,2,3,4,5), each=3), sep="_"), value=c(3930,
+3691,
+7615,
+2405,
+2677,
+3018,
+3058,
+2764,
+3080,
+2147,
+2087,
+2280,
+6184,
+6489,
+6779,
+1922,
+2847,
+3784
+))
+```

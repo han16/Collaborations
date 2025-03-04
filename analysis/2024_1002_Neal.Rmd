@@ -27,7 +27,7 @@ finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\CBCT T
 #load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
 
 
-colnames(finalized_data)=col_names
+#colnames(finalized_data)
 ```
 
 
@@ -60,12 +60,12 @@ colnames(finalized_data)
 ```{r, message=F, warning=F, eval=T}
 continuous_var=c("Age", 
 "Months_btwn_CBCTS",  
-"Months_btwn_Ext_CBCT#1",
-"mesial_tooth_bone_loss_CBCT#2__mm",   
+"Months_btwn_Ext_CBCT.1",
+"mesial_tooth_bone_loss_CBCT.2__mm",   
 "mesial_tooth_bone_loss_DIFF", 
-"mesial_tooth_bone_loss_CBCT#1__mm",
-"distal_tooth_bone_loss_CBCT#1__mm",    
-"distal_tooth_bone_loss_CBCT#2__mm",   
+"mesial_tooth_bone_loss_CBCT.1__mm",
+"distal_tooth_bone_loss_CBCT.1__mm",    
+"distal_tooth_bone_loss_CBCT.2__mm",   
 "distal_tooth_bone_loss_DIFF",    
 "ANPNS_Crest_Coronal_CBCT1",
 "ANSPNS_Crest_Coronal_CBCT2",          
@@ -91,7 +91,7 @@ continuous_var=c("Age",
 "Width_5mm_CBCT1",                     
 "Width_5mm_CBCT2",                     
 "Width_5mm_DIFF")
-data_conti=finalized_data[,which(colnames(finalized_data)%in%continuous_var)]
+data_conti=as.matrix(finalized_data[,which(colnames(finalized_data)%in%continuous_var)])
 
 res=summary_statistics(data_conti)
 data.frame(res) %>%
@@ -234,17 +234,15 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 discrete_var=c("Tooth_site_number", 
-               "Gender", 
-               "Smoking", 
                "Tooth_migration", 
                "M_Tooth_Migration",  
                "D_Tooth_Migration",  
                "Migration_Notes", 
-               "mesial_tooth_bone_loss_CBCT#1__mm", 
+               "mesial_tooth_bone_loss_CBCT.1__mm", 
                "Jaw",                        
                 "Arch_Fully_edentulous_both_CBCTs",
                 "Partially_edentulous",
-               "Partial_Edentulous_Space_\r\nLength",
+               "Partial_Edentulous_Space_.Length",
                 "Adjacent_teeth_number",
                "Adjacent_Note",                      
                 "Restoration_type",
@@ -253,8 +251,8 @@ discrete_var=c("Tooth_site_number",
                 "Coronal_sinus_floor_shift",  
                 "Sinus_Pathology",
                  "Sites_10mm_height_or_more",          
-                 "1st_CBCT_10mm_or_more",
-               "2nd_CBCT_10mm_or_more" )
+                 "X1st_CBCT_10mm_or_more",
+               "X2nd_CBCT_10mm_or_more" )
 data_discrete=finalized_data[,which(colnames(finalized_data)%in%discrete_var)]
 
 res=apply(data_discrete, 2, discrete_summary)
@@ -318,6 +316,79 @@ datatable(extensions = 'Buttons',
 
 # Render all datatables
 output_list
+```
+
+
+
+
+```{r, message=F, warning=F}
+
+sub_data=finalized_data %>% select(Patient, Gender, Smoking)
+
+unique_patients <- sub_data %>%
+  group_by(Patient) %>%
+  filter(Gender != "") %>%  # Remove empty Gender rows
+  slice(1) %>%  # Keep the first occurrence per Patient
+  ungroup()
+
+res=apply(unique_patients[,2:3], 2, discrete_summary)
+
+
+
+# Create a tagList to collect all datatables
+library(htmltools)
+output_list <- tagList()
+for (k in 1:length(res))
+  
+{
+
+  res_df <- data.frame(res[[k]]) # Convert the current list element to a data frame
+# Append the datatable to the output list
+  output_list <- tagAppendChild(
+    output_list,
+    datatable(
+      res_df,
+      extensions = 'Buttons',
+      caption = names(res)[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+  
+  ############# calculate p values 
+parameters=character()
+pvalue=numeric()
+kk=0
+  for (i in 1:(nrow(res[[k]])-1))
+  for (j in (i+1):nrow(res[[k]]))
+  {
+    kk=kk+1
+    parameters[kk]=paste(res[[k]][i,1], res[[k]][j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(res[[k]][i,2], res[[k]][j,2]), p = 0.5)$p.value)
+  }
+output_list <- tagAppendChild(
+    output_list,
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = names(res)[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+)
+
+
+  
+  
+  
+}
+
+# Render all datatables
+output_list
+
 ```
 
 
@@ -486,6 +557,101 @@ output_list1
 
 
 
+
+
+
+
+
+```{r, message=F, warning=F, results='asis'}
+# Create a tagList to collect all datatables
+library(htmltools)
+output_list1 <- tagList()
+discrete_var=c("Gender", "Smoking")
+
+group2_maxilla_patient <- group2_maxilla %>%
+  group_by(Patient) %>%
+  filter(Gender != "") %>%  # Remove empty Gender rows
+  slice(1) %>%  # Keep the first occurrence per Patient
+  ungroup()
+
+
+group3_mandible_patient <- group3_mandible %>%
+  group_by(Patient) %>%
+  filter(Gender != "") %>%  # Remove empty Gender rows
+  slice(1) %>%  # Keep the first occurrence per Patient
+  ungroup()
+
+for (k in 1:length(discrete_var))
+  
+{
+
+data_subset1=group2_maxilla_patient %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group2_maxilla_patient),4)) %>% drop_na()
+
+data_subset2=group3_mandible_patient %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group3_mandible_patient),4)) %>% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("group2_maxilla", nrow(data_subset1)), rep("group3_mandible", nrow(data_subset2))))
+
+
+# Append the datatable to the output list
+  output_list1 <- tagAppendChild(
+    output_list1,
+    datatable(
+      data_subset,
+      extensions = 'Buttons',
+      caption = discrete_var[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+#############################
+common_variable=intersect(data_subset %>% filter(sample=="group2_maxilla") %>% select(rlang::sym(discrete_var[k])) %>% pull(), data_subset %>% filter(sample=="group3_mandible") %>% select(rlang::sym(discrete_var[k])) %>% pull())
+pvalue=numeric()
+if (length(common_variable)>0)
+{
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(!!rlang::sym(discrete_var[k])==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(nrow(group2_maxilla), nrow(group3_mandible)))$p.value)
+}
+  
+  
+  ###########################
+  # Append the datatable to the output list
+  output_list1 <- tagAppendChild(
+    output_list1,
+    datatable(
+      data.frame(variable=paste(common_variable, ":group2_maxilla_vs_group3_mandible"), pvalue=pvalue),
+      extensions = 'Buttons',
+      caption = discrete_var[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )  
+  
+}
+if (length(common_variable)==0)
+  cat("no common variables between two groups", "\n")
+
+  
+}
+
+# Render all datatables
+output_list1
+
+```
+
+
+
+
+
+
+
 ### tooth site groups
 
 
@@ -531,7 +697,7 @@ group4_data=finalized_data %>% filter(Patient %in% c(25, 26, 44, 58, 78, 81))
 
 
 ```{r, message=F, warning=F}
-data_conti=group4_data[,which(colnames(group4_data)%in%continuous_var)]
+data_conti=as.matrix(group4_data[,which(colnames(group4_data)%in%continuous_var)])
 
 res=summary_statistics(data_conti)
 data.frame(res) %>%
@@ -681,11 +847,11 @@ discrete_var=c("Tooth_site_number",
                "M_Tooth_Migration",  
                "D_Tooth_Migration",  
                "Migration_Notes", 
-               "mesial_tooth_bone_loss_CBCT#1__mm", 
+               "mesial_tooth_bone_loss_CBCT.1__mm", 
                "Jaw",                        
                 "Arch_Fully_edentulous_both_CBCTs",
                 "Partially_edentulous",
-               "Partial_Edentulous_Space_\r\nLength",
+               "Partial_Edentulous_Space_.Length",
                 "Adjacent_teeth_number",
                "Adjacent_Note",                      
                 "Restoration_type",
@@ -694,8 +860,8 @@ discrete_var=c("Tooth_site_number",
                 "Coronal_sinus_floor_shift",  
                 "Sinus_Pathology",
                  "Sites_10mm_height_or_more",          
-                 "1st_CBCT_10mm_or_more",
-               "2nd_CBCT_10mm_or_more" )
+                 "X1st_CBCT_10mm_or_more",
+               "X2nd_CBCT_10mm_or_more" )
 data_discrete=group4_data[,which(colnames(group4_data)%in%discrete_var)]
 
 res=apply(data_discrete, 2, discrete_summary)
