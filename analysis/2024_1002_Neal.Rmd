@@ -648,6 +648,26 @@ output_list1
 
 
 
+```{r, message=F, warning=F}
+group2_maxilla_patient %>% select(Patient, Gender,Smoking) %>%
+datatable(extensions = 'Buttons',
+          caption = "group2_maxilla_patient", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+group3_mandible_patient %>% select(Patient, Gender,Smoking) %>%
+datatable(extensions = 'Buttons',
+          caption = "group3_mandible_patient", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 
 
 
