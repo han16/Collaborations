@@ -1,0 +1,81 @@
+---
+title: "2025/03/05"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-03-05"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+```{r, message=F, warning=F, results=F}
+Rniti=multiplesheets((file.path(root, "..\\2025\\202503\\Muller\\organized EXT RNiTi 1-10.xlsx")))
+Ext_SS=multiplesheets((file.path(root, "..\\2025\\202503\\Muller\\Organized EXT SS 1-10.xlsx")))
+Ext_TMA=multiplesheets((file.path(root, "..\\2025\\202503\\Muller\\organized EXT TMA 1-10.xlsx")))
+```
+
+
+```{r, message=F, warning=F}
+mean_NT=matrix(nrow=10, ncol=42)
+mean_SS=matrix(nrow=10, ncol=42)
+mean_TMA=matrix(nrow=10, ncol=42)
+for (i in 1:10)
+{  
+mat <- as.matrix(Rniti[[i]][2:nrow(Rniti$`1`), ])  # Convert to matrix
+mat <- apply(mat, 2, as.numeric)  # Ensure numeric conversion
+col_means <- colMeans(mat, na.rm = TRUE)  # Compute column means
+mean_NT[i,]=col_means
+
+
+
+mat <- as.matrix(Ext_SS[[i]][2:nrow(Ext_SS$`1`), ])  # Convert to matrix
+mat <- apply(mat, 2, as.numeric)  # Ensure numeric conversion
+col_means <- colMeans(mat, na.rm = TRUE)  # Compute column means
+mean_SS[i,]=col_means
+
+mat <- as.matrix(Ext_TMA[[i]][2:nrow(Ext_TMA$`1`), ])  # Convert to matrix
+mat <- apply(mat, 2, as.numeric)  # Ensure numeric conversion
+col_means <- colMeans(mat, na.rm = TRUE)  # Compute column means
+mean_TMA[i,]=col_means
+}
+
+variables=paste(rep(c("Central Incisor", "lateral incisor", "canine", "first premolar",  "second premolar", "first molar", "second molar"),each=6),  c("Fx", "Fy", "Fz", "Mx", "My", "Mz"), sep="_")
+colnames(mean_NT)=variables
+colnames(mean_SS)=variables
+colnames(mean_TMA)=variables
+```
+
+
+## one way anova 
+
+```{r, message=F, warning=F}
+pvalue=numeric()
+
+for (i in 1:ncol(mean_NT))
+{
+  sub_data=data.frame(value=c(mean_NT[,i], mean_SS[,i], mean_TMA[,i]), group=rep(c("NT", "SS", "TMA"), each=nrow(mean_NT)))
+  anova_test=aov(value~group, data=sub_data)
+  pvalue[i]=summary(anova_test)[[1]][["Pr(>F)"]][1]
+  
+}
+
+```
+
+
+
+```{r, message=F, warning=F}
+data.frame(parameters=variables, anova_pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
