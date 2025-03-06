@@ -709,6 +709,15 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 group4_data=finalized_data %>% filter(Patient %in% c(25, 26, 44, 58, 78, 81))
+
+
+group4_data%>%
+datatable(extensions = 'Buttons',
+          caption = "group 4",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -861,8 +870,6 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 discrete_var=c("Tooth_site_number", 
-               "Gender", 
-               "Smoking", 
                "Tooth_migration", 
                "M_Tooth_Migration",  
                "D_Tooth_Migration",  
@@ -948,6 +955,79 @@ datatable(extensions = 'Buttons',
 # Render all datatables
 output_list
 ```
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+discrete_var=c("Gender", "Smoking" )
+data_discrete=group4_data[,which(colnames(group4_data)%in%discrete_var)]
+
+res=apply(data_discrete, 2, discrete_summary)
+
+
+
+# Create a tagList to collect all datatables
+library(htmltools)
+output_list <- tagList()
+for (k in 1:length(res))
+  
+{
+
+  res_df <- data.frame(res[[k]]) # Convert the current list element to a data frame
+# Append the datatable to the output list
+  output_list <- tagAppendChild(
+    output_list,
+    datatable(
+      res_df,
+      extensions = 'Buttons',
+      caption = names(res)[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+  
+  ############# calculate p values 
+parameters=character()
+pvalue=numeric()
+kk=0
+  for (i in 1:(nrow(res[[k]])-1))
+  for (j in (i+1):nrow(res[[k]]))
+  {
+    kk=kk+1
+    parameters[kk]=paste(res[[k]][i,1], res[[k]][j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(res[[k]][i,2], res[[k]][j,2]), p = 0.5)$p.value)
+  }
+output_list <- tagAppendChild(
+    output_list,
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = names(res)[k],
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+)
+
+
+  
+  
+  
+}
+
+# Render all datatables
+output_list
+
+```
+
+
 
 
 
