@@ -9,7 +9,7 @@ date: "2024-10-07"
 
 
 
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, results=F}
 library(rprojroot)
 root <- rprojroot::find_rstudio_root_file()
 source(file.path(root, "analysis/Rfunctions.R"))
