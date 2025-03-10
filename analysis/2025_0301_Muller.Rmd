@@ -15,6 +15,8 @@ root <- rprojroot::find_rstudio_root_file()
 ```
 
 
+
+
 ```{r, message=F, warning=F, results=F}
 Rniti=multiplesheets((file.path(root, "..\\2025\\202503\\Muller\\organized EXT RNiTi 1-10.xlsx")))
 Ext_SS=multiplesheets((file.path(root, "..\\2025\\202503\\Muller\\Organized EXT SS 1-10.xlsx")))
@@ -79,3 +81,29 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+
+## pairwise comparisons
+
+
+```{r, message=F, warning=F}
+NT_vs_SS_pvalue=numeric()
+NT_vs_TMA_pvalue=numeric()
+SS_vs_TMA_pvalue=numeric()
+for (i in 1:ncol(mean_NT))
+{
+  NT_vs_SS_pvalue[i]=t.test(mean_NT[,i], mean_SS[,i])$p.value
+  NT_vs_TMA_pvalue[i]=t.test(mean_NT[,i], mean_TMA[,i])$p.value
+  SS_vs_TMA_pvalue[i]=t.test(mean_SS[,i], mean_TMA[,i])$p.value
+}
+data.frame(parameters=variables, NT_vs_SS_pvalue=pvalue_adjust(NT_vs_SS_pvalue), NT_vs_TMA_pvalue=pvalue_adjust(NT_vs_TMA_pvalue), SS_vs_TMA_pvalue=pvalue_adjust(SS_vs_TMA_pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* two sample t test was used. 
