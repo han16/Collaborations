@@ -32,7 +32,7 @@ changeCellColor <- function(row, col){
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 size_data=multiplesheets((file.path(root, "..\\2025\\202502\\Amal\\Data Submission for Statistical Analysis\\size Amal.xlsx")))
 zeta_data=multiplesheets((file.path(root, "..\\2025\\202502\\Amal\\Data Submission for Statistical Analysis\\zeta Amal.xlsx")))
 ```
@@ -58,4 +58,72 @@ size_data_annova=data.frame(mcns=paste("MCNr", rep(c(0,1,2,3,4,5), each=3), sep=
 2847,
 3784
 ))
+
+anova_test=aov(value~mcns, data=size_data_annova)
+  pvalue=summary(anova_test)[[1]][["Pr(>F)"]][1]
+pvalue  
 ```
+* small p value suggests they are not all the same 
+
+
+
+```{r, message=F, warning=F}
+zeta_data_annova=data.frame(mcns=paste("MCN", rep(c(0,1,2,3,4,5,6,7,8,9,10), each=3), sep="_"), value=c(25,
+25,
+25,
+25.1,
+25,
+24.9,
+25,
+25,
+25.1,
+25,
+24.9,
+25,
+25.1,
+25,
+24.9,
+25,
+24.9,
+25,
+25.1,
+25,
+24.9,
+24.9,
+25,
+25,
+24.9,
+25,
+25.1,
+25,
+24.9,
+25.1,
+25,
+25,
+24.9
+))
+
+anova_test=aov(value~mcns, data=zeta_data_annova)
+  pvalue=summary(anova_test)[[1]][["Pr(>F)"]][1]
+pvalue  
+```
+
+* null hypothesis of being equal is failed to reject due to large p value. 
+
+
+
+
+## Table 8 
+
+
+
+```{r, message=F, warning=F}
+table8_data_annova=data.frame(Fs=paste("MCN", rep(c("F1", "F2", "F3", "F4", "F5"), each=3), sep="_"), value=c(0.532, 0.685, 0.551, 0.676, 0.663, 0.710, 0.570, 0.339, 0.341, 0.483, 0.418, 0.612, 0.531, 0.620, 0.050
+))
+
+anova_test=aov(value~Fs, data=table8_data_annova)
+  pvalue=summary(anova_test)[[1]][["Pr(>F)"]][1]
+pvalue  
+```
+
+* fail to reject null hypothesis of being equal F1=F2=F3=F4=F5.  
