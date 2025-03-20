@@ -91,7 +91,77 @@ continuous_var=c("Age",
 "Width_5mm_CBCT1",                     
 "Width_5mm_CBCT2",                     
 "Width_5mm_DIFF")
-data_conti=as.matrix(finalized_data[,which(colnames(finalized_data)%in%continuous_var)])
+data_conti=data.frame(as.matrix(finalized_data[,which(colnames(finalized_data)%in%continuous_var)]))
+
+
+data_conti$Height_coronal_CBCT1 <- ifelse(
+  replace_na(data_conti$ANPNS_Crest_Coronal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT1, 0) == 0,
+  NA,
+  replace_na(data_conti$ANPNS_Crest_Coronal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT1, 0)
+)
+data_conti$ANPNS_Crest_Coronal_CBCT1[data_conti$ANPNS_Crest_Coronal_CBCT1 == 0] <- NA
+data_conti$MENTAL_Crest_Coronal_CBCT1[data_conti$MENTAL_Crest_Coronal_CBCT1 == 0] <- NA
+
+##############
+
+data_conti$Height_coronal_CBCT2 <- ifelse(
+  replace_na(data_conti$ANSPNS_Crest_Coronal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT2, 0) == 0,
+  NA,
+  replace_na(data_conti$ANSPNS_Crest_Coronal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT2, 0)
+)
+data_conti$ANSPNS_Crest_Coronal_CBCT2[data_conti$ANSPNS_Crest_Coronal_CBCT2 == 0] <- NA
+data_conti$MENTAL_Crest_Coronal_CBCT2[data_conti$MENTAL_Crest_Coronal_CBCT2 == 0] <- NA
+
+##############
+
+data_conti$Height_sagittal_CBCT1 <- ifelse(
+  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT1, 0) == 0,
+  NA,
+  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT1, 0)
+)
+data_conti$ANSPNS_Crest_Sagittal_CBCT1[data_conti$ANSPNS_Crest_Sagittal_CBCT1 == 0] <- NA
+data_conti$MENTAL_Crest_Sagittal_CBCT1[data_conti$MENTAL_Crest_Sagittal_CBCT1 == 0] <- NA
+
+##############
+
+data_conti$Height_sagittal_CBCT2 <- ifelse(
+  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT2, 0) == 0,
+  NA,
+  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT2, 0)
+)
+data_conti$ANSPNS_Crest_Sagittal_CBCT2[data_conti$ANSPNS_Crest_Sagittal_CBCT2 == 0] <- NA
+data_conti$MENTAL_Crest_Sagittal_CBCT2[data_conti$MENTAL_Crest_Sagittal_CBCT2 == 0] <- NA
+
+
+##############
+
+data_conti$Height_coronal_DIFF <- ifelse(
+  replace_na(data_conti$ANSPNS_Crest_Coronal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_DIFF, 0) == 0,
+  NA,
+  replace_na(data_conti$ANSPNS_Crest_Coronal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_DIFF, 0)
+)
+data_conti$ANSPNS_Crest_Coronal_DIFF[data_conti$ANSPNS_Crest_Coronal_DIFF == 0] <- NA
+data_conti$MENTAL_Crest_Coronal_DIFF[data_conti$MENTAL_Crest_Coronal_DIFF == 0] <- NA
+
+##############
+
+data_conti$Height_sagittal_DIFF <- ifelse(
+  replace_na(data_conti$ANSPNS_Crest_Sagittal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_DIFF, 0) == 0,
+  NA,
+  replace_na(data_conti$ANSPNS_Crest_Sagittal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_DIFF, 0)
+)
+data_conti$ANSPNS_Crest_Sagittal_DIFF[data_conti$ANSPNS_Crest_Sagittal_DIFF == 0] <- NA
+data_conti$MENTAL_Crest_Sagittal_DIFF[data_conti$MENTAL_Crest_Sagittal_DIFF == 0] <- NA
+
+
+continuous_var=c(continuous_var,"Height_sagittal_CBCT1", "Height_sagittal_CBCT2", "Height_sagittal_DIFF",  "Height_coronal_DIFF", "Height_coronal_CBCT1", "Height_coronal_CBCT2" )
+
+finalized_data$Height_coronal_CBCT1=data_conti$Height_coronal_CBCT1
+finalized_data$Height_coronal_CBCT2=data_conti$Height_coronal_CBCT2
+finalized_data$Height_sagittal_CBCT1=data_conti$Height_sagittal_CBCT1
+finalized_data$Height_sagittal_CBCT2=data_conti$Height_sagittal_CBCT2
+finalized_data$Height_coronal_DIFF=data_conti$Height_coronal_DIFF
+finalized_data$Height_sagittal_DIFF=data_conti$Height_sagittal_DIFF
 
 res=summary_statistics(data_conti)
 data.frame(res) %>%
@@ -437,6 +507,66 @@ datatable(extensions = 'Buttons',
 
 
 
+### Variables with CBCT1 and CBCT2 versions
+
+
+```{r, message=F, warning=F}
+#"Height_coronal",
+#"Height_sagittal",
+
+
+variables=c("ANS_PNS_crest_coronal", 
+"ANS_PNS_crest_sagittal",
+"mental_crest_coronal",
+"mental_crest_sagittal",
+"ANS_PNS_sinus_floor_coronal",
+"ANS_PNS_sinus_floor_sagittal", 
+"width_3mm", 
+"width_5mm",
+"mesial_tooth_bone_loss",
+"distal_tooth_bone_loss")
+
+
+CBCT1=data.frame(finalized_data$ANPNS_Crest_Coronal_CBCT1, 
+        finalized_data$ANSPNS_Crest_Sagittal_CBCT1, 
+        finalized_data$MENTAL_Crest_Sagittal_CBCT1, 
+        finalized_data$MENTAL_Crest_Coronal_CBCT1, 
+        finalized_data$ANSPNS_Sinus_Floor_Coronal_CBCT1, 
+        finalized_data$ANSPNS_Sinus_Floor_Sagittal_CBCT1, 
+        finalized_data$Width_3mm_CBCT1, 
+        finalized_data$Width_5mm_CBCT1, 
+        finalized_data$mesial_tooth_bone_loss_CBCT.1__mm, 
+        finalized_data$distal_tooth_bone_loss_CBCT.1__mm)
+
+
+CBCT2=data.frame(finalized_data$ANSPNS_Crest_Coronal_CBCT2, 
+        finalized_data$ANSPNS_Crest_Sagittal_CBCT2, 
+        finalized_data$MENTAL_Crest_Sagittal_CBCT2, 
+        finalized_data$MENTAL_Crest_Coronal_CBCT2, 
+        finalized_data$ANSPNS_Sinus_Floor_Coronal_CBCT2, 
+        finalized_data$ANSPNS_Sinus_Floor_Sagittal_CBCT2, 
+        finalized_data$Width_3mm_CBCT2, 
+        finalized_data$Width_5mm_CBCT2, 
+        finalized_data$mesial_tooth_bone_loss_CBCT.2__mm, 
+        finalized_data$distal_tooth_bone_loss_CBCT.2__mm)
+
+colnames(CBCT1)=colnames(CBCT2)=variables
+
+
+pvalue <- sapply(1:ncol(CBCT1), function(i) t.test(CBCT1[,i], CBCT2[,i], paired = TRUE)$p.value)
+
+data.frame(variables=variables, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "CBCT 1 vs CBCT 2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+* paired two sample t test was used.  
+
 
 
 ## group 2 vs 3
@@ -727,6 +857,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, message=F, warning=F}
+
 data_conti=as.matrix(group4_data[,which(colnames(group4_data)%in%continuous_var)])
 
 res=summary_statistics(data_conti)
@@ -1070,4 +1201,129 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+```
+
+
+
+### Variables with CBCT1 and CBCT2 versions
+
+
+```{r, message=F, warning=F}
+#"Height_coronal",
+#"Height_sagittal",
+
+
+variables=c("ANS_PNS_crest_coronal", 
+"ANS_PNS_crest_sagittal",
+"mental_crest_coronal",
+"mental_crest_sagittal",
+"ANS_PNS_sinus_floor_coronal",
+"ANS_PNS_sinus_floor_sagittal", 
+"width_3mm", 
+"width_5mm",
+"mesial_tooth_bone_loss",
+"distal_tooth_bone_loss")
+
+
+CBCT1=data.frame(group4_data$ANPNS_Crest_Coronal_CBCT1, 
+        group4_data$ANSPNS_Crest_Sagittal_CBCT1, 
+        group4_data$MENTAL_Crest_Sagittal_CBCT1, 
+        group4_data$MENTAL_Crest_Coronal_CBCT1, 
+        group4_data$ANSPNS_Sinus_Floor_Coronal_CBCT1, 
+        group4_data$ANSPNS_Sinus_Floor_Sagittal_CBCT1, 
+        group4_data$Width_3mm_CBCT1, 
+        group4_data$Width_5mm_CBCT1, 
+        group4_data$mesial_tooth_bone_loss_CBCT.1__mm, 
+        group4_data$distal_tooth_bone_loss_CBCT.1__mm)
+
+
+CBCT2=data.frame(group4_data$ANSPNS_Crest_Coronal_CBCT2, 
+        group4_data$ANSPNS_Crest_Sagittal_CBCT2, 
+        group4_data$MENTAL_Crest_Sagittal_CBCT2, 
+        group4_data$MENTAL_Crest_Coronal_CBCT2, 
+        group4_data$ANSPNS_Sinus_Floor_Coronal_CBCT2, 
+        group4_data$ANSPNS_Sinus_Floor_Sagittal_CBCT2, 
+        group4_data$Width_3mm_CBCT2, 
+        group4_data$Width_5mm_CBCT2, 
+        group4_data$mesial_tooth_bone_loss_CBCT.2__mm, 
+        group4_data$distal_tooth_bone_loss_CBCT.2__mm)
+
+colnames(CBCT1)=colnames(CBCT2)=variables
+CBCT1 <- CBCT1 %>% select(where(~ !all(is.na(.))))
+CBCT2 <- CBCT2 %>% select(where(~ !all(is.na(.))))
+
+pvalue <- sapply(1:ncol(CBCT1), function(i) t.test(CBCT1[,i], CBCT2[,i], paired = TRUE)$p.value)
+
+data.frame(variables=colnames(CBCT1), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "CBCT 1 vs CBCT 2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+* variables full of NA need to be dropped 
+
+
+
+## tooth migration 
+
+
+```{r, message=F, warning=F}
+cat("pvalue of 22 Y vs 152 N is:", pvalue_adjust(binom.test(c(22, 152), p = 0.5)$p.value), "\n")
+
+```
+
+
+## Sinus_pathology 
+
+```{r, message=F, warning=F}
+
+library(htmltools)
+output_list <- tagList()
+  res_df <- data.frame(ans=c("1", "2", "3"), n=c(23, 3, 61)) # Convert the current list element to a data frame
+# Append the datatable to the output list
+  output_list <- tagAppendChild(
+    output_list,
+    datatable(
+      res_df,
+      extensions = 'Buttons',
+      caption = "",
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+  
+  ############# calculate p values 
+parameters=character()
+pvalue=numeric()
+kk=0
+
+if (nrow(res_df)>1)
+  for (i in 1:(nrow(res_df)-1))
+  for (j in (i+1):nrow(res_df))
+  {
+    kk=kk+1
+    parameters[kk]=paste(res_df[i,1], res_df[j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(res_df[i,2], res_df[j,2]), p = 0.5)$p.value)
+  }
+output_list <- tagAppendChild(
+    output_list,
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+)
+
+output_list
+
 ```
