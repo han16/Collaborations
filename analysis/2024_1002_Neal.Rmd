@@ -578,7 +578,48 @@ group3_mandible=finalized_data %>% filter(Jaw==2)
 ```
 
 
+
+
+
+
 ### continuous variables 
+
+
+
+
+
+```{r, message=F, warning=F}
+
+data_conti=as.matrix(group2_maxilla[,which(colnames(group2_maxilla)%in%continuous_var)])
+
+res=summary_statistics(data_conti)
+data.frame(res) %>%
+datatable(extensions = 'Buttons',
+          caption = " group 2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, message=F, warning=F}
+
+data_conti=as.matrix(group3_mandible[,which(colnames(group3_mandible)%in%continuous_var)])
+
+res=summary_statistics(data_conti)
+data.frame(res) %>%
+datatable(extensions = 'Buttons',
+          caption = " group 3",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 
 ```{r, message=F, warning=F}
 two_sample_test=function(var)
@@ -605,6 +646,9 @@ datatable(extensions = 'Buttons',
 ```
 
 * nonparametric  `wilcox.test` was used to test the difference 
+
+
+
 
 
 
@@ -1327,3 +1371,27 @@ datatable(extensions = 'Buttons',
 output_list
 
 ```
+
+
+## New p-values
+
+
+1. ANS_PNS_crest_coronal_DIFF VERSUS mental_crest_coronal_DIFF
+
+
+```{r, message=F, warning=F}
+pvalue_adjust(t.test(finalized_data$ANSPNS_Crest_Coronal_DIFF, finalized_data$MENTAL_Crest_Coronal_DIFF)$p.value)
+```
+* there are statistically significiantly different 
+
+
+
+2. ANS_PNS_crest_sagittal_DIFF VERSUS mental_crest_sagittal_DIFF
+
+```{r, message=F, warning=F}
+pvalue_adjust(t.test(finalized_data$ANSPNS_Crest_Sagittal_DIFF, finalized_data$MENTAL_Crest_Sagittal_DIFF)$p.value)
+```
+
+
+* they are different 
+
