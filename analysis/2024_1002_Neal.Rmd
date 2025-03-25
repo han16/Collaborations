@@ -1442,7 +1442,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, message=F, warning=F}
-cat("pvalue of 22 Y vs 152 N is:", pvalue_adjust(binom.test(c(22, 152), p = 0.5)$p.value), "\n")
+cat("pvalue of 22 Y vs 152 N is:", pvalue_adjust(binom.test(c(22, (22+152)), p = 0.5)$p.value), "\n")
 
 ```
 
@@ -1507,7 +1507,7 @@ output_list
 ```{r, message=F, warning=F}
 pvalue_adjust(t.test(finalized_data$ANSPNS_Crest_Coronal_DIFF, finalized_data$MENTAL_Crest_Coronal_DIFF)$p.value)
 ```
-* there are statistically significiantly different 
+* there are statistically significantly different 
 
 
 
@@ -1519,4 +1519,24 @@ pvalue_adjust(t.test(finalized_data$ANSPNS_Crest_Sagittal_DIFF, finalized_data$M
 
 
 * they are different 
+
+
+## additional p values 
+
+
+Sites were distributed between maxilla and mandible (n=120 vs. n=133, p=0.4507) and anterior (n=33 vs. n=17, p=0.0328) and posterior sites (n=116 vs. n=116, p=1.0000) in maxillary and mandibular sites, respectively.
+
+
+```{r, message=F, warning=F}
+binom.test(120, 120+133)$p.value
+binom.test(33, 33+17)$p.value
+binom.test(116, 116+116)$p.value
+```
+
+
+## statistical tests 
+
+1. for continuous variables, two sample (paired or unpaired) test was used.  
+
+2. for categorical variables, binomial test was used. 
 
