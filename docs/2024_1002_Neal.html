@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-03-25
+<strong>Last updated:</strong> 2025-03-27
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecad201dc7edbab6e77d1e1a28a7a4b926eeeb6d3targetblankcad201da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5ddc05ce1dc7ece63588d5b54f0ffbfecf00465atargetblank5ddc05ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/cad201dc7edbab6e77d1e1a28a7a4b926eeeb6d3" target="_blank">cad201d</a>
+<a href="https://github.com/han16/Collaborations/tree/5ddc05ce1dc7ece63588d5b54f0ffbfecf00465a" target="_blank">5ddc05c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreecad201dc7edbab6e77d1e1a28a7a4b926eeeb6d3targetblankcad201da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5ddc05ce1dc7ece63588d5b54f0ffbfecf00465atargetblank5ddc05ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/cad201dc7edbab6e77d1e1a28a7a4b926eeeb6d3" target="_blank">cad201d</a>.
+<a href="https://github.com/han16/Collaborations/tree/5ddc05ce1dc7ece63588d5b54f0ffbfecf00465a" target="_blank">5ddc05c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/5ddc05ce1dc7ece63588d5b54f0ffbfecf00465a/analysis/2024_1002_Neal.Rmd" target="_blank">5ddc05c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-25
+</td>
+<td>
+3/25/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/5ddc05ce1dc7ece63588d5b54f0ffbfecf00465a/docs/2024_1002_Neal.html" target="_blank">5ddc05c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-03-25
+</td>
+<td>
+3/25/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2144,7 +2178,7 @@ variables=c(&quot;ANS_PNS_crest_coronal&quot;,
 &quot;width_3mm&quot;, 
 &quot;width_5mm&quot;,
 &quot;mesial_tooth_bone_loss&quot;,
-&quot;distal_tooth_bone_loss&quot;)
+&quot;distal_tooth_bone_loss&quot;, &quot;Height_coronal&quot;, &quot;Height_sagittal&quot;)
 
 
 CBCT1=data.frame(finalized_data$ANPNS_Crest_Coronal_CBCT1, 
@@ -2156,7 +2190,10 @@ CBCT1=data.frame(finalized_data$ANPNS_Crest_Coronal_CBCT1,
         finalized_data$Width_3mm_CBCT1, 
         finalized_data$Width_5mm_CBCT1, 
         finalized_data$mesial_tooth_bone_loss_CBCT.1__mm, 
-        finalized_data$distal_tooth_bone_loss_CBCT.1__mm)
+        finalized_data$distal_tooth_bone_loss_CBCT.1__mm, 
+        finalized_data$Height_coronal_CBCT1, 
+        finalized_data$Height_sagittal_CBCT1
+        )
 
 
 CBCT2=data.frame(finalized_data$ANSPNS_Crest_Coronal_CBCT2, 
@@ -2168,7 +2205,9 @@ CBCT2=data.frame(finalized_data$ANSPNS_Crest_Coronal_CBCT2,
         finalized_data$Width_3mm_CBCT2, 
         finalized_data$Width_5mm_CBCT2, 
         finalized_data$mesial_tooth_bone_loss_CBCT.2__mm, 
-        finalized_data$distal_tooth_bone_loss_CBCT.2__mm)
+        finalized_data$distal_tooth_bone_loss_CBCT.2__mm, 
+        finalized_data$Height_coronal_CBCT2, 
+        finalized_data$Height_sagittal_CBCT2)
 
 colnames(CBCT1)=colnames(CBCT2)=variables
 
@@ -2183,7 +2222,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-6b0771041c3145491948" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6b0771041c3145491948">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>CBCT 1 vs CBCT 2<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["ANS_PNS_crest_coronal","ANS_PNS_crest_sagittal","mental_crest_coronal","mental_crest_sagittal","ANS_PNS_sinus_floor_coronal","ANS_PNS_sinus_floor_sagittal","width_3mm","width_5mm","mesial_tooth_bone_loss","distal_tooth_bone_loss"],["&lt;0.0001","2e-04","&lt;0.0001","&lt;0.0001","0.5055","0.5793","&lt;0.0001","&lt;0.0001","1e-04","4e-04"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variables","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-6b0771041c3145491948">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>CBCT 1 vs CBCT 2<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["ANS_PNS_crest_coronal","ANS_PNS_crest_sagittal","mental_crest_coronal","mental_crest_sagittal","ANS_PNS_sinus_floor_coronal","ANS_PNS_sinus_floor_sagittal","width_3mm","width_5mm","mesial_tooth_bone_loss","distal_tooth_bone_loss","Height_coronal","Height_sagittal"],["&lt;0.0001","2e-04","&lt;0.0001","&lt;0.0001","0.5055","0.5793","&lt;0.0001","&lt;0.0001","1e-04","4e-04","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variables","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>paired two sample t test was used.</li>
 </ul>
@@ -3075,7 +3114,9 @@ variables=c(&quot;ANS_PNS_crest_coronal&quot;,
 &quot;width_3mm&quot;, 
 &quot;width_5mm&quot;,
 &quot;mesial_tooth_bone_loss&quot;,
-&quot;distal_tooth_bone_loss&quot;)
+&quot;distal_tooth_bone_loss&quot;, 
+&quot;Height_coronal&quot;, 
+&quot;Height_sagittal&quot;)
 
 
 CBCT1=data.frame(group4_data$ANPNS_Crest_Coronal_CBCT1, 
@@ -3087,7 +3128,9 @@ CBCT1=data.frame(group4_data$ANPNS_Crest_Coronal_CBCT1,
         group4_data$Width_3mm_CBCT1, 
         group4_data$Width_5mm_CBCT1, 
         group4_data$mesial_tooth_bone_loss_CBCT.1__mm, 
-        group4_data$distal_tooth_bone_loss_CBCT.1__mm)
+        group4_data$distal_tooth_bone_loss_CBCT.1__mm, 
+        group4_data$Height_coronal_CBCT1, 
+        group4_data$Height_sagittal_CBCT1)
 
 
 CBCT2=data.frame(group4_data$ANSPNS_Crest_Coronal_CBCT2, 
@@ -3099,7 +3142,9 @@ CBCT2=data.frame(group4_data$ANSPNS_Crest_Coronal_CBCT2,
         group4_data$Width_3mm_CBCT2, 
         group4_data$Width_5mm_CBCT2, 
         group4_data$mesial_tooth_bone_loss_CBCT.2__mm, 
-        group4_data$distal_tooth_bone_loss_CBCT.2__mm)
+        group4_data$distal_tooth_bone_loss_CBCT.2__mm, 
+        group4_data$Height_coronal_CBCT2, 
+        group4_data$Height_sagittal_CBCT2)
 
 colnames(CBCT1)=colnames(CBCT2)=variables
 CBCT1 &lt;- CBCT1 %&gt;% select(where(~ !all(is.na(.))))
@@ -3115,7 +3160,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-aafb481513aedd71e6a8" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-aafb481513aedd71e6a8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>CBCT 1 vs CBCT 2<\/caption>","data":[["1","2","3","4","5","6","7","8"],["ANS_PNS_crest_coronal","ANS_PNS_crest_sagittal","mental_crest_coronal","mental_crest_sagittal","ANS_PNS_sinus_floor_coronal","ANS_PNS_sinus_floor_sagittal","width_3mm","width_5mm"],["&lt;0.0001","2e-04","&lt;0.0001","&lt;0.0001","0.0454","0.1179","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variables","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-aafb481513aedd71e6a8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>CBCT 1 vs CBCT 2<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["ANS_PNS_crest_coronal","ANS_PNS_crest_sagittal","mental_crest_coronal","mental_crest_sagittal","ANS_PNS_sinus_floor_coronal","ANS_PNS_sinus_floor_sagittal","width_3mm","width_5mm","Height_coronal","Height_sagittal"],["&lt;0.0001","2e-04","&lt;0.0001","&lt;0.0001","0.0454","0.1179","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variables<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variables","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <ul>
 <li>variables full of NA need to be dropped</li>
 </ul>
@@ -3205,8 +3250,8 @@ respectively.</p>
 <pre><code>[1] 0.4506541</code></pre>
 <pre class="r"><code>binom.test(33, 33+17)$p.value</code></pre>
 <pre><code>[1] 0.03283914</code></pre>
-<pre class="r"><code>binom.test(116, 116+116)$p.value</code></pre>
-<pre><code>[1] 1</code></pre>
+<pre class="r"><code>binom.test(87, 87+116)$p.value</code></pre>
+<pre><code>[1] 0.04912148</code></pre>
 </div>
 <div id="statistical-tests" class="section level2">
 <h2>statistical tests</h2>

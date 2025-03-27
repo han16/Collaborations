@@ -524,7 +524,7 @@ variables=c("ANS_PNS_crest_coronal",
 "width_3mm", 
 "width_5mm",
 "mesial_tooth_bone_loss",
-"distal_tooth_bone_loss")
+"distal_tooth_bone_loss", "Height_coronal", "Height_sagittal")
 
 
 CBCT1=data.frame(finalized_data$ANPNS_Crest_Coronal_CBCT1, 
@@ -536,7 +536,10 @@ CBCT1=data.frame(finalized_data$ANPNS_Crest_Coronal_CBCT1,
         finalized_data$Width_3mm_CBCT1, 
         finalized_data$Width_5mm_CBCT1, 
         finalized_data$mesial_tooth_bone_loss_CBCT.1__mm, 
-        finalized_data$distal_tooth_bone_loss_CBCT.1__mm)
+        finalized_data$distal_tooth_bone_loss_CBCT.1__mm, 
+        finalized_data$Height_coronal_CBCT1, 
+        finalized_data$Height_sagittal_CBCT1
+        )
 
 
 CBCT2=data.frame(finalized_data$ANSPNS_Crest_Coronal_CBCT2, 
@@ -548,7 +551,9 @@ CBCT2=data.frame(finalized_data$ANSPNS_Crest_Coronal_CBCT2,
         finalized_data$Width_3mm_CBCT2, 
         finalized_data$Width_5mm_CBCT2, 
         finalized_data$mesial_tooth_bone_loss_CBCT.2__mm, 
-        finalized_data$distal_tooth_bone_loss_CBCT.2__mm)
+        finalized_data$distal_tooth_bone_loss_CBCT.2__mm, 
+        finalized_data$Height_coronal_CBCT2, 
+        finalized_data$Height_sagittal_CBCT2)
 
 colnames(CBCT1)=colnames(CBCT2)=variables
 
@@ -1391,7 +1396,9 @@ variables=c("ANS_PNS_crest_coronal",
 "width_3mm", 
 "width_5mm",
 "mesial_tooth_bone_loss",
-"distal_tooth_bone_loss")
+"distal_tooth_bone_loss", 
+"Height_coronal", 
+"Height_sagittal")
 
 
 CBCT1=data.frame(group4_data$ANPNS_Crest_Coronal_CBCT1, 
@@ -1403,7 +1410,9 @@ CBCT1=data.frame(group4_data$ANPNS_Crest_Coronal_CBCT1,
         group4_data$Width_3mm_CBCT1, 
         group4_data$Width_5mm_CBCT1, 
         group4_data$mesial_tooth_bone_loss_CBCT.1__mm, 
-        group4_data$distal_tooth_bone_loss_CBCT.1__mm)
+        group4_data$distal_tooth_bone_loss_CBCT.1__mm, 
+        group4_data$Height_coronal_CBCT1, 
+        group4_data$Height_sagittal_CBCT1)
 
 
 CBCT2=data.frame(group4_data$ANSPNS_Crest_Coronal_CBCT2, 
@@ -1415,7 +1424,9 @@ CBCT2=data.frame(group4_data$ANSPNS_Crest_Coronal_CBCT2,
         group4_data$Width_3mm_CBCT2, 
         group4_data$Width_5mm_CBCT2, 
         group4_data$mesial_tooth_bone_loss_CBCT.2__mm, 
-        group4_data$distal_tooth_bone_loss_CBCT.2__mm)
+        group4_data$distal_tooth_bone_loss_CBCT.2__mm, 
+        group4_data$Height_coronal_CBCT2, 
+        group4_data$Height_sagittal_CBCT2)
 
 colnames(CBCT1)=colnames(CBCT2)=variables
 CBCT1 <- CBCT1 %>% select(where(~ !all(is.na(.))))
@@ -1530,7 +1541,7 @@ Sites were distributed between maxilla and mandible (n=120 vs. n=133, p=0.4507) 
 ```{r, message=F, warning=F}
 binom.test(120, 120+133)$p.value
 binom.test(33, 33+17)$p.value
-binom.test(116, 116+116)$p.value
+binom.test(87, 87+116)$p.value
 ```
 
 
