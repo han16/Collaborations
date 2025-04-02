@@ -260,7 +260,9 @@ side_by_side_barplot=function(data, angle=0, num_size=3, x_text_size=10, legend_
   g=ggplot(data, aes(x=geo, y=num, fill=gender)) +geom_bar(position = "dodge", stat="identity")+
   ylim(c(0, y_limit))+
   ylab("num")+xlab("")+
-  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(legend.position="bottom", 
+        legend.text = element_text(size=legend_text_size), 
+                                   legend.title = element_blank())+  # Remove legend title))+
   theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
   #geom_text(aes(label=num), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
   geom_text(label = with(data, paste(num, paste0('(', prop*100, "%", ')'))), position=position_dodge(width=0.9), vjust=-1, size=num_size)+
@@ -283,7 +285,10 @@ side_by_side_barplot3=function(data, angle=0, num_size=3, x_text_size=10, legend
   g=ggplot(data, aes(x=!!sym(x_var), y=prop, fill=!!sym(fill_var))) +geom_bar(position = "dodge", stat="identity")+
   ylim(c(0,y_limit))+
   ylab("proportion")+xlab("")+
-  theme(legend.position="bottom", legend.text = element_text(size=legend_text_size))+
+  theme(legend.position="bottom", 
+        legend.text = element_text(size=legend_text_size), 
+        legend.title = element_blank()# Remove legend title
+        )+
   theme(axis.text.x = element_text(angle = angle, vjust = 0.5, size=x_text_size))+
   #geom_text(aes(label=n), position=position_dodge(width=0.9), vjust=-0.25, size=num_size)+  # add numbers over bars
   #geom_text(label = with(data, paste(n, paste0("(", prop*100, "%", ")"))),  position=position_dodge(width=0.9), vjust=-1, size=num_size)+
