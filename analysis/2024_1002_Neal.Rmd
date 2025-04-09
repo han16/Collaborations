@@ -150,6 +150,8 @@ data_conti$Height_sagittal_DIFF <- ifelse(
   NA,
   replace_na(data_conti$ANSPNS_Crest_Sagittal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_DIFF, 0)
 )
+
+
 data_conti$ANSPNS_Crest_Sagittal_DIFF[data_conti$ANSPNS_Crest_Sagittal_DIFF == 0] <- NA
 data_conti$MENTAL_Crest_Sagittal_DIFF[data_conti$MENTAL_Crest_Sagittal_DIFF == 0] <- NA
 
@@ -172,6 +174,18 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+```{r, message=F, warning=F}
+data_conti %>% select(ANSPNS_Crest_Coronal_CBCT2, MENTAL_Crest_Coronal_CBCT2, Height_coronal_DIFF, ANPNS_Crest_Coronal_CBCT1, MENTAL_Crest_Coronal_CBCT1)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 
 
 ```{r, message=F, warning=F}
