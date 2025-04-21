@@ -279,8 +279,16 @@ data_subset1=data2$`Data RESTORE` %>% dplyr::count(Pre_implant_Procedure)  %>% d
 data_subset2=data2$`Data CORR` %>% dplyr::count(Pre_implant_Procedure)  %>% drop_na()
 
 
+### split 2 other into 1 in resore and 1 in cORR, requested by Vrisiis  
+data_subset1[5,2]=1; 
+data_subset2=rbind(data_subset2, c(6,1))
+data_subset2=data_subset2[order(data_subset2$Pre_implant_Procedure),]
 
-data_subset=data_frame(Pre_implant_Procedure=data_subset1$Pre_implant_Procedure, n=data_subset1$n+c(data_subset2$n[1:4], 0, data_subset2$n[5])) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+data_subset=data_frame(Pre_implant_Procedure=data_subset1$Pre_implant_Procedure, n=data_subset1$n+data_subset2$n) %>% mutate(prop=round(n/(num_indi1+num_indi2),4))
+
+
+
 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==1]="Extraction alone"; data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==2]="Extraction and bone graft"; 
 data_subset$Pre_implant_Procedure[data_subset$Pre_implant_Procedure==3]="Extraction, bone graft and membrane";
@@ -316,6 +324,8 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
+* 2 other was split into 1 in each sample. 
 
 
 ### I_placement
