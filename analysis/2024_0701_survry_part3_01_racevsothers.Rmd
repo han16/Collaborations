@@ -183,7 +183,7 @@ fig=plot_function("Describe Your Race or Ethnicity", race_new2, legend_rows = 4,
 fig
 
 
-fig=plot_function("Describe Your Race or Ethnicity (without White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name="Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
+fig=plot_function("Describe Your Race or Ethnicity (Excluding White)", race_new2 %>% filter(`Describe Your Race or Ethnicity`!="White"), legend_rows = 3, var_name="Describe Your Race or Ethnicity", custom_colors= c("asia" = "red", "Black or African American" = "blue", "Decline to answer" = "green", "Hispanic or Latino/a/x" = "purple", "other"="brown", "Some other race or ethnicity"="pink", "White"="orange", " "="black"))
 fig
 
 race_new2%>% arrange(desc(n))%>%
@@ -214,7 +214,7 @@ stopifnot(sum(race_new2$n)==nrow(Dentist_in_WI))
 ```{r, message=F, warning=F, results=F}
 date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
 year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
-ages=2024-as.numeric(year_of_birth)
+ages=2025-as.numeric(year_of_birth)
 mean(ages)
 ggplot(data.frame(ages=ages), aes(x=ages)) + geom_histogram(color="black", fill="blue")+
   geom_vline(aes(xintercept=mean(ages)),
@@ -399,3 +399,5 @@ sum(genders_group_count[1:2,c(1,3,5,7)])
 
 
 
+
+### race vs regions 

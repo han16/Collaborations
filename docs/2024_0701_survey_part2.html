@@ -396,7 +396,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -407,8 +407,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -417,13 +417,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-04-02
+<strong>Last updated:</strong> 2025-04-21
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -446,21 +446,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -551,15 +548,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4bde090f117369205301c562005434a373caa0b0targetblank4bde090a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeab7e598462bf9629edd2a206d075a71392636bdctargetblankab7e598a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/4bde090f117369205301c562005434a373caa0b0" target="_blank">4bde090</a>
+<a href="https://github.com/han16/Collaborations/tree/ab7e598462bf9629edd2a206d075a71392636bdc" target="_blank">ab7e598</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4bde090f117369205301c562005434a373caa0b0targetblank4bde090a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeab7e598462bf9629edd2a206d075a71392636bdctargetblankab7e598a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +566,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/4bde090f117369205301c562005434a373caa0b0" target="_blank">4bde090</a>.
+<a href="https://github.com/han16/Collaborations/tree/ab7e598462bf9629edd2a206d075a71392636bdc" target="_blank">ab7e598</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -589,7 +586,7 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
-    Modified:   analysis/2024_0701_survey_part2.Rmd
+    Modified:   analysis/2024_1002_Neal.Rmd
 
 </code></pre>
 <p>
@@ -636,6 +633,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e70e411d2089fdbd6a7c0d3603a1937dcf0d9b9e/analysis/2024_0701_survey_part2.Rmd" target="_blank">e70e411</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+<td>
+4/2/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/e70e411d2089fdbd6a7c0d3603a1937dcf0d9b9e/docs/2024_0701_survey_part2.html" target="_blank">e70e411</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+<td>
+4/2/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1561,6 +1592,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/e70e411d2089fdbd6a7c0d3603a1937dcf0d9b9e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-1.png" target="_blank">e70e411</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/4bde090f117369205301c562005434a373caa0b0/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-1.png" target="_blank">4bde090</a>
 </td>
 <td>
@@ -1622,6 +1664,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e70e411d2089fdbd6a7c0d3603a1937dcf0d9b9e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-2.png" target="_blank">e70e411</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/4bde090f117369205301c562005434a373caa0b0/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-11-2.png" target="_blank">4bde090</a>
@@ -1726,6 +1779,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/e70e411d2089fdbd6a7c0d3603a1937dcf0d9b9e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-1.png" target="_blank">e70e411</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/4bde090f117369205301c562005434a373caa0b0/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-1.png" target="_blank">4bde090</a>
 </td>
 <td>
@@ -1775,6 +1839,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/e70e411d2089fdbd6a7c0d3603a1937dcf0d9b9e/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-2.png" target="_blank">e70e411</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-02
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/4bde090f117369205301c562005434a373caa0b0/docs/figure/2024_0701_survey_part2.Rmd/unnamed-chunk-13-2.png" target="_blank">4bde090</a>

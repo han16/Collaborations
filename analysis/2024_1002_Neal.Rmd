@@ -176,6 +176,8 @@ datatable(extensions = 'Buttons',
 ```
 
 ```{r, message=F, warning=F}
+## release these 4 variables 
+
 data_conti %>% select(ANSPNS_Crest_Coronal_CBCT2, MENTAL_Crest_Coronal_CBCT2, Height_coronal_DIFF, ANPNS_Crest_Coronal_CBCT1, MENTAL_Crest_Coronal_CBCT1)%>%
 datatable(extensions = 'Buttons',
           caption = "",

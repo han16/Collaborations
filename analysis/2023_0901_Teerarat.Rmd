@@ -302,7 +302,8 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 pvalue=numeric(); wilcox_pvalue=numeric()
-variable_index=c(1:9,16)
+variable_index=c(1:9,16, 17, 18) # include latest_bone_levels_mm
+# latest_bone_levels_percentage requested by Vrisiis. 
 for (i in 1:length(variable_index))
 {
   pvalue[i]=t.test(data_interest_corr[,variable_index[i]], data_interest_store[,variable_index[i]], na.rm=T)$p.value
@@ -315,6 +316,7 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+binom.test(c(14,0))
 ```
 
 * two sample t test (parametric test) was used 

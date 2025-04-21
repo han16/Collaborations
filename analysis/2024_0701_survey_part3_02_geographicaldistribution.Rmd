@@ -231,13 +231,13 @@ dentist_zip=unique(dentist_in_WI_of_interest1 %>% select(`5-digit Zip code` ) %>
 zip_in_dentist_only=setdiff(dentist_zip, unlist(region_code_zip)) #### zip codes in the survey, but not in Wisconsin urban rural zip data 
 #dentist_in_WI_of_interest1 %>% filter(`5-digit Zip code` %in% zip_in_dentist_only)%>% filter(`Gender Identity`=="Man" | `Gender Identity`=="Woman") %>% nrow() # these 886 man/woman in the survey, but missed in wisconsin urban/rural data
 
-data.frame(zip_in_dentist_only)%>%
-datatable(extensions = 'Buttons',
-          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
+#data.frame(zip_in_dentist_only)%>%
+#datatable(extensions = 'Buttons',
+#          caption = " Zip codes in the survey, but not in Wisconsin zip code list",
+#            options = list(dom = 'Blfrtip',
+#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+#                           lengthMenu = list(c(10,25,50,-1),
+#                                             c(10,25,50,"All"))))
 
 ```
 
@@ -247,6 +247,18 @@ datatable(extensions = 'Buttons',
 
 
 
+
+
+```{r, message=F, warning=F}
+dentist_in_WI_of_interest1 %>% filter (!`5-digit Zip code` %in% as.character(unlist(region_code_zip))) %>% select(`5-digit Zip code`, City, State, `direct care as a dentist in Wisconsin`) %>%  # dentist whose zip code can't be mapped to WI zip code list
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
 
 
 
