@@ -361,7 +361,7 @@ create_bar_plot <- function(region) {
     ylab("n") +
     xlab("") +
     theme(legend.position = "") +
-    theme(axis.text.x = element_text(angle = 60, vjust = 0.5, size = 10)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size = 7)) +
     geom_text(aes(label = num), position = position_dodge(width = 0.9), vjust = -0.25, size = 3) +
     ggtitle(region) +
     theme(plot.title = element_text(hjust = 0.5, size = 15))
@@ -371,8 +371,7 @@ create_bar_plot <- function(region) {
 figures <- map(region_code_update, create_bar_plot)
 
 # Arrange the plots in a grid
-ggarrange(plotlist = figures, ncol = 2)
-
+ggarrange(plotlist = figures, ncol = 3)
 
 
 
@@ -514,7 +513,7 @@ create_bar_plot <- function(region) {
 figures <- map(zones, create_bar_plot)
 
 # Arrange the plots in a grid
-ggarrange(plotlist = figures, ncol = 2)
+ggarrange(plotlist = figures, ncol = 3)
 
 
 
