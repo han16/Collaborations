@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-04-21
+<strong>Last updated:</strong> 2025-04-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeab7e598462bf9629edd2a206d075a71392636bdctargetblankab7e598a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreebba173749a837629dbbed343bc994570c122c42ftargetblankbba1737a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/ab7e598462bf9629edd2a206d075a71392636bdc" target="_blank">ab7e598</a>
+<a href="https://github.com/han16/Collaborations/tree/bba173749a837629dbbed343bc994570c122c42f" target="_blank">bba1737</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeab7e598462bf9629edd2a206d075a71392636bdctargetblankab7e598a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreebba173749a837629dbbed343bc994570c122c42ftargetblankbba1737a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/ab7e598462bf9629edd2a206d075a71392636bdc" target="_blank">ab7e598</a>.
+<a href="https://github.com/han16/Collaborations/tree/bba173749a837629dbbed343bc994570c122c42f" target="_blank">bba1737</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -590,8 +590,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2024_0701_survey_part3_02_geographicaldistribution.Rmd
-    Modified:   analysis/2024_0701_survry_part3_01_racevsothers.Rmd
-    Modified:   analysis/2024_1002_Neal.Rmd
 
 </code></pre>
 <p>
@@ -639,6 +637,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/analysis/2024_0701_survey_part3_02_geographicaldistribution.Rmd" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+<td>
+4/21/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/2024_0701_survey_part3_02_geographicaldistribution.html" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+<td>
+4/21/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -942,7 +974,7 @@ num_non_missing=apply(dentist_in_WI_of_interest,2, function(x) sum(is.na(x)==F) 
 
 date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
 year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
-ages=2024-as.numeric(year_of_birth)
+ages=2025-as.numeric(year_of_birth)
 
 dentist_in_WI_of_interest1=dentist_in_WI_of_interest %&gt;% mutate(ages=ages)</code></pre>
 <pre class="r"><code>wisconsin_urban_rural_zip=multiplesheets(&quot;C:\\Shengtong\\Research\\OralPublicHealth\\Dental_Emergency_visit\\Wisconsin-Urban-Rural-zip.xlsx&quot;)</code></pre>
@@ -964,6 +996,12 @@ wisconsin_urban_rural_zip_data=wisconsin_urban_rural_zip$`Table 1` %&gt;% mutate
 region_code_update=unique(all_code)</code></pre>
 <pre class="r"><code>region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %&gt;% filter(new_region_code==x) %&gt;% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
 
+#  extract the first 5 digits if not NA and leave it otherwise
+dentist_in_WI_of_interest1$`5-digit Zip code` &lt;- ifelse(
+  is.na(dentist_in_WI_of_interest1$`5-digit Zip code`),
+  NA,
+  substr(dentist_in_WI_of_interest1$`5-digit Zip code`, 1, 5)
+)
 
 
 dentist_zip=unique(dentist_in_WI_of_interest1 %&gt;% select(`5-digit Zip code` ) %&gt;% pull)
@@ -993,7 +1031,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256","257","258","259","260","261","262","263","264","265","266","267","268","269","270","271","272","273","274","275","276","277","278","279","280","281","282","283","284","285","286","287","288","289","290","291","292","293","294","295","296","297","298","299","300","301","302","303","304","305","306","307","308","309","310","311","312","313"],["548803709",null,null,null,null,null,"54234-9157",null,"83715",null,null,"53890",null,null,null,null,null,null,null,null,null,null,"54701-9387",null,null,null,null,null,"53226-2724",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"54717",null,"53704-1521","53081-3090",null,null,null,null,null,"50662",null,null,null,"600202",null,null,null,null,null,null,null,"54747-9096",null,"54497",null,null,"60031","55118",null,null,null,"86510","53061-1344","60612",null,null,null,null,null,null,null,"60045",null,null,null,"53217-3130",null,null,"53226-4449",null,null,null,null,null,null,null,null,null,"54915-4748",null,"60033",null,null,null,"53121-1517","54449-1012",null,null,null,null,null,null,null,"53144-2738","55811","53538-3139",null,"53147-4586","53081-6794",null,null,null,null,"52003",null,null,null,"53186-1873",null,null,"53717-2307",null,null,null,null,null,"55811",null,null,null,null,null,null,"53704-1149","54460-0371",null,"54650-6709",null,null,null,null,"52003","53519",null,null,null,null,null,null,"54115-9401","53213-2606",null,"53202-4111",null,null,"55125","55880","52003","52003",null,null,"53233-218","53017-9225","54487-____",null,null,"49969","53130-1940",null,null,null,null,null,null,null,"531511667",null,null,null,null,"53411",null,null,null,null,"54701-7792",null,null,null,null,"54020-8110",null,null,null,"53072-2755","54304-5015",null,null,null,"54720-1943","63406",null,null,"60031",null,null,null,null,null,"54914-4201",null,null,null,null,null,null,"60202",null,"54669-9404",null,null,null,"54449-",null,"54923-2145",null,null,null,null,null,null,null,null,null,null,"53807-1147","53574-8881",null,"54401-1403",null,"53134",null,null,null,"53219-2068",null,null,"53051-7863",null,"53417",null,"54220-5450",null,null,null,null,null,"531440",null,null,"55619",null,"60632","53217-4524",null,"50337",null,null,null,null,null,null,null,null,null,null,null,null,"54481-1848",null,"55811",null,null,null,null,null,"53221-1045",null,null,null,null,null,"55805",null],["Superior",null,null,null,null,null,"Sister Bay",null,"Madison",null,null,"Sun Prairie",null,null,null,null,"South Milwaukee",null,null,null,null,null,"Eau Claire",null,null,null,"Kenosha",null,"Milwaukee",null,"Sheboygan",null,null,null,null,"Menomonie",null,null,null,"Kenosha",null,null,null,null,null,null,"Milwaukee",null,null,"Madison",null,"Madison","SHEBOYGAN",null,null,null,null,null,"Oelwein",null,null,null,"Evanston",null,null,null,null,null,null,null,"Independence",null,"Wisconsin Rapids","Janesville",null,"Kenosha","West St. Paul",null,null,null,"Pinon","New Holstein","Chicago",null,null,"Hales Corners",null,null,null,null,"Lake Forest",null,null,null,"Milwaukee",null,"Verona","Wauwatosa",null,null,null,null,null,"De Pere",null,null,null,"APPLETON",null,"Harvard",null,null,null,"ELKHORN","Marshfield",null,null,null,null,null,null,null,"Kenosha","Duluth","FORT ATKINSON",null,"Lake Geneva","Sheboygan",null,null,null,null,"DUBUQUE",null,null,null,"Waukesha",null,null,"Madison",null,null,null,null,null,"Hermantown",null,null,null,null,"Thorp",null,"MADISON","Owen",null,"Onalaska",null,null,null,null,"Dubuque","Madison",null,"Surgeon Bay",null,null,null,null,"De Pere","Wauwatosa",null,"MILWAUKEE",null,null,"Woodbury","Superior","Dubuque","Dubuque",null,null,"Milwaukee","COLGATE","Tomahawk","Milwaukee",null,"Watersmeet","Hales Corners","Dodgeville",null,null,"kenosha",null,null,null,"NEW BERLIN","Racine",null,null,null,"Appleton",null,null,null,null,"Eau Claire",null,null,null,null,"Osceola",null,null,null,"Pewaukee","Green Bay",null,null,null,"Altoona","Mount Pleasant",null,null,"Gurnee",null,null,null,null,null,"Appleton",null,null,null,null,null,"Waupun","Evanston","Oshkosh","WEST SALEM",null,null,null,"Marshfield",null,"BERLIN",null,null,null,null,null,null,"Appleton",null,"Lake geneva",null,"CUBA CITY","NEW GLARUS",null,"Wausau",null,"Kenosha",null,null,null,"West Allis",null,null,"Menomonee Falls",null,"Lake Geneva",null,"MANITOWOC",null,null,null,null,"Viroqua","Kenosha",null,null,"cashton",null,"Chicago","Milwaukee",null,"jackson",null,"Milwaukee",null,null,"Germantown",null,null,null,null,null,null,null,"Stevens Point","Muwonago","Duluth",null,null,"Racine",null,null,"GREENFIELD",null,null,null,null,null,"Duluth","Appleton"],["WI",null,null,null,null,null,"WI",null,"WI",null,null,"WI",null,null,null,null,"WI",null,null,null,null,null,"WI",null,null,null,"WI",null,"WI",null,"WI",null,null,null,null,"WI",null,null,null,"WI",null,null,null,null,null,null,"WI",null,null,"Wisconsin",null,"WI","WI",null,null,null,null,null,"Iowa",null,null,null,"Illinois",null,null,null,null,null,null,null,"WI",null,"Wisconsin","Wisconsin",null,"Wisconsin","MN",null,null,null,"Az","Wisconsin","Illinois",null,null,"Wi",null,null,null,null,"Illinois",null,null,null,"WI",null,"WI","WI",null,null,null,null,null,"WI",null,null,null,"WI",null,"Illinois",null,null,null,"WI","WI",null,null,null,null,null,null,null,"WI","MN","Wisconsin",null,"Wisconsin","WI",null,null,null,null,"IA",null,null,null,"WI",null,null,"WI",null,null,null,null,null,"MN",null,null,null,null,"Wisconsin",null,"Wisconsin","WI",null,"WI",null,null,null,null,"IA","WI",null,"Wisconsin",null,null,null,null,"WI","WI",null,"WI",null,null,"MN","WI","IA","Iowa",null,null,"WISCONSIN","Wisconsin","WI","Wi",null,"MI","WI","WI",null,null,"wi",null,null,null,"WI","WI",null,null,null,"Wisconsin",null,null,null,null,"Wisconsin",null,null,null,null,"WI",null,null,null,"Wisconsin","Wisconsin",null,null,null,"WI","WI",null,null,"IL",null,null,null,null,null,"WI Wisconsin",null,null,null,null,null,"WI","IL","Wi","WI",null,null,null,"WI",null,"Wisconsin",null,null,null,null,null,null,null,null,"Wi",null,"WI","WI",null,"Wisconsin",null,"WI",null,null,null,"WI",null,null,"WI",null,"WI",null,"WI",null,null,null,null,"WI","WI",null,null,null,null,"Illinois","WI",null,"wi",null,"Wisconsin",null,null,"wi",null,null,null,null,null,null,null,"WI","WI","MN",null,null,"WI",null,null,"WI",null,null,null,null,null,"MN","Wisconsin"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>5-digit Zip code<\/th>\n      <th>City<\/th>\n      <th>State<\/th>\n      <th>direct care as a dentist in Wisconsin<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"5-digit Zip code","targets":1},{"name":"City","targets":2},{"name":"State","targets":3},{"name":"direct care as a dentist in Wisconsin","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256","257","258","259","260","261","262","263","264"],[null,null,null,null,null,null,"83715",null,null,"53890",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"54717",null,null,null,null,null,null,"50662",null,null,null,"60020",null,null,null,null,null,null,null,null,"54497",null,null,"60031","55118",null,null,null,"86510","60612",null,null,null,null,null,null,null,"60045",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"60033",null,null,null,null,null,null,null,null,null,null,"55811",null,null,null,null,null,"52003",null,null,null,null,null,null,null,null,null,null,"55811",null,null,null,null,null,null,null,null,null,null,null,"52003","53519",null,null,null,null,null,null,null,null,null,"55125","55880","52003","52003",null,null,null,null,"49969",null,null,null,null,null,null,null,null,null,null,null,"53411",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"63406",null,null,"60031",null,null,null,null,null,null,null,null,null,null,null,"60202",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"53134",null,null,null,null,null,null,"53417",null,null,null,null,null,null,null,null,"55619",null,"60632",null,"50337",null,null,null,null,null,null,null,null,null,null,null,null,null,"55811",null,null,null,null,null,null,null,null,null,null,"55805",null],[null,null,null,null,null,null,"Madison",null,null,"Sun Prairie",null,null,null,null,"South Milwaukee",null,null,null,null,null,null,null,null,"Kenosha",null,null,"Sheboygan",null,null,null,null,"Menomonie",null,null,null,"Kenosha",null,null,null,null,null,null,"Milwaukee",null,null,"Madison",null,null,null,null,null,null,"Oelwein",null,null,null,"Evanston",null,null,null,null,null,null,null,null,"Wisconsin Rapids","Janesville",null,"Kenosha","West St. Paul",null,null,null,"Pinon","Chicago",null,null,"Hales Corners",null,null,null,null,"Lake Forest",null,null,null,null,"Verona",null,null,null,null,null,"De Pere",null,null,null,null,"Harvard",null,null,null,null,null,null,null,null,null,null,"Duluth",null,null,null,null,null,"DUBUQUE",null,null,null,null,null,null,null,null,null,null,"Hermantown",null,null,null,null,"Thorp",null,null,null,null,null,null,"Dubuque","Madison",null,"Surgeon Bay",null,null,null,null,null,null,null,"Woodbury","Superior","Dubuque","Dubuque",null,null,"Milwaukee",null,"Watersmeet","Dodgeville",null,null,"kenosha",null,null,null,"Racine",null,null,null,"Appleton",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Mount Pleasant",null,null,"Gurnee",null,null,null,null,null,null,null,null,null,null,"Waupun","Evanston","Oshkosh",null,null,null,null,null,null,null,null,null,null,"Appleton",null,"Lake geneva",null,null,null,"Kenosha",null,null,null,null,null,null,"Lake Geneva",null,null,null,null,null,"Viroqua",null,null,"cashton",null,"Chicago",null,"jackson",null,"Milwaukee",null,null,"Germantown",null,null,null,null,null,null,null,"Muwonago","Duluth",null,null,"Racine",null,null,null,null,null,null,null,"Duluth","Appleton"],[null,null,null,null,null,null,"WI",null,null,"WI",null,null,null,null,"WI",null,null,null,null,null,null,null,null,"WI",null,null,"WI",null,null,null,null,"WI",null,null,null,"WI",null,null,null,null,null,null,"WI",null,null,"Wisconsin",null,null,null,null,null,null,"Iowa",null,null,null,"Illinois",null,null,null,null,null,null,null,null,"Wisconsin","Wisconsin",null,"Wisconsin","MN",null,null,null,"Az","Illinois",null,null,"Wi",null,null,null,null,"Illinois",null,null,null,null,"WI",null,null,null,null,null,"WI",null,null,null,null,"Illinois",null,null,null,null,null,null,null,null,null,null,"MN",null,null,null,null,null,"IA",null,null,null,null,null,null,null,null,null,null,"MN",null,null,null,null,"Wisconsin",null,null,null,null,null,null,"IA","WI",null,"Wisconsin",null,null,null,null,null,null,null,"MN","WI","IA","Iowa",null,null,"Wi",null,"MI","WI",null,null,"wi",null,null,null,"WI",null,null,null,"Wisconsin",null,null,null,null,null,null,null,null,null,null,null,null,null,null,"WI",null,null,"IL",null,null,null,null,null,null,null,null,null,null,"WI","IL","Wi",null,null,null,null,null,null,null,null,null,null,null,null,"Wi",null,null,null,"WI",null,null,null,null,null,null,"WI",null,null,null,null,null,"WI",null,null,null,null,"Illinois",null,"wi",null,"Wisconsin",null,null,"wi",null,null,null,null,null,null,null,"WI","MN",null,null,"WI",null,null,null,null,null,null,null,"MN","Wisconsin"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>5-digit Zip code<\/th>\n      <th>City<\/th>\n      <th>State<\/th>\n      <th>direct care as a dentist in Wisconsin<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"5-digit Zip code","targets":1},{"name":"City","targets":2},{"name":"State","targets":3},{"name":"direct care as a dentist in Wisconsin","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="gender-identity" class="section level2">
 <h2>Gender Identity</h2>
@@ -1034,6 +1072,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-1.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/419b9a06d6113c810426e48895c1d1b069cf1d80/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-1.png" target="_blank">419b9a0</a>
@@ -1098,6 +1147,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-2.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/419b9a06d6113c810426e48895c1d1b069cf1d80/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-12-2.png" target="_blank">419b9a0</a>
 </td>
 <td>
@@ -1119,15 +1179,15 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Dentist<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[100,58,120,71,551,317,147,85,100,63,178,123],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.08359999999999999,0.0809,0.1003,0.099,0.4607,0.4421,0.1229,0.1185,0.08359999999999999,0.08790000000000001,0.1488,0.1715]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>n<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"n","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Dentist<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["R1","R1","Metro W-O-W","Metro W-O-W","Urban","Urban","R2","R2","R3","R3","Metro-Milw County","Metro-Milw County"],[104,59,121,74,561,325,150,86,105,63,187,124],["Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman","Man","Woman"],[0.0847,0.08069999999999999,0.0985,0.1012,0.4568,0.4446,0.1221,0.1176,0.08550000000000001,0.0862,0.1523,0.1696]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>geo<\/th>\n      <th>n<\/th>\n      <th>gender<\/th>\n      <th>prop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"geo","targets":1},{"name":"n","targets":2},{"name":"gender","targets":3},{"name":"prop","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>chisq.test(data.frame(man=gender_geo_data %&gt;% filter(gender==&quot;Man&quot;) %&gt;% select(n) %&gt;% pull(), woman=gender_geo_data %&gt;% filter(gender==&quot;Woman&quot;) %&gt;% select(n) %&gt;% pull()))</code></pre>
 <pre><code>
     Pearson&#39;s Chi-squared test
 
 data:  data.frame(man = gender_geo_data %&gt;% filter(gender == &quot;Man&quot;) %&gt;%     select(n) %&gt;% pull(), woman = gender_geo_data %&gt;% filter(gender ==     &quot;Woman&quot;) %&gt;% select(n) %&gt;% pull())
-X-squared = 2.0249, df = 5, p-value = 0.8457</code></pre>
+X-squared = 1.2211, df = 5, p-value = 0.9428</code></pre>
 <pre class="r"><code>cat(&quot;total man or woman dentists: &quot;, sum(gender_geo_data$n), &quot;\n&quot;)</code></pre>
-<pre><code>total man or woman dentists:  1913 </code></pre>
+<pre><code>total man or woman dentists:  1959 </code></pre>
 <ul>
 <li>no gender difference in different regions</li>
 </ul>
@@ -1187,6 +1247,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-1.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-1.png" target="_blank">8ab1285</a>
 </td>
 <td>
@@ -1227,6 +1298,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-2.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-2.png" target="_blank">8ab1285</a>
 </td>
 <td>
@@ -1265,6 +1347,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-3.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/8ab1285c4302193885775c2fa04d2f2fbcc33dd3/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-13-3.png" target="_blank">8ab1285</a>
@@ -1374,6 +1467,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-15-1.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/5993c9d48d632dda4a9aa40119dea4e136be8175/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-15-1.png" target="_blank">5993c9d</a>
 </td>
 <td>
@@ -1423,6 +1527,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-15-2.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/5993c9d48d632dda4a9aa40119dea4e136be8175/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-15-2.png" target="_blank">5993c9d</a>
@@ -1495,12 +1610,123 @@ figures &lt;- map(zones, create_bar_plot)
 ggarrange(plotlist = figures, ncol = 2)</code></pre>
 <pre><code>$`1`</code></pre>
 <p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-16-1.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`2`</code></pre>
 <p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
+Past versions of unnamed-chunk-16-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-16-2.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`3`</code></pre>
 <p><img src="figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-16-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-3">
+Past versions of unnamed-chunk-16-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/321958ba59ac581bbafea7e8b31c490e8b5cca89/docs/figure/2024_0701_survey_part3_02_geographicaldistribution.Rmd/unnamed-chunk-16-3.png" target="_blank">321958b</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 attr(,&quot;class&quot;)
 [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>

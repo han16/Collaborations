@@ -183,7 +183,7 @@ num_non_missing=apply(dentist_in_WI_of_interest,2, function(x) sum(is.na(x)==F) 
 
 date_of_birth=dentist_in_WI_of_interest$`Date of Birth`
 year_of_birth=str_sub(date_of_birth, nchar(date_of_birth)-3, nchar(date_of_birth))
-ages=2024-as.numeric(year_of_birth)
+ages=2025-as.numeric(year_of_birth)
 
 dentist_in_WI_of_interest1=dentist_in_WI_of_interest %>% mutate(ages=ages)
 
@@ -222,6 +222,12 @@ region_code_update=unique(all_code)
 ```{r, message=F, warning=F, eval=T}
 region_code_zip=sapply(region_code_update, function(x) wisconsin_urban_rural_zip_data %>% filter(new_region_code==x) %>% select(`ZCTA/\r\nZIPCode`)) # extract zip codes 
 
+#  extract the first 5 digits if not NA and leave it otherwise
+dentist_in_WI_of_interest1$`5-digit Zip code` <- ifelse(
+  is.na(dentist_in_WI_of_interest1$`5-digit Zip code`),
+  NA,
+  substr(dentist_in_WI_of_interest1$`5-digit Zip code`, 1, 5)
+)
 
 
 dentist_zip=unique(dentist_in_WI_of_interest1 %>% select(`5-digit Zip code` ) %>% pull)
