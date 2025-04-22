@@ -338,7 +338,8 @@ discrete_var=c("Tooth_site_number",
                 "Sinus_Pathology",
                  "Sites_10mm_height_or_more",          
                  "X1st_CBCT_10mm_or_more",
-               "X2nd_CBCT_10mm_or_more" )
+               "X2nd_CBCT_10mm_or_more", 
+               "Sites_10mm_height_or_more")
 data_discrete=finalized_data[,which(colnames(finalized_data)%in%discrete_var)]
 
 res=apply(data_discrete, 2, discrete_summary)
@@ -625,6 +626,9 @@ datatable(extensions = 'Buttons',
 
 * correlation of group 2 
 
+
+
+
 ```{r, message=F, warning=F}
 ################ compute p values 
 #data_conti[is.na(data_conti)] <- "0"
@@ -686,6 +690,74 @@ datatable(extensions = 'Buttons',
 
 
 
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>1)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=1)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+
+
+
 ```{r, message=F, warning=F}
 
 data_conti=as.matrix(group3_mandible[,which(colnames(group3_mandible)%in%continuous_var)])
@@ -744,6 +816,69 @@ colnames(cormat2_pvalue)=colnames(data_conti)
 cormat2_pvalue %>%
 datatable(extensions = 'Buttons',
           caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>1)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=1)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -1559,6 +1694,16 @@ binom.test(120, 120+133)$p.value
 binom.test(33, 33+17)$p.value
 binom.test(87, 87+116)$p.value
 ```
+
+
+
+## months_between_CBCTs between 12-24 months
+
+
+* [months_between_CBCTs between 12-24 months](2024_1002_Neal_additional_part1.html)
+
+
+
 
 
 ## statistical tests 
