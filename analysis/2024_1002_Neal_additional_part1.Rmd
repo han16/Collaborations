@@ -34,6 +34,11 @@ finalized_data=finalized_data %>% filter(Months_btwn_CBCTS >=12 & Months_btwn_CB
 
 
 
+## Home 
+
+[Home](2024_1002_Neal.html)
+
+
 ```{r, message=F, warning=F}
 upper_posterior=c(2, 3, 4, 5, 12, 13, 14, 15)
 upper_anterior=6:11

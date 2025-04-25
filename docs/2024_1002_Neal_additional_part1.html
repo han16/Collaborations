@@ -418,7 +418,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-04-22
+<strong>Last updated:</strong> 2025-04-25
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -456,10 +456,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -552,15 +552,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree99742b1e5067fee290d13599af3c509e6b1dcb69targetblank99742b1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree835eda945d087ff8e2d7d5a4fb6f74edae0cb377targetblank835eda9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/99742b1e5067fee290d13599af3c509e6b1dcb69" target="_blank">99742b1</a>
+<a href="https://github.com/han16/Collaborations/tree/835eda945d087ff8e2d7d5a4fb6f74edae0cb377" target="_blank">835eda9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree99742b1e5067fee290d13599af3c509e6b1dcb69targetblank99742b1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree835eda945d087ff8e2d7d5a4fb6f74edae0cb377targetblank835eda9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -570,7 +570,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/99742b1e5067fee290d13599af3c509e6b1dcb69" target="_blank">99742b1</a>.
+<a href="https://github.com/han16/Collaborations/tree/835eda945d087ff8e2d7d5a4fb6f74edae0cb377" target="_blank">835eda9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -589,11 +589,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2024_1002_Neal_additional_part1.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2024_1002_Neal.Rmd
+    Modified:   analysis/2024_1002_Neal_additional_part1.Rmd
 
 </code></pre>
 <p>
@@ -608,10 +605,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/2024_1002_Neal_additional_part1.Rmd</code>) and HTML
+(<code>docs/2024_1002_Neal_additional_part1.html</code>) files. If
+you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/835eda945d087ff8e2d7d5a4fb6f74edae0cb377/analysis/2024_1002_Neal_additional_part1.Rmd" target="_blank">835eda9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-22
+</td>
+<td>
+4/22/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/835eda945d087ff8e2d7d5a4fb6f74edae0cb377/docs/2024_1002_Neal_additional_part1.html" target="_blank">835eda9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-04-22
+</td>
+<td>
+4/22/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -627,6 +689,9 @@ finalized_data=as_tibble(read.csv(file.path(root,&quot;..\\2024\\202410\\Neal\\C
 
 #colnames(finalized_data)
 finalized_data=finalized_data %&gt;% filter(Months_btwn_CBCTS &gt;=12 &amp; Months_btwn_CBCTS&lt;=24)  # extract subjects with months_between_CBCTs between 12-24 months (including 12 and 24 months). requested by Vrisiis </code></pre>
+<div id="home" class="section level2">
+<h2>Home</h2>
+<p><a href="2024_1002_Neal.html">Home</a></p>
 <pre class="r"><code>upper_posterior=c(2, 3, 4, 5, 12, 13, 14, 15)
 upper_anterior=6:11
 lower_posterior=c(18, 19, 20, 21, 28, 29, 30, 31)
@@ -1273,14 +1338,16 @@ loaded via a namespace (and not attached):
 [43] shiny_1.10.0         withr_3.0.2          evaluate_1.0.3      
 [46] lambda.r_1.2.4       survival_3.8-3       urlchecker_1.0.1    
 [49] xml2_1.3.6           pillar_1.10.1        carData_3.0-5       
-[52] generics_0.1.3       hms_1.1.3            munsell_0.5.1       
-[55] scales_1.3.0         xtable_1.8-4         glue_1.8.0          
-[58] tools_4.3.2          ggsignif_0.6.4       fs_1.6.5            
-[61] crosstalk_1.2.1      colorspace_2.1-0     Formula_1.2-5       
-[64] cli_3.6.2            workflowr_1.7.1      futile.options_1.0.1
-[67] viridisLite_0.4.2    svglite_2.1.3        gtable_0.3.6        
-[70] sass_0.4.9           digest_0.6.33        htmlwidgets_1.6.4   
-[73] memoise_2.0.1        lifecycle_1.0.4      mime_0.12           </code></pre>
+[52] whisker_0.4.1        generics_0.1.3       hms_1.1.3           
+[55] munsell_0.5.1        scales_1.3.0         xtable_1.8-4        
+[58] glue_1.8.0           tools_4.3.2          ggsignif_0.6.4      
+[61] fs_1.6.5             crosstalk_1.2.1      colorspace_2.1-0    
+[64] Formula_1.2-5        cli_3.6.2            workflowr_1.7.1     
+[67] futile.options_1.0.1 viridisLite_0.4.2    svglite_2.1.3       
+[70] gtable_0.3.6         sass_0.4.9           digest_0.6.33       
+[73] htmlwidgets_1.6.4    memoise_2.0.1        lifecycle_1.0.4     
+[76] mime_0.12           </code></pre>
+</div>
 </div>
 </div>
 
