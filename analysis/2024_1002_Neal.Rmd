@@ -1106,6 +1106,18 @@ datatable(extensions = 'Buttons',
 
 
 
+### Sinus_pathology (updated: subjects that have Jaw=maxilla)
+
+
+```{r, message=F, warning=F}
+group2_maxilla %>%
+  dplyr::count(Sinus_Pathology) %>%
+  mutate(Frequency = round( n / sum(n),4))
+
+```
+
+
+
 ### tooth site groups
 
 
@@ -1637,6 +1649,10 @@ datatable(extensions = 'Buttons',
 output_list
 
 ```
+
+
+
+
 
 
 ## New p-values

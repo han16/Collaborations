@@ -126,3 +126,21 @@ discrete_summary=function(data)
 }  
   
 
+multiplesheets_without_headers <- function(fname) {
+  
+  # Get info about all Excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  
+  # Read each sheet without headers
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x, col_names = FALSE))
+  
+  # Convert to data frames
+  data_frame <- lapply(tibble, as.data.frame)
+  
+  # Assign names to data frames
+  names(data_frame) <- sheets
+  
+  # Print data frames
+  print(data_frame)
+}
+
