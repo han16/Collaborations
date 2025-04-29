@@ -94,66 +94,45 @@ continuous_var=c("Age",
 data_conti=data.frame(as.matrix(finalized_data[,which(colnames(finalized_data)%in%continuous_var)]))
 
 
-data_conti$Height_coronal_CBCT1 <- ifelse(
-  replace_na(data_conti$ANPNS_Crest_Coronal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT1, 0) == 0,
-  NA,
-  replace_na(data_conti$ANPNS_Crest_Coronal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT1, 0)
-)
-data_conti$ANPNS_Crest_Coronal_CBCT1[data_conti$ANPNS_Crest_Coronal_CBCT1 == 0] <- NA
-data_conti$MENTAL_Crest_Coronal_CBCT1[data_conti$MENTAL_Crest_Coronal_CBCT1 == 0] <- NA
+###################### definitions
+#Height_coronal_CBCT1 = ANS_PNS_crest_coronal_CBCT1 + mental_crest_coronal_CBCT1
+#Height_coronal_CBCT2 = ANS_PNS_crest_coronal_CBCT2 + mental_crest_coronal_CBCT2
+#Height_sagittal_CBCT1 = ANS_PNS_crest_sagittal_CBCT1 + mental_crest_sagittal_CBCT1
+#Height_sagittal_CBCT2 = ANS_PNS_crest_sagittal_CBCT2 + mental_crest_sagittal_CBCT2
 
+
+data_conti$Height_coronal_CBCT1=
+  ifelse(is.na(data_conti$ANPNS_Crest_Coronal_CBCT1), 0, data_conti$ANPNS_Crest_Coronal_CBCT1) +
+  ifelse(is.na(data_conti$MENTAL_Crest_Coronal_CBCT1), 0, data_conti$MENTAL_Crest_Coronal_CBCT1)
 ##############
 
-data_conti$Height_coronal_CBCT2 <- ifelse(
-  replace_na(data_conti$ANSPNS_Crest_Coronal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT2, 0) == 0,
-  NA,
-  replace_na(data_conti$ANSPNS_Crest_Coronal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_CBCT2, 0)
-)
-data_conti$ANSPNS_Crest_Coronal_CBCT2[data_conti$ANSPNS_Crest_Coronal_CBCT2 == 0] <- NA
-data_conti$MENTAL_Crest_Coronal_CBCT2[data_conti$MENTAL_Crest_Coronal_CBCT2 == 0] <- NA
-
+data_conti$Height_coronal_CBCT2 <- 
+  ifelse(is.na(data_conti$ANSPNS_Crest_Coronal_CBCT2), 0, data_conti$ANSPNS_Crest_Coronal_CBCT2) + 
+  ifelse(is.na(data_conti$MENTAL_Crest_Coronal_CBCT2), 0, data_conti$MENTAL_Crest_Coronal_CBCT2)
 ##############
 
-data_conti$Height_sagittal_CBCT1 <- ifelse(
-  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT1, 0) == 0,
-  NA,
-  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT1, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT1, 0)
-)
-data_conti$ANSPNS_Crest_Sagittal_CBCT1[data_conti$ANSPNS_Crest_Sagittal_CBCT1 == 0] <- NA
-data_conti$MENTAL_Crest_Sagittal_CBCT1[data_conti$MENTAL_Crest_Sagittal_CBCT1 == 0] <- NA
-
+data_conti$Height_sagittal_CBCT1 <- 
+  ifelse(is.na(data_conti$ANSPNS_Crest_Sagittal_CBCT1), 0, data_conti$ANSPNS_Crest_Sagittal_CBCT1) +  
+  ifelse(is.na(data_conti$MENTAL_Crest_Sagittal_CBCT1), 0, data_conti$MENTAL_Crest_Sagittal_CBCT1)
+  
 ##############
 
-data_conti$Height_sagittal_CBCT2 <- ifelse(
-  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT2, 0) == 0,
-  NA,
-  replace_na(data_conti$ANSPNS_Crest_Sagittal_CBCT2, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_CBCT2, 0)
-)
-data_conti$ANSPNS_Crest_Sagittal_CBCT2[data_conti$ANSPNS_Crest_Sagittal_CBCT2 == 0] <- NA
-data_conti$MENTAL_Crest_Sagittal_CBCT2[data_conti$MENTAL_Crest_Sagittal_CBCT2 == 0] <- NA
+data_conti$Height_sagittal_CBCT2 <- 
+  ifelse(is.na(data_conti$ANSPNS_Crest_Sagittal_CBCT2), 0, data_conti$ANSPNS_Crest_Sagittal_CBCT2) +
+  ifelse(is.na(data_conti$MENTAL_Crest_Sagittal_CBCT2), 0, data_conti$MENTAL_Crest_Sagittal_CBCT2) 
 
 
 ##############
 
-data_conti$Height_coronal_DIFF <- ifelse(
-  replace_na(data_conti$ANSPNS_Crest_Coronal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_DIFF, 0) == 0,
-  NA,
-  replace_na(data_conti$ANSPNS_Crest_Coronal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Coronal_DIFF, 0)
-)
-data_conti$ANSPNS_Crest_Coronal_DIFF[data_conti$ANSPNS_Crest_Coronal_DIFF == 0] <- NA
-data_conti$MENTAL_Crest_Coronal_DIFF[data_conti$MENTAL_Crest_Coronal_DIFF == 0] <- NA
-
+data_conti$Height_coronal_DIFF <- 
+  ifelse(is.na(data_conti$ANSPNS_Crest_Coronal_DIFF), 0, data_conti$ANSPNS_Crest_Coronal_DIFF) +  
+  ifelse(is.na(data_conti$MENTAL_Crest_Coronal_DIFF), 0, data_conti$MENTAL_Crest_Coronal_DIFF)
 ##############
 
-data_conti$Height_sagittal_DIFF <- ifelse(
-  replace_na(data_conti$ANSPNS_Crest_Sagittal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_DIFF, 0) == 0,
-  NA,
-  replace_na(data_conti$ANSPNS_Crest_Sagittal_DIFF, 0) + replace_na(data_conti$MENTAL_Crest_Sagittal_DIFF, 0)
-)
-
-
-data_conti$ANSPNS_Crest_Sagittal_DIFF[data_conti$ANSPNS_Crest_Sagittal_DIFF == 0] <- NA
-data_conti$MENTAL_Crest_Sagittal_DIFF[data_conti$MENTAL_Crest_Sagittal_DIFF == 0] <- NA
+data_conti$Height_sagittal_DIFF <- 
+  ifelse(is.na(data_conti$ANSPNS_Crest_Sagittal_DIFF), 0, data_conti$ANSPNS_Crest_Sagittal_DIFF) +
+  ifelse(is.na(data_conti$MENTAL_Crest_Sagittal_DIFF), 0, data_conti$MENTAL_Crest_Sagittal_DIFF)
+#################
 
 
 continuous_var=c(continuous_var,"Height_sagittal_CBCT1", "Height_sagittal_CBCT2", "Height_sagittal_DIFF",  "Height_coronal_DIFF", "Height_coronal_CBCT1", "Height_coronal_CBCT2" )
