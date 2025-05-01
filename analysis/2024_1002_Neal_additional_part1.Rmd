@@ -17,6 +17,8 @@ root <- rprojroot::find_rstudio_root_file()
 ```
 
 
+
+
 ```{r, message=F, warning=F, results=F}
 #data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525.xlsx")
 finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525_Finalized_Data.csv")))
@@ -150,21 +152,6 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, message=F, warning=F}
-# Example matrix
-mat <- matrix(c(1, NA, 3, 4,
-                NA, 2, 3, NA),
-              ncol = 2)
-
-colnames(mat) <- c("col1", "col2")
-
-# Show the matrix
-mat
-
-sum_vec <- ifelse(is.na(mat[,1]), 0, mat[,1]) + ifelse(is.na(mat[,2]), 0, mat[,2])
-sum_vec
-
-```
 
 
 
