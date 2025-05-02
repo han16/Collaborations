@@ -237,7 +237,7 @@ if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows !=
 ```
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 
 data_24_clean <- data_24 %>%
   filter(`...1` %in% student_names) %>%
@@ -247,6 +247,17 @@ data_24_clean <- data_24 %>%
   t() %>%
   as.vector() %>%
   matrix(nrow = length(student_names), byrow = TRUE)  
+
+data_23_clean <- data_23 %>%
+  filter(`...1` %in% student_names_23) %>%
+  arrange(factor(`...1`, levels = student_names_23)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names_23), byrow = TRUE)  
+
+ncol(data_23_clean)==ncol(data_24_clean)
 
 pvalue=numeric()
 for (i in 1:ncol(data_23_clean))

@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6ffc4f9447185caf82d927cb3e57c374b170ea53targetblank6ffc4f9a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5fd905a2d5af3dcb60ff2f572206c3995ee571bctargetblank5fd905aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/6ffc4f9447185caf82d927cb3e57c374b170ea53" target="_blank">6ffc4f9</a>
+<a href="https://github.com/han16/Collaborations/tree/5fd905a2d5af3dcb60ff2f572206c3995ee571bc" target="_blank">5fd905a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6ffc4f9447185caf82d927cb3e57c374b170ea53targetblank6ffc4f9a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree5fd905a2d5af3dcb60ff2f572206c3995ee571bctargetblank5fd905aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/6ffc4f9447185caf82d927cb3e57c374b170ea53" target="_blank">6ffc4f9</a>.
+<a href="https://github.com/han16/Collaborations/tree/5fd905a2d5af3dcb60ff2f572206c3995ee571bc" target="_blank">5fd905a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/5fd905a2d5af3dcb60ff2f572206c3995ee571bc/analysis/2025_0302_Zainab.Rmd" target="_blank">5fd905a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-02
+</td>
+<td>
+5/2/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/5fd905a2d5af3dcb60ff2f572206c3995ee571bc/docs/2025_0302_Zainab.html" target="_blank">5fd905a</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-02
+</td>
+<td>
+5/2/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -897,7 +931,18 @@ if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(n
   as.vector() %&gt;%
   matrix(nrow = length(student_names), byrow = TRUE)  
 
-pvalue=numeric()
+data_23_clean &lt;- data_23 %&gt;%
+  filter(`...1` %in% student_names_23) %&gt;%
+  arrange(factor(`...1`, levels = student_names_23)) %&gt;%
+  select(3:9) %&gt;%
+  as.matrix() %&gt;%
+  t() %&gt;%
+  as.vector() %&gt;%
+  matrix(nrow = length(student_names_23), byrow = TRUE)  
+
+ncol(data_23_clean)==ncol(data_24_clean)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code>pvalue=numeric()
 for (i in 1:ncol(data_23_clean))
 {
   if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
@@ -914,6 +959,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["Universal_1","Universal_2","Universal_3","Universal_4","Universal_5","Universal_6","Universal_7","Universal_8","Universal_9","Universal_10","Universal_11","Universal_12","Universal_13","Universal_14","Universal_15","Universal_16","Universal_17","Universal_18","Universal_19","Universal_20","Universal_21","Universal_22","Universal_23","Universal_24","Universal_25","Universal_26","Universal_27","Universal_28"],["&lt;0.0001","&lt;0.0001","0.001647","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.08222","&lt;0.0001","0.0004152","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001874","0.02216","&lt;0.0001","0.0001519","0.02478","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="area-specific" class="section level2">
 <h2>Area Specific</h2>
