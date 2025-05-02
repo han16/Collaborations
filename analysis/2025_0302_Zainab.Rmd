@@ -26,12 +26,15 @@ MBSE_24=multiplesheets_without_headers((file.path(root, "..\\2025\\202503\\Zaina
 `
 Probe only
 23 Probe has 28 questions in one line
+
 24 Probe has 4 lines per person 
+
 Columns C - I
 1st row for each person is 1 - 7
 2nd row per person is 8 - 14
 3rd row per person is 15 - 21
 4th row per person is 22 - 28
+
 Explorer, sickle, universal, area specific is set up as the 24 probe with 4 lines per person 
 Cumulative was not evaluated the same and should not be considered in the analysis
 `
@@ -106,16 +109,16 @@ data_24=MBSE_24$`24 Explorer`
 # check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+if (all(num_rows == 4)) print("Correct") else which(num_rows != 4)
 
 student_names_23=unique(data_23$...1)
 num_rows=sapply(student_names_23, function(x) (data_23 %>% filter(`...1`==x) %>% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
-which(num_rows!=4)
+if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows 
+  
 ```
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 student_names_23=unique(data_23$...1)
 data_23_clean=data_23 %>%
   filter(`...1` %in% student_names_23) %>%
@@ -170,7 +173,12 @@ data_24=MBSE_24$`24 Sickle`
 # check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+if (all(num_rows == 4)) print("Correct") else student_names[which(num_rows != 4)] # ensure all students have 4 rows
+
+student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %>% filter(`...1`==x) %>% nrow()))
+if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows 
+  
 ```
 
 
@@ -220,12 +228,16 @@ data_24=MBSE_24$`24 Universal`
 # check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+if (all(num_rows == 4)) print("Correct") else student_names[which(num_rows != 4)] # ensure all students have 4 rows
+
+student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %>% filter(`...1`==x) %>% nrow()))
+if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows 
+   
 ```
 
 
-```{r, message=F, warning=F}
-data_23_clean=data_23[,3:9]
+```{r, message=F, warning=F, eval=F}
 
 data_24_clean <- data_24 %>%
   filter(`...1` %in% student_names) %>%
@@ -271,12 +283,16 @@ data_24=MBSE_24$`24 Area Specific`
 # check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+if (all(num_rows == 4)) print("Correct") else student_names[which(num_rows != 4)] # ensure all students have 4 rows
+
+student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %>% filter(`...1`==x) %>% nrow()))
+if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows 
+  
 ```
 
 
-```{r, message=F, warning=F}
-data_23_clean=data_23[,3:9]
+```{r, message=F, warning=F, eval=F}
 
 data_24_clean <- data_24 %>%
   filter(`...1` %in% student_names) %>%
@@ -323,12 +339,16 @@ data_24=MBSE_24$`24 Cumulative`
 # check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+if (all(num_rows == 5)) print("Correct") else student_names[which(num_rows != 5)] # ensure all students have 4 rows
+
+student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %>% filter(`...1`==x) %>% nrow()))
+if (all(num_rows == 5)) print("Correct") else student_names_23[which(num_rows != 5)] # ensure all students have 4 rows 
+  
 ```
 
 
-```{r, message=F, warning=F}
-data_23_clean=data_23[,3:9]
+```{r, message=F, warning=F, eval=F}
 
 data_24_clean <- data_24 %>%
   filter(`...1` %in% student_names) %>%

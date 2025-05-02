@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-05-01
+<strong>Last updated:</strong> 2025-05-02
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2d4221d6cce25f22f399408ef0f22736c1f8d253targetblank2d4221da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6ffc4f9447185caf82d927cb3e57c374b170ea53targetblank6ffc4f9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/2d4221d6cce25f22f399408ef0f22736c1f8d253" target="_blank">2d4221d</a>
+<a href="https://github.com/han16/Collaborations/tree/6ffc4f9447185caf82d927cb3e57c374b170ea53" target="_blank">6ffc4f9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2d4221d6cce25f22f399408ef0f22736c1f8d253targetblank2d4221da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6ffc4f9447185caf82d927cb3e57c374b170ea53targetblank6ffc4f9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/2d4221d6cce25f22f399408ef0f22736c1f8d253" target="_blank">2d4221d</a>.
+<a href="https://github.com/han16/Collaborations/tree/6ffc4f9447185caf82d927cb3e57c374b170ea53" target="_blank">6ffc4f9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -589,9 +589,7 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
-    Modified:   analysis/2024_1002_Neal.Rmd
     Modified:   analysis/2025_0302_Zainab.Rmd
-    Modified:   analysis/Rfunctions.R
 
 </code></pre>
 <p>
@@ -637,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/6ffc4f9447185caf82d927cb3e57c374b170ea53/analysis/2025_0302_Zainab.Rmd" target="_blank">6ffc4f9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-02
+</td>
+<td>
+5/2/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/6ffc4f9447185caf82d927cb3e57c374b170ea53/docs/2025_0302_Zainab.html" target="_blank">6ffc4f9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-02
+</td>
+<td>
+5/2/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -697,7 +729,13 @@ han
 </div>
 <pre class="r"><code>MBSE_23=multiplesheets_without_headers((file.path(root, &quot;..\\2025\\202503\\Zainab\\23 Tablet grades seperated by exam.xlsx&quot;)))
 MBSE_24=multiplesheets_without_headers((file.path(root, &quot;..\\2025\\202503\\Zainab\\OT Research - 24 MBSE.xlsx&quot;)))</code></pre>
-<p><code>Probe only 23 Probe has 28 questions in one line 24 Probe has 4 lines per person  Columns C - I 1st row for each person is 1 - 7 2nd row per person is 8 - 14 3rd row per person is 15 - 21 4th row per person is 22 - 28 Explorer, sickle, universal, area specific is set up as the 24 probe with 4 lines per person  Cumulative was not evaluated the same and should not be considered in the analysis</code></p>
+<p>` Probe only 23 Probe has 28 questions in one line</p>
+<p>24 Probe has 4 lines per person</p>
+<p>Columns C - I 1st row for each person is 1 - 7 2nd row per person is
+8 - 14 3rd row per person is 15 - 21 4th row per person is 22 - 28</p>
+<p>Explorer, sickle, universal, area specific is set up as the 24 probe
+with 4 lines per person Cumulative was not evaluated the same and should
+not be considered in the analysis `</p>
 <div id="probe" class="section level2">
 <h2>probe</h2>
 <pre class="r"><code>data_23=MBSE_23$`23 Probe`
@@ -748,9 +786,22 @@ data_24=MBSE_24$`24 Explorer`</code></pre>
 <pre class="r"><code># check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %&gt;% filter(`...1`==x) %&gt;% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows </code></pre>
-<pre><code>[1] TRUE</code></pre>
-<pre class="r"><code>data_23_clean=data_23[,3:9]
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else which(num_rows != 4)</code></pre>
+<pre><code>[1] &quot;Correct&quot;</code></pre>
+<pre class="r"><code>student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
+<pre><code>[1] &quot;#006273046&quot; &quot;#006275628&quot; &quot;#006273066&quot; &quot;#006253771&quot; &quot;#006276675&quot;
+[6] &quot;#006273117&quot; &quot;#006169029&quot; &quot;#006273136&quot; &quot;#006273137&quot;</code></pre>
+<pre class="r"><code>student_names_23=unique(data_23$...1)
+data_23_clean=data_23 %&gt;%
+  filter(`...1` %in% student_names_23) %&gt;%
+  arrange(factor(`...1`, levels = student_names_23)) %&gt;%
+  select(3:9) %&gt;%
+  as.matrix() %&gt;%
+  t() %&gt;%
+  as.vector() %&gt;%
+  matrix(nrow = length(student_names_23), byrow = TRUE)  
 
 data_24_clean &lt;- data_24 %&gt;%
   filter(`...1` %in% student_names) %&gt;%
@@ -761,6 +812,7 @@ data_24_clean &lt;- data_24 %&gt;%
   as.vector() %&gt;%
   matrix(nrow = length(student_names), byrow = TRUE)  
 
+ncol(data_23_clean)==ncol(data_24_clean)
 pvalue=numeric()
 for (i in 1:ncol(data_23_clean))
 {
@@ -778,8 +830,6 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7"],["Explorer_1","Explorer_2","Explorer_3","Explorer_4","Explorer_5","Explorer_6","Explorer_7"],["0.07163","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="sickle" class="section level2">
 <h2>Sickle</h2>
@@ -788,8 +838,12 @@ data_24=MBSE_24$`24 Sickle`</code></pre>
 <pre class="r"><code># check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %&gt;% filter(`...1`==x) %&gt;% nrow()))
-sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows </code></pre>
-<pre><code>[1] TRUE</code></pre>
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names[which(num_rows != 4)] # ensure all students have 4 rows</code></pre>
+<pre><code>[1] &quot;Correct&quot;</code></pre>
+<pre class="r"><code>student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
+<pre><code>[1] &quot;#006175102&quot; &quot;#006171554&quot; &quot;#006035789&quot;</code></pre>
 <pre class="r"><code>data_23_clean=data_23[,3:9]
 
 data_24_clean &lt;- data_24 %&gt;%
@@ -818,8 +872,131 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7"],["Sickle_1","Sickle_2","Sickle_3","Sickle_4","Sickle_5","Sickle_6","Sickle_7"],["&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7"],["Sickle_1","Sickle_2","Sickle_3","Sickle_4","Sickle_5","Sickle_6","Sickle_7"],["&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="universal" class="section level2">
+<h2>Universal</h2>
+<pre class="r"><code>data_23=MBSE_23$`23 Universal`
+data_24=MBSE_24$`24 Universal`</code></pre>
+<pre class="r"><code># check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names[which(num_rows != 4)] # ensure all students have 4 rows</code></pre>
+<pre><code>[1] &quot;Correct&quot;</code></pre>
+<pre class="r"><code>student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
+<pre><code>[1] &quot;Correct&quot;</code></pre>
+<pre class="r"><code>data_24_clean &lt;- data_24 %&gt;%
+  filter(`...1` %in% student_names) %&gt;%
+  arrange(factor(`...1`, levels = student_names)) %&gt;%
+  select(3:9) %&gt;%
+  as.matrix() %&gt;%
+  t() %&gt;%
+  as.vector() %&gt;%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]=&quot;NA&quot;
+}
+  
+}
+  data.frame(questions=paste(&quot;Universal&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue))%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+</div>
+<div id="area-specific" class="section level2">
+<h2>Area Specific</h2>
+<pre class="r"><code>data_23=MBSE_23$`23 Area Specific`
+data_24=MBSE_24$`24 Area Specific`</code></pre>
+<pre class="r"><code># check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names[which(num_rows != 4)] # ensure all students have 4 rows</code></pre>
+<pre><code>[1] &quot;Correct&quot;</code></pre>
+<pre class="r"><code>student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
+<pre><code>[1] &quot;#006193411&quot; &quot;#006273094&quot;</code></pre>
+<pre class="r"><code>data_24_clean &lt;- data_24 %&gt;%
+  filter(`...1` %in% student_names) %&gt;%
+  arrange(factor(`...1`, levels = student_names)) %&gt;%
+  select(3:9) %&gt;%
+  as.matrix() %&gt;%
+  t() %&gt;%
+  as.vector() %&gt;%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]=&quot;NA&quot;
+}
+  
+}
+  data.frame(questions=paste(&quot;Area Specific&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue))%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+</div>
+<div id="cumulative" class="section level2">
+<h2>Cumulative</h2>
+<pre class="r"><code>data_23=MBSE_23$`23 Cumulative`
+data_24=MBSE_24$`24 Cumulative`</code></pre>
+<pre class="r"><code># check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 5)) print(&quot;Correct&quot;) else student_names[which(num_rows != 5)] # ensure all students have 4 rows</code></pre>
+<pre><code>[1] &quot;Correct&quot;</code></pre>
+<pre class="r"><code>student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
+if (all(num_rows == 5)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 5)] # ensure all students have 4 rows </code></pre>
+<pre><code> [1] &quot;#006180201&quot; &quot;#006255166&quot; &quot;#006151065&quot; &quot;#006254723&quot; &quot;#006273143&quot;
+ [6] &quot;#006273074&quot; &quot;#006145792&quot; &quot;#006180655&quot; &quot;#006035789&quot; &quot;#006276962&quot;
+[11] &quot;#006253753&quot; &quot;#006200417&quot; &quot;#006275410&quot; &quot;#006273130&quot; &quot;#006273137&quot;
+[16] &quot;#006277204&quot;</code></pre>
+<pre class="r"><code>data_24_clean &lt;- data_24 %&gt;%
+  filter(`...1` %in% student_names) %&gt;%
+  arrange(factor(`...1`, levels = student_names)) %&gt;%
+  select(3:9) %&gt;%
+  as.matrix() %&gt;%
+  t() %&gt;%
+  as.vector() %&gt;%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]=&quot;NA&quot;
+}
+  
+}
+  data.frame(questions=paste(&quot;Area Specific&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue))%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
