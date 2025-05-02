@@ -477,6 +477,71 @@ output_list
 
 
 
+
+### Sinus_pathology (updated: subjects that have Jaw=1)
+
+
+```{r, message=F, warning=F}
+finalized_data %>% filter(Jaw==1) %>%
+  dplyr::count(Sinus_Pathology) %>%
+  mutate(Frequency = round( n / sum(n),4))
+
+```
+
+
+
+```{r, message=F, warning=F}
+
+library(htmltools)
+output_list <- tagList()
+  res_df <- data.frame(sinus=c("1", "2", "3"), n=c(13, 1, 65)) # Convert the current list element to a data frame
+# Append the datatable to the output list
+  output_list <- tagAppendChild(
+    output_list,
+    datatable(
+      res_df,
+      extensions = 'Buttons',
+      caption = "",
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+  
+  ############# calculate p values 
+parameters=character()
+pvalue=numeric()
+kk=0
+
+if (nrow(res_df)>1)
+  for (i in 1:(nrow(res_df)-1))
+  for (j in (i+1):nrow(res_df))
+  {
+    kk=kk+1
+    parameters[kk]=paste(res_df[i,1], res_df[j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(res_df[i,2], res_df[j,2]), p = 0.5)$p.value)
+  }
+output_list <- tagAppendChild(
+    output_list,
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+)
+
+output_list
+
+```
+
+
+
+
+
 ### tooth site groups 
 
 ```{r, message=F, warning=F}

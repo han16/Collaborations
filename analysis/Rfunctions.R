@@ -28,20 +28,34 @@ set.seed(123)
 
 
 ######## adjust p values 
-pvalue_adjust=function(p_value)
+#pvalue_adjust=function(p_value)
 {
-  p_value_adjust=numeric()
-  for (i in 1:length(p_value))
-  {
-    if (is.na(p_value[i])==T)
-      p_value_adjust[i]=p_value[i]
-    if (is.na(p_value[i])==F & p_value[i]<0.0001)
-      p_value_adjust[i]="<0.0001"
-    if (is.na(p_value[i])==F & p_value[i]>0.0001)
-      p_value_adjust[i]=round(p_value[i],4)
-  }
-  return(p_value_adjust)
+#  p_value_adjust=numeric()
+#  for (i in 1:length(p_value))
+#  {
+#    if (is.na(p_value[i])==T)
+#      p_value_adjust[i]=p_value[i]
+#    if (is.na(p_value[i])==F & p_value[i]<0.0001)
+#      p_value_adjust[i]="<0.0001"
+#    if (is.na(p_value[i])==F & p_value[i]>0.0001)
+#      p_value_adjust[i]=round(p_value[i],4)
+#  }
+#  return(p_value_adjust)
 }
+
+pvalue_adjust=function(pvalue)
+{
+  # Convert character vector to numeric, preserving NAs
+  pvalue_num <- as.numeric(pvalue)
+  
+  # Format the p-values
+  pvalue_adjusted <- ifelse(
+    is.na(pvalue_num), NA,
+    ifelse(pvalue_num < 0.0001, "<0.0001", formatC(pvalue_num, format = "g", digits = 4))
+  )
+  return(pvalue_adjusted)
+}
+
 ############### summary statistics for continuous variable 
 summary_statistics=function(data)
 {  # each column is one variable, and row one subject 

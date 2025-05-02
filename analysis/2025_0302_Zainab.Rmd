@@ -49,6 +49,7 @@ data_24=MBSE_24$`24 Probe`
 
 
 ```{r, message=F, warning=F}
+# check if each student has the same 4 lines 
 student_names=unique(data_24$...1)
 num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
 sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
@@ -67,8 +68,292 @@ data_24_clean <- data_24 %>%
   as.vector() %>%
   matrix(nrow = length(student_names), byrow = TRUE)  
 
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]="NA"
+}
+  
+}
+  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
 
+
+* two sample t test was used
+
+
+
+## Explorer 
+
+```{r, message=F, warning=F}
+data_23=MBSE_23$`23 Explorer`
+data_24=MBSE_24$`24 Explorer`
 ```
 
 
 
+
+```{r, message=F, warning=F}
+# check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
+sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+
+student_names_23=unique(data_23$...1)
+num_rows=sapply(student_names_23, function(x) (data_23 %>% filter(`...1`==x) %>% nrow()))
+sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+which(num_rows!=4)
+```
+
+
+```{r, message=F, warning=F}
+student_names_23=unique(data_23$...1)
+data_23_clean=data_23 %>%
+  filter(`...1` %in% student_names_23) %>%
+  arrange(factor(`...1`, levels = student_names_23)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names_23), byrow = TRUE)  
+
+data_24_clean <- data_24 %>%
+  filter(`...1` %in% student_names) %>%
+  arrange(factor(`...1`, levels = student_names)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+ncol(data_23_clean)==ncol(data_24_clean)
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]="NA"
+}
+  
+}
+  data.frame(questions=paste("Explorer", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Sickle 
+
+```{r, message=F, warning=F}
+data_23=MBSE_23$`23 Sickle`
+data_24=MBSE_24$`24 Sickle`
+```
+
+
+
+
+```{r, message=F, warning=F}
+# check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
+sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+```
+
+
+```{r, message=F, warning=F}
+data_23_clean=data_23[,3:9]
+
+data_24_clean <- data_24 %>%
+  filter(`...1` %in% student_names) %>%
+  arrange(factor(`...1`, levels = student_names)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]="NA"
+}
+  
+}
+  data.frame(questions=paste("Sickle", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Universal 
+
+```{r, message=F, warning=F}
+data_23=MBSE_23$`23 Universal`
+data_24=MBSE_24$`24 Universal`
+```
+
+
+
+
+```{r, message=F, warning=F}
+# check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
+sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+```
+
+
+```{r, message=F, warning=F}
+data_23_clean=data_23[,3:9]
+
+data_24_clean <- data_24 %>%
+  filter(`...1` %in% student_names) %>%
+  arrange(factor(`...1`, levels = student_names)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]="NA"
+}
+  
+}
+  data.frame(questions=paste("Universal", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## Area Specific 
+
+```{r, message=F, warning=F}
+data_23=MBSE_23$`23 Area Specific`
+data_24=MBSE_24$`24 Area Specific`
+```
+
+
+
+
+```{r, message=F, warning=F}
+# check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
+sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+```
+
+
+```{r, message=F, warning=F}
+data_23_clean=data_23[,3:9]
+
+data_24_clean <- data_24 %>%
+  filter(`...1` %in% student_names) %>%
+  arrange(factor(`...1`, levels = student_names)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]="NA"
+}
+  
+}
+  data.frame(questions=paste("Area Specific", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## Cumulative
+
+
+```{r, message=F, warning=F}
+data_23=MBSE_23$`23 Cumulative`
+data_24=MBSE_24$`24 Cumulative`
+```
+
+
+
+
+```{r, message=F, warning=F}
+# check if each student has the same 4 lines 
+student_names=unique(data_24$...1)
+num_rows=sapply(student_names, function(x) (data_24 %>% filter(`...1`==x) %>% nrow()))
+sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows 
+```
+
+
+```{r, message=F, warning=F}
+data_23_clean=data_23[,3:9]
+
+data_24_clean <- data_24 %>%
+  filter(`...1` %in% student_names) %>%
+  arrange(factor(`...1`, levels = student_names)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+pvalue=numeric()
+for (i in 1:ncol(data_23_clean))
+{
+  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
+  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+} else {
+  pvalue[i]="NA"
+}
+  
+}
+  data.frame(questions=paste("Area Specific", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
