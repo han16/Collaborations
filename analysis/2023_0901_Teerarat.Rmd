@@ -453,3 +453,21 @@ datatable(extensions = 'Buttons',
 
 
 
+## kappa p values 
+
+### number agreement 
+
+```{r, message=F, warning=F}
+# Load package
+library(irr)
+
+kappa_data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2023\\202309\\Teerarat\\Peri-impl bone loss CALIBRATION(Sheet1).csv")
+kappa_num=kappa2(data.frame(rate1=as.numeric(kappa_data[2:6,2]), rate2=as.numeric(kappa_data[2:6, 4])), weight = "squared")
+kappa_num
+
+kappa_percentage=kappa2(data.frame(rate1=as.numeric(kappa_data[2:6,3])*0.01, rate2=as.numeric(kappa_data[2:6, 5])*0.01), weight="squared")
+kappa_percentage
+```
+* use squared kappa test, the kappa value for numeric values is 0.94 (p=0.0285), and for % is 0.897 (p=0.0338). 
+
+
