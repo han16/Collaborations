@@ -106,3 +106,5 @@ ggsurvplot(km_fit,
            ylab = "Probability of Success",
            surv.scale = "percent")
 ```
+
+* for outcome, treat `1` as success and failure otherwise. 
