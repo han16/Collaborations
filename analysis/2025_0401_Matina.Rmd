@@ -7,3 +7,102 @@ output:
 date: "2025-04-25"
 ---
 
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+```{r, message=F, warning=F, results=F}
+SDF=multiplesheets((file.path(root, "..\\2025\\202504\\Matina\\SDF.xlsx")))
+SDF_data=SDF$Sheet1
+
+
+
+# Define the follow-up columns
+followup_cols <- c("3m", "6m", "9m", "12m", "15m", "18m", "24m")
+
+# Extract the numeric months from the column names
+months <- as.numeric(sub("m", "", followup_cols))
+
+# Function to find the last time point with value 1
+get_last_1_time <- function(row) {
+  vals <- as.numeric(row[followup_cols])
+  if (all(is.na(vals)) || all(vals != 1, na.rm = TRUE)) return(NA)
+  max(months[which(vals == 1)])
+}
+
+# Apply the function to each row
+SDF_data$Time <- apply(SDF_data, 1, get_last_1_time)
+
+
+```
+
+
+
+## overall success rate 
+
+```{r, message=F, warning=F}
+# Assuming '1' in the outcome column means success
+success_rate <- colMeans(SDF_data[followup_cols] == 1, na.rm = TRUE)
+
+
+# Define success rates
+success_rate <- c(`3m` = 1.0000000,
+                  `6m` = 0.9559748,
+                  `9m` = 0.9119497,
+                  `12m` = 0.8176101,
+                  `15m` = 0.7352941,
+                  `18m` = 0.6093750,
+                  `24m` = 0.4000000)
+
+# Convert to data frame
+df <- data.frame(
+  Month = factor(names(success_rate), levels = names(success_rate)),  # preserve order
+  Rate = as.numeric(success_rate)
+)
+
+# Plot with distinct colors per bar
+ggplot(df, aes(x = Month, y = Rate, fill = Month)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = sprintf("%.2f", Rate)),
+            vjust = -0.5, size = 4) +
+  labs(title = "",
+       x = "Follow-up Time (Months)",
+       y = "Success Rate") +
+  ylim(0, 1.1) +
+  theme(legend.position = "none")  # optional: hide legend if not needed
+```
+
+
+```{r, message=F, warning=F}
+# Load required libraries
+library(survival)
+library(survminer)
+
+# Create event indicator: 1 for success, 0 otherwise
+SDF_data$Event <- ifelse(SDF_data$outcome == 1, 1, 0)
+
+# Create a Surv object (time and event)
+surv_obj <- Surv(time = SDF_data$Time, event = SDF_data$Event)
+
+# Fit Kaplan-Meier model using the data argument
+km_fit <- survfit(surv_obj ~ 1, data = SDF_data)
+
+# Now plot with ggsurvplot, explicitly providing the data
+ggsurvplot(km_fit,
+           data = SDF_data,
+           conf.int = TRUE,
+           risk.table = TRUE,
+           title = "Success Curve",
+           xlab = "Time (months)",
+           ylab = "Probability of Success",
+           surv.scale = "percent")
+```
