@@ -19,7 +19,7 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 ```{r, message=F, warning=F, results=F}
-MBSE_23=multiplesheets_without_headers((file.path(root, "..\\2025\\202503\\Zainab\\23 Tablet grades seperated by exam.xlsx")))
+MBSE_23=multiplesheets_without_headers((file.path(root, "../2025/202503/Zainab/23 Tablet grades seperated by exam 20250509.xlsx")))
 MBSE_24=multiplesheets_without_headers((file.path(root, "..\\2025\\202503\\Zainab\\OT Research - 24 MBSE.xlsx")))
 ```
 
@@ -183,7 +183,14 @@ if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows !=
 
 
 ```{r, message=F, warning=F}
-data_23_clean=data_23[,3:9]
+data_23_clean=data_23 %>%
+  filter(`...1` %in% student_names_23) %>%
+  arrange(factor(`...1`, levels = student_names_23)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names_23), byrow = TRUE) 
 
 data_24_clean <- data_24 %>%
   filter(`...1` %in% student_names) %>%
@@ -303,7 +310,16 @@ if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows !=
 ```
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
+
+data_23_clean <- data_23 %>%
+  filter(`...1` %in% student_names_23) %>%
+  arrange(factor(`...1`, levels = student_names_23)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names_23), byrow = TRUE) 
 
 data_24_clean <- data_24 %>%
   filter(`...1` %in% student_names) %>%
