@@ -71,17 +71,22 @@ data_24_clean <- data_24 %>%
   as.vector() %>%
   matrix(nrow = length(student_names), byrow = TRUE)  
 
-pvalue=numeric()
+pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
 for (i in 1:ncol(data_23_clean))
 {
   if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
   pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
+  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
 } else {
   pvalue[i]="NA"
+  pvalue2[i]="NA"
+  pvalue3[i]="NA"
+  
 }
   
 }
-  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -92,6 +97,7 @@ datatable(extensions = 'Buttons',
 
 
 * two sample t test was used
+* small `pvalue` indicates strong evidence of year 23 not equal year 24; small `pvalue2` suggests year 24 greater than year 23; small `pvalue3` suggests year 24 smaller than year 23.  
 
 
 
@@ -139,17 +145,24 @@ data_24_clean <- data_24 %>%
   matrix(nrow = length(student_names), byrow = TRUE)  
 
 ncol(data_23_clean)==ncol(data_24_clean)
-pvalue=numeric()
+
+  
+  pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
 for (i in 1:ncol(data_23_clean))
 {
   if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
   pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
+  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
 } else {
   pvalue[i]="NA"
+  pvalue2[i]="NA"
+  pvalue3[i]="NA"
+  
 }
   
 }
-  data.frame(questions=paste("Explorer", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -201,17 +214,22 @@ data_24_clean <- data_24 %>%
   as.vector() %>%
   matrix(nrow = length(student_names), byrow = TRUE)  
 
-pvalue=numeric()
+pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
 for (i in 1:ncol(data_23_clean))
 {
   if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
   pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
+  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
 } else {
   pvalue[i]="NA"
+  pvalue2[i]="NA"
+  pvalue3[i]="NA"
+  
 }
   
 }
-  data.frame(questions=paste("Sickle", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -266,17 +284,22 @@ data_23_clean <- data_23 %>%
 
 ncol(data_23_clean)==ncol(data_24_clean)
 
-pvalue=numeric()
+pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
 for (i in 1:ncol(data_23_clean))
 {
   if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
   pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
+  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
 } else {
   pvalue[i]="NA"
+  pvalue2[i]="NA"
+  pvalue3[i]="NA"
+  
 }
   
 }
-  data.frame(questions=paste("Universal", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -330,17 +353,22 @@ data_24_clean <- data_24 %>%
   as.vector() %>%
   matrix(nrow = length(student_names), byrow = TRUE)  
 
-pvalue=numeric()
+pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
 for (i in 1:ncol(data_23_clean))
 {
   if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
   pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
+  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
+  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
 } else {
   pvalue[i]="NA"
+  pvalue2[i]="NA"
+  pvalue3[i]="NA"
+  
 }
   
 }
-  data.frame(questions=paste("Area Specific", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue))%>%
+  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
