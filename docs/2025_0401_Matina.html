@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-05-08
+<strong>Last updated:</strong> 2025-05-13
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6d5502474605eef9f308ba16b38b3692973b370ctargetblank6d55024a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree08d976735eafeb9d5013c9065f723fc16308595ctargetblank08d9767a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/6d5502474605eef9f308ba16b38b3692973b370c" target="_blank">6d55024</a>
+<a href="https://github.com/han16/Collaborations/tree/08d976735eafeb9d5013c9065f723fc16308595c" target="_blank">08d9767</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree6d5502474605eef9f308ba16b38b3692973b370ctargetblank6d55024a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree08d976735eafeb9d5013c9065f723fc16308595ctargetblank08d9767a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/6d5502474605eef9f308ba16b38b3692973b370c" target="_blank">6d55024</a>.
+<a href="https://github.com/han16/Collaborations/tree/08d976735eafeb9d5013c9065f723fc16308595c" target="_blank">08d9767</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -618,6 +618,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/a77702dd90460e32601902bb5c331e01b19446a1/analysis/2025_0401_Matina.Rmd" target="_blank">a77702d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-08
+</td>
+<td>
+5/8/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/a77702dd90460e32601902bb5c331e01b19446a1/docs/2025_0401_Matina.html" target="_blank">a77702d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-08
+</td>
+<td>
+5/8/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -846,6 +880,98 @@ han
 <li>for outcome, treat <code>1</code> as success and failure
 otherwise.</li>
 </ul>
+</div>
+<div id="survival-by-tooth-types" class="section level2">
+<h2>survival by tooth types</h2>
+<pre class="r"><code>SDF_data_tooth_type=SDF_data %&gt;%
+  mutate(
+    Tooth_Type = case_when(
+      Tooth %in% c(51, 52, 61, 62, 73)        ~ &quot;anterior&quot;,
+      Tooth %in% c(74, 84)                    ~ &quot;lower 1st molar&quot;,
+      Tooth %in% c(75, 85)                    ~ &quot;lower 2nd molar&quot;,
+      Tooth %in% c(64, 54)                    ~ &quot;upper 1st molar&quot;,
+      Tooth %in% c(65, 55)                    ~ &quot;upper 2nd molar&quot;,
+      TRUE                                    ~ &quot;other&quot;
+    )
+  )
+table(SDF_data_tooth_type$Tooth_Type)</code></pre>
+<pre><code>
+       anterior lower 1st molar lower 2nd molar upper 1st molar upper 2nd molar 
+             10              33              36              55              25 </code></pre>
+<pre class="r"><code># Step 1: Create the survival object
+surv_obj &lt;- Surv(time = SDF_data_tooth_type$Time, event = SDF_data_tooth_type$Event)
+
+# Step 2: Fit the survival curves by Tooth_Type
+fit &lt;- survfit(surv_obj ~ Tooth_Type, data = SDF_data_tooth_type)
+
+# Step 3: Plot with smaller font size in risk table
+ggsurvplot(fit, data = SDF_data_tooth_type,
+           pval = TRUE,
+           risk.table = TRUE,
+           risk.table.fontsize = 2,  # &lt;-- adjust this number (default is ~4.5)
+           legend.title = &quot;Tooth Type&quot;,
+           legend.labs = levels(factor(SDF_data_tooth_type$Tooth_Type)),
+           xlab = &quot;Time (months)&quot;,
+           ylab = &quot;Survival probability&quot;,
+           ggtheme = theme_minimal())</code></pre>
+<p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
+* p value of 0.0054 indicates significant difference across tooth
+types</p>
+<div id="cox-proportional-hazard-models" class="section level3">
+<h3>cox proportional hazard models</h3>
+<pre class="r"><code>cox_model &lt;- coxph(Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
+summary(cox_model)</code></pre>
+<pre><code>Call:
+coxph(formula = Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
+
+  n= 159, number of events= 119 
+
+                             coef exp(coef) se(coef)      z Pr(&gt;|z|)   
+Tooth_Typelower 1st molar -1.5303    0.2165   0.5183 -2.953  0.00315 **
+Tooth_Typelower 2nd molar -1.3316    0.2640   0.5014 -2.656  0.00791 **
+Tooth_Typeupper 1st molar -1.0459    0.3514   0.4910 -2.130  0.03314 * 
+Tooth_Typeupper 2nd molar -1.4565    0.2331   0.5266 -2.766  0.00568 **
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+                          exp(coef) exp(-coef) lower .95 upper .95
+Tooth_Typelower 1st molar    0.2165      4.619   0.07839    0.5978
+Tooth_Typelower 2nd molar    0.2640      3.787   0.09883    0.7055
+Tooth_Typeupper 1st molar    0.3514      2.846   0.13423    0.9198
+Tooth_Typeupper 2nd molar    0.2331      4.291   0.08303    0.6542
+
+Concordance= 0.625  (se = 0.036 )
+Likelihood ratio test= 9.5  on 4 df,   p=0.05
+Wald test            = 11.31  on 4 df,   p=0.02
+Score (logrank) test = 12.5  on 4 df,   p=0.01</code></pre>
+<ul>
+<li><p>All molar types have significantly longer survival than anterior
+teeth. The hazard of failure is much lower for molars.</p></li>
+<li><p>Hazard Ratios (<code>exp(coef)</code>) &lt; 1 mean better
+survival</p></li>
+<li><p><code>Score (logrank) test = 12.5  on 4 df,   p=0.01</code>
+survival curves differ significantly across teeth types.</p></li>
+<li><p>Compared to anterior teeth, all molar types (lower 1st, lower
+2nd, upper 1st, upper 2nd) show significantly better survival, with
+hazard ratios ranging from 0.22 to 0.35. This means molars have a 65–78%
+lower risk of failure over time compared to anterior teeth.</p></li>
+</ul>
+<pre class="r"><code>coxph(Surv(Time, Event) ~ Tooth_Type + Age + Sex + SSC, data = SDF_data_tooth_type)</code></pre>
+<pre><code>Call:
+coxph(formula = Surv(Time, Event) ~ Tooth_Type + Age + Sex + 
+    SSC, data = SDF_data_tooth_type)
+
+                              coef exp(coef) se(coef)      z        p
+Tooth_Typelower 1st molar -2.37105   0.09338  0.58261 -4.070 4.71e-05
+Tooth_Typelower 2nd molar -2.28810   0.10146  0.59336 -3.856 0.000115
+Tooth_Typeupper 1st molar -1.87866   0.15279  0.55963 -3.357 0.000788
+Tooth_Typeupper 2nd molar -2.48388   0.08342  0.62591 -3.968 7.23e-05
+Age                        0.16540   1.17986  0.05199  3.181 0.001467
+Sex                        0.16850   1.18353  0.18792  0.897 0.369906
+SSC                        0.54078   1.71735  0.26289  2.057 0.039682
+
+Likelihood ratio test=20.9  on 7 df, p=0.003915
+n= 159, number of events= 119 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -919,6 +1045,7 @@ loaded via a namespace (and not attached):
 [79] digest_0.6.33        farver_2.1.2         htmlwidgets_1.6.4   
 [82] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
 [85] mime_0.12            gridtext_0.1.5      </code></pre>
+</div>
 </div>
 </div>
 

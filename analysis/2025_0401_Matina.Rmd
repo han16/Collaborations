@@ -108,3 +108,63 @@ ggsurvplot(km_fit,
 ```
 
 * for outcome, treat `1` as success and failure otherwise. 
+
+
+## survival by tooth types 
+
+```{r, message=F, warning=F}
+SDF_data_tooth_type=SDF_data %>%
+  mutate(
+    Tooth_Type = case_when(
+      Tooth %in% c(51, 52, 61, 62, 73)        ~ "anterior",
+      Tooth %in% c(74, 84)                    ~ "lower 1st molar",
+      Tooth %in% c(75, 85)                    ~ "lower 2nd molar",
+      Tooth %in% c(64, 54)                    ~ "upper 1st molar",
+      Tooth %in% c(65, 55)                    ~ "upper 2nd molar",
+      TRUE                                    ~ "other"
+    )
+  )
+table(SDF_data_tooth_type$Tooth_Type)
+```
+
+
+```{r, message=F, warning=F}
+# Step 1: Create the survival object
+surv_obj <- Surv(time = SDF_data_tooth_type$Time, event = SDF_data_tooth_type$Event)
+
+# Step 2: Fit the survival curves by Tooth_Type
+fit <- survfit(surv_obj ~ Tooth_Type, data = SDF_data_tooth_type)
+
+# Step 3: Plot with smaller font size in risk table
+ggsurvplot(fit, data = SDF_data_tooth_type,
+           pval = TRUE,
+           risk.table = TRUE,
+           risk.table.fontsize = 2,  # <-- adjust this number (default is ~4.5)
+           legend.title = "Tooth Type",
+           legend.labs = levels(factor(SDF_data_tooth_type$Tooth_Type)),
+           xlab = "Time (months)",
+           ylab = "Survival probability",
+           ggtheme = theme_minimal())
+```
+* p value of 0.0054 indicates significant difference across tooth types 
+
+
+### cox proportional hazard models 
+
+```{r, message=F, warning=F}
+cox_model <- coxph(Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
+summary(cox_model)
+```
+*  All molar types have significantly longer survival than anterior teeth. The hazard of failure is much lower for molars.
+
+* Hazard Ratios (`exp(coef)`) < 1 mean better survival
+
+* `Score (logrank) test = 12.5  on 4 df,   p=0.01` survival curves differ significantly across teeth types. 
+
+*  Compared to anterior teeth, all molar types (lower 1st, lower 2nd, upper 1st, upper 2nd) show significantly better survival, with hazard ratios ranging from 0.22 to 0.35. This means molars have a 65–78% lower risk of failure over time compared to anterior teeth. 
+
+
+
+```{r, message=F, warning=F}
+coxph(Surv(Time, Event) ~ Tooth_Type + Age + Sex + SSC, data = SDF_data_tooth_type)
+```
