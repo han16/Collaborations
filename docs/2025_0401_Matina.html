@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree08d976735eafeb9d5013c9065f723fc16308595ctargetblank08d9767a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree980046d1e6db3bd26392d8b55db086288e5fe827targetblank980046da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/08d976735eafeb9d5013c9065f723fc16308595c" target="_blank">08d9767</a>
+<a href="https://github.com/han16/Collaborations/tree/980046d1e6db3bd26392d8b55db086288e5fe827" target="_blank">980046d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree08d976735eafeb9d5013c9065f723fc16308595ctargetblank08d9767a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree980046d1e6db3bd26392d8b55db086288e5fe827targetblank980046da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/08d976735eafeb9d5013c9065f723fc16308595c" target="_blank">08d9767</a>.
+<a href="https://github.com/han16/Collaborations/tree/980046d1e6db3bd26392d8b55db086288e5fe827" target="_blank">980046d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -618,6 +618,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/980046d1e6db3bd26392d8b55db086288e5fe827/analysis/2025_0401_Matina.Rmd" target="_blank">980046d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-13
+</td>
+<td>
+5/13/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/980046d1e6db3bd26392d8b55db086288e5fe827/docs/2025_0401_Matina.html" target="_blank">980046d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-13
+</td>
+<td>
+5/13/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -914,9 +948,48 @@ ggsurvplot(fit, data = SDF_data_tooth_type,
            xlab = &quot;Time (months)&quot;,
            ylab = &quot;Survival probability&quot;,
            ggtheme = theme_minimal())</code></pre>
-<p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
-* p value of 0.0054 indicates significant difference across tooth
-types</p>
+<p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/980046d1e6db3bd26392d8b55db086288e5fe827/docs/figure/2025_0401_Matina.Rmd/unnamed-chunk-6-1.png" target="_blank">980046d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>p value of 0.0054 indicates significant difference across tooth
+types</li>
+</ul>
 <div id="cox-proportional-hazard-models" class="section level3">
 <h3>cox proportional hazard models</h3>
 <pre class="r"><code>cox_model &lt;- coxph(Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
@@ -956,6 +1029,10 @@ survival curves differ significantly across teeth types.</p></li>
 hazard ratios ranging from 0.22 to 0.35. This means molars have a 65–78%
 lower risk of failure over time compared to anterior teeth.</p></li>
 </ul>
+</div>
+</div>
+<div id="full-model-including-all-covariates" class="section level2">
+<h2>full model, including all covariates</h2>
 <pre class="r"><code>coxph(Surv(Time, Event) ~ Tooth_Type + Age + Sex + SSC, data = SDF_data_tooth_type)</code></pre>
 <pre><code>Call:
 coxph(formula = Surv(Time, Event) ~ Tooth_Type + Age + Sex + 
@@ -972,6 +1049,35 @@ SSC                        0.54078   1.71735  0.26289  2.057 0.039682
 
 Likelihood ratio test=20.9  on 7 df, p=0.003915
 n= 159, number of events= 119 </code></pre>
+<p>Interpretation of Coefficients</p>
+<ul>
+<li>Tooth_Type (Reference: anterior)</li>
+</ul>
+<p>Compared to anterior teeth:</p>
+<p>Lower 1st molar: HR = 0.093 (p &lt; 0.001) → 91% lower hazard;
+significantly better survival.</p>
+<p>Lower 2nd molar: HR = 0.101 (p &lt; 0.001) → 90% lower hazard;
+significantly better survival.</p>
+<p>Upper 1st molar: HR = 0.153 (p &lt; 0.001) → 85% lower hazard;
+significantly better survival.</p>
+<p>Upper 2nd molar: HR = 0.083 (p &lt; 0.001) → 92% lower hazard;
+significantly better survival.</p>
+<ul>
+<li><p>Age: HR = 1.18 (p = 0.0015) → For every one-month increase in
+age, the hazard increases by 18%. Older patients tend to have worse
+survival.</p></li>
+<li><p>Sex: HR = 1.18 (p = 0.37) → Not statistically significant. There
+is no strong evidence that survival differs by sex.</p></li>
+<li><p>SSC (Reference: 0 = No SSC): HR = 1.72 (p = 0.039) → Teeth with
+SSC have a 72% higher hazard, indicating worse survival, and the result
+is statistically significant.</p></li>
+<li><p>Model Fit Statistics Likelihood ratio test: p = 0.0039</p></li>
+</ul>
+<p>Wald test: p = 0.0039</p>
+<p>Number of observations: 159</p>
+<p>Number of events: 119</p>
+<p>The model fit is statistically significant, suggesting that at least
+one predictor is significantly associated with survival.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1045,7 +1151,6 @@ loaded via a namespace (and not attached):
 [79] digest_0.6.33        farver_2.1.2         htmlwidgets_1.6.4   
 [82] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
 [85] mime_0.12            gridtext_0.1.5      </code></pre>
-</div>
 </div>
 </div>
 

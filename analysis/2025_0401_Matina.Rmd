@@ -164,7 +164,48 @@ summary(cox_model)
 *  Compared to anterior teeth, all molar types (lower 1st, lower 2nd, upper 1st, upper 2nd) show significantly better survival, with hazard ratios ranging from 0.22 to 0.35. This means molars have a 65–78% lower risk of failure over time compared to anterior teeth. 
 
 
+## full model, including all covariates 
+
 
 ```{r, message=F, warning=F}
 coxph(Surv(Time, Event) ~ Tooth_Type + Age + Sex + SSC, data = SDF_data_tooth_type)
 ```
+
+
+Interpretation of Coefficients
+
+* Tooth_Type (Reference: anterior)
+
+Compared to anterior teeth:
+
+Lower 1st molar: HR = 0.093 (p < 0.001)
+→ 91% lower hazard; significantly better survival.
+
+Lower 2nd molar: HR = 0.101 (p < 0.001)
+→ 90% lower hazard; significantly better survival.
+
+Upper 1st molar: HR = 0.153 (p < 0.001)
+→ 85% lower hazard; significantly better survival.
+
+Upper 2nd molar: HR = 0.083 (p < 0.001)
+→ 92% lower hazard; significantly better survival.
+
+* Age: HR = 1.18 (p = 0.0015)
+→ For every one-month increase in age, the hazard increases by 18%. Older patients tend to have worse survival.
+
+* Sex: HR = 1.18 (p = 0.37)
+→ Not statistically significant. There is no strong evidence that survival differs by sex.
+
+* SSC (Reference: 0 = No SSC): HR = 1.72 (p = 0.039)
+→ Teeth with SSC have a 72% higher hazard, indicating worse survival, and the result is statistically significant.
+
+* Model Fit Statistics
+Likelihood ratio test: p = 0.0039
+
+Wald test: p = 0.0039
+
+Number of observations: 159
+
+Number of events: 119
+
+The model fit is statistically significant, suggesting that at least one predictor is significantly associated with survival.
