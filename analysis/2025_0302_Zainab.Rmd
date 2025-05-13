@@ -40,6 +40,94 @@ Cumulative was not evaluated the same and should not be considered in the analys
 `
 
 
+```{r, message=F, warning=F}
+side_by_side_bar_plot <- function(combined_data, variable = "probe") {
+  # Reshape the data from wide to long format
+  long_data <- combined_data %>%
+    pivot_longer(
+      cols = starts_with(paste0(variable, "_")),
+      names_to = "var_name",
+      values_to = "value"
+    ) %>%
+    filter(!is.na(value))
+
+  # Create an ordered factor for correct x-axis ordering
+  num_vars <- ncol(combined_data) - 1  # adjust if 'year' is always last
+  long_data <- long_data %>%
+    mutate(
+      var_name = factor(var_name, levels = paste0(variable, "_", 1:num_vars))
+    )
+
+  # Summarize data
+  summary_data <- long_data %>%
+    group_by(year, var_name) %>%
+    summarise(
+      mean = mean(value, na.rm = TRUE),
+      se = sd(value, na.rm = TRUE) / sqrt(n()),
+      .groups = 'drop'
+    )
+
+  # Plot
+  fig <- ggplot(summary_data, aes(x = var_name, y = mean, fill = factor(year))) +
+    geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
+    geom_errorbar(aes(ymin = mean - se, ymax = mean + se),
+                  position = position_dodge(width = 0.9), width = 0.2) +
+    labs(
+      title = "",
+      x = "",
+      y = "Average score",
+      fill = "Year"
+    ) +
+    theme(axis.text.x = element_text(angle = 60, vjust = 0.5))
+
+  return(fig)
+}
+
+data_clean=function(data)
+{
+  student_names=unique(data$...1)
+  data_clean <- data %>% filter(`...1` %in% student_names) %>%
+  arrange(factor(`...1`, levels = student_names)) %>%
+  select(3:9) %>%
+  as.matrix() %>%
+  t() %>%
+  as.vector() %>%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+  return(data_clean)
+  
+}
+
+compute_pvalue=function(data1, data2, variable)
+{
+  pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
+for (i in 1:ncol(data1))
+{
+  if (sum(!is.na(data1[, i])) > 1 && sum(!is.na(data2[, i])) > 1) {
+  pvalue[i]=t.test(data1[, i], data2[, i])$p.value
+  pvalue2[i]=t.test(data1[, i], data2[, i], alternative ="less" )$p.value
+  pvalue3[i]=t.test(data1[, i], data2[, i], alternative ="greater" )$p.value
+} else {
+  pvalue[i]="NA"
+  pvalue2[i]="NA"
+  pvalue3[i]="NA"
+  
+}
+  
+}
+  output=data.frame(questions=paste(variable, seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))
+  return(output)
+  
+}
+
+```
+
+
+
+
+
+
+
 
 ## probe 
 
@@ -61,32 +149,8 @@ sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows
 
 ```{r, message=F, warning=F}
 data_23_clean=data_23[,5:32]
-
-data_24_clean <- data_24 %>%
-  filter(`...1` %in% student_names) %>%
-  arrange(factor(`...1`, levels = student_names)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names), byrow = TRUE)  
-
-pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
-} else {
-  pvalue[i]="NA"
-  pvalue2[i]="NA"
-  pvalue3[i]="NA"
-  
-}
-  
-}
-  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
+data_24_clean=data_clean(data_24)
+compute_pvalue(data_23_clean, data_24_clean, "probe") %>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -96,8 +160,34 @@ datatable(extensions = 'Buttons',
 ```
 
 
+
+
 * two sample t test was used
 * small `pvalue` indicates strong evidence of year 23 not equal year 24; small `pvalue2` suggests year 24 greater than year 23; small `pvalue3` suggests year 24 smaller than year 23.  
+
+
+```{r, message=F, warning=F, eval=T}
+parameter="probe"
+data_23_clean=data.frame(data_23[,5:32])
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year <- "2023"
+data_24_clean$year <- "2024"
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+
+# Step 2: Combine the datasets
+combined_data <- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]="year"
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig
+```
+
+
+
+
 
 
 
@@ -125,51 +215,51 @@ if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows !=
 
 
 ```{r, message=F, warning=F, eval=T}
-student_names_23=unique(data_23$...1)
-data_23_clean=data_23 %>%
-  filter(`...1` %in% student_names_23) %>%
-  arrange(factor(`...1`, levels = student_names_23)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names_23), byrow = TRUE)  
-
-data_24_clean <- data_24 %>%
-  filter(`...1` %in% student_names) %>%
-  arrange(factor(`...1`, levels = student_names)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names), byrow = TRUE)  
+data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
 ncol(data_23_clean)==ncol(data_24_clean)
 
-  
-  pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
-} else {
-  pvalue[i]="NA"
-  pvalue2[i]="NA"
-  pvalue3[i]="NA"
-  
-}
-  
-}
-  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
+compute_pvalue(data_23_clean, data_24_clean, "Explorer") %>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+  
+ 
 ```
+
+
+
+```{r, message=F, warning=F, eval=T}
+parameter="Explorer"
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year <- "2023"
+data_24_clean$year <- "2024"
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+
+# Step 2: Combine the datasets
+combined_data <- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]="year"
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig
+```
+
+
+
+
+
+
+
+
+
 
 
 ## Sickle 
@@ -196,46 +286,39 @@ if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows !=
 
 
 ```{r, message=F, warning=F}
-data_23_clean=data_23 %>%
-  filter(`...1` %in% student_names_23) %>%
-  arrange(factor(`...1`, levels = student_names_23)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names_23), byrow = TRUE) 
+data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
-data_24_clean <- data_24 %>%
-  filter(`...1` %in% student_names) %>%
-  arrange(factor(`...1`, levels = student_names)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names), byrow = TRUE)  
+ncol(data_23_clean)==ncol(data_24_clean)
 
-pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
-} else {
-  pvalue[i]="NA"
-  pvalue2[i]="NA"
-  pvalue3[i]="NA"
-  
-}
-  
-}
-  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
+compute_pvalue(data_23_clean, data_24_clean, "Sickle") %>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+```
+
+
+
+```{r, message=F, warning=F, eval=T}
+parameter="Sickler"
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year <- "2023"
+data_24_clean$year <- "2024"
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+
+# Step 2: Combine the datasets
+combined_data <- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]="year"
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig
 ```
 
 
@@ -264,42 +347,12 @@ if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows !=
 
 ```{r, message=F, warning=F, eval=T}
 
-data_24_clean <- data_24 %>%
-  filter(`...1` %in% student_names) %>%
-  arrange(factor(`...1`, levels = student_names)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names), byrow = TRUE)  
-
-data_23_clean <- data_23 %>%
-  filter(`...1` %in% student_names_23) %>%
-  arrange(factor(`...1`, levels = student_names_23)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names_23), byrow = TRUE)  
+data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
 ncol(data_23_clean)==ncol(data_24_clean)
 
-pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
-} else {
-  pvalue[i]="NA"
-  pvalue2[i]="NA"
-  pvalue3[i]="NA"
-  
-}
-  
-}
-  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
+compute_pvalue(data_23_clean, data_24_clean, "Universal") %>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -308,6 +361,25 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+```{r, message=F, warning=F, eval=T}
+parameter="Universal"
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year <- "2023"
+data_24_clean$year <- "2024"
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+
+# Step 2: Combine the datasets
+combined_data <- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]="year"
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig
+```
 
 
 ## Area Specific 
@@ -335,40 +407,12 @@ if (all(num_rows == 4)) print("Correct") else student_names_23[which(num_rows !=
 
 ```{r, message=F, warning=F, eval=T}
 
-data_23_clean <- data_23 %>%
-  filter(`...1` %in% student_names_23) %>%
-  arrange(factor(`...1`, levels = student_names_23)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names_23), byrow = TRUE) 
+data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
-data_24_clean <- data_24 %>%
-  filter(`...1` %in% student_names) %>%
-  arrange(factor(`...1`, levels = student_names)) %>%
-  select(3:9) %>%
-  as.matrix() %>%
-  t() %>%
-  as.vector() %>%
-  matrix(nrow = length(student_names), byrow = TRUE)  
+ncol(data_23_clean)==ncol(data_24_clean)
 
-pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) > 1 && sum(!is.na(data_24_clean[, i])) > 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="less" )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative ="greater" )$p.value
-} else {
-  pvalue[i]="NA"
-  pvalue2[i]="NA"
-  pvalue3[i]="NA"
-  
-}
-  
-}
-  data.frame(questions=paste("probe", seq(1:ncol(data_23_clean)), sep="_"), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%>%
+compute_pvalue(data_23_clean, data_24_clean, "Area_Specific") %>%
 datatable(extensions = 'Buttons',
           caption = "",
             options = list(dom = 'Blfrtip',
@@ -377,6 +421,27 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+
+
+```{r, message=F, warning=F, eval=T}
+parameter="Area_Specific"
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year <- "2023"
+data_24_clean$year <- "2024"
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep="_")
+
+# Step 2: Combine the datasets
+combined_data <- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]="year"
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig
+```
 
 
 ## Cumulative

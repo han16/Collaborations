@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-05-12
+<strong>Last updated:</strong> 2025-05-13
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree205dc6c2081b2453431327af21fc6f8b678f3931targetblank205dc6ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2c646a7c6b93684fc8466e25bf7a574168b54a3ftargetblank2c646a7a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/205dc6c2081b2453431327af21fc6f8b678f3931" target="_blank">205dc6c</a>
+<a href="https://github.com/han16/Collaborations/tree/2c646a7c6b93684fc8466e25bf7a574168b54a3f" target="_blank">2c646a7</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree205dc6c2081b2453431327af21fc6f8b678f3931targetblank205dc6ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2c646a7c6b93684fc8466e25bf7a574168b54a3ftargetblank2c646a7a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/205dc6c2081b2453431327af21fc6f8b678f3931" target="_blank">205dc6c</a>.
+<a href="https://github.com/han16/Collaborations/tree/2c646a7c6b93684fc8466e25bf7a574168b54a3f" target="_blank">2c646a7</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2c646a7c6b93684fc8466e25bf7a574168b54a3f/analysis/2025_0302_Zainab.Rmd" target="_blank">2c646a7</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-12
+</td>
+<td>
+5/12/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/2c646a7c6b93684fc8466e25bf7a574168b54a3f/docs/2025_0302_Zainab.html" target="_blank">2c646a7</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-12
+</td>
+<td>
+5/12/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -872,6 +906,84 @@ MBSE_24=multiplesheets_without_headers((file.path(root, &quot;..\\2025\\202503\\
 <p>Explorer, sickle, universal, area specific is set up as the 24 probe
 with 4 lines per person Cumulative was not evaluated the same and should
 not be considered in the analysis `</p>
+<pre class="r"><code>side_by_side_bar_plot &lt;- function(combined_data, variable = &quot;probe&quot;) {
+  # Reshape the data from wide to long format
+  long_data &lt;- combined_data %&gt;%
+    pivot_longer(
+      cols = starts_with(paste0(variable, &quot;_&quot;)),
+      names_to = &quot;var_name&quot;,
+      values_to = &quot;value&quot;
+    ) %&gt;%
+    filter(!is.na(value))
+
+  # Create an ordered factor for correct x-axis ordering
+  num_vars &lt;- ncol(combined_data) - 1  # adjust if &#39;year&#39; is always last
+  long_data &lt;- long_data %&gt;%
+    mutate(
+      var_name = factor(var_name, levels = paste0(variable, &quot;_&quot;, 1:num_vars))
+    )
+
+  # Summarize data
+  summary_data &lt;- long_data %&gt;%
+    group_by(year, var_name) %&gt;%
+    summarise(
+      mean = mean(value, na.rm = TRUE),
+      se = sd(value, na.rm = TRUE) / sqrt(n()),
+      .groups = &#39;drop&#39;
+    )
+
+  # Plot
+  fig &lt;- ggplot(summary_data, aes(x = var_name, y = mean, fill = factor(year))) +
+    geom_bar(stat = &quot;identity&quot;, position = position_dodge(width = 0.9)) +
+    geom_errorbar(aes(ymin = mean - se, ymax = mean + se),
+                  position = position_dodge(width = 0.9), width = 0.2) +
+    labs(
+      title = &quot;&quot;,
+      x = &quot;&quot;,
+      y = &quot;Average score&quot;,
+      fill = &quot;Year&quot;
+    ) +
+    theme(axis.text.x = element_text(angle = 60, vjust = 0.5))
+
+  return(fig)
+}
+
+data_clean=function(data)
+{
+  student_names=unique(data$...1)
+  data_clean &lt;- data %&gt;% filter(`...1` %in% student_names) %&gt;%
+  arrange(factor(`...1`, levels = student_names)) %&gt;%
+  select(3:9) %&gt;%
+  as.matrix() %&gt;%
+  t() %&gt;%
+  as.vector() %&gt;%
+  matrix(nrow = length(student_names), byrow = TRUE)  
+
+  return(data_clean)
+  
+}
+
+compute_pvalue=function(data1, data2, variable)
+{
+  pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
+for (i in 1:ncol(data1))
+{
+  if (sum(!is.na(data1[, i])) &gt; 1 &amp;&amp; sum(!is.na(data2[, i])) &gt; 1) {
+  pvalue[i]=t.test(data1[, i], data2[, i])$p.value
+  pvalue2[i]=t.test(data1[, i], data2[, i], alternative =&quot;less&quot; )$p.value
+  pvalue3[i]=t.test(data1[, i], data2[, i], alternative =&quot;greater&quot; )$p.value
+} else {
+  pvalue[i]=&quot;NA&quot;
+  pvalue2[i]=&quot;NA&quot;
+  pvalue3[i]=&quot;NA&quot;
+  
+}
+  
+}
+  output=data.frame(questions=paste(variable, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))
+  return(output)
+  
+}</code></pre>
 <div id="probe" class="section level2">
 <h2>probe</h2>
 <pre class="r"><code>data_23=MBSE_23$`23 Probe`
@@ -882,32 +994,8 @@ num_rows=sapply(student_names, function(x) (data_24 %&gt;% filter(`...1`==x) %&g
 sum(num_rows==4)==length(num_rows)  # ensure all students have 4 rows </code></pre>
 <pre><code>[1] TRUE</code></pre>
 <pre class="r"><code>data_23_clean=data_23[,5:32]
-
-data_24_clean &lt;- data_24 %&gt;%
-  filter(`...1` %in% student_names) %&gt;%
-  arrange(factor(`...1`, levels = student_names)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names), byrow = TRUE)  
-
-pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;less&quot; )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;greater&quot; )$p.value
-} else {
-  pvalue[i]=&quot;NA&quot;
-  pvalue2[i]=&quot;NA&quot;
-  pvalue3[i]=&quot;NA&quot;
-  
-}
-  
-}
-  data.frame(questions=paste(&quot;probe&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%&gt;%
+data_24_clean=data_clean(data_24)
+compute_pvalue(data_23_clean, data_24_clean, &quot;probe&quot;) %&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -923,6 +1011,23 @@ equal year 24; small <code>pvalue2</code> suggests year 24 greater than
 year 23; small <code>pvalue3</code> suggests year 24 smaller than year
 23.</li>
 </ul>
+<pre class="r"><code>parameter=&quot;probe&quot;
+data_23_clean=data.frame(data_23[,5:32])
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year &lt;- &quot;2023&quot;
+data_24_clean$year &lt;- &quot;2024&quot;
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+
+# Step 2: Combine the datasets
+combined_data &lt;- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]=&quot;year&quot;
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig</code></pre>
+<p><img src="figure/2025_0302_Zainab.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="explorer" class="section level2">
 <h2>Explorer</h2>
@@ -937,43 +1042,12 @@ if (all(num_rows == 4)) print(&quot;Correct&quot;) else which(num_rows != 4)</co
 num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
 if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
 <pre><code>[1] &quot;Correct&quot;</code></pre>
-<pre class="r"><code>student_names_23=unique(data_23$...1)
-data_23_clean=data_23 %&gt;%
-  filter(`...1` %in% student_names_23) %&gt;%
-  arrange(factor(`...1`, levels = student_names_23)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names_23), byrow = TRUE)  
-
-data_24_clean &lt;- data_24 %&gt;%
-  filter(`...1` %in% student_names) %&gt;%
-  arrange(factor(`...1`, levels = student_names)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names), byrow = TRUE)  
+<pre class="r"><code>data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
 ncol(data_23_clean)==ncol(data_24_clean)</code></pre>
 <pre><code>[1] TRUE</code></pre>
-<pre class="r"><code>  pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;less&quot; )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;greater&quot; )$p.value
-} else {
-  pvalue[i]=&quot;NA&quot;
-  pvalue2[i]=&quot;NA&quot;
-  pvalue3[i]=&quot;NA&quot;
-  
-}
-  
-}
-  data.frame(questions=paste(&quot;probe&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%&gt;%
+<pre class="r"><code>compute_pvalue(data_23_clean, data_24_clean, &quot;Explorer&quot;) %&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -981,7 +1055,24 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["probe_1","probe_2","probe_3","probe_4","probe_5","probe_6","probe_7","probe_8","probe_9","probe_10","probe_11","probe_12","probe_13","probe_14","probe_15","probe_16","probe_17","probe_18","probe_19","probe_20","probe_21","probe_22","probe_23","probe_24","probe_25","probe_26","probe_27","probe_28"],["0.0004199","&lt;0.0001","0.002395","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000838","&lt;0.0001","0.0009472","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.1228","0.01457","0.02334","&lt;0.0001","0.0001997","&lt;0.0001","0.0003242","0.01583","0.001195","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000446","&lt;0.0001"],["0.9998","    1","0.9988","    1","    1","    1","    1","0.9996","    1","0.9995","    1","    1","    1","    1","0.9386","0.9927","0.9883","    1","0.9999","    1","0.9998","0.9921","0.9994","    1","    1","    1","0.9998","    1"],["0.00021","&lt;0.0001","0.001198","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000419","&lt;0.0001","0.0004736","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0614","0.007286","0.01167","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001621","0.007914","0.0005977","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000223","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["Explorer_1","Explorer_2","Explorer_3","Explorer_4","Explorer_5","Explorer_6","Explorer_7","Explorer_8","Explorer_9","Explorer_10","Explorer_11","Explorer_12","Explorer_13","Explorer_14","Explorer_15","Explorer_16","Explorer_17","Explorer_18","Explorer_19","Explorer_20","Explorer_21","Explorer_22","Explorer_23","Explorer_24","Explorer_25","Explorer_26","Explorer_27","Explorer_28"],["0.0004199","&lt;0.0001","0.002395","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000838","&lt;0.0001","0.0009472","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.1228","0.01457","0.02334","&lt;0.0001","0.0001997","&lt;0.0001","0.0003242","0.01583","0.001195","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000446","&lt;0.0001"],["0.9998","    1","0.9988","    1","    1","    1","    1","0.9996","    1","0.9995","    1","    1","    1","    1","0.9386","0.9927","0.9883","    1","0.9999","    1","0.9998","0.9921","0.9994","    1","    1","    1","0.9998","    1"],["0.00021","&lt;0.0001","0.001198","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000419","&lt;0.0001","0.0004736","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0614","0.007286","0.01167","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001621","0.007914","0.0005977","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.000223","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameter=&quot;Explorer&quot;
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year &lt;- &quot;2023&quot;
+data_24_clean$year &lt;- &quot;2024&quot;
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+
+# Step 2: Combine the datasets
+combined_data &lt;- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]=&quot;year&quot;
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig</code></pre>
+<p><img src="figure/2025_0302_Zainab.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="sickle" class="section level2">
 <h2>Sickle</h2>
@@ -996,40 +1087,12 @@ if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names[which(num_
 num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
 if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
 <pre><code>[1] &quot;Correct&quot;</code></pre>
-<pre class="r"><code>data_23_clean=data_23 %&gt;%
-  filter(`...1` %in% student_names_23) %&gt;%
-  arrange(factor(`...1`, levels = student_names_23)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names_23), byrow = TRUE) 
+<pre class="r"><code>data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
-data_24_clean &lt;- data_24 %&gt;%
-  filter(`...1` %in% student_names) %&gt;%
-  arrange(factor(`...1`, levels = student_names)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names), byrow = TRUE)  
-
-pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;less&quot; )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;greater&quot; )$p.value
-} else {
-  pvalue[i]=&quot;NA&quot;
-  pvalue2[i]=&quot;NA&quot;
-  pvalue3[i]=&quot;NA&quot;
-  
-}
-  
-}
-  data.frame(questions=paste(&quot;probe&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%&gt;%
+ncol(data_23_clean)==ncol(data_24_clean)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code>compute_pvalue(data_23_clean, data_24_clean, &quot;Sickle&quot;) %&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -1037,7 +1100,24 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["probe_1","probe_2","probe_3","probe_4","probe_5","probe_6","probe_7","probe_8","probe_9","probe_10","probe_11","probe_12","probe_13","probe_14","probe_15","probe_16","probe_17","probe_18","probe_19","probe_20","probe_21","probe_22","probe_23","probe_24","probe_25","probe_26","probe_27","probe_28"],["&lt;0.0001","0.0004005","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0002889","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0003706","0.007118","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"],["    1","0.9998","    1","    1","    1","    1","    1","    1","    1","0.9999","    1","    1","    1","    1","    1","    1","0.9998","0.9964","    1","    1","    1","    1","    1","    1","    1","    1","    1","    1"],["&lt;0.0001","0.0002003","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001445","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001853","0.003559","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["Sickle_1","Sickle_2","Sickle_3","Sickle_4","Sickle_5","Sickle_6","Sickle_7","Sickle_8","Sickle_9","Sickle_10","Sickle_11","Sickle_12","Sickle_13","Sickle_14","Sickle_15","Sickle_16","Sickle_17","Sickle_18","Sickle_19","Sickle_20","Sickle_21","Sickle_22","Sickle_23","Sickle_24","Sickle_25","Sickle_26","Sickle_27","Sickle_28"],["&lt;0.0001","0.0004005","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0002889","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0003706","0.007118","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"],["    1","0.9998","    1","    1","    1","    1","    1","    1","    1","0.9999","    1","    1","    1","    1","    1","    1","0.9998","0.9964","    1","    1","    1","    1","    1","    1","    1","    1","    1","    1"],["&lt;0.0001","0.0002003","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001445","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001853","0.003559","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameter=&quot;Sickler&quot;
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year &lt;- &quot;2023&quot;
+data_24_clean$year &lt;- &quot;2024&quot;
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+
+# Step 2: Combine the datasets
+combined_data &lt;- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]=&quot;year&quot;
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig</code></pre>
+<p><img src="figure/2025_0302_Zainab.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="universal" class="section level2">
 <h2>Universal</h2>
@@ -1052,42 +1132,12 @@ if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names[which(num_
 num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
 if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
 <pre><code>[1] &quot;Correct&quot;</code></pre>
-<pre class="r"><code>data_24_clean &lt;- data_24 %&gt;%
-  filter(`...1` %in% student_names) %&gt;%
-  arrange(factor(`...1`, levels = student_names)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names), byrow = TRUE)  
-
-data_23_clean &lt;- data_23 %&gt;%
-  filter(`...1` %in% student_names_23) %&gt;%
-  arrange(factor(`...1`, levels = student_names_23)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names_23), byrow = TRUE)  
+<pre class="r"><code>data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
 ncol(data_23_clean)==ncol(data_24_clean)</code></pre>
 <pre><code>[1] TRUE</code></pre>
-<pre class="r"><code>pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;less&quot; )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;greater&quot; )$p.value
-} else {
-  pvalue[i]=&quot;NA&quot;
-  pvalue2[i]=&quot;NA&quot;
-  pvalue3[i]=&quot;NA&quot;
-  
-}
-  
-}
-  data.frame(questions=paste(&quot;probe&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%&gt;%
+<pre class="r"><code>compute_pvalue(data_23_clean, data_24_clean, &quot;Universal&quot;) %&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -1095,7 +1145,24 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["probe_1","probe_2","probe_3","probe_4","probe_5","probe_6","probe_7","probe_8","probe_9","probe_10","probe_11","probe_12","probe_13","probe_14","probe_15","probe_16","probe_17","probe_18","probe_19","probe_20","probe_21","probe_22","probe_23","probe_24","probe_25","probe_26","probe_27","probe_28"],["&lt;0.0001","&lt;0.0001","0.001647","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.08222","&lt;0.0001","0.0004152","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001874","0.02216","&lt;0.0001","0.0001519","0.02478","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"],["    1","    1","0.9992","    1","    1","    1","    1","0.9589","    1","0.9998","    1","    1","    1","0.9999","0.9889","    1","0.9999","0.9876","    1","    1","    1","    1","    1","    1","    1","    1","    1","    1"],["&lt;0.0001","&lt;0.0001","0.0008236","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.04111","&lt;0.0001","0.0002076","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.01108","&lt;0.0001","&lt;0.0001","0.01239","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["Universal_1","Universal_2","Universal_3","Universal_4","Universal_5","Universal_6","Universal_7","Universal_8","Universal_9","Universal_10","Universal_11","Universal_12","Universal_13","Universal_14","Universal_15","Universal_16","Universal_17","Universal_18","Universal_19","Universal_20","Universal_21","Universal_22","Universal_23","Universal_24","Universal_25","Universal_26","Universal_27","Universal_28"],["&lt;0.0001","&lt;0.0001","0.001647","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.08222","&lt;0.0001","0.0004152","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.0001874","0.02216","&lt;0.0001","0.0001519","0.02478","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"],["    1","    1","0.9992","    1","    1","    1","    1","0.9589","    1","0.9998","    1","    1","    1","0.9999","0.9889","    1","0.9999","0.9876","    1","    1","    1","    1","    1","    1","    1","    1","    1","    1"],["&lt;0.0001","&lt;0.0001","0.0008236","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.04111","&lt;0.0001","0.0002076","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.01108","&lt;0.0001","&lt;0.0001","0.01239","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameter=&quot;Universal&quot;
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year &lt;- &quot;2023&quot;
+data_24_clean$year &lt;- &quot;2024&quot;
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+
+# Step 2: Combine the datasets
+combined_data &lt;- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]=&quot;year&quot;
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig</code></pre>
+<p><img src="figure/2025_0302_Zainab.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="area-specific" class="section level2">
 <h2>Area Specific</h2>
@@ -1110,40 +1177,12 @@ if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names[which(num_
 num_rows=sapply(student_names_23, function(x) (data_23 %&gt;% filter(`...1`==x) %&gt;% nrow()))
 if (all(num_rows == 4)) print(&quot;Correct&quot;) else student_names_23[which(num_rows != 4)] # ensure all students have 4 rows </code></pre>
 <pre><code>[1] &quot;Correct&quot;</code></pre>
-<pre class="r"><code>data_23_clean &lt;- data_23 %&gt;%
-  filter(`...1` %in% student_names_23) %&gt;%
-  arrange(factor(`...1`, levels = student_names_23)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names_23), byrow = TRUE) 
+<pre class="r"><code>data_23_clean=data_clean(data_23) 
+data_24_clean=data_clean(data_24) 
 
-data_24_clean &lt;- data_24 %&gt;%
-  filter(`...1` %in% student_names) %&gt;%
-  arrange(factor(`...1`, levels = student_names)) %&gt;%
-  select(3:9) %&gt;%
-  as.matrix() %&gt;%
-  t() %&gt;%
-  as.vector() %&gt;%
-  matrix(nrow = length(student_names), byrow = TRUE)  
-
-pvalue=numeric(); pvalue2=numeric(); pvalue3=numeric()
-for (i in 1:ncol(data_23_clean))
-{
-  if (sum(!is.na(data_23_clean[, i])) &gt; 1 &amp;&amp; sum(!is.na(data_24_clean[, i])) &gt; 1) {
-  pvalue[i]=t.test(data_23_clean[, i], data_24_clean[, i])$p.value
-  pvalue2[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;less&quot; )$p.value
-  pvalue3[i]=t.test(data_23_clean[, i], data_24_clean[, i], alternative =&quot;greater&quot; )$p.value
-} else {
-  pvalue[i]=&quot;NA&quot;
-  pvalue2[i]=&quot;NA&quot;
-  pvalue3[i]=&quot;NA&quot;
-  
-}
-  
-}
-  data.frame(questions=paste(&quot;probe&quot;, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;), pvalue=pvalue_adjust(pvalue), pvalue2=pvalue_adjust(pvalue2), pvalue3=pvalue_adjust(pvalue3))%&gt;%
+ncol(data_23_clean)==ncol(data_24_clean)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code>compute_pvalue(data_23_clean, data_24_clean, &quot;Area_Specific&quot;) %&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;,
             options = list(dom = &#39;Blfrtip&#39;,
@@ -1151,7 +1190,24 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["probe_1","probe_2","probe_3","probe_4","probe_5","probe_6","probe_7","probe_8","probe_9","probe_10","probe_11","probe_12","probe_13","probe_14","probe_15","probe_16","probe_17","probe_18","probe_19","probe_20","probe_21","probe_22","probe_23","probe_24","probe_25","probe_26","probe_27","probe_28"],["0.009005","0.7704","0.001302","0.2517","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.2524","0.1224","0.02643","0.0002894","&lt;0.0001","0.001981","0.002045","0.1786","0.3211","0.007994","0.003667","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.1983","0.3071","0.00208","0.06179","&lt;0.0001","&lt;0.0001","&lt;0.0001"],["0.9955","0.6148","0.9993","0.8742","    1","    1","    1","0.8738","0.9388","0.9868","0.9999","    1","0.999","0.999","0.9107","0.8395","0.996","0.9982","    1","    1","    1","0.9008","0.8464","0.999","0.9691","    1","    1","    1"],["0.004502","0.3852","0.0006509","0.1258","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.1262","0.06122","0.01322","0.0001447","&lt;0.0001","0.0009906","0.001022","0.08932","0.1605","0.003997","0.001833","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.09916","0.1536","0.00104","0.0309","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["Area_Specific_1","Area_Specific_2","Area_Specific_3","Area_Specific_4","Area_Specific_5","Area_Specific_6","Area_Specific_7","Area_Specific_8","Area_Specific_9","Area_Specific_10","Area_Specific_11","Area_Specific_12","Area_Specific_13","Area_Specific_14","Area_Specific_15","Area_Specific_16","Area_Specific_17","Area_Specific_18","Area_Specific_19","Area_Specific_20","Area_Specific_21","Area_Specific_22","Area_Specific_23","Area_Specific_24","Area_Specific_25","Area_Specific_26","Area_Specific_27","Area_Specific_28"],["0.009005","0.7704","0.001302","0.2517","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.2524","0.1224","0.02643","0.0002894","&lt;0.0001","0.001981","0.002045","0.1786","0.3211","0.007994","0.003667","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.1983","0.3071","0.00208","0.06179","&lt;0.0001","&lt;0.0001","&lt;0.0001"],["0.9955","0.6148","0.9993","0.8742","    1","    1","    1","0.8738","0.9388","0.9868","0.9999","    1","0.999","0.999","0.9107","0.8395","0.996","0.9982","    1","    1","    1","0.9008","0.8464","0.999","0.9691","    1","    1","    1"],["0.004502","0.3852","0.0006509","0.1258","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.1262","0.06122","0.01322","0.0001447","&lt;0.0001","0.0009906","0.001022","0.08932","0.1605","0.003997","0.001833","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.09916","0.1536","0.00104","0.0309","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>questions<\/th>\n      <th>pvalue<\/th>\n      <th>pvalue2<\/th>\n      <th>pvalue3<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"questions","targets":1},{"name":"pvalue","targets":2},{"name":"pvalue2","targets":3},{"name":"pvalue3","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>parameter=&quot;Area_Specific&quot;
+data_23_clean=data.frame(data_clean(data_23))
+data_24_clean=data.frame(data_clean(data_24))
+
+# Step 1: Add group labels
+data_23_clean$year &lt;- &quot;2023&quot;
+data_24_clean$year &lt;- &quot;2024&quot;
+colnames(data_23_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+colnames(data_24_clean)=paste(parameter, seq(1:ncol(data_23_clean)), sep=&quot;_&quot;)
+
+# Step 2: Combine the datasets
+combined_data &lt;- bind_rows(data_23_clean, data_24_clean)
+colnames(combined_data)[ncol(combined_data)]=&quot;year&quot;
+
+fig=side_by_side_bar_plot(combined_data, variable=parameter)
+fig</code></pre>
+<p><img src="figure/2025_0302_Zainab.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cumulative" class="section level2">
 <h2>Cumulative</h2>
@@ -1242,28 +1298,29 @@ loaded via a namespace (and not attached):
  [4] magrittr_2.0.3       git2r_0.35.0         compiler_4.3.2      
  [7] systemfonts_1.2.1    vctrs_0.6.5          profvis_0.4.0       
 [10] pkgconfig_2.0.3      fastmap_1.2.0        backports_1.5.0     
-[13] ellipsis_0.3.2       promises_1.3.2       rmarkdown_2.29      
-[16] sessioninfo_1.2.2    tzdb_0.4.0           xfun_0.50.6         
-[19] cachem_1.1.0         jsonlite_1.8.9       later_1.4.1         
-[22] broom_1.0.7          R6_2.5.1             bslib_0.9.0         
-[25] stringi_1.8.3        car_3.1-3            pkgload_1.4.0       
-[28] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.0.11         
-[31] knitr_1.49           httpuv_1.6.15        Matrix_1.6-1.1      
-[34] splines_4.3.2        timechange_0.3.0     tidyselect_1.2.1    
-[37] rstudioapi_0.17.1    abind_1.4-8          yaml_2.3.8          
-[40] miniUI_0.1.1.1       pkgbuild_1.4.6       lattice_0.21-9      
-[43] shiny_1.10.0         withr_3.0.2          evaluate_1.0.3      
-[46] lambda.r_1.2.4       survival_3.8-3       urlchecker_1.0.1    
-[49] xml2_1.3.6           pillar_1.10.1        carData_3.0-5       
-[52] whisker_0.4.1        generics_0.1.3       hms_1.1.3           
-[55] munsell_0.5.1        scales_1.3.0         xtable_1.8-4        
-[58] glue_1.8.0           tools_4.3.2          ggsignif_0.6.4      
-[61] fs_1.6.5             crosstalk_1.2.1      colorspace_2.1-0    
-[64] Formula_1.2-5        cli_3.6.2            workflowr_1.7.1     
-[67] futile.options_1.0.1 viridisLite_0.4.2    svglite_2.1.3       
-[70] gtable_0.3.6         sass_0.4.9           digest_0.6.33       
-[73] htmlwidgets_1.6.4    memoise_2.0.1        htmltools_0.5.8.1   
-[76] lifecycle_1.0.4      mime_0.12           </code></pre>
+[13] ellipsis_0.3.2       labeling_0.4.3       promises_1.3.2      
+[16] rmarkdown_2.29       sessioninfo_1.2.2    tzdb_0.4.0          
+[19] xfun_0.50.6          cachem_1.1.0         jsonlite_1.8.9      
+[22] later_1.4.1          broom_1.0.7          R6_2.5.1            
+[25] bslib_0.9.0          stringi_1.8.3        car_3.1-3           
+[28] pkgload_1.4.0        jquerylib_0.1.4      cellranger_1.1.0    
+[31] Rcpp_1.0.11          knitr_1.49           httpuv_1.6.15       
+[34] Matrix_1.6-1.1       splines_4.3.2        timechange_0.3.0    
+[37] tidyselect_1.2.1     rstudioapi_0.17.1    abind_1.4-8         
+[40] yaml_2.3.8           miniUI_0.1.1.1       pkgbuild_1.4.6      
+[43] lattice_0.21-9       shiny_1.10.0         withr_3.0.2         
+[46] evaluate_1.0.3       lambda.r_1.2.4       survival_3.8-3      
+[49] urlchecker_1.0.1     xml2_1.3.6           pillar_1.10.1       
+[52] carData_3.0-5        whisker_0.4.1        generics_0.1.3      
+[55] hms_1.1.3            munsell_0.5.1        scales_1.3.0        
+[58] xtable_1.8-4         glue_1.8.0           tools_4.3.2         
+[61] ggsignif_0.6.4       fs_1.6.5             crosstalk_1.2.1     
+[64] colorspace_2.1-0     Formula_1.2-5        cli_3.6.2           
+[67] workflowr_1.7.1      futile.options_1.0.1 viridisLite_0.4.2   
+[70] svglite_2.1.3        gtable_0.3.6         sass_0.4.9          
+[73] digest_0.6.33        farver_2.1.2         htmlwidgets_1.6.4   
+[76] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
+[79] mime_0.12           </code></pre>
 </div>
 </div>
 
