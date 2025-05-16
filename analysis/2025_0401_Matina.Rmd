@@ -204,18 +204,21 @@ surv_obj <- Surv(time = SDF_data_tooth_type$Time, event = SDF_data_tooth_type$Ev
 # Step 2: Fit the survival curves by Tooth_Type
 fit <- survfit(surv_obj ~ Tooth_Type, data = SDF_data_tooth_type)
 
-# Step 3: Plot with smaller font size in risk table
+# Step 3: Plot with risk table ticks at 0m, 3m, 6m, ..., 24m
 ggsurvplot(fit, data = SDF_data_tooth_type,
            pval = TRUE,
            risk.table = TRUE,
-           risk.table.fontsize = 2,  # <-- adjust this number (default is ~4.5)
+           risk.table.fontsize = 1.8,
            legend.title = "Tooth Type",
            legend.labs = levels(factor(SDF_data_tooth_type$Tooth_Type)),
            xlab = "Time (months)",
-           ylab = "Survival probability",
+           ylab = "Survival Probability",
+           xlim = c(0, 24),                              # Include 0 to 24 months
+           break.time.by = 3,                            # Tick marks every 3 months
+           risk.table.breaks = seq(0, 24, 3),            # Risk table at 0, 3, 6, ..., 24
            ggtheme = theme_minimal())
 ```
-* p value of 0.0054 indicates significant difference across tooth types 
+* p value of 0.0071 indicates significant difference across tooth types 
 
 
 ### cox proportional hazard models 
@@ -224,13 +227,30 @@ ggsurvplot(fit, data = SDF_data_tooth_type,
 cox_model <- coxph(Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
 summary(cox_model)
 ```
-*  All molar types have significantly longer survival than anterior teeth. The hazard of failure is much lower for molars.
+* Lower 2nd molars and upper 1st molars have significantly better survival than anterior teeth.
 
-* Hazard Ratios (`exp(coef)`) < 1 mean better survival
+* Hazard Ratios (HR) less than 1 indicate lower risk of failure.
 
-* `Score (logrank) test = 12.5  on 4 df,   p=0.01` survival curves differ significantly across teeth types. 
+* Lower 2nd molar (HR = 0.10) shows the strongest protective effect, with a 90% reduction in hazard compared to anterior teeth.
 
-*  Compared to anterior teeth, all molar types (lower 1st, lower 2nd, upper 1st, upper 2nd) show significantly better survival, with hazard ratios ranging from 0.22 to 0.35. This means molars have a 65–78% lower risk of failure over time compared to anterior teeth. 
+* The model is statistically significant overall (Likelihood ratio p = 0.009).
+
+
+```{r, message=F, warning=F}
+# Fit Cox model again (if not already done)
+cox_fit <- coxph(Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
+
+# Create the forest plot
+ggforest(cox_fit,
+         data = SDF_data_tooth_type,
+         main = "Hazard Ratios by Tooth Type",
+         cpositions = c(0.02, 0.22, 0.4),   # Adjust column spacing
+         fontsize = 1.0,                    # Adjust text size
+         refLabel = "Anterior (Reference)",
+         noDigits = 2)
+```
+
+
 
 
 ## full model, including all covariates 
@@ -238,43 +258,53 @@ summary(cox_model)
 
 ```{r, message=F, warning=F}
 coxph(Surv(Time, Event) ~ Tooth_Type + Age + Sex + SSC, data = SDF_data_tooth_type)
+# Create the contingency table
+ssc_event_table <- table(SDF_data_tooth_type$SSC, SDF_data_tooth_type$Event)
+
+# Assign row and column names
+rownames(ssc_event_table) <- c("No SSC", "SSC")
+colnames(ssc_event_table) <- c("Failure (0)", "Success (1)")
+
+# View the table
+ssc_event_table
 ```
 
 
-Interpretation of Coefficients
+👶 Age
+HR = 0.85, p = 0.039 ✅
 
-* Tooth_Type (Reference: anterior)
+Interpretation: Each 1-unit increase in age (one month) is associated with a 15% decrease in hazard of failure
 
-Compared to anterior teeth:
+Suggests older children may have better treatment survival
 
-Lower 1st molar: HR = 0.093 (p < 0.001)
-→ 91% lower hazard; significantly better survival.
+🚻 Sex
+HR = 0.49, p = 0.042 ✅ male=1 ,, female=2
 
-Lower 2nd molar: HR = 0.101 (p < 0.001)
-→ 90% lower hazard; significantly better survival.
+* Female teeth had a 51% lower hazard of failure compared to male teeth, and this difference is statistically significant.
 
-Upper 1st molar: HR = 0.153 (p < 0.001)
-→ 85% lower hazard; significantly better survival.
+🦷 SSC (Stainless Steel Crown)
+HR ≈ 0, p = 0.996 ❌
 
-Upper 2nd molar: HR = 0.083 (p < 0.001)
-→ 92% lower hazard; significantly better survival.
+Interpretation: No association between SSC placement and outcome in this model. Also, the standard error is huge (3609), suggesting possible data imbalance or collinearity (e.g., almost all with SSC succeeded or failed).
 
-* Age: HR = 1.18 (p = 0.0015)
-→ For every one-month increase in age, the hazard increases by 18%. Older patients tend to have worse survival.
+✅ Summary
+Age and Sex are significant predictors of treatment survival.
 
-* Sex: HR = 1.18 (p = 0.37)
-→ Not statistically significant. There is no strong evidence that survival differs by sex.
+Tooth type loses significance after adjustment, except a marginal trend for lower 2nd molars.
 
-* SSC (Reference: 0 = No SSC): HR = 1.72 (p = 0.039)
-→ Teeth with SSC have a 72% higher hazard, indicating worse survival, and the result is statistically significant.
+SSC variable is problematic — investigate its coding or data variability.
 
-* Model Fit Statistics
-Likelihood ratio test: p = 0.0039
+Model is statistically significant as a whole (p < 0.001), indicating good overall explanatory power.
 
-Wald test: p = 0.0039
+```{r, message=F, warning=F, eval=F}
+# Fit the Cox model
+cox_fit <- coxph(Surv(Time, Event) ~ Tooth_Type + Age + Sex + SSC, data = SDF_data_tooth_type)
 
-Number of observations: 159
-
-Number of events: 119
-
-The model fit is statistically significant, suggesting that at least one predictor is significantly associated with survival.
+# Generate forest plot
+ggforest(cox_fit,
+         data = SDF_data_tooth_type,
+         main = "Forest Plot of Cox Model",
+         fontsize = 1.0,                 # Adjust font size
+         refLabel = "Anterior (ref)",    # Label reference level
+         noDigits = 2)                   # Round numbers to 2 decimal places
+```
