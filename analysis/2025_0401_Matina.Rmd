@@ -115,6 +115,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
+* success is defined as `1`, `4` and `NA` following these two values
 
 
 ```{r, message=F, warning=F}
