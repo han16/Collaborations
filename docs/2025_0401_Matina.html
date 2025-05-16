@@ -37,6 +37,23 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -400,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-05-13
+<strong>Last updated:</strong> 2025-05-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree980046d1e6db3bd26392d8b55db086288e5fe827targetblank980046da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef9ad2253412e91de654d370a24df924c286592f4targetblankf9ad225a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/980046d1e6db3bd26392d8b55db086288e5fe827" target="_blank">980046d</a>
+<a href="https://github.com/han16/Collaborations/tree/f9ad2253412e91de654d370a24df924c286592f4" target="_blank">f9ad225</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree980046d1e6db3bd26392d8b55db086288e5fe827targetblank980046da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef9ad2253412e91de654d370a24df924c286592f4targetblankf9ad225a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/980046d1e6db3bd26392d8b55db086288e5fe827" target="_blank">980046d</a>.
+<a href="https://github.com/han16/Collaborations/tree/f9ad2253412e91de654d370a24df924c286592f4" target="_blank">f9ad225</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -618,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f9ad2253412e91de654d370a24df924c286592f4/analysis/2025_0401_Matina.Rmd" target="_blank">f9ad225</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-13
+</td>
+<td>
+5/13/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/f9ad2253412e91de654d370a24df924c286592f4/docs/2025_0401_Matina.html" target="_blank">f9ad225</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-05-13
+</td>
+<td>
+5/13/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -769,109 +820,102 @@ SDF_data=SDF$Sheet1
 # Define the follow-up columns
 followup_cols &lt;- c(&quot;3m&quot;, &quot;6m&quot;, &quot;9m&quot;, &quot;12m&quot;, &quot;15m&quot;, &quot;18m&quot;, &quot;24m&quot;)
 
-# Extract the numeric months from the column names
-months &lt;- as.numeric(sub(&quot;m&quot;, &quot;&quot;, followup_cols))
+# Define success values
+success_vals &lt;- c(1, NA, 4)
 
-# Function to find the last time point with value 1
-get_last_1_time &lt;- function(row) {
-  vals &lt;- as.numeric(row[followup_cols])
-  if (all(is.na(vals)) || all(vals != 1, na.rm = TRUE)) return(NA)
-  max(months[which(vals == 1)])
+# Function to calculate survival time
+get_survival_time &lt;- function(row) {
+  months &lt;- c(3, 6, 9, 12, 15, 18, 24)
+  values &lt;- as.numeric(row[c(&quot;3m&quot;, &quot;6m&quot;, &quot;9m&quot;, &quot;12m&quot;, &quot;15m&quot;, &quot;18m&quot;, &quot;24m&quot;)])
+  
+  # Loop through each time point and find when the first failure occurs
+  for (i in seq_along(values)) {
+    if (!is.na(values[i]) &amp;&amp; !(values[i] %in% success_vals)) {
+      return(months[i - 1 ])  # Return survival time just before failure
+    }
+  }
+
+  # If no failure found, return the last time point with a non-NA value
+  last_success_index &lt;- max(which(is.na(values) | values %in% success_vals), na.rm = TRUE)
+  return(months[last_success_index])
 }
 
-# Apply the function to each row
-SDF_data$Time &lt;- apply(SDF_data, 1, get_last_1_time)</code></pre>
+# Apply function row-wise
+SDF_data$Time &lt;- apply(SDF_data, 1, get_survival_time)
+
+SDF_data</code></pre>
 <div id="overall-success-rate" class="section level2">
 <h2>overall success rate</h2>
-<pre class="r"><code># Assuming &#39;1&#39; in the outcome column means success
-success_rate &lt;- colMeans(SDF_data[followup_cols] == 1, na.rm = TRUE)
+<pre class="r"><code># Define values considered immediate successes
+success_vals &lt;- c(1, 4)
 
+# Time point columns
+time_points &lt;- c(&quot;3m&quot;, &quot;6m&quot;, &quot;9m&quot;, &quot;12m&quot;, &quot;15m&quot;, &quot;18m&quot;, &quot;24m&quot;)
 
-# Define success rates
-success_rate &lt;- c(`3m` = 1.0000000,
-                  `6m` = 0.9559748,
-                  `9m` = 0.9119497,
-                  `12m` = 0.8176101,
-                  `15m` = 0.7352941,
-                  `18m` = 0.6093750,
-                  `24m` = 0.4000000)
+# Function to compute per-row success with correct rule
+check_success_corrected &lt;- function(values) {
+  status &lt;- logical(length(values))
+  had_success &lt;- FALSE
+  failed &lt;- FALSE
+  
+  for (i in seq_along(values)) {
+    val &lt;- values[i]
+    
+    if (failed) {
+      status[i] &lt;- FALSE  # All after a failure are failures
+    } else if (!is.na(val) &amp;&amp; val %in% success_vals) {
+      status[i] &lt;- TRUE
+      had_success &lt;- TRUE
+    } else if (is.na(val) &amp;&amp; had_success) {
+      status[i] &lt;- TRUE
+    } else {
+      status[i] &lt;- FALSE
+      failed &lt;- TRUE
+    }
+  }
+  
+  return(status)
+}
 
-# Convert to data frame
-df &lt;- data.frame(
-  Month = factor(names(success_rate), levels = names(success_rate)),  # preserve order
-  Rate = as.numeric(success_rate)
+# Apply to each row in the dataset
+success_matrix &lt;- t(apply(SDF_data[, time_points], 1, check_success_corrected))
+
+# Calculate survival rate: proportion of successes at each time point
+survival_rate &lt;- colSums(success_matrix, na.rm = TRUE) / nrow(SDF_data)
+
+# Create survival rate data frame
+survival_df &lt;- data.frame(
+  Time = time_points,
+  SurvivalRate = round(survival_rate, 3)
 )
 
-# Plot with distinct colors per bar
-ggplot(df, aes(x = Month, y = Rate, fill = Month)) +
+survival_df%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7"],["3m","6m","9m","12m","15m","18m","24m"],[1,0.962,0.925,0.874,0.836,0.774,0.755]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Time<\/th>\n      <th>SurvivalRate<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Time","targets":1},{"name":"SurvivalRate","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code># Ensure &#39;Time&#39; is treated as a factor with the correct order
+survival_df$Time &lt;- factor(survival_df$Time, levels = c(&quot;3m&quot;, &quot;6m&quot;, &quot;9m&quot;, &quot;12m&quot;, &quot;15m&quot;, &quot;18m&quot;, &quot;24m&quot;))
+
+# Convert rate to percent
+survival_df$SurvivalPercent &lt;- survival_df$SurvivalRate * 100
+
+# Plot with distinct colors for each bar
+ggplot(survival_df, aes(x = Time, y = SurvivalPercent, fill = Time)) +
   geom_bar(stat = &quot;identity&quot;) +
-  geom_text(aes(label = sprintf(&quot;%.2f&quot;, Rate)),
+  geom_text(aes(label = paste0(round(SurvivalPercent, 1), &quot;%&quot;)),
             vjust = -0.5, size = 4) +
+  scale_fill_brewer(palette = &quot;Set3&quot;) +  # Nice, distinguishable colors
   labs(title = &quot;&quot;,
-       x = &quot;Follow-up Time (Months)&quot;,
-       y = &quot;Success Rate&quot;) +
-  ylim(0, 1.1) +
-  theme(legend.position = &quot;none&quot;)  # optional: hide legend if not needed</code></pre>
-<p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/6d5502474605eef9f308ba16b38b3692973b370c/docs/figure/2025_0401_Matina.Rmd/unnamed-chunk-3-1.png" target="_blank">6d55024</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-05-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code># Load required libraries
-library(survival)
-library(survminer)
-
-# Create event indicator: 1 for success, 0 otherwise
-SDF_data$Event &lt;- ifelse(SDF_data$outcome == 1, 1, 0)
-
-# Create a Surv object (time and event)
-surv_obj &lt;- Surv(time = SDF_data$Time, event = SDF_data$Event)
-
-# Fit Kaplan-Meier model using the data argument
-km_fit &lt;- survfit(surv_obj ~ 1, data = SDF_data)
-
-# Now plot with ggsurvplot, explicitly providing the data
-ggsurvplot(km_fit,
-           data = SDF_data,
-           conf.int = TRUE,
-           risk.table = TRUE,
-           title = &quot;Success Curve&quot;,
-           xlab = &quot;Time (months)&quot;,
-           ylab = &quot;Probability of Success&quot;,
-           surv.scale = &quot;percent&quot;)</code></pre>
+       x = &quot;Time Point&quot;,
+       y = &quot;Survival Rate (%)&quot;) +
+  ylim(0,110)+
+  #theme_minimal() +
+  theme(legend.position = &quot;none&quot;)  # Remove legend since colors match x-axis</code></pre>
 <p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -910,9 +954,41 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code># Load required libraries
+library(survival)
+library(survminer)
+
+# Create event indicator: 1 for success, 0 otherwise
+SDF_data$Event &lt;- ifelse(SDF_data$outcome == 1, 0, 1)
+
+# Create a Surv object (time and event)
+surv_obj &lt;- Surv(time = SDF_data$Time, event = SDF_data$Event)
+
+# Fit Kaplan-Meier model using the data argument
+km_fit &lt;- survfit(surv_obj ~ 1, data = SDF_data)
+
+
+
+ggsurvplot(
+  km_fit,
+  data = SDF_data,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  xlab = &quot;Time (months)&quot;,
+  ylab = &quot;Success Probability&quot;,
+  title = &quot;Kaplan-Meier Curve of Treatment Success&quot;,
+  palette = &quot;red&quot;,
+  break.time.by = 3,                            # Tick marks at 0, 3, 6, ..., 24
+  xlim = c(0, 24),                              # Include 0-month baseline
+  risk.table.breaks = seq(0, 24, 3),            # Risk table also starts from 0
+  risk.table.y.text.col = TRUE,
+  risk.table.height = 0.25
+)</code></pre>
+<p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
-<li>for outcome, treat <code>1</code> as success and failure
-otherwise.</li>
+<li>for outcome, treat <code>1</code> as success and failure otherwise,
+but in survival data, that’s the opposite, <code>1</code> denotes
+failure and <code>0</code> no failure</li>
 </ul>
 </div>
 <div id="survival-by-tooth-types" class="section level2">
@@ -948,48 +1024,9 @@ ggsurvplot(fit, data = SDF_data_tooth_type,
            xlab = &quot;Time (months)&quot;,
            ylab = &quot;Survival probability&quot;,
            ggtheme = theme_minimal())</code></pre>
-<p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/980046d1e6db3bd26392d8b55db086288e5fe827/docs/figure/2025_0401_Matina.Rmd/unnamed-chunk-6-1.png" target="_blank">980046d</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-05-13
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li>p value of 0.0054 indicates significant difference across tooth
-types</li>
-</ul>
+<p><img src="figure/2025_0401_Matina.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+* p value of 0.0054 indicates significant difference across tooth
+types</p>
 <div id="cox-proportional-hazard-models" class="section level3">
 <h3>cox proportional hazard models</h3>
 <pre class="r"><code>cox_model &lt;- coxph(Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
@@ -997,26 +1034,26 @@ summary(cox_model)</code></pre>
 <pre><code>Call:
 coxph(formula = Surv(Time, Event) ~ Tooth_Type, data = SDF_data_tooth_type)
 
-  n= 159, number of events= 119 
+  n= 159, number of events= 40 
 
                              coef exp(coef) se(coef)      z Pr(&gt;|z|)   
-Tooth_Typelower 1st molar -1.5303    0.2165   0.5183 -2.953  0.00315 **
-Tooth_Typelower 2nd molar -1.3316    0.2640   0.5014 -2.656  0.00791 **
-Tooth_Typeupper 1st molar -1.0459    0.3514   0.4910 -2.130  0.03314 * 
-Tooth_Typeupper 2nd molar -1.4565    0.2331   0.5266 -2.766  0.00568 **
+Tooth_Typelower 1st molar -0.6223    0.5367   0.5330 -1.167  0.24307   
+Tooth_Typelower 2nd molar -2.2650    0.1038   0.7313 -3.097  0.00195 **
+Tooth_Typeupper 1st molar -1.2417    0.2889   0.5335 -2.328  0.01993 * 
+Tooth_Typeupper 2nd molar -0.9026    0.4055   0.5714 -1.580  0.11420   
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
                           exp(coef) exp(-coef) lower .95 upper .95
-Tooth_Typelower 1st molar    0.2165      4.619   0.07839    0.5978
-Tooth_Typelower 2nd molar    0.2640      3.787   0.09883    0.7055
-Tooth_Typeupper 1st molar    0.3514      2.846   0.13423    0.9198
-Tooth_Typeupper 2nd molar    0.2331      4.291   0.08303    0.6542
+Tooth_Typelower 1st molar    0.5367      1.863   0.18881    1.5258
+Tooth_Typelower 2nd molar    0.1038      9.631   0.02476    0.4353
+Tooth_Typeupper 1st molar    0.2889      3.462   0.10154    0.8219
+Tooth_Typeupper 2nd molar    0.4055      2.466   0.13232    1.2428
 
-Concordance= 0.625  (se = 0.036 )
-Likelihood ratio test= 9.5  on 4 df,   p=0.05
-Wald test            = 11.31  on 4 df,   p=0.02
-Score (logrank) test = 12.5  on 4 df,   p=0.01</code></pre>
+Concordance= 0.663  (se = 0.045 )
+Likelihood ratio test= 13.41  on 4 df,   p=0.009
+Wald test            = 11.92  on 4 df,   p=0.02
+Score (logrank) test = 14.17  on 4 df,   p=0.007</code></pre>
 <ul>
 <li><p>All molar types have significantly longer survival than anterior
 teeth. The hazard of failure is much lower for molars.</p></li>
@@ -1038,17 +1075,17 @@ lower risk of failure over time compared to anterior teeth.</p></li>
 coxph(formula = Surv(Time, Event) ~ Tooth_Type + Age + Sex + 
     SSC, data = SDF_data_tooth_type)
 
-                              coef exp(coef) se(coef)      z        p
-Tooth_Typelower 1st molar -2.37105   0.09338  0.58261 -4.070 4.71e-05
-Tooth_Typelower 2nd molar -2.28810   0.10146  0.59336 -3.856 0.000115
-Tooth_Typeupper 1st molar -1.87866   0.15279  0.55963 -3.357 0.000788
-Tooth_Typeupper 2nd molar -2.48388   0.08342  0.62591 -3.968 7.23e-05
-Age                        0.16540   1.17986  0.05199  3.181 0.001467
-Sex                        0.16850   1.18353  0.18792  0.897 0.369906
-SSC                        0.54078   1.71735  0.26289  2.057 0.039682
+                                coef  exp(coef)   se(coef)      z      p
+Tooth_Typelower 1st molar  7.718e-02  1.080e+00  6.426e-01  0.120 0.9044
+Tooth_Typelower 2nd molar -1.344e+00  2.608e-01  8.116e-01 -1.656 0.0977
+Tooth_Typeupper 1st molar -4.332e-01  6.484e-01  6.502e-01 -0.666 0.5052
+Tooth_Typeupper 2nd molar -1.472e-01  8.631e-01  7.125e-01 -0.207 0.8364
+Age                       -1.641e-01  8.487e-01  7.940e-02 -2.067 0.0388
+Sex                       -7.112e-01  4.911e-01  3.502e-01 -2.031 0.0423
+SSC                       -1.853e+01  8.940e-09  3.609e+03 -0.005 0.9959
 
-Likelihood ratio test=20.9  on 7 df, p=0.003915
-n= 159, number of events= 119 </code></pre>
+Likelihood ratio test=33.82  on 7 df, p=1.863e-05
+n= 159, number of events= 40 </code></pre>
 <p>Interpretation of Coefficients</p>
 <ul>
 <li>Tooth_Type (Reference: anterior)</li>
@@ -1130,27 +1167,28 @@ loaded via a namespace (and not attached):
 [16] promises_1.3.2       rmarkdown_2.29       markdown_1.13       
 [19] sessioninfo_1.2.2    tzdb_0.4.0           xfun_0.50.6         
 [22] cachem_1.1.0         jsonlite_1.8.9       later_1.4.1         
-[25] broom_1.0.7          R6_2.5.1             bslib_0.9.0         
-[28] stringi_1.8.3        car_3.1-3            pkgload_1.4.0       
-[31] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.0.11         
-[34] knitr_1.49           zoo_1.8-14           httpuv_1.6.15       
-[37] Matrix_1.6-1.1       splines_4.3.2        timechange_0.3.0    
-[40] tidyselect_1.2.1     rstudioapi_0.17.1    abind_1.4-8         
-[43] yaml_2.3.8           ggtext_0.1.2         miniUI_0.1.1.1      
-[46] pkgbuild_1.4.6       lattice_0.21-9       shiny_1.10.0        
-[49] withr_3.0.2          evaluate_1.0.3       lambda.r_1.2.4      
-[52] urlchecker_1.0.1     xml2_1.3.6           survMisc_0.5.6      
-[55] pillar_1.10.1        carData_3.0-5        whisker_0.4.1       
-[58] generics_0.1.3       hms_1.1.3            commonmark_1.9.2    
-[61] munsell_0.5.1        scales_1.3.0         xtable_1.8-4        
-[64] glue_1.8.0           tools_4.3.2          data.table_1.16.4   
-[67] ggsignif_0.6.4       fs_1.6.5             colorspace_2.1-0    
-[70] Formula_1.2-5        cli_3.6.2            km.ci_0.5-6         
-[73] workflowr_1.7.1      futile.options_1.0.1 viridisLite_0.4.2   
-[76] svglite_2.1.3        gtable_0.3.6         sass_0.4.9          
-[79] digest_0.6.33        farver_2.1.2         htmlwidgets_1.6.4   
-[82] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
-[85] mime_0.12            gridtext_0.1.5      </code></pre>
+[25] broom_1.0.7          R6_2.5.1             RColorBrewer_1.1-3  
+[28] bslib_0.9.0          stringi_1.8.3        car_3.1-3           
+[31] pkgload_1.4.0        jquerylib_0.1.4      cellranger_1.1.0    
+[34] Rcpp_1.0.11          knitr_1.49           zoo_1.8-14          
+[37] httpuv_1.6.15        Matrix_1.6-1.1       splines_4.3.2       
+[40] timechange_0.3.0     tidyselect_1.2.1     rstudioapi_0.17.1   
+[43] abind_1.4-8          yaml_2.3.8           ggtext_0.1.2        
+[46] miniUI_0.1.1.1       pkgbuild_1.4.6       lattice_0.21-9      
+[49] shiny_1.10.0         withr_3.0.2          evaluate_1.0.3      
+[52] lambda.r_1.2.4       urlchecker_1.0.1     xml2_1.3.6          
+[55] survMisc_0.5.6       pillar_1.10.1        carData_3.0-5       
+[58] whisker_0.4.1        generics_0.1.3       hms_1.1.3           
+[61] commonmark_1.9.2     munsell_0.5.1        scales_1.3.0        
+[64] xtable_1.8-4         glue_1.8.0           tools_4.3.2         
+[67] data.table_1.16.4    ggsignif_0.6.4       fs_1.6.5            
+[70] crosstalk_1.2.1      colorspace_2.1-0     Formula_1.2-5       
+[73] cli_3.6.2            km.ci_0.5-6          workflowr_1.7.1     
+[76] futile.options_1.0.1 viridisLite_0.4.2    svglite_2.1.3       
+[79] gtable_0.3.6         sass_0.4.9           digest_0.6.33       
+[82] farver_2.1.2         htmlwidgets_1.6.4    memoise_2.0.1       
+[85] htmltools_0.5.8.1    lifecycle_1.0.4      mime_0.12           
+[88] gridtext_0.1.5      </code></pre>
 </div>
 </div>
 

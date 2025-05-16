@@ -29,18 +29,30 @@ SDF_data=SDF$Sheet1
 # Define the follow-up columns
 followup_cols <- c("3m", "6m", "9m", "12m", "15m", "18m", "24m")
 
-# Extract the numeric months from the column names
-months <- as.numeric(sub("m", "", followup_cols))
+# Define success values
+success_vals <- c(1, NA, 4)
 
-# Function to find the last time point with value 1
-get_last_1_time <- function(row) {
-  vals <- as.numeric(row[followup_cols])
-  if (all(is.na(vals)) || all(vals != 1, na.rm = TRUE)) return(NA)
-  max(months[which(vals == 1)])
+# Function to calculate survival time
+get_survival_time <- function(row) {
+  months <- c(3, 6, 9, 12, 15, 18, 24)
+  values <- as.numeric(row[c("3m", "6m", "9m", "12m", "15m", "18m", "24m")])
+  
+  # Loop through each time point and find when the first failure occurs
+  for (i in seq_along(values)) {
+    if (!is.na(values[i]) && !(values[i] %in% success_vals)) {
+      return(months[i - 1 ])  # Return survival time just before failure
+    }
+  }
+
+  # If no failure found, return the last time point with a non-NA value
+  last_success_index <- max(which(is.na(values) | values %in% success_vals), na.rm = TRUE)
+  return(months[last_success_index])
 }
 
-# Apply the function to each row
-SDF_data$Time <- apply(SDF_data, 1, get_last_1_time)
+# Apply function row-wise
+SDF_data$Time <- apply(SDF_data, 1, get_survival_time)
+
+SDF_data
 
 
 ```
@@ -50,36 +62,84 @@ SDF_data$Time <- apply(SDF_data, 1, get_last_1_time)
 ## overall success rate 
 
 ```{r, message=F, warning=F}
-# Assuming '1' in the outcome column means success
-success_rate <- colMeans(SDF_data[followup_cols] == 1, na.rm = TRUE)
+# Define values considered immediate successes
+success_vals <- c(1, 4)
 
+# Time point columns
+time_points <- c("3m", "6m", "9m", "12m", "15m", "18m", "24m")
 
-# Define success rates
-success_rate <- c(`3m` = 1.0000000,
-                  `6m` = 0.9559748,
-                  `9m` = 0.9119497,
-                  `12m` = 0.8176101,
-                  `15m` = 0.7352941,
-                  `18m` = 0.6093750,
-                  `24m` = 0.4000000)
+# Function to compute per-row success with correct rule
+check_success_corrected <- function(values) {
+  status <- logical(length(values))
+  had_success <- FALSE
+  failed <- FALSE
+  
+  for (i in seq_along(values)) {
+    val <- values[i]
+    
+    if (failed) {
+      status[i] <- FALSE  # All after a failure are failures
+    } else if (!is.na(val) && val %in% success_vals) {
+      status[i] <- TRUE
+      had_success <- TRUE
+    } else if (is.na(val) && had_success) {
+      status[i] <- TRUE
+    } else {
+      status[i] <- FALSE
+      failed <- TRUE
+    }
+  }
+  
+  return(status)
+}
 
-# Convert to data frame
-df <- data.frame(
-  Month = factor(names(success_rate), levels = names(success_rate)),  # preserve order
-  Rate = as.numeric(success_rate)
+# Apply to each row in the dataset
+success_matrix <- t(apply(SDF_data[, time_points], 1, check_success_corrected))
+
+# Calculate survival rate: proportion of successes at each time point
+survival_rate <- colSums(success_matrix, na.rm = TRUE) / nrow(SDF_data)
+
+# Create survival rate data frame
+survival_df <- data.frame(
+  Time = time_points,
+  SurvivalRate = round(survival_rate, 3)
 )
 
-# Plot with distinct colors per bar
-ggplot(df, aes(x = Month, y = Rate, fill = Month)) +
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = sprintf("%.2f", Rate)),
-            vjust = -0.5, size = 4) +
-  labs(title = "",
-       x = "Follow-up Time (Months)",
-       y = "Success Rate") +
-  ylim(0, 1.1) +
-  theme(legend.position = "none")  # optional: hide legend if not needed
+survival_df%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
+
+
+
+
+```{r, message=F, warning=F}
+# Ensure 'Time' is treated as a factor with the correct order
+survival_df$Time <- factor(survival_df$Time, levels = c("3m", "6m", "9m", "12m", "15m", "18m", "24m"))
+
+# Convert rate to percent
+survival_df$SurvivalPercent <- survival_df$SurvivalRate * 100
+
+# Plot with distinct colors for each bar
+ggplot(survival_df, aes(x = Time, y = SurvivalPercent, fill = Time)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = paste0(round(SurvivalPercent, 1), "%")),
+            vjust = -0.5, size = 4) +
+  scale_fill_brewer(palette = "Set3") +  # Nice, distinguishable colors
+  labs(title = "",
+       x = "Time Point",
+       y = "Survival Rate (%)") +
+  ylim(0,110)+
+  #theme_minimal() +
+  theme(legend.position = "none")  # Remove legend since colors match x-axis
+
+```
+
+
 
 
 ```{r, message=F, warning=F}
@@ -88,7 +148,7 @@ library(survival)
 library(survminer)
 
 # Create event indicator: 1 for success, 0 otherwise
-SDF_data$Event <- ifelse(SDF_data$outcome == 1, 1, 0)
+SDF_data$Event <- ifelse(SDF_data$outcome == 1, 0, 1)
 
 # Create a Surv object (time and event)
 surv_obj <- Surv(time = SDF_data$Time, event = SDF_data$Event)
@@ -96,18 +156,27 @@ surv_obj <- Surv(time = SDF_data$Time, event = SDF_data$Event)
 # Fit Kaplan-Meier model using the data argument
 km_fit <- survfit(surv_obj ~ 1, data = SDF_data)
 
-# Now plot with ggsurvplot, explicitly providing the data
-ggsurvplot(km_fit,
-           data = SDF_data,
-           conf.int = TRUE,
-           risk.table = TRUE,
-           title = "Success Curve",
-           xlab = "Time (months)",
-           ylab = "Probability of Success",
-           surv.scale = "percent")
+
+
+ggsurvplot(
+  km_fit,
+  data = SDF_data,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  xlab = "Time (months)",
+  ylab = "Success Probability",
+  title = "Kaplan-Meier Curve of Treatment Success",
+  palette = "red",
+  break.time.by = 3,                            # Tick marks at 0, 3, 6, ..., 24
+  xlim = c(0, 24),                              # Include 0-month baseline
+  risk.table.breaks = seq(0, 24, 3),            # Risk table also starts from 0
+  risk.table.y.text.col = TRUE,
+  risk.table.height = 0.25
+)
 ```
 
-* for outcome, treat `1` as success and failure otherwise. 
+* for outcome, treat `1` as success and failure otherwise, but in survival data, that's the opposite,  `1` denotes failure and `0` no failure 
+
 
 
 ## survival by tooth types 
