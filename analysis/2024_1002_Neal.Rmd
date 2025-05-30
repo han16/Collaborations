@@ -1643,6 +1643,162 @@ datatable(extensions = 'Buttons',
 
 
 
+
+###  descriptive statistics for maxilla and mandible in group 4
+
+
+```{r, message=F, warning=F}
+
+group4_maxilla=group4_data %>% filter(Jaw==1)
+group4_mandible=group4_data %>% filter(Jaw==2)
+
+
+data_conti=as.matrix(group4_maxilla[,which(colnames(group4_maxilla)%in%continuous_var)])
+
+res=summary_statistics(data_conti)
+data.frame(res) %>%
+datatable(extensions = 'Buttons',
+          caption = " maxilla in group 4",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+data_conti=as.matrix(group4_mandible[,which(colnames(group4_mandible)%in%continuous_var)])
+
+res=summary_statistics(data_conti)
+data.frame(res) %>%
+datatable(extensions = 'Buttons',
+          caption = " mandible in group 4",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+```
+
+
+### continuous variable comparisons between maxilla and mandible
+
+```{r, message=F, warning=F}
+
+group4_maxilla_conti=as.matrix(group4_maxilla[,which(colnames(group4_maxilla)%in%continuous_var)])
+group4_mandible_conti=as.matrix(group4_mandible[,which(colnames(group4_mandible)%in%continuous_var)])
+
+pvalue=numeric()
+pvalue <- sapply(1:ncol(group4_mandible_conti), function(i) {
+  x <- group4_mandible_conti[, i]
+  y <- group4_maxilla_conti[, i]
+  if (sum(!is.na(x)) > 0 && sum(!is.na(y)) > 0) {
+    t.test(x, y)$p.value
+  } else {
+    NA
+  }
+})
+
+data.frame(variables=colnames(group4_mandible_conti), pvalue=pvalue_adjust(pvalue)) %>%
+datatable(extensions = 'Buttons',
+          caption = " ",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+ 
+
+```
+
+* two test t test was used. 
+
+
+### discrete variable comparisons between maxilla and mandible
+
+```{r, message=F, warning=F}
+
+discrete_var=c("Tooth_site_number", 
+               "Tooth_migration", 
+               "M_Tooth_Migration",  
+               "D_Tooth_Migration",  
+               "Migration_Notes", 
+               "mesial_tooth_bone_loss_CBCT.1__mm", 
+               "Jaw",                        
+                "Arch_Fully_edentulous_both_CBCTs",
+                "Partially_edentulous",
+               "Partial_Edentulous_Space_.Length",
+                "Adjacent_teeth_number",
+               "Adjacent_Note",                      
+                "Restoration_type",
+               "Restoration_Notes",                  
+                "Ext_Reason",                                   
+                "Coronal_sinus_floor_shift",  
+                "Sinus_Pathology",
+                 "Sites_10mm_height_or_more",          
+                 "X1st_CBCT_10mm_or_more",
+               "X2nd_CBCT_10mm_or_more" )
+
+group4_maxilla_discrete=as.matrix(group4_maxilla[,which(colnames(group4_maxilla)%in%discrete_var)])
+group4_mandible_discrete=as.matrix(group4_mandible[,which(colnames(group4_mandible)%in%discrete_var)])
+
+# Prepare result list
+results <- list()
+
+# Loop through each column
+for (col in colnames(group4_maxilla_discrete)) {
+  x <- group4_maxilla_discrete[, col]
+  y <- group4_mandible_discrete[, col]
+  
+  # Get unique non-NA values from both datasets
+  levels <- unique(na.omit(c(x, y)))
+  
+  # For each outcome value in the column
+  for (level in levels) {
+    x_count <- sum(x == level, na.rm = TRUE)
+    y_count <- sum(y == level, na.rm = TRUE)
+    x_total <- sum(!is.na(x))
+    y_total <- sum(!is.na(y))
+    
+    # 2x2 table: rows = groups, columns = outcome (yes/no)
+    mat <- matrix(c(x_count, x_total - x_count,
+                    y_count, y_total - y_count), 
+                  nrow = 2, byrow = TRUE)
+    
+    # Run test
+    test <- if (any(mat < 5)) fisher.test(mat) else prop.test(mat)
+    
+    # Save results
+    results[[paste(col, level, sep = "_")]] <- list(
+      column = col,
+      level = level,
+      p.value = pvalue_adjust(test$p.value),
+      prop_maxilla = x_count / x_total,
+      prop_mandible = y_count / y_total
+    )
+  }
+}
+
+# Convert results to a data frame
+results_df <- do.call(rbind, lapply(results, as.data.frame))
+rownames(results_df) <- names(results)
+ 
+results_df%>%
+datatable(extensions = 'Buttons',
+          caption = " ",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+
+
+
 ## tooth migration 
 
 
