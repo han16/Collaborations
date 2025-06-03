@@ -1908,6 +1908,12 @@ binom.test(87, 87+116)$p.value
 
 
 
+## group 5
+
+[here is group 5](2024_1002_Neal_group5.html)
+
+
+
 
 ## statistical tests 
 
