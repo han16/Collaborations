@@ -159,21 +159,7 @@ finalized_data <- finalized_data %>%
 
 
 
-```{r, message=F, warning=F}
-pvalue=numeric(); k=0
-for (i in 1:length(continuous_var))
-{
-  group_6A=finalized_data %>% filter(Month_Group=="6A") %>% select(continuous_var[i]) %>% pull()
-  group_6B=finalized_data %>% filter(Month_Group=="6B") %>% select(continuous_var[i]) %>% pull()
-  group_6C=finalized_data %>% filter(Month_Group=="6C") %>% select(continuous_var[i]) %>% pull()
-  
-  pvalue[(k-1)*3+1]=t.test(group_6A, group_6B)$p.value
-  pvalue[(k-1)*3+2]=t.test(group_6A, group_6C)$p.value
-  pvalue[(k-1)*3+3]=t.test(group_6B, group_6C)$p.value
-  
-}
-```
-
+## continuous variables comparions  between groups
 
 
 ```{r, message=F, warning=F}
@@ -207,3 +193,20 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+
+##  descriptive statistics later only for parameters with p<0.05
+
+```{r, message=F, warning=F}
+threshold=0.05
+significant_variables=unique(pvalue_df %>% filter(p_value<threshold)%>% select(Variable) %>% pull())
+
+res=summary_statistics(data_conti %>% select(significant_variables))
+res%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```

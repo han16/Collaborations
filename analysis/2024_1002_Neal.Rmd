@@ -1914,6 +1914,11 @@ binom.test(87, 87+116)$p.value
 
 
 
+## group 6 
+
+[here is group 6](2024_1002_Neal_group6.html)
+
+
 
 ## statistical tests 
 
