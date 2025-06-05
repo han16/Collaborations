@@ -1,0 +1,9 @@
+---
+title: "06/04 2025"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-06-04"
+---
+
