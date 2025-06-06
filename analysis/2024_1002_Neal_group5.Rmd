@@ -160,13 +160,13 @@ group5_data=finalized_data %>% filter(Partially_edentulous =="Y")
 ```
 
 
-## home
+## 1. home
 
 [home](2024_1002_Neal.html)
 
 
 
-## continuous variables
+## 2. continuous variables
 
 
 
@@ -312,7 +312,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## discrete variables 
+## 3. discrete variables 
 
 
 ```{r, message=F, warning=F}
@@ -474,7 +474,7 @@ output_list
 
 
 
-## tooth site groups 
+## 4. tooth site groups 
 
 ```{r, message=F, warning=F}
 n=c(group5_data %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
@@ -520,7 +520,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## Variables with CBCT1 and CBCT2 versions
+## 5. Variables with CBCT1 and CBCT2 versions
 
 
 ```{r, message=F, warning=F}
@@ -590,7 +590,7 @@ datatable(extensions = 'Buttons',
 
 
 
-##  descriptive statistics for maxilla and mandible in group 5
+##  6. descriptive statistics for maxilla and mandible in group 5
 
 
 ```{r, message=F, warning=F}
@@ -628,7 +628,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## continuous variable comparisons between maxilla and mandible
+## 7. continuous variable comparisons between maxilla and mandible
 
 ```{r, message=F, warning=F}
 
@@ -662,7 +662,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## discrete variable comparisons between maxilla and mandible
+## 8. discrete variable comparisons between maxilla and mandible
 
 ```{r, message=F, warning=F}
 

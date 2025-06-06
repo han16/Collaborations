@@ -44,7 +44,7 @@ lower_anterior=22:27
 
 
 
-## Finalized data 
+## 1 Finalized data 
 
 
 ```{r, message=F, warning=F}
@@ -55,7 +55,7 @@ colnames(finalized_data)
 
 
 
-### continuous variables 
+### 1.1 continuous variables 
 
 ```{r, message=F, warning=F, eval=T}
 continuous_var=c("Age", 
@@ -294,7 +294,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### discrete variables 
+### 1.2 discrete variables 
 
 
 ```{r, message=F, warning=F}
@@ -462,7 +462,7 @@ output_list
 
 
 
-### tooth site groups 
+### 1.3 tooth site groups 
 
 ```{r, message=F, warning=F}
 n=c(finalized_data %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
@@ -505,7 +505,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Variables with CBCT1 and CBCT2 versions
+### 1.4 Variables with CBCT1 and CBCT2 versions
 
 
 ```{r, message=F, warning=F}
@@ -572,7 +572,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## group 2 vs 3
+## 2. group 2 vs 3
 
 
 ```{r, message=F, warning=F}
@@ -585,7 +585,7 @@ group3_mandible=finalized_data %>% filter(Jaw==2)
 
 
 
-### continuous variables 
+### 2.1 continuous variables 
 
 
 
@@ -916,7 +916,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### discrete variables
+### 2.2 discrete variables
 
 
 ```{r, message=F, warning=F, results='asis'}
@@ -1108,7 +1108,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Sinus_pathology (updated: subjects that have Jaw=maxilla)
+### 2.3 Sinus_pathology (updated: subjects that have Jaw=maxilla)
 
 
 ```{r, message=F, warning=F}
@@ -1170,7 +1170,7 @@ output_list
 
 
 
-### tooth site groups
+### 2.4 tooth site groups
 
 
 ```{r, message=F, warning=F}
@@ -1202,7 +1202,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## group 4 
+## 3. group 4 
 
 
 ```{r, message=F, warning=F}
@@ -1220,7 +1220,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### continuous variables
+### 3.1 continuous variables
 
 
 
@@ -1365,7 +1365,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### discrete variables 
+### 3.2 discrete variables 
 
 
 ```{r, message=F, warning=F}
@@ -1531,7 +1531,7 @@ output_list
 
 
 
-### tooth site groups 
+### 3.3 tooth site groups 
 
 ```{r, message=F, warning=F}
 n=c(group4_data %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
@@ -1573,7 +1573,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### Variables with CBCT1 and CBCT2 versions
+### 3.4 Variables with CBCT1 and CBCT2 versions
 
 
 ```{r, message=F, warning=F}
@@ -1644,7 +1644,7 @@ datatable(extensions = 'Buttons',
 
 
 
-###  descriptive statistics for maxilla and mandible in group 4
+###  3.5 descriptive statistics for maxilla and mandible in group 4
 
 
 ```{r, message=F, warning=F}
@@ -1681,7 +1681,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### continuous variable comparisons between maxilla and mandible
+### 3.6 continuous variable comparisons between maxilla and mandible
 
 ```{r, message=F, warning=F}
 
@@ -1713,7 +1713,7 @@ datatable(extensions = 'Buttons',
 * two test t test was used. 
 
 
-### discrete variable comparisons between maxilla and mandible
+### 3.7 discrete variable comparisons between maxilla and mandible
 
 ```{r, message=F, warning=F}
 
@@ -1799,7 +1799,7 @@ datatable(extensions = 'Buttons',
 
 
 
-## tooth migration 
+## 4. tooth migration 
 
 
 ```{r, message=F, warning=F}
@@ -1808,7 +1808,7 @@ cat("pvalue of 22 Y vs 152 N is:", pvalue_adjust(binom.test(c(22, (22+152)), p =
 ```
 
 
-## Sinus_pathology 
+## 5. Sinus_pathology 
 
 ```{r, message=F, warning=F}
 
@@ -1863,7 +1863,7 @@ output_list
 
 
 
-## New p-values
+## 6. New p-values
 
 
 1. ANS_PNS_crest_coronal_DIFF VERSUS mental_crest_coronal_DIFF
@@ -1886,7 +1886,7 @@ pvalue_adjust(t.test(finalized_data$ANSPNS_Crest_Sagittal_DIFF, finalized_data$M
 * they are different 
 
 
-## additional p values 
+## 7.  additional p values 
 
 
 Sites were distributed between maxilla and mandible (n=120 vs. n=133, p=0.4507) and anterior (n=33 vs. n=17, p=0.0328) and posterior sites (n=116 vs. n=116, p=1.0000) in maxillary and mandibular sites, respectively.
@@ -1900,7 +1900,7 @@ binom.test(87, 87+116)$p.value
 
 
 
-## months_between_CBCTs between 12-24 months
+## 8. months_between_CBCTs between 12-24 months
 
 
 * [months_between_CBCTs between 12-24 months](2024_1002_Neal_additional_part1.html)
@@ -1908,13 +1908,13 @@ binom.test(87, 87+116)$p.value
 
 
 
-## group 5
+## 9. group 5
 
 [here is group 5](2024_1002_Neal_group5.html)
 
 
 
-## group 6 
+## 10. group 6 
 
 [here is group 6](2024_1002_Neal_group6.html)
 
