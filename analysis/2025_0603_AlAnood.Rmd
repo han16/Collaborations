@@ -1,0 +1,49 @@
+---
+title: "06/26 2025"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-06-26"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+```{r, message=F, warning=F, results=F}
+data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\AlAnood\\2025 final data file AA Epiquik Data_061325.xlsx")))
+data=data_raw$blue_table
+```
+
+
+## anova 
+
+```{r, message=F, warning=F}
+# Convert all Group columns to numeric (real NA will be preserved)
+group_cols <- grep("^Group", names(data))
+data[, group_cols] <- lapply(data[, group_cols], function(x) as.numeric(as.character(x)))
+
+data_day1_long=tidyr::pivot_longer(
+  data %>% filter(day=="1day"),
+  cols = starts_with("Group"),
+  names_to = "Group",
+  values_to = "Value"
+)
+
+
+# Run one-way ANOVA
+anova_result <- aov(Value ~ Group, data = data_day1_long)
+
+# Show summary
+summary(anova_result)
+```
+
+
+* large p value indicates failure of rejecting null hypothesis of 6 groups being equal. 
