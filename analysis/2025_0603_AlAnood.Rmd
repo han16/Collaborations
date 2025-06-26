@@ -25,6 +25,8 @@ data=data_raw$blue_table
 
 ## anova 
 
+
+
 ```{r, message=F, warning=F}
 # Convert all Group columns to numeric (real NA will be preserved)
 group_cols <- grep("^Group", names(data))
@@ -36,7 +38,27 @@ data_day1_long=tidyr::pivot_longer(
   names_to = "Group",
   values_to = "Value"
 )
+```
 
+
+
+```{r, message=F, warning=F}
+ggplot(data_day1_long, aes(x = Group, y = Value, fill = Group)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Day 1", y = "", x = "") +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 1),
+    legend.position = "none",                    # remove legend
+    plot.title = element_text(hjust = 0.5)       # center title
+  )
+```
+
+
+
+
+
+```{r, message=F, warning=F}
 
 # Run one-way ANOVA
 anova_result <- aov(Value ~ Group, data = data_day1_long)
@@ -46,4 +68,47 @@ summary(anova_result)
 ```
 
 
+
 * large p value indicates failure of rejecting null hypothesis of 6 groups being equal. 
+
+
+
+```{r, message=F, warning=F}
+
+data_day7_long=tidyr::pivot_longer(
+  data %>% filter(day=="7day"),
+  cols = starts_with("Group"),
+  names_to = "Group",
+  values_to = "Value"
+)
+
+
+```
+
+
+```{r, message=F, warning=F}
+ggplot(data_day7_long, aes(x = Group, y = Value, fill = Group)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Day 7", y = "", x = "") +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 1),
+    legend.position = "none",                    # remove legend
+    plot.title = element_text(hjust = 0.5)       # center title
+  )
+```
+
+
+
+```{r, message=F, warning=F}
+
+
+# Run one-way ANOVA
+anova_result <- aov(Value ~ Group, data = data_day7_long)
+
+# Show summary
+summary(anova_result)
+```
+
+* small p value suggests at least one group is different from others. 
+

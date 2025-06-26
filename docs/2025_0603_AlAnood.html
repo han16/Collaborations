@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree32df0f44f103f9bbf64d1b853e92c452fe28c1bdtargetblank32df0f4a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2bf2dfa814dc58aa5c836c6556914c938f48c4e2targetblank2bf2dfaa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/32df0f44f103f9bbf64d1b853e92c452fe28c1bd" target="_blank">32df0f4</a>
+<a href="https://github.com/han16/Collaborations/tree/2bf2dfa814dc58aa5c836c6556914c938f48c4e2" target="_blank">2bf2dfa</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree32df0f44f103f9bbf64d1b853e92c452fe28c1bdtargetblank32df0f4a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree2bf2dfa814dc58aa5c836c6556914c938f48c4e2targetblank2bf2dfaa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/32df0f44f103f9bbf64d1b853e92c452fe28c1bd" target="_blank">32df0f4</a>.
+<a href="https://github.com/han16/Collaborations/tree/2bf2dfa814dc58aa5c836c6556914c938f48c4e2" target="_blank">2bf2dfa</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,11 +571,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2025_0603_AlAnood.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2025.Rmd
+    Modified:   analysis/2025_0603_AlAnood.Rmd
 
 </code></pre>
 <p>
@@ -590,10 +587,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2025_0603_AlAnood.Rmd</code>) and
+HTML (<code>docs/2025_0603_AlAnood.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/2bf2dfa814dc58aa5c836c6556914c938f48c4e2/analysis/2025_0603_AlAnood.Rmd" target="_blank">2bf2dfa</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-26
+</td>
+<td>
+6/26/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/2bf2dfa814dc58aa5c836c6556914c938f48c4e2/docs/2025_0603_AlAnood.html" target="_blank">2bf2dfa</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-26
+</td>
+<td>
+6/26/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -611,10 +672,18 @@ data_day1_long=tidyr::pivot_longer(
   cols = starts_with(&quot;Group&quot;),
   names_to = &quot;Group&quot;,
   values_to = &quot;Value&quot;
-)
-
-
-# Run one-way ANOVA
+)</code></pre>
+<pre class="r"><code>ggplot(data_day1_long, aes(x = Group, y = Value, fill = Group)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = &quot;Day 1&quot;, y = &quot;&quot;, x = &quot;&quot;) +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 1),
+    legend.position = &quot;none&quot;,                    # remove legend
+    plot.title = element_text(hjust = 0.5)       # center title
+  )</code></pre>
+<p><img src="figure/2025_0603_AlAnood.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Run one-way ANOVA
 anova_result &lt;- aov(Value ~ Group, data = data_day1_long)
 
 # Show summary
@@ -626,6 +695,37 @@ Residuals   51   3271   64.15
 <ul>
 <li>large p value indicates failure of rejecting null hypothesis of 6
 groups being equal.</li>
+</ul>
+<pre class="r"><code>data_day7_long=tidyr::pivot_longer(
+  data %&gt;% filter(day==&quot;7day&quot;),
+  cols = starts_with(&quot;Group&quot;),
+  names_to = &quot;Group&quot;,
+  values_to = &quot;Value&quot;
+)</code></pre>
+<pre class="r"><code>ggplot(data_day7_long, aes(x = Group, y = Value, fill = Group)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = &quot;Day 7&quot;, y = &quot;&quot;, x = &quot;&quot;) +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 1),
+    legend.position = &quot;none&quot;,                    # remove legend
+    plot.title = element_text(hjust = 0.5)       # center title
+  )</code></pre>
+<p><img src="figure/2025_0603_AlAnood.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Run one-way ANOVA
+anova_result &lt;- aov(Value ~ Group, data = data_day7_long)
+
+# Show summary
+summary(anova_result)</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Group        5   3432   686.5   19.61 7.62e-11 ***
+Residuals   51   1786    35.0                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+3 observations deleted due to missingness</code></pre>
+<ul>
+<li>small p value suggests at least one group is different from
+others.</li>
 </ul>
 <br>
 <p>
@@ -674,27 +774,28 @@ loaded via a namespace (and not attached):
  [4] magrittr_2.0.3       git2r_0.35.0         compiler_4.3.2      
  [7] systemfonts_1.2.1    vctrs_0.6.5          profvis_0.4.0       
 [10] pkgconfig_2.0.3      fastmap_1.2.0        backports_1.5.0     
-[13] ellipsis_0.3.2       promises_1.3.2       rmarkdown_2.29      
-[16] sessioninfo_1.2.2    tzdb_0.4.0           xfun_0.50.6         
-[19] cachem_1.1.0         jsonlite_1.8.9       later_1.4.1         
-[22] broom_1.0.7          R6_2.5.1             bslib_0.9.0         
-[25] stringi_1.8.3        car_3.1-3            pkgload_1.4.0       
-[28] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.0.11         
-[31] knitr_1.49           httpuv_1.6.15        Matrix_1.6-1.1      
-[34] splines_4.3.2        timechange_0.3.0     tidyselect_1.2.1    
-[37] rstudioapi_0.17.1    abind_1.4-8          yaml_2.3.8          
-[40] miniUI_0.1.1.1       pkgbuild_1.4.6       lattice_0.21-9      
-[43] shiny_1.10.0         withr_3.0.2          evaluate_1.0.3      
-[46] lambda.r_1.2.4       survival_3.8-3       urlchecker_1.0.1    
-[49] xml2_1.3.6           pillar_1.10.1        carData_3.0-5       
-[52] generics_0.1.3       hms_1.1.3            munsell_0.5.1       
-[55] scales_1.3.0         xtable_1.8-4         glue_1.8.0          
-[58] tools_4.3.2          ggsignif_0.6.4       fs_1.6.5            
-[61] colorspace_2.1-0     Formula_1.2-5        cli_3.6.2           
-[64] workflowr_1.7.1      futile.options_1.0.1 viridisLite_0.4.2   
-[67] svglite_2.1.3        gtable_0.3.6         sass_0.4.9          
-[70] digest_0.6.33        htmlwidgets_1.6.4    memoise_2.0.1       
-[73] htmltools_0.5.8.1    lifecycle_1.0.4      mime_0.12           </code></pre>
+[13] ellipsis_0.3.2       labeling_0.4.3       promises_1.3.2      
+[16] rmarkdown_2.29       sessioninfo_1.2.2    tzdb_0.4.0          
+[19] xfun_0.50.6          cachem_1.1.0         jsonlite_1.8.9      
+[22] later_1.4.1          broom_1.0.7          R6_2.5.1            
+[25] bslib_0.9.0          stringi_1.8.3        car_3.1-3           
+[28] pkgload_1.4.0        jquerylib_0.1.4      cellranger_1.1.0    
+[31] Rcpp_1.0.11          knitr_1.49           httpuv_1.6.15       
+[34] Matrix_1.6-1.1       splines_4.3.2        timechange_0.3.0    
+[37] tidyselect_1.2.1     rstudioapi_0.17.1    abind_1.4-8         
+[40] yaml_2.3.8           miniUI_0.1.1.1       pkgbuild_1.4.6      
+[43] lattice_0.21-9       shiny_1.10.0         withr_3.0.2         
+[46] evaluate_1.0.3       lambda.r_1.2.4       survival_3.8-3      
+[49] urlchecker_1.0.1     xml2_1.3.6           pillar_1.10.1       
+[52] carData_3.0-5        whisker_0.4.1        generics_0.1.3      
+[55] hms_1.1.3            munsell_0.5.1        scales_1.3.0        
+[58] xtable_1.8-4         glue_1.8.0           tools_4.3.2         
+[61] ggsignif_0.6.4       fs_1.6.5             colorspace_2.1-0    
+[64] Formula_1.2-5        cli_3.6.2            workflowr_1.7.1     
+[67] futile.options_1.0.1 viridisLite_0.4.2    svglite_2.1.3       
+[70] gtable_0.3.6         sass_0.4.9           digest_0.6.33       
+[73] farver_2.1.2         htmlwidgets_1.6.4    memoise_2.0.1       
+[76] htmltools_0.5.8.1    lifecycle_1.0.4      mime_0.12           </code></pre>
 </div>
 </div>
 
