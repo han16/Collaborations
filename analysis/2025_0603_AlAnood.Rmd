@@ -23,6 +23,37 @@ data=data_raw$blue_table
 ```
 
 
+## summary statistics 
+
+
+### day 1
+
+```{r, message=F, warning=F}
+summary_statistics(data %>% filter(day=="1day"))%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### day 7
+
+```{r, message=F, warning=F}
+summary_statistics(data %>% filter(day=="7day"))%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
 ## anova 
 
 
@@ -111,4 +142,113 @@ summary(anova_result)
 ```
 
 * small p value suggests at least one group is different from others. 
+
+
+
+## pairwise comparions 
+
+### day 1
+
+
+
+
+```{r, message=F, warning=F}
+
+day1_data=data %>% filter(day=="1day") %>% select(`Group 1`, `Group 2`, `Group 3`, `Group 4`, `Group 5`, `Group 6`)%>%
+  mutate(across(everything(), ~as.numeric(.)))  # convert all to numeric
+
+# Group names
+group_names <- colnames(day1_data)
+
+# Store results
+results <- list()
+
+# Pairwise t-tests with NA removal
+for (i in 1:(ncol(day1_data) - 1)) {
+  for (j in (i + 1):ncol(day1_data)) {
+    group1 <- na.omit(day1_data[[i]])
+    group2 <- na.omit(day1_data[[j]])
+    
+    # Check both groups have at least 2 non-NA values
+    if (length(group1) >= 2 && length(group2) >= 2) {
+      test <- t.test(group1, group2)
+      p_value <- pvalue_adjust(test$p.value)
+    } else {
+      p_value <- NA
+    }
+    
+    comparison <- paste(group_names[i], "vs", group_names[j])
+    results[[length(results) + 1]] <- c(comparison, p_value)
+  }
+}
+
+# Convert to matrix
+result_matrix <- do.call(rbind, results)
+colnames(result_matrix) <- c("Comparison", "P-value")
+
+result_matrix %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+### day 7
+
+
+
+
+```{r, message=F, warning=F}
+
+day7_data=data %>% filter(day=="7day") %>% select(`Group 1`, `Group 2`, `Group 3`, `Group 4`, `Group 5`, `Group 6`)%>%
+  mutate(across(everything(), ~as.numeric(.)))  # convert all to numeric
+
+# Group names
+group_names <- colnames(day7_data)
+
+# Store results
+results <- list()
+
+# Pairwise t-tests with NA removal
+for (i in 1:(ncol(day7_data) - 1)) {
+  for (j in (i + 1):ncol(day7_data)) {
+    group1 <- na.omit(day7_data[[i]])
+    group2 <- na.omit(day7_data[[j]])
+    
+    # Check both groups have at least 2 non-NA values
+    if (length(group1) >= 2 && length(group2) >= 2) {
+      test <- t.test(group1, group2)
+      p_value <- pvalue_adjust(test$p.value)
+    } else {
+      p_value <- NA
+    }
+    
+    comparison <- paste(group_names[i], "vs", group_names[j])
+    results[[length(results) + 1]] <- c(comparison, p_value)
+  }
+}
+
+# Convert to matrix
+result_matrix <- do.call(rbind, results)
+colnames(result_matrix) <- c("Comparison", "P-value")
+
+result_matrix %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+* two smaple t test was used. 
+
+
 
