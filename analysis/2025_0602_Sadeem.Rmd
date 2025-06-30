@@ -9,3 +9,133 @@ date: "2025-06-04"
 
 
 
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+```{r, message=F, warning=F, results=F}
+data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\Sadeem\\Stats_restructured.xlsx")))
+Flexural_strength_and_Modulus=data_raw$`Flexural strength and Modulus`
+Vickers_Hardness=data_raw$`Vickers Hardness`
+
+```
+
+
+## summary statistics 
+
+
+### Flexural strength and Modulus
+
+
+
+```{r, message=F, warning=F}
+summary_statistics(Flexural_strength_and_Modulus)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Vickers Hardness
+
+
+
+```{r, message=F, warning=F}
+summary_statistics(Vickers_Hardness)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+## anova 
+
+
+### mpa 
+
+```{r, message=F, warning=F}
+mpa_data <- Flexural_strength_and_Modulus %>%
+  select(ends_with("Flexural Strength (MPa)"))
+
+mpa_long <- mpa_data %>%
+  mutate(id = row_number()) %>%
+  pivot_longer(-id, names_to = "Material", values_to = "Strength_MPa")
+
+anova_result <- aov(Strength_MPa ~ Material, data = mpa_long)
+summary(anova_result)
+```
+
+
+```{r, message=F, warning=F}
+#Post-hoc test (Tukey HSD)
+TukeyHSD(anova_result)
+```
+
+
+```{r, message=F, warning=F}
+ggplot(mpa_long, aes(x = Material, y = Strength_MPa)) +
+  geom_boxplot(fill = "skyblue") +
+  labs(title = "Flexural Strength (MPa) Comparisons",
+       x = "",
+       y = "Flexural Strength (MPa)") +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1), 
+         plot.title = element_text(hjust = 0.5)  # centers the title
+        )
+```
+
+
+### GPa 
+
+```{r, message=F, warning=F}
+modulus_data <- Flexural_strength_and_Modulus %>%
+  select(ends_with("Flexural Modulus (GPa)"))
+
+modulus_long <- modulus_data %>%
+  mutate(id = row_number()) %>%
+  pivot_longer(-id, names_to = "Material", values_to = "Modulus_GPa")
+```
+
+
+### GPa: anova
+
+```{r, message=F, warning=F}
+anova_modulus <- aov(Modulus_GPa ~ Material, data = modulus_long)
+summary(anova_modulus)
+```
+
+
+### GPa: Tukey post-hoc test
+
+```{r, message=F, warning=F}
+TukeyHSD(anova_modulus)
+```
+
+### GPa: Boxplot 
+
+
+```{r, message=F, warning=F}
+ggplot(modulus_long, aes(x = Material, y = Modulus_GPa)) +
+  geom_boxplot(fill = "lightgreen") +
+  labs(
+    title = "Flexural Modulus (GPa) Comparison",
+    x = "",
+    y = "Flexural Modulus (GPa)"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 15, hjust = 1),
+    plot.title = element_text(hjust = 0.5)  # center the title
+  )
+```
