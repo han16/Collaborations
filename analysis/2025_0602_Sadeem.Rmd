@@ -149,3 +149,49 @@ ggplot(modulus_long, aes(x = Material, y = Modulus_GPa)) +
     plot.title = element_text(hjust = 0.5)  # center the title
   )
 ```
+
+### Vickers Hardness
+
+```{r, message=F, warning=F}
+vickers_data <- Vickers_Hardness %>%
+  select(ends_with("Vickers Hardness"))
+
+vickers_long <- vickers_data %>%
+  mutate(id = row_number()) %>%
+  pivot_longer(-id, names_to = "Material", values_to = "Vickers_Hardness")
+
+```
+
+
+
+### Vickers Hardness: anova
+
+```{r, message=F, warning=F}
+anova_vickers <- aov(Vickers_Hardness ~ Material, data = vickers_long)
+summary(anova_vickers)
+```
+
+
+### Vickers Hardness: Tukey post-hoc test
+
+```{r, message=F, warning=F}
+TukeyHSD(anova_vickers)
+```
+
+
+### Vickers Hardness: Boxplot 
+
+```{r, message=F, warning=F}
+ggplot(vickers_long, aes(x = Material, y = Vickers_Hardness)) +
+  geom_boxplot(fill = "salmon") +
+  labs(
+    title = "Vickers Hardness Comparison",
+    x = "",
+    y = "Vickers Hardness"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 15, hjust = 1),
+    plot.title = element_text(hjust = 0.5)  # center title
+  )
+```
+
