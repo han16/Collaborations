@@ -73,10 +73,18 @@ mpa_data <- Flexural_strength_and_Modulus %>%
 mpa_long <- mpa_data %>%
   mutate(id = row_number()) %>%
   pivot_longer(-id, names_to = "Material", values_to = "Strength_MPa")
+```
 
+
+### mpa: anova 
+
+```{r, message=F, warning=F}
 anova_result <- aov(Strength_MPa ~ Material, data = mpa_long)
 summary(anova_result)
 ```
+
+
+### mpa: Tukey post-hoc test
 
 
 ```{r, message=F, warning=F}
@@ -84,6 +92,8 @@ summary(anova_result)
 TukeyHSD(anova_result)
 ```
 
+
+### mpa: boxplots 
 
 ```{r, message=F, warning=F}
 ggplot(mpa_long, aes(x = Material, y = Strength_MPa)) +

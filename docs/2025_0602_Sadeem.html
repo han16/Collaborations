@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree82fb16a8b806662a23c2f1e88b3e19622ba42f1btargetblank82fb16aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4f2b4d90fe01552ce96f7f05864a0e646c116e24targetblank4f2b4d9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/82fb16a8b806662a23c2f1e88b3e19622ba42f1b" target="_blank">82fb16a</a>
+<a href="https://github.com/han16/Collaborations/tree/4f2b4d90fe01552ce96f7f05864a0e646c116e24" target="_blank">4f2b4d9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree82fb16a8b806662a23c2f1e88b3e19622ba42f1btargetblank82fb16aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4f2b4d90fe01552ce96f7f05864a0e646c116e24targetblank4f2b4d9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/82fb16a8b806662a23c2f1e88b3e19622ba42f1b" target="_blank">82fb16a</a>.
+<a href="https://github.com/han16/Collaborations/tree/4f2b4d90fe01552ce96f7f05864a0e646c116e24" target="_blank">4f2b4d9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/4f2b4d90fe01552ce96f7f05864a0e646c116e24/analysis/2025_0602_Sadeem.Rmd" target="_blank">4f2b4d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-30
+</td>
+<td>
+6/30/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/4f2b4d90fe01552ce96f7f05864a0e646c116e24/docs/2025_0602_Sadeem.html" target="_blank">4f2b4d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-30
+</td>
+<td>
+6/30/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -715,15 +749,20 @@ datatable(extensions = &#39;Buttons&#39;,
 
 mpa_long &lt;- mpa_data %&gt;%
   mutate(id = row_number()) %&gt;%
-  pivot_longer(-id, names_to = &quot;Material&quot;, values_to = &quot;Strength_MPa&quot;)
-
-anova_result &lt;- aov(Strength_MPa ~ Material, data = mpa_long)
+  pivot_longer(-id, names_to = &quot;Material&quot;, values_to = &quot;Strength_MPa&quot;)</code></pre>
+</div>
+<div id="mpa-anova" class="section level3">
+<h3>mpa: anova</h3>
+<pre class="r"><code>anova_result &lt;- aov(Strength_MPa ~ Material, data = mpa_long)
 summary(anova_result)</code></pre>
 <pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)    
 Material     4  80735   20184     593 &lt;2e-16 ***
 Residuals   45   1532      34                   
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="mpa-tukey-post-hoc-test" class="section level3">
+<h3>mpa: Tukey post-hoc test</h3>
 <pre class="r"><code>#Post-hoc test (Tukey HSD)
 TukeyHSD(anova_result)</code></pre>
 <pre><code>  Tukey multiple comparisons of means
@@ -776,6 +815,9 @@ SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa
 RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)  0.0000000
 SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)   0.0000000
 SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)   0.0000000</code></pre>
+</div>
+<div id="mpa-boxplots" class="section level3">
+<h3>mpa: boxplots</h3>
 <pre class="r"><code>ggplot(mpa_long, aes(x = Material, y = Strength_MPa)) +
   geom_boxplot(fill = &quot;skyblue&quot;) +
   labs(title = &quot;Flexural Strength (MPa) Comparisons&quot;,
@@ -784,7 +826,7 @@ SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)
   theme(axis.text.x = element_text(angle = 15, hjust = 1), 
          plot.title = element_text(hjust = 0.5)  # centers the title
         )</code></pre>
-<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gpa" class="section level3">
 <h3>GPa</h3>
@@ -872,7 +914,7 @@ SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)  
     axis.text.x = element_text(angle = 15, hjust = 1),
     plot.title = element_text(hjust = 0.5)  # center the title
   )</code></pre>
-<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
