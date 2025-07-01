@@ -88,16 +88,25 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, message=F, warning=F}
-NT_vs_SS_pvalue=numeric()
-NT_vs_TMA_pvalue=numeric()
-SS_vs_TMA_pvalue=numeric()
+NT_vs_SS_pvalue=numeric(); NT_vs_SS_CI_lower=NT_vs_SS_CI_upper=numeric()
+NT_vs_TMA_pvalue=numeric(); NT_vs_TMA_CI_lower=NT_vs_TMA_CI_upper=numeric()
+SS_vs_TMA_pvalue=numeric(); SS_vs_TMA_CI_lower=SS_vs_TMA_CI_upper=numeric()
 for (i in 1:ncol(mean_NT))
 {
   NT_vs_SS_pvalue[i]=t.test(mean_NT[,i], mean_SS[,i])$p.value
+  NT_vs_SS_CI_lower[i]=round(t.test(mean_NT[,i], mean_SS[,i])$conf.int[1],4)
+  NT_vs_SS_CI_upper[i]=round(t.test(mean_NT[,i], mean_SS[,i])$conf.int[2],4)
+  
   NT_vs_TMA_pvalue[i]=t.test(mean_NT[,i], mean_TMA[,i])$p.value
+  NT_vs_TMA_CI_lower[i]=round(t.test(mean_NT[,i], mean_TMA[,i])$conf.int[1],4)
+  NT_vs_TMA_CI_upper[i]=round(t.test(mean_NT[,i], mean_TMA[,i])$conf.int[2],4)
+  
   SS_vs_TMA_pvalue[i]=t.test(mean_SS[,i], mean_TMA[,i])$p.value
+  SS_vs_TMA_CI_lower[i]=round(t.test(mean_SS[,i], mean_TMA[,i])$conf.int[1],4)
+  SS_vs_TMA_CI_upper[i]=round(t.test(mean_SS[,i], mean_TMA[,i])$conf.int[2],4)
+  
 }
-data.frame(parameters=variables, NT_vs_SS_pvalue=pvalue_adjust(NT_vs_SS_pvalue), NT_vs_TMA_pvalue=pvalue_adjust(NT_vs_TMA_pvalue), SS_vs_TMA_pvalue=pvalue_adjust(SS_vs_TMA_pvalue))%>%
+data.frame(parameters=variables, NT_vs_SS_CI_lower, NT_vs_SS_CI_upper, NT_vs_SS_pvalue=pvalue_adjust(NT_vs_SS_pvalue),NT_vs_TMA_CI_lower, NT_vs_TMA_CI_upper,  NT_vs_TMA_pvalue=pvalue_adjust(NT_vs_TMA_pvalue), SS_vs_TMA_CI_lower,SS_vs_TMA_CI_upper,  SS_vs_TMA_pvalue=pvalue_adjust(SS_vs_TMA_pvalue))%>%
 datatable(extensions = 'Buttons',
           caption = "", 
             options = list(dom = 'Blfrtip',
