@@ -7,3 +7,100 @@ output:
 date: "2025-06-30"
 ---
 
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+```{r, message=F, warning=F, results=F}
+data=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_Dynamic Navigation Implant Insertion.csv")), header=T)
+
+```
+
+```{r, message=F, warning=F}
+data_group1=data %>% filter(GroupType=="1")
+data_group2=data %>% filter(GroupType=="2")
+data_group3=data %>% filter(GroupType=="3")
+data_group4=data %>% filter(GroupType=="4")
+```
+
+
+## paired two sample  t test
+
+
+### GroupType: 1 vs 2
+
+```{r, message=F, warning=F}
+# Select the columns of interest
+cols <- c(
+  "Angle", "Base3Doffset", "Basedistal", "Basevestibular", "Baseapical",
+  "Tip3Doffset", "Tipdistal", "Tipvestibular", "Tipapical", "Apical"
+)
+
+# Perform paired t-tests
+results <- lapply(cols, function(col) {
+  t.test(data_group1[[col]], data_group2[[col]], paired = TRUE)
+})
+
+# Extract p-values and statistics
+summary_table <- data.frame(
+  Variable = cols,
+  #t_statistic = sapply(results, function(x) round(x$statistic,4)),
+  p_value = sapply(results, function(x) pvalue_adjust(x$p.value)),
+  mean_diff = sapply(results, function(x) round(x$estimate[[1]],4))
+)
+
+# Optionally adjust p-values for multiple testing
+summary_table$adj_p_value <- pvalue_adjust(p.adjust(summary_table$p_value, method = "BH"))
+
+summary_table%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### GroupType: 3 vs 4
+
+```{r, message=F, warning=F}
+# Select the columns of interest
+cols <- c(
+  "Angle", "Base3Doffset", "Basedistal", "Basevestibular", "Baseapical",
+  "Tip3Doffset", "Tipdistal", "Tipvestibular", "Tipapical", "Apical"
+)
+
+# Perform paired t-tests
+results <- lapply(cols, function(col) {
+  t.test(data_group3[[col]], data_group4[[col]], paired = TRUE)
+})
+
+# Extract p-values and statistics
+summary_table <- data.frame(
+  Variable = cols,
+  #t_statistic = sapply(results, function(x) round(x$statistic,4)),
+  p_value = sapply(results, function(x) pvalue_adjust(x$p.value)),
+  mean_diff = sapply(results, function(x) round(x$estimate[[1]],4))
+)
+
+# Optionally adjust p-values for multiple testing
+summary_table$adj_p_value <- pvalue_adjust(p.adjust(summary_table$p_value, method = "BH"))
+
+summary_table%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
