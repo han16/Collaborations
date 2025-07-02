@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-06-30
+<strong>Last updated:</strong> 2025-07-02
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeee611477c8f0cd29f381542dbe5af64b624eb4e7targetblankee61147a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec52377d330d4d95cfe87ca3ddaa17f86b1e8ddd3targetblankc52377da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/ee611477c8f0cd29f381542dbe5af64b624eb4e7" target="_blank">ee61147</a>
+<a href="https://github.com/han16/Collaborations/tree/c52377d330d4d95cfe87ca3ddaa17f86b1e8ddd3" target="_blank">c52377d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeee611477c8f0cd29f381542dbe5af64b624eb4e7targetblankee61147a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreec52377d330d4d95cfe87ca3ddaa17f86b1e8ddd3targetblankc52377da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/ee611477c8f0cd29f381542dbe5af64b624eb4e7" target="_blank">ee61147</a>.
+<a href="https://github.com/han16/Collaborations/tree/c52377d330d4d95cfe87ca3ddaa17f86b1e8ddd3" target="_blank">c52377d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/389d74d7b44a8dff22e5aee603975fd7528808b9/analysis/2025_0602_Sadeem.Rmd" target="_blank">389d74d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-30
+</td>
+<td>
+6/30/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/389d74d7b44a8dff22e5aee603975fd7528808b9/docs/2025_0602_Sadeem.html" target="_blank">389d74d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-30
+</td>
+<td>
+6/30/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -798,57 +832,15 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <div id="mpa-tukey-post-hoc-test" class="section level3">
 <h3>mpa: Tukey post-hoc test</h3>
 <pre class="r"><code>#Post-hoc test (Tukey HSD)
-TukeyHSD(anova_result)</code></pre>
-<pre><code>  Tukey multiple comparisons of means
-    95% family-wise confidence level
-
-Fit: aov(formula = Strength_MPa ~ Material, data = mpa_long)
-
-$Material
-                                                                                          diff
-Milled ProArt CAD-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)     22.152664
-NightGuard Firm2-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)      26.420391
-RoDIN Splint 2.0-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)     -84.780212
-SR IVOcap Clear-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)       -3.481260
-NightGuard Firm2-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)    4.267727
-RoDIN Splint 2.0-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa) -106.932876
-SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)   -25.633923
-RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)  -111.200603
-SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)    -29.901650
-SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)     81.298953
-                                                                                           lwr
-Milled ProArt CAD-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)     14.739360
-NightGuard Firm2-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)      19.007087
-RoDIN Splint 2.0-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)     -92.193516
-SR IVOcap Clear-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)      -10.894564
-NightGuard Firm2-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)   -3.145577
-RoDIN Splint 2.0-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa) -114.346180
-SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)   -33.047227
-RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)  -118.613907
-SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)    -37.314954
-SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)     73.885649
-                                                                                           upr
-Milled ProArt CAD-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)     29.565968
-NightGuard Firm2-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)      33.833695
-RoDIN Splint 2.0-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)     -77.366908
-SR IVOcap Clear-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)        3.932044
-NightGuard Firm2-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)   11.681031
-RoDIN Splint 2.0-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)  -99.519572
-SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)   -18.220619
-RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)  -103.787299
-SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)    -22.488346
-SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)     88.712257
-                                                                                       p adj
-Milled ProArt CAD-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)   0.0000000
-NightGuard Firm2-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)    0.0000000
-RoDIN Splint 2.0-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)    0.0000000
-SR IVOcap Clear-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)     0.6716099
-NightGuard Firm2-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa) 0.4831058
-RoDIN Splint 2.0-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa) 0.0000000
-SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)  0.0000000
-RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)  0.0000000
-SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)   0.0000000
-SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)   0.0000000</code></pre>
+round(TukeyHSD(anova_result)$Material,4)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","NightGuard Firm2-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","NightGuard Firm2-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)"],[22.1527,26.4204,-84.78019999999999,-3.4813,4.2677,-106.9329,-25.6339,-111.2006,-29.9017,81.29900000000001],[14.7394,19.0071,-92.1935,-10.8946,-3.1456,-114.3462,-33.0472,-118.6139,-37.315,73.8856],[29.566,33.8337,-77.3669,3.932,11.681,-99.5196,-18.2206,-103.7873,-22.4883,88.7123],[0,0,0,0.6716,0.4831,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="mpa-boxplots" class="section level3">
 <h3>mpa: boxplots</h3>
@@ -920,57 +912,15 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 <div id="gpa-tukey-post-hoc-test" class="section level3">
 <h3>GPa: Tukey post-hoc test</h3>
-<pre class="r"><code>TukeyHSD(anova_modulus)</code></pre>
-<pre><code>  Tukey multiple comparisons of means
-    95% family-wise confidence level
-
-Fit: aov(formula = Modulus_GPa ~ Material, data = modulus_long)
-
-$Material
-                                                                                       diff
-Milled ProArt CAD-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    0.5231322
-NightGuard Firm2-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)     0.5981258
-RoDIN Splint 2.0-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    -2.1826517
-SR IVOcap Clear-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)     -0.1733665
-NightGuard Firm2-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)  0.0749936
-RoDIN Splint 2.0-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa) -2.7057838
-SR IVOcap Clear-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)  -0.6964987
-RoDIN Splint 2.0-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)  -2.7807774
-SR IVOcap Clear-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)   -0.7714923
-SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)    2.0092851
-                                                                                        lwr
-Milled ProArt CAD-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    0.2717127
-NightGuard Firm2-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)     0.3467063
-RoDIN Splint 2.0-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    -2.4340711
-SR IVOcap Clear-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)     -0.4247860
-NightGuard Firm2-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa) -0.1764259
-RoDIN Splint 2.0-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa) -2.9572033
-SR IVOcap Clear-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)  -0.9479182
-RoDIN Splint 2.0-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)  -3.0321969
-SR IVOcap Clear-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)   -1.0229118
-SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)    1.7578657
-                                                                                         upr
-Milled ProArt CAD-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    0.77455164
-NightGuard Firm2-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)     0.84954524
-RoDIN Splint 2.0-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    -1.93123221
-SR IVOcap Clear-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)      0.07805293
-NightGuard Firm2-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)  0.32641307
-RoDIN Splint 2.0-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa) -2.45436438
-SR IVOcap Clear-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)  -0.44507923
-RoDIN Splint 2.0-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)  -2.52935798
-SR IVOcap Clear-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)   -0.52007283
-SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)    2.26070461
-                                                                                     p adj
-Milled ProArt CAD-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)   0.0000041
-NightGuard Firm2-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    0.0000002
-RoDIN Splint 2.0-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)    0.0000000
-SR IVOcap Clear-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)     0.3021803
-NightGuard Firm2-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa) 0.9141043
-RoDIN Splint 2.0-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa) 0.0000000
-SR IVOcap Clear-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)  0.0000000
-RoDIN Splint 2.0-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)  0.0000000
-SR IVOcap Clear-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)   0.0000000
-SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)   0.0000000</code></pre>
+<pre class="r"><code>round(TukeyHSD(anova_modulus)$Material,4)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","NightGuard Firm2-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","NightGuard Firm2-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)"],[0.5231,0.5981,-2.1827,-0.1734,0.075,-2.7058,-0.6965,-2.7808,-0.7715,2.0093],[0.2717,0.3467,-2.4341,-0.4248,-0.1764,-2.9572,-0.9479,-3.0322,-1.0229,1.7579],[0.7746,0.8495,-1.9312,0.0781,0.3264,-2.4544,-0.4451,-2.5294,-0.5201,2.2607],[0,0,0,0.3022,0.9141,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="gpa-boxplot" class="section level3">
 <h3>GPa: Boxplot</h3>
@@ -1046,41 +996,15 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 <div id="vickers-hardness-tukey-post-hoc-test" class="section level3">
 <h3>Vickers Hardness: Tukey post-hoc test</h3>
-<pre class="r"><code>TukeyHSD(anova_vickers)</code></pre>
-<pre><code>  Tukey multiple comparisons of means
-    95% family-wise confidence level
-
-Fit: aov(formula = Vickers_Hardness ~ Material, data = vickers_long)
-
-$Material
-                                                                       diff
-Milled ProArt CAD-Vickers Hardness-KeySplint Hard-Vickers Hardness    12.74
-NightGuard Firm2-Vickers Hardness-KeySplint Hard-Vickers Hardness      2.48
-SR IVOcap Clear-Vickers Hardness-KeySplint Hard-Vickers Hardness       9.62
-NightGuard Firm2-Vickers Hardness-Milled ProArt CAD-Vickers Hardness -10.26
-SR IVOcap Clear-Vickers Hardness-Milled ProArt CAD-Vickers Hardness   -3.12
-SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness     7.14
-                                                                            lwr
-Milled ProArt CAD-Vickers Hardness-KeySplint Hard-Vickers Hardness    11.658587
-NightGuard Firm2-Vickers Hardness-KeySplint Hard-Vickers Hardness      1.398587
-SR IVOcap Clear-Vickers Hardness-KeySplint Hard-Vickers Hardness       8.538587
-NightGuard Firm2-Vickers Hardness-Milled ProArt CAD-Vickers Hardness -11.341413
-SR IVOcap Clear-Vickers Hardness-Milled ProArt CAD-Vickers Hardness   -4.201413
-SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness     6.058587
-                                                                           upr
-Milled ProArt CAD-Vickers Hardness-KeySplint Hard-Vickers Hardness   13.821413
-NightGuard Firm2-Vickers Hardness-KeySplint Hard-Vickers Hardness     3.561413
-SR IVOcap Clear-Vickers Hardness-KeySplint Hard-Vickers Hardness     10.701413
-NightGuard Firm2-Vickers Hardness-Milled ProArt CAD-Vickers Hardness -9.178587
-SR IVOcap Clear-Vickers Hardness-Milled ProArt CAD-Vickers Hardness  -2.038587
-SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness    8.221413
-                                                                       p adj
-Milled ProArt CAD-Vickers Hardness-KeySplint Hard-Vickers Hardness   0.0e+00
-NightGuard Firm2-Vickers Hardness-KeySplint Hard-Vickers Hardness    2.4e-06
-SR IVOcap Clear-Vickers Hardness-KeySplint Hard-Vickers Hardness     0.0e+00
-NightGuard Firm2-Vickers Hardness-Milled ProArt CAD-Vickers Hardness 0.0e+00
-SR IVOcap Clear-Vickers Hardness-Milled ProArt CAD-Vickers Hardness  0.0e+00
-SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness   0.0e+00</code></pre>
+<pre class="r"><code>round(TukeyHSD(anova_vickers)$Material,4)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Vickers Hardness-KeySplint Hard-Vickers Hardness","NightGuard Firm2-Vickers Hardness-KeySplint Hard-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-KeySplint Hard-Vickers Hardness","NightGuard Firm2-Vickers Hardness-Milled ProArt CAD-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-Milled ProArt CAD-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness"],[12.74,2.48,9.619999999999999,-10.26,-3.12,7.14],[11.6586,1.3986,8.538600000000001,-11.3414,-4.2014,6.0586],[13.8214,3.5614,10.7014,-9.178599999999999,-2.0386,8.221399999999999],[0,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="vickers-hardness-boxplot" class="section level3">
 <h3>Vickers Hardness: Boxplot</h3>
@@ -1096,6 +1020,43 @@ SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness   0.0e+00</co
     plot.title = element_text(hjust = 0.5)  # center title
   )</code></pre>
 <p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/389d74d7b44a8dff22e5aee603975fd7528808b9/docs/figure/2025_0602_Sadeem.Rmd/unnamed-chunk-16-1.png" target="_blank">389d74d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-06-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

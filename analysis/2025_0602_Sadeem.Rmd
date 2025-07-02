@@ -89,7 +89,13 @@ summary(anova_result)
 
 ```{r, message=F, warning=F}
 #Post-hoc test (Tukey HSD)
-TukeyHSD(anova_result)
+round(TukeyHSD(anova_result)$Material,4)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -130,7 +136,13 @@ summary(anova_modulus)
 ### GPa: Tukey post-hoc test
 
 ```{r, message=F, warning=F}
-TukeyHSD(anova_modulus)
+round(TukeyHSD(anova_modulus)$Material,4)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 ### GPa: Boxplot 
@@ -175,7 +187,13 @@ summary(anova_vickers)
 ### Vickers Hardness: Tukey post-hoc test
 
 ```{r, message=F, warning=F}
-TukeyHSD(anova_vickers)
+round(TukeyHSD(anova_vickers)$Material,4)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
