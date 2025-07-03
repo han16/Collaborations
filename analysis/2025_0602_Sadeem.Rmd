@@ -213,3 +213,12 @@ ggplot(vickers_long, aes(x = Material, y = Vickers_Hardness)) +
   )
 ```
 
+
+##  sample size calculation 
+
+```{r, message=F, warning=F}
+power.t.test(delta=12, sd=8.28, sig.level = 0.05, power=0.8)
+power.t.test(delta=5, sd=3.3, sig.level = 0.05, power=0.8)
+power.t.test(delta=5, sd=3.91, sig.level = 0.05, power=0.8)
+
+```
