@@ -22,6 +22,7 @@ root <- rprojroot::find_rstudio_root_file()
 data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\Sadeem\\Stats_restructured.xlsx")))
 Flexural_strength_and_Modulus=data_raw$`Flexural strength and Modulus`
 Vickers_Hardness=data_raw$`Vickers Hardness`
+Shore_Hardness=data_raw$`Shore Hardness`
 
 ```
 
@@ -59,6 +60,18 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+### Shore hardness
+
+
+```{r, message=F, warning=F}
+summary_statistics(Shore_Hardness)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
 
 
 ## anova 
@@ -212,6 +225,62 @@ ggplot(vickers_long, aes(x = Material, y = Vickers_Hardness)) +
     plot.title = element_text(hjust = 0.5)  # center title
   )
 ```
+
+
+
+### shore hardness 
+
+
+
+```{r, message=F, warning=F}
+hardness_data <- Shore_Hardness %>%
+  select(ends_with("Shore D Hardness"))
+
+hardness_long <- hardness_data %>%
+  mutate(id = row_number()) %>%
+  pivot_longer(-id, names_to = "Material", values_to = "Shore_Hardness")
+
+```
+
+
+
+### Shore Hardness: anova
+
+```{r, message=F, warning=F}
+anova_shore <- aov(Shore_Hardness ~ Material, data = hardness_long)
+summary(anova_shore)
+```
+
+
+### Shore Hardness: Tukey post-hoc test
+
+```{r, message=F, warning=F}
+round(TukeyHSD(anova_shore)$Material,4)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### Shore Hardness: Boxplot 
+
+```{r, message=F, warning=F}
+ggplot(hardness_long, aes(x = Material, y = Shore_Hardness)) +
+  geom_boxplot(fill = "salmon") +
+  labs(
+    title = "Shore Hardness Comparison",
+    x = "",
+    y = "Shore Hardness"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 15, hjust = 1),
+    plot.title = element_text(hjust = 0.5)  # center title
+  )
+```
+
 
 
 ##  sample size calculation 

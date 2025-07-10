@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-07-03
+<strong>Last updated:</strong> 2025-07-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee2ac492e72895360322ac88ef4be115911918baetargetblanke2ac492a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree631db3c136b24c29cd38bd74e3102df9db547d79targetblank631db3ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/e2ac492e72895360322ac88ef4be115911918bae" target="_blank">e2ac492</a>
+<a href="https://github.com/han16/Collaborations/tree/631db3c136b24c29cd38bd74e3102df9db547d79" target="_blank">631db3c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee2ac492e72895360322ac88ef4be115911918baetargetblanke2ac492a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree631db3c136b24c29cd38bd74e3102df9db547d79targetblank631db3ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/e2ac492e72895360322ac88ef4be115911918bae" target="_blank">e2ac492</a>.
+<a href="https://github.com/han16/Collaborations/tree/631db3c136b24c29cd38bd74e3102df9db547d79" target="_blank">631db3c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/631db3c136b24c29cd38bd74e3102df9db547d79/analysis/2025_0602_Sadeem.Rmd" target="_blank">631db3c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-03
+</td>
+<td>
+7/3/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/631db3c136b24c29cd38bd74e3102df9db547d79/docs/2025_0602_Sadeem.html" target="_blank">631db3c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-07-03
+</td>
+<td>
+7/3/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -814,7 +848,8 @@ han
 </div>
 <pre class="r"><code>data_raw=multiplesheets((file.path(root, &quot;..\\2025\\202506\\Sadeem\\Stats_restructured.xlsx&quot;)))
 Flexural_strength_and_Modulus=data_raw$`Flexural strength and Modulus`
-Vickers_Hardness=data_raw$`Vickers Hardness`</code></pre>
+Vickers_Hardness=data_raw$`Vickers Hardness`
+Shore_Hardness=data_raw$`Shore Hardness`</code></pre>
 <div id="summary-statistics" class="section level2">
 <h2>summary statistics</h2>
 <div id="flexural-strength-and-modulus" class="section level3">
@@ -840,6 +875,18 @@ datatable(extensions = &#39;Buttons&#39;,
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["SR IVOcap Clear-Vickers Hardness","KeySplint Hard-Vickers Hardness","Milled ProArt CAD-Vickers Hardness","NightGuard Firm2-Vickers Hardness","RoDIN Splint 2.0-Vickers Hardness"],[10,10,10,10,0],[19.73,10.11,22.85,12.59,null],[19.7,10.015,22.7,12.6,null],[0.9006999999999999,0.4404,0.9789,1.1229,null],[0.2848,0.1393,0.3096,0.3551,null],[18.975,9.772500000000001,22.25,12,null],[20.275,10.3,23.375,13.175,null],[18.5,9.609999999999999,21.4,10.6,null],[21,10.9,24.4,14.7,null],[0.4423,0.393,0.8511,0.9915,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"num_sample","targets":2},{"name":"Mean","targets":3},{"name":"Median","targets":4},{"name":"SD","targets":5},{"name":"SE","targets":6},{"name":"per_25_quantile","targets":7},{"name":"per_75_quantile","targets":8},{"name":"Range_low","targets":9},{"name":"Range_upper","targets":10},{"name":"normality_pvalue","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="shore-hardness" class="section level3">
+<h3>Shore hardness</h3>
+<pre class="r"><code>summary_statistics(Shore_Hardness)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5"],["SR IVOcap Clear-Shore D Hardness","KeySplint Hard-Shore D Hardness","Milled ProArt CAD-Shore D Hardness","NightGuard Firm2-Shore D Hardness","RoDIN Splint 2.0-Shore D Hardness"],[10,10,10,10,10],[90,80.90000000000001,95,85,55.3],[90,81,95,85,55],[0,0.3162,0,0,0.483],[0,0.1,0,0,0.1527],[90,81,95,85,55],[90,81,95,85,55.75],[90,80,95,85,55],[90,81,95,85,56],["NA: sample size too small or no variantion","0","NA: sample size too small or no variantion","NA: sample size too small or no variantion","0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>num_sample<\/th>\n      <th>Mean<\/th>\n      <th>Median<\/th>\n      <th>SD<\/th>\n      <th>SE<\/th>\n      <th>per_25_quantile<\/th>\n      <th>per_75_quantile<\/th>\n      <th>Range_low<\/th>\n      <th>Range_upper<\/th>\n      <th>normality_pvalue<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"num_sample","targets":2},{"name":"Mean","targets":3},{"name":"Median","targets":4},{"name":"SD","targets":5},{"name":"SE","targets":6},{"name":"per_25_quantile","targets":7},{"name":"per_75_quantile","targets":8},{"name":"Range_low","targets":9},{"name":"Range_upper","targets":10},{"name":"normality_pvalue","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="anova" class="section level2">
@@ -873,8 +920,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","NightGuard Firm2-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","NightGuard Firm2-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)"],[22.1527,26.4204,-84.78019999999999,-3.4813,4.2677,-106.9329,-25.6339,-111.2006,-29.9017,81.29900000000001],[14.7394,19.0071,-92.1935,-10.8946,-3.1456,-114.3462,-33.0472,-118.6139,-37.315,73.8856],[29.566,33.8337,-77.3669,3.932,11.681,-99.5196,-18.2206,-103.7873,-22.4883,88.7123],[0,0,0,0.6716,0.4831,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","NightGuard Firm2-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-KeySplint Hard-Flexural Strength (MPa)","NightGuard Firm2-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-Milled ProArt CAD-Flexural Strength (MPa)","RoDIN Splint 2.0-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-NightGuard Firm2-Flexural Strength (MPa)","SR IVOcap Clear-Flexural Strength (MPa)-RoDIN Splint 2.0-Flexural Strength (MPa)"],[22.1527,26.4204,-84.78019999999999,-3.4813,4.2677,-106.9329,-25.6339,-111.2006,-29.9017,81.29900000000001],[14.7394,19.0071,-92.1935,-10.8946,-3.1456,-114.3462,-33.0472,-118.6139,-37.315,73.8856],[29.566,33.8337,-77.3669,3.932,11.681,-99.5196,-18.2206,-103.7873,-22.4883,88.7123],[0,0,0,0.6716,0.4831,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="mpa-boxplots" class="section level3">
 <h3>mpa: boxplots</h3>
@@ -886,44 +933,7 @@ datatable(extensions = &#39;Buttons&#39;,
   theme(axis.text.x = element_text(angle = 15, hjust = 1), 
          plot.title = element_text(hjust = 0.5)  # centers the title
         )</code></pre>
-<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ee611477c8f0cd29f381542dbe5af64b624eb4e7/docs/figure/2025_0602_Sadeem.Rmd/unnamed-chunk-8-1.png" target="_blank">ee61147</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-06-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gpa" class="section level3">
 <h3>GPa</h3>
@@ -953,8 +963,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","NightGuard Firm2-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","NightGuard Firm2-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)"],[0.5231,0.5981,-2.1827,-0.1734,0.075,-2.7058,-0.6965,-2.7808,-0.7715,2.0093],[0.2717,0.3467,-2.4341,-0.4248,-0.1764,-2.9572,-0.9479,-3.0322,-1.0229,1.7579],[0.7746,0.8495,-1.9312,0.0781,0.3264,-2.4544,-0.4451,-2.5294,-0.5201,2.2607],[0,0,0,0.3022,0.9141,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","NightGuard Firm2-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-KeySplint Hard-Flexural Modulus (GPa)","NightGuard Firm2-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-Milled ProArt CAD-Flexural Modulus (GPa)","RoDIN Splint 2.0-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-NightGuard Firm2-Flexural Modulus (GPa)","SR IVOcap Clear-Flexural Modulus (GPa)-RoDIN Splint 2.0-Flexural Modulus (GPa)"],[0.5231,0.5981,-2.1827,-0.1734,0.075,-2.7058,-0.6965,-2.7808,-0.7715,2.0093],[0.2717,0.3467,-2.4341,-0.4248,-0.1764,-2.9572,-0.9479,-3.0322,-1.0229,1.7579],[0.7746,0.8495,-1.9312,0.0781,0.3264,-2.4544,-0.4451,-2.5294,-0.5201,2.2607],[0,0,0,0.3022,0.9141,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="gpa-boxplot" class="section level3">
 <h3>GPa: Boxplot</h3>
@@ -969,44 +979,7 @@ datatable(extensions = &#39;Buttons&#39;,
     axis.text.x = element_text(angle = 15, hjust = 1),
     plot.title = element_text(hjust = 0.5)  # center the title
   )</code></pre>
-<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/ee611477c8f0cd29f381542dbe5af64b624eb4e7/docs/figure/2025_0602_Sadeem.Rmd/unnamed-chunk-12-1.png" target="_blank">ee61147</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-06-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="vickers-hardness-1" class="section level3">
 <h3>Vickers Hardness</h3>
@@ -1037,8 +1010,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Vickers Hardness-KeySplint Hard-Vickers Hardness","NightGuard Firm2-Vickers Hardness-KeySplint Hard-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-KeySplint Hard-Vickers Hardness","NightGuard Firm2-Vickers Hardness-Milled ProArt CAD-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-Milled ProArt CAD-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness"],[12.74,2.48,9.619999999999999,-10.26,-3.12,7.14],[11.6586,1.3986,8.538600000000001,-11.3414,-4.2014,6.0586],[13.8214,3.5614,10.7014,-9.178599999999999,-2.0386,8.221399999999999],[0,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Vickers Hardness-KeySplint Hard-Vickers Hardness","NightGuard Firm2-Vickers Hardness-KeySplint Hard-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-KeySplint Hard-Vickers Hardness","NightGuard Firm2-Vickers Hardness-Milled ProArt CAD-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-Milled ProArt CAD-Vickers Hardness","SR IVOcap Clear-Vickers Hardness-NightGuard Firm2-Vickers Hardness"],[12.74,2.48,9.619999999999999,-10.26,-3.12,7.14],[11.6586,1.3986,8.538600000000001,-11.3414,-4.2014,6.0586],[13.8214,3.5614,10.7014,-9.178599999999999,-2.0386,8.221399999999999],[0,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="vickers-hardness-boxplot" class="section level3">
 <h3>Vickers Hardness: Boxplot</h3>
@@ -1053,44 +1026,53 @@ datatable(extensions = &#39;Buttons&#39;,
     axis.text.x = element_text(angle = 15, hjust = 1),
     plot.title = element_text(hjust = 0.5)  # center title
   )</code></pre>
-<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/389d74d7b44a8dff22e5aee603975fd7528808b9/docs/figure/2025_0602_Sadeem.Rmd/unnamed-chunk-16-1.png" target="_blank">389d74d</a>
-</td>
-<td>
-han
-</td>
-<td>
-2025-06-30
-</td>
-</tr>
-</tbody>
-</table>
+<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="shore-hardness-1" class="section level3">
+<h3>shore hardness</h3>
+<pre class="r"><code>hardness_data &lt;- Shore_Hardness %&gt;%
+  select(ends_with(&quot;Shore D Hardness&quot;))
+
+hardness_long &lt;- hardness_data %&gt;%
+  mutate(id = row_number()) %&gt;%
+  pivot_longer(-id, names_to = &quot;Material&quot;, values_to = &quot;Shore_Hardness&quot;)</code></pre>
 </div>
+<div id="shore-hardness-anova" class="section level3">
+<h3>Shore Hardness: anova</h3>
+<pre class="r"><code>anova_shore &lt;- aov(Shore_Hardness ~ Material, data = hardness_long)
+summary(anova_shore)</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)    
+Material     4   9532  2383.0   35745 &lt;2e-16 ***
+Residuals   45      3     0.1                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="shore-hardness-tukey-post-hoc-test" class="section level3">
+<h3>Shore Hardness: Tukey post-hoc test</h3>
+<pre class="r"><code>round(TukeyHSD(anova_shore)$Material,4)%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Milled ProArt CAD-Shore D Hardness-KeySplint Hard-Shore D Hardness","NightGuard Firm2-Shore D Hardness-KeySplint Hard-Shore D Hardness","RoDIN Splint 2.0-Shore D Hardness-KeySplint Hard-Shore D Hardness","SR IVOcap Clear-Shore D Hardness-KeySplint Hard-Shore D Hardness","NightGuard Firm2-Shore D Hardness-Milled ProArt CAD-Shore D Hardness","RoDIN Splint 2.0-Shore D Hardness-Milled ProArt CAD-Shore D Hardness","SR IVOcap Clear-Shore D Hardness-Milled ProArt CAD-Shore D Hardness","RoDIN Splint 2.0-Shore D Hardness-NightGuard Firm2-Shore D Hardness","SR IVOcap Clear-Shore D Hardness-NightGuard Firm2-Shore D Hardness","SR IVOcap Clear-Shore D Hardness-RoDIN Splint 2.0-Shore D Hardness"],[14.1,4.1,-25.6,9.1,-10,-39.7,-5,-29.7,5,34.7],[13.7719,3.7719,-25.9281,8.7719,-10.3281,-40.0281,-5.3281,-30.0281,4.6719,34.3719],[14.4281,4.4281,-25.2719,9.428100000000001,-9.671900000000001,-39.3719,-4.6719,-29.3719,5.3281,35.0281],[0,0,0,0,0,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"diff","targets":1},{"name":"lwr","targets":2},{"name":"upr","targets":3},{"name":"p adj","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="shore-hardness-boxplot" class="section level3">
+<h3>Shore Hardness: Boxplot</h3>
+<pre class="r"><code>ggplot(hardness_long, aes(x = Material, y = Shore_Hardness)) +
+  geom_boxplot(fill = &quot;salmon&quot;) +
+  labs(
+    title = &quot;Shore Hardness Comparison&quot;,
+    x = &quot;&quot;,
+    y = &quot;Shore Hardness&quot;
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 15, hjust = 1),
+    plot.title = element_text(hjust = 0.5)  # center title
+  )</code></pre>
+<p><img src="figure/2025_0602_Sadeem.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="sample-size-calculation" class="section level2">
