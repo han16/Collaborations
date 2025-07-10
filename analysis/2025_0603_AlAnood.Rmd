@@ -248,7 +248,37 @@ datatable(extensions = 'Buttons',
 ```
 
 
-* two smaple t test was used. 
+* two sample t test was used. 
 
 
+
+### day 1 vs day 7 
+
+```{r, message=F, warning=F}
+# Initialize an empty vector for p-values
+p_values <- numeric(ncol(day1_data))
+
+# Loop through each group (column) to compute paired t-test p-values
+for (i in seq_along(day1_data)) {
+  day1 <- day1_data[[i]]
+  day7 <- day7_data[[i]]
+  test <- t.test(day1, day7, paired = TRUE, na.action = na.omit)
+  p_values[i] <- pvalue_adjust(test$p.value)
+}
+
+# Create a matrix with group names and p-values
+p_value_matrix <- matrix(p_values, nrow = 1)
+colnames(p_value_matrix) <- colnames(day1_data)
+rownames(p_value_matrix) <- "p-value"
+
+# Print the matrix
+p_value_matrix%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+* paired two sample t test was used. 
 
