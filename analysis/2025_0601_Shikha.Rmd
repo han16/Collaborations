@@ -28,6 +28,8 @@ post_endo_tx=data_raw$`Post Endo TX`
 
 
 
+## failure codes 
+
 
 ```{r, message=F, warning=F}
 # Create a data frame
@@ -58,7 +60,7 @@ knitr::kable(failure_codes, caption = "Failure-related Procedure Codes", align =
 ```
 
 
-
+## basic numbers and data structure 
 
 
 ```{r, message=F, warning=F}
@@ -127,6 +129,8 @@ survival_data <- treatment_start %>%
 # View result
 ```
 
+
+## survival data 
 
 
 ```{r, message=F, warning=F}
