@@ -7,3 +7,137 @@ output:
 date: "2025-06-04"
 ---
 
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+```{r, message=F, warning=F, results=F}
+data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\Shikha\\Dr. Gupta Endo Data.xlsx")))
+endo_cases=data_raw$EndoCases
+post_endo_tx=data_raw$`Post Endo TX`
+```
+
+
+
+
+```{r, message=F, warning=F}
+# Create a data frame
+failure_codes <- data.frame(
+  Code = c("D3346", "D3347", "D3348", "D3421", "D3425", "D3410", "D3426",
+           "D3430", "D3450", "D3470", "D3505", "D3920", "D7140", "D7210"),
+  Description = c(
+    "Anterior-retreat prev. rt. canal",
+    "Bicuspid retreat prev. rt. canal",
+    "Molar retreat prev. rt. canal",
+    "Apicoectomy - bicuspid (1st root)",
+    "Apicoectomy - molar (1st root)",
+    "Apicoectomy - anterior",
+    "Apicoectomy - additional roots",
+    "Retrograde filling - per root",
+    "Root amputation - per root",
+    "Intentional reimplantation",
+    "Surgical exposure of root surface w/o apicoectomy",
+    "Hemisection, incl. root removal",
+    "Extraction",
+    "Surgical removal of erupted tooth"
+  )
+)
+
+# Display table
+knitr::kable(failure_codes, caption = "Failure-related Procedure Codes", align = 'lc')
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+endo_cases_updated=endo_cases %>% mutate(tooth=paste0(endo_cases$Patient, ":", endo_cases$Site))
+post_endo_tx_updated=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", post_endo_tx$Site))
+post_endo_tx_updated=post_endo_tx_updated %>% filter(`Endo Check`=="Yes")
+
+head(endo_cases_updated)
+dim(endo_cases_updated)
+
+head(post_endo_tx_updated)
+dim(post_endo_tx_updated)
+```
+
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+library(dplyr)
+library(lubridate)
+
+# Define failure codes
+failure_codes <- c(
+  "D3346", "D3347", "D3348", "D3421", "D3425", "D3410", "D3426",
+  "D3430", "D3450", "D3470", "D3505", "D3920", "D7140", "D7210"
+)
+
+# 1. Ensure dates are Date type
+endo_cases_updated <- endo_cases_updated %>%
+  mutate(Date = as.Date(Date))
+
+post_endo_tx_updated <- post_endo_tx_updated %>%
+  mutate(Date = as.Date(Date))
+
+# 2. Get earliest treatment date per tooth
+treatment_start <- endo_cases_updated %>%
+  group_by(tooth) %>%
+  summarise(start_date = min(Date), .groups = "drop")
+
+# 3. Get first failure date (if any)
+failure_info <- post_endo_tx_updated %>%
+  filter(Procedure %in% failure_codes) %>%
+  group_by(tooth) %>%
+  summarise(failure_date = min(Date), .groups = "drop")
+
+# 4. Get last follow-up date for censoring
+last_followup <- post_endo_tx_updated %>%
+  group_by(tooth) %>%
+  summarise(last_date = max(Date), .groups = "drop")
+
+# 5. Merge everything
+survival_data <- treatment_start %>%
+  left_join(failure_info, by = "tooth") %>%
+  left_join(last_followup, by = "tooth") %>%
+  mutate(
+    event_date = if_else(!is.na(failure_date), failure_date, last_date),
+    status = if_else(!is.na(failure_date), 1, 0),  # 1 = failure, 0 = censored
+    survival_days = as.numeric(difftime(event_date, start_date, units = "days"))
+  )
+
+# View result
+```
+
+
+
+```{r, message=F, warning=F}
+
+survival_data%>% filter(survival_days>0)%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
