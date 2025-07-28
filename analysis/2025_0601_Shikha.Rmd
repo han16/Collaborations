@@ -130,8 +130,8 @@ survival_data <- treatment_start %>%
 
 
 ```{r, message=F, warning=F}
-
-survival_data%>% filter(survival_days>0)%>%
+survival_data=survival_data%>% filter(survival_days>0)
+survival_data%>%
 datatable(extensions = 'Buttons',
           caption = "", 
             options = list(dom = 'Blfrtip',
@@ -141,3 +141,31 @@ datatable(extensions = 'Buttons',
 
 
 ```
+
+
+## survival analysis 
+
+```{r, message=F, warning=F}
+library(survival)
+library(survminer)
+
+km_fit <- survfit(Surv(survival_days, status) ~ 1, data = survival_data)
+
+
+# Plot KM survival curve
+ggsurvplot(
+  km_fit,
+  data = survival_data,
+  risk.table = TRUE,        # Show number at risk below the plot
+  pval = TRUE,              # Show p-value (for comparison if groups exist)
+  conf.int = TRUE,          # Show confidence interval
+  xlab = "Days Since Treatment",
+  ylab = "Tooth Survival Probability",
+  title = "Kaplan-Meier Survival Estimate for Endodontic Treatment",
+  surv.median.line = "hv",  # Add horizontal/vertical median survival line
+  theme = theme_minimal()
+)
+
+```
+
+
