@@ -30,7 +30,7 @@ post_endo_tx=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", pos
 ```
 
 
-## step 1: 
+## step 1: root canal 
 
 
 ```{r, message=F, warning=F}
