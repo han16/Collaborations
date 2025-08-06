@@ -23,12 +23,263 @@ root <- rprojroot::find_rstudio_root_file()
 ```{r, message=F, warning=F, results=F}
 data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\Shikha\\Dr. Gupta Endo Data.xlsx")))
 endo_cases=data_raw$EndoCases
+endo_cases=endo_cases %>% mutate(tooth=paste0(endo_cases$Patient, ":", endo_cases$Site))
+
 post_endo_tx=data_raw$`Post Endo TX`
+post_endo_tx=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", post_endo_tx$Site))
+```
+
+
+## step 1: 
+
+
+```{r, message=F, warning=F}
+# Create a data frame
+root_canal_codes <- data.frame(
+  Code = c("D3310", "D3320", "D3330"),
+  Description = c(
+    "anterior RCT",
+    "bicuspid RCT",
+    "molar RCT"
+  )
+)
+
+# Display table
+knitr::kable(root_canal_codes, caption = "root canal Codes", align = 'lc')
 ```
 
 
 
-## failure codes 
+
+```{r, message=F, warning=F}
+endo_cases_with_root_canal=endo_cases %>% filter(Procedure %in% root_canal_codes$Code)
+endo_cases_with_root_canal %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+# Count the number of each Procedure
+procedure_counts <- endo_cases_with_root_canal %>%dplyr::count(Procedure)
+
+# Bar plot
+ggplot(procedure_counts, aes(x = Procedure, y = n, fill=Procedure)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = n), vjust = -0.5, size = 4) +
+  labs(
+    title = "",
+    x = "Procedure Code",
+    y = "Count"
+  ) +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 14),
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+
+```
+
+
+
+
+
+## step 2: initial treatment 
+
+
+```{r, message=F, warning=F}
+# Create a data frame of Final Restoration codes
+final_restoration_codes <- data.frame(
+  Code = c(
+    "D2390", "D2391", "D2392", "D2393", "D2394",
+    "D2650", "D2651", "D2652", "D2662", "D2663", "D2664",
+    "D2710", "D2712", "D2720", "D2721", "D2722",
+    "D2910", "D2915", "D2920", "D2932", "D2933",
+    "D2940", "D2949", "D2950", "D2951", "D2952", "D2954",
+    "D6068", "D6069", "D6070", "D6071", "D6072", "D6073", "D6074",
+    "D6545", "D6548", "D6611",
+    "D6710", "D6720", "D6721", "D6722",
+    "D6740", "D6750", "D6780", "D6790", "D6793",
+    "D6930", "D6971"
+  ),
+  Description = c(
+    "Resin-based comp crown, ant.",
+    "Resin-based comp - 1 surface, posterior",
+    "Resin-based comp - 2 surfaces, posterior",
+    "Resin-based comp - 3 surfaces, posterior",
+    "Resin-based comp - 4+ surfaces, posterior",
+    "Inlay - resin - 1 surface",
+    "Inlay - resin - 2 surfaces",
+    "Inlay - resin - 3 or more",
+    "Onlay - resin - 2 surfaces",
+    "Onlay - resin - 3 surfaces",
+    "Onlay - resin - 4 or more",
+    "Resin crown - laboratory",
+    "Crown - 3/4 resin-based comp",
+    "Resin crown - high noble metal",
+    "Resin crown - predominately base metal",
+    "Resin crown - noble metal",
+    "Recement/re-bond inlay/onlay",
+    "Recement cast or prefab post",
+    "Recement/re-bond crown",
+    "Prefabricated resin crown",
+    "Prefab stainless steel crown w/ resin window",
+    "Protective restoration",
+    "Restorative foundation/indirect restoration",
+    "Core buildup - including pins",
+    "Pin retention - per tooth",
+    "Post & core, indirect fabrication",
+    "Prefab post and core",
+    "Abutment-retainer, porcelain/ceramic FPD",
+    "Abutment-ret., PFM FPD, high noble",
+    "Abutment-ret., PFM FPD, base metal",
+    "Abutment-ret., PFM FPD, noble metal",
+    "Abut-ret., cast metal, high noble",
+    "Abut-ret., cast metal, base metal",
+    "Abut-ret., cast metal, noble metal",
+    "Retainer, metal, resin-bonded FPD",
+    "Retainer, porcelain/ceramic, bonded FPD",
+    "Retainer onlay, high noble metal, 3+ surfaces",
+    "Crown - indirect resin-based",
+    "Crown - resin, high noble metal",
+    "Crown - resin, predominately base metal",
+    "Crown - resin, noble metal",
+    "Retainer crown - porcelain/ceramic",
+    "Retainer crown - porcelain fused to high noble metal",
+    "Retainer crown - 3/4 cast, high noble metal",
+    "Retainer crown - full cast, high noble metal",
+    "Provisional retainer crown",
+    "Recement/re-bond FPD",
+    "Cast post - part of FPD retainer"
+  )
+)
+
+knitr::kable(final_restoration_codes, caption = "final restoration codes", align = 'lc')
+
+post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in% final_restoration_codes$Code )
+
+
+```
+
+
+
+
+## time period between root canal and inital treatment 
+
+
+
+```{r, message=F, warning=F}
+library(dplyr)
+library(DT)
+
+# Ensure date columns are Date type
+endo_cases_with_root_canal$Date <- as.Date(endo_cases_with_root_canal$Date)
+post_endo_tx_with_final_restoration_codes$Date <- as.Date(post_endo_tx_with_final_restoration_codes$Date)
+
+# Step 1: Get the first restoration date + procedure per tooth
+first_restoration <- post_endo_tx_with_final_restoration_codes %>%
+  group_by(tooth) %>%
+  filter(Date == min(Date)) %>%
+  slice(1) %>%  # In case there are ties
+  ungroup() %>%
+  select(tooth, first_restoration_date = Date, first_restoration_procedure = Procedure)
+
+# Step 2: Join back with the root canal data
+endo_with_tx_time <- endo_cases_with_root_canal %>%
+  left_join(first_restoration, by = "tooth") %>%
+  filter(!is.na(first_restoration_date)) %>%  # Remove if no restoration found
+  mutate(
+    time_between_days = as.numeric(first_restoration_date - Date)
+  ) %>%
+  select(
+    Patient,
+    tooth,
+    Date,
+    root_canal_procedure = Procedure,
+    first_restoration_date,
+    first_restoration_procedure,
+    time_between_days
+  )
+
+# Step 3: Render as datatable
+endo_with_tx_time %>%
+  datatable(
+    extensions = 'Buttons',
+    caption = "",
+    options = list(
+      dom = 'Blfrtip',
+      buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+      lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+    )
+  )
+
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+library(dplyr)
+library(lubridate)
+
+# Ensure Date columns are Date type
+endo_cases_with_root_canal$Date <- as.Date(endo_cases_with_root_canal$Date)
+post_endo_tx_with_final_restoration_codes$Date <- as.Date(post_endo_tx_with_final_restoration_codes$Date)
+
+# Rename for clarity
+endo <- endo_cases_with_root_canal %>%
+  rename(endo_date = Date,
+         endo_procedure = Procedure)
+
+resto <- post_endo_tx_with_final_restoration_codes %>%
+  rename(restoration_date = Date,
+         restoration_procedure = Procedure)
+
+# Perform many-to-many join by "tooth"
+combined <- inner_join(endo, resto, by = "tooth") %>%
+  # Optional: restrict to matching Patient as well
+  filter(Patient.x == Patient.y) %>%
+  mutate(time_between_days = as.numeric(restoration_date - endo_date)) %>%
+  select(
+    Patient = Patient.x,
+    tooth,
+    endo_date,
+    endo_procedure,
+    restoration_date,
+    restoration_procedure,
+    time_between_days
+  ) %>%
+  arrange(Patient, tooth, endo_date, restoration_date)
+
+# View results
+
+combined %>%
+  datatable(
+    extensions = 'Buttons',
+    caption = "",
+    options = list(
+      dom = 'Blfrtip',
+      buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+      lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+    )
+  )
+
+```
+
+
+
+
+
+## step 3: post treatment 
 
 
 ```{r, message=F, warning=F}
