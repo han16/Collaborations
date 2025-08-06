@@ -179,40 +179,58 @@ post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in%
 library(dplyr)
 library(DT)
 
-# Ensure date columns are Date type
+# Ensure Date columns are Date type
 endo_cases_with_root_canal$Date <- as.Date(endo_cases_with_root_canal$Date)
 post_endo_tx_with_final_restoration_codes$Date <- as.Date(post_endo_tx_with_final_restoration_codes$Date)
 
-# Step 1: Get the first restoration date + procedure per tooth
-first_restoration <- post_endo_tx_with_final_restoration_codes %>%
-  group_by(tooth) %>%
-  filter(Date == min(Date)) %>%
-  slice(1) %>%  # In case there are ties
-  ungroup() %>%
-  select(tooth, first_restoration_date = Date, first_restoration_procedure = Procedure)
+# Step 1: Rename columns for clarity
+endo_root <- endo_cases_with_root_canal %>%
+  rename(
+    root_canal_date = Date,
+    root_canal_procedure = Procedure
+  )
 
-# Step 2: Join back with the root canal data
-endo_with_tx_time <- endo_cases_with_root_canal %>%
-  left_join(first_restoration, by = "tooth") %>%
-  filter(!is.na(first_restoration_date)) %>%  # Remove if no restoration found
+restoration <- post_endo_tx_with_final_restoration_codes %>%
+  rename(
+    restoration_date = Date,
+    restoration_procedure = Procedure
+  )
+
+# Step 2: Perform inner join on tooth, retaining all necessary columns explicitly
+joined <- endo_root %>%
+  select(Patient, tooth, root_canal_date, root_canal_procedure) %>%
+  inner_join(restoration %>% select(tooth, restoration_date, restoration_procedure),
+             by = "tooth")
+
+# Step 3: Filter restorations that occurred *after* root canal
+after_root_canal <- joined %>%
+  filter(restoration_date > root_canal_date)
+
+# Step 4: Group by root canal event (Patient + tooth + date) and get earliest restoration
+first_restoration <- after_root_canal %>%
+  group_by(Patient, tooth, root_canal_date) %>%
+  arrange(restoration_date) %>%
+  slice(1) %>%
+  ungroup()
+
+# Step 5: Calculate time difference and select output columns
+endo_with_tx_time <- first_restoration %>%
   mutate(
-    time_between_days = as.numeric(first_restoration_date - Date)
+    time_between_days = as.numeric(restoration_date - root_canal_date)
   ) %>%
   select(
     Patient,
     tooth,
-    Date,
-    root_canal_procedure = Procedure,
-    first_restoration_date,
-    first_restoration_procedure,
+    root_canal_date,
+    root_canal_procedure,
+    first_restoration_date = restoration_date,
+    first_restoration_procedure = restoration_procedure,
     time_between_days
   )
 
-# Step 3: Render as datatable
 endo_with_tx_time %>%
   datatable(
     extensions = 'Buttons',
-    caption = "",
     options = list(
       dom = 'Blfrtip',
       buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
