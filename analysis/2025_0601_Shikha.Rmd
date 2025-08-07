@@ -52,7 +52,14 @@ knitr::kable(root_canal_codes, caption = "root canal Codes", align = 'lc')
 
 
 ```{r, message=F, warning=F}
-endo_cases_with_root_canal=endo_cases %>% filter(Procedure %in% root_canal_codes$Code)
+
+
+endo_cases_with_root_canal=endo_cases %>% filter(Procedure %in% root_canal_codes$Code)%>%
+  group_by(tooth) %>%
+  arrange(Date) %>%
+  slice_tail(n = 1) %>%  # Keeps the last root canal date
+  ungroup()
+
 endo_cases_with_root_canal %>%
 datatable(extensions = 'Buttons',
           caption = "", 
@@ -62,6 +69,9 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+* only keep the latest root canal if the tooth has multiple root canals. 
 
 
 
@@ -163,7 +173,7 @@ final_restoration_codes <- data.frame(
 
 knitr::kable(final_restoration_codes, caption = "final restoration codes", align = 'lc')
 
-post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in% final_restoration_codes$Code )
+post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in% final_restoration_codes$Code ) %>% filter(`Endo Check`=="Yes")
 
 
 ```
@@ -240,6 +250,9 @@ endo_with_tx_time %>%
 
 
 ```
+
+
+* if a tooth has multiple restorations after root canal, keep the earliest one only. 
 
 
 
@@ -329,115 +342,90 @@ knitr::kable(failure_codes, caption = "Failure-related Procedure Codes", align =
 ```
 
 
-## basic numbers and data structure 
 
 
 ```{r, message=F, warning=F}
-endo_cases_updated=endo_cases %>% mutate(tooth=paste0(endo_cases$Patient, ":", endo_cases$Site))
-post_endo_tx_updated=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", post_endo_tx$Site))
-post_endo_tx_updated=post_endo_tx_updated %>% filter(`Endo Check`=="Yes")
 
-head(endo_cases_updated)
-dim(endo_cases_updated)
-
-head(post_endo_tx_updated)
-dim(post_endo_tx_updated)
-```
-
-
-
-
-
-
-
-
-
-```{r, message=F, warning=F}
-library(dplyr)
-library(lubridate)
-
-# Define failure codes
+# Step 1: Define the failure-related procedure codes
 failure_codes <- c(
-  "D3346", "D3347", "D3348", "D3421", "D3425", "D3410", "D3426",
-  "D3430", "D3450", "D3470", "D3505", "D3920", "D7140", "D7210"
+  "D3346", "D3347", "D3348", "D3421", "D3425",
+  "D3410", "D3426", "D3430", "D3450", "D3470",
+  "D3505", "D3920", "D7140", "D7210"
 )
 
-# 1. Ensure dates are Date type
-endo_cases_updated <- endo_cases_updated %>%
-  mutate(Date = as.Date(Date))
-
-post_endo_tx_updated <- post_endo_tx_updated %>%
-  mutate(Date = as.Date(Date))
-
-# 2. Get earliest treatment date per tooth
-treatment_start <- endo_cases_updated %>%
-  group_by(tooth) %>%
-  summarise(start_date = min(Date), .groups = "drop")
-
-# 3. Get first failure date (if any)
-failure_info <- post_endo_tx_updated %>%
+# Step 2: Extract only failure events from all procedures
+# all_procedures must include: Patient, tooth, Date, Procedure
+failure_events <- post_endo_tx %>% filter(`Endo Check`=="Yes") %>% 
   filter(Procedure %in% failure_codes) %>%
-  group_by(tooth) %>%
-  summarise(failure_date = min(Date), .groups = "drop")
+  rename(failure_date = Date, failure_code = Procedure) %>%
+  select(Patient, tooth, failure_date, failure_code)
 
-# 4. Get last follow-up date for censoring
-last_followup <- post_endo_tx_updated %>%
-  group_by(tooth) %>%
-  summarise(last_date = max(Date), .groups = "drop")
+failure_events$failure_date=as.Date(failure_events$failure_date)
 
-# 5. Merge everything
-survival_data <- treatment_start %>%
-  left_join(failure_info, by = "tooth") %>%
-  left_join(last_followup, by = "tooth") %>%
+# Step 3: Join with endo_with_tx_time and filter for valid failures (after restoration)
+endo_with_failure <- endo_with_tx_time %>%
+  left_join(failure_events, by = c("Patient", "tooth")) %>%
+  filter(is.na(failure_date) | failure_date >= first_restoration_date) %>%  # allow NA for no failure
+  group_by(Patient, tooth, root_canal_date) %>%
+  arrange(failure_date) %>%
+  slice(1) %>%  # earliest failure (or NA)
+  ungroup() %>%
   mutate(
-    event_date = if_else(!is.na(failure_date), failure_date, last_date),
-    status = if_else(!is.na(failure_date), 1, 0),  # 1 = failure, 0 = censored
-    survival_days = as.numeric(difftime(event_date, start_date, units = "days"))
+    survival_days = as.numeric(failure_date - first_restoration_date),
+    survival_weeks = round(survival_days / 7,2), 
+    survival_months = round(survival_days / 30.44,2), 
+    survival_years = round(survival_days / 365.25, 2)
   )
 
-# View result
-```
-
-
-## survival data 
-
-
-```{r, message=F, warning=F}
-survival_data=survival_data%>% filter(survival_days>0)
-survival_data%>%
+endo_with_failure%>%
 datatable(extensions = 'Buttons',
           caption = "", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
-
-
 ```
+
+
+
+
 
 
 ## survival analysis 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=T}
+# Load required libraries
 library(survival)
 library(survminer)
 
-km_fit <- survfit(Surv(survival_days, status) ~ 1, data = survival_data)
+# Step 1: Prepare the data
+survival_data <- endo_with_failure %>%
+  mutate(
+    # Event flag: 1 = failed, 0 = censored
+    event = ifelse(is.na(failure_date), 0, 1),
+    # Time to event in days
+    survival_days = as.numeric(failure_date - first_restoration_date)
+  )
 
+# Step 2: Create a Surv object
+surv_object <- Surv(time = survival_data$survival_days, event = survival_data$event)
 
-# Plot KM survival curve
+# Step 3: Fit Kaplan-Meier survival model
+km_fit <- survfit(surv_object ~ 1)
+
+# Step 4: Plot Kaplan-Meier survival curve
 ggsurvplot(
   km_fit,
-  data = survival_data,
-  risk.table = TRUE,        # Show number at risk below the plot
-  pval = TRUE,              # Show p-value (for comparison if groups exist)
-  conf.int = TRUE,          # Show confidence interval
-  xlab = "Days Since Treatment",
-  ylab = "Tooth Survival Probability",
-  title = "Kaplan-Meier Survival Estimate for Endodontic Treatment",
-  surv.median.line = "hv",  # Add horizontal/vertical median survival line
-  theme = theme_minimal()
+  data = survival_data,  # ✅ This solves the error
+  conf.int = TRUE,
+  xlab = "Days since first restoration",
+  ylab = "Tooth survival probability",
+  title = "Kaplan-Meier Survival Curve of Root Canal Treated Teeth",
+  surv.median.line = "hv",
+  risk.table = TRUE,
+  risk.table.height = 0.25
 )
+
 
 ```
 
