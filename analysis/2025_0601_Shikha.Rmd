@@ -44,8 +44,13 @@ root_canal_codes <- data.frame(
   )
 )
 
-# Display table
-knitr::kable(root_canal_codes, caption = "root canal Codes", align = 'lc')
+root_canal_codes%>%
+datatable(extensions = 'Buttons',
+          caption = "root canal Codes", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -59,6 +64,9 @@ endo_cases_with_root_canal=endo_cases %>% filter(Procedure %in% root_canal_codes
   arrange(Date) %>%
   slice_tail(n = 1) %>%  # Keeps the last root canal date
   ungroup()
+
+endo_cases_with_root_canal$Date=as.Date(endo_cases_with_root_canal$Date)
+endo_cases_with_root_canal$Birth=as.Date(endo_cases_with_root_canal$Birth)
 
 endo_cases_with_root_canal %>%
 datatable(extensions = 'Buttons',
@@ -171,10 +179,15 @@ final_restoration_codes <- data.frame(
   )
 )
 
-knitr::kable(final_restoration_codes, caption = "final restoration codes", align = 'lc')
-
 post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in% final_restoration_codes$Code ) %>% filter(`Endo Check`=="Yes")
 
+final_restoration_codes%>%
+datatable(extensions = 'Buttons',
+          caption = "restoration codes", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
 
@@ -336,8 +349,15 @@ failure_codes <- data.frame(
   )
 )
 
-# Display table
-knitr::kable(failure_codes, caption = "Failure-related Procedure Codes", align = 'lc')
+
+failure_codes%>%
+datatable(extensions = 'Buttons',
+          caption = "Extraction /failure codes", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 
 ```
 
