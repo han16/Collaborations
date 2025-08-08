@@ -20,13 +20,17 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 
-```{r, message=F, warning=F, results=F}
+```{r, message=F, warning=F, results=F, eval=F}
 data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\Shikha\\Dr. Gupta Endo Data.xlsx")))
 endo_cases=data_raw$EndoCases
 endo_cases=endo_cases %>% mutate(tooth=paste0(endo_cases$Patient, ":", endo_cases$Site))
 
 post_endo_tx=data_raw$`Post Endo TX`
 post_endo_tx=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", post_endo_tx$Site))
+
+#saveRDS(endo_cases, file=file.path(root, "..\\2025\\202506\\Shikha\\endo_cases.RDS"))
+#saveRDS(post_endo_tx, file=file.path(root, "..\\2025\\202506\\Shikha\\post_endo_tx.RDS"))
+
 ```
 
 
@@ -34,6 +38,9 @@ post_endo_tx=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", pos
 
 
 ```{r, message=F, warning=F}
+endo_cases=readRDS(file.path(root, "..\\2025\\202506\\Shikha\\endo_cases.RDS"))
+post_endo_tx=readRDS(file.path(root, "..\\2025\\202506\\Shikha\\post_endo_tx.RDS"))
+
 # Create a data frame
 root_canal_codes <- data.frame(
   Code = c("D3310", "D3320", "D3330"),
@@ -70,7 +77,7 @@ endo_cases_with_root_canal$Birth=as.Date(endo_cases_with_root_canal$Birth)
 
 endo_cases_with_root_canal %>%
 datatable(extensions = 'Buttons',
-          caption = "", 
+          caption = " patient and tooth with root canal codes", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
@@ -79,7 +86,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-* only keep the latest root canal if the tooth has multiple root canals. 
+* only keep the latest root canal if the tooth has multiple root canals at different dates. 
 
 
 
@@ -100,6 +107,7 @@ ggplot(procedure_counts, aes(x = Procedure, y = n, fill=Procedure)) +
   theme_minimal() +
   theme(
     text = element_text(size = 14),
+    legend.position = "", 
     plot.title = element_text(hjust = 0.5, face = "bold")
   )
 
@@ -199,8 +207,6 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, message=F, warning=F}
-library(dplyr)
-library(DT)
 
 # Ensure Date columns are Date type
 endo_cases_with_root_canal$Date <- as.Date(endo_cases_with_root_canal$Date)
@@ -272,7 +278,19 @@ endo_with_tx_time %>%
 
 
 ```{r, message=F, warning=F}
-library(dplyr)
+ggplot(endo_with_tx_time, aes(x = time_between_days)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
+  xlab("Time Between Days") +
+  ylab("") +
+  ggtitle("") +
+  theme_minimal()
+summary(endo_with_tx_time$time_between_days)
+```
+
+
+
+
+```{r, message=F, warning=F, eval=F}
 library(lubridate)
 
 # Ensure Date columns are Date type
@@ -382,7 +400,7 @@ failure_events <- post_endo_tx %>% filter(`Endo Check`=="Yes") %>%
 
 failure_events$failure_date=as.Date(failure_events$failure_date)
 
-# Step 3: Join with endo_with_tx_time and filter for valid failures (after restoration)
+# Step 3: Join with endo_with_tx_time and filter for valid failures (after restoration); this step will filter some patients with failure date prior to restoration  
 endo_with_failure <- endo_with_tx_time %>%
   left_join(failure_events, by = c("Patient", "tooth")) %>%
   filter(is.na(failure_date) | failure_date >= first_restoration_date) %>%  # allow NA for no failure
@@ -409,6 +427,38 @@ datatable(extensions = 'Buttons',
 
 
 
+```{r, message=F, warning=F, eval=F}
+# Get teeth with restoration but not in failure
+tooth_with_resortation_not_in_failure <- setdiff(endo_with_tx_time$tooth, endo_with_failure$tooth)
+
+# Filter endo_with_tx_time for these teeth
+restorations_no_failure <- endo_with_tx_time %>%
+  filter(tooth %in% tooth_with_resortation_not_in_failure) %>%
+  select(Patient, tooth, first_restoration_date, root_canal_procedure)  # restoration date and code
+
+# Teeth with failure info
+failures_info <- failure_events %>%
+  semi_join(endo_with_failure, by = c("Patient", "tooth")) %>%
+  select(Patient, tooth, failure_date, failure_code)
+
+# Add a column indicating failure status
+restorations_no_failure <- restorations_no_failure %>%
+  mutate(failure_date = as.Date(NA), failure_code = NA_character_)
+
+failures_info <- failures_info %>%
+  rename(root_canal_procedure = failure_code)  # If you want same column name or keep separate
+
+# Bind rows together if you want a combined table of all teeth:
+all_teeth <- bind_rows(
+  restorations_no_failure,
+  failures_info
+)
+
+all_teeth
+```
+
+
+
 
 
 ## survival analysis 
@@ -418,13 +468,19 @@ datatable(extensions = 'Buttons',
 library(survival)
 library(survminer)
 
-# Step 1: Prepare the data
+# Find the latest date in the dataset (from either failure or restoration dates)
+last_followup_date <- max(
+  c(endo_with_failure$failure_date, endo_with_failure$first_restoration_date),
+  na.rm = TRUE
+)
+
+# Fill in survival_days for censored teeth
 survival_data <- endo_with_failure %>%
   mutate(
-    # Event flag: 1 = failed, 0 = censored
     event = ifelse(is.na(failure_date), 0, 1),
-    # Time to event in days
-    survival_days = as.numeric(failure_date - first_restoration_date)
+    end_date = ifelse(event == 1, failure_date, last_followup_date),
+    end_date = as.Date(end_date, origin = "1970-01-01"), # ensure Date type
+    survival_days = as.numeric(end_date - first_restoration_date)
   )
 
 # Step 2: Create a Surv object
@@ -449,4 +505,4 @@ ggsurvplot(
 
 ```
 
-
+* if a tooth never experiences failure/extraction, the restoration works to the end of the study 
