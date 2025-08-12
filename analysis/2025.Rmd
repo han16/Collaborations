@@ -27,3 +27,7 @@ date: "2025-01-07"
 9. [June-AlAnood](2025_0603_AlAnood.html)
 
 10. [Jun-Arndt](2025_0604_Arndt.html)
+
+11. [Jul-ClinicalData](https://han16.github.io/Dental_Clinical_Data_ML/)
+
+12. [Aug-Hannah](2025_0801_Hannah.html)
