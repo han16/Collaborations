@@ -120,7 +120,7 @@ datatable(extensions = 'Buttons',
 
 ## Trueness_FALCON 2025.cvs
 
-### WFC vs WFD 
+### WFC(1) vs WFD(2) 
 
 
 ```{r, message=F, warning=F}
@@ -165,7 +165,7 @@ datatable(extensions = 'Buttons',
 
 
 
-### WFC (2) vs WFD+SG(3) 
+### WFD (2) vs WFD+SG(3) 
 
 
 ```{r, message=F, warning=F}

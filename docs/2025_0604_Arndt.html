@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree99e347ff1fb74951b8f623d4774e9d06d14182eatargetblank99e347fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedbc10c2aea74d139e81dce957ad05ca69b60dacctargetblankdbc10c2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/99e347ff1fb74951b8f623d4774e9d06d14182ea" target="_blank">99e347f</a>
+<a href="https://github.com/han16/Collaborations/tree/dbc10c2aea74d139e81dce957ad05ca69b60dacc" target="_blank">dbc10c2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree99e347ff1fb74951b8f623d4774e9d06d14182eatargetblank99e347fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedbc10c2aea74d139e81dce957ad05ca69b60dacctargetblankdbc10c2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/99e347ff1fb74951b8f623d4774e9d06d14182ea" target="_blank">99e347f</a>.
+<a href="https://github.com/han16/Collaborations/tree/dbc10c2aea74d139e81dce957ad05ca69b60dacc" target="_blank">dbc10c2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dbc10c2aea74d139e81dce957ad05ca69b60dacc/analysis/2025_0604_Arndt.Rmd" target="_blank">dbc10c2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-25
+</td>
+<td>
+8/25/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/dbc10c2aea74d139e81dce957ad05ca69b60dacc/docs/2025_0604_Arndt.html" target="_blank">dbc10c2</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-25
+</td>
+<td>
+8/25/2025
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -808,8 +842,8 @@ datatable(extensions = &#39;Buttons&#39;,
 </div>
 <div id="trueness_falcon-2025.cvs" class="section level2">
 <h2>Trueness_FALCON 2025.cvs</h2>
-<div id="wfc-vs-wfd" class="section level3">
-<h3>WFC vs WFD</h3>
+<div id="wfc1-vs-wfd2" class="section level3">
+<h3>WFC(1) vs WFD(2)</h3>
 <pre class="r"><code># keep only Workflow 1 and 2
 df &lt;- subset(Trueness_falcon, Workflow %in% c(1, 2))
 df$Workflow &lt;- droplevels(factor(df$Workflow))  # drop unused level 3
@@ -848,8 +882,8 @@ datatable(extensions = &#39;Buttons&#39;,
 <li>two sample t test was used</li>
 </ul>
 </div>
-<div id="wfc-2-vs-wfdsg3" class="section level3">
-<h3>WFC (2) vs WFD+SG(3)</h3>
+<div id="wfd-2-vs-wfdsg3" class="section level3">
+<h3>WFD (2) vs WFD+SG(3)</h3>
 <pre class="r"><code># keep only Workflow 2 and 3
 df &lt;- subset(Trueness_falcon, Workflow %in% c(2, 3))
 df$Workflow &lt;- droplevels(factor(df$Workflow))  # drop unused level 1
