@@ -19,10 +19,20 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 
+
+
 ```{r, message=F, warning=F, results=F}
 data=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_Dynamic Navigation Implant Insertion.csv")), header=T)
-
+Trueness_falcon=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_FALCON 2025.csv")), header=T)
+Trueness_falcon_introperator=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_FALCON Intraoperator 2025.csv")), header=T)
+Trueness_falcon_nd_xnac=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_Falcon vs ND vs XNac.csv")), header=T)
 ```
+
+
+
+
+
+
 
 ```{r, message=F, warning=F}
 data_group1=data %>% filter(GroupType=="1")
@@ -104,3 +114,139 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+
+
+## Trueness_FALCON 2025.cvs
+
+### WFC vs WFD 
+
+
+```{r, message=F, warning=F}
+# keep only Workflow 1 and 2
+df <- subset(Trueness_falcon, Workflow %in% c(1, 2))
+df$Workflow <- droplevels(factor(df$Workflow))  # drop unused level 3
+
+# variables of interest
+vars <- c("Angle", "Base3Doffset", "Basedistal", "Basevestibular", 
+          "Baseapical", "Tip3Doffset", "Tipdistal", 
+          "Tipvestibular", "Tipapical", "Apical")
+
+# run two-sample t-tests
+results <- lapply(vars, function(v) {
+  formula <- as.formula(paste(v, "~ Workflow"))
+  test <- t.test(formula, data = df)
+  
+  data.frame(
+    Variable = v,
+    p_value  = pvalue_adjust(test$p.value),
+    mean_WFC = mean(df[df$Workflow == 1, v], na.rm = TRUE),
+    mean_WFD = mean(df[df$Workflow == 2, v], na.rm = TRUE)
+  )
+})
+
+# combine into a single data frame
+results_df <- do.call(rbind, results)
+
+results_df%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+* two sample t test was used 
+
+
+
+
+### WFC (2) vs WFD+SG(3) 
+
+
+```{r, message=F, warning=F}
+# keep only Workflow 2 and 3
+df <- subset(Trueness_falcon, Workflow %in% c(2, 3))
+df$Workflow <- droplevels(factor(df$Workflow))  # drop unused level 1
+
+# variables of interest
+vars <- c("Angle", "Base3Doffset", "Basedistal", "Basevestibular", 
+          "Baseapical", "Tip3Doffset", "Tipdistal", 
+          "Tipvestibular", "Tipapical", "Apical")
+
+# run two-sample t-tests
+results <- lapply(vars, function(v) {
+  formula <- as.formula(paste(v, "~ Workflow"))
+  test <- t.test(formula, data = df)
+  
+  data.frame(
+    Variable = v,
+    p_value  = pvalue_adjust(test$p.value),
+    mean_WFC = mean(df[df$Workflow == 2, v], na.rm = TRUE),
+    mean_WFDSG = mean(df[df$Workflow == 3, v], na.rm = TRUE)
+  )
+})
+
+# combine into a single data frame
+results_df <- do.call(rbind, results)
+
+results_df%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+
+### the ffect of tooth position on the accuracy
+
+
+```{r, message=F, warning=F}
+# variables of interest
+vars <- c("Angle", "Base3Doffset", "Basedistal", "Basevestibular", 
+          "Baseapical", "Tip3Doffset", "Tipdistal", 
+          "Tipvestibular", "Tipapical", "Apical")
+
+# make sure Position is a factor
+Trueness_falcon$Position <- factor(Trueness_falcon$Position)
+
+# run one-way ANOVA for each variable
+anova_results <- lapply(vars, function(v) {
+  formula <- as.formula(paste(v, "~ Position"))
+  fit <- aov(formula, data = Trueness_falcon)
+  summary_fit <- summary(fit)[[1]]
+  
+  data.frame(
+    Variable = v,
+    F_value  = round(summary_fit["Position", "F value"],4), 
+    p_value  = pvalue_adjust(summary_fit["Position", "Pr(>F)"])
+  )
+})
+
+# combine into one table
+anova_df <- do.call(rbind, anova_results)
+
+anova_df%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+* one way anova was used. 
+
+
+
+
