@@ -249,4 +249,80 @@ datatable(extensions = 'Buttons',
 
 
 
+## Trueness_Falcon Intraoperator 202.cvs
+
+
+
+### inter operator reliability
+
+
+```{r, message=F, warning=F}
+
+
+library(irr)
+
+# Number of samples per operator
+n_samples <- length(unique(Trueness_falcon_introperator$Sample)) / 3  # assuming 3 operators
+
+# Create a sample index
+Trueness_falcon_introperator <- Trueness_falcon_introperator %>%
+  arrange(Operator) %>%   # optional: sort by Operator
+  mutate(sample_index = rep(1:n_samples, times = 3))
+
+
+
+data_wide <- Trueness_falcon_introperator %>%
+  pivot_wider(
+    id_cols = sample_index,
+    names_from = Operator,
+    values_from = c(Angle, Base3Doffset, Basedistal,
+                    Basevestibular, Baseapical, Tip3Doffset, Tipdistal,
+                    Tipvestibular, Tipapical, Apical),
+    names_sep = "_"
+  )
+
+#head(data_wide)
+
+
+vars_to_test <- c("Angle", "Base3Doffset", "Basedistal", 
+                  "Basevestibular", "Baseapical", "Tip3Doffset", 
+                  "Tipdistal", "Tipvestibular", "Tipapical", "Apical")
+
+icc_df <- data.frame(Variable = vars_to_test, ICC = NA, p_value = NA)
+
+# Loop through variables
+for (var in vars_to_test) {
+  # Select columns for this variable (all operators)
+  cols <- grep(paste0("^", var, "_"), colnames(data_wide), value = TRUE)
+  icc_data <- data_wide[, cols]
+  
+  # Calculate ICC
+  icc_res <- icc(icc_data, model="twoway", type="agreement", unit="single")
+  
+  # Store results
+  icc_df$ICC[icc_df$Variable == var] <- round(icc_res$value,4)
+  icc_df$p_value[icc_df$Variable == var] <- pvalue_adjust(icc_res$p.value)
+}
+
+# View results
+icc_df%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+
+| ICC Value   | Interpretation        |
+| ----------- | --------------------- |
+| < 0.50      | Poor reliability      |
+| 0.50 – 0.75 | Moderate reliability  |
+| 0.75 – 0.90 | Good reliability      |
+| > 0.90      | Excellent reliability |
+
+
 

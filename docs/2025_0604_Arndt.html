@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-08-25
+<strong>Last updated:</strong> 2025-08-26
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedbc10c2aea74d139e81dce957ad05ca69b60dacctargetblankdbc10c2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree468fb68ef37a62162fe9c48664407d9018bb8d32targetblank468fb68a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/dbc10c2aea74d139e81dce957ad05ca69b60dacc" target="_blank">dbc10c2</a>
+<a href="https://github.com/han16/Collaborations/tree/468fb68ef37a62162fe9c48664407d9018bb8d32" target="_blank">468fb68</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedbc10c2aea74d139e81dce957ad05ca69b60dacctargetblankdbc10c2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree468fb68ef37a62162fe9c48664407d9018bb8d32targetblank468fb68a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/dbc10c2aea74d139e81dce957ad05ca69b60dacc" target="_blank">dbc10c2</a>.
+<a href="https://github.com/han16/Collaborations/tree/468fb68ef37a62162fe9c48664407d9018bb8d32" target="_blank">468fb68</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/468fb68ef37a62162fe9c48664407d9018bb8d32/analysis/2025_0604_Arndt.Rmd" target="_blank">468fb68</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-25
+</td>
+<td>
+8/25/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/468fb68ef37a62162fe9c48664407d9018bb8d32/docs/2025_0604_Arndt.html" target="_blank">468fb68</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-25
+</td>
+<td>
+8/25/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -958,6 +992,93 @@ datatable(extensions = &#39;Buttons&#39;,
 <ul>
 <li>one way anova was used.</li>
 </ul>
+</div>
+</div>
+<div id="trueness_falcon-intraoperator-202.cvs" class="section level2">
+<h2>Trueness_Falcon Intraoperator 202.cvs</h2>
+<div id="inter-operator-reliability" class="section level3">
+<h3>inter operator reliability</h3>
+<pre class="r"><code>library(irr)
+
+# Number of samples per operator
+n_samples &lt;- length(unique(Trueness_falcon_introperator$Sample)) / 3  # assuming 3 operators
+
+# Create a sample index
+Trueness_falcon_introperator &lt;- Trueness_falcon_introperator %&gt;%
+  arrange(Operator) %&gt;%   # optional: sort by Operator
+  mutate(sample_index = rep(1:n_samples, times = 3))
+
+
+
+data_wide &lt;- Trueness_falcon_introperator %&gt;%
+  pivot_wider(
+    id_cols = sample_index,
+    names_from = Operator,
+    values_from = c(Angle, Base3Doffset, Basedistal,
+                    Basevestibular, Baseapical, Tip3Doffset, Tipdistal,
+                    Tipvestibular, Tipapical, Apical),
+    names_sep = &quot;_&quot;
+  )
+
+#head(data_wide)
+
+
+vars_to_test &lt;- c(&quot;Angle&quot;, &quot;Base3Doffset&quot;, &quot;Basedistal&quot;, 
+                  &quot;Basevestibular&quot;, &quot;Baseapical&quot;, &quot;Tip3Doffset&quot;, 
+                  &quot;Tipdistal&quot;, &quot;Tipvestibular&quot;, &quot;Tipapical&quot;, &quot;Apical&quot;)
+
+icc_df &lt;- data.frame(Variable = vars_to_test, ICC = NA, p_value = NA)
+
+# Loop through variables
+for (var in vars_to_test) {
+  # Select columns for this variable (all operators)
+  cols &lt;- grep(paste0(&quot;^&quot;, var, &quot;_&quot;), colnames(data_wide), value = TRUE)
+  icc_data &lt;- data_wide[, cols]
+  
+  # Calculate ICC
+  icc_res &lt;- icc(icc_data, model=&quot;twoway&quot;, type=&quot;agreement&quot;, unit=&quot;single&quot;)
+  
+  # Store results
+  icc_df$ICC[icc_df$Variable == var] &lt;- round(icc_res$value,4)
+  icc_df$p_value[icc_df$Variable == var] &lt;- pvalue_adjust(icc_res$p.value)
+}
+
+# View results
+icc_df%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Angle","Base3Doffset","Basedistal","Basevestibular","Baseapical","Tip3Doffset","Tipdistal","Tipvestibular","Tipapical","Apical"],[0.06279999999999999,-0.1095,-0.0728,-0.0444,0.0643,-0.1209,-0.073,-0.0531,0.0712,0.06],["0.1361","0.9836","0.9057","0.7885","0.1016","0.9899","0.9031","0.8292","0.08161","0.1189"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>ICC<\/th>\n      <th>p_value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"ICC","targets":2},{"name":"p_value","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<table>
+<thead>
+<tr class="header">
+<th>ICC Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt; 0.50</td>
+<td>Poor reliability</td>
+</tr>
+<tr class="even">
+<td>0.50 – 0.75</td>
+<td>Moderate reliability</td>
+</tr>
+<tr class="odd">
+<td>0.75 – 0.90</td>
+<td>Good reliability</td>
+</tr>
+<tr class="even">
+<td>&gt; 0.90</td>
+<td>Excellent reliability</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

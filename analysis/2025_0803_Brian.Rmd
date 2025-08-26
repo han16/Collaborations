@@ -1,0 +1,23 @@
+---
+title: "08/26/2025"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-08-26"
+---
+
+
+
+## sample size calculation 
+
+
+
+```{r, message=F, warning=F}
+power.t.test(delta=2.7, sd=1, sig.level = 0.05, power=0.8)
+```
+
+
+
+
+* parameters to calculate sample size is from [this article](https://pubmed.ncbi.nlm.nih.gov/40036836/)
