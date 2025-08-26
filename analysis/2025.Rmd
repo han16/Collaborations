@@ -33,3 +33,5 @@ date: "2025-01-07"
 12. [Aug-Hannah](2025_0801_Hannah.html)
 
 13. [Aug-Lana](2025_0802_Lana.html)
+
+14. [Aug-Brian](2025_0803_Brian.html)
