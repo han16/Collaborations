@@ -25,7 +25,6 @@ root <- rprojroot::find_rstudio_root_file()
 data=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_Dynamic Navigation Implant Insertion.csv")), header=T)
 Trueness_falcon=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_FALCON 2025.csv")), header=T)
 Trueness_falcon_introperator=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_FALCON Intraoperator 2025.csv")), header=T)
-Trueness_falcon_nd_xnac=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_Falcon vs ND vs XNac.csv")), header=T)
 ```
 
 
@@ -325,4 +324,89 @@ datatable(extensions = 'Buttons',
 | > 0.90      | Excellent reliability |
 
 
+
+
+## Trueness_Falcon vs ND vs Xnac.cs
+
+
+### anova test “Workflow”: 1= X-Nav; 2= Falcon; 3= Navident
+
+
+```{r, message=F, warning=F}
+Trueness_falcon_nd_xnac=read.csv((file.path(root, "../2025/202506/Arndt/Trueness_Falcon vs ND vs XNac.csv")), header=T)
+
+
+# Convert Workflow to factor
+Trueness_falcon_nd_xnac$Workflow <- factor(Trueness_falcon_nd_xnac$Workflow,
+                                            levels = c(1,2,3),
+                                            labels = c("X-Nav", "Falcon", "Navident"))
+
+# Variables of interest
+vars <- c("Angle", "Base3Doffset", "Basedistal", 
+          "Basevestibular", "Baseapical", "Tip3Doffset", 
+          "Tipdistal", "Tipvestibular", "Tipapical", "Apical")
+
+# Initialize lists to store results
+anova_results <- list()
+tukey_results <- list()
+
+for (v in vars) {
+  formula <- as.formula(paste(v, "~ Workflow"))
+  
+  # Run ANOVA
+  fit <- aov(formula, data = Trueness_falcon_nd_xnac)
+  summary_fit <- summary(fit)[[1]]
+  
+  anova_results[[v]] <- data.frame(
+    Variable = v,
+   # Df = summary_fit[1, "Df"],
+  #  F_value = summary_fit[1, "F value"],
+    p_value = pvalue_adjust(summary_fit[1, "Pr(>F)"]),
+    row.names = NULL
+  )
+  
+  # If ANOVA is significant, run Tukey HSD
+  if (summary_fit[1, "Pr(>F)"] < 0.05) {
+    tukey <- TukeyHSD(fit, "Workflow")
+    # Convert to tidy data frame
+    tukey_df <- as.data.frame(tukey$Workflow)
+    tukey_df$Comparison <- rownames(tukey_df)
+    tukey_df$Variable <- v
+    rownames(tukey_df) <- NULL
+    tukey_results[[v]] <- tukey_df[, c("Variable", "Comparison", "diff", "lwr", "upr", "p adj")]
+  }
+}
+
+# Combine ANOVA results
+anova_results_df <- do.call(rbind, anova_results)
+
+# Combine Tukey results
+tukey_results_df <- do.call(rbind, tukey_results)
+
+tukey_results_df$diff=round(tukey_results_df$diff,4)
+tukey_results_df$lwr=round(tukey_results_df$lwr,4)
+tukey_results_df$upr=round(tukey_results_df$upr,4)
+tukey_results_df$`p adj`=pvalue_adjust(tukey_results_df$`p adj`)
+
+# View results
+anova_results_df%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+tukey_results_df%>%
+datatable(extensions = 'Buttons',
+          caption = "post-hoc pairwise comparisons",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+
+
+```
 

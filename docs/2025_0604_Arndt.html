@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-08-26
+<strong>Last updated:</strong> 2025-08-27
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree468fb68ef37a62162fe9c48664407d9018bb8d32targetblank468fb68a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3c77b52b2ea9de2d914f2fcbc3400e9ac3f350f9targetblank3c77b52a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/468fb68ef37a62162fe9c48664407d9018bb8d32" target="_blank">468fb68</a>
+<a href="https://github.com/han16/Collaborations/tree/3c77b52b2ea9de2d914f2fcbc3400e9ac3f350f9" target="_blank">3c77b52</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree468fb68ef37a62162fe9c48664407d9018bb8d32targetblank468fb68a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree3c77b52b2ea9de2d914f2fcbc3400e9ac3f350f9targetblank3c77b52a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/468fb68ef37a62162fe9c48664407d9018bb8d32" target="_blank">468fb68</a>.
+<a href="https://github.com/han16/Collaborations/tree/3c77b52b2ea9de2d914f2fcbc3400e9ac3f350f9" target="_blank">3c77b52</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/9155ef94dd1f1134526fe610392f2eea0adb3bfc/analysis/2025_0604_Arndt.Rmd" target="_blank">9155ef9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-26
+</td>
+<td>
+08/26/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/9155ef94dd1f1134526fe610392f2eea0adb3bfc/docs/2025_0604_Arndt.html" target="_blank">9155ef9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-26
+</td>
+<td>
+08/26/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -797,8 +831,7 @@ han
 </div>
 <pre class="r"><code>data=read.csv((file.path(root, &quot;../2025/202506/Arndt/Trueness_Dynamic Navigation Implant Insertion.csv&quot;)), header=T)
 Trueness_falcon=read.csv((file.path(root, &quot;../2025/202506/Arndt/Trueness_FALCON 2025.csv&quot;)), header=T)
-Trueness_falcon_introperator=read.csv((file.path(root, &quot;../2025/202506/Arndt/Trueness_FALCON Intraoperator 2025.csv&quot;)), header=T)
-Trueness_falcon_nd_xnac=read.csv((file.path(root, &quot;../2025/202506/Arndt/Trueness_Falcon vs ND vs XNac.csv&quot;)), header=T)</code></pre>
+Trueness_falcon_introperator=read.csv((file.path(root, &quot;../2025/202506/Arndt/Trueness_FALCON Intraoperator 2025.csv&quot;)), header=T)</code></pre>
 <pre class="r"><code>data_group1=data %&gt;% filter(GroupType==&quot;1&quot;)
 data_group2=data %&gt;% filter(GroupType==&quot;2&quot;)
 data_group3=data %&gt;% filter(GroupType==&quot;3&quot;)
@@ -1079,6 +1112,87 @@ datatable(extensions = &#39;Buttons&#39;,
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div id="trueness_falcon-vs-nd-vs-xnac.cs" class="section level2">
+<h2>Trueness_Falcon vs ND vs Xnac.cs</h2>
+<div id="anova-test-workflow-1-x-nav-2-falcon-3-navident"
+class="section level3">
+<h3>anova test “Workflow”: 1= X-Nav; 2= Falcon; 3= Navident</h3>
+<pre class="r"><code>Trueness_falcon_nd_xnac=read.csv((file.path(root, &quot;../2025/202506/Arndt/Trueness_Falcon vs ND vs XNac.csv&quot;)), header=T)
+
+
+# Convert Workflow to factor
+Trueness_falcon_nd_xnac$Workflow &lt;- factor(Trueness_falcon_nd_xnac$Workflow,
+                                            levels = c(1,2,3),
+                                            labels = c(&quot;X-Nav&quot;, &quot;Falcon&quot;, &quot;Navident&quot;))
+
+# Variables of interest
+vars &lt;- c(&quot;Angle&quot;, &quot;Base3Doffset&quot;, &quot;Basedistal&quot;, 
+          &quot;Basevestibular&quot;, &quot;Baseapical&quot;, &quot;Tip3Doffset&quot;, 
+          &quot;Tipdistal&quot;, &quot;Tipvestibular&quot;, &quot;Tipapical&quot;, &quot;Apical&quot;)
+
+# Initialize lists to store results
+anova_results &lt;- list()
+tukey_results &lt;- list()
+
+for (v in vars) {
+  formula &lt;- as.formula(paste(v, &quot;~ Workflow&quot;))
+  
+  # Run ANOVA
+  fit &lt;- aov(formula, data = Trueness_falcon_nd_xnac)
+  summary_fit &lt;- summary(fit)[[1]]
+  
+  anova_results[[v]] &lt;- data.frame(
+    Variable = v,
+   # Df = summary_fit[1, &quot;Df&quot;],
+  #  F_value = summary_fit[1, &quot;F value&quot;],
+    p_value = pvalue_adjust(summary_fit[1, &quot;Pr(&gt;F)&quot;]),
+    row.names = NULL
+  )
+  
+  # If ANOVA is significant, run Tukey HSD
+  if (summary_fit[1, &quot;Pr(&gt;F)&quot;] &lt; 0.05) {
+    tukey &lt;- TukeyHSD(fit, &quot;Workflow&quot;)
+    # Convert to tidy data frame
+    tukey_df &lt;- as.data.frame(tukey$Workflow)
+    tukey_df$Comparison &lt;- rownames(tukey_df)
+    tukey_df$Variable &lt;- v
+    rownames(tukey_df) &lt;- NULL
+    tukey_results[[v]] &lt;- tukey_df[, c(&quot;Variable&quot;, &quot;Comparison&quot;, &quot;diff&quot;, &quot;lwr&quot;, &quot;upr&quot;, &quot;p adj&quot;)]
+  }
+}
+
+# Combine ANOVA results
+anova_results_df &lt;- do.call(rbind, anova_results)
+
+# Combine Tukey results
+tukey_results_df &lt;- do.call(rbind, tukey_results)
+
+tukey_results_df$diff=round(tukey_results_df$diff,4)
+tukey_results_df$lwr=round(tukey_results_df$lwr,4)
+tukey_results_df$upr=round(tukey_results_df$upr,4)
+tukey_results_df$`p adj`=pvalue_adjust(tukey_results_df$`p adj`)
+
+# View results
+anova_results_df%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["Angle","Base3Doffset","Basedistal","Basevestibular","Baseapical","Tip3Doffset","Tipdistal","Tipvestibular","Tipapical","Apical"],["Angle","Base3Doffset","Basedistal","Basevestibular","Baseapical","Tip3Doffset","Tipdistal","Tipvestibular","Tipapical","Apical"],["&lt;0.0001","&lt;0.0001","&lt;0.0001","0.03235","&lt;0.0001","&lt;0.0001","0.07947","0.001359","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>p_value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"p_value","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>tukey_results_df%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;post-hoc pairwise comparisons&quot;,
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2514ce28ae593bde0f73" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>post-hoc pairwise comparisons<\/caption>","data":[["Angle.1","Angle.2","Angle.3","Base3Doffset.1","Base3Doffset.2","Base3Doffset.3","Basedistal.1","Basedistal.2","Basedistal.3","Basevestibular.1","Basevestibular.2","Basevestibular.3","Baseapical.1","Baseapical.2","Baseapical.3","Tip3Doffset.1","Tip3Doffset.2","Tip3Doffset.3","Tipvestibular.1","Tipvestibular.2","Tipvestibular.3","Tipapical.1","Tipapical.2","Tipapical.3","Apical.1","Apical.2","Apical.3"],["Angle","Angle","Angle","Base3Doffset","Base3Doffset","Base3Doffset","Basedistal","Basedistal","Basedistal","Basevestibular","Basevestibular","Basevestibular","Baseapical","Baseapical","Baseapical","Tip3Doffset","Tip3Doffset","Tip3Doffset","Tipvestibular","Tipvestibular","Tipvestibular","Tipapical","Tipapical","Tipapical","Apical","Apical","Apical"],["Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon","Falcon-X-Nav","Navident-X-Nav","Navident-Falcon"],[-0.61,-0.0293,0.5807,-0.2036,-0.0608,0.1428,-0.1021,-0.1457,-0.0437,0.0512,0.0155,-0.0357,-0.2672,0.0368,0.304,-0.1381,0.0395,0.1776,0.0551,0.0949,0.0398,-0.2627,0.0376,0.3003,0.2997,0.1035,-0.1962],[-0.7695,-0.1999,0.4212,-0.2845,-0.1473,0.0619,-0.1631,-0.211,-0.1047,0.0034,-0.0356,-0.0834,-0.346,-0.0474,0.2253,-0.2233,-0.0517,0.09229999999999999,-0.0021,0.0338,-0.0173,-0.3407,-0.0457,0.2223,0.1957,-0.0077,-0.3002],[-0.4505,0.1412,0.7402,-0.1227,0.0257,0.2237,-0.041,-0.0805,0.0174,0.0989,0.0665,0.012,-0.1885,0.121,0.3828,-0.0529,0.1306,0.2628,0.1123,0.156,0.097,-0.1847,0.1209,0.3783,0.4037,0.2146,-0.09229999999999999],["&lt;0.0001","0.9133","&lt;0.0001","&lt;0.0001","0.2241","0.0001298","0.0003085","&lt;0.0001","0.2123","0.0323","0.755","0.184","&lt;0.0001","0.5579","&lt;0.0001","0.0004935","0.5641","&lt;0.0001","0.06151","0.0008856","0.2295","&lt;0.0001","0.5375","&lt;0.0001","&lt;0.0001","0.07403","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Comparison<\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Comparison","targets":2},{"name":"diff","targets":3},{"name":"lwr","targets":4},{"name":"upr","targets":5},{"name":"p adj","targets":6}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
