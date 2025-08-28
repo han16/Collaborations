@@ -205,7 +205,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### the ffect of tooth position on the accuracy
+### the effect of tooth position on the accuracy
 
 
 ```{r, message=F, warning=F}
