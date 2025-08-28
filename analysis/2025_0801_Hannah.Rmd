@@ -7,3 +7,79 @@ output:
 date: "2025-08-12"
 ---
 
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+```{r, message=F, warning=F, results=F}
+data=as_tibble(read.csv((file.path(root, "..\\2025\\202508\\Hannah\\Retainer corrosion data STATS.csv"))))
+```
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+library(broom)
+
+# Function to get pairwise comparisons from aov object as a data.frame
+get_tukey_df <- function(aov_obj, variable_name) {
+  tuk <- TukeyHSD(aov_obj)
+  # Extract the first element (the factor of interest)
+  tuk_df <- as.data.frame(tuk[[1]])
+  tuk_df <- tibble::rownames_to_column(tuk_df, var = "Comparison")
+  # Add variable name column
+  tuk_df <- tuk_df %>%
+    mutate(Variable = variable_name) %>%
+    select(Variable, Comparison, everything())
+  return(tuk_df)
+}
+
+
+# Run ANOVA and get Tukey df for each variable
+aov_ocp <- aov(OCP..mV..3.hr ~ Wire, data = data)
+summary(aov_ocp)
+tuk_ocp_df <- get_tukey_df(aov_ocp, "OCP..mV..3.hr")
+
+aov_rp <- aov(RP..mega.ohms. ~ Wire, data = data)
+summary(aov_rp)
+tuk_rp_df <- get_tukey_df(aov_rp, "RP..mega.ohms.")
+
+aov_icorr <- aov(Icorr..nA. ~ Wire, data = data)
+summary(aov_icorr)
+tuk_icorr_df <- get_tukey_df(aov_icorr, "Icorr..nA.")
+
+# Combine all results into one data.frame
+tukey_all <- bind_rows(tuk_ocp_df, tuk_rp_df, tuk_icorr_df)
+
+tukey_all_rounded <- tukey_all %>%
+  mutate(
+    diff = round(diff, 4),
+    lwr  = round(lwr, 4),
+    upr  = round(upr, 4),
+    `p adj`=pvalue_adjust(`p adj`)
+  )
+
+tukey_all_rounded%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+

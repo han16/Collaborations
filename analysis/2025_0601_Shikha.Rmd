@@ -231,9 +231,9 @@ joined <- endo_root %>%
   inner_join(restoration %>% select(tooth, restoration_date, restoration_procedure),
              by = "tooth")
 
-# Step 3: Filter restorations that occurred *after* root canal
+# Step 3: Filter restorations that occurred *after* or the same day as root canal
 after_root_canal <- joined %>%
-  filter(restoration_date > root_canal_date)
+  filter(restoration_date >= root_canal_date)
 
 # Step 4: Group by root canal event (Patient + tooth + date) and get earliest restoration
 first_restoration <- after_root_canal %>%
@@ -285,6 +285,21 @@ ggplot(endo_with_tx_time, aes(x = time_between_days)) +
   ggtitle("") +
   theme_minimal()
 summary(endo_with_tx_time$time_between_days)
+
+endo_summary <- endo_with_tx_time %>%
+  mutate(time_bin = case_when(
+    time_between_days == 0 ~ "0",
+    time_between_days >= 1  & time_between_days <= 30   ~ "1-30",
+    time_between_days >= 31 & time_between_days <= 60   ~ "31-60",
+    time_between_days >= 61 & time_between_days <= 90   ~ "61-90",
+    time_between_days >= 91 & time_between_days <= 120  ~ "91-120",
+    time_between_days >= 121 & time_between_days <= 180 ~ "121-180",
+    time_between_days > 180                            ~ "180+",
+    TRUE ~ NA_character_
+  )) %>%
+  dplyr::count(time_bin, name = "n_tooth") %>%
+  arrange(factor(time_bin, levels = c("0","1-30","31-60","61-90","91-120","121-180","180+")))
+endo_summary
 ```
 
 
@@ -506,3 +521,86 @@ ggsurvplot(
 ```
 
 * if a tooth never experiences failure/extraction, the restoration works to the end of the study 
+
+
+```{r, message=F, warning=F}
+
+# Step 1. Create event, survival_days, and time_bin
+survival_data <- endo_with_failure %>%
+  mutate(
+    event = if_else(is.na(failure_date), 0L, 1L),  # 1 = failure, 0 = censored
+    end_date = if_else(event == 1L, failure_date, last_followup_date),
+    survival_days = as.numeric(end_date - first_restoration_date),
+    time_bin = case_when(
+      time_between_days == 0 ~ "0",
+      time_between_days >= 1  & time_between_days <= 30   ~ "1-30",
+      time_between_days >= 31 & time_between_days <= 60   ~ "31-60",
+      time_between_days >= 61 & time_between_days <= 90   ~ "61-90",
+      time_between_days >= 91 & time_between_days <= 120  ~ "91-120",
+      time_between_days >= 121 & time_between_days <= 180 ~ "121-180",
+      time_between_days > 180                             ~ "180+",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(time_bin), !is.na(survival_days))  # keep valid cases
+
+survival_data <- survival_data %>%
+  filter(!is.na(time_bin), !is.na(survival_days)) %>%
+  mutate(time_bin = factor(
+    time_bin,
+    levels = c("0","1-30","31-60","61-90","91-120","121-180","180+"),
+    ordered = TRUE
+  ))
+
+
+# Step 2. Survival object and fit by groups
+surv_obj <- Surv(time = survival_data$survival_days, event = survival_data$event)
+fit <- survfit(surv_obj ~ time_bin, data = survival_data)
+
+# Step 3. Plot KM curves
+
+
+ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = FALSE,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Days from root canal to restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,       # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14))  # increase legend label size
+)
+
+ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = T,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Days from root canal to restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,        # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14))  # increase legend label size
+)
+```

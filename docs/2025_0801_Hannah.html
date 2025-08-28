@@ -34,8 +34,26 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -232,6 +250,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -356,6 +377,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">08/12 2025</h1>
@@ -388,11 +417,11 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-08-12
+<strong>Last updated:</strong> 2025-08-28
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 1
 </p>
@@ -426,10 +455,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -438,15 +467,99 @@ HTML.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea345225c23437dc57a8ef68309b64752329b4370targetblanka345225a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210523code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20210523)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210523code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210523)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree03361e978cf2fc41ce5cd5cfc91b01eccab86128targetblank03361e9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/a345225c23437dc57a8ef68309b64752329b4370" target="_blank">a345225</a>
+<a href="https://github.com/han16/Collaborations/tree/03361e978cf2fc41ce5cd5cfc91b01eccab86128" target="_blank">03361e9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreea345225c23437dc57a8ef68309b64752329b4370targetblanka345225a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree03361e978cf2fc41ce5cd5cfc91b01eccab86128targetblank03361e9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -456,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/a345225c23437dc57a8ef68309b64752329b4370" target="_blank">a345225</a>.
+<a href="https://github.com/han16/Collaborations/tree/03361e978cf2fc41ce5cd5cfc91b01eccab86128" target="_blank">03361e9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -475,11 +588,9 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2025_0801_Hannah.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2025.Rmd
+    Modified:   analysis/2025_0601_Shikha.Rmd
+    Modified:   analysis/2025_0801_Hannah.Rmd
 
 </code></pre>
 <p>
@@ -494,13 +605,215 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2025_0801_Hannah.Rmd</code>) and
+HTML (<code>docs/2025_0801_Hannah.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/99e347ff1fb74951b8f623d4774e9d06d14182ea/analysis/2025_0801_Hannah.Rmd" target="_blank">99e347f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-12
+</td>
+<td>
+8/12/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/99e347ff1fb74951b8f623d4774e9d06d14182ea/docs/2025_0801_Hannah.html" target="_blank">99e347f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-12
+</td>
+<td>
+8/12/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
+</div>
+<pre class="r"><code>data=as_tibble(read.csv((file.path(root, &quot;..\\2025\\202508\\Hannah\\Retainer corrosion data STATS.csv&quot;))))</code></pre>
+<pre class="r"><code>library(broom)
+
+# Function to get pairwise comparisons from aov object as a data.frame
+get_tukey_df &lt;- function(aov_obj, variable_name) {
+  tuk &lt;- TukeyHSD(aov_obj)
+  # Extract the first element (the factor of interest)
+  tuk_df &lt;- as.data.frame(tuk[[1]])
+  tuk_df &lt;- tibble::rownames_to_column(tuk_df, var = &quot;Comparison&quot;)
+  # Add variable name column
+  tuk_df &lt;- tuk_df %&gt;%
+    mutate(Variable = variable_name) %&gt;%
+    select(Variable, Comparison, everything())
+  return(tuk_df)
+}
+
+
+# Run ANOVA and get Tukey df for each variable
+aov_ocp &lt;- aov(OCP..mV..3.hr ~ Wire, data = data)
+summary(aov_ocp)</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)    
+Wire         4 450539  112635   90.86 &lt;2e-16 ***
+Residuals   45  55782    1240                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+1 observation deleted due to missingness</code></pre>
+<pre class="r"><code>tuk_ocp_df &lt;- get_tukey_df(aov_ocp, &quot;OCP..mV..3.hr&quot;)
+
+aov_rp &lt;- aov(RP..mega.ohms. ~ Wire, data = data)
+summary(aov_rp)</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)    
+Wire         4   8490  2122.5   67.88 &lt;2e-16 ***
+Residuals   45   1407    31.3                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+1 observation deleted due to missingness</code></pre>
+<pre class="r"><code>tuk_rp_df &lt;- get_tukey_df(aov_rp, &quot;RP..mega.ohms.&quot;)
+
+aov_icorr &lt;- aov(Icorr..nA. ~ Wire, data = data)
+summary(aov_icorr)</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)    
+Wire         4  51653   12913   120.3 &lt;2e-16 ***
+Residuals   45   4829     107                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+1 observation deleted due to missingness</code></pre>
+<pre class="r"><code>tuk_icorr_df &lt;- get_tukey_df(aov_icorr, &quot;Icorr..nA.&quot;)
+
+# Combine all results into one data.frame
+tukey_all &lt;- bind_rows(tuk_ocp_df, tuk_rp_df, tuk_icorr_df)
+
+tukey_all_rounded &lt;- tukey_all %&gt;%
+  mutate(
+    diff = round(diff, 4),
+    lwr  = round(lwr, 4),
+    upr  = round(upr, 4),
+    `p adj`=pvalue_adjust(`p adj`)
+  )
+
+tukey_all_rounded%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"],["OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","OCP..mV..3.hr","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","RP..mega.ohms.","Icorr..nA.","Icorr..nA.","Icorr..nA.","Icorr..nA.","Icorr..nA.","Icorr..nA.","Icorr..nA.","Icorr..nA.","Icorr..nA.","Icorr..nA."],["NiTi-Memotain","SS Braided-Memotain","SS Round-Memotain","Ti Deadsoft-Memotain","SS Braided-NiTi","SS Round-NiTi","Ti Deadsoft-NiTi","SS Round-SS Braided","Ti Deadsoft-SS Braided","Ti Deadsoft-SS Round","NiTi-Memotain","SS Braided-Memotain","SS Round-Memotain","Ti Deadsoft-Memotain","SS Braided-NiTi","SS Round-NiTi","Ti Deadsoft-NiTi","SS Round-SS Braided","Ti Deadsoft-SS Braided","Ti Deadsoft-SS Round","NiTi-Memotain","SS Braided-Memotain","SS Round-Memotain","Ti Deadsoft-Memotain","SS Braided-NiTi","SS Round-NiTi","Ti Deadsoft-NiTi","SS Round-SS Braided","Ti Deadsoft-SS Braided","Ti Deadsoft-SS Round"],[-99.8385,-209.123,35.847,36.104,-109.2845,135.6855,135.9425,244.97,245.227,0.257,-26.0264,-35.4862,-26.5032,-8.465999999999999,-9.4598,-0.4768,17.5604,8.983000000000001,27.0202,18.0372,0.616,82.85899999999999,33.651,1.974,82.24299999999999,33.035,1.358,-49.208,-80.88500000000001,-31.677],[-144.5784,-253.8629,-8.892899999999999,-8.635899999999999,-154.0244,90.9456,91.2026,200.2301,200.4871,-44.4829,-33.1322,-42.592,-33.609,-15.5718,-16.5656,-7.5826,10.4546,1.8772,19.9144,10.9314,-12.5479,69.6951,20.4871,-11.1899,69.0791,19.8711,-11.8059,-62.3719,-94.0489,-44.8409],[-55.0986,-164.3831,80.5869,80.8439,-64.5446,180.4254,180.6824,289.7099,289.9669,44.9969,-18.9206,-28.3804,-19.3974,-1.3602,-2.354,6.629,24.6662,16.0888,34.126,25.143,13.7799,96.02290000000001,46.8149,15.1379,95.40689999999999,46.1989,14.5219,-36.0441,-67.72110000000001,-18.5131],["&lt;0.0001","&lt;0.0001","0.1714","0.1661","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","&lt;0.0001","    1","&lt;0.0001","&lt;0.0001","&lt;0.0001","0.01228","0.003968","0.9997","&lt;0.0001","0.006887","&lt;0.0001","&lt;0.0001","0.9999","&lt;0.0001","&lt;0.0001","0.9929","&lt;0.0001","&lt;0.0001","0.9983","&lt;0.0001","&lt;0.0001","&lt;0.0001"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Comparison<\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>p adj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Comparison","targets":2},{"name":"diff","targets":3},{"name":"lwr","targets":4},{"name":"upr","targets":5},{"name":"p adj","targets":6}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.2 (2023-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] broom_1.0.7         VennDiagram_1.7.3   futile.logger_1.4.3
+ [4] condsurv_1.0.0      devtools_2.4.5      usethis_3.1.0      
+ [7] tidycmprsk_1.1.0    gtsummary_2.0.4     ggsurvfit_1.1.0    
+[10] irr_0.84.1          lpSolve_5.6.23      readxl_1.4.3       
+[13] cowplot_1.1.3       matrixStats_1.5.0   gridExtra_2.3      
+[16] DT_0.33             rstatix_0.7.2       ggpubr_0.6.0       
+[19] kableExtra_1.4.0    lubridate_1.9.4     forcats_1.0.0      
+[22] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
+[25] readr_2.1.4         tidyr_1.3.1         tibble_3.2.1       
+[28] ggplot2_3.5.1       tidyverse_2.0.0     rprojroot_2.0.4    
+
+loaded via a namespace (and not attached):
+ [1] formatR_1.14         remotes_2.5.0        rlang_1.1.2         
+ [4] magrittr_2.0.3       git2r_0.35.0         compiler_4.3.2      
+ [7] systemfonts_1.2.1    vctrs_0.6.5          profvis_0.4.0       
+[10] pkgconfig_2.0.3      fastmap_1.2.0        backports_1.5.0     
+[13] ellipsis_0.3.2       promises_1.3.2       rmarkdown_2.29      
+[16] sessioninfo_1.2.2    tzdb_0.4.0           xfun_0.50.6         
+[19] cachem_1.1.0         jsonlite_1.8.9       later_1.4.1         
+[22] R6_2.6.1             bslib_0.9.0          stringi_1.8.3       
+[25] car_3.1-3            pkgload_1.4.0        jquerylib_0.1.4     
+[28] cellranger_1.1.0     Rcpp_1.0.11          knitr_1.49          
+[31] httpuv_1.6.15        Matrix_1.6-1.1       splines_4.3.2       
+[34] timechange_0.3.0     tidyselect_1.2.1     rstudioapi_0.17.1   
+[37] abind_1.4-8          yaml_2.3.8           miniUI_0.1.1.1      
+[40] pkgbuild_1.4.6       lattice_0.21-9       shiny_1.10.0        
+[43] withr_3.0.2          evaluate_1.0.3       lambda.r_1.2.4      
+[46] survival_3.8-3       urlchecker_1.0.1     xml2_1.3.6          
+[49] pillar_1.10.1        carData_3.0-5        whisker_0.4.1       
+[52] generics_0.1.3       hms_1.1.3            munsell_0.5.1       
+[55] scales_1.3.0         xtable_1.8-4         glue_1.8.0          
+[58] tools_4.3.2          ggsignif_0.6.4       fs_1.6.5            
+[61] crosstalk_1.2.1      colorspace_2.1-0     Formula_1.2-5       
+[64] cli_3.6.2            workflowr_1.7.1      futile.options_1.0.1
+[67] viridisLite_0.4.2    svglite_2.1.3        gtable_0.3.6        
+[70] sass_0.4.9           digest_0.6.33        htmlwidgets_1.6.4   
+[73] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
+[76] mime_0.12           </code></pre>
 </div>
 
 
@@ -552,6 +865,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
