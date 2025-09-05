@@ -497,3 +497,101 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+## Perio Community of Practice
+
+
+```{r, message=F, warning=F}
+perio_community=read_xlsx((file.path(root, "..\\2025\\202503\\Zainab\\Perio Community of Practice_March 4, 2025_14.27 updated manual_cleaned.xlsx")))
+```
+
+
+
+```{r, message=F, warning=F}
+library(rstatix)
+
+# -------------------------------
+# 1. Reshape data into long format
+# -------------------------------
+df_long <- perio_community %>%
+  pivot_longer(
+    cols = starts_with("Q"),
+    names_to = "question",
+    values_to = "response"
+  )
+
+# -------------------------------
+# 2. Counts for bar plots
+# -------------------------------
+counts <- df_long %>%
+  group_by(question, time, response) %>%
+  summarise(n = n(), .groups = "drop")
+
+# -------------------------------
+# 3. Bar plots (pre vs post)
+# -------------------------------
+#ggplot(counts, aes(x = response, y = n, fill = time)) +
+#  geom_bar(stat = "identity", position = "dodge") +
+#  facet_wrap(~ question, scales = "free_x") +
+#  theme_bw() +
+#  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+#  labs(x = "Response", y = "Count", title = "Pre vs Post Responses")
+counts %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, message=F, warning=F}
+
+# -------------------------------
+# 4a. McNemar test (binary collapse)
+# -------------------------------
+df_bin <- df_long %>%
+  mutate(binary = ifelse(response %in% c("Agree", "Strongly agree"), "Agree+", "Other")) %>%
+  pivot_wider(names_from = time, values_from = binary)
+
+
+mcnemar_results <- df_bin %>%
+  group_by(question) %>%
+  do({
+    tbl <- table(.$pre, .$post)
+    test <- mcnemar.test(tbl)
+    tibble(
+      statistic = unname(test$statistic),
+      p.value   = test$p.value
+    )
+  }) %>%
+  ungroup()
+
+print(mcnemar_results)
+```
+
+
+
+
+```{r, message=F, warning=F}
+# -------------------------------
+# 4b. Stuart–Maxwell test (full Likert)
+# -------------------------------
+# rstatix provides `mcnemar_test`, but not Stuart–Maxwell.
+# We can use DescTools::StuartMaxwellTest for multinomial paired data.
+library(DescTools)
+
+stuart_results <- df_long %>%
+  pivot_wider(names_from = time, values_from = response) %>%
+  group_by(question) %>%
+  summarise(
+    test = list(StuartMaxwellTest(table(pre, post))),
+    .groups = "drop"
+  )
+
+print(stuart_results)
+
+```
