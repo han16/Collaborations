@@ -548,50 +548,40 @@ datatable(extensions = 'Buttons',
 
 
 
+### pre vs post 
+
 ```{r, message=F, warning=F}
 
 # -------------------------------
 # 4a. McNemar test (binary collapse)
 # -------------------------------
-df_bin <- df_long %>%
-  mutate(binary = ifelse(response %in% c("Agree", "Strongly agree"), "Agree+", "Other")) %>%
-  pivot_wider(names_from = time, values_from = binary)
+df_long <- df_long %>%
+  mutate(question = sub(":.*", "", question)) %>% filter(response != "N/A")
 
-
-mcnemar_results <- df_bin %>%
-  group_by(question) %>%
-  do({
-    tbl <- table(.$pre, .$post)
-    test <- mcnemar.test(tbl)
-    tibble(
-      statistic = unname(test$statistic),
-      p.value   = test$p.value
-    )
-  }) %>%
-  ungroup()
-
-print(mcnemar_results)
+questions=unique(df_long$question)
+pvalue=numeric(); k=0
+variable=c()
+for (i in 1:length(questions))
+{
+  count=df_long %>% filter(question==questions[i])
+  if (length(unique(count$time))==2)
+  { 
+    common_response=intersect(count %>% filter(time=="pre") %>% select(response) %>% pull(), count %>% filter(time=="post") %>% select(response) %>% pull())
+  for (j in 1:length(common_response))
+  {
+    sub_count=c(count %>% filter(time=="pre" & response ==common_response[j]) %>% nrow(), count %>% filter(time=="post" & response ==common_response[j]) %>% nrow())
+    k=k+1
+    pvalue[k]=binom.test(sub_count)$p.val
+    variable[k]=paste0(questions[i], ":", common_response[j])
+  }
+  }
+}
+data.frame(variable, pvalue=pvalue_adjust(pvalue))%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
-
-
-
-```{r, message=F, warning=F}
-# -------------------------------
-# 4b. Stuart–Maxwell test (full Likert)
-# -------------------------------
-# rstatix provides `mcnemar_test`, but not Stuart–Maxwell.
-# We can use DescTools::StuartMaxwellTest for multinomial paired data.
-library(DescTools)
-
-stuart_results <- df_long %>%
-  pivot_wider(names_from = time, values_from = response) %>%
-  group_by(question) %>%
-  summarise(
-    test = list(StuartMaxwellTest(table(pre, post))),
-    .groups = "drop"
-  )
-
-print(stuart_results)
-
-```
