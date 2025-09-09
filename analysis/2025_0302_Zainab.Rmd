@@ -585,3 +585,21 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+
+
+
+## hand test 
+
+
+
+```{r, message=F, warning=F}
+hand_test=read.csv((file.path(root, "..\\2025\\202503\\Zainab\\hand test.csv")))
+summary_statistics(hand_test[,4:53])%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
