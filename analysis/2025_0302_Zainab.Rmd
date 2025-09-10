@@ -586,6 +586,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
+* binomial test was used 
 
 
 ## hand test 
