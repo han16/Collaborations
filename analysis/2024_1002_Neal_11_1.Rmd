@@ -563,3 +563,287 @@ datatable(extensions = 'Buttons',
 
 * paired two sample t test was used.  
 
+
+
+
+
+## 2. Spearman's correlations for group 4
+
+
+```{r, message=F, warning=F}
+group4_data=finalized_data %>% filter(Patient %in% c(25, 26, 44, 58, 78, 81))
+
+group4_data=group4_data %>% filter(!Subject %in% c(228, 229, 230, 231, 251)) # remove these 5 subjects
+
+group4_maxilla=group4_data %>% filter(Jaw==1)
+group4_mandible=group4_data %>% filter(Jaw==2)
+
+
+```
+
+
+### maxilla
+
+```{r, message=F, warning=F}
+data_conti=as.matrix(group4_maxilla[,which(colnames(group4_maxilla)%in%continuous_var)])
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>2)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=2)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+### mandible
+
+
+```{r, message=F, warning=F}
+data_conti=as.matrix(group4_maxilla[,which(colnames(group4_mandible)%in%continuous_var)])
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>2)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=2)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "Spearman correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+## group 5 
+
+
+```{r, message=F, warning=F}
+group5_data=finalized_data %>% filter(Partially_edentulous =="Y")
+group5_maxilla=group5_data %>% filter(Jaw==1)
+group5_mandible=group5_data %>% filter(Jaw==2)
+```
+
+
+
+
+### maxilla
+
+```{r, message=F, warning=F}
+data_conti=as.matrix(group5_maxilla[,which(colnames(group5_maxilla)%in%continuous_var)])
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>2)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=2)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+### mandible
+
+
+```{r, message=F, warning=F}
+data_conti=as.matrix(group5_maxilla[,which(colnames(group5_mandible)%in%continuous_var)])
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>2)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=2)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "Spearman correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
