@@ -34,6 +34,17 @@ post_endo_tx=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", pos
 ```
 
 
+
+## workflow 
+
+
+1. `EndoCases`: 45,119 teeth in total, but 30,680 unique teeth ---> apply 3 root canal codes, keep the the last root canal date: 30680 teeth.  
+
+
+
+2. `post Endo Tx`: 548,918 teeth, but 358,560 unique ones; among them, 192,958 Endo check yes ---> apply final restoration code+endo check yes: 103,341 --->  Filter restorations that occurred *after* or the same day as root canal: 10286 teeth (rows).  
+
+
 ## step 1: root canal 
 
 
@@ -64,7 +75,7 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, message=F, warning=F}
-
+length(unique(endo_cases$tooth))
 
 endo_cases_with_root_canal=endo_cases %>% filter(Procedure %in% root_canal_codes$Code)%>%
   group_by(tooth) %>%
@@ -187,6 +198,11 @@ final_restoration_codes <- data.frame(
   )
 )
 
+dim(post_endo_tx)
+length(unique(post_endo_tx$tooth))
+
+
+
 post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in% final_restoration_codes$Code ) %>% filter(`Endo Check`=="Yes")
 
 final_restoration_codes%>%
@@ -197,6 +213,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
+dim(post_endo_tx_with_final_restoration_codes)
 ```
 
 
@@ -509,7 +526,7 @@ ggsurvplot(
   km_fit,
   data = survival_data,  # ✅ This solves the error
   conf.int = TRUE,
-  xlab = "Days since first restoration",
+  xlab = "Survival Days after restoration",
   ylab = "Tooth survival probability",
   title = "Kaplan-Meier Survival Curve of Root Canal Treated Teeth",
   surv.median.line = "hv",
@@ -570,7 +587,7 @@ ggsurvplot(
   legend.title = NULL,
   legend.labs = gsub("time_bin=", "", names(fit$strata)),
   risk.table.fontsize = 3,
-  xlab = "Days from root canal to restoration",
+  xlab = "Survival days after restoration",
   ylab = "Survival probability",
   linetype = 1,              # solid lines
   size = 1,                  # line width
@@ -592,7 +609,7 @@ ggsurvplot(
   legend.title = NULL,
   legend.labs = gsub("time_bin=", "", names(fit$strata)),
   risk.table.fontsize = 3,
-  xlab = "Days from root canal to restoration",
+  xlab = "Survival days after restoration",
   ylab = "Survival probability",
   linetype = 1,              # solid lines
   size = 1,                  # line width
