@@ -1,0 +1,57 @@
+---
+title: "M-D tooth Migration"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-10-03"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+```{r, message=F, warning=F, results=F}
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525.xlsx")
+tooth_migration=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\6 FINAL CBCT Thesis data (09-11-25)_M-D_tooth_migration.csv"), header = T))
+
+#finalized_with_omitted_data=data_raw$`Finalized with Omitted data`
+#coding=data_raw$`Coding`
+#save(finalized_with_omitted_data, finalized_data, coding, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+#load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+
+
+#colnames(finalized_data)
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+upper_posterior=c(2, 3, 4, 5, 12, 13, 14, 15)
+upper_anterior=6:11
+lower_posterior=c(18, 19, 20, 21, 28, 29, 30, 31)
+lower_anterior=22:27
+```
+
+
+```{r, message=F, warning=F}
+m_tooth_yes=tooth_migration %>% filter(M_Tooth_Migration=="Y") %>% nrow()
+m_tooth_all=tooth_migration %>% filter(M_Tooth_Migration=="Y" | M_Tooth_Migration=="N") %>% nrow()
+
+d_tooth_yes=tooth_migration %>% filter(D_Tooth_Migration=="Y") %>% nrow()
+d_tooth_all=tooth_migration %>% filter(D_Tooth_Migration=="Y" | D_Tooth_Migration=="N") %>% nrow()
+
+prop.test(x=c(m_tooth_yes, d_tooth_yes), n=c(m_tooth_all, d_tooth_all))
+```
+
+* M_tooth_migration has frequency of 14.29%, and D_tooth_migration 1.74%. these two frequencies are significantly different with p value $7.43 \times 10^{-8}$. 
+
+

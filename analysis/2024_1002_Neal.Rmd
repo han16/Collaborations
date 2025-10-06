@@ -1923,7 +1923,13 @@ binom.test(87, 87+116)$p.value
 ## 11 "6 final data file" - Under finalized data tab
 
 
-### 11.1 [run the analysis that is already is the website with the updated subjects and numbers](2024_1002_Neal_11_1.html)
+### 11.1 [run the analysis that is already is the website with the updated subjects and numbers;  Spearman's correlations for group 4 separately for maxilla and mandible and for group 5 separately for maxilla and mandible](2024_1002_Neal_11_1.html)
+
+## 12  "6 final data file"- Under M-D Tooth Migration tab
+ 
+ 
+### 12.1 [calculate frequency of M_tooth_migration and D_tooth_migration. Is there a difference in distribution of these variables?](2024_1002_Neal_12_1.html)
+
 
 
 
