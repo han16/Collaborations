@@ -1,0 +1,82 @@
+---
+title: "Coronal movement"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-10-07"
+---
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+```{r, message=F, warning=F, results=F}
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525.xlsx")
+coronal_movement=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\6 FINAL CBCT Thesis data (09-11-25)_Coronal_Movement.csv")))
+
+#finalized_with_omitted_data=data_raw$`Finalized with Omitted data`
+#coding=data_raw$`Coding`
+#save(finalized_with_omitted_data, finalized_data, coding, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+#load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+
+
+#colnames(finalized_data)
+```
+
+
+
+
+```{r, message=F, warning=F}
+both_tooth_yes=coronal_movement %>% filter(`Coronal_Movement_both_Teeth..y.n.`=="Y") %>% nrow()
+both_tooth_all=coronal_movement %>% filter(`Coronal_Movement_both_Teeth..y.n.`=="Y" | `Coronal_Movement_both_Teeth..y.n.`=="N") %>% nrow()
+
+both_tooth_yes/both_tooth_all
+
+m_tooth_yes=coronal_movement %>% filter(M_Tooth_Coronal_Migration=="Y") %>% nrow()
+m_tooth_all=coronal_movement %>% filter(M_Tooth_Coronal_Migration=="Y" | M_Tooth_Coronal_Migration=="N") %>% nrow()
+
+m_tooth_yes/m_tooth_all
+
+d_tooth_yes=coronal_movement %>% filter(D_Tooth_Coronal_Migration=="Y") %>% nrow()
+d_tooth_all=coronal_movement %>% filter(D_Tooth_Coronal_Migration=="Y" | D_Tooth_Coronal_Migration=="N") %>% nrow()
+
+d_tooth_yes/d_tooth_all
+
+```
+
+
+
+* frequency: ` coronal_movement_both_teeth`: 3.17%; `M_tooth_coronal_migration`: 1.98%; `D_tooth_coronal_migration`: 1.59%. 
+
+
+
+
+
+```{r, message=F, warning=F}
+prop.test(x=c(both_tooth_yes, m_tooth_yes), n=c(both_tooth_all, m_tooth_all))
+
+prop.test(x=c(both_tooth_yes, d_tooth_yes), n=c(both_tooth_all, d_tooth_all))
+
+prop.test(x=c(m_tooth_yes, d_tooth_yes), n=c(m_tooth_all, d_tooth_all))
+```
+
+
+
+
+
+
+* `coronal_movement_both_teeth`  vs `M_tooth_coronal_migration`: p value 0.5741; 
+
+* `coronal_movement_both_teeth`  vs `D_tooth_coronal_migration`: p value 0.3807;
+
+* `M_tooth_coronal_migration`  vs `D_tooth_coronal_migration`: p value 1.000;
+
+
+* in summary, all three are not different from one another. 

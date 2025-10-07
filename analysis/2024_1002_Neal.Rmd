@@ -1931,6 +1931,13 @@ binom.test(87, 87+116)$p.value
 ### 12.1 [calculate frequency of M_tooth_migration and D_tooth_migration. Is there a difference in distribution of these variables?](2024_1002_Neal_12_1.html)
 
 
+## 13. "6 final data file" - Under Coronal Movement tab
+
+
+[calculate frequency of coronal_movement_both_teeth, M_tooth_coronal_migration, D_tooth_coronal_migration. Is there a difference in distribution bewteen M_tooth_coronal_migration, D_tooth_coronal_migration?](2024_1002_Neal_13_1.html)
+
+
+
 
 
 
