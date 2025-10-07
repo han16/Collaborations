@@ -80,3 +80,5 @@ prop.test(x=c(m_tooth_yes, d_tooth_yes), n=c(m_tooth_all, d_tooth_all))
 
 
 * in summary, all three are not different from one another. 
+
+* two sample proportion test was used 
