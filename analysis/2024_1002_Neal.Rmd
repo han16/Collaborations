@@ -1937,8 +1937,10 @@ binom.test(87, 87+116)$p.value
 [calculate frequency of coronal_movement_both_teeth, M_tooth_coronal_migration, D_tooth_coronal_migration. Is there a difference in distribution bewteen M_tooth_coronal_migration, D_tooth_coronal_migration?](2024_1002_Neal_13_1.html)
 
 
+## 14. "TNP calibration file"
 
 
+[Cohen's kappa for the pairs of variables ](2024_1002_Neal_14_1.html)
 
 
 

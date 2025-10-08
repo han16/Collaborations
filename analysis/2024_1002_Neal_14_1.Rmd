@@ -1,0 +1,67 @@
+---
+title: "Cohen's kappa for the pairs of variables"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-10-08"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+```{r, message=F, warning=F, results=F}
+#data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525.xlsx")
+tnp_calibration=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\TNP Calibration_data_for_kappa.csv"), header = T))
+
+#finalized_with_omitted_data=data_raw$`Finalized with Omitted data`
+#coding=data_raw$`Coding`
+#save(finalized_with_omitted_data, finalized_data, coding, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+#load("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
+
+
+#colnames(finalized_data)
+```
+
+
+
+```{r, message=F, warning=F}
+# Assuming tnp_calibration is your tibble
+# Select only numeric columns (excluding site if needed)
+cols <- names(tnp_calibration)[-1]
+
+# Find pairs of columns (2&3, 4&5, ...)
+pairs <- split(cols, ceiling(seq_along(cols)/2))
+
+# Compute Cohen’s kappa for each pair
+kappa_results <- lapply(pairs, function(pair) {
+  if (length(pair) == 2) {
+    dat <- tnp_calibration[, pair]
+    dat <- na.omit(dat) # remove NA rows
+    kappa_value <- round(irr::kappa2(dat)$value,4) 
+    kappa_pvalue=irr::kappa2(dat)$p.value
+    data.frame(columns = paste(pair, collapse = "_vs_"), kappa = kappa_value, kappa_pvalue=pvalue_adjust(kappa_pvalue))
+  } else {
+    NULL
+  }
+})
+
+# Combine into one table
+kappa_summary <- do.call(rbind, kappa_results)
+
+kappa_summary%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
