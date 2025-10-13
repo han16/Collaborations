@@ -35,3 +35,5 @@ date: "2025-01-07"
 13. [Aug-Lana](2025_0802_Lana.html)
 
 14. [Aug-Brian](2025_0803_Brian.html)
+
+15. [Oct-Rady](2025_1001_Rady.html)

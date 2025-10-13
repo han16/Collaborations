@@ -1,0 +1,108 @@
+---
+title: "test vs placebo patients"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-10-13"
+---
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+ 
+load(file.path(root, "../2025/202510/Rady/all_sheets.RData"))
+data=all_sheets$Data
+variable_codes=all_sheets$`Coding `
+backup=all_sheets$`Combined 9-30-2025 backup`
+
+```
+
+
+## home 
+
+[home](2025_1001_Rady.html)
+
+
+```{r, message=F, warning=F}
+
+continuous_var=c("Age", "MDAS_SUM", "OHIP_D2_SUM", "OHIP_D5_SUM", "OHIP_D7_SUM", "OHIP_D2_SUM", "OHIP_preop_SUM", 
+                 "Fear_Pain_Sum", "Pain_catastrophizing_Sum", "Literacy_Sum", "VAS_pain_preop", "VAS_Pain_H1", 
+                 "VAS_Pain_H2", "VAS_Pain_H3", paste0("VAS_Pain_D", seq(1,7)), 
+                 "VAS_swell_preop", "VAS_Swelling_H1", "VAS_Swelling_H2", "VAS_Swelling_H3", paste0("VAS_Swelling_D", seq(1,7)),                  "Acetaminophen_H1", "Acetaminophen_H2", "Acetaminophen_H3", paste0("Acetaminophen_D", seq(1,7)), 
+                 "VAS_pain_during_Procedure_D1", "VAS_pain_during_Procedure_D7", 
+                 "VAS_pain_anticipated_preop", "Anticipated_Pain_Compared_to_Actual_Pain_D1", 
+                 "Anticipated_Pain_Compared_to_Actual_Pain_D7", "Willingness_to_repeat_procedure_D1", 
+                 "Willingness_to_repeat_procedure_D7", "VAS_swell_anticipated_preop")
+
+data_test=data %>% filter(Group=="Test") %>% select(continuous_var)
+data_placebo=data %>% filter(Group=="Control") %>% select(continuous_var)
+```
+
+
+
+```{r, message=F, warning=F}
+# Initialize result vectors
+diff <- pvalue <- numeric(ncol(data_placebo))
+
+for (i in seq_len(ncol(data_placebo))) {
+  x <- as.numeric(data_placebo[[i]])
+  y <- as.numeric(data_test[[i]])
+
+  # Remove missing values separately
+  x <- x[!is.na(x)]
+  y <- y[!is.na(y)]
+
+  # Skip columns with too few or constant values
+  if (length(unique(x)) <= 1 || length(unique(y)) <= 1 ||
+      length(x) < 2 || length(y) < 2) {
+    diff[i] <- NA
+    pvalue[i] <- NA
+  } else {
+    test <- tryCatch(
+      t.test(x, y, paired = FALSE, var.equal = FALSE),  # Welch’s t-test
+      error = function(e) NULL
+    )
+    if (!is.null(test)) {
+      # Mean difference = mean(y) - mean(x)
+      diff[i] <- test$estimate[2] - test$estimate[1]
+      pvalue[i] <- test$p.value
+    } else {
+      diff[i] <- NA
+      pvalue[i] <- NA
+    }
+  }
+}
+
+# Combine into data frame
+results <- data.frame(
+  Variable = colnames(data_placebo),
+  test_vs_placebo = round(diff,4), 
+  P_Value = pvalue_adjust(pvalue)
+)
+
+results%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+* two sample t test was used. 
