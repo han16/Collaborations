@@ -89,7 +89,7 @@ for (i in seq_len(ncol(data_placebo))) {
 # Combine into data frame
 results <- data.frame(
   Variable = colnames(data_placebo),
-  test_vs_placebo = round(diff,4), 
+  test_vs_placebo_diff = round(diff,4), 
   P_Value = pvalue_adjust(pvalue)
 )
 
