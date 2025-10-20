@@ -847,3 +847,636 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+## 2. group 2 vs 3
+
+
+```{r, message=F, warning=F}
+group2_maxilla=finalized_data %>% filter(Jaw==1)
+group3_mandible=finalized_data %>% filter(Jaw==2)
+```
+
+
+
+
+
+
+### 2.1 continuous variables 
+
+
+
+
+
+```{r, message=F, warning=F}
+
+data_conti=as.matrix(group2_maxilla[,which(colnames(group2_maxilla)%in%continuous_var)])
+
+res=summary_statistics(data_conti)
+data.frame(res) %>%
+datatable(extensions = 'Buttons',
+          caption = " group 2",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* correlation of group 2 
+
+
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>1)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="pearson", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=1)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>1)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=1)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+data_conti=as.matrix(group3_mandible[,which(colnames(group3_mandible)%in%continuous_var)])
+
+res=summary_statistics(data_conti)
+data.frame(res) %>%
+datatable(extensions = 'Buttons',
+          caption = " group 3",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+* correlation of group 3 
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>1)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="pearson", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=1)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "Pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of pearson correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+################ compute p values 
+#data_conti[is.na(data_conti)] <- "0"
+#cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
+cormat2=matrix(nrow=ncol(data_conti), ncol=ncol(data_conti))
+cormat2_pvalue=matrix(nrow=nrow(cormat2), ncol=nrow(cormat2))
+for (i in 1:nrow(cormat2))
+  for (j in 1:nrow(cormat2))
+    {
+    combine_data=data.frame(x=as.numeric(data_conti[,i]), y=as.numeric(data_conti[,j])) %>% drop_na()
+    if (nrow(combine_data)>1)
+    {
+    test=cor.test(combine_data[,1], combine_data[,2], method="spearman", use = "na.or.complete")
+    cormat2[i,j]=round(test$estimate,4)
+    cormat2_pvalue[i,j]=round(test$p.value,4)
+    }
+    if (nrow(combine_data)<=1)  # no enough data to calculate correlations 
+    {
+     cormat2[i,j]="NA"
+     cormat2_pvalue[i,j]="NA" 
+      
+    }
+    
+  }
+row.names(cormat2)=colnames(data_conti) 
+colnames(cormat2)=colnames(data_conti) 
+cormat2 %>%
+datatable(extensions = 'Buttons',
+          caption = "spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+row.names(cormat2_pvalue)=colnames(data_conti) 
+colnames(cormat2_pvalue)=colnames(data_conti) 
+cormat2_pvalue %>%
+datatable(extensions = 'Buttons',
+          caption = "P values of spearman correlation",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+correlation_pvalue=matrix(paste(cormat2, "(", cormat2_pvalue, ")", sep=""), nrow=nrow(cormat2))
+rownames(correlation_pvalue)=row.names(cormat2)
+colnames(correlation_pvalue)=row.names(cormat2)
+correlation_pvalue%>%
+datatable(extensions = 'Buttons',
+          caption = "correlation (p value)",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+```{r, message=F, warning=F}
+two_sample_test=function(var)
+{
+#  cat(var, "\n")
+  sample1=as.numeric(group2_maxilla %>% select(var) %>% pull())
+  sample2=as.numeric(group3_mandible %>% select(var) %>% pull())
+  if (sum(!is.na(sample1))>0 & sum(!is.na(sample2))>0)
+  { 
+   wilcox_test <- wilcox.test(sample1, sample2)
+   return(wilcox_test$p.value)
+  }
+  else
+    return("NA")
+  
+}
+pvalue=sapply(continuous_var, two_sample_test)
+data.frame(variables=continuous_var, pvalue=pvalue_adjust(as.numeric(pvalue)))%>%
+datatable(extensions = 'Buttons',
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+* nonparametric  `wilcox.test` was used to test the difference 
+
+
+
+
+
+
+
+
+
+
+### 2.2 discrete variables
+
+
+```{r, message=F, warning=F, results='asis'}
+# Create a tagList to collect all datatables
+library(htmltools)
+output_list1 <- tagList()
+for (k in 1:length(discrete_var))
+  
+{
+
+data_subset1=group2_maxilla %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group2_maxilla),4)) %>% drop_na()
+
+data_subset2=group3_mandible %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group3_mandible),4)) %>% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("group2_maxilla", nrow(data_subset1)), rep("group3_mandible", nrow(data_subset2))))
+
+
+# Append the datatable to the output list
+  output_list1 <- tagAppendChild(
+    output_list1,
+    datatable(
+      data_subset,
+      extensions = 'Buttons',
+      caption = discrete_var[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+#############################
+common_variable=intersect(data_subset %>% filter(sample=="group2_maxilla") %>% select(rlang::sym(discrete_var[k])) %>% pull(), data_subset %>% filter(sample=="group3_mandible") %>% select(rlang::sym(discrete_var[k])) %>% pull())
+pvalue=numeric()
+if (length(common_variable)>0)
+{
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(!!rlang::sym(discrete_var[k])==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(nrow(group2_maxilla), nrow(group3_mandible)))$p.value)
+}
+  
+  
+  ###########################
+  # Append the datatable to the output list
+  output_list1 <- tagAppendChild(
+    output_list1,
+    datatable(
+      data.frame(variable=paste(common_variable, ":group2_maxilla_vs_group3_mandible"), pvalue=pvalue),
+      extensions = 'Buttons',
+      caption = discrete_var[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )  
+  
+}
+if (length(common_variable)==0)
+  cat("no common variables between two groups", "\n")
+
+  
+}
+
+# Render all datatables
+output_list1
+
+```
+
+
+* two  sample proportion test was used. 
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F, results='asis'}
+# Create a tagList to collect all datatables
+library(htmltools)
+output_list1 <- tagList()
+discrete_var=c("Gender", "Smoking")
+
+group2_maxilla_patient <- group2_maxilla %>%
+  group_by(Patient) %>%
+  filter(Gender != "") %>%  # Remove empty Gender rows
+  slice(1) %>%  # Keep the first occurrence per Patient
+  ungroup()
+
+
+group3_mandible_patient <- group3_mandible %>%
+  group_by(Patient) %>%
+  filter(Gender != "") %>%  # Remove empty Gender rows
+  slice(1) %>%  # Keep the first occurrence per Patient
+  ungroup()
+
+for (k in 1:length(discrete_var))
+  
+{
+
+data_subset1=group2_maxilla_patient %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group2_maxilla_patient),4)) %>% drop_na()
+
+data_subset2=group3_mandible_patient %>% dplyr::count(across(discrete_var[k])) %>% mutate(prop=round(n/nrow(group3_mandible_patient),4)) %>% drop_na()
+
+data_subset=rbind(data_subset1, data_subset2) %>% mutate(sample=c(rep("group2_maxilla", nrow(data_subset1)), rep("group3_mandible", nrow(data_subset2))))
+
+
+# Append the datatable to the output list
+  output_list1 <- tagAppendChild(
+    output_list1,
+    datatable(
+      data_subset,
+      extensions = 'Buttons',
+      caption = discrete_var[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+#############################
+common_variable=intersect(data_subset %>% filter(sample=="group2_maxilla") %>% select(rlang::sym(discrete_var[k])) %>% pull(), data_subset %>% filter(sample=="group3_mandible") %>% select(rlang::sym(discrete_var[k])) %>% pull())
+pvalue=numeric()
+if (length(common_variable)>0)
+{
+for (i in 1:length(common_variable))
+{
+  variable_count=data_subset %>% filter(!!rlang::sym(discrete_var[k])==common_variable[i]) %>% select(n) %>% pull()
+  pvalue[i]=pvalue_adjust(prop.test(x=variable_count, n=c(nrow(group2_maxilla), nrow(group3_mandible)))$p.value)
+}
+  
+  
+  ###########################
+  # Append the datatable to the output list
+  output_list1 <- tagAppendChild(
+    output_list1,
+    datatable(
+      data.frame(variable=paste(common_variable, ":group2_maxilla_vs_group3_mandible"), pvalue=pvalue),
+      extensions = 'Buttons',
+      caption = discrete_var[k],
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )  
+  
+}
+if (length(common_variable)==0)
+  cat("no common variables between two groups", "\n")
+
+  
+}
+
+# Render all datatables
+output_list1
+
+```
+
+
+
+```{r, message=F, warning=F}
+group2_maxilla_patient %>% select(Patient, Gender,Smoking) %>%
+datatable(extensions = 'Buttons',
+          caption = "group2_maxilla_patient", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+group3_mandible_patient %>% select(Patient, Gender,Smoking) %>%
+datatable(extensions = 'Buttons',
+          caption = "group3_mandible_patient", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+
+### 2.3 Sinus_pathology (updated: subjects that have Jaw=maxilla)
+
+
+```{r, message=F, warning=F}
+group2_maxilla %>%
+  dplyr::count(Sinus_Pathology) %>%
+  mutate(Frequency = round( n / sum(n),4))
+
+```
+
+
+
+```{r, message=F, warning=F}
+
+library(htmltools)
+output_list <- tagList()
+  res_df <- data.frame(sinus=c("1", "2", "3"), n=c(23, 3, 94)) # Convert the current list element to a data frame
+# Append the datatable to the output list
+  output_list <- tagAppendChild(
+    output_list,
+    datatable(
+      res_df,
+      extensions = 'Buttons',
+      caption = "",
+      options = list(
+        dom = 'Blfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+      )
+    )
+  )
+  
+  ############# calculate p values 
+parameters=character()
+pvalue=numeric()
+kk=0
+
+if (nrow(res_df)>1)
+  for (i in 1:(nrow(res_df)-1))
+  for (j in (i+1):nrow(res_df))
+  {
+    kk=kk+1
+    parameters[kk]=paste(res_df[i,1], res_df[j,1], sep="_vs_")
+    pvalue[kk]=pvalue_adjust(binom.test(c(res_df[i,2], res_df[j,2]), p = 0.5)$p.value)
+  }
+output_list <- tagAppendChild(
+    output_list,
+data.frame(comparison=parameters, pvalue=pvalue) %>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+)
+
+output_list
+
+```
+
+
+
+### 2.4 tooth site groups
+
+
+```{r, message=F, warning=F}
+n1=c(group2_maxilla %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
+    group2_maxilla %>% filter(Tooth_site_number %in% upper_anterior) %>% nrow(), 
+    group2_maxilla %>% filter(Tooth_site_number %in% lower_posterior) %>% nrow(), 
+    group2_maxilla %>% filter(Tooth_site_number %in% lower_anterior) %>% nrow())
+
+n2=c(group3_mandible %>% filter(Tooth_site_number %in% upper_posterior) %>% nrow(), 
+    group3_mandible %>% filter(Tooth_site_number %in% upper_anterior) %>% nrow(), 
+    group3_mandible %>% filter(Tooth_site_number %in% lower_posterior) %>% nrow(), 
+    group3_mandible %>% filter(Tooth_site_number %in% lower_anterior) %>% nrow())
+
+
+
+tooth_site_groups=data.frame(tooth_site=rep(c("upper_posterior", "upper_anterior", "lower_posterior", "lower_anterior"),2), n=c(n1, n2), groups=rep(c("group2_maxilla","group3_mandible"), each=4 ))  %>% mutate(prop=c(round(n1/sum(n1),4), round(n2/sum(n2),4)))
+
+tooth_site_groups%>%
+datatable(extensions = 'Buttons',
+          caption = "tooth site groups",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+```
