@@ -37,6 +37,23 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -400,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-08-26
+<strong>Last updated:</strong> 2025-10-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +455,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree468fb68ef37a62162fe9c48664407d9018bb8d32targetblank468fb68a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60ade3ab7800feecf24ad5468d272c39c56ab0a7targetblank60ade3aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/468fb68ef37a62162fe9c48664407d9018bb8d32" target="_blank">468fb68</a>
+<a href="https://github.com/han16/Collaborations/tree/60ade3ab7800feecf24ad5468d272c39c56ab0a7" target="_blank">60ade3a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree468fb68ef37a62162fe9c48664407d9018bb8d32targetblank468fb68a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60ade3ab7800feecf24ad5468d272c39c56ab0a7targetblank60ade3aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/468fb68ef37a62162fe9c48664407d9018bb8d32" target="_blank">468fb68</a>.
+<a href="https://github.com/han16/Collaborations/tree/60ade3ab7800feecf24ad5468d272c39c56ab0a7" target="_blank">60ade3a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,12 +588,9 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2025_0803_Brian.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2025.Rmd
-    Modified:   analysis/2025_0604_Arndt.Rmd
+    Modified:   analysis/2025_0601_Shikha.Rmd
+    Modified:   analysis/2025_0803_Brian.Rmd
 
 </code></pre>
 <p>
@@ -591,13 +605,269 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2025_0803_Brian.Rmd</code>) and
+HTML (<code>docs/2025_0803_Brian.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/9155ef94dd1f1134526fe610392f2eea0adb3bfc/analysis/2025_0803_Brian.Rmd" target="_blank">9155ef9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-26
+</td>
+<td>
+08/26/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/9155ef94dd1f1134526fe610392f2eea0adb3bfc/docs/2025_0803_Brian.html" target="_blank">9155ef9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-08-26
+</td>
+<td>
+08/26/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
+</div>
+<pre class="r"><code>data_10_12=multiplesheets_without_headers((file.path(root, &quot;../2025/202509/Brian/Fw_ Dosimeter Data/10.12.2025 clinic measurements.xlsx&quot;)))
+data_10_14=multiplesheets_without_headers((file.path(root, &quot;../2025/202509/Brian/Fw_ Dosimeter Data/10.14.2025 clinic measurements.xlsx&quot;)))
+data_10_15=multiplesheets_without_headers((file.path(root, &quot;../2025/202509/Brian/Fw_ Dosimeter Data/10.15.2025 clinic measurements.xlsx&quot;)))
+
+#saveRDS(data_10_12, file=file.path(root, &quot;..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_12.RDS&quot;))
+#saveRDS(data_10_14, file=file.path(root, &quot;..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_14.RDS&quot;))
+#saveRDS(data_10_15, file=file.path(root, &quot;..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_15.RDS&quot;))</code></pre>
+<pre class="r"><code>data_10_12=readRDS(file.path(root, &quot;..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_12.RDS&quot;))
+data_10_14=readRDS(file.path(root, &quot;..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_14.RDS&quot;))
+data_10_15=readRDS(file.path(root, &quot;..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_15.RDS&quot;))</code></pre>
+<div id="boxplot-to-detect-outliers" class="section level2">
+<h2>boxplot to detect outliers</h2>
+<pre class="r"><code># Sheet names
+sheets &lt;- c(&quot;#1 AA12842&quot;, &quot;#2 AA12913&quot;, &quot;#3 AA12830&quot;)
+
+# Loop through each sheet and draw boxplot + report outliers
+for (i in seq_along(sheets)) {
+  
+  # Extract 4th column (skip first row)
+  d1 &lt;- as.numeric(unlist(data_10_12[[i]][-1, 4]))
+  d2 &lt;- as.numeric(unlist(data_10_14[[i]][-1, 4]))
+  
+  # Combine into one data frame for plotting
+  df_plot &lt;- data.frame(
+    Value = c(d1, d2),
+    Dataset = factor(c(rep(&quot;data_10_12&quot;, length(d1)), rep(&quot;data_10_14&quot;, length(d2))))
+  )
+  
+  # ---- Outlier detection ----
+  find_outliers &lt;- function(x) {
+    Q1 &lt;- quantile(x, 0.25, na.rm = TRUE)
+    Q3 &lt;- quantile(x, 0.75, na.rm = TRUE)
+    IQR_val &lt;- Q3 - Q1
+    x[(x &lt; (Q1 - 1.5 * IQR_val)) | (x &gt; (Q3 + 1.5 * IQR_val))]
+  }
+  
+  outliers_12 &lt;- find_outliers(d1)
+  outliers_14 &lt;- find_outliers(d2)
+  
+  cat(&quot;\n=== Sheet:&quot;, sheets[i], &quot;===\n&quot;)
+  cat(&quot;data_10_12 outliers:&quot;, if (length(outliers_12) &gt; 0) paste(round(outliers_12, 4), collapse = &quot;, &quot;) else &quot;None&quot;, &quot;\n&quot;)
+  cat(&quot;data_10_14 outliers:&quot;, if (length(outliers_14) &gt; 0) paste(round(outliers_14, 4), collapse = &quot;, &quot;) else &quot;None&quot;, &quot;\n&quot;)
+  
+  # ---- Boxplot ----
+  p &lt;- ggplot(df_plot, aes(x = Dataset, y = Value, fill = Dataset)) +
+    geom_boxplot(outlier.shape = 21, outlier.fill = &quot;white&quot;, outlier.color = &quot;red&quot;) +
+    labs(
+      title = paste(&quot;Boxplot of Sheet&quot;, sheets[i]),
+      y = &quot;Chan_1 (dB)&quot;,
+      x = &quot;&quot;
+    ) +
+    theme_minimal(base_size = 14) +
+    theme(
+      legend.position = &quot;none&quot;,
+      plot.title = element_text(hjust = 0.5, face = &quot;bold&quot;)  # centers title
+    )
+  
+  print(p)
+}</code></pre>
+<pre><code>
+=== Sheet: #1 AA12842 ===
+data_10_12 outliers: 85.1, 78.2, 87.6, 77.7, 77.5, 85.3, 84.7, 82.9, 80.3, 79.8, 81.9, 83.5, 80.9, 83.2, 83 
+data_10_14 outliers: 114.9, 113.8, 80.2, 110.7, 76.3, 72.9, 74.7, 43 </code></pre>
+<p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+=== Sheet: #2 AA12913 ===
+data_10_12 outliers: 88.1, 81.2, 77.1, 80, 75.6, 77.9, 80.4, 79, 79.4, 84.1, 76.1, 77, 81.1, 79, 79.3, 79.4, 85.2, 82 
+data_10_14 outliers: 66.2, 67.4, 69.7, 66.6, 68, 70.6, 66.8, 41.3, 40.9 </code></pre>
+<p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+=== Sheet: #3 AA12830 ===
+data_10_12 outliers: 79, 78.3, 79.3, 80.1, 80.7, 78.8, 81.9, 79.2, 82.5 
+data_10_14 outliers: 38.2, 38 </code></pre>
+<p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="air-driven-vs-electric" class="section level2">
+<h2>air driven vs electric</h2>
+<pre class="r"><code>library(readxl)
+
+# Read all 3 sheets
+sheets &lt;- c(&quot;#1 AA12842&quot;, &quot;#2 AA12913&quot;, &quot;#3 AA12830&quot;)
+
+
+# Initialize results list
+t_results &lt;- list()
+
+for (i in seq_along(sheets)) {
+  d1 &lt;- data_10_12[[i]][-1, 4]  # 4th column, skip first row
+  d2 &lt;- data_10_14[[i]][-1, 4]
+  
+  # Convert to numeric in case of character type
+  d1 &lt;- as.numeric(unlist(d1))
+  d2 &lt;- as.numeric(unlist(d2))
+  
+  # Two-sample t-test
+  t_results[[sheets[i]]] &lt;- t.test(d1, d2, var.equal = T)
+}
+
+# Display results
+t_results</code></pre>
+<pre><code>$`#1 AA12842`
+
+    Two Sample t-test
+
+data:  d1 and d2
+t = 18.69, df = 1095, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 5.774662 7.129361
+sample estimates:
+mean of x mean of y 
+ 64.79742  58.34541 
+
+
+$`#2 AA12913`
+
+    Two Sample t-test
+
+data:  d1 and d2
+t = 35.705, df = 1106, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 8.650081 9.656066
+sample estimates:
+mean of x mean of y 
+ 64.50530  55.35223 
+
+
+$`#3 AA12830`
+
+    Two Sample t-test
+
+data:  d1 and d2
+t = 30.044, df = 1096, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 8.561708 9.758146
+sample estimates:
+mean of x mean of y 
+ 62.83570  53.67577 </code></pre>
+<pre class="r"><code>summary_table= data.frame(
+  Sheet = sheets,
+  p_value = pvalue_adjust(sapply(t_results, function(x) x$p.value)),
+  mean_data_10_12 = sapply(seq_along(sheets), function(i)
+    round(mean(as.numeric(unlist(data_10_12[[i]][-1, 4])), na.rm = TRUE), 4)),
+  mean_data_10_14 = sapply(seq_along(sheets), function(i)
+    round(mean(as.numeric(unlist(data_10_14[[i]][-1, 4])), na.rm = TRUE), 4))
+)
+
+summary_table%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3"],["#1 AA12842","#2 AA12913","#3 AA12830"],["&lt;0.0001","&lt;0.0001","&lt;0.0001"],[64.7974,64.50530000000001,62.8357],[58.3454,55.3522,53.6758]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sheet<\/th>\n      <th>p_value<\/th>\n      <th>mean_data_10_12<\/th>\n      <th>mean_data_10_14<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Sheet","targets":1},{"name":"p_value","targets":2},{"name":"mean_data_10_12","targets":3},{"name":"mean_data_10_14","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="data_10_15" class="section level2">
+<h2>data_10_15</h2>
+<pre class="r"><code># Extract the 4th column, from row 275 to the end
+values &lt;- as.numeric(unlist(data_10_15$AA12842[275:460, 4]))
+
+# ---- Outlier detection ----
+Q1 &lt;- quantile(values, 0.25, na.rm = TRUE)
+Q3 &lt;- quantile(values, 0.75, na.rm = TRUE)
+IQR_val &lt;- Q3 - Q1
+outliers &lt;- values[(values &lt; (Q1 - 1.5 * IQR_val)) | (values &gt; (Q3 + 1.5 * IQR_val))]
+
+cat(&quot;Detected outliers:\n&quot;)</code></pre>
+<pre><code>Detected outliers:</code></pre>
+<pre class="r"><code>if (length(outliers) &gt; 0) {
+  print(round(outliers, 4))
+} else {
+  cat(&quot;None\n&quot;)
+}</code></pre>
+<pre><code>[1] 41.1 41.4</code></pre>
+<pre class="r"><code># ---- Boxplot ----
+ggplot(data.frame(Value = values), aes(y = Value)) +
+  geom_boxplot(fill = &quot;skyblue&quot;, outlier.shape = 21, outlier.fill = &quot;white&quot;, outlier.color = &quot;red&quot;) +
+  labs(
+    title = &quot;Boxplot of data_10_15 (Sheet AA12842, Rows 275–460 (5:30-6pm))&quot;,
+    y = &quot;Chan_1 (dB)&quot;,
+    x = &quot;&quot;
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = &quot;bold&quot;)  # center title
+  )</code></pre>
+<p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="sample-size-calculation" class="section level2">
 <h2>sample size calculation</h2>
@@ -644,18 +914,49 @@ time zone: America/Chicago
 tzcode source: internal
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] VennDiagram_1.7.3   futile.logger_1.4.3 condsurv_1.0.0     
+ [4] devtools_2.4.5      usethis_3.1.0       tidycmprsk_1.1.0   
+ [7] gtsummary_2.0.4     ggsurvfit_1.1.0     irr_0.84.1         
+[10] lpSolve_5.6.23      readxl_1.4.3        cowplot_1.1.3      
+[13] matrixStats_1.5.0   gridExtra_2.3       DT_0.33            
+[16] rstatix_0.7.2       ggpubr_0.6.0        kableExtra_1.4.0   
+[19] lubridate_1.9.4     forcats_1.0.0       stringr_1.5.1      
+[22] dplyr_1.1.4         purrr_1.0.2         readr_2.1.4        
+[25] tidyr_1.3.1         tibble_3.2.1        ggplot2_3.5.1      
+[28] tidyverse_2.0.0     rprojroot_2.0.4    
 
 loaded via a namespace (and not attached):
- [1] vctrs_0.6.5       cli_3.6.2         knitr_1.49        rlang_1.1.2      
- [5] xfun_0.50.6       stringi_1.8.3     promises_1.3.2    jsonlite_1.8.9   
- [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.35.0     
-[13] htmltools_0.5.8.1 httpuv_1.6.15     sass_0.4.9        rmarkdown_2.29   
-[17] evaluate_1.0.3    jquerylib_0.1.4   tibble_3.2.1      fastmap_1.2.0    
-[21] yaml_2.3.8        lifecycle_1.0.4   stringr_1.5.1     compiler_4.3.2   
-[25] fs_1.6.5          Rcpp_1.0.11       pkgconfig_2.0.3   rstudioapi_0.17.1
-[29] later_1.4.1       digest_0.6.33     R6_2.6.1          pillar_1.10.1    
-[33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.2       cachem_1.1.0     </code></pre>
+ [1] formatR_1.14         remotes_2.5.0        rlang_1.1.2         
+ [4] magrittr_2.0.3       git2r_0.35.0         compiler_4.3.2      
+ [7] systemfonts_1.2.1    vctrs_0.6.5          profvis_0.4.0       
+[10] pkgconfig_2.0.3      fastmap_1.2.0        backports_1.5.0     
+[13] ellipsis_0.3.2       labeling_0.4.3       promises_1.3.2      
+[16] rmarkdown_2.29       sessioninfo_1.2.2    tzdb_0.4.0          
+[19] xfun_0.50.6          cachem_1.1.0         jsonlite_1.8.9      
+[22] later_1.4.1          broom_1.0.7          R6_2.6.1            
+[25] bslib_0.9.0          stringi_1.8.3        car_3.1-3           
+[28] pkgload_1.4.0        jquerylib_0.1.4      cellranger_1.1.0    
+[31] Rcpp_1.0.11          knitr_1.49           httpuv_1.6.15       
+[34] Matrix_1.6-1.1       splines_4.3.2        timechange_0.3.0    
+[37] tidyselect_1.2.1     rstudioapi_0.17.1    abind_1.4-8         
+[40] yaml_2.3.8           miniUI_0.1.1.1       pkgbuild_1.4.6      
+[43] lattice_0.21-9       shiny_1.10.0         withr_3.0.2         
+[46] evaluate_1.0.3       lambda.r_1.2.4       survival_3.8-3      
+[49] urlchecker_1.0.1     xml2_1.3.6           pillar_1.10.1       
+[52] carData_3.0-5        whisker_0.4.1        generics_0.1.3      
+[55] hms_1.1.3            munsell_0.5.1        scales_1.3.0        
+[58] xtable_1.8-4         glue_1.8.0           tools_4.3.2         
+[61] ggsignif_0.6.4       fs_1.6.5             crosstalk_1.2.1     
+[64] colorspace_2.1-0     Formula_1.2-5        cli_3.6.2           
+[67] workflowr_1.7.1      futile.options_1.0.1 viridisLite_0.4.2   
+[70] svglite_2.1.3        gtable_0.3.6         sass_0.4.9          
+[73] digest_0.6.33        farver_2.1.2         htmlwidgets_1.6.4   
+[76] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
+[79] mime_0.12           </code></pre>
 </div>
 </div>
 

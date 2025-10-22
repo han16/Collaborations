@@ -247,10 +247,16 @@ joined <- endo_root %>%
   select(Patient, tooth, root_canal_date, root_canal_procedure) %>%
   inner_join(restoration %>% select(tooth, restoration_date, restoration_procedure),
              by = "tooth")
+dim(joined)
 
 # Step 3: Filter restorations that occurred *after* or the same day as root canal
 after_root_canal <- joined %>%
   filter(restoration_date >= root_canal_date)
+
+before_root_canal <- joined %>%
+  filter(restoration_date < root_canal_date)
+
+dim(after_root_canal)
 
 # Step 4: Group by root canal event (Patient + tooth + date) and get earliest restoration
 first_restoration <- after_root_canal %>%
@@ -258,6 +264,8 @@ first_restoration <- after_root_canal %>%
   arrange(restoration_date) %>%
   slice(1) %>%
   ungroup()
+
+dim(first_restoration)
 
 # Step 5: Calculate time difference and select output columns
 endo_with_tx_time <- first_restoration %>%

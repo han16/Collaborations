@@ -9,6 +9,176 @@ date: "2025-08-26"
 
 
 
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+```{r, message=F, warning=F, results=F, eval=F}
+data_10_12=multiplesheets_without_headers((file.path(root, "../2025/202509/Brian/Fw_ Dosimeter Data/10.12.2025 clinic measurements.xlsx")))
+data_10_14=multiplesheets_without_headers((file.path(root, "../2025/202509/Brian/Fw_ Dosimeter Data/10.14.2025 clinic measurements.xlsx")))
+data_10_15=multiplesheets_without_headers((file.path(root, "../2025/202509/Brian/Fw_ Dosimeter Data/10.15.2025 clinic measurements.xlsx")))
+
+#saveRDS(data_10_12, file=file.path(root, "..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_12.RDS"))
+#saveRDS(data_10_14, file=file.path(root, "..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_14.RDS"))
+#saveRDS(data_10_15, file=file.path(root, "..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_15.RDS"))
+```
+
+
+
+
+
+```{r, message=F, warning=F, results='hide'}
+data_10_12=readRDS(file.path(root, "..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_12.RDS"))
+data_10_14=readRDS(file.path(root, "..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_14.RDS"))
+data_10_15=readRDS(file.path(root, "..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\\data_10_15.RDS"))
+```
+
+
+## boxplot to detect outliers 
+
+```{r, message=F, warning=F}
+# Sheet names
+sheets <- c("#1 AA12842", "#2 AA12913", "#3 AA12830")
+
+# Loop through each sheet and draw boxplot + report outliers
+for (i in seq_along(sheets)) {
+  
+  # Extract 4th column (skip first row)
+  d1 <- as.numeric(unlist(data_10_12[[i]][-1, 4]))
+  d2 <- as.numeric(unlist(data_10_14[[i]][-1, 4]))
+  
+  # Combine into one data frame for plotting
+  df_plot <- data.frame(
+    Value = c(d1, d2),
+    Dataset = factor(c(rep("data_10_12", length(d1)), rep("data_10_14", length(d2))))
+  )
+  
+  # ---- Outlier detection ----
+  find_outliers <- function(x) {
+    Q1 <- quantile(x, 0.25, na.rm = TRUE)
+    Q3 <- quantile(x, 0.75, na.rm = TRUE)
+    IQR_val <- Q3 - Q1
+    x[(x < (Q1 - 1.5 * IQR_val)) | (x > (Q3 + 1.5 * IQR_val))]
+  }
+  
+  outliers_12 <- find_outliers(d1)
+  outliers_14 <- find_outliers(d2)
+  
+  cat("\n=== Sheet:", sheets[i], "===\n")
+  cat("data_10_12 outliers:", if (length(outliers_12) > 0) paste(round(outliers_12, 4), collapse = ", ") else "None", "\n")
+  cat("data_10_14 outliers:", if (length(outliers_14) > 0) paste(round(outliers_14, 4), collapse = ", ") else "None", "\n")
+  
+  # ---- Boxplot ----
+  p <- ggplot(df_plot, aes(x = Dataset, y = Value, fill = Dataset)) +
+    geom_boxplot(outlier.shape = 21, outlier.fill = "white", outlier.color = "red") +
+    labs(
+      title = paste("Boxplot of Sheet", sheets[i]),
+      y = "Chan_1 (dB)",
+      x = ""
+    ) +
+    theme_minimal(base_size = 14) +
+    theme(
+      legend.position = "none",
+      plot.title = element_text(hjust = 0.5, face = "bold")  # centers title
+    )
+  
+  print(p)
+}
+```
+
+
+## air driven vs electric 
+
+
+```{r, message=F, warning=F}
+library(readxl)
+
+# Read all 3 sheets
+sheets <- c("#1 AA12842", "#2 AA12913", "#3 AA12830")
+
+
+# Initialize results list
+t_results <- list()
+
+for (i in seq_along(sheets)) {
+  d1 <- data_10_12[[i]][-1, 4]  # 4th column, skip first row
+  d2 <- data_10_14[[i]][-1, 4]
+  
+  # Convert to numeric in case of character type
+  d1 <- as.numeric(unlist(d1))
+  d2 <- as.numeric(unlist(d2))
+  
+  # Two-sample t-test
+  t_results[[sheets[i]]] <- t.test(d1, d2, var.equal = T)
+}
+
+# Display results
+t_results
+
+
+summary_table= data.frame(
+  Sheet = sheets,
+  p_value = pvalue_adjust(sapply(t_results, function(x) x$p.value)),
+  mean_data_10_12 = sapply(seq_along(sheets), function(i)
+    round(mean(as.numeric(unlist(data_10_12[[i]][-1, 4])), na.rm = TRUE), 4)),
+  mean_data_10_14 = sapply(seq_along(sheets), function(i)
+    round(mean(as.numeric(unlist(data_10_14[[i]][-1, 4])), na.rm = TRUE), 4))
+)
+
+summary_table%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+## data_10_15
+
+
+
+```{r, message=F, warning=F}
+# Extract the 4th column, from row 275 to the end
+values <- as.numeric(unlist(data_10_15$AA12842[275:460, 4]))
+
+# ---- Outlier detection ----
+Q1 <- quantile(values, 0.25, na.rm = TRUE)
+Q3 <- quantile(values, 0.75, na.rm = TRUE)
+IQR_val <- Q3 - Q1
+outliers <- values[(values < (Q1 - 1.5 * IQR_val)) | (values > (Q3 + 1.5 * IQR_val))]
+
+cat("Detected outliers:\n")
+if (length(outliers) > 0) {
+  print(round(outliers, 4))
+} else {
+  cat("None\n")
+}
+
+# ---- Boxplot ----
+ggplot(data.frame(Value = values), aes(y = Value)) +
+  geom_boxplot(fill = "skyblue", outlier.shape = 21, outlier.fill = "white", outlier.color = "red") +
+  labs(
+    title = "Boxplot of data_10_15 (Sheet AA12842, Rows 275–460 (5:30-6pm))",
+    y = "Chan_1 (dB)",
+    x = ""
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")  # center title
+  )
+```
+
+
+
+
 ## sample size calculation 
 
 
