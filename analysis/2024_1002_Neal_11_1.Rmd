@@ -586,6 +586,13 @@ group4_maxilla_mandible=group4_data %>% filter(Jaw==1 | Jaw==2)
 
 ```{r, message=F, warning=F}
 data_conti=as.matrix(group4_maxilla[,which(colnames(group4_maxilla)%in%continuous_var)])
+data_conti%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ################ compute p values 
 #data_conti[is.na(data_conti)] <- "0"
 #cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
@@ -650,6 +657,13 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 data_conti=as.matrix(group4_mandible[,which(colnames(group4_mandible)%in%continuous_var)])
+data_conti%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ################ compute p values 
 #data_conti[is.na(data_conti)] <- "0"
 #cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)
@@ -714,6 +728,13 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 data_conti=as.matrix(group4_maxilla_mandible[,which(colnames(group4_maxilla_mandible)%in%continuous_var)])
+data_conti%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ################ compute p values 
 #data_conti[is.na(data_conti)] <- "0"
 #cormat2=round(cor(data_conti, method="pearson", use = "na.or.complete"),2)

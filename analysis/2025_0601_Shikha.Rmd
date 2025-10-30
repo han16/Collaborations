@@ -21,9 +21,9 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 ```{r, message=F, warning=F, results=F, eval=F}
-data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\Shikha\\Dr. Gupta Endo Data.xlsx")))
+data_raw=multiplesheets((file.path(root, "..\\2025\\202506\\Shikha\\Gupta Endo Data.xlsx")))
 endo_cases=data_raw$EndoCases
-endo_cases=endo_cases %>% mutate(tooth=paste0(endo_cases$Patient, ":", endo_cases$Site))
+endo_cases=endo_cases %>% mutate(tooth=paste0(endo_cases$`Patient...1`, ":", endo_cases$`Site...4`))
 
 post_endo_tx=data_raw$`Post Endo TX`
 post_endo_tx=post_endo_tx %>% mutate(tooth=paste0(post_endo_tx$Patient, ":", post_endo_tx$Site))
@@ -77,13 +77,13 @@ datatable(extensions = 'Buttons',
 ```{r, message=F, warning=F}
 length(unique(endo_cases$tooth))
 
-endo_cases_with_root_canal=endo_cases %>% filter(Procedure %in% root_canal_codes$Code)%>%
+endo_cases_with_root_canal=endo_cases %>% filter(`Procedure...5` %in% root_canal_codes$Code)%>%
   group_by(tooth) %>%
-  arrange(Date) %>%
+  arrange(`Date...7`) %>%
   slice_tail(n = 1) %>%  # Keeps the last root canal date
   ungroup()
 
-endo_cases_with_root_canal$Date=as.Date(endo_cases_with_root_canal$Date)
+endo_cases_with_root_canal$`Date...7`=as.Date(endo_cases_with_root_canal$`Date...7`)
 endo_cases_with_root_canal$Birth=as.Date(endo_cases_with_root_canal$Birth)
 
 endo_cases_with_root_canal %>%
@@ -104,10 +104,10 @@ datatable(extensions = 'Buttons',
 
 ```{r, message=F, warning=F}
 # Count the number of each Procedure
-procedure_counts <- endo_cases_with_root_canal %>%dplyr::count(Procedure)
+procedure_counts <- endo_cases_with_root_canal %>%dplyr::count(`Procedure...5`)
 
 # Bar plot
-ggplot(procedure_counts, aes(x = Procedure, y = n, fill=Procedure)) +
+ggplot(procedure_counts, aes(x = `Procedure...5`, y = n, fill=`Procedure...5`)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = n), vjust = -0.5, size = 4) +
   labs(
@@ -203,7 +203,8 @@ length(unique(post_endo_tx$tooth))
 
 
 
-post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in% final_restoration_codes$Code ) %>% filter(`Endo Check`=="Yes")
+post_endo_tx_with_final_restoration_codes=post_endo_tx %>% filter(Procedure %in% final_restoration_codes$Code )
+#%>% filter(`Endo Check`=="Yes")  this time the data doesn't have endo check column 
 
 final_restoration_codes%>%
 datatable(extensions = 'Buttons',
@@ -226,14 +227,14 @@ dim(post_endo_tx_with_final_restoration_codes)
 ```{r, message=F, warning=F}
 
 # Ensure Date columns are Date type
-endo_cases_with_root_canal$Date <- as.Date(endo_cases_with_root_canal$Date)
+endo_cases_with_root_canal$`Date...7` <- as.Date(endo_cases_with_root_canal$`Date...7`)
 post_endo_tx_with_final_restoration_codes$Date <- as.Date(post_endo_tx_with_final_restoration_codes$Date)
 
 # Step 1: Rename columns for clarity
 endo_root <- endo_cases_with_root_canal %>%
   rename(
-    root_canal_date = Date,
-    root_canal_procedure = Procedure
+    root_canal_date = `Date...7`,
+    root_canal_procedure = `Procedure...5`
   )
 
 restoration <- post_endo_tx_with_final_restoration_codes %>%
@@ -244,7 +245,7 @@ restoration <- post_endo_tx_with_final_restoration_codes %>%
 
 # Step 2: Perform inner join on tooth, retaining all necessary columns explicitly
 joined <- endo_root %>%
-  select(Patient, tooth, root_canal_date, root_canal_procedure) %>%
+  select(`Patient...1`, tooth, root_canal_date, root_canal_procedure) %>%
   inner_join(restoration %>% select(tooth, restoration_date, restoration_procedure),
              by = "tooth")
 dim(joined)
@@ -260,7 +261,7 @@ dim(after_root_canal)
 
 # Step 4: Group by root canal event (Patient + tooth + date) and get earliest restoration
 first_restoration <- after_root_canal %>%
-  group_by(Patient, tooth, root_canal_date) %>%
+  group_by(`Patient...1`, tooth, root_canal_date) %>%
   arrange(restoration_date) %>%
   slice(1) %>%
   ungroup()
@@ -273,7 +274,7 @@ endo_with_tx_time <- first_restoration %>%
     time_between_days = as.numeric(restoration_date - root_canal_date)
   ) %>%
   select(
-    Patient,
+    `Patient...1`,
     tooth,
     root_canal_date,
     root_canal_procedure,
@@ -433,7 +434,8 @@ failure_codes <- c(
 
 # Step 2: Extract only failure events from all procedures
 # all_procedures must include: Patient, tooth, Date, Procedure
-failure_events <- post_endo_tx %>% filter(`Endo Check`=="Yes") %>% 
+failure_events <- post_endo_tx %>% 
+  #filter(`Endo Check`=="Yes") %>% 
   filter(Procedure %in% failure_codes) %>%
   rename(failure_date = Date, failure_code = Procedure) %>%
   select(Patient, tooth, failure_date, failure_code)
@@ -441,6 +443,7 @@ failure_events <- post_endo_tx %>% filter(`Endo Check`=="Yes") %>%
 failure_events$failure_date=as.Date(failure_events$failure_date)
 
 # Step 3: Join with endo_with_tx_time and filter for valid failures (after restoration); this step will filter some patients with failure date prior to restoration  
+colnames(endo_with_tx_time)[1]="Patient"
 endo_with_failure <- endo_with_tx_time %>%
   left_join(failure_events, by = c("Patient", "tooth")) %>%
   filter(is.na(failure_date) | failure_date >= first_restoration_date) %>%  # allow NA for no failure
