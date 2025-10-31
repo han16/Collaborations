@@ -470,35 +470,7 @@ datatable(extensions = 'Buttons',
 
 
 
-```{r, message=F, warning=F, eval=F}
-# Get teeth with restoration but not in failure
-tooth_with_resortation_not_in_failure <- setdiff(endo_with_tx_time$tooth, endo_with_failure$tooth)
 
-# Filter endo_with_tx_time for these teeth
-restorations_no_failure <- endo_with_tx_time %>%
-  filter(tooth %in% tooth_with_resortation_not_in_failure) %>%
-  select(Patient, tooth, first_restoration_date, root_canal_procedure)  # restoration date and code
-
-# Teeth with failure info
-failures_info <- failure_events %>%
-  semi_join(endo_with_failure, by = c("Patient", "tooth")) %>%
-  select(Patient, tooth, failure_date, failure_code)
-
-# Add a column indicating failure status
-restorations_no_failure <- restorations_no_failure %>%
-  mutate(failure_date = as.Date(NA), failure_code = NA_character_)
-
-failures_info <- failures_info %>%
-  rename(root_canal_procedure = failure_code)  # If you want same column name or keep separate
-
-# Bind rows together if you want a combined table of all teeth:
-all_teeth <- bind_rows(
-  restorations_no_failure,
-  failures_info
-)
-
-all_teeth
-```
 
 
 
@@ -577,6 +549,84 @@ survival_data <- survival_data %>%
   mutate(time_bin = factor(
     time_bin,
     levels = c("0","1-30","31-60","61-90","91-120","121-180","180+"),
+    ordered = TRUE
+  ))
+
+
+# Step 2. Survival object and fit by groups
+surv_obj <- Surv(time = survival_data$survival_days, event = survival_data$event)
+fit <- survfit(surv_obj ~ time_bin, data = survival_data)
+
+# Step 3. Plot KM curves
+
+
+ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = FALSE,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,       # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14))  # increase legend label size
+)
+
+ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = T,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,        # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14))  # increase legend label size
+)
+```
+
+```{r, message=F, warning=F}
+
+# Step 1. Create event, survival_days, and time_bin
+survival_data <- endo_with_failure %>%
+  mutate(
+    event = if_else(is.na(failure_date), 0L, 1L),  # 1 = failure, 0 = censored
+    end_date = if_else(event == 1L, failure_date, last_followup_date),
+    survival_days = as.numeric(end_date - first_restoration_date),
+    time_bin = case_when(
+     time_between_days <= 60   ~ "0-60",
+      time_between_days >= 61 & time_between_days <= 120   ~ "61-120",
+      time_between_days >= 121  ~ "120+",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(time_bin), !is.na(survival_days))  # keep valid cases
+
+survival_data <- survival_data %>%
+  filter(!is.na(time_bin), !is.na(survival_days)) %>%
+  mutate(time_bin = factor(
+    time_bin,
+    levels = c("0-60","61-120","120+"),
     ordered = TRUE
   ))
 
