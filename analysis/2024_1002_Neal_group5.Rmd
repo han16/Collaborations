@@ -18,8 +18,9 @@ root <- rprojroot::find_rstudio_root_file()
 
 ```{r, message=F, warning=F, results=F}
 #data_raw=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525.xlsx")
-finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525_Finalized_Data.csv")))
+#finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\CBCT Thesis data FINAL VK011525_Finalized_Data.csv")))
 
+finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\6 FINAL CBCT Thesis data (09-11-25)_finalized_data.csv")))
 #finalized_with_omitted_data=data_raw$`Finalized with Omitted data`
 #coding=data_raw$`Coding`
 #save(finalized_with_omitted_data, finalized_data, coding, file="C:\\Shengtong\\Research\\AllCollaboration\\2024\\202410\\Neal\\data.RData")
