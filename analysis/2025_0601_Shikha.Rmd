@@ -234,7 +234,8 @@ post_endo_tx_with_final_restoration_codes$Date <- as.Date(post_endo_tx_with_fina
 endo_root <- endo_cases_with_root_canal %>%
   rename(
     root_canal_date = `Date...7`,
-    root_canal_procedure = `Procedure...5`
+    root_canal_procedure = `Procedure...5`, 
+    producer=`Producer...6`
   )
 
 restoration <- post_endo_tx_with_final_restoration_codes %>%
@@ -245,7 +246,7 @@ restoration <- post_endo_tx_with_final_restoration_codes %>%
 
 # Step 2: Perform inner join on tooth, retaining all necessary columns explicitly
 joined <- endo_root %>%
-  select(`Patient...1`, tooth, root_canal_date, root_canal_procedure) %>%
+  select(`Patient...1`, tooth, root_canal_date, root_canal_procedure, producer) %>%
   inner_join(restoration %>% select(tooth, restoration_date, restoration_procedure),
              by = "tooth")
 dim(joined)
@@ -280,7 +281,8 @@ endo_with_tx_time <- first_restoration %>%
     root_canal_procedure,
     first_restoration_date = restoration_date,
     first_restoration_procedure = restoration_procedure,
-    time_between_days
+    time_between_days, 
+    producer
   )
 
 endo_with_tx_time %>%
@@ -331,52 +333,6 @@ endo_summary
 
 
 
-```{r, message=F, warning=F, eval=F}
-library(lubridate)
-
-# Ensure Date columns are Date type
-endo_cases_with_root_canal$Date <- as.Date(endo_cases_with_root_canal$Date)
-post_endo_tx_with_final_restoration_codes$Date <- as.Date(post_endo_tx_with_final_restoration_codes$Date)
-
-# Rename for clarity
-endo <- endo_cases_with_root_canal %>%
-  rename(endo_date = Date,
-         endo_procedure = Procedure)
-
-resto <- post_endo_tx_with_final_restoration_codes %>%
-  rename(restoration_date = Date,
-         restoration_procedure = Procedure)
-
-# Perform many-to-many join by "tooth"
-combined <- inner_join(endo, resto, by = "tooth") %>%
-  # Optional: restrict to matching Patient as well
-  filter(Patient.x == Patient.y) %>%
-  mutate(time_between_days = as.numeric(restoration_date - endo_date)) %>%
-  select(
-    Patient = Patient.x,
-    tooth,
-    endo_date,
-    endo_procedure,
-    restoration_date,
-    restoration_procedure,
-    time_between_days
-  ) %>%
-  arrange(Patient, tooth, endo_date, restoration_date)
-
-# View results
-
-combined %>%
-  datatable(
-    extensions = 'Buttons',
-    caption = "",
-    options = list(
-      dom = 'Blfrtip',
-      buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-      lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
-    )
-  )
-
-```
 
 
 
@@ -444,6 +400,7 @@ failure_events$failure_date=as.Date(failure_events$failure_date)
 
 # Step 3: Join with endo_with_tx_time and filter for valid failures (after restoration); this step will filter some patients with failure date prior to restoration  
 colnames(endo_with_tx_time)[1]="Patient"
+
 endo_with_failure <- endo_with_tx_time %>%
   left_join(failure_events, by = c("Patient", "tooth")) %>%
   filter(is.na(failure_date) | failure_date >= first_restoration_date) %>%  # allow NA for no failure
@@ -505,7 +462,7 @@ surv_object <- Surv(time = survival_data$survival_days, event = survival_data$ev
 km_fit <- survfit(surv_object ~ 1)
 
 # Step 4: Plot Kaplan-Meier survival curve
-ggsurvplot(
+p=ggsurvplot(
   km_fit,
   data = survival_data,  # ✅ This solves the error
   conf.int = TRUE,
@@ -514,10 +471,32 @@ ggsurvplot(
   title = "Kaplan-Meier Survival Curve of Root Canal Treated Teeth",
   surv.median.line = "hv",
   risk.table = TRUE,
-  risk.table.height = 0.25
+  risk.table.height = 0.4, 
+  break.x.by = 365,     # tick marks every year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
 )
 
 
+# Custom breaks: 1, 3, 6, 9, 12, 15 years in days
+year_points <- c(1, 3, 6, 9, 12, 15, 18, 21)
+day_breaks <- year_points * 365
+
+p$plot <- p$plot +
+  scale_x_continuous(
+    breaks = day_breaks,
+    labels = paste0("Year ", year_points)
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Optional: Rotate risk table labels too
+p$table <- p$table +
+  scale_x_continuous(
+    breaks = day_breaks,
+    labels = paste0("Year ", year_points)
+  ) +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1))
+
+print(p)
 ```
 
 * if a tooth never experiences failure/extraction, the restoration works to the end of the study 
@@ -560,7 +539,7 @@ fit <- survfit(surv_obj ~ time_bin, data = survival_data)
 # Step 3. Plot KM curves
 
 
-ggsurvplot(
+p=ggsurvplot(
   fit,
   data = survival_data,
   pval = TRUE,
@@ -579,10 +558,16 @@ ggsurvplot(
   censor.size = 2,             # small censor marks
   censor.shape = NA,       # <-- hide the vertical censoring ticks
   ggtheme = theme_minimal(base_size = 12) +   # base font size
-    theme(legend.text = element_text(size = 14))  # increase legend label size
+    theme(legend.text = element_text(size = 14)),  # increase legend label size, 
+  break.x.by = 365,     # tick marks every year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
 )
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+ 
 
-ggsurvplot(
+p=ggsurvplot(
   fit,
   data = survival_data,
   pval = TRUE,
@@ -601,9 +586,304 @@ ggsurvplot(
   censor.size = 2,             # small censor marks
   censor.shape = NA,        # <-- hide the vertical censoring ticks
   ggtheme = theme_minimal(base_size = 12) +   # base font size
-    theme(legend.text = element_text(size = 14))  # increase legend label size
+    theme(legend.text = element_text(size = 14)),   # increase legend label size
+  break.x.by = 365,     # tick marks every year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
 )
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
 ```
+
+
+```{r, message=F, warning=F}
+
+# Step 1. Create event, survival_days, and time_bin
+survival_data <- endo_with_failure %>% filter(survival_days>30) %>% 
+  mutate(
+    event = if_else(is.na(failure_date), 0L, 1L),  # 1 = failure, 0 = censored
+    end_date = if_else(event == 1L, failure_date, last_followup_date),
+    survival_days = as.numeric(end_date - first_restoration_date),
+    time_bin = case_when(
+      time_between_days == 0 ~ "0",
+      time_between_days >= 1  & time_between_days <= 30   ~ "1-30",
+      time_between_days >= 31 & time_between_days <= 60   ~ "31-60",
+      time_between_days >= 61 & time_between_days <= 90   ~ "61-90",
+      time_between_days >= 91 & time_between_days <= 120  ~ "91-120",
+      time_between_days >= 121 & time_between_days <= 180 ~ "121-180",
+      time_between_days > 180                             ~ "180+",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(time_bin), !is.na(survival_days))  # keep valid cases
+
+survival_data <- survival_data %>%
+  filter(!is.na(time_bin), !is.na(survival_days)) %>%
+  mutate(time_bin = factor(
+    time_bin,
+    levels = c("0","1-30","31-60","61-90","91-120","121-180","180+"),
+    ordered = TRUE
+  ))
+
+
+# Step 2. Survival object and fit by groups
+surv_obj <- Surv(time = survival_data$survival_days, event = survival_data$event)
+fit <- survfit(surv_obj ~ time_bin, data = survival_data)
+
+# Step 3. Plot KM curves
+
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = FALSE,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,       # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),  # increase legend label size, 
+  break.x.by = 30,     # tick marks every year in days
+  xlim = c(0, 365) # optional: show up to 10 years
+)
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+ 
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = T,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,        # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),   # increase legend label size
+  break.x.by = 30,     # tick marks every year in days
+  xlim = c(0, 365) # optional: show up to 10 years
+)
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+
+# Step 1. Create event, survival_days, and time_bin
+survival_data <- endo_with_failure %>% filter(grepl("^G", producer)) %>% 
+  mutate(
+    event = if_else(is.na(failure_date), 0L, 1L),  # 1 = failure, 0 = censored
+    end_date = if_else(event == 1L, failure_date, last_followup_date),
+    survival_days = as.numeric(end_date - first_restoration_date),
+    time_bin = case_when(
+      time_between_days == 0 ~ "0",
+      time_between_days >= 1  & time_between_days <= 30   ~ "1-30",
+      time_between_days >= 31 & time_between_days <= 60   ~ "31-60",
+      time_between_days >= 61 & time_between_days <= 90   ~ "61-90",
+      time_between_days >= 91 & time_between_days <= 120  ~ "91-120",
+      time_between_days >= 121 & time_between_days <= 180 ~ "121-180",
+      time_between_days > 180                             ~ "180+",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(time_bin), !is.na(survival_days))  # keep valid cases
+
+survival_data <- survival_data %>%
+  filter(!is.na(time_bin), !is.na(survival_days)) %>%
+  mutate(time_bin = factor(
+    time_bin,
+    levels = c("0","1-30","31-60","61-90","91-120","121-180","180+"),
+    ordered = TRUE
+  ))
+
+
+# Step 2. Survival object and fit by groups
+surv_obj <- Surv(time = survival_data$survival_days, event = survival_data$event)
+fit <- survfit(surv_obj ~ time_bin, data = survival_data)
+
+# Step 3. Plot KM curves
+
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = FALSE,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,       # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),  # increase legend label size, 
+  break.x.by = 30,     # tick marks every year in days
+  xlim = c(0, 365) # optional: show up to 10 years
+)
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+ 
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = T,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,        # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),   # increase legend label size
+  break.x.by = 30,     # tick marks every year in days
+  xlim = c(0, 365) # optional: show up to 10 years
+)
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+```
+
+
+
+```{r, message=F, warning=F}
+
+# Step 1. Create event, survival_days, and time_bin
+survival_data <- endo_with_failure %>% filter(grepl("^S", producer)) %>% 
+  mutate(
+    event = if_else(is.na(failure_date), 0L, 1L),  # 1 = failure, 0 = censored
+    end_date = if_else(event == 1L, failure_date, last_followup_date),
+    survival_days = as.numeric(end_date - first_restoration_date),
+    time_bin = case_when(
+      time_between_days == 0 ~ "0",
+      time_between_days >= 1  & time_between_days <= 30   ~ "1-30",
+      time_between_days >= 31 & time_between_days <= 60   ~ "31-60",
+      time_between_days >= 61 & time_between_days <= 90   ~ "61-90",
+      time_between_days >= 91 & time_between_days <= 120  ~ "91-120",
+      time_between_days >= 121 & time_between_days <= 180 ~ "121-180",
+      time_between_days > 180                             ~ "180+",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(time_bin), !is.na(survival_days))  # keep valid cases
+
+survival_data <- survival_data %>%
+  filter(!is.na(time_bin), !is.na(survival_days)) %>%
+  mutate(time_bin = factor(
+    time_bin,
+    levels = c("0","1-30","31-60","61-90","91-120","121-180","180+"),
+    ordered = TRUE
+  ))
+
+
+# Step 2. Survival object and fit by groups
+surv_obj <- Surv(time = survival_data$survival_days, event = survival_data$event)
+fit <- survfit(surv_obj ~ time_bin, data = survival_data)
+
+# Step 3. Plot KM curves
+
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = FALSE,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,       # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),  # increase legend label size, 
+  break.x.by = 30,     # tick marks every year in days
+  xlim = c(0, 365) # optional: show up to 10 years
+)
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+ 
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = T,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,        # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),   # increase legend label size
+  break.x.by = 30,     # tick marks every year in days
+  xlim = c(0, 365) # optional: show up to 10 years
+)
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+```
+
+
+
+
 
 ```{r, message=F, warning=F}
 
