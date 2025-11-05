@@ -478,7 +478,7 @@ p=ggsurvplot(
 
 
 # Custom breaks: 1, 3, 6, 9, 12, 15 years in days
-year_points <- c(1, 3, 6, 9, 12, 15, 18, 21)
+year_points <- c(1,  6,  12,  18, 21)
 day_breaks <- year_points * 365
 
 p$plot <- p$plot +
@@ -551,6 +551,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="all time points", 
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
@@ -579,6 +580,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="all time points", 
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
@@ -645,6 +647,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="remove teeth failure in one month", 
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
@@ -673,6 +676,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="remove teeth failure in one month",
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
@@ -742,6 +746,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="producer starting with G", 
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
@@ -770,6 +775,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="producer starting with G", 
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
@@ -837,6 +843,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="producer starting with S", 
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
@@ -865,6 +872,7 @@ p=ggsurvplot(
   risk.table.fontsize = 3,
   xlab = "Survival days after restoration",
   ylab = "Survival probability",
+  title="producer starting with S", 
   linetype = 1,              # solid lines
   size = 1,                  # line width
   surv.median.line = "none", # remove median line
