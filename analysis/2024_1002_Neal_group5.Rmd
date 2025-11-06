@@ -151,15 +151,15 @@ finalized_data$Height_sagittal_DIFF=data_conti$Height_sagittal_DIFF
 #Group 5 (NEW group): include only patients with partially_edentulous YES
 group5_data=finalized_data %>% filter(Partially_edentulous =="Y")
 
+dim(group5_data)
 
-
-#group5_data%>%
-#datatable(extensions = 'Buttons',
-#          caption = "group 5",
-#            options = list(dom = 'Blfrtip',
-#                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-#                           lengthMenu = list(c(10,25,50,-1),
-#                                             c(10,25,50,"All"))))
+group5_data%>%
+datatable(extensions = 'Buttons',
+          caption = "group 5",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
