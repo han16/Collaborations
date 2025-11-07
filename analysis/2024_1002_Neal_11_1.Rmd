@@ -31,6 +31,11 @@ finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\6 FINA
 
 
 
+## home 
+
+[Home](2024_1002_Neal.html)
+
+
 ```{r, message=F, warning=F}
 upper_posterior=c(2, 3, 4, 5, 12, 13, 14, 15)
 upper_anterior=6:11
