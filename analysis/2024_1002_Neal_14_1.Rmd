@@ -32,6 +32,12 @@ tnp_calibration=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\TNP C
 
 
 
+## home 
+
+[Home](2024_1002_Neal.html)
+
+
+
 ```{r, message=F, warning=F}
 # Assuming tnp_calibration is your tibble
 # Select only numeric columns (excluding site if needed)

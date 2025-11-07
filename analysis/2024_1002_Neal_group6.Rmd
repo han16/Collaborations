@@ -9,12 +9,24 @@ date: "2025-06-04"
 
 
 
+
+
+
+
+
+
 ```{r, echo=F, message=F, warning=F, results=F}
 library(rprojroot)
 root <- rprojroot::find_rstudio_root_file()
 source(file.path(root, "analysis/Rfunctions.R"))
 root <- rprojroot::find_rstudio_root_file()
 ```
+
+
+
+## home 
+
+[Home](2024_1002_Neal.html)
 
 
 
@@ -31,7 +43,7 @@ finalized_data=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\6 FINA
 
 
 #colnames(finalized_data)
-finalized_data=finalized_data %>% filter(Subject!=185)  #excluding subject 185 requested by Vrisiis
+#finalized_data=finalized_data %>% filter(Subject!=185)  #excluding subject 185 requested by Vrisiis
 ```
 
 
