@@ -32,6 +32,13 @@ coronal_movement=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\6 FI
 
 
 
+## home 
+
+[Home](2024_1002_Neal.html)
+
+
+
+
 
 ```{r, message=F, warning=F}
 both_tooth_yes=coronal_movement %>% filter(`Coronal_Movement_both_Teeth..y.n.`=="Y") %>% nrow()

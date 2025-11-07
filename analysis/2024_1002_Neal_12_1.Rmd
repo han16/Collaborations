@@ -31,6 +31,10 @@ tooth_migration=as_tibble(read.csv(file.path(root,"..\\2024\\202410\\Neal\\6 FIN
 
 
 
+## home 
+
+[Home](2024_1002_Neal.html)
+
 
 
 
