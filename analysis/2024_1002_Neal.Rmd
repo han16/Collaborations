@@ -1211,9 +1211,9 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, message=F, warning=F}
-group4_data=finalized_data %>% filter(Subject!=227| Subject!=250) %>% filter(Patient %in% c(25, 26, 44, 58, 78, 81))  # removing subjects 227 and 250 by Vrisiis. 
+group4_data=finalized_data %>% filter(Patient %in% c(25, 26, 44, 58, 78, 81)) 
 
-group4_data=group4_data %>% filter(!Subject %in% c(228, 229, 230, 231, 251)) # remove these 5 subjects
+group4_data=group4_data %>% filter(!Subject %in% c(227, 228, 229, 230, 231, 250, 251)) # remove these 5 subjects and removing subjects 227 and 250 by Vrisiis
 
 group4_data%>%
 datatable(extensions = 'Buttons',
