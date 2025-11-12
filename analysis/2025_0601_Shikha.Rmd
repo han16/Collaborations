@@ -144,7 +144,7 @@ final_restoration_codes <- data.frame(
     "D6545", "D6548", "D6611",
     "D6710", "D6720", "D6721", "D6722",
     "D6740", "D6750", "D6780", "D6790", "D6793",
-    "D6930", "D6971"
+    "D6930", "D6971", "D2140", "D2150", "D2160", "D2161"
   ),
   Description = c(
     "Resin-based comp crown, ant.",
@@ -194,7 +194,11 @@ final_restoration_codes <- data.frame(
     "Retainer crown - full cast, high noble metal",
     "Provisional retainer crown",
     "Recement/re-bond FPD",
-    "Cast post - part of FPD retainer"
+    "Cast post - part of FPD retainer", 
+    "1 surf. - amalgam", 
+    "2 surf. - amalgam", 
+    "3 surf. - amalgam", 
+    "4 or more surf. amalgam"
   )
 )
 
@@ -592,7 +596,8 @@ p=ggsurvplot(
   break.x.by = 365,     # tick marks every year in days
   xlim = c(0, 365 * 22) # optional: show up to 10 years
 )
-p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                     plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p
 ```
@@ -688,7 +693,8 @@ p=ggsurvplot(
   break.x.by = 30,     # tick marks every year in days
   xlim = c(0, 365) # optional: show up to 10 years
 )
-p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                     plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p
 ```
@@ -758,7 +764,8 @@ p=ggsurvplot(
   break.x.by = 30,     # tick marks every year in days
   xlim = c(0, 365) # optional: show up to 10 years
 )
- p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                      plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p
  
@@ -787,7 +794,8 @@ p=ggsurvplot(
   break.x.by = 30,     # tick marks every year in days
   xlim = c(0, 365) # optional: show up to 10 years
 )
-p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                     plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p
 ```
@@ -855,7 +863,8 @@ p=ggsurvplot(
   break.x.by = 30,     # tick marks every year in days
   xlim = c(0, 365) # optional: show up to 10 years
 )
- p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                      plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p
  
@@ -884,7 +893,8 @@ p=ggsurvplot(
   break.x.by = 30,     # tick marks every year in days
   xlim = c(0, 365) # optional: show up to 10 years
 )
-p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                     plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p
 ```
