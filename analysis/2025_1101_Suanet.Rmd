@@ -1,0 +1,30 @@
+---
+title: "11/12 2025"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-11-12"
+---
+
+
+
+## power analysis 
+
+
+```{r, message=F, warning=F}
+# Gillmore Needle test:
+mean.diff=15.2-8; sd=1.6
+power.t.test(delta=mean.diff, sd=sd, sig.level = 0.05, power=0.9, type="two.sample", alternative = "two.sided")
+```
+
+
+* 3 samples in each group is enough 
+
+```{r, message=F, warning=F}
+# PH
+mean.diff=8.08-7.78; sd=0.9
+power.t.test(delta=mean.diff, sd=sd, sig.level = 0.05, power=0.8, type="two.sample", alternative = "two.sided")
+```
+
+* 142 samples are needed. 
