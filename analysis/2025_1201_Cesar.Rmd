@@ -1,0 +1,27 @@
+---
+title: "12/04 2025"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2025-12-04"
+---
+
+
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+```{r, message=F, warning=F}
+D4_pedo=read_excel((file.path(root, "../2025/202512/Cesar/D4-PEDO-Evaluations.xlsx")))
+
+```
