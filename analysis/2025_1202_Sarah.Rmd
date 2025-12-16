@@ -56,3 +56,6 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+*  two sample t test and  90% power was used.  
+
