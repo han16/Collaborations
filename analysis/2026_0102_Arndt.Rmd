@@ -7,4 +7,63 @@ output:
 date: "2026-01-28"
 ---
 
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+```{r, message=F, warning=F, results=F}
+precision=read_xlsx((file.path(root, "../2026/202601/Arndt/Precision_FALCON_Smart Glasses.xlsx")))
+trueness=read_xlsx((file.path(root, "../2026/202601/Arndt/Trueness_FALCON_Smart Glasses.xlsx")))
+```
+
+
+
 * [main analysis](https://han16.github.io/Collaborations/2023_1102_Arndt.html)
+
+
+## linear mixed effect model (LMM)
+
+consider the LLM as 
+
+$$y_{ij}=\beta_0+\beta_1 \times Position_{ij}+\mu_i+\epsilon_{ij}
+$$
+
+
+1. $y_{ij}$ is the outcome variable, $i$ is the patient index, $j$ is the implant position index 
+
+2. $\beta_0$ random intercept for patients 
+
+3. $\beta_1$ fixed effect for implant position 
+
+4. $\mu_i \sim N(0, \sigma^2_{patient})$, random effect for subject $i$. 
+
+5. $\epsilon_{ij} \sim (0, \sigma^2)$
+
+
+
+
+```{r, message=F, warning=F}
+data <- trueness %>% filter(Workflow==2)  %>%
+  mutate(
+    patient = sub("_.*", "", Sample),  # D01, D02, ...
+    patient = factor(patient),
+    Position = factor(Position)        # treat positions as fixed categories
+  )
+library(lme4)
+library(Matrix)
+m_angle <- lmer(
+  Angle ~ Position + (1 | patient),
+  data = data
+)
+
+
+
+isSingular(m_angle)        # TRUE/FALSE
+summary(m_angle)
+VarCorr(m_angle)           # shows variance of random effects
+
+```
