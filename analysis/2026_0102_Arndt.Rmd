@@ -47,7 +47,7 @@ $$
 
 
 ```{r, message=F, warning=F}
-data <- trueness %>% filter(Workflow==2)  %>%
+data_dCAIS <- trueness %>% filter(Workflow==2)  %>%
   mutate(
     patient = sub("_.*", "", Sample),  # D01, D02, ...
     patient = factor(patient),
@@ -57,7 +57,7 @@ library(lme4)
 library(Matrix)
 m_angle <- lmer(
   Angle ~ Position + (1 | patient),
-  data = data
+  data = data_dCAIS
 )
 
 
@@ -65,5 +65,66 @@ m_angle <- lmer(
 isSingular(m_angle)        # TRUE/FALSE
 summary(m_angle)
 VarCorr(m_angle)           # shows variance of random effects
+
+```
+
+
+```{r, message=F, warning=F}
+library(broom.mixed)
+library(lmerTest)
+
+outcomes <- c("Angle", "Base3Doffset", "Basedistal", "Basevestibular", "Baseapical",
+              "Tip3Doffset", "Tipdistal", "Tipvestibular", "Tipapical", "Apical")
+
+results_list <- lapply(outcomes, function(yvar) {
+  # Fit LMM with lmerTest to get p-values
+  mod <- lmer(as.formula(paste(yvar, "~ Position + (1 | patient)")), data = data_dCAIS)
+  
+  # Fixed effects with p-values
+  fe <- broom.mixed::tidy(mod, effects = "fixed") %>%
+    select(term, estimate, std.error, statistic, p.value) %>%
+    mutate(
+      estimate = round(estimate, 4),
+      std.error = round(std.error, 4),
+      statistic = round(statistic, 4),
+      p.value = round(p.value, 4),
+      outcome = yvar
+    )
+  
+  # Random effects variance
+  re <- as.data.frame(lme4::VarCorr(mod)) %>%
+    select(grp, var1, vcov) %>%
+    rename(Group = grp, RandomEffect = var1, Variance = vcov) %>%
+    mutate(
+      Variance = round(Variance, 4),
+      outcome = yvar
+    )
+  
+  list(fixed = fe, random = re)
+})
+
+
+fixed_table <- do.call(rbind, lapply(results_list, `[[`, "fixed")) %>%
+  select(outcome, term, estimate, std.error, statistic, p.value)
+
+fixed_table%>%
+datatable(extensions = 'Buttons',
+          caption = "fixed effect", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+random_table <- do.call(rbind, lapply(results_list, `[[`, "random")) %>%
+  select(outcome, Group, RandomEffect, Variance)
+
+random_table%>%
+datatable(extensions = 'Buttons',
+          caption = "random effect", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
 ```
