@@ -1,0 +1,15 @@
+---
+title: '2026'
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-01-23"
+---
+
+
+1. [Jan-Shikha](2026_0101_Shikha.html)
+
+2. [Jan-Arndt](2026_0102_Arndt.html)
+
+3. [Jan-David](2026_0103_David.html)
