@@ -133,7 +133,13 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### anova for repeated measures 
+
+* Position17 is the reference 
+
+
+
+
+## anova for repeated measures 
 
 
 ```{r, message=F, warning=F}
@@ -260,7 +266,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-### anova for repeated measures 
+## anova for repeated measures 
 
 
 ```{r, message=F, warning=F}
@@ -291,4 +297,97 @@ extract_p <- function(aov_summary) {
 }
 p_values <- sapply(anova_results, extract_p)
 p_values
+```
+
+
+## power analysis 
+
+```{r, message=F, warning=F}
+outcomes <- c("Angle", "Base3Doffset", "Basedistal", "Basevestibular", "Baseapical",
+              "Tip3Doffset", "Tipdistal", "Tipvestibular", "Tipapical", "Apical")
+Position=17
+n=20; delta=mean(data_dCAIS%>%filter(Position=="17") %>% select("Angle")%>% pull())-mean(data_dCAIS_SG%>%filter(Position=="17")%>% select("Angle")%>% pull())
+sd=mean(c(sd(data_dCAIS%>%filter(Position=="17") %>% select("Angle")%>% pull()), sd(data_dCAIS_SG%>%filter(Position=="17") %>% select("Angle")%>% pull())))
+power.t.test(n, delta, sd)
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+outcomes  <- c("Angle", "Base3Doffset", "Basedistal", "Basevestibular", "Baseapical",
+               "Tip3Doffset", "Tipdistal", "Tipvestibular", "Tipapical", "Apical")
+
+positions <- c("17", "18", "19", "29", "30")
+
+n <- 20
+
+
+compute_power <- function(outcome, pos) {
+
+  x1 <- data_dCAIS     %>% filter(Position == pos) %>% pull(!!sym(outcome))
+  x2 <- data_dCAIS_SG  %>% filter(Position == pos) %>% pull(!!sym(outcome))
+
+  # remove NAs
+  x1 <- x1[!is.na(x1)]
+  x2 <- x2[!is.na(x2)]
+
+  # skip if not enough data
+  if (length(x1) < 2 || length(x2) < 2) {
+    return(tibble(
+      Outcome = outcome,
+      Position = pos,
+      delta = NA_real_,
+      sd = NA_real_,
+      power = NA_real_
+    ))
+  }
+
+  delta <- abs(mean(x1) - mean(x2))
+  sdval <- (sd(x1)+sd(x2))/2
+
+  pwr <- power.t.test(
+    n = n,
+    delta = delta,
+    sd = sdval,
+    type = "paired",
+    alternative = "two.sided"
+  )$power
+
+  tibble(
+    Outcome  = outcome,
+    Position = pos,
+    delta    = delta,
+    sd       = sdval,
+    power    = pwr
+  )
+}
+
+library(purrr)
+library(dplyr)
+
+power_results <- crossing(
+  Outcome = outcomes,
+  Position = positions
+) %>%
+  pmap_dfr(~ compute_power(..1, ..2))
+
+
+
+power_results %>%
+  mutate(
+    delta = round(delta, 4),
+    sd    = round(sd, 4),
+    power = round(power, 3)
+  )%>%
+datatable(extensions = 'Buttons',
+          caption = " ", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
 ```
