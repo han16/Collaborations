@@ -157,8 +157,13 @@ anova_results <- lapply(outcomes, function(y) {
 names(anova_results) <- outcomes
 
 
-anova_results
+#anova_results
 
+extract_p <- function(aov_summary) {
+  aov_summary[["Error: patient:Position"]][[1]]["Position", "Pr(>F)"]
+}
+p_values <- sapply(anova_results, extract_p)
+p_values
 ```
 
 
@@ -252,4 +257,38 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
+```
+
+
+### anova for repeated measures 
+
+
+```{r, message=F, warning=F}
+library(afex)
+
+outcomes <- c("Angle", "Base3Doffset", "Basedistal", "Basevestibular", "Baseapical",
+              "Tip3Doffset", "Tipdistal", "Tipvestibular", "Tipapical", "Apical")
+
+
+data_dCAIS_SG$patient  <- factor(data_dCAIS_SG$patient)
+data_dCAIS_SG$Position <- factor(data_dCAIS_SG$Position)
+
+anova_results <- lapply(outcomes, function(y) {
+  formula <- as.formula(
+    paste(y, "~ Position + Error(patient / Position)")
+  )
+  fit <- aov(formula, data = data_dCAIS_SG)
+  summary(fit)
+})
+
+names(anova_results) <- outcomes
+
+
+#anova_results
+
+extract_p <- function(aov_summary) {
+  aov_summary[["Error: patient:Position"]][[1]]["Position", "Pr(>F)"]
+}
+p_values <- sapply(anova_results, extract_p)
+p_values
 ```
