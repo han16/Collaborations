@@ -7,3 +7,84 @@ output:
 date: "2026-02-04"
 ---
 
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+```{r, message=F, warning=F, results=F}
+precision=read_xlsx((file.path(root, "../2026/202601/Nava/Data for Nava's thesis/Precision_Nava.xlsx")))
+trueness=read_xlsx((file.path(root, "../2026/202601/Nava/Data for Nava's thesis/Trueness_Nava.xlsx")))
+
+
+precision <- precision %>%
+  mutate(
+    Position = factor(Position),
+    Jaw = factor(Jaw),
+    Site = factor(Site)
+  )
+
+```
+
+## precision 
+
+
+### anova test 
+
+
+```{r, message=F, warning=F}
+library(purrr)
+library(broom)
+
+# Outcomes
+outcomes <- c(
+  "Angle", "Base3D", "MDbase", "OLbase", "ApicalBase",
+  "Tip3d", "MDtip", "OLtip", "ApicalTip"
+)
+
+
+# Predictors for separate ANOVA
+predictors <- c("Position", "Jaw", "Site")
+
+############################################################
+# 1️⃣ Run ANOVAs separately for each predictor
+############################################################
+
+run_anova_separate <- function(var, predictor) {
+  formula <- as.formula(paste(var, "~", predictor))
+  model <- aov(formula, data = precision)
+  tidy(model) %>%
+    filter(term != "Residuals") %>%
+    select(term, p.value) %>%
+    mutate(Outcome = var,
+           Predictor = predictor)
+}
+
+# Loop over outcomes and predictors
+anova_table <- map_dfr(outcomes, function(var) {
+  map_dfr(predictors, function(pred) {
+    run_anova_separate(var, pred)
+  })
+})
+
+# Pivot for readability: Outcomes × Predictors
+anova_table_wide <- anova_table %>%
+  select(Outcome, Predictor, p.value) %>%
+  pivot_wider(names_from = Predictor, values_from = p.value)
+
+anova_table_wide$Position=pvalue_adjust(anova_table_wide$Position)
+anova_table_wide$Jaw=pvalue_adjust(anova_table_wide$Jaw)
+anova_table_wide$Site=pvalue_adjust(anova_table_wide$Site)
+
+anova_table_wide%>%
+datatable(extensions = 'Buttons',
+          caption = "anova p values", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
