@@ -13,3 +13,9 @@ date: "2026-01-23"
 2. [Jan-Arndt](2026_0102_Arndt.html)
 
 3. [Jan-David](2026_0103_David.html)
+
+4. [Jan-Nava](2026_0104_Nava.html)
+
+5. [Feb-Rady](2026_0201_Rady.html)
+
+6. [Feb-Cesar](2026_0202_Cesar.html)

@@ -1,0 +1,19 @@
+---
+title: "02/04 2026"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-02-04"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+* [main analysis](https://han16.github.io/Collaborations/2022_Feb3.html#pairwise_t_test_with_Bonferroni_Adjustment)
+
