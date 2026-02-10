@@ -1,0 +1,163 @@
+---
+title: "placebo patients"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-02-10"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+ 
+load(file.path(root, "../2026/202602/Rady/all_sheets.RData"))
+data=all_sheets$Data
+variable_codes=all_sheets$`Coding `
+backup=all_sheets$`Combined 9-30-2025 backup`
+
+```
+
+
+## home 
+
+[home](2026_0201_Rady.html)
+
+
+## continuous variables 
+
+```{r, message=F, warning=F}
+data=data %>% filter (`Group  (Test/Control)`==1)  # control patients only 
+
+
+continuous_var=c(
+  "Age", 
+  "MDAS_SUM", 
+  "OHIP_D2_SUM", 
+  "OHIP_D5_SUM", 
+  "OHIP_D7_SUM", 
+  "OHIP_D2_SUM", 
+  #"OHIP_preop_SUM", 
+  "Fear_Pain_Sum", 
+  "Pain_catastrophizing_Sum", 
+  "Literacy_Sum", 
+  "VAS_pain_preop", 
+  "VAS_Pain_H1", 
+  "VAS_Pain_H2", 
+  "VAS_Pain_H3", 
+  paste0("VAS_Pain_D", seq(1,7)), 
+  "VAS_swell_preop", 
+  "VAS_Swelling_H1", 
+  "VAS_Swelling_H2", 
+  "VAS_Swelling_H3", 
+  paste0("VAS_Swelling_D", seq(1,7)),                 
+  "Acetaminophen_H1", 
+  "Acetaminophen_H2", 
+  "Acetaminophen_H3", 
+   paste0("Acetaminophen_D", seq(1,7))
+  #, 
+                # "VAS_pain_during_Procedure_D1", 
+                # "VAS_pain_during_Procedure_D7", 
+                # "VAS_pain_anticipated_preop", #"Anticipated_Pain_Compared_to_Actual_Pain_D1", 
+                # "Anticipated_Pain_Compared_to_Actual_Pain_D7", #"Willingness_to_repeat_procedure_D1", 
+                # "Willingness_to_repeat_procedure_D7"
+                #"VAS_swell_anticipated_preop"
+                )
+
+data_continuous=data %>% select(continuous_var)
+summary_statistics(data_continuous) %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+```{r, message=F, warning=F}
+
+# Step 1. Convert all columns to numeric (if possible)
+data_num <- data_continuous
+
+# Convert factors or characters to numeric safely
+data_num <- data.frame(lapply(data_num, function(x) {
+  if (is.factor(x) || is.character(x)) {
+    as.numeric(as.character(x))
+  } else {
+    x
+  }
+}))
+
+# Step 2. Compute Spearman correlation (ignoring NAs)
+cor_mat <- cor(data_num, method = "spearman", use = "pairwise.complete.obs")
+
+# Step 3. Compute p-values
+n <- ncol(data_num)
+p_mat <- matrix(NA, n, n)
+colnames(p_mat) <- colnames(data_num)
+rownames(p_mat) <- colnames(data_num)
+
+for (i in 1:n) {
+  for (j in 1:n) {
+    if (i != j) {
+      test <- suppressWarnings(cor.test(
+        data_num[[i]], 
+        data_num[[j]], 
+        method = "spearman", 
+        exact = FALSE
+      ))
+      p_mat[i, j] <- test$p.value
+    } else {
+      p_mat[i, j] <- NA
+    }
+  }
+}
+
+# Step 4. Tidy results (optional)
+library(reshape2)
+cor_df <- melt(cor_mat, varnames = c("Var1", "Var2"), value.name = "Spearman_r")
+p_df <- melt(p_mat, varnames = c("Var1", "Var2"), value.name = "p_value")
+
+results <- merge(cor_df, p_df, by = c("Var1", "Var2"))
+results <- results[results$Var1 != results$Var2, ]
+
+results$Spearman_r=round(results$Spearman_r,4)
+results$p_value=pvalue_adjust(results$p_value)
+
+results  %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+## categorical variables
+
+
+```{r, message=F, warning=F}
+prop.test(c(sum(data$Gender==1), sum(data$Gender==2)), n=c(length(data$Gender), length(data$Gender)))
+
+```
+
+
+* no difference 
