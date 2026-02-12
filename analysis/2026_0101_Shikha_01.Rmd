@@ -1,0 +1,482 @@
+---
+title: "02/12 2026"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-02-12"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+[Home](https://han16.github.io/Collaborations/2026_0101_Shikha.html)
+
+
+
+```{r, message=F, warning=F, results=F}
+data=read_xlsx((file.path(root, "../2026/202601/Shikha/Results -2026-01-22 (1).xlsx")))
+activity=read_xlsx((file.path(root, "../2026/202601/Shikha/Activity.xlsx")))
+key=read_xlsx((file.path(root, "../2026/202601/Shikha/Results Key.xlsx")))
+data=data %>% mutate(patient_tooth_id=paste0(data$Patient,":",data$Site))
+
+activity <- activity %>%
+  dplyr::filter(!is.na(Site))  # remove NA sites 
+activity=activity %>% mutate(patient_tooth_id=paste0(activity$Patient, ":", activity$Site))
+```
+
+
+
+
+
+## step 1: root canal 
+
+
+```{r, message=F, warning=F}
+# Create a data frame
+root_canal_codes <- data.frame(
+  Code = c("D3310", "D3320", "D3330"),
+  Description = c(
+    "anterior RCT",
+    "bicuspid RCT",
+    "molar RCT"
+  )
+)
+
+unique(data$Procedure)
+
+
+
+# Count the number of each Procedure
+procedure_counts <- data %>%dplyr::count(`Procedure`)
+
+# Bar plot
+ggplot(procedure_counts, aes(x = `Procedure`, y = n, fill=`Procedure`)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = n), vjust = -0.5, size = 4) +
+  labs(
+    title = "",
+    x = "Procedure Code",
+    y = "Count"
+  ) +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 14),
+    legend.position = "", 
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+```
+
+
+
+## step 2: initial treatment 
+
+
+```{r, message=F, warning=F}
+# Create a data frame of Final Restoration codes
+final_restoration_codes <- data.frame(
+  Code = c(
+    "D2390", "D2391", "D2392", "D2393", "D2394",
+    "D2650", "D2651", "D2652", "D2662", "D2663", "D2664",
+    "D2710", "D2712", "D2720", "D2721", "D2722",
+    "D2910", "D2915", "D2920", "D2932", "D2933",
+    "D2940", "D2949", "D2950", "D2951", "D2952", "D2954",
+    "D6068", "D6069", "D6070", "D6071", "D6072", "D6073", "D6074",
+    "D6545", "D6548", "D6611",
+    "D6710", "D6720", "D6721", "D6722",
+    "D6740", "D6750", "D6780", "D6790", "D6793",
+    "D6930", "D6971", "D2140", "D2150", "D2160", "D2161"
+  ),
+  Description = c(
+    "Resin-based comp crown, ant.",
+    "Resin-based comp - 1 surface, posterior",
+    "Resin-based comp - 2 surfaces, posterior",
+    "Resin-based comp - 3 surfaces, posterior",
+    "Resin-based comp - 4+ surfaces, posterior",
+    "Inlay - resin - 1 surface",
+    "Inlay - resin - 2 surfaces",
+    "Inlay - resin - 3 or more",
+    "Onlay - resin - 2 surfaces",
+    "Onlay - resin - 3 surfaces",
+    "Onlay - resin - 4 or more",
+    "Resin crown - laboratory",
+    "Crown - 3/4 resin-based comp",
+    "Resin crown - high noble metal",
+    "Resin crown - predominately base metal",
+    "Resin crown - noble metal",
+    "Recement/re-bond inlay/onlay",
+    "Recement cast or prefab post",
+    "Recement/re-bond crown",
+    "Prefabricated resin crown",
+    "Prefab stainless steel crown w/ resin window",
+    "Protective restoration",
+    "Restorative foundation/indirect restoration",
+    "Core buildup - including pins",
+    "Pin retention - per tooth",
+    "Post & core, indirect fabrication",
+    "Prefab post and core",
+    "Abutment-retainer, porcelain/ceramic FPD",
+    "Abutment-ret., PFM FPD, high noble",
+    "Abutment-ret., PFM FPD, base metal",
+    "Abutment-ret., PFM FPD, noble metal",
+    "Abut-ret., cast metal, high noble",
+    "Abut-ret., cast metal, base metal",
+    "Abut-ret., cast metal, noble metal",
+    "Retainer, metal, resin-bonded FPD",
+    "Retainer, porcelain/ceramic, bonded FPD",
+    "Retainer onlay, high noble metal, 3+ surfaces",
+    "Crown - indirect resin-based",
+    "Crown - resin, high noble metal",
+    "Crown - resin, predominately base metal",
+    "Crown - resin, noble metal",
+    "Retainer crown - porcelain/ceramic",
+    "Retainer crown - porcelain fused to high noble metal",
+    "Retainer crown - 3/4 cast, high noble metal",
+    "Retainer crown - full cast, high noble metal",
+    "Provisional retainer crown",
+    "Recement/re-bond FPD",
+    "Cast post - part of FPD retainer", 
+    "1 surf. - amalgam", 
+    "2 surf. - amalgam", 
+    "3 surf. - amalgam", 
+    "4 or more surf. amalgam"
+  )
+)
+
+
+```
+
+
+
+
+## time period between root canal and inital treatment 
+
+```{r, message=F, warning=F}
+data$POSTDate=as.Date(data$POSTDate)
+activity$TreatmentDate=as.Date(activity$TreatmentDate)
+data$`Fail Date`=as.Date(data$`Fail Date`)
+data$`RCT TreatmentDate`=as.Date(data$`RCT TreatmentDate`)
+
+
+
+
+
+data <- data %>%
+  mutate(
+    RCT_to_treatment_days = as.numeric(difftime(POSTDate, `RCT TreatmentDate`, units = "days"))
+  ) %>% select(`RCT TreatmentDate`, POSTDate, RCT_to_treatment_days, patient_tooth_id, `Fail Date`, `Fail Code`)
+
+data$POSTDate=as.Date(data$POSTDate)
+
+dim(data)
+head(data)
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+ggplot(data, aes(x = RCT_to_treatment_days)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
+  xlab("Time Between Days") +
+  ylab("") +
+  ggtitle("") +
+  theme_minimal()
+summary(data$RCT_to_treatment_days)
+
+data_summary <- data %>%
+  mutate(time_bin = case_when(
+    RCT_to_treatment_days < 0 ~ "<0",
+    RCT_to_treatment_days == 0 ~ "0",
+    RCT_to_treatment_days >= 1  & RCT_to_treatment_days <= 30   ~ "1-30",
+    RCT_to_treatment_days >= 31 & RCT_to_treatment_days <= 60   ~ "31-60",
+    RCT_to_treatment_days >= 61 & RCT_to_treatment_days <= 90   ~ "61-90",
+    RCT_to_treatment_days >= 91 & RCT_to_treatment_days <= 120  ~ "91-120",
+    RCT_to_treatment_days >= 121 & RCT_to_treatment_days <= 180 ~ "121-180",
+    RCT_to_treatment_days > 180                            ~ "180+",
+    TRUE ~ NA_character_
+  )) %>%
+  dplyr::count(time_bin, name = "n_tooth") %>%
+  arrange(factor(time_bin, levels = c("0","1-30","31-60","61-90","91-120","121-180","180+")))
+data_summary
+```
+
+
+
+
+## step 3: post treatment 
+
+
+```{r, message=F, warning=F}
+# Create a data frame
+failure_codes <- data.frame(
+  Code = c("D3346", "D3347", "D3348", "D3421", "D3425", "D3410", "D3426",
+           "D3430", "D3450", "D3470", "D3505", "D3920", "D7140", "D7210"),
+  Description = c(
+    "Anterior-retreat prev. rt. canal",
+    "Bicuspid retreat prev. rt. canal",
+    "Molar retreat prev. rt. canal",
+    "Apicoectomy - bicuspid (1st root)",
+    "Apicoectomy - molar (1st root)",
+    "Apicoectomy - anterior",
+    "Apicoectomy - additional roots",
+    "Retrograde filling - per root",
+    "Root amputation - per root",
+    "Intentional reimplantation",
+    "Surgical exposure of root surface w/o apicoectomy",
+    "Hemisection, incl. root removal",
+    "Extraction",
+    "Surgical removal of erupted tooth"
+  )
+)
+
+
+failure_codes%>%
+datatable(extensions = 'Buttons',
+          caption = "Extraction /failure codes", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
+
+```{r, message=F, warning=F}
+
+# Step 1: Define the failure-related procedure codes
+failure_codes <- c(
+  "D3346", "D3347", "D3348", "D3421", "D3425",
+  "D3410", "D3426", "D3430", "D3450", "D3470",
+  "D3505", "D3920", "D7140", "D7210"
+)
+
+# Step 2: Extract only failure events from all procedures
+# all_procedures must include: Patient, tooth, Date, Procedure
+failure_events <- data %>% 
+  filter(`Fail Code` %in% failure_codes) %>%
+  rename(failure_date = `Fail Date`, failure_code = `Fail Code`) %>%
+  select(patient_tooth_id, failure_date, failure_code)
+
+failure_events$failure_date=as.Date(failure_events$failure_date)
+
+# Step 3: Join with endo_with_tx_time and filter for valid failures (after restoration); this step will filter some patients with failure date prior to restoration  
+
+
+endo_with_failure <- data %>%
+  left_join(failure_events, by = c('patient_tooth_id')) %>%
+  filter(is.na(failure_date) | failure_date >= POSTDate) %>%  # allow NA for no failure
+  mutate(
+    survival_days = as.numeric(failure_date - POSTDate),
+    survival_weeks = round(survival_days / 7,2), 
+    survival_months = round(survival_days / 30.44,2), 
+    survival_years = round(survival_days / 365.25, 2)
+  )
+
+endo_with_failure%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+## survival analysis 
+
+```{r, message=F, warning=F}
+library(survival)
+library(survminer)
+
+
+
+last_activity <- activity %>%
+  group_by(patient_tooth_id) %>%
+  summarise(last_activity_date = max(TreatmentDate, na.rm = TRUE))
+
+
+endo2 <- data %>%
+  left_join(last_activity, by = "patient_tooth_id")
+
+
+
+endo2 <- endo2 %>%
+  mutate(
+    event = ifelse(!is.na(`Fail Date`), 1, 0),
+    
+    end_date = case_when(
+      !is.na(`Fail Date`) ~ `Fail Date`,
+      is.na(`Fail Date`) ~ last_activity_date
+    )
+  )
+
+
+endo2 <- endo2 %>%
+  mutate(
+    survival_days = as.numeric(end_date - POSTDate)
+  )
+
+
+surv_obj <- Surv(time = endo2$survival_days, event = endo2$event)
+
+km_fit <- survfit(surv_obj ~ 1, data = endo2)
+```
+
+
+
+
+```{r, message=F, warning=F}
+
+# Step 4: Plot Kaplan-Meier survival curve
+p=ggsurvplot(
+  km_fit,
+  data = endo2,  # ✅ This solves the error
+  conf.int = T,
+  xlab = "Survival time after restoration",
+  ylab = "Tooth survival probability",
+  title = "Kaplan-Meier Survival Curve of Root Canal Treated Teeth",
+  surv.median.line = "hv",
+  risk.table = TRUE,
+  risk.table.height = 0.4, 
+  risk.table.fontsize = 2.5,   # 👈 THIS controls the numbers
+  break.x.by = 365,     # tick marks every year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
+)
+
+
+# Custom breaks: 1, 3, 6, 9, 12, 15 years in days
+year_points <- c(1,  6,  12,  18, 21)
+day_breaks <- year_points * 365
+
+p$plot <- p$plot +
+  scale_x_continuous(
+    breaks = day_breaks,
+    labels = paste0("Year ", year_points)
+  ) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1))
+
+# Optional: Rotate risk table labels too
+p$table <- p$table +
+  scale_x_continuous(
+    breaks = day_breaks,
+    labels = paste0("Year ", year_points)
+  ) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1)
+    )
+
+print(p)
+```
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+
+# Step 1. Create event, survival_days, and time_bin
+
+survival_data <- endo2 %>%
+  mutate(
+    event = if_else(is.na(`Fail Date`), 0L, 1L),  # 1 = failure, 0 = censored
+    end_date = if_else(event == 1L, `Fail Date`, last_activity_date),
+    time_bin = case_when(
+      RCT_to_treatment_days == 0 ~ "0",
+      RCT_to_treatment_days >= 1  & RCT_to_treatment_days <= 30   ~ "1-30",
+      RCT_to_treatment_days >= 31 & RCT_to_treatment_days <= 60   ~ "31-60",
+      RCT_to_treatment_days >= 61 & RCT_to_treatment_days <= 90   ~ "61-90",
+      RCT_to_treatment_days >= 91 & RCT_to_treatment_days <= 120  ~ "91-120",
+      RCT_to_treatment_days >= 121 & RCT_to_treatment_days <= 180 ~ "121-180",
+      RCT_to_treatment_days > 180                             ~ "180+",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(time_bin), !is.na(survival_days))  # keep valid cases
+
+survival_data <- survival_data %>%
+  filter(!is.na(time_bin), !is.na(survival_days)) %>%
+  mutate(time_bin = factor(
+    time_bin,
+    levels = c("0","1-30","31-60","61-90","91-120","121-180","180+"),
+    ordered = TRUE
+  ))
+
+
+# Step 2. Survival object and fit by groups
+surv_obj <- Surv(time = survival_data$survival_days, event = survival_data$event)
+fit <- survfit(surv_obj ~ time_bin, data = survival_data)
+
+# Step 3. Plot KM curves
+
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = FALSE,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  title="all time points", 
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,       # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),  # increase legend label size, 
+  break.x.by = 365,     # tick marks every year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
+)
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+ 
+
+p=ggsurvplot(
+  fit,
+  data = survival_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = T,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = gsub("time_bin=", "", names(fit$strata)),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  title="all time points", 
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,        # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),   # increase legend label size
+  break.x.by = 365,     # tick marks every year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
+)
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                     plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+```
+
+
+
