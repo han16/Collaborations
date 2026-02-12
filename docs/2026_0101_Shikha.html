@@ -396,7 +396,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -407,8 +407,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -421,9 +421,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -446,18 +446,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -548,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed379a4682ab15da5d049b3e8bf8b385a32ceed73targetblankd379a46a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb30c9d9a4735a3ab27937d3f3b7b4a104f126c0atargetblankb30c9d9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/d379a4682ab15da5d049b3e8bf8b385a32ceed73" target="_blank">d379a46</a>
+<a href="https://github.com/han16/Collaborations/tree/b30c9d9a4735a3ab27937d3f3b7b4a104f126c0a" target="_blank">b30c9d9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed379a4682ab15da5d049b3e8bf8b385a32ceed73targetblankd379a46a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeb30c9d9a4735a3ab27937d3f3b7b4a104f126c0atargetblankb30c9d9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/d379a4682ab15da5d049b3e8bf8b385a32ceed73" target="_blank">d379a46</a>.
+<a href="https://github.com/han16/Collaborations/tree/b30c9d9a4735a3ab27937d3f3b7b4a104f126c0a" target="_blank">b30c9d9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -584,6 +587,9 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Unstaged changes:
+    Modified:   analysis/2026_0101_Shikha.Rmd
 
 </code></pre>
 <p>
@@ -629,6 +635,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/b30c9d9a4735a3ab27937d3f3b7b4a104f126c0a/docs/2026_0101_Shikha.html" target="_blank">b30c9d9</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-02-12
+</td>
+<td>
+2/12/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -707,6 +730,9 @@ han
 <pre class="r"><code>data=read_xlsx((file.path(root, &quot;../2026/202601/Shikha/Results -2026-01-22.xlsx&quot;)))
 key=read_xlsx((file.path(root, &quot;../2026/202601/Shikha/Results Key.xlsx&quot;)))
 data=data %&gt;% mutate(patient_tooth_id=paste0(data$Patient, data$Site))</code></pre>
+<ul>
+<li><a href="2026_0101_Shikha_01.html">version 2-2026-02-10</a></li>
+</ul>
 <div id="step-1-root-canal" class="section level2">
 <h2>step 1: root canal</h2>
 <pre class="r"><code>#endo_cases=readRDS(file.path(root, &quot;..\\2025\\202506\\Shikha\\endo_cases.RDS&quot;))
