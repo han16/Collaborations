@@ -169,7 +169,7 @@ data$`RCT TreatmentDate`=as.Date(data$`RCT TreatmentDate`)
 data <- data %>%
   mutate(
     RCT_to_treatment_days = as.numeric(difftime(POSTDate, `RCT TreatmentDate`, units = "days"))
-  ) %>% select(`RCT TreatmentDate`, POSTDate, RCT_to_treatment_days, patient_tooth_id, `Fail Date`, `Fail Code`)
+  ) %>% select(`RCT TreatmentDate`, POSTDate, RCT_to_treatment_days, patient_tooth_id, `Fail Date`, `Fail Code`, Producer)
 
 data$POSTDate=as.Date(data$POSTDate)
 
@@ -207,6 +207,17 @@ data_summary <- data %>%
   arrange(factor(time_bin, levels = c("0","1-30","31-60","61-90","91-120","121-180","180+")))
 data_summary
 ```
+
+
+
+
+```{r, message=F, warning=F}
+data %>%
+  mutate(starts_with = str_extract(Producer, "^[SG]")) %>%
+  filter(!is.na(starts_with)) %>%
+  dplyr::count(starts_with)
+```
+
 
 
 
@@ -440,10 +451,11 @@ p=ggsurvplot(
   censor.shape = NA,       # <-- hide the vertical censoring ticks
   ggtheme = theme_minimal(base_size = 12) +   # base font size
     theme(legend.text = element_text(size = 14)),  # increase legend label size, 
-  break.x.by = 365,     # tick marks every year in days
+  break.x.by = 365*2.5,     # tick marks every 2.5year in days
   xlim = c(0, 365 * 22) # optional: show up to 10 years
 )
  p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$plot
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p
  
@@ -469,7 +481,7 @@ p=ggsurvplot(
   censor.shape = NA,        # <-- hide the vertical censoring ticks
   ggtheme = theme_minimal(base_size = 12) +   # base font size
     theme(legend.text = element_text(size = 14)),   # increase legend label size
-  break.x.by = 365,     # tick marks every year in days
+  break.x.by = 365*2.5,     # tick marks every year in days
   xlim = c(0, 365 * 22) # optional: show up to 10 years
 )
 p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
@@ -478,5 +490,98 @@ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1),
  p
 ```
 
+
+### G vs S 
+
+```{r, message=F, warning=F}
+
+# 1. Prepare and clean the data
+comparison_data <- survival_data %>%
+  # Filter for Producers starting with G or S
+  filter(str_starts(Producer, "G|S")) %>%
+  # Create a grouping variable based on the first letter
+  mutate(Group = str_extract(Producer, "^[GS]")) %>%
+  # IMPORTANT: Survival analysis cannot handle negative days. 
+  # We filter out rows like the -5012 value seen in your snippet.
+  filter(survival_days >= 0)
+```
+
+
+```{r, message=F, warning=F}
+# 2. Fit the Kaplan-Meier survival curves
+# ~ Group tells the model to compare survival based on the G vs S categories
+fit <- survfit(Surv(survival_days, event) ~ Group, data = comparison_data)
+
+
+
+p=ggsurvplot(
+  fit,
+  data = comparison_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = FALSE,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = c("Group G", "Group S"),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  title="all time points", 
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,       # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),  # increase legend label size, 
+  break.x.by = 365*2.5,     # tick marks every 2.5year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
+)
+ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p$plot
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+
+
+
+ 
+ p=ggsurvplot(
+  fit,
+  data = comparison_data,
+  pval = TRUE,
+  risk.table = TRUE,
+  risk.table.height=0.4,
+  conf.int = T,          # remove confidence band
+  legend.title = NULL,
+  legend.labs = c("Group G", "Group S"),
+  risk.table.fontsize = 3,
+  xlab = "Survival days after restoration",
+  ylab = "Survival probability",
+  title="all time points", 
+  linetype = 1,              # solid lines
+  size = 1,                  # line width
+  surv.median.line = "none", # remove median line
+  #censor.shape = "|",        # show censoring
+  censor.size = 2,             # small censor marks
+  censor.shape = NA,        # <-- hide the vertical censoring ticks
+  ggtheme = theme_minimal(base_size = 12) +   # base font size
+    theme(legend.text = element_text(size = 14)),   # increase legend label size
+  break.x.by = 365*2.5,     # tick marks every year in days
+  xlim = c(0, 365 * 22) # optional: show up to 10 years
+)
+p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                     plot.title = element_text(hjust = 0.5, color = "red", size = 16, face = "bold"))
+ p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ p
+
+```
+
+
+```{r, message=F, warning=F}
+# 4. Optional: View the statistical summary (Log-Rank Test)
+surv_diff <- survdiff(Surv(survival_days, event) ~ Group, data = comparison_data)
+print(surv_diff)
+```
 
 
