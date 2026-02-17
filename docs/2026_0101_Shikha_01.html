@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree07aa26eedfd5275ab656345100aab786eac6d544targetblank07aa26ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4b72d8f1274d32ee562ef798b56cfc8f520c43detargetblank4b72d8fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/07aa26eedfd5275ab656345100aab786eac6d544" target="_blank">07aa26e</a>
+<a href="https://github.com/han16/Collaborations/tree/4b72d8f1274d32ee562ef798b56cfc8f520c43de" target="_blank">4b72d8f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree07aa26eedfd5275ab656345100aab786eac6d544targetblank07aa26ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree4b72d8f1274d32ee562ef798b56cfc8f520c43detargetblank4b72d8fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/07aa26eedfd5275ab656345100aab786eac6d544" target="_blank">07aa26e</a>.
+<a href="https://github.com/han16/Collaborations/tree/4b72d8f1274d32ee562ef798b56cfc8f520c43de" target="_blank">4b72d8f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -590,7 +590,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2026_0101_Shikha_01.Rmd
-    Modified:   analysis/2026_0201_Rady.Rmd
 
 </code></pre>
 <p>
@@ -636,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/4b72d8f1274d32ee562ef798b56cfc8f520c43de/analysis/2026_0101_Shikha_01.Rmd" target="_blank">4b72d8f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-02-17
+</td>
+<td>
+2/17/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/4b72d8f1274d32ee562ef798b56cfc8f520c43de/docs/2026_0101_Shikha_01.html" target="_blank">4b72d8f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-02-17
+</td>
+<td>
+2/17/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1120,8 +1153,9 @@ endo2 &lt;- endo2 %&gt;%
     survival_days = as.numeric(end_date - POSTDate)
   )
 
-
-surv_obj &lt;- Surv(time = endo2$survival_days, event = endo2$event)
+endo2 %&gt;% filter(survival_days&gt;=0) %&gt;% dim()</code></pre>
+<pre><code>[1] 12504    11</code></pre>
+<pre class="r"><code>surv_obj &lt;- Surv(time = endo2$survival_days, event = endo2$event)
 
 km_fit &lt;- survfit(surv_obj ~ 1, data = endo2)</code></pre>
 <pre class="r"><code># Step 4: Plot Kaplan-Meier survival curve
@@ -1250,8 +1284,9 @@ survival_data &lt;- survival_data %&gt;%
     ordered = TRUE
   ))
 
-
-# Step 2. Survival object and fit by groups
+survival_data %&gt;% filter(survival_days&gt;=0) %&gt;% dim()</code></pre>
+<pre><code>[1] 11002    12</code></pre>
+<pre class="r"><code># Step 2. Survival object and fit by groups
 surv_obj &lt;- Surv(time = survival_data$survival_days, event = survival_data$event)
 fit &lt;- survfit(surv_obj ~ time_bin, data = survival_data)
 
@@ -1524,9 +1559,83 @@ p=ggsurvplot(
  p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p$plot</code></pre>
 <p><img src="figure/2026_0101_Shikha_01.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/4b72d8f1274d32ee562ef798b56cfc8f520c43de/docs/figure/2026_0101_Shikha_01.Rmd/unnamed-chunk-15-1.png" target="_blank">4b72d8f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code> p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p</code></pre>
 <p><img src="figure/2026_0101_Shikha_01.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
+Past versions of unnamed-chunk-15-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/4b72d8f1274d32ee562ef798b56cfc8f520c43de/docs/figure/2026_0101_Shikha_01.Rmd/unnamed-chunk-15-2.png" target="_blank">4b72d8f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code> p=ggsurvplot(
   fit,
   data = comparison_data,
@@ -1556,6 +1665,43 @@ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1),
  p$table=p$table+theme(axis.text.x = element_text(angle = 45, hjust = 1))
  p</code></pre>
 <p><img src="figure/2026_0101_Shikha_01.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-3">
+Past versions of unnamed-chunk-15-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/4b72d8f1274d32ee562ef798b56cfc8f520c43de/docs/figure/2026_0101_Shikha_01.Rmd/unnamed-chunk-15-3.png" target="_blank">4b72d8f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-02-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># 4. Optional: View the statistical summary (Log-Rank Test)
 surv_diff &lt;- survdiff(Surv(survival_days, event) ~ Group, data = comparison_data)
 print(surv_diff)</code></pre>

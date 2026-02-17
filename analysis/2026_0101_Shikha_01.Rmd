@@ -336,6 +336,8 @@ endo2 <- endo2 %>%
     survival_days = as.numeric(end_date - POSTDate)
   )
 
+endo2 %>% filter(survival_days>=0) %>% dim()
+
 
 surv_obj <- Surv(time = endo2$survival_days, event = endo2$event)
 
@@ -422,6 +424,8 @@ survival_data <- survival_data %>%
     levels = c("0","1-30","31-60","61-90","91-120","121-180","180+"),
     ordered = TRUE
   ))
+
+survival_data %>% filter(survival_days>=0) %>% dim()
 
 
 # Step 2. Survival object and fit by groups
