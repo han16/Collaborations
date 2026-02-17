@@ -355,7 +355,8 @@ p=ggsurvplot(
   xlab = "Survival time after restoration",
   ylab = "Tooth survival probability",
   title = "Kaplan-Meier Survival Curve of Root Canal Treated Teeth",
-  surv.median.line = "hv",
+ # surv.median.line = "hv",
+ censor.shape = NA,       # <-- hide the vertical censoring ticks
   risk.table = TRUE,
   risk.table.height = 0.4, 
   risk.table.fontsize = 2.5,   # 👈 THIS controls the numbers
@@ -491,6 +492,9 @@ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1),
 ```
 
 
+* small p value suggests survival curves are not the same across all groups 
+
+
 ### G vs S 
 
 ```{r, message=F, warning=F}
@@ -584,4 +588,4 @@ surv_diff <- survdiff(Surv(survival_days, event) ~ Group, data = comparison_data
 print(surv_diff)
 ```
 
-
+* small p value suggests survival curves are not the same between G and S. 
