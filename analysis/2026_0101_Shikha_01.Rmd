@@ -183,12 +183,15 @@ head(data)
 
 
 ```{r, message=F, warning=F}
+
+data=data %>% filter(RCT_to_treatment_days>=0)
 ggplot(data, aes(x = RCT_to_treatment_days)) +
   geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
   xlab("Time Between Days") +
   ylab("") +
   ggtitle("") +
   theme_minimal()
+
 summary(data$RCT_to_treatment_days)
 
 data_summary <- data %>%
