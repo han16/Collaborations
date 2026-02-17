@@ -22,15 +22,15 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 ```{r, echo=F, message=F, warning=F}
-file_path <- "C:/Shengtong/Research/AllCollaboration/2026/202602/Rady/Data analysis 1-30-2026.xlsx"
-#all_sheets=multiplesheets("C:/Shengtong/Research/AllCollaboration/2026/202602/Rady/Data analysis 1-30-2026.xlsx")
-#save(all_sheets, file="C:/Shengtong/Research/AllCollaboration/2026/202602/Rady/all_sheets.RData")
+#file_path <- "C:/Shengtong/Research/AllCollaboration/2026/202602/Rady/Data analysis 1-30-2026_2.xlsx"
+#all_sheets=multiplesheets("C:/Shengtong/Research/AllCollaboration/2026/202602/Rady/Data analysis 1-30-2026_2.xlsx")
+#save(all_sheets, file="C:/Shengtong/Research/AllCollaboration/2026/202602/Rady/all_sheets_2.RData")
 
 ```
  
  
 ```{r, message=F, warning=F}
-load(file.path(root, "../2026/202602/Rady/all_sheets.RData"))
+load(file.path(root, "../2026/202602/Rady/all_sheets_2.RData"))
 data=all_sheets$Data
 variable_codes=all_sheets$`Coding `
 backup=all_sheets$`Combined 9-30-2025 backup`

@@ -495,6 +495,20 @@ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1),
 * small p value suggests survival curves are not the same across all groups 
 
 
+```{r, message=F, warning=F}
+# Define the time points in days
+target_years <- c(10, 20)
+target_days <- target_years * 365
+
+# Get the summary at those specific points
+surv_summary <- summary(fit, times = target_days)
+
+surv_summary
+```
+
+* check the `survival` column  
+
+
 ### G vs S 
 
 ```{r, message=F, warning=F}
@@ -589,3 +603,17 @@ print(surv_diff)
 ```
 
 * small p value suggests survival curves are not the same between G and S. 
+
+
+
+
+```{r, message=F, warning=F}
+# Define the time points in days
+target_years <- c(10, 20)
+target_days <- target_years * 365
+
+# Get the summary at those specific points
+surv_summary <- summary(fit, times = target_days)
+
+surv_summary
+```
