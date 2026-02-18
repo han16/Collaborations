@@ -504,7 +504,7 @@ p$plot=p$plot+ theme(axis.text.x = element_text(angle = 45, hjust = 1),
 
 ```{r, message=F, warning=F}
 # Define the time points in days
-target_years <- c(10, 20)
+target_years <- c(5, 10, 20)
 target_days <- target_years * 365
 
 # Get the summary at those specific points
@@ -616,7 +616,7 @@ print(surv_diff)
 
 ```{r, message=F, warning=F}
 # Define the time points in days
-target_years <- c(10, 20)
+target_years <- c(5, 10, 20)
 target_days <- target_years * 365
 
 # Get the summary at those specific points

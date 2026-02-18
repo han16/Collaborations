@@ -396,7 +396,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -407,8 +407,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -417,13 +417,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-02-17
+<strong>Last updated:</strong> 2026-02-18
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Collaborations/</code> <span
@@ -446,18 +446,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -548,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree856018209b395603142e524d30bcd08608cb944ftargetblank8560182a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0bd9062b08c02ee0a9fb4dc98aaa0f05a608b29etargetblank0bd9062a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/856018209b395603142e524d30bcd08608cb944f" target="_blank">8560182</a>
+<a href="https://github.com/han16/Collaborations/tree/0bd9062b08c02ee0a9fb4dc98aaa0f05a608b29e" target="_blank">0bd9062</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree856018209b395603142e524d30bcd08608cb944ftargetblank8560182a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0bd9062b08c02ee0a9fb4dc98aaa0f05a608b29etargetblank0bd9062a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -566,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/856018209b395603142e524d30bcd08608cb944f" target="_blank">8560182</a>.
+<a href="https://github.com/han16/Collaborations/tree/0bd9062b08c02ee0a9fb4dc98aaa0f05a608b29e" target="_blank">0bd9062</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -584,6 +587,9 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
+
+Unstaged changes:
+    Modified:   analysis/2026_0101_Shikha_01.Rmd
 
 </code></pre>
 <p>
@@ -629,6 +635,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/0bd9062b08c02ee0a9fb4dc98aaa0f05a608b29e/docs/2026_0101_Shikha_01.html" target="_blank">0bd9062</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-02-17
+</td>
+<td>
+2/17/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1551,7 +1574,7 @@ han
 groups</li>
 </ul>
 <pre class="r"><code># Define the time points in days
-target_years &lt;- c(10, 20)
+target_years &lt;- c(5, 10, 20)
 target_days &lt;- target_years * 365
 
 # Get the summary at those specific points
@@ -1562,38 +1585,43 @@ surv_summary</code></pre>
 
                 time_bin=0 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650     17      42    0.768  0.0497        0.676        0.872
+ 1825     47      39    0.840  0.0319        0.780        0.905
+ 3650     17       3    0.768  0.0497        0.676        0.872
  7300      1       0    0.768  0.0497        0.676        0.872
 
                 time_bin=1-30 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650     86     104    0.788  0.0254        0.739        0.839
+ 1825    239      92    0.858  0.0163        0.827        0.891
+ 3650     86      12    0.788  0.0254        0.739        0.839
  7300      6       7    0.696  0.0419        0.618        0.783
 
                 time_bin=31-60 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650     30      49    0.860  0.0296        0.803         0.92
- 7300      1       4    0.483  0.1506        0.263         0.89
+ 1825     97      47    0.887  0.0228        0.843        0.933
+ 3650     30       2    0.860  0.0296        0.803        0.920
+ 7300      1       4    0.483  0.1506        0.263        0.890
 
                 time_bin=61-90 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650     24      46    0.829  0.0374        0.759        0.905
+ 1825     46      45    0.848  0.0331        0.785        0.915
+ 3650     24       1    0.829  0.0374        0.759        0.905
  7300      3       1    0.774  0.0638        0.658        0.909
 
                 time_bin=91-120 
-        time       n.risk      n.event     survival      std.err lower 95% CI 
-    3650.000        8.000       31.000        0.749        0.097        0.581 
-upper 95% CI 
-       0.965 
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+ 1825     27      30    0.842  0.0454        0.758        0.936
+ 3650      8       1    0.749  0.0970        0.581        0.965
 
                 time_bin=121-180 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650     11      64    0.791  0.0401        0.716        0.874
+ 1825     31      64    0.791  0.0401        0.716        0.874
+ 3650     11       0    0.791  0.0401        0.716        0.874
  7300      1       0    0.791  0.0401        0.716        0.874
 
                 time_bin=180+ 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650     28     306    0.750  0.0309        0.692        0.813
+ 1825     94     302    0.803  0.0174        0.770        0.838
+ 3650     28       4    0.750  0.0309        0.692        0.813
  7300      3       2    0.676  0.0582        0.571        0.800</code></pre>
 <ul>
 <li>check the <code>survival</code> column</li>
@@ -1801,7 +1829,7 @@ Group=S 3925      214      246      4.04      6.74
 and S.</li>
 </ul>
 <pre class="r"><code># Define the time points in days
-target_years &lt;- c(10, 20)
+target_years &lt;- c(5, 10, 20)
 target_days &lt;- target_years * 365
 
 # Get the summary at those specific points
@@ -1812,12 +1840,14 @@ surv_summary</code></pre>
 
                 Group=G 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650    116     423    0.753  0.0204        0.714        0.794
+ 1825    339     405    0.823  0.0131        0.798        0.849
+ 3650    116      18    0.753  0.0204        0.714        0.794
  7300      9       7    0.682  0.0334        0.620        0.751
 
                 Group=S 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
- 3650     85     206    0.846  0.0186        0.810        0.883
+ 1825    225     201    0.874  0.0135        0.848        0.901
+ 3650     85       5    0.846  0.0186        0.810        0.883
  7300      5       7    0.703  0.0587        0.597        0.828</code></pre>
 <br>
 <p>
@@ -1830,7 +1860,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.3.2 (2023-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 11 x64 (build 26100)
+Running under: Windows 11 x64 (build 26200)
 
 Matrix products: default
 
