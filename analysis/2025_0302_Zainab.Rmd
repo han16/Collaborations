@@ -36,6 +36,8 @@ Columns C - I
 4th row per person is 22 - 28
 
 Explorer, sickle, universal, area specific is set up as the 24 probe with 4 lines per person 
+
+
 Cumulative was not evaluated the same and should not be considered in the analysis
 `
 
@@ -200,7 +202,13 @@ summary_stats <- combined_data %>%
                         sd = ~round(sd(.x, na.rm = TRUE), 4)), 
                    .names = "{.col}_{.fn}"))
 
-summary_stats
+t(summary_stats)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -288,7 +296,13 @@ summary_stats <- combined_data %>%
                         sd = ~round(sd(.x, na.rm = TRUE), 4)), 
                    .names = "{.col}_{.fn}"))
 
-summary_stats
+t(summary_stats)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -369,7 +383,13 @@ summary_stats <- combined_data %>%
                         sd = ~round(sd(.x, na.rm = TRUE), 4)), 
                    .names = "{.col}_{.fn}"))
 
-summary_stats
+t(summary_stats)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -447,7 +467,13 @@ summary_stats <- combined_data %>%
                         sd = ~round(sd(.x, na.rm = TRUE), 4)), 
                    .names = "{.col}_{.fn}"))
 
-summary_stats
+t(summary_stats)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
@@ -525,7 +551,13 @@ summary_stats <- combined_data %>%
                         sd = ~round(sd(.x, na.rm = TRUE), 4)), 
                    .names = "{.col}_{.fn}"))
 
-summary_stats
+t(summary_stats)%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 ```
 
 
