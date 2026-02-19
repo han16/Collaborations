@@ -187,9 +187,21 @@ colnames(combined_data)[ncol(combined_data)]="year"
 
 fig=side_by_side_bar_plot(combined_data, variable=parameter)
 fig
+
+
 ```
 
+```{r, message=F, warning=F}
+# Compute Mean and SD, then round the results to 4 digits
+summary_stats <- combined_data %>%
+  group_by(year) %>%
+  summarise(across(starts_with("probe"), 
+                   list(mean = ~round(mean(.x, na.rm = TRUE), 4), 
+                        sd = ~round(sd(.x, na.rm = TRUE), 4)), 
+                   .names = "{.col}_{.fn}"))
 
+summary_stats
+```
 
 
 
@@ -267,6 +279,18 @@ fig
 
 
 
+```{r, message=F, warning=F}
+# Compute Mean and SD, then round the results to 4 digits
+summary_stats <- combined_data %>%
+  group_by(year) %>%
+  summarise(across(starts_with("Explorer"), 
+                   list(mean = ~round(mean(.x, na.rm = TRUE), 4), 
+                        sd = ~round(sd(.x, na.rm = TRUE), 4)), 
+                   .names = "{.col}_{.fn}"))
+
+summary_stats
+```
+
 
 
 
@@ -335,6 +359,21 @@ fig
 ```
 
 
+
+```{r, message=F, warning=F}
+# Compute Mean and SD, then round the results to 4 digits
+summary_stats <- combined_data %>%
+  group_by(year) %>%
+  summarise(across(starts_with("Sickler"), 
+                   list(mean = ~round(mean(.x, na.rm = TRUE), 4), 
+                        sd = ~round(sd(.x, na.rm = TRUE), 4)), 
+                   .names = "{.col}_{.fn}"))
+
+summary_stats
+```
+
+
+
 ## Universal 
 
 ```{r, message=F, warning=F}
@@ -396,6 +435,19 @@ colnames(combined_data)[ncol(combined_data)]="year"
 
 fig=side_by_side_bar_plot(combined_data, variable=parameter)
 fig
+```
+
+
+```{r, message=F, warning=F}
+# Compute Mean and SD, then round the results to 4 digits
+summary_stats <- combined_data %>%
+  group_by(year) %>%
+  summarise(across(starts_with("Universal"), 
+                   list(mean = ~round(mean(.x, na.rm = TRUE), 4), 
+                        sd = ~round(sd(.x, na.rm = TRUE), 4)), 
+                   .names = "{.col}_{.fn}"))
+
+summary_stats
 ```
 
 
@@ -463,6 +515,19 @@ colnames(combined_data)[ncol(combined_data)]="year"
 fig=side_by_side_bar_plot(combined_data, variable=parameter)
 fig
 ```
+
+```{r, message=F, warning=F}
+# Compute Mean and SD, then round the results to 4 digits
+summary_stats <- combined_data %>%
+  group_by(year) %>%
+  summarise(across(starts_with("Area_Specific"), 
+                   list(mean = ~round(mean(.x, na.rm = TRUE), 4), 
+                        sd = ~round(sd(.x, na.rm = TRUE), 4)), 
+                   .names = "{.col}_{.fn}"))
+
+summary_stats
+```
+
 
 
 ## Cumulative
