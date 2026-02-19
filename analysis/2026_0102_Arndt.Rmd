@@ -58,18 +58,26 @@ data_dCAIS <- trueness %>% filter(Workflow==2)  %>%
   )
 library(lme4)
 library(Matrix)
+library(performance)
+
 m_angle <- lmer(
   Angle ~ Position + (1 | patient),
   data = data_dCAIS
 )
-
-
-
 isSingular(m_angle)        # TRUE/FALSE
 summary(m_angle)
 VarCorr(m_angle)           # shows variance of random effects
 
+model_performance(m_angle)
 ```
+
+* From random effect table, between patients difference 0.0662. Unexplained variance 0.0930  is much  higher than patient variance, indicating random noise or position has a bigger effect. 
+
+* Fixed effects: with the position17 as the reference, e.g. Angle is 0.105 units higher at position18  than position17. 
+
+
+* ICC (0.045), 4.5% variation due to patients, R2 (cond), total variation is 5.9% and positions explain about 1.5% (R2 (marg.)) of variations.  
+
 
 
 ```{r, message=F, warning=F}
@@ -134,8 +142,9 @@ datatable(extensions = 'Buttons',
 
 
 
-* Position17 is the reference 
+* Use Angle as example, Position17 is the reference, it's significantly different from 0, and all others are not different from it.  
 
+* random table, Angle, total variance 0.0044+0.0930=9.74%, patients explain 0.0044/0.0974=4.5%. 
 
 
 
@@ -297,6 +306,8 @@ extract_p <- function(aov_summary) {
 }
 p_values <- sapply(anova_results, extract_p)
 p_values
+
+ifelse(p_values < 0.05, "significant", "not significant")
 ```
 
 
