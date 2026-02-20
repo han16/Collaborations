@@ -21,7 +21,7 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 D4_pedo=as_tibble(read_excel((file.path(root, "../2025/202512/Cesar/D4-PEDO-Evaluations.xlsx"))))
 D4_pedo_update <- D4_pedo %>%
   mutate(percentage = case_when(
@@ -35,3 +35,131 @@ D4_pedo_update <- D4_pedo %>%
 
 #write.csv(D4_pedo_update, file=paste0(file.path(root, "../2025/202512/Cesar/D4-PEDO-Evaluations_update.csv")))
 ```
+
+
+```{r, message=F, warning=F}
+#Class_II_Resin_Typodonts_Scanner=multiplesheets((file.path(root, "../2025/202512/Cesar/Calibration Results Class II Resin Typodonts Scanner.xlsx")))
+#saveRDS(Class_II_Resin_Typodonts_Scanner, file=file.path(root, "../2025/202512/Cesar/Class_II_Resin_Typodonts_Scanner.RDS"))
+
+
+#Class_II_Resin_Typodonts=multiplesheets((file.path(root, "../2025/202512/Cesar/Calibration Results Class II Resin Typodonts.xlsx")))
+#saveRDS(Class_II_Resin_Typodonts, file=file.path(root, "../2025/202512/Cesar/Class_II_Resin_Typodonts.RDS"))
+
+
+#SSC_Typodonts_Scanner=multiplesheets((file.path(root, "../2025/202512/Cesar/Calibration Results SSC Typodonts Scanner.xlsx")))
+#saveRDS(SSC_Typodonts_Scanner, file=file.path(root, "../2025/202512/Cesar/SSC_Typodonts_Scanner.RDS"))
+
+#SSC_Typodonts=multiplesheets((file.path(root, "../2025/202512/Cesar/Calibration Results SSC Typodonts.xlsx")))
+#saveRDS(SSC_Typodonts, file=file.path(root, "../2025/202512/Cesar/SSC_Typodonts.RDS"))
+
+
+########### load the data 
+Class_II_Resin_Typodonts_Scanner=readRDS(file.path(root, "../2025/202512/Cesar/Class_II_Resin_Typodonts_Scanner.RDS"))
+Class_II_Resin_Typodonts=readRDS(file.path(root, "../2025/202512/Cesar/Class_II_Resin_Typodonts.RDS"))
+SSC_Typodonts_Scanner=readRDS(file.path(root, "../2025/202512/Cesar/SSC_Typodonts_Scanner.RDS"))
+SS_Typodonts_=readRDS(file.path(root, "../2025/202512/Cesar/SSC_Typodonts.RDS"))
+
+
+```
+
+
+```{r, message=F, warning=F}
+library(irr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
+# 1. Combine all sheets into one master dataset
+master_data <- map_df(names(Class_II_Resin_Typodonts), function(sheet_name) {
+  df <- Class_II_Resin_Typodonts[[sheet_name]]
+  
+  # Select Var (Col 1), ID (Col 2), and Doctors (Col 3-7)
+  # Standardizing names for easier processing
+  df_sub <- df[, 1:7]
+  colnames(df_sub) <- c("Variable", "SubID", "Gonzalez", "Gungor", "Mahmoud", "Mirzoyan", "Oksiuta")
+  
+  # Add the sheet name so we know which typodont it is
+  df_sub$Typodont <- sheet_name
+  return(df_sub)
+})
+
+# ---------------------------------------------------------
+# 2. INTER-RATER RELIABILITY (Between Doctors)
+# ---------------------------------------------------------
+# We calculate Fleiss' Kappa for each Variable to see if doctors agree with each other
+inter_rater <- master_data %>%
+  group_by(Variable) %>%
+  do({
+    ratings <- select(., Gonzalez, Gungor, Mahmoud, Mirzoyan, Oksiuta)
+    res <- kappam.fleiss(ratings)
+    data.frame(
+      Kappa = round(res$value, 4),
+      p_value = res$p.value,
+      Status = ifelse(res$p.value < 0.05, "significant", "not significant")
+    )
+  })
+
+print(inter_rater)
+```
+
+
+* [Fleiss' Kappa](https://numiqo.com/tutorial/fleiss-kappa) was used 
+
+
+`Kappa Value	Strength of Agreement
+
+< 0.00	Poor (Less agreement than random chance)
+
+0.01 – 0.20	Slight
+
+0.21 – 0.40	Fair
+
+0.41 – 0.60	Moderate
+
+0.61 – 0.80	Substantial
+
+0.81 – 1.00	Almost Perfect`
+
+
+```{r, message=F, warning=F}
+
+
+doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan", "Oksiuta")
+
+intra_rater <- map_df(doctors, function(doc) {
+  
+  # 1. Prepare the data for the specific doctor
+  doc_consistency <- master_data %>%
+    select(Variable, Typodont, !!sym(doc)) %>%
+    # Use unnest or pick the first value if duplicates exist to avoid 'list' columns
+    group_by(Variable, Typodont) %>%
+    summarise(Score = first(!!sym(doc)), .groups = "drop") %>%
+    pivot_wider(names_from = Typodont, values_from = Score) %>%
+    select(-Variable)
+  
+  # 2. Convert all columns to numeric (crucial for icc function)
+  doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
+  
+  # 3. Remove any rows that still have NAs (ICC cannot handle missing values in some versions)
+  doc_matrix <- na.omit(doc_matrix)
+  
+  # 4. Calculate ICC
+  # Using 'oneway' and 'agreement' to check if the doctor gives the same score across trials
+  res <- tryCatch({
+    icc(doc_matrix, model = "oneway", type = "agreement")
+  }, error = function(e) return(list(value = NA, p.value = NA)))
+  
+  # 5. Return results
+  data.frame(
+    Doctor = doc,
+    ICC = round(as.numeric(res$value), 4),
+    p_value = res$p.value,
+    Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
+  )
+})
+
+print(intra_rater)
+```
+
+
+
