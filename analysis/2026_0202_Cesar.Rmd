@@ -16,6 +16,12 @@ library(rprojroot)
 root <- rprojroot::find_rstudio_root_file()
 source(file.path(root, "analysis/Rfunctions.R"))
 root <- rprojroot::find_rstudio_root_file()
+
+library(irr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
 ```
 
 
@@ -54,7 +60,7 @@ D4_pedo_update <- D4_pedo %>%
 
 
 ########### load the data 
-Class_II_Resin_Typodonts_Scanner=readRDS(file.path(root, "../2025/202512/Cesar/Class_II_Resin_Typodonts_Scanner.RDS"))
+#Class_II_Resin_Typodonts_Scanner=readRDS(file.path(root, #"../2025/202512/Cesar/Class_II_Resin_Typodonts_Scanner.RDS"))
 
 Class_II_Resin_Typodonts=readRDS(file.path(root, "../2025/202512/Cesar/Class_II_Resin_Typodonts.RDS"))
 
@@ -66,11 +72,11 @@ SSC_Typodonts_Scanner=readRDS(file.path(root, "../2025/202512/Cesar/SSC_Typodont
 
 ## Class_II_Resin_Typodonts_Scanner
 
+### inter rater reliability 
+
+
 ```{r, message=F, warning=F}
-library(irr)
-library(dplyr)
-library(purrr)
-library(tidyr)
+Class_II_Resin_Typodonts_Scanner=readRDS(file.path(root, "../2025/202512/Cesar/Class_II_Resin_Typodonts_Scanner.RDS"))
 
 # 1. Combine all sheets into one master dataset
 master_data <- map_df(names(Class_II_Resin_Typodonts_Scanner), function(sheet_name) {
@@ -102,6 +108,12 @@ inter_rater <- master_data %>%
     )
   })
 
+mini_dfs <- master_data %>%
+  group_by(Variable) %>%
+  group_split()
+mini_dfs
+
+
 inter_rater%>%
 datatable(extensions = 'Buttons',
           caption = "", 
@@ -111,6 +123,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+* combine all Typodonts together and test agreement across all dosctors for each variable  
 
 * [Fleiss' Kappa](https://numiqo.com/tutorial/fleiss-kappa) was used 
 
@@ -129,8 +142,11 @@ datatable(extensions = 'Buttons',
 
 0.81 – 1.00	Almost Perfect`
 
+### intra rater reliability-keep the first value of variable+typodont 
 
-```{r, message=F, warning=F}
+
+
+```{r, message=F, warning=F, eval=T}
 
 
 doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan")
@@ -145,6 +161,7 @@ intra_rater <- map_df(doctors, function(doc) {
     summarise(Score = first(!!sym(doc)), .groups = "drop") %>%
     pivot_wider(names_from = Typodont, values_from = Score) %>%
     select(-Variable)
+  doc_consistency
   
   # 2. Convert all columns to numeric (crucial for icc function)
   doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
@@ -175,17 +192,72 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+### intra rater reliability-keep all vaues of variable+typodont
+
+
+```{r, message=F, warning=F}
+
+doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan")
+
+intra_rater <- map_df(doctors, function(doc) {
+  
+  # 1. Prepare data and keep ALL values
+  doc_prepared <- master_data %>%
+    select(Variable, Typodont, !!sym(doc)) %>%
+    # Create a unique ID based on the order the variables appear in each sheet
+    # This keeps "item 1" (External) separate from "item 1" (Internal)
+    group_by(Typodont, Variable) %>%
+    mutate(occurrence = row_number()) %>%
+    ungroup() %>%
+    # Create a unique row identifier
+    mutate(unique_var = paste0(Variable, "_", occurrence))
+    
+  # 2. Pivot to matrix format
+  doc_consistency <- doc_prepared %>%
+    select(unique_var, Typodont, !!sym(doc)) %>%
+    pivot_wider(names_from = Typodont, values_from = !!sym(doc)) %>%
+    select(-unique_var) # Remove the ID to leave only the ratings
+  
+  # 3. Data Cleaning for ICC
+  # Ensure numeric and remove rows with any NAs
+  doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
+  doc_matrix <- na.omit(doc_matrix)
+  
+  # 4. Count observations for transparency
+  n_obs <- nrow(doc_matrix)
+  
+  # 5. Calculate ICC
+  res <- tryCatch({
+    icc(doc_matrix, model = "oneway", type = "agreement")
+  }, error = function(e) return(list(value = NA, p.value = NA)))
+  
+  # 6. Return results with observation count
+  data.frame(
+    Doctor = doc,
+    Observations = n_obs,  # Shows how many rows were used
+    ICC = round(as.numeric(res$value), 4),
+    p_value = pvalue_adjust(res$p.value),
+    Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
+  )
+})
+
+intra_rater%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
 
 
 
 
 ## Class_II_Resin_Typodonts
 
+### inter rater reliability 
+
 ```{r, message=F, warning=F}
-library(irr)
-library(dplyr)
-library(purrr)
-library(tidyr)
 
 # 1. Combine all sheets into one master dataset
 master_data <- map_df(names(Class_II_Resin_Typodonts), function(sheet_name) {
@@ -245,7 +317,7 @@ datatable(extensions = 'Buttons',
 0.81 – 1.00	Almost Perfect`
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 
 
 doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan", "Oksiuta")
@@ -273,6 +345,9 @@ intra_rater <- map_df(doctors, function(doc) {
     icc(doc_matrix, model = "oneway", type = "agreement")
   }, error = function(e) return(list(value = NA, p.value = NA)))
   
+  
+  
+  
   # 5. Return results
   data.frame(
     Doctor = doc,
@@ -291,14 +366,77 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+* Gungor's data has no variation, leading to NA ICC. 
+
+
+
+### intra rater reliability-keep all vaues of variable+typodont
+
+
+```{r, message=F, warning=F}
+
+doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan", "Oksiuta")
+
+intra_rater <- map_df(doctors, function(doc) {
+  
+  # 1. Prepare data and keep ALL values
+  doc_prepared <- master_data %>%
+    select(Variable, Typodont, !!sym(doc)) %>%
+    # Create a unique ID based on the order the variables appear in each sheet
+    # This keeps "item 1" (External) separate from "item 1" (Internal)
+    group_by(Typodont, Variable) %>%
+    mutate(occurrence = row_number()) %>%
+    ungroup() %>%
+    # Create a unique row identifier
+    mutate(unique_var = paste0(Variable, "_", occurrence))
+    
+  # 2. Pivot to matrix format
+  doc_consistency <- doc_prepared %>%
+    select(unique_var, Typodont, !!sym(doc)) %>%
+    pivot_wider(names_from = Typodont, values_from = !!sym(doc)) %>%
+    select(-unique_var) # Remove the ID to leave only the ratings
+  
+  # 3. Data Cleaning for ICC
+  # Ensure numeric and remove rows with any NAs
+  doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
+  doc_matrix <- na.omit(doc_matrix)
+  
+  # 4. Count observations for transparency
+  n_obs <- nrow(doc_matrix)
+  
+  # 5. Calculate ICC
+  res <- tryCatch({
+    icc(doc_matrix, model = "oneway", type = "agreement")
+  }, error = function(e) return(list(value = NA, p.value = NA)))
+  
+  # 6. Return results with observation count
+  data.frame(
+    Doctor = doc,
+    Observations = n_obs,  # Shows how many rows were used
+    ICC = round(as.numeric(res$value), 4),
+    p_value = pvalue_adjust(res$p.value),
+    Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
+  )
+})
+
+intra_rater%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
 
 ## SSC_Typodonts_Scanner
 
+### inter reter reliability 
+
 ```{r, message=F, warning=F}
-library(irr)
-library(dplyr)
-library(purrr)
-library(tidyr)
 
 # 1. Combine all sheets into one master dataset
 master_data <- map_df(names(SSC_Typodonts_Scanner), function(sheet_name) {
@@ -347,7 +485,123 @@ datatable(extensions = 'Buttons',
 
 
 
+
+```{r, message=F, warning=F, eval=F}
+
+
+doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan")
+
+intra_rater <- map_df(doctors, function(doc) {
+  
+  # 1. Prepare the data for the specific doctor
+  doc_consistency <- master_data %>%
+    select(Variable, Typodont, !!sym(doc)) %>%
+    # Use unnest or pick the first value if duplicates exist to avoid 'list' columns
+    group_by(Variable, Typodont) %>%
+    summarise(Score = first(!!sym(doc)), .groups = "drop") %>%
+    pivot_wider(names_from = Typodont, values_from = Score) %>%
+    select(-Variable)
+  
+  # 2. Convert all columns to numeric (crucial for icc function)
+  doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
+  
+  # 3. Remove any rows that still have NAs (ICC cannot handle missing values in some versions)
+  doc_matrix <- na.omit(doc_matrix)
+  
+  # 4. Calculate ICC
+  # Using 'oneway' and 'agreement' to check if the doctor gives the same score across trials
+  res <- tryCatch({
+    icc(doc_matrix, model = "oneway", type = "agreement")
+  }, error = function(e) return(list(value = NA, p.value = NA)))
+  
+  
+  
+  
+  # 5. Return results
+  data.frame(
+    Doctor = doc,
+    ICC = round(as.numeric(res$value), 4),
+    p_value = pvalue_adjust(res$p.value),
+    Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
+  )
+})
+
+intra_rater%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### intra rater reliability-keep all vaues of variable+typodont
+
+
+```{r, message=F, warning=F}
+
+doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan")
+
+intra_rater <- map_df(doctors, function(doc) {
+  
+  # 1. Prepare data and keep ALL values
+  doc_prepared <- master_data %>%
+    select(Variable, Typodont, !!sym(doc)) %>%
+    # Create a unique ID based on the order the variables appear in each sheet
+    # This keeps "item 1" (External) separate from "item 1" (Internal)
+    group_by(Typodont, Variable) %>%
+    mutate(occurrence = row_number()) %>%
+    ungroup() %>%
+    # Create a unique row identifier
+    mutate(unique_var = paste0(Variable, "_", occurrence))
+    
+  # 2. Pivot to matrix format
+  doc_consistency <- doc_prepared %>%
+    select(unique_var, Typodont, !!sym(doc)) %>%
+    pivot_wider(names_from = Typodont, values_from = !!sym(doc)) %>%
+    select(-unique_var) # Remove the ID to leave only the ratings
+  
+  # 3. Data Cleaning for ICC
+  # Ensure numeric and remove rows with any NAs
+  doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
+  doc_matrix <- na.omit(doc_matrix)
+  
+  # 4. Count observations for transparency
+  n_obs <- nrow(doc_matrix)
+  
+  # 5. Calculate ICC
+  res <- tryCatch({
+    icc(doc_matrix, model = "oneway", type = "agreement")
+  }, error = function(e) return(list(value = NA, p.value = NA)))
+  
+  # 6. Return results with observation count
+  data.frame(
+    Doctor = doc,
+    Observations = n_obs,  # Shows how many rows were used
+    ICC = round(as.numeric(res$value), 4),
+    p_value = pvalue_adjust(res$p.value),
+    Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
+  )
+})
+
+intra_rater%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
 ## SSC_Typodonts
+
+
+### inter rater reliability 
 
 ```{r, message=F, warning=F}
 SSC_Typodonts=readRDS(file.path(root, "../2025/202512/Cesar/SSC_Typodonts.RDS"))
@@ -410,7 +664,7 @@ datatable(extensions = 'Buttons',
 0.81 – 1.00	Almost Perfect`
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 
 
 doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan", "Oksiuta", "Hodgson")
@@ -441,6 +695,66 @@ intra_rater <- map_df(doctors, function(doc) {
   # 5. Return results
   data.frame(
     Doctor = doc,
+    ICC = round(as.numeric(res$value), 4),
+    p_value = pvalue_adjust(res$p.value),
+    Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
+  )
+})
+
+intra_rater%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### intra rater reliability-keep all vaues of variable+typodont
+
+
+```{r, message=F, warning=F}
+
+doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan", "Oksiuta", "Hodgson")
+
+intra_rater <- map_df(doctors, function(doc) {
+  
+  # 1. Prepare data and keep ALL values
+  doc_prepared <- master_data %>%
+    select(Variable, Typodont, !!sym(doc)) %>%
+    # Create a unique ID based on the order the variables appear in each sheet
+    # This keeps "item 1" (External) separate from "item 1" (Internal)
+    group_by(Typodont, Variable) %>%
+    mutate(occurrence = row_number()) %>%
+    ungroup() %>%
+    # Create a unique row identifier
+    mutate(unique_var = paste0(Variable, "_", occurrence))
+    
+  # 2. Pivot to matrix format
+  doc_consistency <- doc_prepared %>%
+    select(unique_var, Typodont, !!sym(doc)) %>%
+    pivot_wider(names_from = Typodont, values_from = !!sym(doc)) %>%
+    select(-unique_var) # Remove the ID to leave only the ratings
+  
+  # 3. Data Cleaning for ICC
+  # Ensure numeric and remove rows with any NAs
+  doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
+  doc_matrix <- na.omit(doc_matrix)
+  
+  # 4. Count observations for transparency
+  n_obs <- nrow(doc_matrix)
+  
+  # 5. Calculate ICC
+  res <- tryCatch({
+    icc(doc_matrix, model = "oneway", type = "agreement")
+  }, error = function(e) return(list(value = NA, p.value = NA)))
+  
+  # 6. Return results with observation count
+  data.frame(
+    Doctor = doc,
+    Observations = n_obs,  # Shows how many rows were used
     ICC = round(as.numeric(res$value), 4),
     p_value = pvalue_adjust(res$p.value),
     Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
