@@ -69,12 +69,15 @@ continuous_var=c(
   "Acetaminophen_H3", 
    paste0("Acetaminophen_D", seq(1,7))
   , 
-                 "VAS_pain_during_procedure_D1", 
-                 "VAS_pain_during_procedure_D7", 
-                 "VAS_pain_anticipated_preop", "Anticipated_Pain_Compared_to_Actual_Pain_D1", 
-                 "Anticipated_Pain_Compared_to_Actual_Pain_D7", "Willingness_to_repeat_procedure_D1", 
-                 "Willingness_to_repeat_procedure_D7",
-                "VAS_swell_anticipated_preop"
+  "VAS_pain_during_procedure_D1", 
+  "VAS_pain_during_procedure_D7", 
+  "VAS_pain_anticipated_preop", 
+  "Anticipated_Pain_Compared_to_Actual_Pain_D1", 
+  "Anticipated_Pain_Compared_to_Actual_Pain_D7", 
+  "Willingness_to_repeat_procedure_D1", 
+  "Willingness_to_repeat_procedure_D7",
+  "VAS_swell_anticipated_preop", 
+  "OHIP_SUM"
                 )
 
 

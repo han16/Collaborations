@@ -77,7 +77,8 @@ continuous_var=c(
                  "VAS_pain_anticipated_preop", "Anticipated_Pain_Compared_to_Actual_Pain_D1", 
                  "Anticipated_Pain_Compared_to_Actual_Pain_D7", "Willingness_to_repeat_procedure_D1", 
                  "Willingness_to_repeat_procedure_D7",
-                "VAS_swell_anticipated_preop"
+                "VAS_swell_anticipated_preop", 
+  "OHIP_SUM"
                 )
 
 
