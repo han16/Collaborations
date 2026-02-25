@@ -88,3 +88,246 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 ```
+
+
+
+```{r, message=F, warning=F}
+library(dplyr)
+library(tidyr)
+library(rstatix)
+
+# 1. Define measurements
+measurements <- c("Angle", "Base3D", "MDbase", "OLbase", "ApicalBase", 
+                  "Tip3d", "MDtip", "OLtip", "ApicalTip")
+
+# 2. Corrected function
+get_detailed_pairwise <- function(data, group_col) {
+  data %>%
+    pivot_longer(cols = all_of(measurements), names_to = "Measurement", values_to = "Value") %>%
+    group_by(Measurement) %>%
+    # Use t_test for all pairs
+    t_test(as.formula(paste("Value ~", group_col)), detailed = TRUE) %>%
+    # NOW adjust the p-values for multiple comparisons
+    adjust_pvalue(method = "bonferroni") %>%
+    add_significance() %>%
+    # Rename 'estimate' to 'mean_diff' for clarity
+    mutate(mean_diff = round(estimate,4)) %>%
+    # Select columns that are guaranteed to exist now
+    select(Measurement, group1, group2, 
+           mean_diff, conf.low, conf.high, 
+           p, p.adj, p.adj.signif)
+}
+
+# --- Execute for all factors ---
+
+results_position <- get_detailed_pairwise(precision, "Position")
+results_jaw      <- get_detailed_pairwise(precision, "Jaw")
+results_site     <- get_detailed_pairwise(precision, "Site")
+################
+results_position$conf.low=round(results_position$conf.low,4)
+results_position$conf.high=round(results_position$conf.high,4)
+results_position$p=pvalue_adjust(results_position$p)
+results_position$p.adj=pvalue_adjust(results_position$p.adj)
+
+results_position%>%
+datatable(extensions = 'Buttons',
+          caption = "position", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#################
+results_jaw$conf.low=round(results_jaw$conf.low,4)
+results_jaw$conf.high=round(results_jaw$conf.high,4)
+results_jaw$p=pvalue_adjust(results_jaw$p)
+results_jaw$p.adj=pvalue_adjust(results_jaw$p.adj)
+
+results_jaw%>%
+datatable(extensions = 'Buttons',
+          caption = "jaw", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#################
+results_site$conf.low=round(results_site$conf.low,4)
+results_site$conf.high=round(results_site$conf.high,4)
+results_site$p=pvalue_adjust(results_site$p)
+results_site$p.adj=pvalue_adjust(results_site$p.adj)
+
+results_site%>%
+datatable(extensions = 'Buttons',
+          caption = "site", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+* P-value Range Symbol 
++ $0.05 < P \le 1.00$ ns No significant difference
++ $0.01 < P \le 0.05$ * Significant
++ $0.001 < P \le 0.01$**  Very Significant
++ $0.0001 < P \le 0.001$   *** Extremely Significant
++ $P \le 0.0001$ ****Extremely Significant
+
+
+
+## trueness
+
+
+### anova test 
+
+
+```{r, message=F, warning=F}
+library(purrr)
+library(broom)
+
+# Outcomes
+outcomes <- c(
+  "Angle", "Crest", "MBcrest", "DLcrest", "Verticalcrest", "Tip", "MBtip", "DLtip", "Verticaltip" 
+)
+
+
+# Predictors for separate ANOVA
+predictors <- c("Site", "Jaw", "Space", "Jawspace")
+
+############################################################
+# 1️⃣ Run ANOVAs separately for each predictor
+############################################################
+
+run_anova_separate <- function(var, predictor) {
+  formula <- as.formula(paste(var, "~", predictor))
+  model <- aov(formula, data = trueness)
+  tidy(model) %>%
+    filter(term != "Residuals") %>%
+    select(term, p.value) %>%
+    mutate(Outcome = var,
+           Predictor = predictor)
+}
+
+# Loop over outcomes and predictors
+anova_table <- map_dfr(outcomes, function(var) {
+  map_dfr(predictors, function(pred) {
+    run_anova_separate(var, pred)
+  })
+})
+
+# Pivot for readability: Outcomes × Predictors
+anova_table_wide <- anova_table %>%
+  select(Outcome, Predictor, p.value) %>%
+  pivot_wider(names_from = Predictor, values_from = p.value)
+
+anova_table_wide$Site=pvalue_adjust(anova_table_wide$Site)
+anova_table_wide$Jaw=pvalue_adjust(anova_table_wide$Jaw)
+anova_table_wide$Space=pvalue_adjust(anova_table_wide$Space)
+anova_table_wide$Jawspace=pvalue_adjust(anova_table_wide$Jawspace)
+
+anova_table_wide%>%
+datatable(extensions = 'Buttons',
+          caption = "anova p values", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+### pairwise comparisons
+
+
+```{r, message=F, warning=F}
+library(dplyr)
+library(tidyr)
+library(rstatix)
+
+# 1. Define measurements
+measurements <- c(
+  "Angle", "Crest", "MBcrest", "DLcrest", "Verticalcrest", "Tip", "MBtip", "DLtip", "Verticaltip" 
+)
+
+# 2. Corrected function
+get_detailed_pairwise <- function(data, group_col) {
+  data %>%
+    pivot_longer(cols = all_of(measurements), names_to = "Measurement", values_to = "Value") %>%
+    group_by(Measurement) %>%
+    # Use t_test for all pairs
+    t_test(as.formula(paste("Value ~", group_col)), detailed = TRUE) %>%
+    # NOW adjust the p-values for multiple comparisons
+    adjust_pvalue(method = "bonferroni") %>%
+    add_significance() %>%
+    # Rename 'estimate' to 'mean_diff' for clarity
+    mutate(mean_diff = round(estimate,4)) %>%
+    # Select columns that are guaranteed to exist now
+    select(Measurement, group1, group2, 
+           mean_diff, conf.low, conf.high, 
+           p, p.adj, p.adj.signif)
+}
+
+# --- Execute for all factors ---
+
+results_site <- get_detailed_pairwise(trueness, "Site")
+results_jaw      <- get_detailed_pairwise(trueness, "Jaw")
+results_space     <- get_detailed_pairwise(trueness, "Space")
+results_jawspace     <- get_detailed_pairwise(trueness, "Jawspace")
+################
+results_space$conf.low=round(results_space$conf.low,4)
+results_space$conf.high=round(results_space$conf.high,4)
+results_space$p=pvalue_adjust(results_space$p)
+results_space$p.adj=pvalue_adjust(results_space$p.adj)
+
+results_space%>%
+datatable(extensions = 'Buttons',
+          caption = "space", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+################
+results_jawspace$conf.low=round(results_jawspace$conf.low,4)
+results_jawspace$conf.high=round(results_jawspace$conf.high,4)
+results_jawspace$p=pvalue_adjust(results_jawspace$p)
+results_jawspace$p.adj=pvalue_adjust(results_jawspace$p.adj)
+
+results_space%>%
+datatable(extensions = 'Buttons',
+          caption = "jawspace", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#################
+results_jaw$conf.low=round(results_jaw$conf.low,4)
+results_jaw$conf.high=round(results_jaw$conf.high,4)
+results_jaw$p=pvalue_adjust(results_jaw$p)
+results_jaw$p.adj=pvalue_adjust(results_jaw$p.adj)
+
+results_jaw%>%
+datatable(extensions = 'Buttons',
+          caption = "jaw", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+#################
+results_site$conf.low=round(results_site$conf.low,4)
+results_site$conf.high=round(results_site$conf.high,4)
+results_site$p=pvalue_adjust(results_site$p)
+results_site$p.adj=pvalue_adjust(results_site$p.adj)
+
+results_site%>%
+datatable(extensions = 'Buttons',
+          caption = "site", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
