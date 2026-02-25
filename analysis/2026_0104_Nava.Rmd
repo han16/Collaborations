@@ -91,6 +91,10 @@ datatable(extensions = 'Buttons',
 
 
 
+### pairwise comparisons 
+
+
+
 ```{r, message=F, warning=F}
 library(dplyr)
 library(tidyr)
