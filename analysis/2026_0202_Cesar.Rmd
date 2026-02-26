@@ -111,7 +111,7 @@ inter_rater <- master_data %>%
 mini_dfs <- master_data %>%
   group_by(Variable) %>%
   group_split()
-mini_dfs
+#mini_dfs
 
 
 inter_rater%>%
@@ -142,56 +142,12 @@ datatable(extensions = 'Buttons',
 
 0.81 – 1.00	Almost Perfect`
 
-### intra rater reliability-keep the first value of variable+typodont 
+
+* comments: The results suggest that while raters are somewhat aligned on the "Finished Restoration," they are highly inconsistent in grading the "Outline" phases and "Treatment Management."
 
 
 
-```{r, message=F, warning=F, eval=T}
 
-
-doctors <- c("Gonzalez", "Gungor", "Mahmoud", "Mirzoyan")
-
-intra_rater <- map_df(doctors, function(doc) {
-  
-  # 1. Prepare the data for the specific doctor
-  doc_consistency <- master_data %>%
-    select(Variable, Typodont, !!sym(doc)) %>%
-    # Use unnest or pick the first value if duplicates exist to avoid 'list' columns
-    group_by(Variable, Typodont) %>%
-    summarise(Score = first(!!sym(doc)), .groups = "drop") %>%
-    pivot_wider(names_from = Typodont, values_from = Score) %>%
-    select(-Variable)
-  doc_consistency
-  
-  # 2. Convert all columns to numeric (crucial for icc function)
-  doc_matrix <- as.data.frame(lapply(doc_consistency, function(x) as.numeric(as.character(x))))
-  
-  # 3. Remove any rows that still have NAs (ICC cannot handle missing values in some versions)
-  doc_matrix <- na.omit(doc_matrix)
-  
-  # 4. Calculate ICC
-  # Using 'oneway' and 'agreement' to check if the doctor gives the same score across trials
-  res <- tryCatch({
-    icc(doc_matrix, model = "oneway", type = "agreement")
-  }, error = function(e) return(list(value = NA, p.value = NA)))
-  
-  # 5. Return results
-  data.frame(
-    Doctor = doc,
-    ICC = round(as.numeric(res$value), 4),
-    p_value = pvalue_adjust(res$p.value),
-    Status = ifelse(!is.na(res$p.value) && res$p.value < 0.05, "significant", "not significant")
-  )
-})
-
-intra_rater%>%
-datatable(extensions = 'Buttons',
-          caption = "", 
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
 ### intra rater reliability-keep all vaues of variable+typodont
 
 
@@ -250,6 +206,18 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
+Comments: 
+
+* Dr. Gungor demonstrated the highest level of consistency. With an ICC of 0.2413 and a highly significant p-value ($p < 0.001$), indicating his grading is not random, though the strength of agreement is considered "Fair".
+
+* "Dr. Mirzoyan also showed statistically significant consistency ($p = 0.004$). However, the lower ICC (0.1824) suggests "Slight" agreement, meaning there is still noticeable variation between the first and second rounds of grading.
+
+* .Dr. Mahmoud had the lowest ICC (0.0946). This indicates that the grading criteria likely shifted between sessions, or the items being graded were so similar that it's hard to reliably distinguish between them a second time.
+
+* Dr. Gonzalez was close to the significance threshold ($p = 0.079$), but with the smallest sample size ($N=13$), the analysis may lack the statistical power to confirm consistency.
+
+
+
 
 
 
@@ -299,22 +267,6 @@ datatable(extensions = 'Buttons',
 ```
 
 
-* [Fleiss' Kappa](https://numiqo.com/tutorial/fleiss-kappa) was used 
-
-
-`Kappa Value	Strength of Agreement
-
-< 0.00	Poor (Less agreement than random chance)
-
-0.01 – 0.20	Slight
-
-0.21 – 0.40	Fair
-
-0.41 – 0.60	Moderate
-
-0.61 – 0.80	Substantial
-
-0.81 – 1.00	Almost Perfect`
 
 
 ```{r, message=F, warning=F, eval=F}
@@ -366,7 +318,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 ```
 
-* Gungor's data has no variation, leading to NA ICC. 
+
 
 
 
@@ -480,7 +432,6 @@ datatable(extensions = 'Buttons',
 ```
 
 
-* [Fleiss' Kappa](https://numiqo.com/tutorial/fleiss-kappa) was used 
 
 
 
@@ -649,19 +600,7 @@ datatable(extensions = 'Buttons',
 ```
 
 
-`Kappa Value	Strength of Agreement
 
-< 0.00	Poor (Less agreement than random chance)
-
-0.01 – 0.20	Slight
-
-0.21 – 0.40	Fair
-
-0.41 – 0.60	Moderate
-
-0.61 – 0.80	Substantial
-
-0.81 – 1.00	Almost Perfect`
 
 
 ```{r, message=F, warning=F, eval=F}
