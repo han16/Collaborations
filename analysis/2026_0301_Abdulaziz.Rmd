@@ -1,0 +1,163 @@
+---
+title: "03/03 2026"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-03-03"
+---
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+
+```
+
+
+
+```{r, message=F, warning=F, results=F}
+#data=multiplesheets((file.path(root, "../2026/202603/Abdulaziz/Color Change Averages.xlsx")))
+#saveRDS(data$cleaned_data, file=file.path(root, "../2026/202603/Abdulaziz/cleaned_data.RDs"))
+
+cleaned_data=readRDS(file.path(root, "../2026/202603/Abdulaziz/cleaned_data.RDs"))
+```
+
+
+```{r, message=F, warning=F}
+time_intervals=unique(cleaned_data$time_interval)
+solutions=unique(cleaned_data$solution)
+materials=unique(cleaned_data$material)
+methods=unique(cleaned_data$...4)
+```
+
+
+## SCI 
+
+
+### Rodin 
+
+
+
+
+```{r, message=F, warning=F}
+analyze_dental_color <- function(data, target_type, target_material) {
+  
+  # 1. Filter and Prepare Data
+  analysis_df <- data %>%
+    filter(`...4` == target_type & material == target_material) %>%
+    mutate(specimen_id = str_extract(...1, "\\d$"))
+  
+  # 2. Repeated Measures ANOVA
+  anova_table <- analysis_df %>%
+    group_by(solution) %>%
+    anova_test(dv = DeltaE, wid = specimen_id, within = time_interval) %>%
+    get_anova_table()
+  
+  # 3. Pairwise Comparisons
+  pairwise_table <- analysis_df %>%
+    group_by(solution) %>%
+    pairwise_t_test(
+      DeltaE ~ time_interval, 
+      paired = TRUE, 
+      p.adjust.method = "bonferroni",
+      conf.level = 0.95,
+      detailed = TRUE
+    ) %>%
+    rename(mean_diff = estimate) %>%
+    select(solution, group1, group2, n1, mean_diff, conf.low, conf.high, p.adj, p.adj.signif) %>%
+    # Rounding the numerical columns
+    mutate(
+      mean_diff = round(mean_diff, 4),
+      conf.low = round(conf.low, 4),
+      conf.high = round(conf.high, 4)
+    )
+  
+  # Return both tables as a list
+  return(list(anova = anova_table, pairwise = pairwise_table))
+}
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+SCI_rodin=analyze_dental_color(cleaned_data, "SCI", "Rodin")
+
+SCI_rodin$anova%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+SCI_rodin$pairwise%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+***: $p < 0.001$
+
+**: $p < 0.01$
+
+*: $p < 0.05$
+
+ns: $p \geq 0.05$
+
+
+### Varseosmile
+
+```{r, message=F, warning=F}
+SCI_rodin=analyze_dental_color(cleaned_data, "SCI", "Varseosmile")
+
+SCI_rodin$anova%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+SCI_rodin$pairwise%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Sprintray
+
+```{r, message=F, warning=F}
+SCI_rodin=analyze_dental_color(cleaned_data, "SCI", "Sprintray")
+
+SCI_rodin$anova%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+SCI_rodin$pairwise%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
