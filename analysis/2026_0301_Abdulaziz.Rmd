@@ -34,14 +34,6 @@ methods=unique(cleaned_data$...4)
 ```
 
 
-## SCI 
-
-
-### Rodin 
-
-
-
-
 ```{r, message=F, warning=F}
 analyze_dental_color <- function(data, target_type, target_material) {
   
@@ -81,6 +73,50 @@ analyze_dental_color <- function(data, target_type, target_material) {
 ```
 
 
+
+
+```{r, message=F, warning=F}
+compare_all_scenarios <- function(data, target_type, mat1, mat2) {
+  
+  # 1. Filter for the two materials and the specific measurement type (SCI/SCE)
+  comparison_df <- data %>%
+    filter(`...4` == target_type) %>%
+    filter(material %in% c(mat1, mat2))
+  
+  # 2. Group by solution and interval, then run independent t-tests
+  results_table <- comparison_df %>%
+    group_by(solution, time_interval) %>%
+    t_test(
+      DeltaE ~ material, 
+      paired = FALSE,         # Materials are separate specimens
+      detailed = TRUE,
+      conf.level = 0.95
+    ) %>%
+    # 3. Add significance thresholds
+    add_significance(
+      p.col = "p",
+      cutpoints = c(0, 0.001, 0.01, 0.05, 1),
+      symbols = c("***", "**", "*", "ns")
+    ) %>%
+    # 4. Clean up, rename, and format
+    rename(mean_diff = estimate) %>%
+    mutate(
+      across(c(mean_diff, conf.low, conf.high), ~ round(.x, 4)),
+      p = format.pval(p, digits = 4, eps = 0.001)
+    ) %>%
+    # 5. Select key columns for comparison
+    select(solution, time_interval, group1, group2, n1, n2, mean_diff, conf.low, conf.high, p, p.signif)
+  
+  return(results_table)
+}
+```
+
+
+
+## SCI 
+
+
+### Rodin 
 
 
 
@@ -154,6 +190,192 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 SCI_rodin$pairwise%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+### Rodin vs Varseosmile
+
+
+```{r, message=F, warning=F}
+full_report <- compare_all_scenarios(cleaned_data, "SCI", "Rodin", "Varseosmile")
+full_report%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Rodin vs Sprintray
+
+
+```{r, message=F, warning=F}
+full_report <- compare_all_scenarios(cleaned_data, "SCI", "Rodin", "Sprintray")
+full_report%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### Varseosmile vs Sprintray
+
+
+```{r, message=F, warning=F}
+full_report <- compare_all_scenarios(cleaned_data, "SCI", "Varseosmile", "Sprintray")
+full_report%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+## SCE 
+
+
+### Rodin 
+
+
+
+
+```{r, message=F, warning=F}
+rodin=analyze_dental_color(cleaned_data, "SCE", "Rodin")
+
+rodin$anova%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+rodin$pairwise%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+***: $p < 0.001$
+
+**: $p < 0.01$
+
+*: $p < 0.05$
+
+ns: $p \geq 0.05$
+
+
+### Varseosmile
+
+```{r, message=F, warning=F}
+rodin=analyze_dental_color(cleaned_data, "SCE", "Varseosmile")
+
+rodin$anova%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+rodin$pairwise%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Sprintray
+
+```{r, message=F, warning=F}
+rodin=analyze_dental_color(cleaned_data, "SCE", "Sprintray")
+
+rodin$anova%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+rodin$pairwise%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+
+### Rodin vs Varseosmile
+
+
+```{r, message=F, warning=F}
+full_report <- compare_all_scenarios(cleaned_data, "SCE", "Rodin", "Varseosmile")
+full_report%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+### Rodin vs Sprintray
+
+
+```{r, message=F, warning=F}
+full_report <- compare_all_scenarios(cleaned_data, "SCE", "Rodin", "Sprintray")
+full_report%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+### Varseosmile vs Sprintray
+
+
+```{r, message=F, warning=F}
+full_report <- compare_all_scenarios(cleaned_data, "SCE", "Varseosmile", "Sprintray")
+full_report%>%
 datatable(extensions = 'Buttons',
           caption = "", 
             options = list(dom = 'Blfrtip',
