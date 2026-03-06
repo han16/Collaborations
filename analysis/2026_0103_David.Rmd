@@ -76,7 +76,7 @@ anova_table <- data.frame(
 
 anova_table%>%
 datatable(extensions = 'Buttons',
-          caption = "random effect", 
+          caption = "", 
             options = list(dom = 'Blfrtip',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
