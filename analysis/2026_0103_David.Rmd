@@ -17,3 +17,68 @@ root <- rprojroot::find_rstudio_root_file()
 
 * [main analysis](https://han16.github.io/Collaborations/2022_Feb3.html#pairwise_t_test_with_Bonferroni_Adjustment)
 
+
+
+```{r, echo=F}
+data=read.csv(file.path(root, "..\\2022\\202202\\Essa\\Translucency.csv"), header=T)
+translucency=data.frame(td=data$transclucency, materials=as.factor(data$materials))
+groups=levels(translucency$materials)
+```
+
+## Table 2 
+
+Null hypothesis is $H_0:\mu_1=\mu_2=...=\mu_6$ and $H_a:Not~all~equal$
+
+```{r, echo=F}
+annova=aov(td~materials, data=translucency)
+#annova
+#summary(annova)
+
+############## equivalently use linear regression 
+LM <- lm(td ~ materials, data=translucency)
+#anova(LM)
+
+#summary(LM)
+```
+
+These are ANOVA results corresponding to Table 2
+
+```{r, echo=F}
+
+mean_val <- numeric()
+sd_val <- numeric()
+normality_p <- numeric() # New vector for Shapiro-Wilk results
+for (i in 1:length(groups))
+{
+  current_data <- translucency[translucency$materials == groups[i], ]$td
+  
+  # Calculate Descriptive Stats
+  mean_val[i] <- mean(current_data)
+  sd_val[i] <- sd(current_data)
+  
+  # Run Normality Test (Shapiro-Wilk)
+  # shapiro.test()$p.value extracts just the p-value
+  normality_p[i] <- shapiro.test(current_data)$p.value
+}
+
+
+
+anova_table <- data.frame(
+  Parameters = c("Translucency", groups),
+  N = c("-", rep(20, length(groups))),
+  Mean = c("-", round(mean_val, 4)),
+  SD = c("-", round(sd_val, 4)),
+  Normality_p = c("-", round(normality_p, 4)), # Added Column
+  F_value = c(237.7, rep(NA, length(groups))),
+  p_value = c("<2e-16", rep(NA, length(groups))),
+  R_square = c(0.9125, rep(NA, length(groups)))
+)
+
+anova_table%>%
+datatable(extensions = 'Buttons',
+          caption = "random effect", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
