@@ -383,3 +383,12 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+## statistical analysis
+
+```{r, message=F, warning=F}
+R.version
+```
+
+R version 4.3.2 was used for all analysis. Statistical significance was determined if p values is less than 5\%. Repeated-measure annova was conducted across all different time intervals, Paired two sample t test was used between time intervals for specific materials with a specific solution and independent t test was used between different materials with the same solution and time period.    
