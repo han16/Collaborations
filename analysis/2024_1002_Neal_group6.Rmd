@@ -225,3 +225,37 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+## descriptive statistics for the parameters below of the group 6 subgroups
+
+```{r, message=F, warning=F}
+group_6A_stat=summary_statistics(as.matrix(finalized_data %>% filter(Month_Group=="6A") %>% select("MENTAL_Crest_Sagittal_DIFF", "MENTAL_Crest_Coronal_DIFF", "ANSPNS_Sinus_Floor_Sagittal_DIFF", "Height_coronal_DIFF", "ANSPNS_Crest_Sagittal_DIFF", "ANSPNS_Sinus_Floor_Sagittal_DIFF"))) 
+group_6A_stat%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+group_6B_stat=summary_statistics(as.matrix(finalized_data %>% filter(Month_Group=="6A") %>% select("MENTAL_Crest_Sagittal_DIFF", "MENTAL_Crest_Coronal_DIFF", "ANSPNS_Sinus_Floor_Sagittal_DIFF", "Height_coronal_DIFF", "ANSPNS_Crest_Sagittal_DIFF"))) 
+group_6B_stat%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+group_6C_stat=summary_statistics(as.matrix(finalized_data %>% filter(Month_Group=="6A") %>% select( "ANSPNS_Sinus_Floor_Sagittal_DIFF"))) 
+group_6C_stat%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
