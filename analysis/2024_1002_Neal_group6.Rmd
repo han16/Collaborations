@@ -241,7 +241,7 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 
-group_6B_stat=summary_statistics(as.matrix(finalized_data %>% filter(Month_Group=="6A") %>% select("MENTAL_Crest_Sagittal_DIFF", "MENTAL_Crest_Coronal_DIFF", "ANSPNS_Sinus_Floor_Sagittal_DIFF", "Height_coronal_DIFF", "ANSPNS_Crest_Sagittal_DIFF"))) 
+group_6B_stat=summary_statistics(as.matrix(finalized_data %>% filter(Month_Group=="6B") %>% select("MENTAL_Crest_Sagittal_DIFF", "MENTAL_Crest_Coronal_DIFF", "ANSPNS_Sinus_Floor_Sagittal_DIFF", "Height_coronal_DIFF", "ANSPNS_Crest_Sagittal_DIFF"))) 
 group_6B_stat%>%
 datatable(extensions = 'Buttons',
           caption = " group 6B",
@@ -251,7 +251,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 
-group_6C_stat=summary_statistics(as.matrix(finalized_data %>% filter(Month_Group=="6A") %>% select( "ANSPNS_Sinus_Floor_Sagittal_DIFF"))) 
+group_6C_stat=summary_statistics(as.matrix(finalized_data %>% filter(Month_Group=="6C") %>% select( "ANSPNS_Sinus_Floor_Sagittal_DIFF"))) 
 group_6C_stat%>%
 datatable(extensions = 'Buttons',
           caption = "group 6C",
