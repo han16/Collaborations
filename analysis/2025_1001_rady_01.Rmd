@@ -138,7 +138,6 @@ prop.test(c(sum(data$Gender==1), sum(data$Gender==2)), n=c(length(data$Gender), 
 
 
 ```{r, message=F, warning=F}
-interest_variable=c("Anticipated_Pain_Compared_to_Actual_Pain_D1", "Anticipated_Pain_Compared_to_Actual_Pain_D7")
 
 # 1. Define the labels for clarity
 labels <- c("1" = "Less than anticipated", 
