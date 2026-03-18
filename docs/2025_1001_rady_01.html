@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-10-13
+<strong>Last updated:</strong> 2026-03-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -455,10 +455,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee9f4d9772da059237249bbfad9b93ec78a916211targetblanke9f4d97a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedd041a0fbe73a398cbc2b8e8352910d5057a745atargetblankdd041a0a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/e9f4d9772da059237249bbfad9b93ec78a916211" target="_blank">e9f4d97</a>
+<a href="https://github.com/han16/Collaborations/tree/dd041a0fbe73a398cbc2b8e8352910d5057a745a" target="_blank">dd041a0</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee9f4d9772da059237249bbfad9b93ec78a916211targetblanke9f4d97a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedd041a0fbe73a398cbc2b8e8352910d5057a745atargetblankdd041a0a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/e9f4d9772da059237249bbfad9b93ec78a916211" target="_blank">e9f4d97</a>.
+<a href="https://github.com/han16/Collaborations/tree/dd041a0fbe73a398cbc2b8e8352910d5057a745a" target="_blank">dd041a0</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -588,14 +588,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2025_1001_Rady.Rmd
-    Untracked:  analysis/2025_1001_rady_01.Rmd
-    Untracked:  analysis/2025_1001_rady_02.Rmd
-    Untracked:  analysis/2025_1001_rady_03.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2025.Rmd
+    Modified:   analysis/2025_1001_rady_01.Rmd
 
 </code></pre>
 <p>
@@ -610,10 +604,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2025_1001_rady_01.Rmd</code>) and
+HTML (<code>docs/2025_1001_rady_01.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/717b24318e83a42367dc1036052cd1d5253c7181/analysis/2025_1001_rady_01.Rmd" target="_blank">717b243</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-13
+</td>
+<td>
+10/13/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/717b24318e83a42367dc1036052cd1d5253c7181/docs/2025_1001_rady_01.html" target="_blank">717b243</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-13
+</td>
+<td>
+10/13/2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -721,6 +779,95 @@ sample estimates:
 <ul>
 <li>p value of 1 suggests no difference between <code>Gender</code></li>
 </ul>
+<pre class="r"><code>interest_variable=c(&quot;Anticipated_Pain_Compared_to_Actual_Pain_D1&quot;, &quot;Anticipated_Pain_Compared_to_Actual_Pain_D7&quot;)
+
+# 1. Define the labels for clarity
+labels &lt;- c(&quot;1&quot; = &quot;Less than anticipated&quot;, 
+            &quot;2&quot; = &quot;Similar to anticipated&quot;, 
+            &quot;3&quot; = &quot;More than anticipated&quot;)
+
+report_pain_comparison &lt;- function(vec, day_label) {
+  # 1. Create frequency table
+  counts &lt;- table(factor(vec, levels = c(1, 2, 3)))
+  probs  &lt;- prop.table(counts) * 100
+  
+  # 2. Combine into the main frequency table
+  df_table &lt;- data.frame(
+    Response = labels,
+    Count = as.vector(counts),
+    Percentage = paste0(round(as.vector(probs), 1), &quot;%&quot;)
+  )
+  
+  # 3. Perform Pairwise Comparisons (Post-hoc Binomial Tests)
+  # Define the pairs to compare: (1 vs 2), (1 vs 3), (2 vs 3)
+  pairs &lt;- list(c(1, 2), c(1, 3), c(2, 3))
+  pairwise_results &lt;- data.frame()
+  
+  for(p in pairs) {
+    idx1 &lt;- p[1]
+    idx2 &lt;- p[2]
+    
+    # Perform Exact Binomial Test on the two counts
+    # It tests if the distribution between the two is significantly different from 50/50
+    test &lt;- binom.test(x = c(as.vector(counts)[idx1], as.vector(counts)[idx2]))
+    
+    pairwise_results &lt;- rbind(pairwise_results, data.frame(
+      Comparison = paste(labels[idx1], &quot;vs&quot;, labels[idx2]),
+      p_value = pvalue_adjust(test$p.value)
+    ))
+  }
+  
+  # 4. Adjust p-values for multiple testing (Bonferroni correction)
+  pairwise_results$p_adj &lt;-p.adjust(pairwise_results$p_value, method = &quot;bonferroni&quot;)
+  
+  # 5. Add a significance &quot;Star&quot; column for easy reading
+  pairwise_results$Significance &lt;- ifelse(pairwise_results$p_adj &lt; 0.05, &quot;*&quot;, &quot;ns&quot;)
+  
+  return(list(
+    table = df_table, 
+    pairwise = pairwise_results
+  ))
+}
+
+results_d1 &lt;- report_pain_comparison(data$Anticipated_Pain_Compared_to_Actual_Pain_D1, &quot;Day 1&quot;)
+results_d7 &lt;- report_pain_comparison(data$Anticipated_Pain_Compared_to_Actual_Pain_D7, &quot;Day 7&quot;)
+
+results_d1$table%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Anticipated_Pain_Compared_to_Actual_Pain_D1&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b85bf888dc62471906a9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b85bf888dc62471906a9">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Anticipated_Pain_Compared_to_Actual_Pain_D1<\/caption>","data":[["1","2","3"],["Less than anticipated","Similar to anticipated","More than anticipated"],[14,3,1],["77.8%","16.7%","5.6%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Response<\/th>\n      <th>Count<\/th>\n      <th>Percentage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Response","targets":1},{"name":"Count","targets":2},{"name":"Percentage","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>results_d1$pairwise%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Anticipated_Pain_Compared_to_Actual_Pain_D1&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88fdd2a34d502a66744b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88fdd2a34d502a66744b">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Anticipated_Pain_Compared_to_Actual_Pain_D1<\/caption>","data":[["1","2","3"],["Less than anticipated vs Similar to anticipated","Less than anticipated vs More than anticipated","Similar to anticipated vs More than anticipated"],["0.01273","0.0009766","0.625"],[0.03819,0.0029298,1],["*","*","ns"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Comparison<\/th>\n      <th>p_value<\/th>\n      <th>p_adj<\/th>\n      <th>Significance<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Comparison","targets":1},{"name":"p_value","targets":2},{"name":"p_adj","targets":3},{"name":"Significance","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>results_d7$table%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Anticipated_Pain_Compared_to_Actual_Pain_D7&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8e1fe96c0688a849169a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8e1fe96c0688a849169a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Anticipated_Pain_Compared_to_Actual_Pain_D7<\/caption>","data":[["1","2","3"],["Less than anticipated","Similar to anticipated","More than anticipated"],[12,5,1],["66.7%","27.8%","5.6%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Response<\/th>\n      <th>Count<\/th>\n      <th>Percentage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Response","targets":1},{"name":"Count","targets":2},{"name":"Percentage","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>results_d7$pairwise%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;Anticipated_Pain_Compared_to_Actual_Pain_D7&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption>Anticipated_Pain_Compared_to_Actual_Pain_D7<\/caption>","data":[["1","2","3"],["Less than anticipated vs Similar to anticipated","Less than anticipated vs More than anticipated","Similar to anticipated vs More than anticipated"],["0.1435","0.003418","0.2188"],[0.4305,0.010254,0.6564],["ns","*","ns"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Comparison<\/th>\n      <th>p_value<\/th>\n      <th>p_adj<\/th>\n      <th>Significance<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Comparison","targets":1},{"name":"p_value","targets":2},{"name":"p_adj","targets":3},{"name":"Significance","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -732,7 +879,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.3.2 (2023-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 11 x64 (build 26100)
+Running under: Windows 11 x64 (build 26200)
 
 Matrix products: default
 
@@ -774,22 +921,22 @@ loaded via a namespace (and not attached):
 [22] broom_1.0.7          R6_2.6.1             bslib_0.9.0         
 [25] stringi_1.8.3        car_3.1-3            pkgload_1.4.0       
 [28] jquerylib_0.1.4      cellranger_1.1.0     Rcpp_1.0.11         
-[31] knitr_1.49           httpuv_1.6.15        Matrix_1.6-1.1      
+[31] knitr_1.49           httpuv_1.6.15        Matrix_1.6-5        
 [34] splines_4.3.2        timechange_0.3.0     tidyselect_1.2.1    
 [37] rstudioapi_0.17.1    abind_1.4-8          yaml_2.3.8          
 [40] miniUI_0.1.1.1       pkgbuild_1.4.6       plyr_1.8.9          
 [43] lattice_0.21-9       shiny_1.10.0         withr_3.0.2         
 [46] evaluate_1.0.3       lambda.r_1.2.4       survival_3.8-3      
 [49] urlchecker_1.0.1     xml2_1.3.6           pillar_1.10.1       
-[52] carData_3.0-5        generics_0.1.3       hms_1.1.3           
-[55] munsell_0.5.1        scales_1.3.0         xtable_1.8-4        
-[58] glue_1.8.0           tools_4.3.2          ggsignif_0.6.4      
-[61] fs_1.6.5             crosstalk_1.2.1      colorspace_2.1-0    
-[64] Formula_1.2-5        cli_3.6.2            workflowr_1.7.1     
-[67] futile.options_1.0.1 viridisLite_0.4.2    svglite_2.1.3       
-[70] gtable_0.3.6         sass_0.4.9           digest_0.6.33       
-[73] htmlwidgets_1.6.4    memoise_2.0.1        htmltools_0.5.8.1   
-[76] lifecycle_1.0.4      mime_0.12           </code></pre>
+[52] carData_3.0-5        whisker_0.4.1        generics_0.1.3      
+[55] hms_1.1.3            munsell_0.5.1        scales_1.3.0        
+[58] xtable_1.8-4         glue_1.8.0           tools_4.3.2         
+[61] ggsignif_0.6.4       fs_1.6.5             crosstalk_1.2.1     
+[64] colorspace_2.1-0     Formula_1.2-5        cli_3.6.2           
+[67] workflowr_1.7.1      futile.options_1.0.1 viridisLite_0.4.2   
+[70] svglite_2.1.3        gtable_0.3.6         sass_0.4.9          
+[73] digest_0.6.33        htmlwidgets_1.6.4    memoise_2.0.1       
+[76] htmltools_0.5.8.1    lifecycle_1.0.4      mime_0.12           </code></pre>
 </div>
 </div>
 
