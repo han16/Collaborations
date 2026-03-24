@@ -662,15 +662,15 @@ summary(cox_model)
 
 
 
-1. Age At Treatment ($p = 0.0178$) — Significant   Hazard Ratio (HR): $0.9950$
+1. Age At Treatment ($p = 0.0178$) — Significant. Hazard Ratio (HR): $0.9950$
 
 Interpretation:  For every 1-year increase in a patient's age, the risk (hazard) of treatment failure decreases by 0.5% ($1 - 0.9950 = 0.005$).
 
-2. Sex2 ($p = 0.4768$) — Not Significant Hazard Ratio (HR): $0.9452$
+2. Sex2 ($p = 0.4768$) — Not Significant. Hazard Ratio (HR): $0.9452$
 
 Interpretation:  There is no statistically significant difference in tooth failure risk between Sex 1 and Sex 2 in this model.
 
-3. RCT to Treatment Days ($p < 2e-16$) — Highly Significant
+3. RCT to Treatment Days ($p < 2e-16$) — Highly Significant. 
 Hazard Ratio (HR): $1.0004$
 
-Interpretation: Because the HR is greater than 1, this is a risk factor.The Math: For every 1-day increase in the time between the RCT and the final treatment, the risk of failure increases by 0.04%.
+Interpretation: Because the HR is greater than 1, this is a risk factor. For every 1-day increase in the time between the RCT and the final treatment, the risk of failure increases by 0.04%.
