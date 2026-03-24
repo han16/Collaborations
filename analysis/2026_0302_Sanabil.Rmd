@@ -7,3 +7,16 @@ output:
 date: "2026-03-11"
 ---
 
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+
+```
+
+
+```{r, message=F, warning=F}
+```

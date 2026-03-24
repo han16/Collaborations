@@ -20,10 +20,10 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 ```{r, message=F, warning=F, results=F}
-data=read_xlsx((file.path(root, "../2026/202601/Shikha/Results -2026-01-22 (1).xlsx")))
+data1=read_xlsx((file.path(root, "../2026/202601/Shikha/Results -2026-01-22 (1).xlsx")))
 activity=read_xlsx((file.path(root, "../2026/202601/Shikha/Activity.xlsx")))
 key=read_xlsx((file.path(root, "../2026/202601/Shikha/Results Key.xlsx")))
-data=data %>% mutate(patient_tooth_id=paste0(data$Patient,":",data$Site))
+data2=data1 %>% mutate(patient_tooth_id=paste0(data1$Patient,":",data1$Site))
 
 activity <- activity %>%
   dplyr::filter(!is.na(Site))  # remove NA sites 
@@ -48,12 +48,12 @@ root_canal_codes <- data.frame(
   )
 )
 
-unique(data$Procedure)
+unique(data2$Procedure)
 
 
 
 # Count the number of each Procedure
-procedure_counts <- data %>%dplyr::count(`Procedure`)
+procedure_counts <- data2 %>%dplyr::count(`Procedure`)
 
 # Bar plot
 ggplot(procedure_counts, aes(x = `Procedure`, y = n, fill=`Procedure`)) +
@@ -157,24 +157,27 @@ final_restoration_codes <- data.frame(
 ## time period between root canal and inital treatment 
 
 ```{r, message=F, warning=F}
-data$POSTDate=as.Date(data$POSTDate)
+data2$POSTDate=as.Date(data2$POSTDate)
+data2$Birth=as.Date(data2$Birth)
+data2$Age <- floor(as.numeric(difftime(Sys.Date(), data2$Birth, units = "days")) / 365.25)
+
 activity$TreatmentDate=as.Date(activity$TreatmentDate)
-data$`Fail Date`=as.Date(data$`Fail Date`)
-data$`RCT TreatmentDate`=as.Date(data$`RCT TreatmentDate`)
+data2$`Fail Date`=as.Date(data2$`Fail Date`)
+data2$`RCT TreatmentDate`=as.Date(data2$`RCT TreatmentDate`)
 
 
 
 
 
-data <- data %>%
+data3 <- data2 %>%
   mutate(
     RCT_to_treatment_days = as.numeric(difftime(POSTDate, `RCT TreatmentDate`, units = "days"))
-  ) %>% select(`RCT TreatmentDate`, POSTDate, RCT_to_treatment_days, patient_tooth_id, `Fail Date`, `Fail Code`, Producer)
+  ) %>% select(`RCT TreatmentDate`, POSTDate, RCT_to_treatment_days, patient_tooth_id, `Fail Date`, `Fail Code`, Producer, `AgeAt Treatment`, Sex,  )
 
-data$POSTDate=as.Date(data$POSTDate)
+data3$POSTDate=as.Date(data3$POSTDate)
 
-dim(data)
-head(data)
+dim(data3)
+head(data3)
 ```
 
 
@@ -184,7 +187,7 @@ head(data)
 
 ```{r, message=F, warning=F}
 
-data=data %>% filter(RCT_to_treatment_days>=0)
+data=data3 %>% filter(RCT_to_treatment_days>=0)
 ggplot(data, aes(x = RCT_to_treatment_days)) +
   geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
   xlab("Time Between Days") +
@@ -624,3 +627,50 @@ surv_summary <- summary(fit, times = target_days)
 
 surv_summary
 ```
+
+
+## proportional hazard model 
+
+
+```{r, message=F, warning=F}
+
+library(survival)
+
+table(endo2$Sex)
+
+endo2 =endo2 %>% filter(Sex==1 | Sex==2)
+
+# 1. Ensure Sex is a Factor (so R knows to compare Male vs Female)
+# and ensure survival_days are valid (must be > 0)
+endo2 <- endo2 %>%
+  mutate(
+    Sex = as.factor(Sex)
+  )
+
+# 2. Create the Survival Object
+# 'event' (1=Fail, 0=Censored)
+surv_obj <- Surv(time = endo2$survival_days, event = endo2$event)
+
+# 3. Fit the Cox Proportional Hazards Model
+# We include Age, Sex, and your previous predictor
+cox_model <- coxph(surv_obj ~ `AgeAt Treatment` + Sex + RCT_to_treatment_days, 
+                   data = endo2)
+
+# 4. View Results
+summary(cox_model)
+```
+
+
+
+1. Age At Treatment ($p = 0.0178$) — Significant   Hazard Ratio (HR): $0.9950$
+
+Interpretation:  For every 1-year increase in a patient's age, the risk (hazard) of treatment failure decreases by 0.5% ($1 - 0.9950 = 0.005$).
+
+2. Sex2 ($p = 0.4768$) — Not Significant Hazard Ratio (HR): $0.9452$
+
+Interpretation:  There is no statistically significant difference in tooth failure risk between Sex 1 and Sex 2 in this model.
+
+3. RCT to Treatment Days ($p < 2e-16$) — Highly Significant
+Hazard Ratio (HR): $1.0004$
+
+Interpretation: Because the HR is greater than 1, this is a risk factor.The Math: For every 1-day increase in the time between the RCT and the final treatment, the risk of failure increases by 0.04%.
