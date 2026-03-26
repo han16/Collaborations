@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-03-24
+<strong>Last updated:</strong> 2026-03-26
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee9a75a6ce87d8716b49012cc12cfdc3df9f2acf7targetblanke9a75a6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeff7504c697a6ce0d9ebe7946c01eef3301aec711targetblankff7504ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/e9a75a6ce87d8716b49012cc12cfdc3df9f2acf7" target="_blank">e9a75a6</a>
+<a href="https://github.com/han16/Collaborations/tree/ff7504c697a6ce0d9ebe7946c01eef3301aec711" target="_blank">ff7504c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee9a75a6ce87d8716b49012cc12cfdc3df9f2acf7targetblanke9a75a6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeff7504c697a6ce0d9ebe7946c01eef3301aec711targetblankff7504ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/e9a75a6ce87d8716b49012cc12cfdc3df9f2acf7" target="_blank">e9a75a6</a>.
+<a href="https://github.com/han16/Collaborations/tree/ff7504c697a6ce0d9ebe7946c01eef3301aec711" target="_blank">ff7504c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/ff7504c697a6ce0d9ebe7946c01eef3301aec711/analysis/2026_0101_Shikha_01.Rmd" target="_blank">ff7504c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-03-24
+</td>
+<td>
+3/24/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/ff7504c697a6ce0d9ebe7946c01eef3301aec711/docs/2026_0101_Shikha_01.html" target="_blank">ff7504c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-03-24
+</td>
+<td>
+3/24/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1933,58 +1967,66 @@ table(endo2$Sex)</code></pre>
  125 5404 6405    4 </code></pre>
 <pre class="r"><code>endo2 =endo2 %&gt;% filter(Sex==1 | Sex==2)
 
+endo3=endo2 %&gt;%
+  # Filter for Producers starting with G or S
+  filter(str_starts(Producer, &quot;G|S&quot;)) %&gt;%
+  # Create a grouping variable based on the first letter
+  mutate(Group = str_extract(Producer, &quot;^[GS]&quot;))
+
 # 1. Ensure Sex is a Factor (so R knows to compare Male vs Female)
 # and ensure survival_days are valid (must be &gt; 0)
-endo2 &lt;- endo2 %&gt;%
+endo3 &lt;- endo3 %&gt;%
   mutate(
     Sex = as.factor(Sex)
   )
 
 # 2. Create the Survival Object
 # &#39;event&#39; (1=Fail, 0=Censored)
-surv_obj &lt;- Surv(time = endo2$survival_days, event = endo2$event)
+surv_obj &lt;- Surv(time = endo3$survival_days, event = endo3$event)
 
 # 3. Fit the Cox Proportional Hazards Model
 # We include Age, Sex, and your previous predictor
-cox_model &lt;- coxph(surv_obj ~ `AgeAt Treatment` + Sex + RCT_to_treatment_days, 
-                   data = endo2)
+cox_model &lt;- coxph(surv_obj ~ `AgeAt Treatment` + Sex + RCT_to_treatment_days+Group, 
+                   data = endo3)
 
 # 4. View Results
 summary(cox_model)</code></pre>
 <pre><code>Call:
-coxph(formula = surv_obj ~ `AgeAt Treatment` + Sex + RCT_to_treatment_days, 
-    data = endo2)
+coxph(formula = surv_obj ~ `AgeAt Treatment` + Sex + RCT_to_treatment_days + 
+    Group, data = endo3)
 
-  n= 11809, number of events= 652 
+  n= 11335, number of events= 641 
 
                             coef  exp(coef)   se(coef)      z Pr(&gt;|z|)    
-`AgeAt Treatment`     -0.0050560  0.9949567  0.0021338 -2.369   0.0178 *  
-Sex2                  -0.0563795  0.9451803  0.0792535 -0.711   0.4768    
-RCT_to_treatment_days  0.0003988  1.0003989  0.0000325 12.273   &lt;2e-16 ***
+`AgeAt Treatment`     -4.550e-03  9.955e-01  2.150e-03 -2.117   0.0343 *  
+Sex2                  -4.777e-02  9.534e-01  7.993e-02 -0.598   0.5501    
+RCT_to_treatment_days  3.967e-04  1.000e+00  3.361e-05 11.803   &lt;2e-16 ***
+GroupS                -1.798e-01  8.355e-01  8.445e-02 -2.129   0.0333 *  
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
                       exp(coef) exp(-coef) lower .95 upper .95
-`AgeAt Treatment`        0.9950     1.0051    0.9908    0.9991
-Sex2                     0.9452     1.0580    0.8092    1.1040
+`AgeAt Treatment`        0.9955     1.0046    0.9913    0.9997
+Sex2                     0.9534     1.0489    0.8151    1.1150
 RCT_to_treatment_days    1.0004     0.9996    1.0003    1.0005
+GroupS                   0.8355     1.1969    0.7080    0.9859
 
-Concordance= 0.705  (se = 0.012 )
-Likelihood ratio test= 103.8  on 3 df,   p=&lt;2e-16
-Wald test            = 162.1  on 3 df,   p=&lt;2e-16
-Score (logrank) test = 186.6  on 3 df,   p=&lt;2e-16</code></pre>
+Concordance= 0.683  (se = 0.013 )
+Likelihood ratio test= 104.6  on 4 df,   p=&lt;2e-16
+Wald test            = 157.7  on 4 df,   p=&lt;2e-16
+Score (logrank) test = 180.7  on 4 df,   p=&lt;2e-16</code></pre>
 <ol style="list-style-type: decimal">
-<li>Age At Treatment (<span class="math inline">\(p = 0.0178\)</span>) —
+<li>Age At Treatment (<span class="math inline">\(p = 0.0343\)</span>) —
 Significant. Hazard Ratio (HR): <span
-class="math inline">\(0.9950\)</span></li>
+class="math inline">\(0.9955\)</span></li>
 </ol>
 <p>Interpretation: For every 1-year increase in a patient’s age, the
-risk (hazard) of treatment failure decreases by 0.5% (<span
-class="math inline">\(1 - 0.9950 = 0.005\)</span>).</p>
+risk (hazard) of treatment failure decreases by 0.45% (<span
+class="math inline">\(1 - 0.9955 = 0.0045\)</span>).</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Sex2 (<span class="math inline">\(p = 0.4768\)</span>) — Not
+<li>Sex2 (<span class="math inline">\(p = 0.5501\)</span>) — Not
 Significant. Hazard Ratio (HR): <span
-class="math inline">\(0.9452\)</span></li>
+class="math inline">\(0.9534\)</span></li>
 </ol>
 <p>Interpretation: There is no statistically significant difference in
 tooth failure risk between Sex 1 and Sex 2 in this model.</p>
@@ -1996,6 +2038,13 @@ class="math inline">\(1.0004\)</span></li>
 <p>Interpretation: Because the HR is greater than 1, this is a risk
 factor. For every 1-day increase in the time between the RCT and the
 final treatment, the risk of failure increases by 0.04%.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>GroupS (<span class="math inline">\(p=0.0333\)</span>) —
+Significant. Hazard Ratio (HR): <span
+class="math inline">\(0.8355\)</span></li>
+</ol>
+<p>Interpretation: compared to GroupG, the risk of GroupS is decreased
+by <span class="math inline">\(1-0.8355=16.45\%\)</span>.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

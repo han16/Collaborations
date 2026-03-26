@@ -640,21 +640,27 @@ table(endo2$Sex)
 
 endo2 =endo2 %>% filter(Sex==1 | Sex==2)
 
+endo3=endo2 %>%
+  # Filter for Producers starting with G or S
+  filter(str_starts(Producer, "G|S")) %>%
+  # Create a grouping variable based on the first letter
+  mutate(Group = str_extract(Producer, "^[GS]"))
+
 # 1. Ensure Sex is a Factor (so R knows to compare Male vs Female)
 # and ensure survival_days are valid (must be > 0)
-endo2 <- endo2 %>%
+endo3 <- endo3 %>%
   mutate(
     Sex = as.factor(Sex)
   )
 
 # 2. Create the Survival Object
 # 'event' (1=Fail, 0=Censored)
-surv_obj <- Surv(time = endo2$survival_days, event = endo2$event)
+surv_obj <- Surv(time = endo3$survival_days, event = endo3$event)
 
 # 3. Fit the Cox Proportional Hazards Model
 # We include Age, Sex, and your previous predictor
-cox_model <- coxph(surv_obj ~ `AgeAt Treatment` + Sex + RCT_to_treatment_days, 
-                   data = endo2)
+cox_model <- coxph(surv_obj ~ `AgeAt Treatment` + Sex + RCT_to_treatment_days+Group, 
+                   data = endo3)
 
 # 4. View Results
 summary(cox_model)
@@ -662,11 +668,11 @@ summary(cox_model)
 
 
 
-1. Age At Treatment ($p = 0.0178$) — Significant. Hazard Ratio (HR): $0.9950$
+1. Age At Treatment ($p = 0.0343$) — Significant. Hazard Ratio (HR): $0.9955$
 
-Interpretation:  For every 1-year increase in a patient's age, the risk (hazard) of treatment failure decreases by 0.5% ($1 - 0.9950 = 0.005$).
+Interpretation:  For every 1-year increase in a patient's age, the risk (hazard) of treatment failure decreases by 0.45% ($1 - 0.9955 = 0.0045$).
 
-2. Sex2 ($p = 0.4768$) — Not Significant. Hazard Ratio (HR): $0.9452$
+2. Sex2 ($p = 0.5501$) — Not Significant. Hazard Ratio (HR): $0.9534$
 
 Interpretation:  There is no statistically significant difference in tooth failure risk between Sex 1 and Sex 2 in this model.
 
@@ -674,3 +680,7 @@ Interpretation:  There is no statistically significant difference in tooth failu
 Hazard Ratio (HR): $1.0004$
 
 Interpretation: Because the HR is greater than 1, this is a risk factor. For every 1-day increase in the time between the RCT and the final treatment, the risk of failure increases by 0.04%.
+
+4. GroupS ($p=0.0333$) —  Significant. Hazard Ratio (HR): $0.8355$
+
+Interpretation: compared to GroupG, the risk of GroupS is decreased by $1-0.8355=16.45\%$. 
