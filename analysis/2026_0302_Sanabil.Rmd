@@ -148,11 +148,14 @@ ggplot(or_results, aes(x = Group, y = OR)) +
   coord_flip() + # Flip to make it look like a classic forest plot
   labs(
     title = "Impact of COI on Favoring GentleWave",
-    subtitle = "Odds Ratio with 95% Confidence Interval (Log Scale)",
+    subtitle = "Odds Ratio with 95% Confidence Interval",
     x = "",
-    y = "Odds Ratio (Log Scale)"
+    y = "Odds Ratio"
   ) +
   # Add the P-value as a text label
   annotate("text", x = 1.2, y = 50, label = "P < 0.001", fontface = "italic") +
   theme_minimal()
 ```
+
+
+The odds of favoring GW is 50 times higher in COI yes than COI No. 
