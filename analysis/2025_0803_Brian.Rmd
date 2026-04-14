@@ -45,6 +45,8 @@ data_10_15=readRDS(file.path(root, "..\\2025\\202509\\Brian\\Fw_ Dosimeter Data\
 # Sheet names
 sheets <- c("#1 AA12842", "#2 AA12913", "#3 AA12830")
 
+plot_list=list()
+
 # Loop through each sheet and draw boxplot + report outliers
 for (i in seq_along(sheets)) {
   
@@ -55,7 +57,7 @@ for (i in seq_along(sheets)) {
   # Combine into one data frame for plotting
   df_plot <- data.frame(
     Value = c(d1, d2),
-    Dataset = factor(c(rep("data_10_12", length(d1)), rep("data_10_14", length(d2))))
+    Dataset = factor(c(rep("Air Driven", length(d1)), rep("Electric", length(d2))))
   )
   
   # ---- Outlier detection ----
@@ -77,18 +79,37 @@ for (i in seq_along(sheets)) {
   p <- ggplot(df_plot, aes(x = Dataset, y = Value, fill = Dataset)) +
     geom_boxplot(outlier.shape = 21, outlier.fill = "white", outlier.color = "red") +
     labs(
-      title = paste("Boxplot of Sheet", sheets[i]),
-      y = "Chan_1 (dB)",
+      title = paste0("Dosimeter #", i),
+      y = "Noise Level (dB A)",
       x = ""
     ) +
+    ylim(c(40, 100))+
     theme_minimal(base_size = 14) +
     theme(
       legend.position = "none",
-      plot.title = element_text(hjust = 0.5, face = "bold")  # centers title
+      plot.title = element_text(hjust = 0.5, face = "bold"),  # centers title
+      axis.text.x = element_text(face = "bold", size = 14, color = "black", 
+                                 angle = 15,    # Slopes the text
+                                 hjust = 1      # Aligns tilted text to the ticks
+      )
     )
   
   print(p)
+  plot_list[[i]]=p
 }
+
+library(patchwork) # For combining plots
+combined_plot <- plot_list[[1]] + plot_list[[2]] + plot_list[[3]] + 
+  plot_layout(ncol = 3) + 
+  plot_annotation(title = 'Simulation Laboratory', 
+                  theme = theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold")))
+
+# Display the result
+print(combined_plot)
+
+# Optional: Save it as a wide figure
+# ggsave("combined_dosimeters.png", combined_plot, width = 15, height = 5, dpi = 300)
+
 ```
 
 

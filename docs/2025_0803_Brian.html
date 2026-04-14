@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-10-22
+<strong>Last updated:</strong> 2026-04-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60ade3ab7800feecf24ad5468d272c39c56ab0a7targetblank60ade3aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree08d61d2182e02bf96b7b6c56da4b98175815ecc9targetblank08d61d2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/60ade3ab7800feecf24ad5468d272c39c56ab0a7" target="_blank">60ade3a</a>
+<a href="https://github.com/han16/Collaborations/tree/08d61d2182e02bf96b7b6c56da4b98175815ecc9" target="_blank">08d61d2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree60ade3ab7800feecf24ad5468d272c39c56ab0a7targetblank60ade3aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree08d61d2182e02bf96b7b6c56da4b98175815ecc9targetblank08d61d2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/60ade3ab7800feecf24ad5468d272c39c56ab0a7" target="_blank">60ade3a</a>.
+<a href="https://github.com/han16/Collaborations/tree/08d61d2182e02bf96b7b6c56da4b98175815ecc9" target="_blank">08d61d2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -589,7 +589,6 @@ Ignored files:
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
 Unstaged changes:
-    Modified:   analysis/2025_0601_Shikha.Rmd
     Modified:   analysis/2025_0803_Brian.Rmd
 
 </code></pre>
@@ -636,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7590407e4d39e8db7717a4c1dd32efd8a810ae89/analysis/2025_0803_Brian.Rmd" target="_blank">7590407</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-22
+</td>
+<td>
+10/22/2025
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/7590407e4d39e8db7717a4c1dd32efd8a810ae89/docs/2025_0803_Brian.html" target="_blank">7590407</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-22
+</td>
+<td>
+10/22/2025
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -692,6 +725,8 @@ data_10_15=readRDS(file.path(root, &quot;..\\2025\\202509\\Brian\\Fw_ Dosimeter 
 <pre class="r"><code># Sheet names
 sheets &lt;- c(&quot;#1 AA12842&quot;, &quot;#2 AA12913&quot;, &quot;#3 AA12830&quot;)
 
+plot_list=list()
+
 # Loop through each sheet and draw boxplot + report outliers
 for (i in seq_along(sheets)) {
   
@@ -702,7 +737,7 @@ for (i in seq_along(sheets)) {
   # Combine into one data frame for plotting
   df_plot &lt;- data.frame(
     Value = c(d1, d2),
-    Dataset = factor(c(rep(&quot;data_10_12&quot;, length(d1)), rep(&quot;data_10_14&quot;, length(d2))))
+    Dataset = factor(c(rep(&quot;Air Driven&quot;, length(d1)), rep(&quot;Electric&quot;, length(d2))))
   )
   
   # ---- Outlier detection ----
@@ -724,33 +759,161 @@ for (i in seq_along(sheets)) {
   p &lt;- ggplot(df_plot, aes(x = Dataset, y = Value, fill = Dataset)) +
     geom_boxplot(outlier.shape = 21, outlier.fill = &quot;white&quot;, outlier.color = &quot;red&quot;) +
     labs(
-      title = paste(&quot;Boxplot of Sheet&quot;, sheets[i]),
-      y = &quot;Chan_1 (dB)&quot;,
+      title = paste0(&quot;Dosimeter #&quot;, i),
+      y = &quot;Noise Level (dB A)&quot;,
       x = &quot;&quot;
     ) +
+    ylim(c(40, 100))+
     theme_minimal(base_size = 14) +
     theme(
       legend.position = &quot;none&quot;,
-      plot.title = element_text(hjust = 0.5, face = &quot;bold&quot;)  # centers title
+      plot.title = element_text(hjust = 0.5, face = &quot;bold&quot;),  # centers title
+      axis.text.x = element_text(face = &quot;bold&quot;, size = 14, color = &quot;black&quot;, 
+                                 angle = 15,    # Slopes the text
+                                 hjust = 1      # Aligns tilted text to the ticks
+      )
     )
   
   print(p)
+  plot_list[[i]]=p
 }</code></pre>
 <pre><code>
 === Sheet: #1 AA12842 ===
 data_10_12 outliers: 85.1, 78.2, 87.6, 77.7, 77.5, 85.3, 84.7, 82.9, 80.3, 79.8, 81.9, 83.5, 80.9, 83.2, 83 
 data_10_14 outliers: 114.9, 113.8, 80.2, 110.7, 76.3, 72.9, 74.7, 43 </code></pre>
 <p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7590407e4d39e8db7717a4c1dd32efd8a810ae89/docs/figure/2025_0803_Brian.Rmd/unnamed-chunk-4-1.png" target="_blank">7590407</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 === Sheet: #2 AA12913 ===
 data_10_12 outliers: 88.1, 81.2, 77.1, 80, 75.6, 77.9, 80.4, 79, 79.4, 84.1, 76.1, 77, 81.1, 79, 79.3, 79.4, 85.2, 82 
 data_10_14 outliers: 66.2, 67.4, 69.7, 66.6, 68, 70.6, 66.8, 41.3, 40.9 </code></pre>
 <p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7590407e4d39e8db7717a4c1dd32efd8a810ae89/docs/figure/2025_0803_Brian.Rmd/unnamed-chunk-4-2.png" target="_blank">7590407</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 === Sheet: #3 AA12830 ===
 data_10_12 outliers: 79, 78.3, 79.3, 80.1, 80.7, 78.8, 81.9, 79.2, 82.5 
 data_10_14 outliers: 38.2, 38 </code></pre>
 <p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-3">
+Past versions of unnamed-chunk-4-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7590407e4d39e8db7717a4c1dd32efd8a810ae89/docs/figure/2025_0803_Brian.Rmd/unnamed-chunk-4-3.png" target="_blank">7590407</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>library(patchwork) # For combining plots
+combined_plot &lt;- plot_list[[1]] + plot_list[[2]] + plot_list[[3]] + 
+  plot_layout(ncol = 3) + 
+  plot_annotation(title = &#39;Simulation Laboratory&#39;, 
+                  theme = theme(plot.title = element_text(hjust = 0.5, size = 18, face = &quot;bold&quot;)))
+
+# Display the result
+print(combined_plot)</code></pre>
+<p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-4-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Optional: Save it as a wide figure
+# ggsave(&quot;combined_dosimeters.png&quot;, combined_plot, width = 15, height = 5, dpi = 300)</code></pre>
 </div>
 <div id="air-driven-vs-electric" class="section level2">
 <h2>air driven vs electric</h2>
@@ -868,6 +1031,43 @@ ggplot(data.frame(Value = values), aes(y = Value)) +
     plot.title = element_text(hjust = 0.5, face = &quot;bold&quot;)  # center title
   )</code></pre>
 <p><img src="figure/2025_0803_Brian.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/7590407e4d39e8db7717a4c1dd32efd8a810ae89/docs/figure/2025_0803_Brian.Rmd/unnamed-chunk-6-1.png" target="_blank">7590407</a>
+</td>
+<td>
+han
+</td>
+<td>
+2025-10-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample-size-calculation" class="section level2">
 <h2>sample size calculation</h2>
@@ -898,7 +1098,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.3.2 (2023-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 11 x64 (build 26100)
+Running under: Windows 11 x64 (build 26200)
 
 Matrix products: default
 
@@ -918,16 +1118,16 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] VennDiagram_1.7.3   futile.logger_1.4.3 condsurv_1.0.0     
- [4] devtools_2.4.5      usethis_3.1.0       tidycmprsk_1.1.0   
- [7] gtsummary_2.0.4     ggsurvfit_1.1.0     irr_0.84.1         
-[10] lpSolve_5.6.23      readxl_1.4.3        cowplot_1.1.3      
-[13] matrixStats_1.5.0   gridExtra_2.3       DT_0.33            
-[16] rstatix_0.7.2       ggpubr_0.6.0        kableExtra_1.4.0   
-[19] lubridate_1.9.4     forcats_1.0.0       stringr_1.5.1      
-[22] dplyr_1.1.4         purrr_1.0.2         readr_2.1.4        
-[25] tidyr_1.3.1         tibble_3.2.1        ggplot2_3.5.1      
-[28] tidyverse_2.0.0     rprojroot_2.0.4    
+ [1] patchwork_1.3.0     VennDiagram_1.7.3   futile.logger_1.4.3
+ [4] condsurv_1.0.0      devtools_2.4.5      usethis_3.1.0      
+ [7] tidycmprsk_1.1.0    gtsummary_2.0.4     ggsurvfit_1.1.0    
+[10] irr_0.84.1          lpSolve_5.6.23      readxl_1.4.3       
+[13] cowplot_1.1.3       matrixStats_1.5.0   gridExtra_2.3      
+[16] DT_0.33             rstatix_0.7.2       ggpubr_0.6.0       
+[19] kableExtra_1.4.0    lubridate_1.9.4     forcats_1.0.0      
+[22] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
+[25] readr_2.1.4         tidyr_1.3.1         tibble_3.2.1       
+[28] ggplot2_3.5.1       tidyverse_2.0.0     rprojroot_2.0.4    
 
 loaded via a namespace (and not attached):
  [1] formatR_1.14         remotes_2.5.0        rlang_1.1.2         
@@ -941,7 +1141,7 @@ loaded via a namespace (and not attached):
 [25] bslib_0.9.0          stringi_1.8.3        car_3.1-3           
 [28] pkgload_1.4.0        jquerylib_0.1.4      cellranger_1.1.0    
 [31] Rcpp_1.0.11          knitr_1.49           httpuv_1.6.15       
-[34] Matrix_1.6-1.1       splines_4.3.2        timechange_0.3.0    
+[34] Matrix_1.6-5         splines_4.3.2        timechange_0.3.0    
 [37] tidyselect_1.2.1     rstudioapi_0.17.1    abind_1.4-8         
 [40] yaml_2.3.8           miniUI_0.1.1.1       pkgbuild_1.4.6      
 [43] lattice_0.21-9       shiny_1.10.0         withr_3.0.2         
