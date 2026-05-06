@@ -1,6 +1,9 @@
 ---
 title: "2/15/2022"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 ---
 
 ```{r setup, include=FALSE}

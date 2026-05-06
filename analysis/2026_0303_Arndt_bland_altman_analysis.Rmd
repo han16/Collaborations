@@ -1,0 +1,201 @@
+---
+title: "Bland Altman analysis"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-05-06"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+
+```
+
+
+
+## home page 
+
+[home](2026_0303_Arndt.html)
+
+
+### trueness
+
+```{r, echo=F, message=F, warning=F}
+trueness=as_tibble(read.csv(file.path(root, "..\\2022\\202210\\Ajitesh\\Final RAW DATA ALL SAMPLES_AS_trueness.csv" )),header=T)
+methods2=c("FGAS_LS", "FGAS_IOS", "FGAS_CBCT", "FHAS_LS", "FHAS_IOS", "FHAS_CBCT")
+trueness=trueness %>% mutate(methods=rep(methods2, each=20)) # add new column with unique sample ID's 
+```
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(blandr)
+
+compare_methods_ba <- function(df, method_a, method_b) {
+  
+  # 1. Identify numeric variables to analyze
+  vars_to_analyze <- df %>% 
+    select(where(is.numeric), -Implant.position) %>% 
+    colnames()
+  
+  # 2. Create a standardized 'Match_ID' based on the trailing number
+  # This turns "FGAS_LS_1" and "FGAS_IOS_1" both into "1"
+  df_clean <- df %>%
+    filter(methods %in% c(method_a, method_b)) %>%
+    mutate(Match_ID = as.numeric(str_extract(Sample, "\\d+$")))
+  
+  # 3. Pivot the data using our new Match_ID
+  df_wide <- df_clean %>%
+    select(Match_ID, methods, all_of(vars_to_analyze)) %>%
+    pivot_wider(
+      names_from = methods,
+      values_from = all_of(vars_to_analyze)
+    ) %>%
+    drop_na() # Ensures we only plot samples present in both groups
+  
+  # 4. Generate the plots
+  for (var in vars_to_analyze) {
+    col_a <- paste0(var, "_", method_a)
+    col_b <- paste0(var, "_", method_b)
+    
+    # Using try() to ensure the loop continues if one plot fails
+    try({
+      p <- blandr.draw(df_wide[[col_a]], df_wide[[col_b]]) +
+        labs(
+          title = paste("Bland-Altman Agreement:", var),
+          subtitle = paste(method_a, "vs.", method_b, "| n =", nrow(df_wide)),
+          x = "Mean of Measurements",
+          y = "Difference (A - B)"
+        ) +
+        theme_minimal()
+      
+      print(p)
+    })
+  }
+}
+
+```
+
+
+```{r, message=F, warning=F}
+compare_methods_ba(trueness, "FGAS_LS", "FGAS_IOS")
+compare_methods_ba(trueness, "FGAS_LS", "FGAS_CBCT")
+compare_methods_ba(trueness, "FGAS_IOS", "FGAS_CBCT")
+
+
+compare_methods_ba(trueness, "FHAS_LS", "FHAS_IOS")
+compare_methods_ba(trueness, "FHAS_LS", "FHAS_CBCT")
+compare_methods_ba(trueness, "FHAS_IOS", "FHAS_CBCT")
+
+```
+
+
+Interpretations: use FHAS_IOS vs FHAS_CBCT as an example 
+
+1. Blue zone: mean bias value ($\bar{d}$, average of all difference), around 0.11. on average FHAS_IOS is 0.11 unit higher than FHAS_CBCT. the blue area ($\bar{d}+/-(t\times s/\sqrt{n})$, $s$, standard deviation of differences) is 95\% CI of the bias. Because solid line at 0 is outside the CI, so the bias is significant. 
+
+2. the green zone (upper limit of agreement), top end of 95% of the data difference expected to fall  
+dashed line: $\bar{d}+1.96 \times s$. shaded boundary: $dashed~line +/-(t\times \sqrt{3\times s^2/n})$
+
+
+3.  red zone (lower limit of agreement), bottom end of 95% of the data difference expected to fall 
+
+dashed line: $\bar{d}-1.96 \times s$. boundary: $dashed~line +/-(t\times \sqrt{3\times s^2/n})$
+
+
+
+4. . most data points are within 0 and 0.2, showing relative stable agreement. 
+
+5. all points fall within the green and red limits of agreement, indicating there are no extreme outliers in this comparison.
+
+
+
+### precision 
+
+
+
+```{r, echo=F, message=F, warning=F, eval=T}
+precision=as_tibble(read.csv(file.path(root, "..\\2022\\202210\\Ajitesh\\Final RAW DATA ALL SAMPLES_AS_precision.csv"), header=T))
+
+
+precision_data_all=list()
+
+parameters=c("Angle", "Base.3D.offset", "Base.distal", "Base.vestibular", "Base.apical", "Tip.3D.offset", "Tip.distal", "Tip.vestibular", "Tip.apical")
+for (i in 1:length(parameters))
+{
+precision_parameter=precision %>%  dplyr::select(ends_with(parameters[i])) %>% slice_tail(n = 191) # the last 191 rows as precision 
+methods3=colnames(precision_parameter)
+precision_parameter_long=data.frame(vs_distance=c(precision_parameter[,1] %>% pull, precision_parameter[,2] %>% pull, precision_parameter[,3] %>% pull, precision_parameter[,4] %>% pull, precision_parameter[,5] %>% pull, precision_parameter[,6] %>% pull), methods=rep(methods3, each=191))
+precision_data_all[[i]]=precision_parameter_long
+  
+}
+
+```
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(blandr)
+
+compare_methods_pairwise <- function(df, value_col = "vs_distance", method_col = "methods") {
+  
+  # 1. Create a Match_ID to pair the first observation of Method A 
+  # with the first observation of Method B, and so on.
+  df_indexed <- df %>%
+    group_by(across(all_of(method_col))) %>%
+    mutate(Match_ID = row_number()) %>%
+    ungroup()
+  
+  # 2. Get a list of unique methods
+  unique_methods <- unique(df[[method_col]])
+  
+  # 3. Generate all unique pairs (e.g., Method1 vs Method2)
+  method_pairs <- combn(unique_methods, 2, simplify = FALSE)
+  
+  # 4. Loop through each pair and generate the analysis
+  for (pair in method_pairs) {
+    method_a <- pair[1]
+    method_b <- pair[2]
+    
+    # Filter for the two methods and pivot to wide format for subtraction
+    df_pair <- df_indexed %>%
+      filter(.data[[method_col]] %in% c(method_a, method_b)) %>%
+      select(Match_ID, !!sym(method_col), !!sym(value_col)) %>%
+      pivot_wider(names_from = !!sym(method_col), values_from = !!sym(value_col)) %>%
+      drop_na() # Ensure only paired samples are analyzed
+    
+    # Generate the Bland-Altman Plot
+    # Using try() to prevent the loop from breaking if one pair has issues
+    try({
+      p <- blandr.draw(df_pair[[method_a]], df_pair[[method_b]]) +
+        labs(
+          title = "Pairwise Bland-Altman Analysis",
+          subtitle = paste(method_a, "vs.", method_b),
+          x = "Mean of Measurements",
+          y = "Difference (A - B)"
+        ) +
+        theme_minimal()
+      
+      print(p)
+    })
+  }
+}
+
+```
+
+
+```{r, message=F, warning=F}
+compare_methods_pairwise(precision_data_all[[1]])
+compare_methods_pairwise(precision_data_all[[2]])
+compare_methods_pairwise(precision_data_all[[3]])
+compare_methods_pairwise(precision_data_all[[4]])
+compare_methods_pairwise(precision_data_all[[5]])
+compare_methods_pairwise(precision_data_all[[6]])
+compare_methods_pairwise(precision_data_all[[7]])
+compare_methods_pairwise(precision_data_all[[8]])
+compare_methods_pairwise(precision_data_all[[9]])
+```
