@@ -32,3 +32,90 @@ root <- rprojroot::find_rstudio_root_file()
 
 [link to BA analysis](2026_0303_Arndt_bland_altman_analysis.html)
 
+
+
+## ICC 
+
+
+### trueness
+
+```{r, echo=F, message=F, warning=F}
+trueness=as_tibble(read.csv(file.path(root, "..\\2022\\202210\\Ajitesh\\Final RAW DATA ALL SAMPLES_AS_trueness.csv" )),header=T)
+methods2=c("FGAS_LS", "FGAS_IOS", "FGAS_CBCT", "FHAS_LS", "FHAS_IOS", "FHAS_CBCT")
+trueness=trueness %>% mutate(methods=rep(methods2, each=20)) # add new column with unique sample ID's 
+```
+
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(irr)
+
+# 1. Helper function to calculate ICC for a specific group (FGAS or FHAS)
+get_group_icc <- function(df, group_prefix) {
+  
+  # Filter for the group (e.g., all methods starting with FGAS)
+  group_df <- df %>% 
+    filter(grepl(group_prefix, methods)) %>%
+    # Create Match_ID by extracting the number at the end of the Sample string
+    mutate(Match_ID = as.numeric(str_extract(Sample, "\\d+$")))
+  
+  # Identify numeric variables to analyze
+  vars <- group_df %>% 
+    select(where(is.numeric), -Implant.position, -Match_ID) %>% 
+    colnames()
+  
+  results <- list()
+  
+  for (v in vars) {
+    # Pivot to wide format: One column for LS, one for CBCT, one for IOS
+    # We clean the method names (e.g., "FGAS_LS" -> "LS") for cleaner pivoting
+    wide_data <- group_df %>%
+      mutate(method_short = str_remove(methods, paste0(group_prefix, "_"))) %>%
+      select(Match_ID, method_short, !!sym(v)) %>%
+      pivot_wider(names_from = method_short, values_from = !!sym(v)) %>%
+      select(-Match_ID) %>%
+      drop_na()
+    
+    # Calculate ICC: Two-way random, absolute agreement
+    # We use 'unit = "single"' because we want to know how much any one method agrees with another
+    icc_calc <- icc(wide_data, model = "twoway", type = "agreement", unit = "single")
+    
+    results[[v]] <- data.frame(
+      Group = group_prefix,
+      Variable = v,
+      ICC = round(icc_calc$value, 3),
+      Lower_CI = round(icc_calc$lbound, 3),
+      Upper_CI = round(icc_calc$ubound, 3),
+      p_value = format.pval(icc_calc$p.value, digits = 3)
+    )
+  }
+  
+  return(bind_rows(results))
+}
+
+# 2. Run the analysis for FGAS models
+fgas_icc_results <- get_group_icc(trueness, "FGAS")
+
+
+fgas_icc_results%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+# 3. Run the analysis for FHAS models
+fhas_icc_results <- get_group_icc(trueness, "FHAS")
+
+fhas_icc_results%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
