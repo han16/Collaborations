@@ -1,6 +1,9 @@
 ---
 title: "10/17/2022"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: '2022-10-17'
 ---
 
@@ -203,283 +206,62 @@ ggplot(test_data_long, aes(x=group, y=x, fill=group)) +
 
 ### pairwise comparisons 
 
-```{r, echo=F, message=F, warning=F}
-##################
-k=1
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
+
+
+
+```{r, message=F, warning=F, results='asis'}
+library(tidyverse)
+library(DT)
+library(htmltools)
+
+# List to store the tables
+all_tables <- list()
+
+numeric_vars <- colnames(trueness)[3:11]
+methods2 <- unique(trueness$methods)
+
+for (i in seq_along(numeric_vars)) {
+  var_name <- numeric_vars[i]
   
+  # 1. Generate combinations and perform tests
+  stats <- expand.grid(group1 = methods2, group2 = methods2, stringsAsFactors = FALSE) %>%
+    rowwise() %>%
+    mutate(
+      sample1 = list(trueness %>% filter(methods == group1) %>% pull(all_of(var_name))),
+      sample2 = list(trueness %>% filter(methods == group2) %>% pull(all_of(var_name))),
+      test = list(t.test(sample1, sample2)),
+      mean_diff = round(test$estimate[1] - test$estimate[2], 2),
+      CI_lower = round(test$conf.int[1], 2),
+      CI_upper = round(test$conf.int[2], 2),
+      p_raw = test$p.value
+    ) %>%
+    ungroup() %>%
+    mutate(p_adj = p.adjust(p_raw, method = "bonferroni")) %>%
+    mutate(p_adj = ifelse(p_adj < 0.001, "< 0.001", round(p_adj, 4)))
   
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-##################
-k=2
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
+  # 2. Formatting
+  final_table <- stats %>%
+    dplyr::select(group1, group2, mean_diff, CI_lower, CI_upper, p_raw, p_adj) 
   
-  
- }
+  # 3. Create the DT object with a unique ID
+  # We wrap it in a tagList item
+  all_tables[[i]] <- htmltools::tags$div(
+    htmltools::tags$h3(paste("Variable:", var_name)),
+    datatable(final_table, 
+              extensions = 'Buttons',
+              elementId = paste0("table_", i), # Critical for HTML rendering in loops
+              options = list(
+                dom = 'Blfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+              )
+    ),
+    htmltools::tags$br()
+  )
+}
 
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-
-##################
-k=3
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-##################
-k=4
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-##################
-k=5
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-##################
-k=6
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
-##################
-k=7
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-##################
-k=8
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-##################
-k=9
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-for (i in 1:length(methods2))
- for (j in 1:length(methods2))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=trueness %>% filter(methods==methods2[i])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  samplej=trueness %>% filter(methods==methods2[j])%>% dplyr::select(colnames(trueness)[2+k])%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-result=data_frame(group1=rep(methods2, each=6), group2=rep(methods2,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-          caption = paste(colnames(trueness)[2+k]),
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-
+# This is the "magic" line that prints everything to the HTML
+htmltools::tagList(all_tables)
 ```
 
 * non paired two sample t test is used 
@@ -602,298 +384,65 @@ datatable(extensions = 'Buttons',
 
 ### pairwise comparisons 
 
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[1]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[1]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[1]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
+
+
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(DT)
+library(htmltools)
+
+# Container for all HTML tables
+precision_tables <- list()
+
+# Loop through each element in the list (1 to 9)
+for (k in 1:length(precision_data_all)) {
   
+  df_current <- precision_data_all[[k]]
+  methods3 <- unique(df_current$methods)
   
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-* two sample t test is used 
-* `mean_difference` is mean difference of `group1-group2`
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[2]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[2]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[2]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
+  # 1. Generate all pairwise combinations
+  stats <- expand.grid(group1 = methods3, group2 = methods3, stringsAsFactors = FALSE) %>%
+    rowwise() %>%
+    mutate(
+      sample1 = list(df_current %>% filter(methods == group1) %>% pull(vs_distance)),
+      sample2 = list(df_current %>% filter(methods == group2) %>% pull(vs_distance)),
+      test = list(t.test(sample1, sample2)), # Non-paired t-test
+      mean_difference = round(test$estimate[1] - test$estimate[2], 2),
+      CI_lower = round(test$conf.int[1], 2),
+      CI_upper = round(test$conf.int[2], 2),
+      p_raw = test$p.value
+    ) %>%
+    ungroup()
   
+  # 2. Apply p-value adjustment (Bonferroni)
+  stats <- stats %>%
+    mutate(p_adj = p.adjust(p_raw, method = "bonferroni")) %>%
+    mutate(p_adj = ifelse(p_adj < 0.001, "< 0.001", round(p_adj, 4)))
   
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[3]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[3]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[3]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
+  # 3. Clean up repetitive group names for visual clarity
+  final_table <- stats %>%
+    dplyr::select(group1, group2, mean_difference, CI_lower, CI_upper, p_raw, p_adj) 
   
-  
- }
+  # 4. Create the Datatable and store it in the list
+  # Unique elementId is required for HTML rendering inside loops
+  precision_tables[[k]] <- htmltools::tags$div(
+    htmltools::tags$h3(paste("variable:", parameters[k])),
+    datatable(final_table, 
+              extensions = 'Buttons',
+              elementId = paste0("prec_table_", k),
+              options = list(
+                dom = 'Blfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All"))
+              )
+    ),
+    htmltools::tags$br()
+  )
+}
 
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[4]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[4]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[4]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[5]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[5]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[5]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[6]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[6]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[6]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[7]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[7]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[7]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[8]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[8]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[8]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
-```
-
-
-```{r, echo=F, message=F, warning=F, eval=T}
-p_value=numeric(); estimate=numeric(); CI_lower=numeric(); CI_upper=numeric()
-ii=0
-methods3=unique(precision_data_all[[9]]$methods)
-for (i in 1:length(methods3))
- for (j in 1:length(methods3))
-{
- #  i=1; j=2
-  ii=ii+1
-  samplei=precision_data_all[[9]] %>% filter(methods==methods3[i])%>% dplyr::select(vs_distance)%>% pull
-  samplej=precision_data_all[[9]] %>% filter(methods==methods3[j])%>% dplyr::select(vs_distance)%>% pull
-  test=t.test(samplei, samplej)  # non paired t test 
-  estimate[ii]=test$estimate[1]-test$estimate[2]  # mean difference 
-  CI_lower[ii]=test$conf.int[1]
-  CI_upper[ii]=test$conf.int[2]
-  p_value[ii]=test$p.value
-  
-  
- }
-
-
-result=data_frame(group1=rep(methods3, each=6), group2=rep(methods3,6), mean_difference=round(estimate,2),  CI_lower=round(CI_lower,2),  CI_upper=round(CI_upper,2), p_value=pvalue_adjust(p_value)) 
-result$group1[c(2:6, 8:12, 14:18, 20:24, 26:30, 32:36)]="---"
-
-result%>%
-datatable(extensions = 'Buttons',
-            options = list(dom = 'Blfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,"All"))))
+# Render all collected tables into the HTML document
+htmltools::tagList(precision_tables)
 ```
