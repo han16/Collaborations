@@ -315,7 +315,7 @@ SDF_data_tooth_type %>%
 ```
 
 
-
+* age, gender, SSC and teeth type are included in the model 
 
 👶 Age
 HR = 0.854, p = 0.046 
@@ -337,6 +337,54 @@ Tooth Type: None of the specific tooth types show a statistically significant di
 
 
 * Firth’s penalized likelihood Cox regression was used to account for monotone likelihood (zero events in the SSC group)
+
+
+```{r, message=F, warning=F}
+# Load necessary libraries
+library(dplyr)
+library(knitr)
+
+# 1. Extract results from the firth_fit object
+# We use exp() to convert coefficients to Hazard Ratios
+results_table <- data.frame(
+  Covariate = names(firth_fit$coefficients),
+  HR = exp(firth_fit$coefficients),
+  Lower_CI = firth_fit$ci.lower,
+  Upper_CI = firth_fit$ci.upper,
+  P_Value = firth_fit$prob
+)
+
+# 2. Format the table
+final_table <- results_table %>%
+  mutate(
+    # Round HR and CIs to 2 decimal places for readability
+    HR = round(HR, 2),
+    `95% CI` = paste0("(", round(Lower_CI, 2), ", ", round(Upper_CI, 2), ")"),
+    # Round P-values to 3 decimal places
+    P_Value = ifelse(P_Value < 0.001, "< 0.001", round(P_Value, 3))
+  ) %>%
+  select(Covariate, HR, `95% CI`, P_Value)
+
+coef_1st_molar <- 0.03581522
+se_1st_molar <- 0.64005957
+
+z_score <- abs(coef_1st_molar / se_1st_molar)
+p_val_wald <- 2 * (1 - pnorm(z_score))
+
+
+final_table[1,4]=round(p_val_wald,4)
+
+final_table%>%
+datatable(extensions = 'Buttons',
+          caption = "",
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+```
+
 
 
 
