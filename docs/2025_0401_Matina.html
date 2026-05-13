@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree50f5770730bff535e5743a9c6d0fa9b82b49ae9atargetblank50f5770a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree642f72d13e7a76e785096d85101e5e4808fe2c11targetblank642f72da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/50f5770730bff535e5743a9c6d0fa9b82b49ae9a" target="_blank">50f5770</a>
+<a href="https://github.com/han16/Collaborations/tree/642f72d13e7a76e785096d85101e5e4808fe2c11" target="_blank">642f72d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree50f5770730bff535e5743a9c6d0fa9b82b49ae9atargetblank50f5770a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree642f72d13e7a76e785096d85101e5e4808fe2c11targetblank642f72da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/50f5770730bff535e5743a9c6d0fa9b82b49ae9a" target="_blank">50f5770</a>.
+<a href="https://github.com/han16/Collaborations/tree/642f72d13e7a76e785096d85101e5e4808fe2c11" target="_blank">642f72d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/642f72d13e7a76e785096d85101e5e4808fe2c11/analysis/2025_0401_Matina.Rmd" target="_blank">642f72d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-05-13
+</td>
+<td>
+5/13/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/642f72d13e7a76e785096d85101e5e4808fe2c11/docs/2025_0401_Matina.html" target="_blank">642f72d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-05-13
+</td>
+<td>
+5/13/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1430,6 +1464,10 @@ colnames(ssc_event_table) &lt;- c(&quot;Failure (0)&quot;, &quot;Success (1)&quo
 
 # View the table
 ssc_event_table</code></pre>
+<pre><code>        
+         Failure (0) Success (1)
+  No SSC          95          40
+  SSC             24           0</code></pre>
 <pre class="r"><code># Fit the Cox model
 cox_fit &lt;- coxph(Surv(Time, Event) ~ Tooth_Type+Age+Sex+SSC, data = SDF_data_tooth_type) # SSC has 0 success, causing the computing issue
 # Generate forest plot

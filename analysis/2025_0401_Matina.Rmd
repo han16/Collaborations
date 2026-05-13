@@ -257,7 +257,7 @@ ggforest(cox_fit,
 ## full model, including all covariates 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 #coxph(Surv(Time, Event) ~ Tooth_Type + Age + Sex + SSC, data = SDF_data_tooth_type)
 # Create the contingency table
 ssc_event_table <- table(SDF_data_tooth_type$SSC, SDF_data_tooth_type$Event)
