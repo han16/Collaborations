@@ -82,3 +82,69 @@ datatable(extensions = 'Buttons',
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
 ```
+
+
+## updated Regression (May 14/2026)
+
+
+
+```{r, message=F, warning=F}
+
+data2=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2026\\202601\\David\\Edge-chipping for regression with 20 samples.csv", header=T, encoding = "Latin1")
+groups=colnames(data2)[seq(1, 12, b=2)]
+adjust_rsquare_d=numeric(); adjust_rsquare_dsquare=numeric() 
+confidence_interval_d=list(); confidence_interval_dsquare=list()
+p_value_d=list(); p_value_dsquare=list()
+rsquare_d=numeric(); rsquare_dsquare=numeric()
+parameter_estimate_d=list(); parameter_estimate_dsquare=list()
+for (i in 1:6)
+{
+  resp=(i-1)*2+1; pred=(i-1)*2+2
+  material=data2[,c(resp, pred)] # extract response and predictor 
+  material=cbind(material, material[,2]^2)
+  material=material[complete.cases(material), ] # 
+  reg_d=lm(material[,1]~0+material[,2]) # enforce intercept to 0 
+  reg_dsquare=lm(material[,1]~0+material[,2]+material[,3]) # enforce intercept to 0
+  
+  parameter_estimate_d[[i]]=reg_d$coefficients
+  parameter_estimate_dsquare[[i]]=reg_dsquare$coefficients
+  
+  adjust_rsquare_d[i]=summary(reg_d)$adj.r.squared  # extract adjusted R^2
+  adjust_rsquare_dsquare[i]=summary(reg_dsquare)$adj.r.squared
+  rsquare_d[i]=summary(reg_d)$r.squared
+  rsquare_dsquare[i]=summary(reg_dsquare)$r.squared
+  
+  p_value_d[[i]]=summary(reg_d)$coefficients[,4]    # extract p value for coefficients 
+  p_value_dsquare[[i]]=summary(reg_dsquare)$coefficients[,4]
+  confidence_interval_d[[i]]=confint(reg_d)   # extract confidence interval 
+  confidence_interval_dsquare[[i]]=confint(reg_dsquare)
+}
+Group=paste(rep(c("IPS.e.max.CAD.HT", "IPS.e.max.CAD.MT", "GC.Initial.HT.LiSi.blocks", "GC.Initial.LT.LiSi", "Vita.Suprinity.PC", "Celtra.Duo"), each=3), c("model1", "model2", "model2"), sep="_") 
+predictor=rep(c("d", "d", "d^2"), 6)
+adjust_rsquare=numeric(); rsquare=numeric()
+parameter_estimate=numeric()
+CI_lower=numeric(); CI_upper=numeric()
+p_value=numeric()
+for (i in 1:6)
+{  
+rsquare=c(rsquare, rsquare_d[i], rsquare_dsquare[i], "***")  
+adjust_rsquare=c(adjust_rsquare, adjust_rsquare_d[i], adjust_rsquare_dsquare[i], "***")
+
+parameter_estimate=c(parameter_estimate, parameter_estimate_d[[i]][1], parameter_estimate_dsquare[[i]][1], parameter_estimate_dsquare[[i]][2])
+
+CI_lower=c(CI_lower, confidence_interval_d[[i]][1], confidence_interval_dsquare[[i]][1,1],confidence_interval_dsquare[[i]][2,1] )
+CI_upper=c(CI_upper, confidence_interval_d[[i]][2], confidence_interval_dsquare[[i]][1,2],confidence_interval_dsquare[[i]][2,2] )
+p_value=c(p_value, p_value_d[[i]][1], p_value_dsquare[[i]][1], p_value_dsquare[[i]][2])
+}
+
+
+summary=data.frame(Group=Group, predictor=predictor, rsquare=rsquare, adjust_rsquare=adjust_rsquare, parameter_estimate=parameter_estimate,  CI_lower=CI_lower, CI_upper=CI_upper, p_value=p_value)
+
+summary%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
