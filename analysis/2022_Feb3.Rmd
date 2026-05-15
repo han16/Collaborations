@@ -17,6 +17,13 @@ set.seed(123)
 ```
 
 
+## additional analysis 
+
+
+[additional analysis](https://han16.github.io/Collaborations/2026_0103_David.html)
+
+
+
 ```{r, echo=F}
 data=read.csv("C:\\Shengtong\\Research\\AllCollaboration\\2022\\202202\\Essa\\Translucency.csv", header=T)
 translucency=data.frame(td=data$transclucency, materials=as.factor(data$materials))

@@ -238,7 +238,20 @@ for (i in seq_along(numeric_vars)) {
       mean_diff = round(test$estimate[1] - test$estimate[2], 2),
       CI_lower = round(test$conf.int[1], 2),
       CI_upper = round(test$conf.int[2], 2),
-      p_raw = test$p.value
+      p_raw = test$p.value, 
+      # Calculate power-based sample size
+      # Note: delta cannot be 0, so we use an ifelse check
+      sample_size = list(
+        if(abs(mean_diff) > 0) {
+          p_test <- power.t.test(delta = abs(mean_diff), 
+                                 sd = max(sd(unlist(sample1), na.rm=T), sd(unlist(sample2), na.rm=T)), 
+                                 power = 0.8, 
+                                 sig.level = 0.05)
+          ceiling(p_test$n)
+        } else {
+          NA # Cannot calculate if there is zero difference
+        }
+      )
     ) %>%
     ungroup() %>%
     mutate(p_adj = p.adjust(p_raw, method = "bonferroni")) %>%
@@ -246,7 +259,7 @@ for (i in seq_along(numeric_vars)) {
   
   # 2. Formatting
   final_table <- stats %>%
-    dplyr::select(group1, group2, mean_diff, CI_lower, CI_upper, p_raw, p_adj) 
+    dplyr::select(group1, group2, mean_diff, CI_lower, CI_upper, p_raw, p_adj, sample_size) 
   
   # 3. Create the DT object with a unique ID
   # We wrap it in a tagList item
@@ -418,7 +431,22 @@ for (k in 1:length(precision_data_all)) {
       mean_difference = round(test$estimate[1] - test$estimate[2], 2),
       CI_lower = round(test$conf.int[1], 2),
       CI_upper = round(test$conf.int[2], 2),
-      p_raw = test$p.value
+      p_raw = test$p.value, 
+      
+      # Calculate power-based sample size
+      # Note: delta cannot be 0, so we use an ifelse check
+      sample_size = list(
+        if(abs(mean_difference) > 0) {
+          p_test <- power.t.test(delta = abs(mean_difference), 
+                                 sd = max(sd(unlist(sample1), na.rm=T), sd(unlist(sample2), na.rm=T)), 
+                                 power = 0.9, 
+                                 sig.level = 0.05)
+          ceiling(p_test$n)
+        } else {
+          NA # Cannot calculate if there is zero difference
+        }
+      )
+      
     ) %>%
     ungroup()
   
@@ -429,7 +457,7 @@ for (k in 1:length(precision_data_all)) {
   
   # 3. Clean up repetitive group names for visual clarity
   final_table <- stats %>%
-    dplyr::select(group1, group2, mean_difference, CI_lower, CI_upper, p_raw, p_adj) 
+    dplyr::select(group1, group2, mean_difference, CI_lower, CI_upper, p_raw, p_adj, sample_size) 
   
   # 4. Create the Datatable and store it in the list
   # Unique elementId is required for HTML rendering inside loops
