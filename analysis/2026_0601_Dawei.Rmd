@@ -1,0 +1,111 @@
+---
+title: "06/03 2026"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-06-03"
+---
+
+
+
+## sample size calculation 
+
+
+
+
+```{r, message=F, warning=F}
+library(pwr)
+library(utils)
+
+# ==========================================
+# 0. INPUT YOUR RAW DATA HERE
+# ==========================================
+group_names <- c("professional", "parents", "young adults", "lay person")
+group_means <- c(2.5, 1.8, 2.0, 1.4)  # Means
+group_sds   <- c(0.2,  1,  0.75,  0.6)   # SDs
+
+alpha_level  <- 0.05                      # Significance level
+target_power <- 0.90                      # Desired statistical power
+
+
+# ==========================================
+# SCENARIO 1: All Pairwise t-tests
+# ==========================================
+# Generate all unique pairs combinations (4 groups choose 2 = 6 pairs)
+pairs_matrix <- combn(4, 2) 
+
+# Initialize vectors to store results
+comparison_labels <- c()
+effect_sizes <- c()
+n_per_group <- c()
+total_n_pair <- c()
+
+# Loop through every pair to calculate sample sizes
+# Loop through every pair to calculate sample sizes
+for(i in 1:ncol(pairs_matrix)) {
+  idx1 <- pairs_matrix[1, i]
+  idx2 <- pairs_matrix[2, i]
+  
+  # Fetch parameters for the pair
+  m1  <- group_means[idx1]
+  m2  <- group_means[idx2]
+  sd1 <- group_sds[idx1]
+  sd2 <- group_sds[idx2]
+  
+  # 1. Calculate pooled standard deviation
+  pooled_sd <- sqrt((sd1^2 + sd2^2) / 2)
+  
+  # 2. Calculate Cohen's d
+  cohens_d <- abs(m1 - m2) / pooled_sd
+  
+  # 3. Calculate sample size (Handle cases where mean difference is 0)
+  if (cohens_d > 0) {
+    ttest_res <- pwr.t.test(d = cohens_d, 
+                            sig.level = alpha_level, 
+                            power = target_power, 
+                            type = "two.sample", 
+                            alternative = "two.sided")
+    req_n <- ceiling(ttest_res$n)
+  } else {
+    req_n <- Inf # Impossible to detect an exact 0 difference
+  }
+  
+  # Store results
+  comparison_labels[i] <- paste(group_names[idx1], "vs", group_names[idx2])
+  effect_sizes[i]      <- round(cohens_d, 3)
+  n_per_group[i]       <- req_n
+  total_n_pair[i]      <- req_n * 2
+}
+
+# Combine results into a structured data frame
+t_test_summary <- data.frame(
+  Comparison = comparison_labels,
+  Effect_Size_d = effect_sizes,
+  N_Per_Group = n_per_group,
+  Total_N_For_Pair = total_n_pair
+)
+
+t_test_summary
+```
+
+
+
+```{r, message=F, warning=F}
+# Calculate overall grand mean and pooled variance manually
+grand_mean <- mean(group_means)
+pooled_var <- mean(group_sds^2)
+
+# Calculate the Cohen's f effect size for ANOVA
+# Formula: f = sqrt( Variance_of_means / Pooled_variance )
+var_means <- mean((group_means - grand_mean)^2)
+cohens_f  <- sqrt(var_means / pooled_var)
+
+# Calculate sample size for ANOVA
+anova_res <- pwr.anova.test(k = 4, f = cohens_f, sig.level = alpha_level, power = target_power)
+
+cat("=== SCENARIO 2: One-way ANOVA (4 Groups) Alternative ===\n")
+cat("Calculated Effect Size (Cohen's f):", round(cohens_f, 3), "\n")
+cat("Required sample size PER GROUP for ANOVA:", ceiling(anova_res$n), "\n")
+cat("Total sample size across all 4 groups:", ceiling(anova_res$n) * 4, "\n")
+```

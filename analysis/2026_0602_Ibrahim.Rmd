@@ -1,0 +1,38 @@
+---
+title: "clickers eval"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-06-05"
+---
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+```
+
+
+
+
+```{r, echo=F, message=F, warning=F}
+data=as_tibble(read_xlsx(file.path(root, "..\\2026\\202606\\Ibrahim\\Pre and Post Clickers.xlsx" )),header=T)
+```
+
+
+```{r, message=F, warning=F}
+summary(data$`Pre clickers/10`)
+summary(data$`Post clickers/10`)
+```
+
+
+```{r, message=F, warning=F}
+t.test(data$`Pre clickers/10`, data$`Post clickers/10`, paired = T)
+```
+* average grade, pre-clicker: 5.89, post clicker: 8.47
+
+* the grades of post clicker is 2.57 higher than pre-clicker, with p value less than $10^{-16}$
