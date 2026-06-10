@@ -1,0 +1,495 @@
+---
+title: "06/10 2026"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-06-10"
+---
+
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+path="C:/Shengtong/Research/AllCollaboration"
+```
+
+
+
+```{r, message=F, warning=F, results='hide'}
+ 
+#thesis_data=multiplesheets(paste0(path, "/2026/202606/Sarah/plain Thesis Data.xlsx"))
+#save(thesis_data, file=paste0(path, "/2026/202606/Sarah/thesis_data.RData"))
+load(paste0(path, "/2026/202606/Sarah/thesis_data.RData"))
+names(thesis_data)
+```
+
+
+## summary statistics 
+
+
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# 1. Clean structure & create variable labels
+timepoints  <- as.character(thesis_data$`Alveolar Bone height`[1, ])
+clean_rows  <- thesis_data$`Alveolar Bone height`[-1, ] %>% fill(1, .direction = "down")
+clean_rows$Variable <- paste(clean_rows[[1]], clean_rows[[2]], sep = "_")
+
+# 2. Extract and compute T1
+t1_indices <- which(timepoints == "T1")
+t1_summary <- clean_rows[, c(ncol(clean_rows), t1_indices)] %>%
+  pivot_longer(-Variable, names_to = "ID", values_to = "Val") %>%
+  mutate(Val = as.numeric(Val)) %>%
+  group_by(Variable) %>%
+  summarise(T1_N = sum(!is.na(Val)), T1_Mean = round(mean(Val, na.rm=T),4), T1_SD = round(sd(Val, na.rm=T),4), .groups = "drop")
+
+# 3. Extract and compute T2
+t2_indices <- which(timepoints == "T2")
+t2_summary <- clean_rows[, c(ncol(clean_rows), t2_indices)] %>%
+  pivot_longer(-Variable, names_to = "ID", values_to = "Val") %>%
+  mutate(Val = as.numeric(Val)) %>%
+  group_by(Variable) %>%
+  summarise(T2_N = sum(!is.na(Val)), T2_Mean = round(mean(Val, na.rm=T),4), T2_SD = round(sd(Val, na.rm=T),4), .groups = "drop")
+
+# 4. Merge them together into an elegant master table
+thesis_final_table <- left_join(t1_summary, t2_summary, by = "Variable")
+thesis_final_table= thesis_final_table %>% mutate(percentage_change=round((T2_Mean/T1_Mean-1)*100,4))
+
+# View the final output
+thesis_final_table%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+* percentage_change=(T2_Mean-T1_Mean-1)*100% 
+
+
+```{r, message=F, warning=F}
+
+thickness_data <- thesis_data$`Alveolar bone thickness`
+
+# ==============================================================================
+# 1. CLEAN UP THE MERGED ROWS (Fill Downward)
+# ==============================================================================
+# Save the timepoints row exactly like before
+timepoints <- as.character(thickness_data[1, ])
+
+# Fill down both column 1 (Jaw) AND column 2 (Site) to fix the empty cells
+cleaned_rows <- thickness_data[-1, ] %>% 
+  fill(1, .direction = "down") %>% 
+  fill(2, .direction = "down")
+
+# Combine all 3 columns into a distinct variable identifier
+# Result format: "Maxillary_UR4 buccal_3mm"
+cleaned_rows$Variable <- paste(cleaned_rows[[1]], cleaned_rows[[2]], cleaned_rows[[3]], sep = "_")
+
+
+# ==============================================================================
+# 2. CALCULATE SUMMARY STATISTICS FOR T1
+# ==============================================================================
+t1_indices <- which(timepoints == "T1")
+
+t1_summary <- cleaned_rows[, c(ncol(cleaned_rows), t1_indices)] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T1_Sample_Size = sum(!is.na(Measurement)),
+    T1_Mean        = round(mean(Measurement, na.rm = TRUE),4),
+    T1_SD          = round(sd(Measurement, na.rm = TRUE),4),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 3. CALCULATE SUMMARY STATISTICS FOR T2
+# ==============================================================================
+t2_indices <- which(timepoints == "T2")
+
+t2_summary <- cleaned_rows[, c(ncol(cleaned_rows), t2_indices)] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T2_Sample_Size = sum(!is.na(Measurement)),
+    T2_Mean        = round(mean(Measurement, na.rm = TRUE),4),
+    T2_SD          = round(sd(Measurement, na.rm = TRUE),4),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 4. MERGE INTO A FINAL COMBINED REPORT
+# ==============================================================================
+thickness_final_report <- left_join(t1_summary, t2_summary, by = "Variable")
+
+thickness_final_report=thickness_final_report %>% mutate(percentage_change=round((T2_Mean/T1_Mean-1)*100,4))
+
+thickness_final_report %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+
+```{r, message=F, warning=F}
+ resorption_data <- thesis_data$`Root Resorption`
+
+# ==============================================================================
+# 1. CLEAN UP MULTI-LAYERED MISSING VALUES (Fill Downward)
+# ==============================================================================
+# Extract row 1 to map out where "T1" and "T2" columns sit
+timepoints <- as.character(resorption_data[1, ])
+
+# Remove row 1 labels, then fill down Column 1 (Jaw) and Column 2 (Tooth/Site)
+cleaned_rows <- resorption_data[-1, ] %>% 
+  fill(1, .direction = "down") %>% 
+  fill(2, .direction = "down")
+
+# Combine all 3 columns into a single descriptive variable identifier
+# Example Result: "Maxillary_UR4_buccal root"
+cleaned_rows$Variable <- paste(cleaned_rows[[1]], cleaned_rows[[2]], cleaned_rows[[3]], sep = "_")
+
+
+# ==============================================================================
+# 2. RUN CALCULATIONS FOR T1
+# ==============================================================================
+t1_indices <- which(timepoints == "T1")
+
+t1_summary <- cleaned_rows[, c(ncol(cleaned_rows), t1_indices)] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T1_Sample_Size = sum(!is.na(Measurement)),
+    T1_Mean        = round(mean(Measurement, na.rm = TRUE),4),
+    T1_SD          = round(sd(Measurement, na.rm = TRUE),4),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 3. RUN CALCULATIONS FOR T2
+# ==============================================================================
+t2_indices <- which(timepoints == "T2")
+
+t2_summary <- cleaned_rows[, c(ncol(cleaned_rows), t2_indices)] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T2_Sample_Size = sum(!is.na(Measurement)),
+    T2_Mean        = round(mean(Measurement, na.rm = TRUE),4),
+    T2_SD          = round(sd(Measurement, na.rm = TRUE),4),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 4. MASTER MERGE FOR THESIS SUMMARY TABLE
+# ==============================================================================
+resorption_final_report <- left_join(t1_summary, t2_summary, by = "Variable")
+
+resorption_final_report=resorption_final_report %>% mutate(percentage_change=round((T2_Mean/T1_Mean-1)*100,4))
+# Output the complete table
+
+resorption_final_report %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, message=F, warning=F}
+ intrusion_data <- thesis_data$Intrusion
+
+# ==============================================================================
+# 1. CLEAN UP MULTI-LAYERED MISSING VALUES (Fill Downward)
+# ==============================================================================
+# Extract row 1 to map out where "T1" and "T2" columns sit
+timepoints <- as.character(intrusion_data[1, ])
+
+# Remove row 1 labels, then fill down Column 1 (Jaw)
+cleaned_rows <- intrusion_data[-1, ] %>% 
+  fill(1, .direction = "down")
+
+# Combine the 2 columns into a single descriptive variable identifier
+# Example Result: "Maxillary_U4"
+cleaned_rows$Variable <- paste(cleaned_rows[[1]], cleaned_rows[[2]], sep = "_")
+
+
+# ==============================================================================
+# 2. RUN CALCULATIONS FOR T1
+# ==============================================================================
+t1_indices <- which(timepoints == "T1")
+
+t1_summary <- cleaned_rows[, c(ncol(cleaned_rows), t1_indices), drop = FALSE] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T1_Sample_Size = sum(!is.na(Measurement)),
+    T1_Mean        = round(mean(Measurement, na.rm = TRUE),4),
+    T1_SD          = round(sd(Measurement, na.rm = TRUE),4),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 3. RUN CALCULATIONS FOR T2
+# ==============================================================================
+t2_indices <- which(timepoints == "T2")
+
+t2_summary <- cleaned_rows[, c(ncol(cleaned_rows), t2_indices), drop = FALSE] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T2_Sample_Size = sum(!is.na(Measurement)),
+    T2_Mean        = round(mean(Measurement, na.rm = TRUE),4), 
+    T2_SD          = round(sd(Measurement, na.rm = TRUE),4),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 4. MASTER MERGE FOR THESIS SUMMARY TABLE
+# ==============================================================================
+intrusion_final_report <- left_join(t1_summary, t2_summary, by = "Variable")
+intrusion_final_report = intrusion_final_report %>% mutate(percentage_change=round((T2_Mean/T1_Mean-1)*100,4))
+# Output the complete table
+intrusion_final_report %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+
+```{r, message=F, warning=F}
+
+ tipping_data <- thesis_data$Tipping
+
+# ==============================================================================
+# 1. CLEAN UP MULTI-LAYERED MISSING VALUES (Fill Downward)
+# ==============================================================================
+# Extract row 1 to map out where "T1" and "T2" columns sit
+timepoints <- as.character(tipping_data[1, ])
+
+# Remove row 1 labels, then fill down Column 1 (Tooth Group)
+cleaned_rows <- tipping_data[-1, ] %>% 
+  fill(1, .direction = "down")
+
+# Combine the 2 columns into a single descriptive variable identifier
+# Example Result: "U4s_lingual cusp to lingual cusp"
+cleaned_rows$Variable <- paste(cleaned_rows[[1]], cleaned_rows[[2]], sep = "_")
+
+
+# ==============================================================================
+# 2. RUN CALCULATIONS FOR T1
+# ==============================================================================
+t1_indices <- which(timepoints == "T1")
+
+t1_summary <- cleaned_rows[, c(ncol(cleaned_rows), t1_indices), drop = FALSE] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T1_Sample_Size = sum(!is.na(Measurement)),
+    T1_Mean        = mean(Measurement, na.rm = TRUE),
+    T1_SD          = sd(Measurement, na.rm = TRUE),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 3. RUN CALCULATIONS FOR T2
+# ==============================================================================
+t2_indices <- which(timepoints == "T2")
+
+t2_summary <- cleaned_rows[, c(ncol(cleaned_rows), t2_indices), drop = FALSE] %>%
+  pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "Measurement") %>%
+  mutate(Measurement = as.numeric(Measurement)) %>%
+  group_by(Variable) %>%
+  summarise(
+    T2_Sample_Size = sum(!is.na(Measurement)),
+    T2_Mean        = round(mean(Measurement, na.rm = TRUE),4),
+    T2_SD          = round(sd(Measurement, na.rm = TRUE),4),
+    .groups        = "drop"
+  )
+
+
+# ==============================================================================
+# 4. MASTER MERGE FOR THESIS SUMMARY TABLE
+# ==============================================================================
+tipping_final_report <- left_join(t1_summary, t2_summary, by = "Variable")
+tipping_final_report=tipping_final_report %>% mutate(percentage_change=round((T2_Mean/T1_Mean-1)*100,4))
+# Output the complete table
+tipping_final_report%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## T1 vs T2 comparison 
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# Create an empty list to store final results for your thesis report
+thesis_statistical_reports <- list()
+
+# ==============================================================================
+# FUNCTION: Run Paired T-Tests on Wide Data
+# ==============================================================================
+# This reusable function handles the distinct layouts of your tabs dynamically.
+analyze_tab_paired <- function(data_table, tab_name, num_id_cols) {
+  
+  #data_table = thesis_data$`Alveolar Bone height`
+  #num_id_cols=2
+  # 1. Capture the timepoints from row 1 and remove it from the dataset
+  timepoints <- as.character(data_table[1, ])
+  clean_rows <- data_table[-1, ]
+  
+  # 2. Fill downward to fix missing labels in the descriptive columns
+  for (i in 1:num_id_cols) {
+    clean_rows <- clean_rows %>% fill(!!sym(names(clean_rows)[i]), .direction = "down")
+  }
+  
+  # 3. Build a unified Variable Name from the descriptive columns
+  clean_rows <- clean_rows %>% 
+    unite("Variable", 1:num_id_cols, sep = "_", remove = FALSE)
+  
+  # 4. Separate T1 and T2 columns using our row 1 map
+  t1_indices <- which(timepoints == "T1")
+  t2_indices <- which(timepoints == "T2")
+  
+  # Re-isolate patient IDs for matching
+  patient_ids <- names(clean_rows)
+  
+  # Pivot T1 data to long format
+  t1_long <- clean_rows[, c("Variable", patient_ids[t1_indices+1])] %>%
+    pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "T1_Val") %>%
+    mutate(T1_Val = suppressWarnings(as.numeric(T1_Val))) # Cleaned here
+  
+  # Pivot T2 data to long format
+  t2_long <- clean_rows[, c("Variable", patient_ids[t2_indices+1])] %>%
+    pivot_longer(cols = -Variable, names_to = "Patient_ID", values_to = "T2_Val") %>%
+    mutate(T2_Val = suppressWarnings(as.numeric(T2_Val))) # Cleaned here
+  t2_long$Patient_ID=t1_long$Patient_ID
+  
+  # 5. Merge T1 and T2 by Variable AND Patient_ID to guarantee perfect pairs
+  paired_data <- inner_join(t1_long, t2_long, by = c("Variable", "Patient_ID")) %>%
+    filter(!is.na(T1_Val) & !is.na(T2_Val)) # Remove incomplete pairs
+  
+  # 6. Group by each unique site/tooth and run the Paired T-test
+  stats_summary <- paired_data %>%
+    group_by(Variable) %>%
+    summarise(
+      Pairs_Count   = n(),
+      Mean_T1       = mean(T1_Val),
+      Mean_T2       = mean(T2_Val),
+      Mean_Diff     = mean(T2_Val - T1_Val),
+      # Run t-test safely if there are enough pairs and variance exists
+      T_Statistic   = if(n() > 1 && var(T2_Val - T1_Val) > 0) t.test(T2_Val, T1_Val, paired = TRUE)$statistic else NA,
+      P_Value       = if(n() > 1 && var(T2_Val - T1_Val) > 0) t.test(T2_Val, T1_Val, paired = TRUE)$p.value else NA,
+      .groups       = "drop"
+    ) %>%
+    mutate(
+      Significance = case_when(
+        P_Value < 0.001 ~ "***",
+        P_Value < 0.01  ~ "**",
+        P_Value < 0.05  ~ "*",
+        TRUE            ~ "ns"
+      )
+    )
+  
+  return(stats_summary)
+}
+
+```
+
+
+
+
+```{r, message=F, warning=F}
+
+# ==============================================================================
+# EXECUTE ANALYSIS FOR EACH SPECIFIC TAB
+# ==============================================================================
+
+# Tab 1: Alveolar Bone Height (2 columns define the variable)
+thesis_statistical_reports[["Alveolar_Bone_Height"]] <- analyze_tab_paired(
+  data_table = thesis_data$`Alveolar Bone height`,
+  num_id_cols = 2
+)
+
+# Tab 2: Alveolar Bone Thickness (3 columns define the variable)
+thesis_statistical_reports[["Alveolar_Bone_Thickness"]] <- analyze_tab_paired(
+  data_table = thesis_data$`Alveolar bone thickness`, 
+  num_id_cols = 3
+)
+
+# Tab 3: Root Resorption (3 columns define the variable)
+thesis_statistical_reports[["Root_Resorption"]] <- analyze_tab_paired(
+  data_table = thesis_data$`Root Resorption`, 
+  num_id_cols = 3
+)
+
+# Tab 4: Intrusion (2 columns define the variable)
+thesis_statistical_reports[["Intrusion"]] <- analyze_tab_paired(
+  data_table = thesis_data$Intrusion, 
+  num_id_cols = 2
+)
+
+# Tab 5: Tipping (2 columns define the variable)
+thesis_statistical_reports[["Tipping"]] <- analyze_tab_paired(
+  data_table = thesis_data$Tipping, 
+  num_id_cols = 2
+)
+
+
+# ==============================================================================
+# VIEW THE RESULTS
+# ==============================================================================
+# Example: Print the statistical table for Root Resorption
+print("=== ROOT RESORPTION PAIRED T-TEST RESULTS ===")
+print(thesis_statistical_reports[["Root_Resorption"]], width = Inf)
+
+# Example: Print the statistical table for Tipping
+print("=== TIPPING PAIRED T-TEST RESULTS ===")
+print(thesis_statistical_reports[["Tipping"]], width = Inf)
+```
+
+
+## correlation analysis 
+
