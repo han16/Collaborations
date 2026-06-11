@@ -416,22 +416,32 @@ analyze_tab_paired <- function(data_table, tab_name, num_id_cols) {
     group_by(Variable) %>%
     summarise(
       Pairs_Count   = n(),
-      Mean_T1       = mean(T1_Val),
-      Mean_T2       = mean(T2_Val),
-      Mean_Diff     = mean(T2_Val - T1_Val),
+      Mean_T1       = round(mean(T1_Val),4),
+      Mean_T2       = round(mean(T2_Val),4),
+      Mean_Diff     = round(mean(T2_Val - T1_Val),4),
       # Run t-test safely if there are enough pairs and variance exists
-      T_Statistic   = if(n() > 1 && var(T2_Val - T1_Val) > 0) t.test(T2_Val, T1_Val, paired = TRUE)$statistic else NA,
+   #   T_Statistic   = if(n() > 1 && var(T2_Val - T1_Val) > 0) t.test(T2_Val, T1_Val, paired = TRUE)$statistic else NA,
       P_Value       = if(n() > 1 && var(T2_Val - T1_Val) > 0) t.test(T2_Val, T1_Val, paired = TRUE)$p.value else NA,
       .groups       = "drop"
     ) %>%
+    # --- NEW: MULTIPLE COMPARISON CORRECTIONS ---
     mutate(
-      Significance = case_when(
-        P_Value < 0.001 ~ "***",
-        P_Value < 0.01  ~ "**",
-        P_Value < 0.05  ~ "*",
-        TRUE            ~ "ns"
+      # 'fdr' (or 'BH') controls the False Discovery Rate (Highly recommended for clinical/dental data)
+      P_Adj_FDR        = p.adjust(P_Value, method = "fdr"),
+      
+      # 'bonferroni' is strict and multiplies p-values by the number of tests in this tab
+     # P_Adj_Bonferroni = p.adjust(P_Value, method = "bonferroni")
+    ) %>%
+    # Update significance markers to read off the more reliable FDR adjusted p-value
+    mutate(
+      Significance_FDR = case_when(
+        P_Adj_FDR < 0.001 ~ "***",
+        P_Adj_FDR < 0.01  ~ "**",
+        P_Adj_FDR < 0.05  ~ "*",
+        TRUE              ~ "ns"
       )
     )
+    
   
   return(stats_summary)
 }
@@ -439,6 +449,14 @@ analyze_tab_paired <- function(data_table, tab_name, num_id_cols) {
 ```
 
 
+* p value thresholds: 
+
+P_Value < 0.001 ~ "***",
+P_Value < 0.01  ~ "**",
+P_Value < 0.05  ~ "*",
+        
+        
+        
 
 
 ```{r, message=F, warning=F}
@@ -478,16 +496,60 @@ thesis_statistical_reports[["Tipping"]] <- analyze_tab_paired(
 )
 
 
+
+```
+
+
+
+```{r, message=F, warning=F}
+
 # ==============================================================================
 # VIEW THE RESULTS
 # ==============================================================================
-# Example: Print the statistical table for Root Resorption
-print("=== ROOT RESORPTION PAIRED T-TEST RESULTS ===")
-print(thesis_statistical_reports[["Root_Resorption"]], width = Inf)
+thesis_statistical_reports[["Alveolar_Bone_Height"]]%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
 
-# Example: Print the statistical table for Tipping
-print("=== TIPPING PAIRED T-TEST RESULTS ===")
-print(thesis_statistical_reports[["Tipping"]], width = Inf)
+thesis_statistical_reports[["Alveolar_Bone_Thickness"]]%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+thesis_statistical_reports[["Root_Resorption"]]%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+thesis_statistical_reports[["Intrusion"]]%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+thesis_statistical_reports[["Tipping"]]%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
 ```
 
 
