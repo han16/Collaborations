@@ -149,6 +149,114 @@ datatable(extensions = 'Buttons',
 
 
 
+## workflow 1
+
+
+
+```{r, message=F, warning=F}
+data_workflow1 <- data %>% filter(Workflow==1)  %>%
+  mutate(
+    patient = sub("_.*", "", Sample),  # D01, D02, ...
+    patient = factor(patient),
+    Position = factor(Position)        # treat positions as fixed categories
+  )
+library(lme4)
+library(Matrix)
+library(performance)
+
+m_angle <- lmer(
+  Angle ~ Position + (1 | patient),
+  data = data_workflow1
+)
+isSingular(m_angle)        # TRUE/FALSE
+summary(m_angle)
+VarCorr(m_angle)           # shows variance of random effects
+
+model_performance(m_angle)
+```
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+library(broom.mixed)
+library(lmerTest)
+
+outcomes <- c(
+  "Angle",
+  "3D Deviation at Crest",
+  "Mesial-Distal Deviation at Crest",
+  "Vestibular-Oral Deviation at Crest",
+  "Vertical Deviation at Crest",
+  "3D Deviation at Tip",
+  "Mesial-Distal Deviation at Tip",
+  "Vestibular-Oral Deviation at Tip",
+  "Vertical Deviation at Tip",
+  "Vertica Deviation as Total"
+)
+
+results_list <- lapply(outcomes, function(yvar) {
+  # FIX: Wrap yvar in backticks so R accepts numbers and spaces in column names
+  formula_str <- sprintf("`%s` ~ Position + (1 | patient)", yvar)
+  
+  # Fit LMM with lmerTest to get p-values
+  mod <- lmer(as.formula(formula_str), data = data_workflow1)
+  
+  # Fixed effects with p-values
+  fe <- broom.mixed::tidy(mod, effects = "fixed") %>%
+    select(term, estimate, std.error, statistic, p.value) %>%
+    mutate(
+      estimate = round(estimate, 4),
+      std.error = round(std.error, 4),
+      statistic = round(statistic, 4),
+      p.value = round(p.value, 4),
+      outcome = yvar
+    )
+  
+  # Random effects variance
+  re <- as.data.frame(lme4::VarCorr(mod)) %>%
+    select(grp, var1, vcov) %>%
+    rename(Group = grp, RandomEffect = var1, Variance = vcov) %>%
+    mutate(
+      Variance = round(Variance, 4),
+      outcome = yvar
+    )
+  
+  list(fixed = fe, random = re)
+})
+
+
+fixed_table <- do.call(rbind, lapply(results_list, `[[`, "fixed")) %>%
+  select(outcome, term, estimate, std.error, statistic, p.value)
+
+fixed_table%>%
+datatable(extensions = 'Buttons',
+          caption = "fixed effect", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+random_table <- do.call(rbind, lapply(results_list, `[[`, "random")) %>%
+  select(outcome, Group, RandomEffect, Variance)
+
+random_table%>%
+datatable(extensions = 'Buttons',
+          caption = "random effect", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
 ## workflow 3
 
 
