@@ -1,0 +1,91 @@
+---
+title: "6/17 2026"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-06-17"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+
+library(irr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
+```
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+ #install.packages("powerMediation")
+library(powerMediation)
+
+# Example: Calculate N needed for an Odds Ratio of 2.0
+# Assuming baseline event rate is 10% (0.1), Power = 80%, Alpha = 5%
+# And an R2 of 0.2 with other covariates
+size_needed <- SSizeLogisticCon(
+  p1 = 0.1,          # Baseline probability of event
+  OR = 2.0,          # Target Odds Ratio
+  alpha = 0.05,      # Significance level
+  power = 0.80      # Desired power
+  #r2 = 0.2           # Correlation with other predictors
+)
+
+print(size_needed)
+```
+
+```{r, message=F, warning=F}
+hsieh_logistic_size <- function(p0, OR, alpha = 0.05, power, r2 = 0) {
+  # Get standard normal distribution Z-scores
+  z_alpha <- qnorm(1 - alpha / 2)
+  z_beta  <- qnorm(power)
+  
+  # Calculate baseline sample size for one variable (N1)
+  numerator <- (z_alpha + z_beta)^2
+  denominator <- p0 * (1 - p0) * (log(OR))^2
+  n1 <- numerator / denominator
+  
+  # Apply multivariable inflation adjustment (1 / (1 - R2))
+  n_total <- n1 / (1 - r2)
+  
+  return(ceiling(n_total)) # Round up to the next whole person
+}
+
+#hsieh_logistic_size(p0 = 0.1, OR = 2.0, alpha = 0.05, power = 0.80, r2 = 0.2)
+# 2. Run the sequence from 10% to 90% prevalence 
+# (Using an example Odds Ratio of 2.0 and covariate R2 of 0.20)
+p0_sequence <- seq(0.1, 0.9, by = 0.1)
+
+sample_sizes <- hsieh_logistic_size(
+  p0 = p0_sequence, 
+  OR = 2.0, 
+  alpha = 0.05, 
+  power = 0.90, 
+  r2 = 0.4
+)
+
+# 3. Combine into a neat summary table
+results_table <- data.frame(
+  Baseline_Prevalence = p0_sequence,
+  Total_Sample_Size_Needed = sample_sizes
+)
+
+results_table %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
