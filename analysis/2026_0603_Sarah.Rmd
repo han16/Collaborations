@@ -553,5 +553,456 @@ datatable(extensions = 'Buttons',
 ```
 
 
-## correlation analysis 
+## plots 
 
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# ==============================================================================
+# 1. SEPARATE JAW AND RESHAPE DATA FOR PLOTTING
+# ==============================================================================
+plot_data <- thesis_statistical_reports[["Alveolar_Bone_Height"]] %>%
+  # Separate "Mandibular_LL4 buccal" into Jaw="Mandibular" and Site="LL4 buccal"
+  separate(Variable, into = c("Jaw", "Site"), sep = "_", extra = "merge") %>%
+  
+  # Reshape Mean_T1 and Mean_T2 into a long format for side-by-side bars
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2), 
+    names_to = "Timepoint", 
+    values_to = "Mean_Value"
+  ) %>%
+  
+  # Clean up the Legend labels
+  mutate(Timepoint = factor(Timepoint, levels = c("Mean_T1", "Mean_T2"), labels = c("T1", "T2")))
+
+
+# ==============================================================================
+# 2. CALCULATE STAR POSITION HEIGHTS
+# ==============================================================================
+p_labels <- plot_data %>%
+  group_by(Jaw, Site, Significance_FDR) %>%
+  summarise(
+    Max_Height = max(Mean_Value),
+    .groups = "drop"
+  )
+
+
+# ==============================================================================
+# 3. GENERATE THE GGPLOT (HORIZONTAL WORKFLOW)
+# ==============================================================================
+ggplot(plot_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
+  # Draw side-by-side bars
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7, color = "black", linewidth = 0.3) +
+  
+  # Add ONLY the Significance stars/ns directly above the bars
+  geom_text(
+    data = p_labels,
+    aes(x = Site, y = Max_Height + 0.2, label = Significance_FDR), 
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.5, 
+    fontface = "bold"
+  ) +
+  
+  # FIX: Set nrow = 1 so Mandibular and Maxillary sit side-by-side horizontally
+  facet_wrap(~Jaw, nrow = 1, scales = "free_x") +
+  
+  # Cohesive thesis color palette
+  scale_fill_manual(values = c("T1" = "#A0C4FF", "T2" = "#FFADAD")) +
+  
+  # Axis Labels
+  labs(
+    x = "Measurement Site / Tooth Structure",
+    y = "Mean Alveolar Bone Height (mm)",
+    fill = "Timepoint"
+  ) +
+  
+  # Professional theme adjustments
+  theme_bw(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 9),
+    strip.background = element_rect(fill = "#F0F0F0", color = "black"),
+    strip.text = element_text(face = "bold", size = 12),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = "top"
+  )
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# ==============================================================================
+# 1. ADVANCED STRING SEPARATION & DATA PREPARATION
+# ==============================================================================
+cleaned_thickness_data <- thesis_statistical_reports[["Alveolar_Bone_Thickness"]] %>%
+  # Separate depth (e.g., "Mandibular_LL4 buccal_3mm" -> "Mandibular_LL4 buccal" & "3mm")
+  separate(Variable, into = c("Base_Variable", "Depth"), sep = "_(?=[0-9])", extra = "merge") %>%
+  
+  # Separate Jaw from tooth code (e.g., "Mandibular_LL4 buccal" -> "Mandibular" & "LL4 buccal")
+  separate(Base_Variable, into = c("Jaw", "Tooth_Site"), sep = "_", extra = "merge") %>%
+  
+  # Extract the Quadrant identifier ("LL", "LR", "UL", "UR")
+  mutate(
+    Quadrant_Code = substr(Tooth_Site, 1, 2),
+    Graph_Group = paste0(Jaw, "_", Quadrant_Code),
+    
+    # Clean up the X-axis label by removing redundant Quadrant letters (e.g., "LL4 buccal" -> "4 buccal")
+    Site_Label = str_replace(Tooth_Site, "^[A-Z]{2}", "")
+  ) %>%
+  
+  # Reshape T1 and T2 columns into long format for side-by-side bars
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2), 
+    names_to = "Timepoint", 
+    values_to = "Mean_Value"
+  ) %>%
+  mutate(Timepoint = factor(Timepoint, levels = c("Mean_T1", "Mean_T2"), labels = c("T1", "T2")))
+
+
+# ==============================================================================
+# 2. CALCULATE STAR POSITION HEIGHTS
+# ==============================================================================
+p_labels_thickness <- cleaned_thickness_data %>%
+  group_by(Graph_Group, Site_Label, Depth, Significance_FDR) %>%
+  summarise(
+    Max_Height = max(Mean_Value),
+    .groups = "drop"
+  )
+
+
+# ==============================================================================
+# 3. LOOP AND GENERATE THE 4 INDIVIDUAL PLOTS
+# ==============================================================================
+target_graphs <- c("Mandibular_LL", "Mandibular_LR", "Maxillary_UL", "Maxillary_UR")
+thickness_plots <- list()
+
+for (current_graph in target_graphs) {
+  
+  # Filter data for this specific quadrant loop iteration
+  subset_plot_data <- cleaned_thickness_data %>% filter(Graph_Group == current_graph)
+  subset_p_labels  <- p_labels_thickness %>% filter(Graph_Group == current_graph)
+  
+  # Construct the standalone figure using native ggplot2 faceting for structural layout
+  thickness_plots[[current_graph]] <- ggplot(subset_plot_data, aes(x = Depth, y = Mean_Value, fill = Timepoint)) +
+    # Draw side-by-side bars for T1/T2
+    geom_bar(
+      stat = "identity", 
+      position = position_dodge(width = 0.8), 
+      width = 0.7, 
+      color = "black", 
+      linewidth = 0.3
+    ) +
+    
+    # Float significance stars safely over the depth intervals
+    geom_text(
+      data = subset_p_labels,
+      aes(x = Depth, y = Max_Height + 0.15, label = Significance_FDR),
+      inherit.aes = FALSE,
+      vjust = 0,
+      size = 3.5,
+      fontface = "bold"
+    ) +
+    
+    # FIX: Facet by Site_Label to group 3mm, 6mm, 9mm cleanly under each tooth type!
+    facet_wrap(~Site_Label, scales = "free_x", strip.position = "bottom") +
+    
+    # Thesis coloring setup
+    scale_fill_manual(values = c("T1" = "#A0C4FF", "T2" = "#FFADAD")) +
+    
+    # Custom titles labeling each figure automatically
+    labs(
+      title = paste("Alveolar Bone Thickness Changes —", str_replace(current_graph, "_", " ")),
+      x = "Measurement Depth (grouped by Tooth Location)",
+      y = "Mean Bone Thickness (mm)",
+      fill = "Timepoint"
+    ) +
+    
+    # Clean professional engineering theme elements
+    theme_bw(base_size = 11) +
+    theme(
+      plot.title = element_text(face = "bold", size = 13, hjust = 0.5),
+      axis.text.x = element_text(size = 9, color = "black"),
+      
+      # Style the sub-labels (e.g., "4 buccal") to sit cleanly below the depth measurements
+      strip.background = element_blank(),
+      strip.placement = "outside",
+      strip.text = element_text(face = "bold", size = 10, vjust = 1),
+      
+      panel.spacing = unit(0.5, "lines"), # Controls spacing between tooth clusters
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor = element_blank(),
+      legend.position = "top"
+    )
+}
+thickness_plots[["Mandibular_LL"]]
+thickness_plots[["Mandibular_LR"]]
+thickness_plots[["Maxillary_UL"]]
+thickness_plots[["Maxillary_UR"]]
+```
+
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# ==============================================================================
+# 1. CLEAN AND SHAPE ROOT RESORPTION DATA
+# ==============================================================================
+resorption_data <- thesis_statistical_reports[["Root_Resorption"]] %>%
+  # Split safely at the first underscore that precedes an uppercase letter or number
+  separate(Variable, into = c("Jaw", "Site"), sep = "_(?=[A-Z0-9])", extra = "merge") %>%
+  
+  # Clean up any leftover formatting underscores in the tooth name strings for readability
+  mutate(Site = str_replace_all(Site, "_", " ")) %>%
+  
+  # Reshape columns into a long layout for side-by-side comparison bars
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2), 
+    names_to = "Timepoint", 
+    values_to = "Mean_Value"
+  ) %>%
+  mutate(Timepoint = factor(Timepoint, levels = c("Mean_T1", "Mean_T2"), labels = c("T1", "T2")))
+
+
+# ==============================================================================
+# 2. TRACK HIGHEST BAR EXTENTS FOR PLACING SIGNIFICANCE STARS
+# ==============================================================================
+p_labels_resorption <- resorption_data %>%
+  group_by(Jaw, Site, Significance_FDR) %>%
+  summarise(
+    Max_Height = max(Mean_Value),
+    .groups = "drop"
+  )
+
+
+# ==============================================================================
+# 3. BUILD THE HORIZONTAL SIDE-BY-SIDE PLOT
+# ==============================================================================
+ggplot(resorption_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
+  # Draw the primary data bars
+  geom_bar(
+    stat = "identity", 
+    position = position_dodge(width = 0.8), 
+    width = 0.7, 
+    color = "black", 
+    linewidth = 0.3
+  ) +
+  
+  # Center significance stars directly above bar pairs
+  geom_text(
+    data = p_labels_resorption,
+    aes(x = Site, y = Max_Height + 0.5, label = Significance_FDR), # 0.5 units padding above root length bars
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.5, 
+    fontface = "bold"
+  ) +
+  
+  # Position Mandibular and Maxillary plots side-by-side to optimize thesis layout space
+  facet_wrap(~Jaw, nrow = 1, scales = "free_x") +
+  
+  # Standardized color design palette
+  scale_fill_manual(values = c("T1" = "#A0C4FF", "T2" = "#FFADAD")) +
+  
+  # Descriptive annotations
+  labs(
+    title = "Root Length Alterations — Resorption Analysis",
+    x = "Tooth Position & Evaluated Root Structure",
+    y = "Mean Root Length (mm)",
+    fill = "Timepoint"
+  ) +
+  
+  # Standard publication formatting styles
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13, hjust = 0.5, margin = margin(b = 10)),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 9, color = "black"),
+    strip.background = element_rect(fill = "#F0F0F0", color = "black"),
+    strip.text = element_text(face = "bold", size = 11),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = "top"
+  )
+```
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# ==============================================================================
+# 1. CLEAN AND SHAPE INTRUSION DATA
+# ==============================================================================
+intrusion_data <- thesis_statistical_reports[["Intrusion"]] %>%
+  # Separate at the underscore (e.g., "Mandibular_L4" -> "Mandibular" & "L4")
+  separate(Variable, into = c("Jaw", "Site"), sep = "_", extra = "merge") %>%
+  
+  # Reshape columns into a long layout for side-by-side comparison bars
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2), 
+    names_to = "Timepoint", 
+    values_to = "Mean_Value"
+  ) %>%
+  mutate(Timepoint = factor(Timepoint, levels = c("Mean_T1", "Mean_T2"), labels = c("T1", "T2")))
+
+
+# ==============================================================================
+# 2. TRACK HIGHEST BAR EXTENTS FOR PLACING SIGNIFICANCE STARS
+# ==============================================================================
+p_labels_intrusion <- intrusion_data %>%
+  group_by(Jaw, Site, Significance_FDR) %>%
+  summarise(
+    Max_Height = max(Mean_Value),
+    .groups = "drop"
+  )
+
+
+# ==============================================================================
+# 3. BUILD THE HORIZONTAL SIDE-BY-SIDE PLOT
+# ==============================================================================
+ggplot(intrusion_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
+  # Draw the primary data bars
+  geom_bar(
+    stat = "identity", 
+    position = position_dodge(width = 0.8), 
+    width = 0.6, # Slightly narrower bars look better with fewer data categories
+    color = "black", 
+    linewidth = 0.3
+  ) +
+  
+  # Center significance stars directly above bar pairs
+  geom_text(
+    data = p_labels_intrusion,
+    aes(x = Site, y = Max_Height + 1.0, label = Significance_FDR), # Added 1mm padding for large values
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.8, 
+    fontface = "bold"
+  ) +
+  
+  # Position Mandibular and Maxillary plots side-by-side to match the thesis layout theme
+  facet_wrap(~Jaw, nrow = 1, scales = "free_x") +
+  
+  # Standardized color design palette
+  scale_fill_manual(values = c("T1" = "#A0C4FF", "T2" = "#FFADAD")) +
+  
+  # Descriptive annotations
+  labs(
+    title = "Tooth Intrusion / Position Changes",
+    x = "Tooth Position Group",
+    y = "Mean Distance / Position Value (mm)",
+    fill = "Timepoint"
+  ) +
+  
+  # Standard publication formatting styles
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13, hjust = 0.5, margin = margin(b = 10)),
+    axis.text.x = element_text(size = 10, color = "black"), # No tilt angle needed for short names like L4/L6
+    strip.background = element_rect(fill = "#F0F0F0", color = "black"),
+    strip.text = element_text(face = "bold", size = 11),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = "top"
+  )
+```
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# ==============================================================================
+# 1. CLEAN AND SHAPE TIPPING DATA
+# ==============================================================================
+tipping_data <- thesis_statistical_reports[["Tipping"]] %>%
+  mutate(
+    # Extract the first letter (L or U) to determine the Jaw group
+    Jaw_Letter = substr(Variable, 1, 1),
+    Jaw = case_when(
+      Jaw_Letter == "L" ~ "Mandibular (L)",
+      Jaw_Letter == "U" ~ "Maxillary (U)",
+      TRUE ~ "Unknown"
+    ),
+    
+    # Isolate the landmark detail by splitting off the tooth prefix (e.g., "L4s_")
+    Landmark = str_replace(Variable, "^[LU][0-9]s_", "")
+  ) %>%
+  
+  # Reshape columns into a long layout for side-by-side comparison bars
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2), 
+    names_to = "Timepoint", 
+    values_to = "Mean_Value"
+  ) %>%
+  mutate(Timepoint = factor(Timepoint, levels = c("Mean_T1", "Mean_T2"), labels = c("T1", "T2")))
+
+
+# ==============================================================================
+# 2. TRACK HIGHEST BAR EXTENTS FOR PLACING SIGNIFICANCE STARS
+# ==============================================================================
+p_labels_tipping <- tipping_data %>%
+  group_by(Jaw, Landmark, Significance_FDR) %>%
+  summarise(
+    Max_Height = max(Mean_Value),
+    .groups = "drop"
+  )
+
+
+# ==============================================================================
+# 3. BUILD THE HORIZONTAL SIDE-BY-SIDE PLOT
+# ==============================================================================
+ggplot(tipping_data, aes(x = Landmark, y = Mean_Value, fill = Timepoint)) +
+  # Draw the primary data bars
+  geom_bar(
+    stat = "identity", 
+    position = position_dodge(width = 0.8), 
+    width = 0.7, 
+    color = "black", 
+    linewidth = 0.3
+  ) +
+  
+  # Center significance stars directly above bar pairs
+  geom_text(
+    data = p_labels_tipping,
+    aes(x = Landmark, y = Max_Height + 1.2, label = Significance_FDR), # 1.2 units padding for high value bounds
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.8, 
+    fontface = "bold"
+  ) +
+  
+  # Position Mandibular and Maxillary plots side-by-side to maintain formatting cohesion
+  facet_wrap(~Jaw, nrow = 1, scales = "free_x") +
+  
+  # Standardized color design palette
+  scale_fill_manual(values = c("T1" = "#A0C4FF", "T2" = "#FFADAD")) +
+  
+  # Descriptive annotations
+  labs(
+    title = "Dental Tipping — Landmark Distance Analysis",
+    x = "Evaluated Anatomical Landmark Reference",
+    y = "Mean Inter-Arch Distance (mm)",
+    fill = "Timepoint"
+  ) +
+  
+  # Standard publication formatting styles
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13, hjust = 0.5, margin = margin(b = 10)),
+    axis.text.x = element_text(angle = 35, hjust = 1, vjust = 1, size = 9, color = "black"), # Clean tilt for descriptive terms
+    strip.background = element_rect(fill = "#F0F0F0", color = "black"),
+    strip.text = element_text(face = "bold", size = 11),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = "top"
+  )
+```
