@@ -1006,3 +1006,87 @@ ggplot(tipping_data, aes(x = Landmark, y = Mean_Value, fill = Timepoint)) +
     legend.position = "top"
   )
 ```
+
+
+
+## intra rater reliability 
+
+
+```{r, message=F, warning=F}
+icc_data=read.csv(paste0(path, "/2026/202606/Sarah/plain Thesis Dat_0629_for_icc.csv"),header=T)
+
+library(tidyverse)
+library(irr)
+
+# ==============================================================================
+# 1. ORGANIZE AND SPLIT THE DATA
+# ==============================================================================
+# Fill down the missing 'X' labels (like U4s, U6s) so every row has its group name
+icc_cleaned <- icc_data %>%
+  fill(X, .direction = "down") %>%
+  # Combine Tooth and Landmark to create a completely unique identifier
+  mutate(Measurement_Key = paste(X, X.1, sep = "_"))
+
+# Split the data into Time 1 (Rows 1-10) and Time 2 (Rows 11-20)
+t1_data <- icc_cleaned[1:10, ]
+t2_data <- icc_cleaned[11:20, ]
+
+# Select only the columns representing patients/raters (C001 through X150981)
+# Excluding column metadata like X, X.1, X.2
+rater_cols <- c("C001", "C002", "C003", "C004", "C005", "C006", "C007", "C008", 
+                "C009", "C010", "C011", "C013", "C016", "C017", "X151481", "X151211", "X150981")
+
+
+# ==============================================================================
+# 2. RUN THE ICC LOOP FOR EACH LANDMARK REFERENCE
+# ==============================================================================
+icc_results <- list()
+
+for (i in 1:10) {
+  landmark_name <- t1_data$Measurement_Key[i]
+  
+  # Extract patient data vectors for T1 and T2, ensuring they are numeric
+  v_t1 <- as.numeric(t1_data[i, rater_cols])
+  v_t2 <- as.numeric(t2_data[i, rater_cols])
+  
+  # Bind into a 2-column matrix (Time 1 vs Time 2)
+  # Rows = Patients, Columns = Timepoints
+  icc_matrix <- cbind(v_t1, v_t2)
+  
+  # Remove patients that have NA in either T1 or T2 to avoid math failure
+  icc_matrix_clean <- na.omit(icc_matrix)
+  
+  # Run a Two-way, Single-rating, Absolute Agreement ICC Model (ICC(2,1))
+  # This matches the standard test-retest guidelines (Koo & Li, 2016)
+  icc_test <- icc(
+    icc_matrix_clean, 
+    model = "twoway", 
+    type = "agreement", 
+    unit = "single"
+  )
+  
+  # Store core statistics into our list summary dataframe
+  icc_results[[landmark_name]] <- tibble(
+    Measurement      = landmark_name,
+    Valid_Pairs_N    = nrow(icc_matrix_clean),
+    ICC_Value        = round(icc_test$value,4),
+    Lower_CI_95      = round(icc_test$lbound,4),
+    Upper_CI_95      = round(icc_test$ubound,4),
+    P_Value          = adjust_pvalue(icc_test$p.value)
+  )
+}
+
+# Combine list elements into a unified summary table
+final_icc_table <- bind_rows(icc_results)
+
+# ==============================================================================
+# 3. PRINT REPORT CARD
+# ==============================================================================
+final_icc_table %>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
