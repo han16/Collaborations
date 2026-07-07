@@ -431,7 +431,7 @@ make_target_circle <- function(r) {
     radius_group = as.character(r)
   )
 }
-target_rings <- map_df(seq(0.125, 1.0, by = 0.125), make_target_circle)
+target_rings <- map_df(seq(0.125, 2.0, by = 0.25), make_target_circle)
 
 
 # ==============================================================================
@@ -496,14 +496,14 @@ for (current_wf in unique_workflows) {
     scale_fill_manual(values = c("Platform (Crest)" = "#64B5F6", "Apex (Tip)" = "#64B5F6")) + 
     
     # F. Coordinate Constraints set exactly to (-1, 1)
-    coord_fixed(xlim = c(-1.0, 1.0), ylim = c(-1.0, 1.0)) +
-    scale_x_continuous(breaks = seq(-1.0, 1.0, 0.25)) +
-    scale_y_continuous(breaks = seq(-1.0, 1.0, 0.25)) +
+    coord_fixed(xlim = c(-2.0, 2.0), ylim = c(-2.0, 2.0)) +
+    scale_x_continuous(breaks = seq(-2.0, 2.0, 0.5)) +
+    scale_y_continuous(breaks = seq(-2.0, 2.0, 0.5)) +
     
     # G. Axis / Legend Labels
     labs(
       title = paste("Bivariate 95% Confidence Interval for Mean —", wf_title_name),
-      subtitle = "True Center-Means Only (±1.0 mm space)",
+      subtitle = "True Center-Means Only (±2.0 mm space)",
       x = "Vestibular–Oral Deviation (mm)",
       y = "Mesial–Distal Deviation (mm)"
     ) +

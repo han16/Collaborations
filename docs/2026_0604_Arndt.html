@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeac765dc29695f18b5ec4ef464e8c79f7ba43b658targetblankac765dca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree10f1dbf4ef0765518d789ee79656959a1283892atargetblank10f1dbfa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/ac765dc29695f18b5ec4ef464e8c79f7ba43b658" target="_blank">ac765dc</a>
+<a href="https://github.com/han16/Collaborations/tree/10f1dbf4ef0765518d789ee79656959a1283892a" target="_blank">10f1dbf</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreeac765dc29695f18b5ec4ef464e8c79f7ba43b658targetblankac765dca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree10f1dbf4ef0765518d789ee79656959a1283892atargetblank10f1dbfa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/ac765dc29695f18b5ec4ef464e8c79f7ba43b658" target="_blank">ac765dc</a>.
+<a href="https://github.com/han16/Collaborations/tree/10f1dbf4ef0765518d789ee79656959a1283892a" target="_blank">10f1dbf</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/10f1dbf4ef0765518d789ee79656959a1283892a/analysis/2026_0604_Arndt.Rmd" target="_blank">10f1dbf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-07
+</td>
+<td>
+7/7/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/10f1dbf4ef0765518d789ee79656959a1283892a/docs/2026_0604_Arndt.html" target="_blank">10f1dbf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-07
+</td>
+<td>
+7/7/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1177,7 +1211,7 @@ make_target_circle &lt;- function(r) {
     radius_group = as.character(r)
   )
 }
-target_rings &lt;- map_df(seq(0.125, 1.0, by = 0.125), make_target_circle)
+target_rings &lt;- map_df(seq(0.125, 2.0, by = 0.25), make_target_circle)
 
 
 # ==============================================================================
@@ -1242,14 +1276,14 @@ for (current_wf in unique_workflows) {
     scale_fill_manual(values = c(&quot;Platform (Crest)&quot; = &quot;#64B5F6&quot;, &quot;Apex (Tip)&quot; = &quot;#64B5F6&quot;)) + 
     
     # F. Coordinate Constraints set exactly to (-1, 1)
-    coord_fixed(xlim = c(-1.0, 1.0), ylim = c(-1.0, 1.0)) +
-    scale_x_continuous(breaks = seq(-1.0, 1.0, 0.25)) +
-    scale_y_continuous(breaks = seq(-1.0, 1.0, 0.25)) +
+    coord_fixed(xlim = c(-2.0, 2.0), ylim = c(-2.0, 2.0)) +
+    scale_x_continuous(breaks = seq(-2.0, 2.0, 0.5)) +
+    scale_y_continuous(breaks = seq(-2.0, 2.0, 0.5)) +
     
     # G. Axis / Legend Labels
     labs(
       title = paste(&quot;Bivariate 95% Confidence Interval for Mean —&quot;, wf_title_name),
-      subtitle = &quot;True Center-Means Only (±1.0 mm space)&quot;,
+      subtitle = &quot;True Center-Means Only (±2.0 mm space)&quot;,
       x = &quot;Vestibular–Oral Deviation (mm)&quot;,
       y = &quot;Mesial–Distal Deviation (mm)&quot;
     ) +
@@ -1275,10 +1309,121 @@ y-Mesial.Distal.Deviation.at.Tip</p></li>
 <pre class="r"><code># Display each plot element individually in your viewer console
 print(workflow_plots[[1]]) # Displays the first workflow category graph</code></pre>
 <p><img src="figure/2026_0604_Arndt.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/10f1dbf4ef0765518d789ee79656959a1283892a/docs/figure/2026_0604_Arndt.Rmd/unnamed-chunk-12-1.png" target="_blank">10f1dbf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(workflow_plots[[2]]) # Displays the second workflow category graph</code></pre>
 <p><img src="figure/2026_0604_Arndt.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
+Past versions of unnamed-chunk-12-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/10f1dbf4ef0765518d789ee79656959a1283892a/docs/figure/2026_0604_Arndt.Rmd/unnamed-chunk-12-2.png" target="_blank">10f1dbf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(workflow_plots[[3]]) # Displays the third workflow category graph</code></pre>
 <p><img src="figure/2026_0604_Arndt.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-3">
+Past versions of unnamed-chunk-12-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/10f1dbf4ef0765518d789ee79656959a1283892a/docs/figure/2026_0604_Arndt.Rmd/unnamed-chunk-12-3.png" target="_blank">10f1dbf</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
