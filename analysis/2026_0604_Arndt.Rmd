@@ -365,3 +365,176 @@ datatable(extensions = 'Buttons',
 
 ```
 
+
+
+## figures 
+
+```{r, message=F, warning=F}
+Trueness_Falcon_vs_Navident_vs_XGuide_with_negative=read.csv(file.path(root, "../2026/202606/Arndt/Trueness_Falcon vs Navident vs XGuide_with negative.csv"), header=T)
+```
+
+
+
+
+
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# Ensure data frame alias points to the actual dataset
+df_raw <- Trueness_Falcon_vs_Navident_vs_XGuide_with_negative
+
+# ==============================================================================
+# 1. PROCESS AND RESTRUCTURE THE BIVARIATE DATA
+# ==============================================================================
+df_crest_processed <- df_raw %>%
+  select(
+    Sample, Workflow, Position, 
+    X = Vestibular.Oral.Deviation.at.Crest, 
+    Y = Mesial.Distal.Deviation.at.Crest
+  ) %>%
+  mutate(Type = "Platform (Crest)")
+
+df_tip_processed <- df_raw %>%
+  select(
+    Sample, Workflow, Position, 
+    X = Vestibular.Oral.Deviation.at.Tip, 
+    Y = Mesial.Distal.Deviation.at.Tip
+  ) %>%
+  mutate(Type = "Apex (Tip)")
+
+bivariate_plot_data <- bind_rows(df_crest_processed, df_tip_processed) %>%
+  mutate(Type = factor(Type, levels = c("Apex (Tip)", "Platform (Crest)")))
+
+# ==============================================================================
+# FIX: PRE-CALCULATE EM-TRUE CENTERS (1 Point per Type per Workflow)
+# ==============================================================================
+mean_centers <- bivariate_plot_data %>%
+  group_by(Workflow, Type) %>%
+  summarise(
+    Mean_X = mean(X, na.rm = TRUE),
+    Mean_Y = mean(Y, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+
+# ==============================================================================
+# 2. CONSTRUCT EXPANDED TARGET BACKGROUND RINGS (OUT TO 1.0 mm)
+# ==============================================================================
+make_target_circle <- function(r) {
+  tibble(
+    theta = seq(0, 2 * pi, length.out = 200),
+    x = r * cos(theta),
+    y = r * sin(theta),
+    radius_group = as.character(r)
+  )
+}
+target_rings <- map_df(seq(0.125, 1.0, by = 0.125), make_target_circle)
+
+
+# ==============================================================================
+# 3. LOOP TO GENERATE THE STANDALONE FIGURES
+# ==============================================================================
+unique_workflows <- unique(bivariate_plot_data$Workflow)
+workflow_plots <- list()
+
+for (current_wf in unique_workflows) {
+  
+  
+  # FIX: Translate numeric Workflow IDs into your designated clear system names
+  wf_title_name <- case_when(
+    current_wf == 1 ~ "X-Guide",
+    current_wf == 2 ~ "Falcon",
+    current_wf == 3 ~ "Navident",
+    TRUE            ~ paste("Workflow", current_wf) # Safety fallback
+  )
+  
+  
+  # Filter datasets for the active workflow loop iteration
+  wf_ellipse_data <- bivariate_plot_data %>% filter(Workflow == current_wf)
+  wf_mean_data    <- mean_centers %>% filter(Workflow == current_wf)
+  
+  workflow_plots[[as.character(current_wf)]] <- ggplot() +
+    # A. Background pink target rings layers
+    geom_path(
+      data = target_rings, 
+      aes(x = x, y = y, group = radius_group), 
+      color = "red", 
+      linewidth = 2.5, 
+      alpha = 0.4
+    ) +
+    
+    # B. Crosshairs intersecting at (0,0)
+    geom_hline(yintercept = 0, linetype = "dotted", color = "black", linewidth = 0.6) +
+    geom_vline(xintercept = 0, linetype = "dotted", color = "black", linewidth = 0.6) +
+    
+    # C. 95% Bivariate Confidence Ellipses (uses the full dataset for covariance math)
+    stat_ellipse(
+      data = wf_ellipse_data, 
+      aes(x = X, y = Y, color = Type, linetype = Type, fill = Type), 
+      geom = "polygon", 
+      alpha = 0.30, 
+      level = 0.95,
+      linewidth = 0.6
+    ) +
+    
+    # D. FIX: Draw ONLY the explicitly calculated single center-mean points
+    geom_point(
+      data = wf_mean_data,
+      aes(x = Mean_X, y = Mean_Y, shape = Type, fill = Type),
+      color = "black",
+      size = 5.0, # Made comfortably large since it is the star of the show
+      stroke = 1.0
+    ) +
+    
+    # E. Aesthetic styling configurations
+    scale_shape_manual(values = c("Platform (Crest)" = 21, "Apex (Tip)" = 25)) +
+    scale_linetype_manual(values = c("Platform (Crest)" = "solid", "Apex (Tip)" = "dashed")) +
+    scale_color_manual(values = c("Platform (Crest)" = "black", "Apex (Tip)" = "black")) +
+    scale_fill_manual(values = c("Platform (Crest)" = "#64B5F6", "Apex (Tip)" = "#64B5F6")) + 
+    
+    # F. Coordinate Constraints set exactly to (-1, 1)
+    coord_fixed(xlim = c(-1.0, 1.0), ylim = c(-1.0, 1.0)) +
+    scale_x_continuous(breaks = seq(-1.0, 1.0, 0.25)) +
+    scale_y_continuous(breaks = seq(-1.0, 1.0, 0.25)) +
+    
+    # G. Axis / Legend Labels
+    labs(
+      title = paste("Bivariate 95% Confidence Interval for Mean —", wf_title_name),
+      subtitle = "True Center-Means Only (±1.0 mm space)",
+      x = "Vestibular–Oral Deviation (mm)",
+      y = "Mesial–Distal Deviation (mm)"
+    ) +
+    
+    # H. Professional Engineering Themes
+    theme_minimal(base_size = 11) +
+    theme(
+      plot.title = element_text(face = "bold", size = 12, hjust = 0.5),
+      plot.subtitle = element_text(size = 9, color = "gray30", hjust = 0.5, margin = margin(b = 12)),
+      panel.background = element_rect(fill = "white", color = NA),
+      panel.grid.major = element_line(color = "#EBF0F5", linewidth = 0.4),
+      panel.grid.minor = element_blank(),
+      legend.title = element_blank(),
+      legend.position = "right"
+    )
+}
+```
+
+
+
+* Platform (Crest): X-Vestibular.Oral.Deviation.at.Crest, y-Mesial.Distal.Deviation.at.Crest
+
+* Apex (Tip), X-Vestibular.Oral.Deviation.at.Tip, y-Mesial.Distal.Deviation.at.Tip
+
+
+```{r, message=F, warning=F}
+# Display each plot element individually in your viewer console
+print(workflow_plots[[1]]) # Displays the first workflow category graph
+print(workflow_plots[[2]]) # Displays the second workflow category graph
+print(workflow_plots[[3]]) # Displays the third workflow category graph
+```
+
+
+
