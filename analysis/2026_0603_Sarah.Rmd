@@ -321,8 +321,8 @@ t1_summary <- cleaned_rows[, c(ncol(cleaned_rows), t1_indices), drop = FALSE] %>
   group_by(Variable) %>%
   summarise(
     T1_Sample_Size = sum(!is.na(Measurement)),
-    T1_Mean        = mean(Measurement, na.rm = TRUE),
-    T1_SD          = sd(Measurement, na.rm = TRUE),
+    T1_Mean        = round(mean(Measurement, na.rm = TRUE),4),
+    T1_SD          = round(sd(Measurement, na.rm = TRUE),4), 
     .groups        = "drop"
   )
 
@@ -421,7 +421,24 @@ analyze_tab_paired <- function(data_table, tab_name, num_id_cols) {
       Mean_Diff     = round(mean(T2_Val - T1_Val),4),
       # Run t-test safely if there are enough pairs and variance exists
    #   T_Statistic   = if(n() > 1 && var(T2_Val - T1_Val) > 0) t.test(T2_Val, T1_Val, paired = TRUE)$statistic else NA,
-      P_Value       = if(n() > 1 && var(T2_Val - T1_Val) > 0) t.test(T2_Val, T1_Val, paired = TRUE)$p.value else NA,
+      P_Value       = if(n() > 1 && var(T2_Val - T1_Val) > 0) 
+        t.test(T2_Val, T1_Val, paired = TRUE)$p.value 
+         else NA,
+   
+   # Calculate Power safely using power.t.test
+    Power         = if(n() > 1 && var(T2_Val - T1_Val, na.rm = TRUE) > 0) {
+                      round(
+                        power.t.test(
+                          n = n(), 
+                          sd = min(sd(T1_Val, na.rm = TRUE), sd(T2_Val, na.rm = TRUE)), 
+                          delta = abs(mean(T2_Val - T1_Val, na.rm = TRUE)), 
+                          sig.level = 0.05,
+                          type = "paired" # Crucial change: specifies it's a paired layout
+                        )$power, 
+                        4
+                      )
+                    } else { NA },
+   
       .groups       = "drop"
     ) %>%
     # --- NEW: MULTIPLE COMPARISON CORRECTIONS ---
