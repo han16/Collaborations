@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-07-14
+<strong>Last updated:</strong> 2026-07-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree939f4f3f599422bbec0f2a70a20ef4c02f1d4571targetblank939f4f3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef6a5d68329eecbb264bfad3dd814dbbf4f70595etargetblankf6a5d68a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/939f4f3f599422bbec0f2a70a20ef4c02f1d4571" target="_blank">939f4f3</a>
+<a href="https://github.com/han16/Collaborations/tree/f6a5d68329eecbb264bfad3dd814dbbf4f70595e" target="_blank">f6a5d68</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree939f4f3f599422bbec0f2a70a20ef4c02f1d4571targetblank939f4f3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreef6a5d68329eecbb264bfad3dd814dbbf4f70595etargetblankf6a5d68a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/939f4f3f599422bbec0f2a70a20ef4c02f1d4571" target="_blank">939f4f3</a>.
+<a href="https://github.com/han16/Collaborations/tree/f6a5d68329eecbb264bfad3dd814dbbf4f70595e" target="_blank">f6a5d68</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/f6a5d68329eecbb264bfad3dd814dbbf4f70595e/analysis/2026_0603_Sarah.Rmd" target="_blank">f6a5d68</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-14
+</td>
+<td>
+7/14/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/f6a5d68329eecbb264bfad3dd814dbbf4f70595e/docs/2026_0603_Sarah.html" target="_blank">f6a5d68</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-14
+</td>
+<td>
+7/14/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1107,8 +1141,8 @@ thesis_statistical_reports &lt;- list()
 # This reusable function handles the distinct layouts of your tabs dynamically.
 analyze_tab_paired &lt;- function(data_table, tab_name, num_id_cols) {
   
-  #data_table = thesis_data$`Alveolar Bone height`
-  #num_id_cols=2
+  data_table=thesis_data$`Root Resorption`
+  num_id_cols=3
   # 1. Capture the timepoints from row 1 and remove it from the dataset
   timepoints &lt;- as.character(data_table[1, ])
   clean_rows &lt;- data_table[-1, ]
@@ -1152,6 +1186,8 @@ analyze_tab_paired &lt;- function(data_table, tab_name, num_id_cols) {
       Mean_T1       = round(mean(T1_Val),4),
       Mean_T2       = round(mean(T2_Val),4),
       Mean_Diff     = round(mean(T2_Val - T1_Val),4),
+      SD_T1=round(sd(T1_Val),4),
+      SD_T2=round(sd(T2_Val),4),
       # Run t-test safely if there are enough pairs and variance exists
    #   T_Statistic   = if(n() &gt; 1 &amp;&amp; var(T2_Val - T1_Val) &gt; 0) t.test(T2_Val, T1_Val, paired = TRUE)$statistic else NA,
       P_Value       = if(n() &gt; 1 &amp;&amp; var(T2_Val - T1_Val) &gt; 0) 
@@ -1200,6 +1236,9 @@ analyze_tab_paired &lt;- function(data_table, tab_name, num_id_cols) {
 </ul>
 <p>P_Value &lt; 0.001 ~ “<em><strong>”, P_Value &lt; 0.01 ~ ”</strong>”,
 P_Value &lt; 0.05 ~ ”</em>”,</p>
+<pre class="r"><code>mandibular_ll6_distal_root_t1=as.numeric(thesis_data$`Root Resorption`[17,seq(4,52,by=3)])
+mandibular_ll6_distal_root_t2=as.numeric(thesis_data$`Root Resorption`[17,seq(4,52,by=3)+1])
+t.test(mandibular_ll6_distal_root_t1, mandibular_ll6_distal_root_t2, paired = T)</code></pre>
 <pre class="r"><code># ==============================================================================
 # EXECUTE ANALYSIS FOR EACH SPECIFIC TAB
 # ==============================================================================
@@ -1244,7 +1283,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-bb3486349adfa5d821dc" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"],["Mandibular_LL4 buccal","Mandibular_LL4 lingual","Mandibular_LL6 distal root buccal","Mandibular_LL6 distal root lingual","Mandibular_LL6 mesial root buccal","Mandibular_LL6 mesial root lingual","Mandibular_LR4 buccal","Mandibular_LR4 lingual","Mandibular_LR6 distal root buccal","Mandibular_LR6 distal root lingual","Mandibular_LR6 mesial root buccal","Mandibular_LR6 mesial root lingual","Maxillary_UL4 buccal","Maxillary_UL4 lingual","Maxillary_UL6 distal-buccal","Maxillary_UL6 lingual","Maxillary_UL6 mesio-buccal","Maxillary_UR4 buccal","Maxillary_UR4 lingual","Maxillary_UR6 distal-buccal","Maxillary_UR6 lingual","Maxillary_UR6 mesio-buccal"],[17,17,17,17,17,17,17,17,15,15,15,15,17,17,16,16,16,17,17,17,17,17],[4.39,1.8482,1.3865,1.5206,2.1188,2.0647,4.2529,1.8271,1.66,1.526,3.0547,1.8887,2.7924,2.1124,1.6869,2.3525,2.8181,2.5265,1.89,1.9335,2.8,3.4112],[6.2429,1.4259,2.5859,1.5282,4.0394,2.0388,6.7382,1.6876,2.7427,1.436,4.9347,1.6947,8.326499999999999,1.8841,1.9781,1.8288,3.9825,6.1276,1.6753,2.1329,2.3476,4.0476],[1.8529,-0.4224,1.1994,0.0076,1.9206,-0.0259,2.4853,-0.1394,1.0827,-0.09,1.88,-0.194,5.5341,-0.2282,0.2912,-0.5238,1.1644,3.6012,-0.2147,0.1994,-0.4524,0.6365],[0.0002081506204794706,0.05234849223617952,0.0005385247544907937,0.9418281480104569,0.0077180193555565,0.8279808747795072,0.004939473729585754,0.4704210685280109,9.585180861931894e-05,0.4757017993137269,0.01155664649120807,0.36159342155678,0.0005856321479827001,0.3300091759930329,0.09865874254781463,0.2811274317998982,0.1664336629184316,0.006511992816312612,0.01146419326502291,0.4760098675189476,0.2770883362151464,0.2753613573217259],[0.7494,0.8237,1,0.0278,0.9931,0.0354,0.8732,0.1278,0.9481000000000001,0.073,0.8041,0.1867,1,0.2347,0.3612,0.7048,0.2679,0.9998,0.3632,0.2075,0.1901,0.1032],[0.002289656825274176,0.1151666829195949,0.003220976813904851,0.9418281480104569,0.02425663226032043,0.8674085354832933,0.02173368441017732,0.5236108542708424,0.002108739789625017,0.5236108542708424,0.02824958031184194,0.4679444278970094,0.003220976813904851,0.4537626169904203,0.1973174850956293,0.4123202333065173,0.3051283820171245,0.02387730699314624,0.02824958031184194,0.5236108542708424,0.4123202333065173,0.4123202333065173],["**","ns","**","ns","*","ns","*","ns","**","ns","*","ns","**","ns","ns","ns","ns","*","*","ns","ns","ns"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"P_Value","targets":6},{"name":"Power","targets":7},{"name":"P_Adj_FDR","targets":8},{"name":"Significance_FDR","targets":9}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-bb3486349adfa5d821dc">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Mandibular_LL4_single root","Mandibular_LL6_distal root","Mandibular_LL6_mesial root","Mandibular_LR4_single root","Mandibular_LR6_distal root","Mandibular_LR6_mesial root","Maxillary_UL4_buccal root","Maxillary_UL4_lingual root","Maxillary_UL6_distal-buccal","Maxillary_UL6_mesio-buccal","Maxillary_UL6_palatal","Maxillary_UR4_buccal root","Maxillary_UR4_lingual root","Maxillary_UR6_distal-buccal","Maxillary_UR6_mesio-buccal","Maxillary_UR6_palatal"],[17,17,17,17,15,15,17,17,16,16,16,17,17,17,17,17],[15.6665,14.2512,14.2318,15.47,14.114,14.0073,14.2641,13.9982,12.6894,12.6625,14.1531,14.3812,13.5612,12.8665,12.7847,13.8841],[15.2241,13.8606,13.7841,15.1429,13.6627,13.8127,13.7824,13.4124,12.0544,12.335,13.5794,14.0512,13.3459,12.3406,12.4547,13.64],[-0.4424,-0.3906,-0.4476,-0.3271,-0.4513,-0.1947,-0.4818,-0.5859,-0.635,-0.3275,-0.5737,-0.33,-0.2153,-0.5259,-0.33,-0.2441],[1.8173,1.683,1.548,1.396,1.4356,1.6083,2.1564,1.852,1.6135,1.838,2.0382,1.6929,1.9196,1.8484,1.7999,1.5575],[1.3733,1.6863,1.5176,1.5475,1.3026,1.5486,2.1093,1.6686,1.6397,1.5492,1.7816,1.5696,1.9562,1.5597,1.5684,1.484],[0.03343750412858323,0.0001312857495362742,1.95032783697255e-05,0.02328057120637712,4.194846919583636e-05,0.0813574158087329,0.00520084821129355,0.001215607535847713,0.001538300957331832,0.03061209746196676,0.0007749636728865641,0.01033338835263475,0.07238273808551524,0.00458358389887314,0.003478609375612042,0.006425657836230738],[0.2386,0.1447,0.2073,0.1466,0.2392,0.06610000000000001,0.1415,0.2748,0.3135,0.1215,0.2257,0.1263,0.06370000000000001,0.257,0.1264,0.09320000000000001],[0.03821429043266655,0.0007001906641934623,0.000312052453915608,0.03104076160850283,0.0003355877535666909,0.0813574158087329,0.009245952375632978,0.003889944114712681,0.004102135886218218,0.03767642764549755,0.003099854691546256,0.01503038305837781,0.07720825395788292,0.009167167797746281,0.007951107144256097,0.01028105253796918],["*","***","***","*","***","ns","**","**","**","*","**","*","ns","**","**","*"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>SD_T1<\/th>\n      <th>SD_T2<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"SD_T1","targets":6},{"name":"SD_T2","targets":7},{"name":"P_Value","targets":8},{"name":"Power","targets":9},{"name":"P_Adj_FDR","targets":10},{"name":"Significance_FDR","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>thesis_statistical_reports[[&quot;Alveolar_Bone_Thickness&quot;]]%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;, 
@@ -1253,7 +1292,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-44474b3e8cd160f85a98" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66"],["Mandibular_LL4 buccal_3mm","Mandibular_LL4 buccal_6mm","Mandibular_LL4 buccal_9mm","Mandibular_LL4 lingual_3mm","Mandibular_LL4 lingual_6mm","Mandibular_LL4 lingual_9mm","Mandibular_LL6 distal-buccal_3mm","Mandibular_LL6 distal-buccal_6mm","Mandibular_LL6 distal-buccal_9mm","Mandibular_LL6 distal-lingual_3mm","Mandibular_LL6 distal-lingual_6mm","Mandibular_LL6 distal-lingual_9mm","Mandibular_LL6 mesio-buccal_3mm","Mandibular_LL6 mesio-buccal_6mm","Mandibular_LL6 mesio-buccal_9mm","Mandibular_LL6 mesio-lingual_3mm","Mandibular_LL6 mesio-lingual_6mm","Mandibular_LL6 mesio-lingual_9mm","Mandibular_LR4 buccal_3mm","Mandibular_LR4 buccal_6mm","Mandibular_LR4 buccal_9mm","Mandibular_LR4 lingual_3mm","Mandibular_LR4 lingual_6mm","Mandibular_LR4 lingual_9mm","Mandibular_LR6 distal-buccal_3mm","Mandibular_LR6 distal-buccal_6mm","Mandibular_LR6 distal-buccal_9mm","Mandibular_LR6 distal-lingual_3mm","Mandibular_LR6 distal-lingual_6mm","Mandibular_LR6 distal-lingual_9mm","Mandibular_LR6 mesio-buccal_3mm","Mandibular_LR6 mesio-buccal_6mm","Mandibular_LR6 mesio-buccal_9mm","Mandibular_LR6 mesio-lingual_3mm","Mandibular_LR6 mesio-lingual_6mm","Mandibular_LR6 mesio-lingual_9mm","Maxillary_UL4 buccal_3mm","Maxillary_UL4 buccal_6mm","Maxillary_UL4 buccal_9mm","Maxillary_UL4 lingual_3mm","Maxillary_UL4 lingual_6mm","Maxillary_UL4 lingual_9mm","Maxillary_UL6 distal-buccal_3mm","Maxillary_UL6 distal-buccal_6mm","Maxillary_UL6 distal-buccal_9mm","Maxillary_UL6 lingual_3mm","Maxillary_UL6 lingual_6mm","Maxillary_UL6 lingual_9mm","Maxillary_UL6 mesio-buccal_3mm","Maxillary_UL6 mesio-buccal_6mm","Maxillary_UL6 mesio-buccal_9mm","Maxillary_UR4 buccal_3mm","Maxillary_UR4 buccal_6mm","Maxillary_UR4 buccal_9mm","Maxillary_UR4 lingual_3mm","Maxillary_UR4 lingual_6mm","Maxillary_UR4 lingual_9mm","Maxillary_UR6 distal-buccal_3mm","Maxillary_UR6 distal-buccal_6mm","Maxillary_UR6 distal-buccal_9mm","Maxillary_UR6 lingual_3mm","Maxillary_UR6 lingual_6mm","Maxillary_UR6 lingual_9mm","Maxillary_UR6 mesio-buccal_3mm","Maxillary_UR6 mesio-buccal_6mm","Maxillary_UR6 mesio-buccal_9mm"],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,15,15,15,15,15,15,15,15,15,15,15,15,17,17,16,17,17,16,16,16,15,16,16,16,16,16,16,17,17,16,17,17,17,17,17,17,17,17,17,17,17,17],[0.2676,0.5276,1.2576,1.1988,2.9871,3.3512,0.8759,1.6306,2.7976,2.3135,3.7153,4.2629,0.6824,1.0418,1.7559,1.7935,3.1582,3.9147,0.3359,0.4906,1.1076,1.5941,2.8294,3.24,0.922,1.6347,2.9253,1.9913,3.232,3.78,0.5573,0.9593,1.6113,1.8933,2.9547,3.988,0.6588000000000001,0.9276,0.5731000000000001,0.8712,1.4412,2.3188,2.1162,2.2206,1.9067,0.8638,1.0437,1.2706,1.235,1.105,0.9863,0.9612000000000001,0.8241000000000001,0.5919,0.9441000000000001,1.5035,2.3988,2.0335,2.3659,2.3488,0.8512,0.8112,1.0641,1.2288,1.0806,1.2282],[0.1053,0.2406,0.8182,1.78,3.5288,4.0088,0.5365,1.5947,3.1253,2.6235,4.0688,4.5706,0.3606,0.7141,1.5359,2.3659,3.7635,4.3824,0.1459,0.1371,0.6565,1.9894,3.3959,3.7918,0.438,1.5753,2.9867,2.704,3.766,4.2493,0.0953,0.5653,1.5053,2.7847,3.85,4.5453,0.2741,0.4324,0.1494,1.4488,2.17,3.1956,1.6887,2.0494,2.0213,1.6013,1.5263,1.6025,0.8462,0.725,1.0369,0.4176,0.4406,0.1862,1.5788,2.2071,3.0218,1.5476,1.84,2.3629,1.3165,1.4647,1.4435,0.7753,0.8341,1.3865],[-0.1624,-0.2871,-0.4394,0.5812,0.5417999999999999,0.6576,-0.3394,-0.0359,0.3276,0.31,0.3535,0.3076,-0.3218,-0.3276,-0.22,0.5724,0.6052999999999999,0.4676,-0.19,-0.3535,-0.4512,0.3953,0.5665,0.5518,-0.484,-0.0593,0.0613,0.7127,0.534,0.4693,-0.462,-0.394,-0.106,0.8913,0.8953,0.5573,-0.3847,-0.4953,-0.4238,0.5776,0.7288,0.8769,-0.4275,-0.1713,0.1147,0.7375,0.4825,0.3319,-0.3888,-0.38,0.0506,-0.5435,-0.3835,-0.4056,0.6347,0.7035,0.6229,-0.4859,-0.5259,0.0141,0.4653,0.6535,0.3794,-0.4535,-0.2465,0.1582],[0.013119605949969,0.006720315653769075,0.03662849289830537,0.0005403080860019435,0.00812012984994104,0.03936311244774826,0.05494143005430317,0.8168392918921475,0.3108995909895879,0.1040288425181139,0.07682949427218158,0.3514025934416835,0.0726020661745589,0.00380823867671595,0.05826402848992789,0.007418228250228245,0.001027535423043601,0.03130193034995027,0.08830828313721471,0.002523852683834114,0.01108849813927205,0.06751624333079714,0.00624754213529229,0.0505069082861581,0.00217338351091736,0.6987892964566986,0.7939438494046209,0.003507231890027959,0.01138076390757002,0.02891185721550746,0.006224109597752531,0.01815273922306357,0.6144913848860682,0.003654603001613859,0.001047907440329345,0.04462859174619907,0.001319703991867139,0.0006146105073928204,0.05639808274532468,0.005555794980677987,0.002912664074968033,0.007152191812739,0.01683548768844749,0.2445087258270211,0.6704733846378976,6.465373132007879e-06,0.001097492296111456,0.05047741351187533,0.001084139071020574,0.0004539733255425191,0.7630927668012031,0.000512271037543058,0.003252072471328799,0.003265766289499358,9.037898339314543e-07,3.451987633534705e-05,0.0004435538817361751,0.009626973303860586,0.01468068515008116,0.9454091874635592,0.01351686406840165,0.0006590999322746758,0.05342621632820432,0.009098140855809128,0.06139653416396837,0.498377126554013],[0.7546,0.9035,0.6846,0.8198,0.4266,0.5279,0.6984,0.0351,0.1415,0.2156,0.1821,0.1073,0.8303,0.3328,0.1195,0.5413,0.4006,0.1978,0.6199,0.9746,0.7401,0.4139,0.6065,0.4243,0.9698,0.048,0.0399,0.7611,0.3938,0.1783,1,0.5729,0.0508,0.893,0.801,0.3123,0.8784999999999999,0.7728,0.9936,0.9712,0.9919,0.9164,0.2926,0.078,0.0528,0.9982,0.9517,0.3725,0.3104,0.2738,0.0345,0.9966,0.6919999999999999,0.9837,0.9998,0.9775,0.6942,0.673,0.3905,0.0271,0.7735,0.9882,0.661,0.5608,0.15,0.0759],[0.02546747037346924,0.0170592628134138,0.05896293978751597,0.004833399503347622,0.01848029552055547,0.06185631956074727,0.07715179539540444,0.8294060502289498,0.359989000093207,0.1248346110217367,0.09567446456535819,0.3998719166750191,0.0921487762984786,0.01142471603014785,0.07847807919051512,0.01748582373268086,0.005571883964873545,0.05164818507741794,0.1079323460565958,0.01041089232081572,0.02276152781514005,0.08737396195750219,0.01649351123717165,0.07407679881969854,0.009562887448036385,0.7438724768732597,0.8187545946985153,0.01142471603014785,0.02276152781514005,0.04892775836470493,0.01649351123717165,0.03152844180847882,0.6759405233746751,0.01142471603014785,0.005571883964873545,0.06849969895928229,0.006221461675945083,0.004833399503347622,0.07754736377482144,0.01594271603151074,0.01130798993811119,0.01748313554225089,0.03003086993074417,0.288170998296132,0.7254302194442828,0.00021335731335626,0.005571883964873545,0.07407679881969854,0.005571883964873545,0.004833399503347622,0.7994305176012604,0.004833399503347622,0.01134424079510303,0.01134424079510303,5.965012903947598e-05,0.0007594372793776352,0.004833399503347622,0.02049613671144512,0.02691458944181545,0.9454091874635592,0.02548894367184311,0.004833399503347622,0.07665500603611924,0.02001590988278008,0.08104342509643825,0.5575066161451671],["*","*","ns","**","*","ns","ns","ns","ns","ns","ns","ns","ns","*","ns","*","**","ns","ns","*","*","ns","*","ns","**","ns","ns","*","*","*","*","*","ns","*","**","ns","**","**","ns","*","*","*","*","ns","ns","***","**","ns","**","**","ns","**","*","*","***","***","**","*","*","ns","*","**","ns","*","ns","ns"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"P_Value","targets":6},{"name":"Power","targets":7},{"name":"P_Adj_FDR","targets":8},{"name":"Significance_FDR","targets":9}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-44474b3e8cd160f85a98">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Mandibular_LL4_single root","Mandibular_LL6_distal root","Mandibular_LL6_mesial root","Mandibular_LR4_single root","Mandibular_LR6_distal root","Mandibular_LR6_mesial root","Maxillary_UL4_buccal root","Maxillary_UL4_lingual root","Maxillary_UL6_distal-buccal","Maxillary_UL6_mesio-buccal","Maxillary_UL6_palatal","Maxillary_UR4_buccal root","Maxillary_UR4_lingual root","Maxillary_UR6_distal-buccal","Maxillary_UR6_mesio-buccal","Maxillary_UR6_palatal"],[17,17,17,17,15,15,17,17,16,16,16,17,17,17,17,17],[15.6665,14.2512,14.2318,15.47,14.114,14.0073,14.2641,13.9982,12.6894,12.6625,14.1531,14.3812,13.5612,12.8665,12.7847,13.8841],[15.2241,13.8606,13.7841,15.1429,13.6627,13.8127,13.7824,13.4124,12.0544,12.335,13.5794,14.0512,13.3459,12.3406,12.4547,13.64],[-0.4424,-0.3906,-0.4476,-0.3271,-0.4513,-0.1947,-0.4818,-0.5859,-0.635,-0.3275,-0.5737,-0.33,-0.2153,-0.5259,-0.33,-0.2441],[1.8173,1.683,1.548,1.396,1.4356,1.6083,2.1564,1.852,1.6135,1.838,2.0382,1.6929,1.9196,1.8484,1.7999,1.5575],[1.3733,1.6863,1.5176,1.5475,1.3026,1.5486,2.1093,1.6686,1.6397,1.5492,1.7816,1.5696,1.9562,1.5597,1.5684,1.484],[0.03343750412858323,0.0001312857495362742,1.95032783697255e-05,0.02328057120637712,4.194846919583636e-05,0.0813574158087329,0.00520084821129355,0.001215607535847713,0.001538300957331832,0.03061209746196676,0.0007749636728865641,0.01033338835263475,0.07238273808551524,0.00458358389887314,0.003478609375612042,0.006425657836230738],[0.2386,0.1447,0.2073,0.1466,0.2392,0.06610000000000001,0.1415,0.2748,0.3135,0.1215,0.2257,0.1263,0.06370000000000001,0.257,0.1264,0.09320000000000001],[0.03821429043266655,0.0007001906641934623,0.000312052453915608,0.03104076160850283,0.0003355877535666909,0.0813574158087329,0.009245952375632978,0.003889944114712681,0.004102135886218218,0.03767642764549755,0.003099854691546256,0.01503038305837781,0.07720825395788292,0.009167167797746281,0.007951107144256097,0.01028105253796918],["*","***","***","*","***","ns","**","**","**","*","**","*","ns","**","**","*"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>SD_T1<\/th>\n      <th>SD_T2<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"SD_T1","targets":6},{"name":"SD_T2","targets":7},{"name":"P_Value","targets":8},{"name":"Power","targets":9},{"name":"P_Adj_FDR","targets":10},{"name":"Significance_FDR","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>thesis_statistical_reports[[&quot;Root_Resorption&quot;]]%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;, 
@@ -1262,7 +1301,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-2514ce28ae593bde0f73" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Mandibular_LL4_single root","Mandibular_LL6_distal root","Mandibular_LL6_mesial root","Mandibular_LR4_single root","Mandibular_LR6_distal root","Mandibular_LR6_mesial root","Maxillary_UL4_buccal root","Maxillary_UL4_lingual root","Maxillary_UL6_distal-buccal","Maxillary_UL6_mesio-buccal","Maxillary_UL6_palatal","Maxillary_UR4_buccal root","Maxillary_UR4_lingual root","Maxillary_UR6_distal-buccal","Maxillary_UR6_mesio-buccal","Maxillary_UR6_palatal"],[17,17,17,17,15,15,17,17,16,16,16,17,17,17,17,17],[15.6665,14.2512,14.2318,15.47,14.114,14.0073,14.2641,13.9982,12.6894,12.6625,14.1531,14.3812,13.5612,12.8665,12.7847,13.8841],[15.2241,13.8606,13.7841,15.1429,13.6627,13.8127,13.7824,13.4124,12.0544,12.335,13.5794,14.0512,13.3459,12.3406,12.4547,13.64],[-0.4424,-0.3906,-0.4476,-0.3271,-0.4513,-0.1947,-0.4818,-0.5859,-0.635,-0.3275,-0.5737,-0.33,-0.2153,-0.5259,-0.33,-0.2441],[0.03343750412858323,0.0001312857495362742,1.95032783697255e-05,0.02328057120637712,4.194846919583636e-05,0.0813574158087329,0.00520084821129355,0.001215607535847713,0.001538300957331832,0.03061209746196676,0.0007749636728865641,0.01033338835263475,0.07238273808551524,0.00458358389887314,0.003478609375612042,0.006425657836230738],[0.2386,0.1447,0.2073,0.1466,0.2392,0.06610000000000001,0.1415,0.2748,0.3135,0.1215,0.2257,0.1263,0.06370000000000001,0.257,0.1264,0.09320000000000001],[0.03821429043266655,0.0007001906641934623,0.000312052453915608,0.03104076160850283,0.0003355877535666909,0.0813574158087329,0.009245952375632978,0.003889944114712681,0.004102135886218218,0.03767642764549755,0.003099854691546256,0.01503038305837781,0.07720825395788292,0.009167167797746281,0.007951107144256097,0.01028105253796918],["*","***","***","*","***","ns","**","**","**","*","**","*","ns","**","**","*"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"P_Value","targets":6},{"name":"Power","targets":7},{"name":"P_Adj_FDR","targets":8},{"name":"Significance_FDR","targets":9}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-2514ce28ae593bde0f73">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Mandibular_LL4_single root","Mandibular_LL6_distal root","Mandibular_LL6_mesial root","Mandibular_LR4_single root","Mandibular_LR6_distal root","Mandibular_LR6_mesial root","Maxillary_UL4_buccal root","Maxillary_UL4_lingual root","Maxillary_UL6_distal-buccal","Maxillary_UL6_mesio-buccal","Maxillary_UL6_palatal","Maxillary_UR4_buccal root","Maxillary_UR4_lingual root","Maxillary_UR6_distal-buccal","Maxillary_UR6_mesio-buccal","Maxillary_UR6_palatal"],[17,17,17,17,15,15,17,17,16,16,16,17,17,17,17,17],[15.6665,14.2512,14.2318,15.47,14.114,14.0073,14.2641,13.9982,12.6894,12.6625,14.1531,14.3812,13.5612,12.8665,12.7847,13.8841],[15.2241,13.8606,13.7841,15.1429,13.6627,13.8127,13.7824,13.4124,12.0544,12.335,13.5794,14.0512,13.3459,12.3406,12.4547,13.64],[-0.4424,-0.3906,-0.4476,-0.3271,-0.4513,-0.1947,-0.4818,-0.5859,-0.635,-0.3275,-0.5737,-0.33,-0.2153,-0.5259,-0.33,-0.2441],[1.8173,1.683,1.548,1.396,1.4356,1.6083,2.1564,1.852,1.6135,1.838,2.0382,1.6929,1.9196,1.8484,1.7999,1.5575],[1.3733,1.6863,1.5176,1.5475,1.3026,1.5486,2.1093,1.6686,1.6397,1.5492,1.7816,1.5696,1.9562,1.5597,1.5684,1.484],[0.03343750412858323,0.0001312857495362742,1.95032783697255e-05,0.02328057120637712,4.194846919583636e-05,0.0813574158087329,0.00520084821129355,0.001215607535847713,0.001538300957331832,0.03061209746196676,0.0007749636728865641,0.01033338835263475,0.07238273808551524,0.00458358389887314,0.003478609375612042,0.006425657836230738],[0.2386,0.1447,0.2073,0.1466,0.2392,0.06610000000000001,0.1415,0.2748,0.3135,0.1215,0.2257,0.1263,0.06370000000000001,0.257,0.1264,0.09320000000000001],[0.03821429043266655,0.0007001906641934623,0.000312052453915608,0.03104076160850283,0.0003355877535666909,0.0813574158087329,0.009245952375632978,0.003889944114712681,0.004102135886218218,0.03767642764549755,0.003099854691546256,0.01503038305837781,0.07720825395788292,0.009167167797746281,0.007951107144256097,0.01028105253796918],["*","***","***","*","***","ns","**","**","**","*","**","*","ns","**","**","*"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>SD_T1<\/th>\n      <th>SD_T2<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"SD_T1","targets":6},{"name":"SD_T2","targets":7},{"name":"P_Value","targets":8},{"name":"Power","targets":9},{"name":"P_Adj_FDR","targets":10},{"name":"Significance_FDR","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>thesis_statistical_reports[[&quot;Intrusion&quot;]]%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;, 
@@ -1271,7 +1310,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-5d05eac75555269eefd0" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4"],["Mandibular_L4","Mandibular_L6","Maxillary_U4","Maxillary_U6"],[16,16,16,16],[38.845,32.0638,26.9506,22.965],[39.5969,32.695,26.57,22.4044],[0.7519,0.6312,-0.3806,-0.5606],[0.01169069292465548,0.02480703475157504,0.1014043331861144,0.08768782732740875],[0.161,0.1369,0.065,0.1102],[0.0467627716986219,0.04961406950315009,0.1014043331861144,0.1014043331861144],["*","*","ns","ns"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"P_Value","targets":6},{"name":"Power","targets":7},{"name":"P_Adj_FDR","targets":8},{"name":"Significance_FDR","targets":9}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5d05eac75555269eefd0">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Mandibular_LL4_single root","Mandibular_LL6_distal root","Mandibular_LL6_mesial root","Mandibular_LR4_single root","Mandibular_LR6_distal root","Mandibular_LR6_mesial root","Maxillary_UL4_buccal root","Maxillary_UL4_lingual root","Maxillary_UL6_distal-buccal","Maxillary_UL6_mesio-buccal","Maxillary_UL6_palatal","Maxillary_UR4_buccal root","Maxillary_UR4_lingual root","Maxillary_UR6_distal-buccal","Maxillary_UR6_mesio-buccal","Maxillary_UR6_palatal"],[17,17,17,17,15,15,17,17,16,16,16,17,17,17,17,17],[15.6665,14.2512,14.2318,15.47,14.114,14.0073,14.2641,13.9982,12.6894,12.6625,14.1531,14.3812,13.5612,12.8665,12.7847,13.8841],[15.2241,13.8606,13.7841,15.1429,13.6627,13.8127,13.7824,13.4124,12.0544,12.335,13.5794,14.0512,13.3459,12.3406,12.4547,13.64],[-0.4424,-0.3906,-0.4476,-0.3271,-0.4513,-0.1947,-0.4818,-0.5859,-0.635,-0.3275,-0.5737,-0.33,-0.2153,-0.5259,-0.33,-0.2441],[1.8173,1.683,1.548,1.396,1.4356,1.6083,2.1564,1.852,1.6135,1.838,2.0382,1.6929,1.9196,1.8484,1.7999,1.5575],[1.3733,1.6863,1.5176,1.5475,1.3026,1.5486,2.1093,1.6686,1.6397,1.5492,1.7816,1.5696,1.9562,1.5597,1.5684,1.484],[0.03343750412858323,0.0001312857495362742,1.95032783697255e-05,0.02328057120637712,4.194846919583636e-05,0.0813574158087329,0.00520084821129355,0.001215607535847713,0.001538300957331832,0.03061209746196676,0.0007749636728865641,0.01033338835263475,0.07238273808551524,0.00458358389887314,0.003478609375612042,0.006425657836230738],[0.2386,0.1447,0.2073,0.1466,0.2392,0.06610000000000001,0.1415,0.2748,0.3135,0.1215,0.2257,0.1263,0.06370000000000001,0.257,0.1264,0.09320000000000001],[0.03821429043266655,0.0007001906641934623,0.000312052453915608,0.03104076160850283,0.0003355877535666909,0.0813574158087329,0.009245952375632978,0.003889944114712681,0.004102135886218218,0.03767642764549755,0.003099854691546256,0.01503038305837781,0.07720825395788292,0.009167167797746281,0.007951107144256097,0.01028105253796918],["*","***","***","*","***","ns","**","**","**","*","**","*","ns","**","**","*"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>SD_T1<\/th>\n      <th>SD_T2<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"SD_T1","targets":6},{"name":"SD_T2","targets":7},{"name":"P_Value","targets":8},{"name":"Power","targets":9},{"name":"P_Adj_FDR","targets":10},{"name":"Significance_FDR","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>thesis_statistical_reports[[&quot;Tipping&quot;]]%&gt;%
 datatable(extensions = &#39;Buttons&#39;,
           caption = &quot;&quot;, 
@@ -1280,10 +1319,12 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-7531f021030c44f57ef2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["L4s_CEJ to CEJ","L4s_lingual cusp to lingual cusp","L6s_CEJ to CEJ","L6s_DL cusp to DL cusp","L6s_ML cusp to ML cusp","U4s_CEJ to CEJ","U4s_lingual cusp to lingual cusp","U6s_CEJ to CEJ","U6s_DL cusp to DL cusp","U6s_ML cusp to ML cusp"],[16,16,14,14,14,16,16,13,13,13],[25.6769,26.0312,34.1764,36.105,33.55,27.0763,29.8762,34.0369,40.6669,39.4569],[27.7819,28.9331,36.15,38.3714,36.5464,29.9944,33.9725,36.2862,43.2269,42.72],[2.105,2.9019,1.9736,2.2664,2.9964,2.9181,4.0962,2.2492,2.56,3.2631],[0.0001053288524294351,7.499926832134802e-06,5.939821525769036e-05,0.001091485465585137,5.759418471928058e-06,8.348972064440147e-06,3.377807660810811e-06,5.830329521923522e-05,0.0003143974676006205,5.113821530541506e-05],[0.9327,0.9975000000000001,0.9006999999999999,0.8454,0.9958,0.9961,1,0.7768,0.905,0.9866],[0.0001316610655367939,2.087243016110037e-05,8.485459322527195e-05,0.001091485465585137,2.087243016110037e-05,2.087243016110037e-05,2.087243016110037e-05,8.485459322527195e-05,0.000349330519556245,8.485459322527195e-05],["***","***","***","**","***","***","***","***","***","***"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"P_Value","targets":6},{"name":"Power","targets":7},{"name":"P_Adj_FDR","targets":8},{"name":"Significance_FDR","targets":9}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-7531f021030c44f57ef2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["Mandibular_LL4_single root","Mandibular_LL6_distal root","Mandibular_LL6_mesial root","Mandibular_LR4_single root","Mandibular_LR6_distal root","Mandibular_LR6_mesial root","Maxillary_UL4_buccal root","Maxillary_UL4_lingual root","Maxillary_UL6_distal-buccal","Maxillary_UL6_mesio-buccal","Maxillary_UL6_palatal","Maxillary_UR4_buccal root","Maxillary_UR4_lingual root","Maxillary_UR6_distal-buccal","Maxillary_UR6_mesio-buccal","Maxillary_UR6_palatal"],[17,17,17,17,15,15,17,17,16,16,16,17,17,17,17,17],[15.6665,14.2512,14.2318,15.47,14.114,14.0073,14.2641,13.9982,12.6894,12.6625,14.1531,14.3812,13.5612,12.8665,12.7847,13.8841],[15.2241,13.8606,13.7841,15.1429,13.6627,13.8127,13.7824,13.4124,12.0544,12.335,13.5794,14.0512,13.3459,12.3406,12.4547,13.64],[-0.4424,-0.3906,-0.4476,-0.3271,-0.4513,-0.1947,-0.4818,-0.5859,-0.635,-0.3275,-0.5737,-0.33,-0.2153,-0.5259,-0.33,-0.2441],[1.8173,1.683,1.548,1.396,1.4356,1.6083,2.1564,1.852,1.6135,1.838,2.0382,1.6929,1.9196,1.8484,1.7999,1.5575],[1.3733,1.6863,1.5176,1.5475,1.3026,1.5486,2.1093,1.6686,1.6397,1.5492,1.7816,1.5696,1.9562,1.5597,1.5684,1.484],[0.03343750412858323,0.0001312857495362742,1.95032783697255e-05,0.02328057120637712,4.194846919583636e-05,0.0813574158087329,0.00520084821129355,0.001215607535847713,0.001538300957331832,0.03061209746196676,0.0007749636728865641,0.01033338835263475,0.07238273808551524,0.00458358389887314,0.003478609375612042,0.006425657836230738],[0.2386,0.1447,0.2073,0.1466,0.2392,0.06610000000000001,0.1415,0.2748,0.3135,0.1215,0.2257,0.1263,0.06370000000000001,0.257,0.1264,0.09320000000000001],[0.03821429043266655,0.0007001906641934623,0.000312052453915608,0.03104076160850283,0.0003355877535666909,0.0813574158087329,0.009245952375632978,0.003889944114712681,0.004102135886218218,0.03767642764549755,0.003099854691546256,0.01503038305837781,0.07720825395788292,0.009167167797746281,0.007951107144256097,0.01028105253796918],["*","***","***","*","***","ns","**","**","**","*","**","*","ns","**","**","*"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Pairs_Count<\/th>\n      <th>Mean_T1<\/th>\n      <th>Mean_T2<\/th>\n      <th>Mean_Diff<\/th>\n      <th>SD_T1<\/th>\n      <th>SD_T2<\/th>\n      <th>P_Value<\/th>\n      <th>Power<\/th>\n      <th>P_Adj_FDR<\/th>\n      <th>Significance_FDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Pairs_Count","targets":2},{"name":"Mean_T1","targets":3},{"name":"Mean_T2","targets":4},{"name":"Mean_Diff","targets":5},{"name":"SD_T1","targets":6},{"name":"SD_T2","targets":7},{"name":"P_Value","targets":8},{"name":"Power","targets":9},{"name":"P_Adj_FDR","targets":10},{"name":"Significance_FDR","targets":11}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="plots" class="section level2">
 <h2>plots</h2>
+<div id="alveolar_bone_height" class="section level3">
+<h3>Alveolar_Bone_Height</h3>
 <pre class="r"><code>library(tidyverse)
 
 # ==============================================================================
@@ -1355,13 +1396,13 @@ ggplot(plot_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
     panel.grid.minor = element_blank(),
     legend.position = &quot;top&quot;
   )</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div id="fig-unnamed-chunk-12-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1380,7 +1421,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-11-1.png" target="_blank">18b4909</a>
+<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-1.png" target="_blank">18b4909</a>
 </td>
 <td>
 han
@@ -1393,6 +1434,106 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>library(tidyverse)
+
+# Complete visualization script with dynamic Standard Error (SE) calculation
+ggplot(plot_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
+  
+  # 1. Draw side-by-side bars
+  geom_bar(
+    stat = &quot;identity&quot;, 
+    position = position_dodge(width = 0.8), 
+    width = 0.7, 
+    color = &quot;black&quot;, 
+    linewidth = 0.3
+  ) +
+  
+  # 2. Add Standard Error (SE) bars dynamically: SD / sqrt(Pairs_Count)
+  geom_errorbar(
+    aes(
+      ymin = Mean_Value - (if_else(Timepoint == &quot;T1&quot;, SD_T1, SD_T2) / sqrt(Pairs_Count)), 
+      ymax = Mean_Value + (if_else(Timepoint == &quot;T1&quot;, SD_T1, SD_T2) / sqrt(Pairs_Count))
+    ),
+    position = position_dodge(width = 0.8),
+    width = 0.25,        # Width of the horizontal error bar caps
+    color = &quot;black&quot;,
+    linewidth = 0.4
+  ) +
+  
+  # 3. Add Significance stars/ns directly above the bars
+  geom_text(
+    data = p_labels,
+    aes(x = Site, y = Max_Height + 0.2, label = Significance_FDR), 
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.5, 
+    fontface = &quot;bold&quot;
+  ) +
+  
+  # 4. Set nrow = 1 so Mandibular and Maxillary sit side-by-side horizontally
+  facet_wrap(~Jaw, nrow = 1, scales = &quot;free_x&quot;) +
+  
+  # Cohesive thesis color palette
+  scale_fill_manual(values = c(&quot;T1&quot; = &quot;#A0C4FF&quot;, &quot;T2&quot; = &quot;#FFADAD&quot;)) +
+  
+  # Axis Labels
+  labs(
+    x = &quot;Measurement Site / Tooth Structure&quot;,
+    y = &quot;Mean Alveolar Bone Height (mm)&quot;,
+    fill = &quot;Timepoint&quot;
+  ) +
+  
+  # Professional theme adjustments
+  theme_bw(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 9),
+    strip.background = element_rect(fill = &quot;#F0F0F0&quot;, color = &quot;black&quot;),
+    strip.text = element_text(face = &quot;bold&quot;, size = 12),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = &quot;top&quot;
+  )</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-13-1.png" target="_blank">18b4909</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-06-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="alveolar_bone_thickness" class="section level3">
+<h3>Alveolar_Bone_Thickness</h3>
 <pre class="r"><code>library(tidyverse)
 
 # ==============================================================================
@@ -1499,13 +1640,13 @@ for (current_graph in target_graphs) {
     )
 }
 thickness_plots[[&quot;Mandibular_LL&quot;]]</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div id="fig-unnamed-chunk-14-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1524,7 +1665,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-1.png" target="_blank">18b4909</a>
+<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-14-1.png" target="_blank">18b4909</a>
 </td>
 <td>
 han
@@ -1538,91 +1679,142 @@ han
 </div>
 </div>
 <pre class="r"><code>thickness_plots[[&quot;Mandibular_LR&quot;]]</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
-Past versions of unnamed-chunk-12-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-2.png" target="_blank">18b4909</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-06-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>thickness_plots[[&quot;Maxillary_UL&quot;]]</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-3">
-Past versions of unnamed-chunk-12-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-3.png" target="_blank">18b4909</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-06-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-14-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>thickness_plots[[&quot;Maxillary_UR&quot;]]</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-14-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(tidyverse)
+
+# ==============================================================================
+# 1. ADVANCED STRING SEPARATION &amp; DATA PREPARATION (WITH SE CAPTURE)
+# ==============================================================================
+cleaned_thickness_data &lt;- thesis_statistical_reports[[&quot;Alveolar_Bone_Thickness&quot;]] %&gt;%
+  # Separate depth (e.g., &quot;Mandibular_LL4 buccal_3mm&quot; -&gt; &quot;Mandibular_LL4 buccal&quot; &amp; &quot;3mm&quot;)
+  separate(Variable, into = c(&quot;Base_Variable&quot;, &quot;Depth&quot;), sep = &quot;_(?=[0-9])&quot;, extra = &quot;merge&quot;) %&gt;%
+  
+  # Separate Jaw from tooth code (e.g., &quot;Mandibular_LL4 buccal&quot; -&gt; &quot;Mandibular&quot; &amp; &quot;LL4 buccal&quot;)
+  separate(Base_Variable, into = c(&quot;Jaw&quot;, &quot;Tooth_Site&quot;), sep = &quot;_&quot;, extra = &quot;merge&quot;) %&gt;%
+  
+  # Extract the Quadrant identifier (&quot;LL&quot;, &quot;LR&quot;, &quot;UL&quot;, &quot;UR&quot;)
+  mutate(
+    Quadrant_Code = substr(Tooth_Site, 1, 2),
+    Graph_Group = paste0(Jaw, &quot;_&quot;, Quadrant_Code),
+    
+    # Clean up the X-axis label by removing redundant Quadrant letters
+    Site_Label = str_replace(Tooth_Site, &quot;^[A-Z]{2}&quot;, &quot;&quot;)
+  ) %&gt;%
+  
+  # FIX: Reshape Mean AND SD simultaneously while preserving Pairs_Count for SE calculation
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2, SD_T1, SD_T2),
+    names_to = c(&quot;.value&quot;, &quot;Timepoint&quot;),
+    names_sep = &quot;_&quot;
+  ) %&gt;%
+  # Rename columns to match plotting syntax and clean Timepoint labels
+  rename(Mean_Value = Mean, SD_Value = SD) %&gt;%
+  mutate(
+    Timepoint = factor(Timepoint, levels = c(&quot;T1&quot;, &quot;T2&quot;)),
+    # Calculate Standard Error dynamically
+    SE_Value = SD_Value / sqrt(Pairs_Count)
+  )
+
+
+# ==============================================================================
+# 2. CALCULATE STAR POSITION HEIGHTS (FLOATING ABOVE ERROR BARS)
+# ==============================================================================
+p_labels_thickness &lt;- cleaned_thickness_data %&gt;%
+  group_by(Graph_Group, Site_Label, Depth, Significance_FDR) %&gt;%
+  summarise(
+    # FIX: Position stars above the top of the error bar (Mean + SE) instead of just Mean
+    Max_Height = max(Mean_Value + SE_Value, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  )
+
+
+# ==============================================================================
+# 3. LOOP AND GENERATE THE 4 INDIVIDUAL PLOTS
+# ==============================================================================
+target_graphs = c(&quot;Mandibular_LL&quot;, &quot;Mandibular_LR&quot;, &quot;Maxillary_UL&quot;, &quot;Maxillary_UR&quot;)
+thickness_plots &lt;- list()
+
+for (current_graph in target_graphs) {
+  
+  # Filter data for this specific quadrant loop iteration
+  subset_plot_data &lt;- cleaned_thickness_data %&gt;% filter(Graph_Group == current_graph)
+  subset_p_labels  &lt;- p_labels_thickness %&gt;% filter(Graph_Group == current_graph)
+  
+  # Construct the standalone figure using native ggplot2 faceting for structural layout
+  thickness_plots[[current_graph]] &lt;- ggplot(subset_plot_data, aes(x = Depth, y = Mean_Value, fill = Timepoint)) +
+    # A. Draw side-by-side bars for T1/T2
+    geom_bar(
+      stat = &quot;identity&quot;, 
+      position = position_dodge(width = 0.8), 
+      width = 0.7, 
+      color = &quot;black&quot;, 
+      linewidth = 0.3
+    ) +
+    
+    # B. ADDED: Add Standard Error bars matching the bar dodging width
+    geom_errorbar(
+      aes(ymin = Mean_Value - SE_Value, ymax = Mean_Value + SE_Value),
+      position = position_dodge(width = 0.8),
+      width = 0.25, # Width of the cap on the error bars
+      color = &quot;black&quot;,
+      linewidth = 0.4
+    ) +
+    
+    # C. Float significance stars safely over the error bars
+    geom_text(
+      data = subset_p_labels,
+      aes(x = Depth, y = Max_Height + 0.15, label = Significance_FDR),
+      inherit.aes = FALSE,
+      vjust = 0,
+      size = 3.5,
+      fontface = &quot;bold&quot;
+    ) +
+    
+    # Facet by Site_Label to group 3mm, 6mm, 9mm cleanly under each tooth type!
+    facet_wrap(~Site_Label, scales = &quot;free_x&quot;, strip.position = &quot;bottom&quot;) +
+    
+    # Thesis coloring setup
+    scale_fill_manual(values = c(&quot;T1&quot; = &quot;#A0C4FF&quot;, &quot;T2&quot; = &quot;#FFADAD&quot;)) +
+    
+    # Custom titles labeling each figure automatically
+    labs(
+      title = paste(&quot;Alveolar Bone Thickness Changes —&quot;, str_replace(current_graph, &quot;_&quot;, &quot; &quot;)),
+      x = &quot;Measurement Depth (grouped by Tooth Location)&quot;,
+      y = &quot;Mean Bone Thickness (mm)&quot;,
+      fill = &quot;Timepoint&quot;
+    ) +
+    
+    # Clean professional engineering theme elements
+    theme_bw(base_size = 11) +
+    theme(
+      plot.title = element_text(face = &quot;bold&quot;, size = 13, hjust = 0.5),
+      axis.text.x = element_text(size = 9, color = &quot;black&quot;),
+      
+      # Style the sub-labels (e.g., &quot;4 buccal&quot;) to sit cleanly below the depth measurements
+      strip.background = element_blank(),
+      strip.placement = &quot;outside&quot;,
+      strip.text = element_text(face = &quot;bold&quot;, size = 10, vjust = 1),
+      
+      panel.spacing = unit(0.5, &quot;lines&quot;), # Controls spacing between tooth clusters
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor = element_blank(),
+      legend.position = &quot;top&quot;
+    )
+}
+
+# Display your plots
+thickness_plots[[&quot;Mandibular_LL&quot;]]</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-4">
-Past versions of unnamed-chunk-12-4.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-12-4" class="collapse">
+<div id="fig-unnamed-chunk-15-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1641,7 +1833,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-12-4.png" target="_blank">18b4909</a>
+<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-15-1.png" target="_blank">18b4909</a>
 </td>
 <td>
 han
@@ -1654,6 +1846,15 @@ han
 </table>
 </div>
 </div>
+<pre class="r"><code>thickness_plots[[&quot;Mandibular_LR&quot;]]</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>thickness_plots[[&quot;Maxillary_UL&quot;]]</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>thickness_plots[[&quot;Maxillary_UR&quot;]]</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-15-4.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="root_resorption" class="section level3">
+<h3>Root_Resorption</h3>
 <pre class="r"><code>library(tidyverse)
 
 # ==============================================================================
@@ -1734,44 +1935,107 @@ ggplot(resorption_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
     panel.grid.minor = element_blank(),
     legend.position = &quot;top&quot;
   )</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-13-1.png" target="_blank">18b4909</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-06-18
-</td>
-</tr>
-</tbody>
-</table>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(tidyverse)
+
+# ==============================================================================
+# 1. CLEAN AND SHAPE ROOT RESORPTION DATA (WITH SE CAPTURE)
+# ==============================================================================
+resorption_data &lt;- thesis_statistical_reports[[&quot;Root_Resorption&quot;]] %&gt;%
+  # Split safely at the first underscore that precedes an uppercase letter or number
+  separate(Variable, into = c(&quot;Jaw&quot;, &quot;Site&quot;), sep = &quot;_(?=[A-Z0-9])&quot;, extra = &quot;merge&quot;) %&gt;%
+  
+  # Clean up any leftover formatting underscores in the tooth name strings for readability
+  mutate(Site = str_replace_all(Site, &quot;_&quot;, &quot; &quot;)) %&gt;%
+  
+  # FIX: Reshape Mean and SD in parallel, preserving Pairs_Count for SE calculations
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2, SD_T1, SD_T2),
+    names_to = c(&quot;.value&quot;, &quot;Timepoint&quot;),
+    names_sep = &quot;_&quot;
+  ) %&gt;%
+  # Standardize column naming conventions
+  rename(Mean_Value = Mean, SD_Value = SD) %&gt;%
+  mutate(
+    Timepoint = factor(Timepoint, levels = c(&quot;T1&quot;, &quot;T2&quot;)),
+    # Calculate Standard Error (SE = SD / sqrt(n))
+    SE_Value = SD_Value / sqrt(Pairs_Count)
+  )
+
+
+# ==============================================================================
+# 2. TRACK HIGHEST BAR EXTENTS FOR PLACING SIGNIFICANCE STARS
+# ==============================================================================
+p_labels_resorption &lt;- resorption_data %&gt;%
+  group_by(Jaw, Site, Significance_FDR) %&gt;%
+  summarise(
+    # FIX: Position stars above the top of the error bars (Mean + SE)
+    Max_Height = max(Mean_Value + SE_Value, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  )
+
+
+# ==============================================================================
+# 3. BUILD THE HORIZONTAL SIDE-BY-SIDE PLOT
+# ==============================================================================
+ggplot(resorption_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
+  # Draw the primary data bars
+  geom_bar(
+    stat = &quot;identity&quot;, 
+    position = position_dodge(width = 0.8), 
+    width = 0.7, 
+    color = &quot;black&quot;, 
+    linewidth = 0.3
+  ) +
+  
+  # ADDED: Add Standard Error (SE) bars matching the bar dodging parameters
+  geom_errorbar(
+    aes(ymin = Mean_Value - SE_Value, ymax = Mean_Value + SE_Value),
+    position = position_dodge(width = 0.8),
+    width = 0.25, # Width of the cap on the error bars
+    color = &quot;black&quot;,
+    linewidth = 0.4
+  ) +
+  
+  # Center significance stars directly above bar pairs (adjusted padding to + 0.3)
+  geom_text(
+    data = p_labels_resorption,
+    aes(x = Site, y = Max_Height + 0.3, label = Significance_FDR), 
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.5, 
+    fontface = &quot;bold&quot;
+  ) +
+  
+  # Position Mandibular and Maxillary plots side-by-side to optimize thesis layout space
+  facet_wrap(~Jaw, nrow = 1, scales = &quot;free_x&quot;) +
+  
+  # Standardized color design palette
+  scale_fill_manual(values = c(&quot;T1&quot; = &quot;#A0C4FF&quot;, &quot;T2&quot; = &quot;#FFADAD&quot;)) +
+  
+  # Descriptive annotations
+  labs(
+    title = &quot;Root Length Alterations — Resorption Analysis&quot;,
+    x = &quot;Tooth Position &amp; Evaluated Root Structure&quot;,
+    y = &quot;Mean Root Length (mm)&quot;,
+    fill = &quot;Timepoint&quot;
+  ) +
+  
+  # Standard publication formatting styles
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_text(face = &quot;bold&quot;, size = 13, hjust = 0.5, margin = margin(b = 10)),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 9, color = &quot;black&quot;),
+    strip.background = element_rect(fill = &quot;#F0F0F0&quot;, color = &quot;black&quot;),
+    strip.text = element_text(face = &quot;bold&quot;, size = 11),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = &quot;top&quot;
+  )</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-</div>
+<div id="intrusion" class="section level3">
+<h3>Intrusion</h3>
 <pre class="r"><code>library(tidyverse)
 
 # ==============================================================================
@@ -1849,44 +2113,104 @@ ggplot(intrusion_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
     panel.grid.minor = element_blank(),
     legend.position = &quot;top&quot;
   )</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-14-1.png" target="_blank">18b4909</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-06-18
-</td>
-</tr>
-</tbody>
-</table>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(tidyverse)
+
+# ==============================================================================
+# 1. CLEAN AND SHAPE INTRUSION DATA (WITH SE CAPTURE)
+# ==============================================================================
+intrusion_data &lt;- thesis_statistical_reports[[&quot;Intrusion&quot;]] %&gt;%
+  # Separate at the underscore (e.g., &quot;Mandibular_L4&quot; -&gt; &quot;Mandibular&quot; &amp; &quot;L4&quot;)
+  separate(Variable, into = c(&quot;Jaw&quot;, &quot;Site&quot;), sep = &quot;_&quot;, extra = &quot;merge&quot;) %&gt;%
+  
+  # FIX: Reshape Mean and SD in parallel, preserving Pairs_Count for SE calculations
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2, SD_T1, SD_T2),
+    names_to = c(&quot;.value&quot;, &quot;Timepoint&quot;),
+    names_sep = &quot;_&quot;
+  ) %&gt;%
+  # Standardize column naming conventions
+  rename(Mean_Value = Mean, SD_Value = SD) %&gt;%
+  mutate(
+    Timepoint = factor(Timepoint, levels = c(&quot;T1&quot;, &quot;T2&quot;)),
+    # Calculate Standard Error (SE = SD / sqrt(n))
+    SE_Value = SD_Value / sqrt(Pairs_Count)
+  )
+
+
+# ==============================================================================
+# 2. TRACK HIGHEST BAR EXTENTS FOR PLACING SIGNIFICANCE STARS
+# ==============================================================================
+p_labels_intrusion &lt;- intrusion_data %&gt;%
+  group_by(Jaw, Site, Significance_FDR) %&gt;%
+  summarise(
+    # FIX: Position stars above the top of the error bars (Mean + SE)
+    Max_Height = max(Mean_Value + SE_Value, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  )
+
+
+# ==============================================================================
+# 3. BUILD THE HORIZONTAL SIDE-BY-SIDE PLOT
+# ==============================================================================
+ggplot(intrusion_data, aes(x = Site, y = Mean_Value, fill = Timepoint)) +
+  # Draw the primary data bars
+  geom_bar(
+    stat = &quot;identity&quot;, 
+    position = position_dodge(width = 0.8), 
+    width = 0.6, # Slightly narrower bars look better with fewer data categories
+    color = &quot;black&quot;, 
+    linewidth = 0.3
+  ) +
+  
+  # ADDED: Add Standard Error (SE) bars matching the bar dodging parameters
+  geom_errorbar(
+    aes(ymin = Mean_Value - SE_Value, ymax = Mean_Value + SE_Value),
+    position = position_dodge(width = 0.8),
+    width = 0.22, # Slightly narrower cap width to match width = 0.6 bars cleanly
+    color = &quot;black&quot;,
+    linewidth = 0.4
+  ) +
+  
+  # Center significance stars directly above bar pairs
+  geom_text(
+    data = p_labels_intrusion,
+    aes(x = Site, y = Max_Height + 0.4, label = Significance_FDR), # Scaled padding to look tight and proportional
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.8, 
+    fontface = &quot;bold&quot;
+  ) +
+  
+  # Position Mandibular and Maxillary plots side-by-side to match the thesis layout theme
+  facet_wrap(~Jaw, nrow = 1, scales = &quot;free_x&quot;) +
+  
+  # Standardized color design palette
+  scale_fill_manual(values = c(&quot;T1&quot; = &quot;#A0C4FF&quot;, &quot;T2&quot; = &quot;#FFADAD&quot;)) +
+  
+  # Descriptive annotations
+  labs(
+    title = &quot;Tooth Intrusion / Position Changes&quot;,
+    x = &quot;Tooth Position Group&quot;,
+    y = &quot;Mean Distance / Position Value (mm)&quot;,
+    fill = &quot;Timepoint&quot;
+  ) +
+  
+  # Standard publication formatting styles
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_text(face = &quot;bold&quot;, size = 13, hjust = 0.5, margin = margin(b = 10)),
+    axis.text.x = element_text(size = 10, color = &quot;black&quot;), # No tilt angle needed for short names like L4/L6
+    strip.background = element_rect(fill = &quot;#F0F0F0&quot;, color = &quot;black&quot;),
+    strip.text = element_text(face = &quot;bold&quot;, size = 11),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = &quot;top&quot;
+  )</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-</div>
+<div id="tipping" class="section level3">
+<h3>Tipping</h3>
 <pre class="r"><code>library(tidyverse)
 
 # ==============================================================================
@@ -1974,43 +2298,111 @@ ggplot(tipping_data, aes(x = Landmark, y = Mean_Value, fill = Timepoint)) +
     panel.grid.minor = element_blank(),
     legend.position = &quot;top&quot;
   )</code></pre>
-<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-15-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/18b4909e9f4385b16e50d2ef4bb56e6b10b5a28d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-15-1.png" target="_blank">18b4909</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-06-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(tidyverse)
+
+# ==============================================================================
+# 1. CLEAN AND SHAPE TIPPING DATA (WITH SE CAPTURE)
+# ==============================================================================
+tipping_data &lt;- thesis_statistical_reports[[&quot;Tipping&quot;]] %&gt;%
+  mutate(
+    # Extract the first letter (L or U) to determine the Jaw group
+    Jaw_Letter = substr(Variable, 1, 1),
+    Jaw = case_when(
+      Jaw_Letter == &quot;L&quot; ~ &quot;Mandibular (L)&quot;,
+      Jaw_Letter == &quot;U&quot; ~ &quot;Maxillary (U)&quot;,
+      TRUE ~ &quot;Unknown&quot;
+    ),
+    
+    # Isolate the landmark detail by splitting off the tooth prefix (e.g., &quot;L4s_&quot;)
+    Landmark = str_replace(Variable, &quot;^[LU][0-9]s_&quot;, &quot;&quot;)
+  ) %&gt;%
+  
+  # FIX: Reshape Mean and SD in parallel, preserving Pairs_Count for SE calculations
+  pivot_longer(
+    cols = c(Mean_T1, Mean_T2, SD_T1, SD_T2),
+    names_to = c(&quot;.value&quot;, &quot;Timepoint&quot;),
+    names_sep = &quot;_&quot;
+  ) %&gt;%
+  # Standardize column naming conventions
+  rename(Mean_Value = Mean, SD_Value = SD) %&gt;%
+  mutate(
+    Timepoint = factor(Timepoint, levels = c(&quot;T1&quot;, &quot;T2&quot;)),
+    # Calculate Standard Error (SE = SD / sqrt(n))
+    SE_Value = SD_Value / sqrt(Pairs_Count)
+  )
+
+
+# ==============================================================================
+# 2. TRACK HIGHEST BAR EXTENTS FOR PLACING SIGNIFICANCE STARS
+# ==============================================================================
+p_labels_tipping &lt;- tipping_data %&gt;%
+  group_by(Jaw, Landmark, Significance_FDR) %&gt;%
+  summarise(
+    # FIX: Position stars above the top of the error bars (Mean + SE)
+    Max_Height = max(Mean_Value + SE_Value, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  )
+
+
+# ==============================================================================
+# 3. BUILD THE HORIZONTAL SIDE-BY-SIDE PLOT
+# ==============================================================================
+ggplot(tipping_data, aes(x = Landmark, y = Mean_Value, fill = Timepoint)) +
+  # Draw the primary data bars
+  geom_bar(
+    stat = &quot;identity&quot;, 
+    position = position_dodge(width = 0.8), 
+    width = 0.7, 
+    color = &quot;black&quot;, 
+    linewidth = 0.3
+  ) +
+  
+  # ADDED: Add Standard Error (SE) bars matching the bar dodging parameters
+  geom_errorbar(
+    aes(ymin = Mean_Value - SE_Value, ymax = Mean_Value + SE_Value),
+    position = position_dodge(width = 0.8),
+    width = 0.25, # Width of the cap on the error bars
+    color = &quot;black&quot;,
+    linewidth = 0.4
+  ) +
+  
+  # Center significance stars directly above bar pairs
+  geom_text(
+    data = p_labels_tipping,
+    aes(x = Landmark, y = Max_Height + 0.4, label = Significance_FDR), # Padding balanced to float cleanly above SE whisker
+    inherit.aes = FALSE,
+    vjust = 0,
+    size = 3.8, 
+    fontface = &quot;bold&quot;
+  ) +
+  
+  # Position Mandibular and Maxillary plots side-by-side to maintain formatting cohesion
+  facet_wrap(~Jaw, nrow = 1, scales = &quot;free_x&quot;) +
+  
+  # Standardized color design palette
+  scale_fill_manual(values = c(&quot;T1&quot; = &quot;#A0C4FF&quot;, &quot;T2&quot; = &quot;#FFADAD&quot;)) +
+  
+  # Descriptive annotations
+  labs(
+    title = &quot;Dental Tipping — Landmark Distance Analysis&quot;,
+    x = &quot;Evaluated Anatomical Landmark Reference&quot;,
+    y = &quot;Mean Inter-Arch Distance (mm)&quot;,
+    fill = &quot;Timepoint&quot;
+  ) +
+  
+  # Standard publication formatting styles
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_text(face = &quot;bold&quot;, size = 13, hjust = 0.5, margin = margin(b = 10)),
+    axis.text.x = element_text(angle = 35, hjust = 1, vjust = 1, size = 9, color = &quot;black&quot;), # Clean tilt for descriptive terms
+    strip.background = element_rect(fill = &quot;#F0F0F0&quot;, color = &quot;black&quot;),
+    strip.text = element_text(face = &quot;bold&quot;, size = 11),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor = element_blank(),
+    legend.position = &quot;top&quot;
+  )</code></pre>
+<p><img src="figure/2026_0603_Sarah.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="intra-rater-reliability" class="section level2">
