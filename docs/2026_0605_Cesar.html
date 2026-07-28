@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-06-17
+<strong>Last updated:</strong> 2026-07-28
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -455,10 +455,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefd7b97607b07ce23cf95c2c73a40353529fc669atargetblankfd7b976a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed1f978d54ad63b7340866834a759c143582c7459targetblankd1f978da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/fd7b97607b07ce23cf95c2c73a40353529fc669a" target="_blank">fd7b976</a>
+<a href="https://github.com/han16/Collaborations/tree/d1f978d54ad63b7340866834a759c143582c7459" target="_blank">d1f978d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefd7b97607b07ce23cf95c2c73a40353529fc669atargetblankfd7b976a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreed1f978d54ad63b7340866834a759c143582c7459targetblankd1f978da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/fd7b97607b07ce23cf95c2c73a40353529fc669a" target="_blank">fd7b976</a>.
+<a href="https://github.com/han16/Collaborations/tree/d1f978d54ad63b7340866834a759c143582c7459" target="_blank">d1f978d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -588,11 +588,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2026_0605_Cesar.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2026.Rmd
+    Modified:   analysis/2026_0605_Cesar.Rmd
 
 </code></pre>
 <p>
@@ -607,14 +604,154 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2026_0605_Cesar.Rmd</code>) and
+HTML (<code>docs/2026_0605_Cesar.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/bef83a46f0c79386c89642a39e07b5efadcdfcc0/analysis/2026_0605_Cesar.Rmd" target="_blank">bef83a4</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-06-17
+</td>
+<td>
+6/17/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/bef83a46f0c79386c89642a39e07b5efadcdfcc0/docs/2026_0605_Cesar.html" target="_blank">bef83a4</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-06-17
+</td>
+<td>
+6/17/2026
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
+<div id="descriptive-statistics" class="section level2">
+<h2>descriptive statistics</h2>
+<pre class="r"><code>summary(data$Age_At_Treatment)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2.00    3.00    3.00    3.59    4.00    7.00 </code></pre>
+<pre class="r"><code>cat(&quot;Age_At_Treatment:&quot;, &quot;Mean:&quot;, mean(data$Age_At_Treatment), &quot;SD:&quot;, sd(data$Age_At_Treatment), &quot;\n&quot;)</code></pre>
+<pre><code>Age_At_Treatment: Mean: 3.589595 SD: 1.116052 </code></pre>
+<pre class="r"><code># 1. Get min and max ages to define precise half-integer breaks
+min_age &lt;- floor(min(data$Age_At_Treatment, na.rm = TRUE))
+max_age &lt;- ceiling(max(data$Age_At_Treatment, na.rm = TRUE))
+
+# Breaks at 0.5, 1.5, 2.5, 3.5 ... so integer 2 sits at [1.5, 2.5]
+age_breaks &lt;- seq(from = min_age - 0.5, to = max_age + 0.5, by = 1)
+
+# 2. Draw histogram and save object
+h &lt;- hist(
+  data$Age_At_Treatment,
+  breaks = age_breaks,
+  main = &quot;Distribution of Age at Treatment&quot;,
+  xlab = &quot;Age at Treatment&quot;,
+  ylab = &quot;Frequency&quot;,
+  col = &quot;#A0C4FF&quot;,
+  border = &quot;black&quot;,
+  xaxt = &quot;n&quot;, # Turn off default x-axis to draw clean integer labels
+  ylim = c(0, max(hist(data$Age_At_Treatment, breaks = age_breaks, plot = FALSE)$counts) * 1.18)
+)
+
+# 3. Add custom integer x-axis ticks matching the exact centers
+axis(1, at = min_age:max_age, labels = min_age:max_age)
+
+# 4. Add counts over bars (only show numbers &gt; 0 for cleanliness)
+text(
+  x = h$mids[h$counts &gt; 0],
+  y = h$counts[h$counts &gt; 0],
+  labels = h$counts[h$counts &gt; 0],
+  pos = 3,
+  font = 2,
+  cex = 0.8
+)</code></pre>
+<p><img src="figure/2026_0605_Cesar.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(data$Days_From_SDF_To_Failure_Treatment)</code></pre>
+<pre><code>   Length     Class      Mode 
+      346 character character </code></pre>
+<pre class="r"><code>library(tidyverse)
+library(janitor)
+
+data.frame(Sex = data$Sex) %&gt;%
+  mutate(Sex = factor(Sex, levels = c(1, 2, 0), labels = c(&quot;Male&quot;, &quot;Female&quot;, &quot;Unknown&quot;))) %&gt;%
+  tabyl(Sex) %&gt;%
+  adorn_pct_formatting(digits = 2)</code></pre>
+<pre><code>     Sex   n percent
+    Male 195  56.36%
+  Female 135  39.02%
+ Unknown  16   4.62%</code></pre>
+<pre class="r"><code>data.frame(Ethnicity = data$Ethnicity) %&gt;%
+  mutate(Sex = factor(Ethnicity)) %&gt;%
+  tabyl(Ethnicity) %&gt;%
+  adorn_pct_formatting(digits = 2)</code></pre>
+<pre><code> Ethnicity   n percent valid_percent
+     AFRAM  21   6.07%        10.61%
+     ASIAN  22   6.36%        11.11%
+      CAUC  16   4.62%         8.08%
+      HISP 112  32.37%        56.57%
+     OTHER  25   7.23%        12.63%
+      UNKN   2   0.58%         1.01%
+      &lt;NA&gt; 148  42.77%             -</code></pre>
+<pre class="r"><code>data.frame(Medicaid= data$Medicaid) %&gt;%
+  mutate(Medicaid = factor(Medicaid)) %&gt;%
+  tabyl(Medicaid) %&gt;%
+  adorn_pct_formatting(digits = 2)</code></pre>
+<pre><code> Medicaid   n percent
+       No  35  10.12%
+      Yes 311  89.88%</code></pre>
+</div>
+<div id="sample-size-calculation" class="section level2">
+<h2>sample size calculation</h2>
 <pre class="r"><code> #install.packages(&quot;powerMediation&quot;)
 library(powerMediation)
 
@@ -705,44 +842,46 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] VennDiagram_1.7.3   futile.logger_1.4.3 condsurv_1.0.0     
- [4] devtools_2.4.5      usethis_3.1.0       tidycmprsk_1.1.0   
- [7] gtsummary_2.0.4     ggsurvfit_1.1.0     irr_0.84.1         
-[10] lpSolve_5.6.23      readxl_1.4.3        cowplot_1.1.3      
-[13] matrixStats_1.5.0   gridExtra_2.3       DT_0.33            
-[16] rstatix_0.7.2       ggpubr_0.6.0        kableExtra_1.4.0   
-[19] lubridate_1.9.4     forcats_1.0.0       stringr_1.5.1      
-[22] dplyr_1.1.4         purrr_1.0.2         readr_2.1.4        
-[25] tidyr_1.3.1         tibble_3.2.1        ggplot2_4.0.3      
-[28] tidyverse_2.0.0     rprojroot_2.0.4    
+ [1] janitor_2.2.1       VennDiagram_1.7.3   futile.logger_1.4.3
+ [4] condsurv_1.0.0      devtools_2.4.5      usethis_3.1.0      
+ [7] tidycmprsk_1.1.0    gtsummary_2.0.4     ggsurvfit_1.1.0    
+[10] irr_0.84.1          lpSolve_5.6.23      readxl_1.4.3       
+[13] cowplot_1.1.3       matrixStats_1.5.0   gridExtra_2.3      
+[16] DT_0.33             rstatix_0.7.2       ggpubr_0.6.0       
+[19] kableExtra_1.4.0    lubridate_1.9.4     forcats_1.0.0      
+[22] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
+[25] readr_2.1.4         tidyr_1.3.1         tibble_3.2.1       
+[28] ggplot2_4.0.3       tidyverse_2.0.0     rprojroot_2.0.4    
 
 loaded via a namespace (and not attached):
  [1] formatR_1.14         remotes_2.5.0        rlang_1.1.2         
- [4] magrittr_2.0.3       git2r_0.35.0         compiler_4.3.2      
- [7] systemfonts_1.2.1    vctrs_0.6.5          profvis_0.4.0       
-[10] pkgconfig_2.0.3      fastmap_1.2.0        backports_1.5.0     
-[13] ellipsis_0.3.2       promises_1.3.2       rmarkdown_2.29      
-[16] sessioninfo_1.2.2    tzdb_0.4.0           xfun_0.50.6         
-[19] cachem_1.1.0         jsonlite_1.8.9       later_1.4.1         
-[22] broom_1.0.7          R6_2.6.1             bslib_0.9.0         
-[25] stringi_1.8.3        RColorBrewer_1.1-3   car_3.1-3           
-[28] pkgload_1.4.0        jquerylib_0.1.4      cellranger_1.1.0    
-[31] Rcpp_1.0.11          knitr_1.49           httpuv_1.6.15       
-[34] Matrix_1.6-5         splines_4.3.2        timechange_0.3.0    
-[37] tidyselect_1.2.1     rstudioapi_0.17.1    abind_1.4-8         
-[40] yaml_2.3.8           miniUI_0.1.1.1       pkgbuild_1.4.6      
-[43] lattice_0.21-9       shiny_1.10.0         withr_3.0.2         
-[46] S7_0.2.0             evaluate_1.0.3       lambda.r_1.2.4      
-[49] survival_3.8-3       urlchecker_1.0.1     xml2_1.3.6          
-[52] pillar_1.10.1        carData_3.0-5        generics_0.1.3      
-[55] hms_1.1.3            scales_1.4.0         xtable_1.8-4        
-[58] glue_1.8.0           tools_4.3.2          ggsignif_0.6.4      
-[61] fs_1.6.5             crosstalk_1.2.1      Formula_1.2-5       
-[64] cli_3.6.2            workflowr_1.7.1      futile.options_1.0.1
-[67] viridisLite_0.4.2    svglite_2.1.3        gtable_0.3.6        
-[70] sass_0.4.9           digest_0.6.33        htmlwidgets_1.6.4   
-[73] farver_2.1.2         memoise_2.0.1        htmltools_0.5.8.1   
-[76] lifecycle_1.0.4      mime_0.12           </code></pre>
+ [4] magrittr_2.0.3       git2r_0.35.0         snakecase_0.11.1    
+ [7] compiler_4.3.2       systemfonts_1.2.1    vctrs_0.6.5         
+[10] profvis_0.4.0        pkgconfig_2.0.3      fastmap_1.2.0       
+[13] backports_1.5.0      ellipsis_0.3.2       promises_1.3.2      
+[16] rmarkdown_2.29       sessioninfo_1.2.2    tzdb_0.4.0          
+[19] xfun_0.50.6          cachem_1.1.0         jsonlite_1.8.9      
+[22] later_1.4.1          broom_1.0.7          R6_2.6.1            
+[25] bslib_0.9.0          stringi_1.8.3        RColorBrewer_1.1-3  
+[28] car_3.1-3            pkgload_1.4.0        jquerylib_0.1.4     
+[31] cellranger_1.1.0     Rcpp_1.0.11          knitr_1.49          
+[34] httpuv_1.6.15        Matrix_1.6-5         splines_4.3.2       
+[37] timechange_0.3.0     tidyselect_1.2.1     rstudioapi_0.17.1   
+[40] abind_1.4-8          yaml_2.3.8           miniUI_0.1.1.1      
+[43] pkgbuild_1.4.6       lattice_0.21-9       shiny_1.10.0        
+[46] withr_3.0.2          S7_0.2.0             evaluate_1.0.3      
+[49] lambda.r_1.2.4       survival_3.8-3       urlchecker_1.0.1    
+[52] xml2_1.3.6           pillar_1.10.1        carData_3.0-5       
+[55] whisker_0.4.1        generics_0.1.3       hms_1.1.3           
+[58] scales_1.4.0         xtable_1.8-4         glue_1.8.0          
+[61] tools_4.3.2          ggsignif_0.6.4       fs_1.6.5            
+[64] crosstalk_1.2.1      Formula_1.2-5        cli_3.6.2           
+[67] workflowr_1.7.1      futile.options_1.0.1 viridisLite_0.4.2   
+[70] svglite_2.1.3        gtable_0.3.6         sass_0.4.9          
+[73] digest_0.6.33        htmlwidgets_1.6.4    farver_2.1.2        
+[76] memoise_2.0.1        htmltools_0.5.8.1    lifecycle_1.0.4     
+[79] mime_0.12           </code></pre>
+</div>
 </div>
 
 

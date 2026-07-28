@@ -23,6 +23,96 @@ library(tidyr)
 
 
 
+```{r, echo=F, message=F, warning=F}
+#raw_data=multiplesheets(file.path(root, "..\\2026\\202606\\Cesar\\Report-Revised.xlsx"))
+#data=raw_data$Sheet1
+#key=raw_data$Sheet2
+
+#save(data, key, file=file.path(root, "..\\2026\\202606\\Cesar\\data_key.RData"))
+load(file.path(root, "..\\2026\\202606\\Cesar\\data_key.RData"))
+```
+
+
+## descriptive statistics 
+
+```{r, message=F, warning=F}
+summary(data$Age_At_Treatment)
+cat("Age_At_Treatment:", "Mean:", mean(data$Age_At_Treatment), "SD:", sd(data$Age_At_Treatment), "\n")
+
+
+# 1. Get min and max ages to define precise half-integer breaks
+min_age <- floor(min(data$Age_At_Treatment, na.rm = TRUE))
+max_age <- ceiling(max(data$Age_At_Treatment, na.rm = TRUE))
+
+# Breaks at 0.5, 1.5, 2.5, 3.5 ... so integer 2 sits at [1.5, 2.5]
+age_breaks <- seq(from = min_age - 0.5, to = max_age + 0.5, by = 1)
+
+# 2. Draw histogram and save object
+h <- hist(
+  data$Age_At_Treatment,
+  breaks = age_breaks,
+  main = "Distribution of Age at Treatment",
+  xlab = "Age at Treatment",
+  ylab = "Frequency",
+  col = "#A0C4FF",
+  border = "black",
+  xaxt = "n", # Turn off default x-axis to draw clean integer labels
+  ylim = c(0, max(hist(data$Age_At_Treatment, breaks = age_breaks, plot = FALSE)$counts) * 1.18)
+)
+
+# 3. Add custom integer x-axis ticks matching the exact centers
+axis(1, at = min_age:max_age, labels = min_age:max_age)
+
+# 4. Add counts over bars (only show numbers > 0 for cleanliness)
+text(
+  x = h$mids[h$counts > 0],
+  y = h$counts[h$counts > 0],
+  labels = h$counts[h$counts > 0],
+  pos = 3,
+  font = 2,
+  cex = 0.8
+)
+```
+
+
+
+
+
+
+```{r, message=F, warning=F}
+summary(data$Days_From_SDF_To_Failure_Treatment)
+```
+
+```{r, message=F, warning=F}
+
+library(tidyverse)
+library(janitor)
+
+data.frame(Sex = data$Sex) %>%
+  mutate(Sex = factor(Sex, levels = c(1, 2, 0), labels = c("Male", "Female", "Unknown"))) %>%
+  tabyl(Sex) %>%
+  adorn_pct_formatting(digits = 2)
+```
+
+```{r, message=F, warning=F}
+data.frame(Ethnicity = data$Ethnicity) %>%
+  mutate(Sex = factor(Ethnicity)) %>%
+  tabyl(Ethnicity) %>%
+  adorn_pct_formatting(digits = 2)
+```
+
+
+```{r, message=F, warning=F}
+data.frame(Medicaid= data$Medicaid) %>%
+  mutate(Medicaid = factor(Medicaid)) %>%
+  tabyl(Medicaid) %>%
+  adorn_pct_formatting(digits = 2)
+```
+
+
+
+
+## sample size calculation 
 
 ```{r, message=F, warning=F, eval=F}
  #install.packages("powerMediation")
