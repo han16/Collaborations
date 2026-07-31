@@ -1552,6 +1552,337 @@ ggplot(tipping_data, aes(x = Landmark, y = Mean_Value, fill = Timepoint)) +
   )
 ```
 
+## right vs left 
+
+
+### Alveolar Bone height
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(zoo)
+
+# -------------------------------------------------------------------------
+# Step 1: Extract Patient IDs and Timepoints from headers/Row 1
+# -------------------------------------------------------------------------
+
+df <- thesis_data$`Alveolar Bone height`
+
+# Fill Jaw (Maxillary / Mandibular) down Column 1
+df[[1]] <- na.locf(df[[1]], na.rm = FALSE)
+
+# Extract column names (Patient IDs with ...4, ...5 placeholders)
+col_names <- colnames(df)[3:ncol(df)]
+
+# Replace placeholders like ...4 with NA, then fill patient IDs forward across columns
+patient_ids <- ifelse(grepl("^\\.\\.", col_names), NA, col_names)
+patient_ids <- na.locf(patient_ids)
+
+# Extract timepoints from Row 1
+timepoints <- as.character(df[1, 3:ncol(df)])
+
+# Create a clean data frame starting from Row 2 (the site measurements)
+clean_df <- df[-1, ]
+colnames(clean_df)[1:2] <- c("Jaw", "Site")
+
+# Rename measurement columns to "PatientID___Timepoint"
+colnames(clean_df)[3:ncol(clean_df)] <- paste(patient_ids, timepoints, sep = "___")
+
+# -------------------------------------------------------------------------
+# Step 2: Reshape to Long Format
+# -------------------------------------------------------------------------
+
+long_df <- clean_df %>%
+  pivot_longer(
+    cols = -c(Jaw, Site),
+    names_to = c("Patient", "Timepoint"),
+    names_sep = "___",
+    values_to = "Value"
+  ) %>%
+  mutate(
+    Value = as.numeric(Value),
+    # Map Right vs Left based on site name prefix
+    Side = case_when(
+      str_starts(Site, "UR|LR") ~ "Right",
+      str_starts(Site, "UL|LL") ~ "Left",
+      TRUE ~ NA_character_
+    ),
+    # Strip UR/UL/LR/LL to match corresponding anatomical sites
+    Anatomical_Site = str_replace(Site, "^(UR|UL|LR|LL)\\s*", "")
+  )
+
+# -------------------------------------------------------------------------
+# Step 3: Run Paired t-tests (Right vs Left) for T1, T2, and T2-T1
+# -------------------------------------------------------------------------
+
+# Reshape to put Right and Left measurements side-by-side per patient
+paired_df <- long_df %>%
+  filter(!is.na(Side)) %>%
+  pivot_wider(
+    id_cols = c(Jaw, Anatomical_Site, Patient, Timepoint),
+    names_from = Side,
+    values_from = Value
+  )
+
+# Summarize and run paired t-tests
+summary_results <- paired_df %>%
+  group_by(Jaw, Anatomical_Site, Timepoint) %>%
+  summarise(
+    N_Pairs    = sum(!is.na(Right) & !is.na(Left)),
+    Mean_Right = mean(Right, na.rm = TRUE),
+    SD_Right   = sd(Right, na.rm = TRUE),
+    Mean_Left  = mean(Left, na.rm = TRUE),
+    SD_Left    = sd(Left, na.rm = TRUE),
+    Mean_Diff  = mean(Right - Left, na.rm = TRUE), # Right minus Left
+    P_Value    = ifelse(
+      N_Pairs >= 2, 
+      t.test(Right, Left, paired = TRUE)$p.value, 
+      NA_real_
+    ),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Right_Mean_SD = sprintf("%.2f (%.2f)", Mean_Right, SD_Right),
+    Left_Mean_SD  = sprintf("%.2f (%.2f)", Mean_Left, SD_Left),
+    Mean_Diff     = round(Mean_Diff, 3),
+    P_Value_Formatted = ifelse(is.na(P_Value), "N/A", 
+                          ifelse(P_Value < 0.001, "< 0.001", sprintf("%.3f", P_Value)))
+  ) %>%
+  select(Jaw, Anatomical_Site, Timepoint, N_Pairs, Right_Mean_SD, Left_Mean_SD, Mean_Diff, P_Value_Formatted)
+
+# View full output
+summary_results %>% 
+  datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+
+
+
+### Alveolar bone thickness
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+library(zoo)
+
+# Load data
+df_raw <- thesis_data$`Alveolar bone thickness`
+
+# -------------------------------------------------------------------------
+# Step 1: Clean and Fill Missing Header/Metadata Values
+# -------------------------------------------------------------------------
+
+# Fill Jaw (Col 1) and Site (Col 2) downwards to handle implicit NA rows
+df_raw[[1]] <- na.locf(df_raw[[1]], na.rm = FALSE)
+df_raw[[2]] <- na.locf(df_raw[[2]], na.rm = FALSE)
+
+# Extract Column Names (Patient IDs) starting from Col 4
+raw_cols <- colnames(df_raw)[4:ncol(df_raw)]
+
+# Replace placeholders (e.g., "...5", "...6") with NA, then fill Patient IDs forward
+patient_ids <- ifelse(grepl("^\\.\\.", raw_cols), NA, raw_cols)
+patient_ids <- na.locf(patient_ids)
+
+# Extract Timepoints from Row 1 (T1, T2, T2-T1)
+timepoints <- as.character(df_raw[1, 4:ncol(df_raw)])
+
+# Remove header row (Row 1) and assign column names
+clean_df <- df_raw[-1, ]
+colnames(clean_df)[1:3] <- c("Jaw", "Site", "Level")
+
+# Name measurement columns as "PatientID___Timepoint"
+colnames(clean_df)[4:ncol(clean_df)] <- paste(patient_ids, timepoints, sep = "___")
+
+# -------------------------------------------------------------------------
+# Step 2: Convert to Long Format and Pair Right vs Left
+# -------------------------------------------------------------------------
+
+long_df <- clean_df %>%
+  pivot_longer(
+    cols = -c(Jaw, Site, Level),
+    names_to = c("Patient", "Timepoint"),
+    names_sep = "___",
+    values_to = "Value"
+  ) %>%
+  mutate(
+    Value = as.numeric(Value),
+    # Map Side
+    Side = case_when(
+      str_starts(Site, "UR|LR") ~ "Right",
+      str_starts(Site, "UL|LL") ~ "Left",
+      TRUE ~ NA_character_
+    ),
+    # Strip quadrant prefix to create matching anatomical sites (e.g., "R4 buccal", "R6 lingual")
+    Anatomical_Site = str_replace(Site, "^(UR|UL|LR|LL)\\s*", "")
+  )
+
+# Reshape so Right and Left are side-by-side per patient
+paired_df <- long_df %>%
+  filter(!is.na(Side)) %>%
+  pivot_wider(
+    id_cols = c(Jaw, Anatomical_Site, Level, Patient, Timepoint),
+    names_from = Side,
+    values_from = Value
+  )
+
+# -------------------------------------------------------------------------
+# Step 3: Statistical Comparison (Paired t-tests)
+# -------------------------------------------------------------------------
+
+summary_results <- paired_df %>%
+  group_by(Jaw, Anatomical_Site, Level, Timepoint) %>%
+  summarise(
+    N_Pairs    = sum(!is.na(Right) & !is.na(Left)),
+    Mean_Right = mean(Right, na.rm = TRUE),
+    SD_Right   = sd(Right, na.rm = TRUE),
+    Mean_Left  = mean(Left, na.rm = TRUE),
+    SD_Left    = sd(Left, na.rm = TRUE),
+    Mean_Diff  = mean(Right - Left, na.rm = TRUE), # Right minus Left
+    P_Value    = ifelse(
+      N_Pairs >= 2, 
+      t.test(Right, Left, paired = TRUE)$p.value, 
+      NA_real_
+    ),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Right_Mean_SD = sprintf("%.2f (%.2f)", Mean_Right, SD_Right),
+    Left_Mean_SD  = sprintf("%.2f (%.2f)", Mean_Left, SD_Left),
+    Mean_Diff     = round(Mean_Diff, 3),
+    P_Value_Formatted = ifelse(
+      is.na(P_Value), "N/A", 
+      ifelse(P_Value < 0.001, "< 0.001", sprintf("%.3f", P_Value))
+    )
+  ) %>%
+  select(
+    Jaw, Anatomical_Site, Level, Timepoint, N_Pairs, 
+    Right_Mean_SD, Left_Mean_SD, Mean_Diff, P_Value_Formatted
+  )
+
+summary_results %>% 
+  datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+
+
+### Root Resorption
+
+
+
+
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+raw_resorption <- thesis_data$`Root Resorption`
+
+# 1. Map Patient IDs directly from column names
+col_names_raw <- colnames(raw_resorption)
+patient_mapping <- tibble(col_name = col_names_raw) %>%
+  mutate(
+    Patient_ID = ifelse(str_detect(col_name, "C\\d+|15\\d+"), col_name, NA_character_)
+  ) %>%
+  fill(Patient_ID, .direction = "down") %>%
+  pull(Patient_ID)
+
+# 2. Extract Timepoints ("T1", "T2", "T2-T1") directly from Row 1
+timepoints_raw <- unlist(raw_resorption[1, ])
+
+# 3. Process and reshape keeping T1, T2, and T2-T1
+resorption_clean <- raw_resorption %>%
+  slice(-1) %>%
+  fill(`...1`, `...2`, .direction = "down") %>%
+  rename(Arch = `...1`, Tooth = `...2`, Root = `...3`) %>%
+  filter(!is.na(Root), Root != "Root") %>%
+  pivot_longer(
+    cols = -c(Arch, Tooth, Root),
+    names_to = "Col_Name",
+    values_to = "Value"
+  ) %>%
+  mutate(
+    Col_Pos = match(Col_Name, col_names_raw),
+    Patient_ID = patient_mapping[Col_Pos],
+    Timepoint = case_when(
+      timepoints_raw[Col_Pos] == "T1" ~ "T1",
+      timepoints_raw[Col_Pos] == "T2" ~ "T2",
+      str_detect(timepoints_raw[Col_Pos], "T2-T1|Diff") ~ "T2-T1",
+      TRUE ~ timepoints_raw[Col_Pos]
+    ),
+    Value = round(as.numeric(Value), 2),
+    Side = ifelse(str_detect(Tooth, "R"), "Right", "Left"),
+    Tooth_Type = str_replace(Tooth, "^U[RL]|^L[RL]", "")
+  ) %>%
+  filter(!is.na(Value)) %>%
+  select(Patient_ID, Arch, Tooth, Tooth_Type, Side, Root, Timepoint, Value) %>%
+  distinct(Patient_ID, Arch, Tooth, Tooth_Type, Side, Root, Timepoint, .keep_all = TRUE) %>%
+  # Keep all three as columns: T1, T2, and `T2-T1`
+  pivot_wider(names_from = Timepoint, values_from = Value)
+
+
+
+# 4. Right vs Left Summary for T1, T2, and T2-T1
+right_vs_left_summary <- resorption_clean %>%
+  group_by(Arch, Tooth_Type, Root, Side) %>%
+  summarise(
+    N = n(),
+    Mean_T1     = round(mean(T1, na.rm = TRUE), 2),
+    Mean_T2     = round(mean(T2, na.rm = TRUE), 2),
+    Mean_T2_T1  = round(mean(`T2-T1`, na.rm = TRUE), 2),
+    SD_T2_T1    = round(sd(`T2-T1`, na.rm = TRUE), 2),
+    .groups     = "drop"
+  ) %>%
+  pivot_wider(
+    names_from = Side,
+    values_from = c(N, Mean_T1, Mean_T2, Mean_T2_T1, SD_T2_T1)
+  )
+
+
+# 5. Paired t-tests comparing Right vs Left side for T1, T2, and T2-T1
+right_vs_left_tests <- resorption_clean %>%
+  select(Patient_ID, Arch, Tooth_Type, Root, Side, T1, T2, `T2-T1`) %>%
+  pivot_wider(
+    names_from = Side,
+    values_from = c(T1, T2, `T2-T1`)
+  ) %>%
+  filter(!is.na(`T2-T1_Right`) & !is.na(`T2-T1_Left`)) %>%
+  group_by(Arch, Tooth_Type, Root) %>%
+  summarise(
+    N_Pairs = n(),
+    # T1 comparison
+    P_Value_T1 = round(t.test(T1_Right, T1_Left, paired = TRUE)$p.value, 4),
+    # T2 comparison
+    P_Value_T2 = round(t.test(T2_Right, T2_Left, paired = TRUE)$p.value, 4),
+    P_Value_T2_T1 = round(t.test(`T2-T1_Right`, `T2-T1_Left`, paired = TRUE)$p.value, 4),
+    .groups = "drop"
+  ) %>%
+  mutate(P_Value_T2_T1_signficance = ifelse(P_Value_T2_T1 < 0.05, "Yes*", "No"))
+
+right_vs_left_tests %>% 
+  datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
 
 ## intra rater reliability 
 

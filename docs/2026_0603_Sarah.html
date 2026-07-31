@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-07-16
+<strong>Last updated:</strong> 2026-07-31
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0a9446da1d33a35190016df636086f810d58494dtargetblank0a9446da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0bd68990d4610d830a7f95a9638b0d5efc795384targetblank0bd6899a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/0a9446da1d33a35190016df636086f810d58494d" target="_blank">0a9446d</a>
+<a href="https://github.com/han16/Collaborations/tree/0bd68990d4610d830a7f95a9638b0d5efc795384" target="_blank">0bd6899</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0a9446da1d33a35190016df636086f810d58494dtargetblank0a9446da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree0bd68990d4610d830a7f95a9638b0d5efc795384targetblank0bd6899a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/0a9446da1d33a35190016df636086f810d58494d" target="_blank">0a9446d</a>.
+<a href="https://github.com/han16/Collaborations/tree/0bd68990d4610d830a7f95a9638b0d5efc795384" target="_blank">0bd6899</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -635,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/055ac1f1b3916b58adefcf07da57d50a9a5bc333/analysis/2026_0603_Sarah.Rmd" target="_blank">055ac1f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-16
+</td>
+<td>
+7/16/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/055ac1f1b3916b58adefcf07da57d50a9a5bc333/docs/2026_0603_Sarah.html" target="_blank">055ac1f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-16
+</td>
+<td>
+7/16/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2512,6 +2546,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/Collaborations/blob/055ac1f1b3916b58adefcf07da57d50a9a5bc333/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-18-1.png" target="_blank">055ac1f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/Collaborations/blob/0a9446da1d33a35190016df636086f810d58494d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-18-1.png" target="_blank">0a9446d</a>
 </td>
 <td>
@@ -2641,6 +2686,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/055ac1f1b3916b58adefcf07da57d50a9a5bc333/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-19-1.png" target="_blank">055ac1f</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-07-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/Collaborations/blob/0a9446da1d33a35190016df636086f810d58494d/docs/figure/2026_0603_Sarah.Rmd/unnamed-chunk-19-1.png" target="_blank">0a9446d</a>
@@ -2927,6 +2983,319 @@ han
 </div>
 </div>
 </div>
+<div id="right-vs-left" class="section level2">
+<h2>right vs left</h2>
+<div id="alveolar-bone-height" class="section level3">
+<h3>Alveolar Bone height</h3>
+<pre class="r"><code>library(tidyverse)
+library(zoo)
+
+# -------------------------------------------------------------------------
+# Step 1: Extract Patient IDs and Timepoints from headers/Row 1
+# -------------------------------------------------------------------------
+
+df &lt;- thesis_data$`Alveolar Bone height`
+
+# Fill Jaw (Maxillary / Mandibular) down Column 1
+df[[1]] &lt;- na.locf(df[[1]], na.rm = FALSE)
+
+# Extract column names (Patient IDs with ...4, ...5 placeholders)
+col_names &lt;- colnames(df)[3:ncol(df)]
+
+# Replace placeholders like ...4 with NA, then fill patient IDs forward across columns
+patient_ids &lt;- ifelse(grepl(&quot;^\\.\\.&quot;, col_names), NA, col_names)
+patient_ids &lt;- na.locf(patient_ids)
+
+# Extract timepoints from Row 1
+timepoints &lt;- as.character(df[1, 3:ncol(df)])
+
+# Create a clean data frame starting from Row 2 (the site measurements)
+clean_df &lt;- df[-1, ]
+colnames(clean_df)[1:2] &lt;- c(&quot;Jaw&quot;, &quot;Site&quot;)
+
+# Rename measurement columns to &quot;PatientID___Timepoint&quot;
+colnames(clean_df)[3:ncol(clean_df)] &lt;- paste(patient_ids, timepoints, sep = &quot;___&quot;)
+
+# -------------------------------------------------------------------------
+# Step 2: Reshape to Long Format
+# -------------------------------------------------------------------------
+
+long_df &lt;- clean_df %&gt;%
+  pivot_longer(
+    cols = -c(Jaw, Site),
+    names_to = c(&quot;Patient&quot;, &quot;Timepoint&quot;),
+    names_sep = &quot;___&quot;,
+    values_to = &quot;Value&quot;
+  ) %&gt;%
+  mutate(
+    Value = as.numeric(Value),
+    # Map Right vs Left based on site name prefix
+    Side = case_when(
+      str_starts(Site, &quot;UR|LR&quot;) ~ &quot;Right&quot;,
+      str_starts(Site, &quot;UL|LL&quot;) ~ &quot;Left&quot;,
+      TRUE ~ NA_character_
+    ),
+    # Strip UR/UL/LR/LL to match corresponding anatomical sites
+    Anatomical_Site = str_replace(Site, &quot;^(UR|UL|LR|LL)\\s*&quot;, &quot;&quot;)
+  )
+
+# -------------------------------------------------------------------------
+# Step 3: Run Paired t-tests (Right vs Left) for T1, T2, and T2-T1
+# -------------------------------------------------------------------------
+
+# Reshape to put Right and Left measurements side-by-side per patient
+paired_df &lt;- long_df %&gt;%
+  filter(!is.na(Side)) %&gt;%
+  pivot_wider(
+    id_cols = c(Jaw, Anatomical_Site, Patient, Timepoint),
+    names_from = Side,
+    values_from = Value
+  )
+
+# Summarize and run paired t-tests
+summary_results &lt;- paired_df %&gt;%
+  group_by(Jaw, Anatomical_Site, Timepoint) %&gt;%
+  summarise(
+    N_Pairs    = sum(!is.na(Right) &amp; !is.na(Left)),
+    Mean_Right = mean(Right, na.rm = TRUE),
+    SD_Right   = sd(Right, na.rm = TRUE),
+    Mean_Left  = mean(Left, na.rm = TRUE),
+    SD_Left    = sd(Left, na.rm = TRUE),
+    Mean_Diff  = mean(Right - Left, na.rm = TRUE), # Right minus Left
+    P_Value    = ifelse(
+      N_Pairs &gt;= 2, 
+      t.test(Right, Left, paired = TRUE)$p.value, 
+      NA_real_
+    ),
+    .groups = &quot;drop&quot;
+  ) %&gt;%
+  mutate(
+    Right_Mean_SD = sprintf(&quot;%.2f (%.2f)&quot;, Mean_Right, SD_Right),
+    Left_Mean_SD  = sprintf(&quot;%.2f (%.2f)&quot;, Mean_Left, SD_Left),
+    Mean_Diff     = round(Mean_Diff, 3),
+    P_Value_Formatted = ifelse(is.na(P_Value), &quot;N/A&quot;, 
+                          ifelse(P_Value &lt; 0.001, &quot;&lt; 0.001&quot;, sprintf(&quot;%.3f&quot;, P_Value)))
+  ) %&gt;%
+  select(Jaw, Anatomical_Site, Timepoint, N_Pairs, Right_Mean_SD, Left_Mean_SD, Mean_Diff, P_Value_Formatted)
+
+# View full output
+summary_results %&gt;% 
+  datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33"],["Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary"],["4 buccal","4 buccal","4 buccal","4 lingual","4 lingual","4 lingual","6 distal root buccal","6 distal root buccal","6 distal root buccal","6 distal root lingual","6 distal root lingual","6 distal root lingual","6 mesial root buccal","6 mesial root buccal","6 mesial root buccal","6 mesial root lingual","6 mesial root lingual","6 mesial root lingual","4 buccal","4 buccal","4 buccal","4 lingual","4 lingual","4 lingual","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 lingual","6 lingual","6 lingual","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal"],["T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1"],[17,17,17,17,17,17,15,15,15,15,15,15,15,15,15,15,15,15,17,17,17,17,17,17,16,16,16,16,16,16,16,16,16],["4.25 (3.10)","6.74 (3.26)","2.49 (3.15)","1.83 (0.66)","1.69 (0.83)","-0.14 (0.78)","1.66 (1.09)","2.74 (1.25)","1.08 (0.78)","1.53 (0.64)","1.44 (0.65)","-0.09 (0.48)","3.05 (2.79)","4.93 (2.40)","1.88 (2.51)","1.89 (1.11)","1.69 (0.66)","-0.19 (0.80)","2.53 (2.49)","6.13 (4.99)","3.60 (4.75)","1.89 (0.64)","1.68 (0.52)","-0.21 (0.31)","1.93 (1.29)","2.13 (0.68)","0.20 (1.13)","2.80 (2.22)","2.35 (1.62)","-0.45 (1.66)","3.41 (3.55)","4.05 (3.87)","0.64 (2.32)"],["4.39 (2.72)","6.24 (3.13)","1.85 (1.60)","1.85 (0.89)","1.43 (0.57)","-0.42 (0.83)","1.39 (0.67)","2.59 (1.18)","1.20 (1.15)","1.52 (0.64)","1.53 (0.88)","0.01 (0.43)","2.12 (1.68)","4.04 (2.71)","1.92 (2.60)","2.06 (0.65)","2.04 (0.84)","-0.03 (0.48)","2.79 (2.81)","8.33 (5.59)","5.53 (5.34)","2.11 (0.72)","1.88 (0.92)","-0.23 (0.94)","1.69 (0.88)","1.98 (0.68)","0.29 (0.66)","2.35 (2.04)","1.83 (0.78)","-0.52 (1.87)","2.82 (3.25)","3.98 (3.66)","1.16 (3.20)"],[-0.137,0.495,0.632,-0.021,0.262,0.283,0.317,0.208,-0.109,0.065,-0.005,-0.07000000000000001,0.952,1.058,0.106,-0.211,-0.393,-0.183,-0.266,-2.199,-1.933,-0.222,-0.209,0.014,0.311,0.196,-0.114,0.157,0.164,0.007,0.72,0.181,-0.539],["0.641","0.457","0.379","0.922","0.139","0.279","0.127","0.483","0.711","0.521","0.971","0.677","0.086","0.046","0.884","0.317","0.019","0.464","0.762","0.072","0.217","0.337","0.375","0.960","0.199","0.191","0.710","0.818","0.384","0.991","0.171","0.506","0.301"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Jaw<\/th>\n      <th>Anatomical_Site<\/th>\n      <th>Timepoint<\/th>\n      <th>N_Pairs<\/th>\n      <th>Right_Mean_SD<\/th>\n      <th>Left_Mean_SD<\/th>\n      <th>Mean_Diff<\/th>\n      <th>P_Value_Formatted<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[4,7]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Jaw","targets":1},{"name":"Anatomical_Site","targets":2},{"name":"Timepoint","targets":3},{"name":"N_Pairs","targets":4},{"name":"Right_Mean_SD","targets":5},{"name":"Left_Mean_SD","targets":6},{"name":"Mean_Diff","targets":7},{"name":"P_Value_Formatted","targets":8}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="alveolar-bone-thickness" class="section level3">
+<h3>Alveolar bone thickness</h3>
+<pre class="r"><code>library(tidyverse)
+library(zoo)
+
+# Load data
+df_raw &lt;- thesis_data$`Alveolar bone thickness`
+
+# -------------------------------------------------------------------------
+# Step 1: Clean and Fill Missing Header/Metadata Values
+# -------------------------------------------------------------------------
+
+# Fill Jaw (Col 1) and Site (Col 2) downwards to handle implicit NA rows
+df_raw[[1]] &lt;- na.locf(df_raw[[1]], na.rm = FALSE)
+df_raw[[2]] &lt;- na.locf(df_raw[[2]], na.rm = FALSE)
+
+# Extract Column Names (Patient IDs) starting from Col 4
+raw_cols &lt;- colnames(df_raw)[4:ncol(df_raw)]
+
+# Replace placeholders (e.g., &quot;...5&quot;, &quot;...6&quot;) with NA, then fill Patient IDs forward
+patient_ids &lt;- ifelse(grepl(&quot;^\\.\\.&quot;, raw_cols), NA, raw_cols)
+patient_ids &lt;- na.locf(patient_ids)
+
+# Extract Timepoints from Row 1 (T1, T2, T2-T1)
+timepoints &lt;- as.character(df_raw[1, 4:ncol(df_raw)])
+
+# Remove header row (Row 1) and assign column names
+clean_df &lt;- df_raw[-1, ]
+colnames(clean_df)[1:3] &lt;- c(&quot;Jaw&quot;, &quot;Site&quot;, &quot;Level&quot;)
+
+# Name measurement columns as &quot;PatientID___Timepoint&quot;
+colnames(clean_df)[4:ncol(clean_df)] &lt;- paste(patient_ids, timepoints, sep = &quot;___&quot;)
+
+# -------------------------------------------------------------------------
+# Step 2: Convert to Long Format and Pair Right vs Left
+# -------------------------------------------------------------------------
+
+long_df &lt;- clean_df %&gt;%
+  pivot_longer(
+    cols = -c(Jaw, Site, Level),
+    names_to = c(&quot;Patient&quot;, &quot;Timepoint&quot;),
+    names_sep = &quot;___&quot;,
+    values_to = &quot;Value&quot;
+  ) %&gt;%
+  mutate(
+    Value = as.numeric(Value),
+    # Map Side
+    Side = case_when(
+      str_starts(Site, &quot;UR|LR&quot;) ~ &quot;Right&quot;,
+      str_starts(Site, &quot;UL|LL&quot;) ~ &quot;Left&quot;,
+      TRUE ~ NA_character_
+    ),
+    # Strip quadrant prefix to create matching anatomical sites (e.g., &quot;R4 buccal&quot;, &quot;R6 lingual&quot;)
+    Anatomical_Site = str_replace(Site, &quot;^(UR|UL|LR|LL)\\s*&quot;, &quot;&quot;)
+  )
+
+# Reshape so Right and Left are side-by-side per patient
+paired_df &lt;- long_df %&gt;%
+  filter(!is.na(Side)) %&gt;%
+  pivot_wider(
+    id_cols = c(Jaw, Anatomical_Site, Level, Patient, Timepoint),
+    names_from = Side,
+    values_from = Value
+  )
+
+# -------------------------------------------------------------------------
+# Step 3: Statistical Comparison (Paired t-tests)
+# -------------------------------------------------------------------------
+
+summary_results &lt;- paired_df %&gt;%
+  group_by(Jaw, Anatomical_Site, Level, Timepoint) %&gt;%
+  summarise(
+    N_Pairs    = sum(!is.na(Right) &amp; !is.na(Left)),
+    Mean_Right = mean(Right, na.rm = TRUE),
+    SD_Right   = sd(Right, na.rm = TRUE),
+    Mean_Left  = mean(Left, na.rm = TRUE),
+    SD_Left    = sd(Left, na.rm = TRUE),
+    Mean_Diff  = mean(Right - Left, na.rm = TRUE), # Right minus Left
+    P_Value    = ifelse(
+      N_Pairs &gt;= 2, 
+      t.test(Right, Left, paired = TRUE)$p.value, 
+      NA_real_
+    ),
+    .groups = &quot;drop&quot;
+  ) %&gt;%
+  mutate(
+    Right_Mean_SD = sprintf(&quot;%.2f (%.2f)&quot;, Mean_Right, SD_Right),
+    Left_Mean_SD  = sprintf(&quot;%.2f (%.2f)&quot;, Mean_Left, SD_Left),
+    Mean_Diff     = round(Mean_Diff, 3),
+    P_Value_Formatted = ifelse(
+      is.na(P_Value), &quot;N/A&quot;, 
+      ifelse(P_Value &lt; 0.001, &quot;&lt; 0.001&quot;, sprintf(&quot;%.3f&quot;, P_Value))
+    )
+  ) %&gt;%
+  select(
+    Jaw, Anatomical_Site, Level, Timepoint, N_Pairs, 
+    Right_Mean_SD, Left_Mean_SD, Mean_Diff, P_Value_Formatted
+  )
+
+summary_results %&gt;% 
+  datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6f1d8b9e786d9d3fe28d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6f1d8b9e786d9d3fe28d">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99"],["Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Mandibular","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary"],["4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-lingual","6 distal-lingual","6 distal-lingual","6 distal-lingual","6 distal-lingual","6 distal-lingual","6 distal-lingual","6 distal-lingual","6 distal-lingual","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-lingual","6 mesio-lingual","6 mesio-lingual","6 mesio-lingual","6 mesio-lingual","6 mesio-lingual","6 mesio-lingual","6 mesio-lingual","6 mesio-lingual","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 buccal","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","4 lingual","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 distal-buccal","6 lingual","6 lingual","6 lingual","6 lingual","6 lingual","6 lingual","6 lingual","6 lingual","6 lingual","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal","6 mesio-buccal"],["3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm","3mm","3mm","3mm","6mm","6mm","6mm","9mm","9mm","9mm"],["T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1","T1","T2","T2-T1"],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,17,17,17,17,17,17,15,15,15,17,17,17,17,17,17,16,16,16,16,16,16,16,16,16,15,15,15,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16],["0.34 (0.45)","0.15 (0.32)","-0.19 (0.43)","0.49 (0.43)","0.14 (0.35)","-0.35 (0.41)","1.11 (0.67)","0.66 (0.71)","-0.45 (0.65)","1.59 (0.88)","1.99 (1.40)","0.40 (0.83)","2.83 (0.98)","3.40 (1.51)","0.57 (0.74)","3.24 (1.21)","3.79 (1.65)","0.55 (1.08)","0.92 (0.58)","0.44 (0.45)","-0.48 (0.50)","1.63 (0.73)","1.58 (0.80)","-0.06 (0.58)","2.93 (1.07)","2.99 (1.54)","0.06 (0.89)","1.99 (0.96)","2.70 (1.26)","0.71 (0.79)","3.23 (1.14)","3.77 (1.51)","0.53 (0.71)","3.78 (1.63)","4.25 (1.70)","0.47 (0.75)","0.56 (0.54)","0.10 (0.20)","-0.46 (0.56)","0.96 (0.81)","0.57 (0.66)","-0.39 (0.57)","1.61 (1.19)","1.51 (1.22)","-0.11 (0.80)","1.89 (1.00)","2.78 (1.46)","0.89 (0.99)","2.95 (1.15)","3.85 (1.72)","0.90 (0.84)","3.99 (1.37)","4.55 (1.88)","0.56 (0.98)","0.96 (0.61)","0.42 (0.45)","-0.54 (0.52)","0.82 (0.81)","0.44 (0.60)","-0.38 (0.46)","0.59 (0.54)","0.19 (0.37)","-0.41 (0.46)","0.94 (0.52)","1.58 (0.44)","0.63 (0.34)","1.50 (0.71)","2.21 (0.69)","0.70 (0.51)","2.40 (0.98)","3.02 (1.02)","0.62 (0.58)","2.03 (0.85)","1.55 (0.78)","-0.49 (0.68)","2.37 (1.28)","1.84 (1.21)","-0.53 (0.79)","2.35 (1.57)","2.36 (1.69)","0.01 (0.84)","0.85 (0.66)","1.32 (0.86)","0.47 (0.69)","0.81 (0.60)","1.46 (0.76)","0.65 (0.64)","1.06 (0.62)","1.44 (0.76)","0.38 (0.75)","1.23 (0.96)","0.78 (0.83)","-0.45 (0.63)","1.08 (1.11)","0.83 (1.04)","-0.25 (0.51)","1.23 (1.17)","1.39 (1.57)","0.16 (0.94)"],["0.27 (0.44)","0.11 (0.24)","-0.16 (0.24)","0.53 (0.53)","0.24 (0.34)","-0.29 (0.38)","1.26 (0.83)","0.82 (0.70)","-0.44 (0.79)","1.20 (0.78)","1.78 (0.89)","0.58 (0.56)","2.99 (1.18)","3.53 (1.36)","0.54 (0.74)","3.35 (1.44)","4.01 (1.26)","0.66 (1.21)","0.88 (0.53)","0.54 (0.81)","-0.34 (0.68)","1.63 (1.06)","1.59 (0.94)","-0.04 (0.63)","2.80 (1.52)","3.13 (1.43)","0.33 (1.29)","2.31 (1.03)","2.62 (1.31)","0.31 (0.74)","3.72 (1.30)","4.07 (1.48)","0.35 (0.77)","4.26 (1.66)","4.57 (1.76)","0.31 (1.32)","0.68 (0.43)","0.36 (0.77)","-0.32 (0.69)","1.04 (0.92)","0.71 (0.83)","-0.33 (0.40)","1.76 (1.24)","1.54 (1.09)","-0.22 (0.44)","1.79 (1.07)","2.37 (1.64)","0.57 (0.77)","3.16 (1.37)","3.76 (1.76)","0.61 (0.62)","3.91 (1.63)","4.38 (1.85)","0.47 (0.82)","0.66 (0.50)","0.27 (0.48)","-0.38 (0.41)","0.93 (0.71)","0.43 (0.75)","-0.50 (0.48)","0.57 (0.73)","0.15 (0.35)","-0.42 (0.82)","0.87 (0.58)","1.45 (0.68)","0.58 (0.74)","1.44 (0.64)","2.17 (0.86)","0.73 (0.86)","2.32 (0.98)","3.20 (1.48)","0.88 (1.13)","2.12 (1.27)","1.69 (1.13)","-0.43 (0.64)","2.22 (1.23)","2.05 (1.19)","-0.17 (0.57)","1.91 (1.21)","2.02 (1.47)","0.11 (1.02)","0.86 (0.56)","1.60 (0.74)","0.74 (0.44)","1.04 (0.50)","1.53 (0.72)","0.48 (0.48)","1.27 (0.76)","1.60 (0.95)","0.33 (0.62)","1.23 (1.12)","0.85 (0.99)","-0.39 (0.39)","1.10 (1.12)","0.72 (1.05)","-0.38 (0.34)","0.99 (1.34)","1.04 (1.48)","0.05 (0.66)"],[0.068,0.041,-0.028,-0.037,-0.104,-0.066,-0.15,-0.162,-0.012,0.395,0.209,-0.186,-0.158,-0.133,0.025,-0.111,-0.217,-0.106,0.039,-0.17,-0.209,-0.077,-0.129,-0.052,-0.012,-0.301,-0.289,-0.267,0.208,0.475,-0.38,-0.131,0.249,-0.319,-0.207,0.112,-0.111,-0.313,-0.203,-0.109,-0.201,-0.093,-0.261,-0.125,0.136,0.267,0.659,0.392,-0.057,0.287,0.344,0.288,0.325,0.037,0.302,0.144,-0.159,-0.104,0.008,0.112,0.002,0.005,0.003,0.073,0.13,0.057,0.062,0.037,-0.025,0.022,-0.183,-0.205,-0.099,-0.186,-0.08799999999999999,0.154,-0.275,-0.429,0.201,-0.083,-0.284,0.041,-0.202,-0.243,-0.182,0.03,0.212,-0.171,-0.098,0.073,-0.014,-0.076,-0.062,-0.011,0.094,0.104,0.209,0.346,0.137],["0.322","0.568","0.729","0.700","0.101","0.556","0.542","0.280","0.964","0.011","0.264","0.370","0.328","0.308","0.882","0.613","0.217","0.674","0.722","0.428","0.175","0.736","0.385","0.754","0.963","0.261","0.463","0.224","0.379","0.147","0.153","0.584","0.335","0.364","0.507","0.751","0.225","0.097","0.287","0.545","0.057","0.470","0.246","0.378","0.475","0.235","0.010","0.125","0.759","0.144","0.018","0.210","0.089","0.842","0.053","0.189","0.367","0.478","0.923","0.449","0.993","0.965","0.992","0.713","0.470","0.810","0.559","0.851","0.874","0.916","0.516","0.418","0.617","0.476","0.670","0.383","0.098","0.046","0.210","0.721","0.172","0.774","0.316","0.234","0.062","0.839","0.146","0.230","0.579","0.578","0.905","0.625","0.716","0.937","0.290","0.309","0.314","0.089","0.467"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Jaw<\/th>\n      <th>Anatomical_Site<\/th>\n      <th>Level<\/th>\n      <th>Timepoint<\/th>\n      <th>N_Pairs<\/th>\n      <th>Right_Mean_SD<\/th>\n      <th>Left_Mean_SD<\/th>\n      <th>Mean_Diff<\/th>\n      <th>P_Value_Formatted<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[5,8]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Jaw","targets":1},{"name":"Anatomical_Site","targets":2},{"name":"Level","targets":3},{"name":"Timepoint","targets":4},{"name":"N_Pairs","targets":5},{"name":"Right_Mean_SD","targets":6},{"name":"Left_Mean_SD","targets":7},{"name":"Mean_Diff","targets":8},{"name":"P_Value_Formatted","targets":9}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="root-resorption" class="section level3">
+<h3>Root Resorption</h3>
+<pre class="r"><code>library(tidyverse)
+
+raw_resorption &lt;- thesis_data$`Root Resorption`
+
+# 1. Map Patient IDs directly from column names
+col_names_raw &lt;- colnames(raw_resorption)
+patient_mapping &lt;- tibble(col_name = col_names_raw) %&gt;%
+  mutate(
+    Patient_ID = ifelse(str_detect(col_name, &quot;C\\d+|15\\d+&quot;), col_name, NA_character_)
+  ) %&gt;%
+  fill(Patient_ID, .direction = &quot;down&quot;) %&gt;%
+  pull(Patient_ID)
+
+# 2. Extract Timepoints (&quot;T1&quot;, &quot;T2&quot;, &quot;T2-T1&quot;) directly from Row 1
+timepoints_raw &lt;- unlist(raw_resorption[1, ])
+
+# 3. Process and reshape keeping T1, T2, and T2-T1
+resorption_clean &lt;- raw_resorption %&gt;%
+  slice(-1) %&gt;%
+  fill(`...1`, `...2`, .direction = &quot;down&quot;) %&gt;%
+  rename(Arch = `...1`, Tooth = `...2`, Root = `...3`) %&gt;%
+  filter(!is.na(Root), Root != &quot;Root&quot;) %&gt;%
+  pivot_longer(
+    cols = -c(Arch, Tooth, Root),
+    names_to = &quot;Col_Name&quot;,
+    values_to = &quot;Value&quot;
+  ) %&gt;%
+  mutate(
+    Col_Pos = match(Col_Name, col_names_raw),
+    Patient_ID = patient_mapping[Col_Pos],
+    Timepoint = case_when(
+      timepoints_raw[Col_Pos] == &quot;T1&quot; ~ &quot;T1&quot;,
+      timepoints_raw[Col_Pos] == &quot;T2&quot; ~ &quot;T2&quot;,
+      str_detect(timepoints_raw[Col_Pos], &quot;T2-T1|Diff&quot;) ~ &quot;T2-T1&quot;,
+      TRUE ~ timepoints_raw[Col_Pos]
+    ),
+    Value = round(as.numeric(Value), 2),
+    Side = ifelse(str_detect(Tooth, &quot;R&quot;), &quot;Right&quot;, &quot;Left&quot;),
+    Tooth_Type = str_replace(Tooth, &quot;^U[RL]|^L[RL]&quot;, &quot;&quot;)
+  ) %&gt;%
+  filter(!is.na(Value)) %&gt;%
+  select(Patient_ID, Arch, Tooth, Tooth_Type, Side, Root, Timepoint, Value) %&gt;%
+  distinct(Patient_ID, Arch, Tooth, Tooth_Type, Side, Root, Timepoint, .keep_all = TRUE) %&gt;%
+  # Keep all three as columns: T1, T2, and `T2-T1`
+  pivot_wider(names_from = Timepoint, values_from = Value)
+
+
+
+# 4. Right vs Left Summary for T1, T2, and T2-T1
+right_vs_left_summary &lt;- resorption_clean %&gt;%
+  group_by(Arch, Tooth_Type, Root, Side) %&gt;%
+  summarise(
+    N = n(),
+    Mean_T1     = round(mean(T1, na.rm = TRUE), 2),
+    Mean_T2     = round(mean(T2, na.rm = TRUE), 2),
+    Mean_T2_T1  = round(mean(`T2-T1`, na.rm = TRUE), 2),
+    SD_T2_T1    = round(sd(`T2-T1`, na.rm = TRUE), 2),
+    .groups     = &quot;drop&quot;
+  ) %&gt;%
+  pivot_wider(
+    names_from = Side,
+    values_from = c(N, Mean_T1, Mean_T2, Mean_T2_T1, SD_T2_T1)
+  )
+
+
+# 5. Paired t-tests comparing Right vs Left side for T1, T2, and T2-T1
+right_vs_left_tests &lt;- resorption_clean %&gt;%
+  select(Patient_ID, Arch, Tooth_Type, Root, Side, T1, T2, `T2-T1`) %&gt;%
+  pivot_wider(
+    names_from = Side,
+    values_from = c(T1, T2, `T2-T1`)
+  ) %&gt;%
+  filter(!is.na(`T2-T1_Right`) &amp; !is.na(`T2-T1_Left`)) %&gt;%
+  group_by(Arch, Tooth_Type, Root) %&gt;%
+  summarise(
+    N_Pairs = n(),
+    # T1 comparison
+    P_Value_T1 = round(t.test(T1_Right, T1_Left, paired = TRUE)$p.value, 4),
+    # T2 comparison
+    P_Value_T2 = round(t.test(T2_Right, T2_Left, paired = TRUE)$p.value, 4),
+    P_Value_T2_T1 = round(t.test(`T2-T1_Right`, `T2-T1_Left`, paired = TRUE)$p.value, 4),
+    .groups = &quot;drop&quot;
+  ) %&gt;%
+  mutate(P_Value_T2_T1_signficance = ifelse(P_Value_T2_T1 &lt; 0.05, &quot;Yes*&quot;, &quot;No&quot;))
+
+right_vs_left_tests %&gt;% 
+  datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-dcdfc64296f5794e54a4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dcdfc64296f5794e54a4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8"],["Mandibular","Mandibular","Mandibular","Maxillary","Maxillary","Maxillary","Maxillary","Maxillary"],["4","6","6","4","4","6","6","6"],["single root","distal root","mesial root","buccal root","lingual root","distal-buccal","mesio-buccal","palatal"],[17,16,16,17,17,17,17,17],[0.4615,0.9134,0.5728,0.6327,0.243,0.5358000000000001,0.9319,0.2012],[0.6243,0.6614,0.3564,0.3363,0.8512,0.3538,0.8105,0.8268],[0.5842000000000001,0.781,0.0305,0.329,0.0745,0.7327,0.881,0.0453],["No","No","Yes*","No","No","No","No","Yes*"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Arch<\/th>\n      <th>Tooth_Type<\/th>\n      <th>Root<\/th>\n      <th>N_Pairs<\/th>\n      <th>P_Value_T1<\/th>\n      <th>P_Value_T2<\/th>\n      <th>P_Value_T2_T1<\/th>\n      <th>P_Value_T2_T1_signficance<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[4,5,6,7]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Arch","targets":1},{"name":"Tooth_Type","targets":2},{"name":"Root","targets":3},{"name":"N_Pairs","targets":4},{"name":"P_Value_T1","targets":5},{"name":"P_Value_T2","targets":6},{"name":"P_Value_T2_T1","targets":7},{"name":"P_Value_T2_T1_signficance","targets":8}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 <div id="intra-rater-reliability" class="section level2">
 <h2>intra rater reliability</h2>
 <pre class="r"><code>icc_data=read.csv(paste0(path, &quot;/2026/202606/Sarah/plain Thesis Dat_0629_for_icc.csv&quot;),header=T)
@@ -3005,8 +3374,8 @@ datatable(extensions = &#39;Buttons&#39;,
                            buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-983315589fed18d622a7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-983315589fed18d622a7">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7"],["U4s_CEJ to CEJ","_lingual cusp to lingual cusp","U6s_CEJ to CEJ","_ML cusp to ML cusp","_DL cusp to DL cusp","L4s_CEJ to CEJ","L6s_CEJ to CEJ"],[16,16,13,14,14,16,14],[0.9898,0.997,0.9871,0.989,0.9824000000000001,0.9891,0.98],[0.9716,0.9915,0.9593,0.9671,0.9095,0.9695,0.9403],[0.9964,0.999,0.996,0.9964,0.9951,0.9962,0.9935],[9.303921394254372e-15,2.885459559989709e-18,7.383275975042128e-12,3.271950195920114e-13,1.685605027439804e-06,1.693049617355508e-14,2.481251748619704e-11]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Measurement<\/th>\n      <th>Valid_Pairs_N<\/th>\n      <th>ICC_Value<\/th>\n      <th>Lower_CI_95<\/th>\n      <th>Upper_CI_95<\/th>\n      <th>P_Value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Measurement","targets":1},{"name":"Valid_Pairs_N","targets":2},{"name":"ICC_Value","targets":3},{"name":"Lower_CI_95","targets":4},{"name":"Upper_CI_95","targets":5},{"name":"P_Value","targets":6}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-873249b169eb6149d57e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7"],["U4s_CEJ to CEJ","_lingual cusp to lingual cusp","U6s_CEJ to CEJ","_ML cusp to ML cusp","_DL cusp to DL cusp","L4s_CEJ to CEJ","L6s_CEJ to CEJ"],[16,16,13,14,14,16,14],[0.9898,0.997,0.9871,0.989,0.9824000000000001,0.9891,0.98],[0.9716,0.9915,0.9593,0.9671,0.9095,0.9695,0.9403],[0.9964,0.999,0.996,0.9964,0.9951,0.9962,0.9935],[9.303921394254372e-15,2.885459559989709e-18,7.383275975042128e-12,3.271950195920114e-13,1.685605027439804e-06,1.693049617355508e-14,2.481251748619704e-11]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Measurement<\/th>\n      <th>Valid_Pairs_N<\/th>\n      <th>ICC_Value<\/th>\n      <th>Lower_CI_95<\/th>\n      <th>Upper_CI_95<\/th>\n      <th>P_Value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Measurement","targets":1},{"name":"Valid_Pairs_N","targets":2},{"name":"ICC_Value","targets":3},{"name":"Lower_CI_95","targets":4},{"name":"Upper_CI_95","targets":5},{"name":"P_Value","targets":6}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3038,16 +3407,16 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] VennDiagram_1.7.3   futile.logger_1.4.3 condsurv_1.0.0     
- [4] devtools_2.4.5      usethis_3.1.0       tidycmprsk_1.1.0   
- [7] gtsummary_2.0.4     ggsurvfit_1.1.0     irr_0.84.1         
-[10] lpSolve_5.6.23      readxl_1.4.3        cowplot_1.1.3      
-[13] matrixStats_1.5.0   gridExtra_2.3       DT_0.33            
-[16] rstatix_0.7.2       ggpubr_0.6.0        kableExtra_1.4.0   
-[19] lubridate_1.9.4     forcats_1.0.0       stringr_1.5.1      
-[22] dplyr_1.1.4         purrr_1.0.2         readr_2.1.4        
-[25] tidyr_1.3.1         tibble_3.2.1        ggplot2_4.0.3      
-[28] tidyverse_2.0.0     rprojroot_2.0.4    
+ [1] zoo_1.8-14          VennDiagram_1.7.3   futile.logger_1.4.3
+ [4] condsurv_1.0.0      devtools_2.4.5      usethis_3.1.0      
+ [7] tidycmprsk_1.1.0    gtsummary_2.0.4     ggsurvfit_1.1.0    
+[10] irr_0.84.1          lpSolve_5.6.23      readxl_1.4.3       
+[13] cowplot_1.1.3       matrixStats_1.5.0   gridExtra_2.3      
+[16] DT_0.33             rstatix_0.7.2       ggpubr_0.6.0       
+[19] kableExtra_1.4.0    lubridate_1.9.4     forcats_1.0.0      
+[22] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
+[25] readr_2.1.4         tidyr_1.3.1         tibble_3.2.1       
+[28] ggplot2_4.0.3       tidyverse_2.0.0     rprojroot_2.0.4    
 
 loaded via a namespace (and not attached):
  [1] formatR_1.14         remotes_2.5.0        rlang_1.1.2         
