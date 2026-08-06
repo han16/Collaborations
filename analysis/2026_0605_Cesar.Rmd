@@ -80,7 +80,7 @@ text(
 
 
 ```{r, message=F, warning=F}
-summary(data$Days_From_SDF_To_Failure_Treatment)
+summary(as.numeric(data$Days_From_SDF_To_Failure_Treatment), na.rm=T)
 ```
 
 ```{r, message=F, warning=F}
@@ -108,6 +108,19 @@ data.frame(Medicaid= data$Medicaid) %>%
   tabyl(Medicaid) %>%
   adorn_pct_formatting(digits = 2)
 ```
+
+
+```{r, message=F, warning=F}
+data.frame(Had_SDF_Failure_Treatment= data$Had_SDF_Failure_Treatment) %>%
+  mutate(Had_SDF_Failure_Treatment = factor(Had_SDF_Failure_Treatment)) %>%
+  tabyl(Had_SDF_Failure_Treatment) %>%
+  adorn_pct_formatting(digits = 2)
+```
+
+```{r, message=F, warning=F, eval=F}
+?	Overall caries arrest rate (%)
+```
+
 
 
 
