@@ -83,6 +83,9 @@ text(
 summary(as.numeric(data$Days_From_SDF_To_Failure_Treatment), na.rm=T)
 ```
 
+
+
+
 ```{r, message=F, warning=F}
 
 library(tidyverse)
@@ -121,6 +124,93 @@ data.frame(Had_SDF_Failure_Treatment= data$Had_SDF_Failure_Treatment) %>%
 ?	Overall caries arrest rate (%)
 ```
 
+
+
+## bivariate analysis 
+
+
+### Teeth(SDF_site) vs outcome 
+
+```{r, message=F, warning=F}
+
+
+library(gmodels)
+
+# Generate table with observed counts and expected values
+CrossTable(
+  data$SDF_Site, 
+  data$Had_SDF_Failure_Treatment, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+
+```
+### Gender vs outcome 
+
+```{r, message=F, warning=F}
+
+
+# Generate table with observed counts and expected values
+CrossTable(
+  data$Sex, 
+  data$Had_SDF_Failure_Treatment, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+
+```
+
+
+
+### Ethnicity vs outcome 
+
+```{r, message=F, warning=F}
+# Generate table with observed counts and expected values
+CrossTable(
+  data$Ethnicity, 
+  data$Had_SDF_Failure_Treatment, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+
+```
+
+
+### Ethnicity vs outcome 
+
+```{r, message=F, warning=F}
+# Generate table with observed counts and expected values
+CrossTable(
+  data$Medicaid, 
+  data$Had_SDF_Failure_Treatment, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+
+```
+
+
+
+### Independent t-test 
+
+
+```{r, message=F, warning=F}
+age_failure_yes=data %>% filter(Had_SDF_Failure_Treatment=="Yes") %>% select(Age_At_Treatment) %>% pull()
+age_failure_no=data %>% filter(Had_SDF_Failure_Treatment=="No") %>% select(Age_At_Treatment) %>% pull()
+t.test(age_failure_yes, age_failure_no)
+```
 
 
 
