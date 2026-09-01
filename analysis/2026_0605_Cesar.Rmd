@@ -185,7 +185,7 @@ CrossTable(
 ```
 
 
-### Ethnicity vs outcome 
+### Insurance vs outcome 
 
 ```{r, message=F, warning=F}
 # Generate table with observed counts and expected values
@@ -210,6 +210,115 @@ CrossTable(
 age_failure_yes=data %>% filter(Had_SDF_Failure_Treatment=="Yes") %>% select(Age_At_Treatment) %>% pull()
 age_failure_no=data %>% filter(Had_SDF_Failure_Treatment=="No") %>% select(Age_At_Treatment) %>% pull()
 t.test(age_failure_yes, age_failure_no)
+```
+
+
+```{r, message=F, warning=F}
+time_to_failure_yes=data %>% filter(Had_SDF_Failure_Treatment=="Yes") %>% select(Days_From_SDF_To_Failure_Treatment) %>% pull()
+time_to_failure_no=data %>% filter(Had_SDF_Failure_Treatment=="No") %>% select(Days_From_SDF_To_Failure_Treatment) %>% pull()
+time_to_failure_no
+```
+
+
+## Multivariate Analysis
+
+
+
+### KM survivial curve 
+
+```{r, message=F, warning=F}
+survival_data=data %>% select(Had_SDF_Failure_Treatment, Days_From_SDF_To_Failure_Treatment)
+
+library(tidyverse)
+library(survival)
+library(survminer)
+
+# 1. Clean and transform the dataset
+survival_data_clean <- survival_data %>%
+  mutate(
+    # Convert 'NULL' strings to NA, then fill with max follow-up time (e.g., 365 days if no failure)
+    # Replace 'Total_Followup_Days' with your actual column for total study follow-up duration
+    Time = ifelse(Days_From_SDF_To_Failure_Treatment == "NULL", 
+                  365,  # OR use a column like: Total_Followup_Days
+                  as.numeric(Days_From_SDF_To_Failure_Treatment)),
+    
+    # Convert event status to 1 (Event/Failure) and 0 (Censored/No failure)
+    Status = ifelse(Had_SDF_Failure_Treatment == "Yes", 1, 0)
+  )
+
+# 2. Fit overall Kaplan-Meier survival model
+km_fit <- survfit(Surv(Time, Status) ~ 1, data = survival_data_clean)
+
+# 3. Plot the KM Curve
+ggsurvplot(
+  km_fit,
+  data = survival_data_clean,
+  risk.table = TRUE,                  # Display risk table
+  pval = TRUE,                        # Display p-value (if comparing groups)
+  conf.int = TRUE,                    # Display confidence interval band
+  conf.int.style = "ribbon",          # Use smooth ribbon for confidence interval
+  xlab = "Time (Days)",
+  ylab = "Survival Probability",
+  title = "Kaplan-Meier Survival Curve for SDF Treatment",
+  palette = "Dark2",
+  ggtheme = theme_bw() + theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+)
+```
+
+
+### Cox proportional hazards regression 
+
+
+```{r, message=F, warning=F}
+survival_data=data %>% select(Had_SDF_Failure_Treatment, Days_From_SDF_To_Failure_Treatment, Age_At_Treatment, Sex, Ethnicity, Medicaid) %>% filter(Sex!=0 & Ethnicity!="UNKN" & Ethnicity!="OTHER")
+
+
+library(tidyverse)
+library(survival)
+library(survminer)
+
+# 1. Clean and prepare the dataset
+survival_data_clean <- survival_data %>%
+  mutate(
+    # Convert 'NULL' strings to numeric, replacing NULLs with total follow-up time (e.g., 365)
+    # Replace 365 with your study's max observation time or actual follow-up column
+    Time = ifelse(Days_From_SDF_To_Failure_Treatment == "NULL", 
+                  365, 
+                  as.numeric(Days_From_SDF_To_Failure_Treatment)),
+    
+    # Define event status: 1 = Event (Failure), 0 = Censored (No Failure)
+    Status = ifelse(Had_SDF_Failure_Treatment == "Yes", 1, 0),
+    
+    # Convert categorical variables to factors
+    Sex = as.factor(Sex),
+    Ethnicity = as.factor(Ethnicity),
+    Medicaid = as.factor(Medicaid),
+    
+    # Ensure Age is numeric
+    Age_At_Treatment = as.numeric(Age_At_Treatment)
+  )
+
+# Fit Firth's penalized Cox model
+library(coxphf)
+firth_cox <- coxphf(
+  Surv(Time, Status) ~ Age_At_Treatment + Sex + Ethnicity + Medicaid, 
+  data = survival_data_clean
+)
+
+summary(firth_cox)
+
+```
+
+
+```{r, message=F, warning=F}
+# Re-fit model without Medicaid
+cox_model_reduced <- coxph(
+  Surv(Time, Status) ~ Age_At_Treatment + Sex + Ethnicity, 
+  data = survival_data_clean
+)
+
+# This will now render perfectly in ggforest
+ggforest(cox_model_reduced, data = survival_data_clean)
 ```
 
 

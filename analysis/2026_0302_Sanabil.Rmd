@@ -44,6 +44,8 @@ datatable(extensions = 'Buttons',
                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,"All"))))
+
+#write.csv(analysis_data, file=file.path(root, "..\\2026\\202603\\Sanabil\\analysis_data.csv"))
 ```
 
 
@@ -172,3 +174,11 @@ The odds of favoring GW is 50 times higher in COI yes than COI No.
 
 
 The proportion of papers with COI favoring GW is significantly higher than  papers with No COI (p=0.0009), and the odds of favoring GW is 50 times higher in papers with COI than without (p<0.001). 
+
+
+
+
+```{r, message=F, warning=F}
+analysis_data=analysis_data %>% mutate(quin_score=c(18, 19, 23, 14, 21, 20, 17, 20, 20, 19, NA, NA, )
+)
+```
