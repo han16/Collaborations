@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee0fd1f5a1c426b9d42acfa7d77ff846714c3536atargetblanke0fd1f5a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree973b6cac7baa4524fdec51195def823d2a3de961targetblank973b6caa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/e0fd1f5a1c426b9d42acfa7d77ff846714c3536a" target="_blank">e0fd1f5</a>
+<a href="https://github.com/han16/Collaborations/tree/973b6cac7baa4524fdec51195def823d2a3de961" target="_blank">973b6ca</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreee0fd1f5a1c426b9d42acfa7d77ff846714c3536atargetblanke0fd1f5a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree973b6cac7baa4524fdec51195def823d2a3de961targetblank973b6caa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/e0fd1f5a1c426b9d42acfa7d77ff846714c3536a" target="_blank">e0fd1f5</a>.
+<a href="https://github.com/han16/Collaborations/tree/973b6cac7baa4524fdec51195def823d2a3de961" target="_blank">973b6ca</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -588,12 +588,7 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/2022_Mar2_Marinho_cache/
 
-Untracked files:
-    Untracked:  analysis/2026_0801_LeeZa.Rmd
-
 Unstaged changes:
-    Modified:   analysis/2026.Rmd
-    Modified:   analysis/2026_0302_Sanabil.Rmd
     Modified:   analysis/2026_0605_Cesar.Rmd
 
 </code></pre>
@@ -640,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/973b6cac7baa4524fdec51195def823d2a3de961/analysis/2026_0605_Cesar.Rmd" target="_blank">973b6ca</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-09-01
+</td>
+<td>
+9/1/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/973b6cac7baa4524fdec51195def823d2a3de961/docs/2026_0605_Cesar.html" target="_blank">973b6ca</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-09-01
+</td>
+<td>
+9/1/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1169,8 +1198,8 @@ time_to_failure_no</code></pre>
 </div>
 <div id="multivariate-analysis" class="section level2">
 <h2>Multivariate Analysis</h2>
-<div id="km-survivial-curve" class="section level3">
-<h3>KM survivial curve</h3>
+<div id="km-survival-curve" class="section level3">
+<h3>KM survival curve</h3>
 <pre class="r"><code>survival_data=data %&gt;% select(Had_SDF_Failure_Treatment, Days_From_SDF_To_Failure_Treatment)
 
 library(tidyverse)
@@ -1208,6 +1237,43 @@ ggsurvplot(
   ggtheme = theme_bw() + theme(plot.title = element_text(hjust = 0.5, face = &quot;bold&quot;))
 )</code></pre>
 <p><img src="figure/2026_0605_Cesar.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/973b6cac7baa4524fdec51195def823d2a3de961/docs/figure/2026_0605_Cesar.Rmd/unnamed-chunk-16-1.png" target="_blank">973b6ca</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-09-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cox-proportional-hazards-regression" class="section level3">
 <h3>Cox proportional hazards regression</h3>
@@ -1292,9 +1358,73 @@ cox_model_reduced &lt;- coxph(
   data = survival_data_clean
 )
 
-# This will now render perfectly in ggforest
+summary(cox_model_reduced)</code></pre>
+<pre><code>Call:
+coxph(formula = Surv(Time, Status) ~ Age_At_Treatment + Sex + 
+    Ethnicity, data = survival_data_clean)
+
+  n= 166, number of events= 38 
+
+                    coef exp(coef) se(coef)      z Pr(&gt;|z|)   
+Age_At_Treatment  0.1656    1.1801   0.2071  0.800  0.42381   
+Sex2              0.4964    1.6427   0.4713  1.053  0.29224   
+EthnicityASIAN   -1.4495    0.2347   0.8718 -1.663  0.09640 . 
+EthnicityCAUC     1.7695    5.8676   0.5848  3.026  0.00248 **
+EthnicityHISP    -1.6002    0.2019   0.6789 -2.357  0.01843 * 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+                 exp(coef) exp(-coef) lower .95 upper .95
+Age_At_Treatment    1.1801     0.8474   0.78645    1.7709
+Sex2                1.6427     0.6087   0.65225    4.1373
+EthnicityASIAN      0.2347     4.2609   0.04250    1.2960
+EthnicityCAUC       5.8676     0.1704   1.86513   18.4594
+EthnicityHISP       0.2019     4.9541   0.05335    0.7637
+
+Concordance= 0.744  (se = 0.069 )
+Likelihood ratio test= 42.41  on 5 df,   p=5e-08
+Wald test            = 47.15  on 5 df,   p=5e-09
+Score (logrank) test = 91.49  on 5 df,   p=&lt;2e-16</code></pre>
+<pre class="r"><code># This will now render perfectly in ggforest
 ggforest(cox_model_reduced, data = survival_data_clean)</code></pre>
 <p><img src="figure/2026_0605_Cesar.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/973b6cac7baa4524fdec51195def823d2a3de961/docs/figure/2026_0605_Cesar.Rmd/unnamed-chunk-18-1.png" target="_blank">973b6ca</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-09-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="sample-size-calculation" class="section level2">

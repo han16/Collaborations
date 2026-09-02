@@ -27,8 +27,156 @@ nsduh_data=as_tibble(read_excel((file.path(root, "../2026/202608/LeeZa/NSDUH dat
 ```
 
 
+```{r, message=F, warning=F}
+table(nsduh_data$PrevMed_24)
+```
+
+
+
 
 ## chi square test 
+
+
+### Child and Family Demographic
+
+
+
+```{r, message=F, warning=F}
+library(gmodels)
+# Generate table with observed counts and expected values
+CrossTable(
+  nsduh_data$PrevMed_24, 
+  nsduh_data$sex_24, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+
+
+```
+
+* 	1 = Male; 2 = Female; 99 = missing
+
+```{r, message=F, warning=F}
+library(gmodels)
+# Generate table with observed counts and expected values
+CrossTable(
+  nsduh_data$PrevMed_24, 
+  nsduh_data$race7_24, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+```
+
+* 1 = Hispanic; 2=White, non Hispanic; 3 = Black; 4 = Asian; 5 = American Indian; 6 = Native Hawaiian/Pacific Islander; 7 = Multi-race. 
+
+
+
+```{r, message=F, warning=F}
+library(gmodels)
+# Generate table with observed counts and expected values
+CrossTable(
+  nsduh_data$PrevMed_24, 
+  nsduh_data$povSCHIP_24, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+```
+
+* 1= 0 – 199%; 2 = 200 – 299%; 3 = 300 – 399%; 4 = 400% or more of poverty level
+
+
+
+
+```{r, message=F, warning=F}
+library(gmodels)
+# Generate table with observed counts and expected values
+CrossTable(
+  nsduh_data$PrevMed_24, 
+  nsduh_data$PrntNativity_24, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+```
+
+
+* 1 = all parents born in the US “3rd gen or higher; 2 = Any parent born outside of the US “1st and 2nd gen”; 3 = other “child born in the US, parents are not listed”; 99 = missing value
+
+
+
+
+```{r, message=F, warning=F}
+library(gmodels)
+# Generate table with observed counts and expected values
+CrossTable(
+  nsduh_data$PrevMed_24, 
+  nsduh_data$AdultEduc_24, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+```
+
+
+* 	1 = less than high school; 2 = high school/GED; 3 = some college/technical school; 4 = college degree or higher; 99 = missing
+
+
+### Child-level covariates
+
+
+```{r, message=F, warning=F}
+library(gmodels)
+# Generate table with observed counts and expected values
+CrossTable(
+  nsduh_data$PrevMed_24, 
+  nsduh_data$OralProb_24, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+```
+
+
+* 1 = Yes; 2 = No; 95 = less than 1 year old; 99 = missing
+
+
+
+```{r, message=F, warning=F}
+library(gmodels)
+# Generate table with observed counts and expected values
+CrossTable(
+  nsduh_data$PrevMed_24, 
+  nsduh_data$ACE2more_24, 
+  expected = TRUE, 
+  prop.r = FALSE, 
+  prop.c = FALSE, 
+  prop.t = FALSE, 
+  prop.chisq = FALSE
+)
+```
+
+
+
+* 1 = no ACE; 2 = experienced 1 ACE; 3 = experienced 2 or more ACE; 99 = missing
+
+
+
+
 
 ## logistic regression 
 

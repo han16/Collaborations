@@ -224,7 +224,7 @@ time_to_failure_no
 
 
 
-### KM survivial curve 
+### KM survival curve 
 
 ```{r, message=F, warning=F}
 survival_data=data %>% select(Had_SDF_Failure_Treatment, Days_From_SDF_To_Failure_Treatment)
@@ -317,6 +317,7 @@ cox_model_reduced <- coxph(
   data = survival_data_clean
 )
 
+summary(cox_model_reduced)
 # This will now render perfectly in ggforest
 ggforest(cox_model_reduced, data = survival_data_clean)
 ```
