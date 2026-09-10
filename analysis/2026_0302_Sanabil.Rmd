@@ -26,6 +26,10 @@ data=as_tibble(data[complete.cases(data), ])
 ```
 
 
+
+## data samlples 
+
+
 ```{r, message=F, warning=F}
 library(dplyr)
 
@@ -47,6 +51,8 @@ datatable(extensions = 'Buttons',
 
 #write.csv(analysis_data, file=file.path(root, "..\\2026\\202603\\Sanabil\\analysis_data.csv"))
 ```
+
+## contingency table; odds ratio 
 
 
 ```{r, message=F, warning=F}
@@ -130,6 +136,8 @@ p1
 ```
 
 
+## odds ratio plot 
+
 ```{r, message=F, warning=F}
 library(ggplot2)
 
@@ -177,8 +185,85 @@ The proportion of papers with COI favoring GW is significantly higher than  pape
 
 
 
+## logistic regression 
+
+
 
 ```{r, message=F, warning=F}
-analysis_data=analysis_data %>% mutate(quin_score=c(18, 19, 23, 14, 21, 20, 17, 20, 20, 19, NA, NA, )
+analysis_data_update=read.csv(file.path(root, "..\\2026\\202603\\Sanabil\\analysis_data_20260902.csv")) %>% select(is.GW.favored, COI, Sample.Size, QUIN...24)
+
+
+library(tidyverse)
+
+# 1. Clean and prepare the dataset
+analysis_data_clean <- analysis_data_update %>%
+  # Handle column name formatting and missing values
+  rename(
+    is_GW_favored = is.GW.favored,
+    Sample_Size = Sample.Size,
+    QUIN_24 = QUIN...24
+  ) %>%
+  # Drop rows with NA values (e.g., Row 12)
+  drop_na(is_GW_favored) %>%
+  mutate(
+    # Convert binary outcome to factor (ensure "no" is reference: 0 = no, 1 = yes)
+    is_GW_favored = factor(is_GW_favored, levels = c("no", "yes")),
+    
+    # Convert categorical covariate COI to factor
+    COI = factor(COI, levels = c("no", "yes")),
+    
+    # Ensure numeric types for continuous predictors
+    Sample_Size = as.numeric(Sample_Size),
+    QUIN_24 = as.numeric(QUIN_24)
+  ) %>%
+  drop_na(is_GW_favored)
+
+
+
+# 2. Fit the Binary Logistic Regression Model
+logit_model <- glm(
+  is_GW_favored ~ COI + Sample_Size + QUIN_24,
+  data = analysis_data_clean,
+  family = binomial(link = "logit")
 )
+
+# 3. View model summary (coefficients and p-values)
+summary(logit_model)
+
+# 4. Calculate Odds Ratios (OR) and 95% Confidence Intervals
+odds_ratios <- exp(cbind(OR = coef(logit_model), confint(logit_model)))
+print(odds_ratios)
+
+
+table(analysis_data_clean$COI, analysis_data_clean$is_GW_favored)
+
+
+
+boxplot(Sample_Size ~ is_GW_favored, data = analysis_data_clean)
+boxplot(QUIN_24 ~ is_GW_favored, data = analysis_data_clean)
+```
+
+
+
+
+
+```{r, message=F, warning=F}
+library(logistf)
+
+# Fit Firth's penalized logistic regression
+firth_model <- logistf(
+  is_GW_favored ~ COI + Sample_Size + QUIN_24,
+  data = analysis_data_clean
+)
+
+# View model summary (coefficients and profile likelihood p-values)
+summary(firth_model)
+
+# Extract Odds Ratios and 95% Profile Likelihood Confidence Intervals
+firth_OR <- exp(cbind(
+  OR = coef(firth_model), 
+  confint(firth_model)
+))
+
+print(firth_OR)
 ```
