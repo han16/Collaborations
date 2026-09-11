@@ -244,6 +244,7 @@ boxplot(QUIN_24 ~ is_GW_favored, data = analysis_data_clean)
 ```
 
 
+### inlcuding sample size as covariate 
 
 
 
@@ -267,3 +268,30 @@ firth_OR <- exp(cbind(
 
 print(firth_OR)
 ```
+
+
+### exlcuding sample size 
+
+
+```{r, message=F, warning=F}
+library(logistf)
+
+# Fit Firth's penalized logistic regression
+firth_model <- logistf(
+  is_GW_favored ~ COI + QUIN_24,
+  data = analysis_data_clean
+)
+
+# View model summary (coefficients and profile likelihood p-values)
+summary(firth_model)
+
+# Extract Odds Ratios and 95% Profile Likelihood Confidence Intervals
+firth_OR <- exp(cbind(
+  OR = coef(firth_model), 
+  confint(firth_model)
+))
+
+print(firth_OR)
+```
+
+
