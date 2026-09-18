@@ -417,7 +417,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-09-11
+<strong>Last updated:</strong> 2026-09-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7d240aefe4a7b9f950dcd364fa74ee907e39d84ctargetblank7d240aea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedee899dd75c6cfdb0867fd9c8454163fc1702d5ftargetblankdee899da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/7d240aefe4a7b9f950dcd364fa74ee907e39d84c" target="_blank">7d240ae</a>
+<a href="https://github.com/han16/Collaborations/tree/dee899dd75c6cfdb0867fd9c8454163fc1702d5f" target="_blank">dee899d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree7d240aefe4a7b9f950dcd364fa74ee907e39d84ctargetblank7d240aea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreedee899dd75c6cfdb0867fd9c8454163fc1702d5ftargetblankdee899da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/7d240aefe4a7b9f950dcd364fa74ee907e39d84c" target="_blank">7d240ae</a>.
+<a href="https://github.com/han16/Collaborations/tree/dee899dd75c6cfdb0867fd9c8454163fc1702d5f" target="_blank">dee899d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -590,6 +590,7 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/2026_0302_Sanabil.Rmd
+    Modified:   analysis/2026_0801_LeeZa.Rmd
 
 </code></pre>
 <p>
@@ -635,6 +636,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/dee899dd75c6cfdb0867fd9c8454163fc1702d5f/analysis/2026_0302_Sanabil.Rmd" target="_blank">dee899d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-09-11
+</td>
+<td>
+9/11/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/dee899dd75c6cfdb0867fd9c8454163fc1702d5f/docs/2026_0302_Sanabil.html" target="_blank">dee899d</a>
+</td>
+<td>
+han
+</td>
+<td>
+2026-09-11
+</td>
+<td>
+9/11/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -863,8 +898,8 @@ han
 </div>
 </div>
 </div>
-<pre class="r"><code>data=as_tibble(read.csv((file.path(root, &quot;..\\2026\\202603\\Sanabil\\Sonendo research  - completed version part 3-2.csv&quot;)), header = T))
-
+<pre class="r"><code>#data=as_tibble(read.csv((file.path(root, &quot;..\\2026\\202603\\Sanabil\\Sonendo research  - completed version part 3-2.csv&quot;)), header = T))
+data=as_tibble(read.csv((file.path(root, &quot;..\\2026\\202603\\Sanabil\\analysis_data_20260902.csv&quot;)), header = T)) %&gt;% select(&quot;Author...Year&quot;, &quot;is.GW.favored&quot;, &quot;COI&quot;)
 data=as_tibble(data[complete.cases(data), ]) </code></pre>
 <div id="data-samlples" class="section level2">
 <h2>data samlples</h2>
@@ -886,7 +921,7 @@ datatable(extensions = &#39;Buttons&#39;,
                            lengthMenu = list(c(10,25,50,-1),
                                              c(10,25,50,&quot;All&quot;))))</code></pre>
 <div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["Chan, R., et al., (2019)","Molina, B., et al., (2015)","Gundogar, M., et al. (2025)","Liu, H., et al., (2022)","Crozeta, B.M., et al., (2020)","Coaguila-Llerena H, et al., (2022)","Zhang D, et al., (2019) *need to double check numbers*","Velardi, J.P., et al., (2022)","*Ordinola-Zapata, R., et al. (2021)* - NOT SURE ON P values","*Charara, K., et al., (2016)* - PLEASE CHECK THIS","*Bingham, D., (2022)* NOT SURE FOR THE EFFECT SIZE","*Dale, J.G., (2021)* NOT SURE FOR EFFECT SIZE","*Grigsby Jr, D., et al. (2020* - NEED EVALUATION","Vandrangi, P., (2016)","Soimu, G., et al (2025) PLEASE CHECK FOR P VALUES - I put the conclusion but was unsure how to rpesent the p values","Fang, J., et al (2025)","Auerbach, D., et al (2024)","Liu, H., et al., (2023)","GWS+MIT","Montero LQ, et al (2025) - PLEASE CHECK THIS FOR P VALUES"],["yes","yes","yes","yes","yes","no","yes","yes","no","no","no","no","no","yes","no","yes","no","yes","yes","no"],["Thanked sonendo for delivering the GW system to their facility but authors deny any conflict of interest","Sponsored by Sonedo","thanked sonendo for delivering the GW system to their facility but authors deny any conflict of interest","Has conflict of interest/ one of the authors consults with sonendo and has commercial interest in the product","Conflict of interest/ One of the Dr. is a consultant at Sonendo","No conflicts of interest","Conflict of Interest/ Author consultant at sonedo and interested in product","Supported in-part by sonedno","No conflicts of interest","Conflict of interest/ 2 Authors work at Sonedno","No conflicts of interest","No conflicts of interest","No conflicts of interest","Supported by sonedno","No conflicts of interest","conflict of interest with sonedno. Coauthor consultant for Sonendo","no conflict of interest","conflict of interest with sonedno","other two papers by the PI has conflict of interest. I would syay yes there is conflict of interest","conflict of interest - Sonendo provided the console unit and handpieces at no cost to the operator to conduct this study. No conflict of interest"],["yes","yes","no","yes","yes","no","yes","yes","no","yes","no","no","no","yes","no","yes","no","yes","yes","no"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Author...Year<\/th>\n      <th>is.GW.favored<\/th>\n      <th>Any.conflict.of.interest.with.Sonendo<\/th>\n      <th>COI<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Author...Year","targets":1},{"name":"is.GW.favored","targets":2},{"name":"Any.conflict.of.interest.with.Sonendo","targets":3},{"name":"COI","targets":4}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["Chan, R., et al., (2019)","Molina, B., et al., (2015)","Gundogar, M., et al. (2025)","Liu, H., et al., (2022)","Crozeta, B.M., et al., (2020)","Coaguila-Llerena H, et al., (2022)","Zhang D, et al., (2019) *need to double check numbers*","Velardi, J.P., et al., (2022)","*Ordinola-Zapata, R., et al. (2021)* - NOT SURE ON P values","*Charara, K., et al., (2016)* - PLEASE CHECK THIS","Soimu, G., et al (2025) PLEASE CHECK FOR P VALUES - I put the conclusion but was unsure how to rpesent the p values","Fang, J., et al (2025)","Auerbach, D., et al (2024)","Liu, H., et al., (2023)","Montero LQ, et al (2025) - PLEASE CHECK THIS FOR P VALUES","Amber A et al","Hossini K"],["yes","yes","yes","yes","yes","no","yes","yes","no","no","no","yes","no","yes","no","no","no"],["yes","yes","no","yes","yes","no","yes","yes","no","yes","no","yes","no","yes","no","no","no"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Author...Year<\/th>\n      <th>is.GW.favored<\/th>\n      <th>COI<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Author...Year","targets":1},{"name":"is.GW.favored","targets":2},{"name":"COI","targets":3}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>#write.csv(analysis_data, file=file.path(root, &quot;..\\2026\\202603\\Sanabil\\analysis_data.csv&quot;))</code></pre>
 </div>
 <div id="contingency-table-odds-ratio" class="section level2">
@@ -898,20 +933,20 @@ print(&quot;Contingency Table (Rows = COI, Cols = Favored):&quot;)</code></pre>
 <pre class="r"><code>print(tab)</code></pre>
 <pre><code>     
       no yes
-  no   8   1
-  yes  1  10</code></pre>
+  no   7   1
+  yes  1   8</code></pre>
 <pre class="r"><code>fisher.test(tab)</code></pre>
 <pre><code>
     Fisher&#39;s Exact Test for Count Data
 
 data:  tab
-p-value = 0.0009228
+p-value = 0.003373
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
-    3.180827 3728.650216
+    2.109578 2740.743037
 sample estimates:
 odds ratio 
-   50.7251 </code></pre>
+  35.89094 </code></pre>
 <pre class="r"><code># 3. Calculate Odds Ratio and Confidence Intervals
 # Method A: Using a simple Fisher Test (Recommended for small dental datasets)
 fisher_results &lt;- fisher.test(tab)
@@ -921,11 +956,11 @@ cat(&quot;\n--- Statistical Results ---\n&quot;)</code></pre>
 <pre><code>
 --- Statistical Results ---</code></pre>
 <pre class="r"><code>cat(&quot;Odds Ratio:&quot;, round(fisher_results$estimate, 3), &quot;\n&quot;)</code></pre>
-<pre><code>Odds Ratio: 50.725 </code></pre>
+<pre><code>Odds Ratio: 35.891 </code></pre>
 <pre class="r"><code>cat(&quot;95% CI:&quot;, round(fisher_results$conf.int[1], 3), &quot;to&quot;, round(fisher_results$conf.int[2], 3), &quot;\n&quot;)</code></pre>
-<pre><code>95% CI: 3.181 to 3728.65 </code></pre>
+<pre><code>95% CI: 2.11 to 2740.743 </code></pre>
 <pre class="r"><code>cat(&quot;P-value:&quot;, format.pval(fisher_results$p.value), &quot;\n&quot;)</code></pre>
-<pre><code>P-value: 0.00092284 </code></pre>
+<pre><code>P-value: 0.0033731 </code></pre>
 <pre class="r"><code>library(ggplot2)
 library(dplyr)
 
@@ -933,8 +968,8 @@ library(dplyr)
 # No COI: 1/9 (11.1%) | COI Present: 10/11 (90.9%)
 plot_data &lt;- data.frame(
   COI_Status = factor(c(&quot;COI: No&quot;, &quot;COI: Yes&quot;), levels = c(&quot;COI: No&quot;, &quot;COI: Yes&quot;)),
-  Favored = c(1, 10),
-  Total = c(9, 11)
+  Favored = c(1, 8),
+  Total = c(8, 9)
 ) %&gt;%
   mutate(Proportion = (Favored / Total) * 100)
 
@@ -959,7 +994,7 @@ p1=ggplot(plot_data, aes(x = COI_Status, y = Proportion, fill = COI_Status)) +
   annotate(&quot;segment&quot;, x = 2, xend = 2, y = 115, yend = 120, size = 0.8) + # Right tick
   
   # MOVED P-VALUE UP: Placing text at y = 125
-  annotate(&quot;text&quot;, x = 1.5, y = 125, label = &quot;P = 0.0009&quot;, size = 5, fontface = &quot;bold&quot;) +
+  annotate(&quot;text&quot;, x = 1.5, y = 125, label = &quot;P = 0.0034&quot;, size = 5, fontface = &quot;bold&quot;) +
   
   # Labels and Title
   labs(
@@ -1037,10 +1072,10 @@ han
 # 1. Create a data frame for the plot
 or_results &lt;- data.frame(
   Group = &quot;COI vs. GW Favored&quot;,
-  OR = 50.725,
-  Lower = 3.181,
-  Upper = 3728.65,
-  Pval = &quot;P = 0.0009&quot;
+  OR = 35.89,
+  Lower = 2.11,
+  Upper = 2740.74,
+  Pval = &quot;P = 0.0034&quot;
 )
 
 # 2. Plot using a Logarithmic Scale
@@ -1052,7 +1087,7 @@ p2=ggplot(or_results, aes(x = Group, y = OR)) +
   # Draw the OR point
   geom_point(size = 4, color = &quot;#2E5A88&quot;) +
   # Use Log10 Scale to handle the 3000+ upper bound
-  scale_y_log10(breaks = c(0.1, 1, 10, 50, 100, 1000, 4000)) +
+  scale_y_log10(breaks = c(0.1, 1, 10, 50, 100, 1000, 3000)) +
   coord_flip() + # Flip to make it look like a classic forest plot
   labs(
     title = &quot;Impact of COI on Favoring GentleWave&quot;,
@@ -1061,7 +1096,7 @@ p2=ggplot(or_results, aes(x = Group, y = OR)) +
     y = &quot;Odds Ratio&quot;
   ) +
   # Add the P-value as a text label
-  annotate(&quot;text&quot;, x = 1.2, y = 50, label = &quot;P &lt; 0.001&quot;, fontface = &quot;italic&quot;) +
+  annotate(&quot;text&quot;, x = 1.2, y = 50, label = &quot;P=0.0034&quot;, fontface = &quot;italic&quot;) +
   theme_minimal()
 p2</code></pre>
 <p><img src="figure/2026_0302_Sanabil.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1115,11 +1150,11 @@ han
 </div>
 <pre class="r"><code>#ggsave(file.path(root, &quot;..\\2026\\202603\\Sanabil\\odds_ratio.png&quot;), 
 #       plot = p2, width = 8, height = 4, dpi = 300)</code></pre>
-<p>The odds of favoring GW is 50 times higher in COI yes than COI
+<p>The odds of favoring GW is 35 times higher in COI yes than COI
 No. </p>
 <p>The proportion of papers with COI favoring GW is significantly higher
-than papers with No COI (p=0.0009), and the odds of favoring GW is 50
-times higher in papers with COI than without (p&lt;0.001).</p>
+than papers with No COI (p=0.0034), and the odds of favoring GW is 35
+times higher in papers with COI than without.</p>
 </div>
 <div id="logistic-regression" class="section level2">
 <h2>logistic regression</h2>

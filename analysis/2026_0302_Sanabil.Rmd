@@ -19,8 +19,8 @@ root <- rprojroot::find_rstudio_root_file()
 
 
 ```{r, message=F, warning=F}
-data=as_tibble(read.csv((file.path(root, "..\\2026\\202603\\Sanabil\\Sonendo research  - completed version part 3-2.csv")), header = T))
-
+#data=as_tibble(read.csv((file.path(root, "..\\2026\\202603\\Sanabil\\Sonendo research  - completed version part 3-2.csv")), header = T))
+data=as_tibble(read.csv((file.path(root, "..\\2026\\202603\\Sanabil\\analysis_data_20260902.csv")), header = T)) %>% select("Author...Year", "is.GW.favored", "COI")
 data=as_tibble(data[complete.cases(data), ]) 
 
 ```
@@ -84,8 +84,8 @@ library(dplyr)
 # No COI: 1/9 (11.1%) | COI Present: 10/11 (90.9%)
 plot_data <- data.frame(
   COI_Status = factor(c("COI: No", "COI: Yes"), levels = c("COI: No", "COI: Yes")),
-  Favored = c(1, 10),
-  Total = c(9, 11)
+  Favored = c(1, 8),
+  Total = c(8, 9)
 ) %>%
   mutate(Proportion = (Favored / Total) * 100)
 
@@ -110,7 +110,7 @@ p1=ggplot(plot_data, aes(x = COI_Status, y = Proportion, fill = COI_Status)) +
   annotate("segment", x = 2, xend = 2, y = 115, yend = 120, size = 0.8) + # Right tick
   
   # MOVED P-VALUE UP: Placing text at y = 125
-  annotate("text", x = 1.5, y = 125, label = "P = 0.0009", size = 5, fontface = "bold") +
+  annotate("text", x = 1.5, y = 125, label = "P = 0.0034", size = 5, fontface = "bold") +
   
   # Labels and Title
   labs(
@@ -144,10 +144,10 @@ library(ggplot2)
 # 1. Create a data frame for the plot
 or_results <- data.frame(
   Group = "COI vs. GW Favored",
-  OR = 50.725,
-  Lower = 3.181,
-  Upper = 3728.65,
-  Pval = "P = 0.0009"
+  OR = 35.89,
+  Lower = 2.11,
+  Upper = 2740.74,
+  Pval = "P = 0.0034"
 )
 
 # 2. Plot using a Logarithmic Scale
@@ -159,7 +159,7 @@ p2=ggplot(or_results, aes(x = Group, y = OR)) +
   # Draw the OR point
   geom_point(size = 4, color = "#2E5A88") +
   # Use Log10 Scale to handle the 3000+ upper bound
-  scale_y_log10(breaks = c(0.1, 1, 10, 50, 100, 1000, 4000)) +
+  scale_y_log10(breaks = c(0.1, 1, 10, 50, 100, 1000, 3000)) +
   coord_flip() + # Flip to make it look like a classic forest plot
   labs(
     title = "Impact of COI on Favoring GentleWave",
@@ -168,7 +168,7 @@ p2=ggplot(or_results, aes(x = Group, y = OR)) +
     y = "Odds Ratio"
   ) +
   # Add the P-value as a text label
-  annotate("text", x = 1.2, y = 50, label = "P < 0.001", fontface = "italic") +
+  annotate("text", x = 1.2, y = 50, label = "P=0.0034", fontface = "italic") +
   theme_minimal()
 p2
 
@@ -178,10 +178,10 @@ p2
 ```
 
 
-The odds of favoring GW is 50 times higher in COI yes than COI No. 
+The odds of favoring GW is 35 times higher in COI yes than COI No. 
 
 
-The proportion of papers with COI favoring GW is significantly higher than  papers with No COI (p=0.0009), and the odds of favoring GW is 50 times higher in papers with COI than without (p<0.001). 
+The proportion of papers with COI favoring GW is significantly higher than  papers with No COI (p=0.0034), and the odds of favoring GW is 35 times higher in papers with COI than without. 
 
 
 

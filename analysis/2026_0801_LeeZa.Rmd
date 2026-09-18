@@ -23,12 +23,16 @@ library(tidyr)
 
 
 ```{r, message=F, warning=F}
-nsduh_data=as_tibble(read_excel((file.path(root, "../2026/202608/LeeZa/NSDUH data 12 to 17 years old for analysis.xlsx"))))
+#nsduh_data=as_tibble(read_excel((file.path(root, "../2026/202608/LeeZa/NSDUH data 12 to 17 years old for analysis.xlsx"))))
+nsduh_data=as_tibble(read.csv((file.path(root, "../2026/202608/LeeZa/NSDUH data 12 to 17 years old for analysis(Sheet1).csv"))))
+
 ```
 
 
 ```{r, message=F, warning=F}
-table(nsduh_data$PrevMed_24)
+table(nsduh_data$PrevDent_24)
+nsduh_data =nsduh_data %>% filter(PrevDent_24!=99)
+table(nsduh_data$PrevDent_24)
 ```
 
 
@@ -45,8 +49,8 @@ table(nsduh_data$PrevMed_24)
 library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
-  nsduh_data$PrevMed_24, 
-  nsduh_data$sex_24, 
+  nsduh_data$PrevDent_24, 
+  nsduh_data$SC_SEX, 
   expected = TRUE, 
   prop.r = FALSE, 
   prop.c = FALSE, 
@@ -63,7 +67,7 @@ CrossTable(
 library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
-  nsduh_data$PrevMed_24, 
+  nsduh_data$PrevDent_24, 
   nsduh_data$race7_24, 
   expected = TRUE, 
   prop.r = FALSE, 
@@ -81,7 +85,7 @@ CrossTable(
 library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
-  nsduh_data$PrevMed_24, 
+  nsduh_data$PrevDent_24, 
   nsduh_data$povSCHIP_24, 
   expected = TRUE, 
   prop.r = FALSE, 
@@ -100,7 +104,7 @@ CrossTable(
 library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
-  nsduh_data$PrevMed_24, 
+  nsduh_data$PrevDent_24, 
   nsduh_data$PrntNativity_24, 
   expected = TRUE, 
   prop.r = FALSE, 
@@ -120,7 +124,7 @@ CrossTable(
 library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
-  nsduh_data$PrevMed_24, 
+  nsduh_data$PrevDent_24, 
   nsduh_data$AdultEduc_24, 
   expected = TRUE, 
   prop.r = FALSE, 
@@ -141,7 +145,7 @@ CrossTable(
 library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
-  nsduh_data$PrevMed_24, 
+  nsduh_data$PrevDent_24, 
   nsduh_data$OralProb_24, 
   expected = TRUE, 
   prop.r = FALSE, 
@@ -160,7 +164,7 @@ CrossTable(
 library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
-  nsduh_data$PrevMed_24, 
+  nsduh_data$PrevDent_24, 
   nsduh_data$ACE2more_24, 
   expected = TRUE, 
   prop.r = FALSE, 
@@ -179,4 +183,86 @@ CrossTable(
 
 
 ## logistic regression 
+
+```{r, message=F, warning=F}
+
+library(tidyverse)
+library(gtsummary)
+library(logistf)
+
+# 1. Select the exact variables from the dataset
+covariates <- c(
+  "MEDB10ScrQ5_24", "SC_AGE_YEARS", "SC_SEX", "race7_24", 
+  "PrntNativity_24", "povSCHIP_24", "AdultEduc_24", "OralProb_24", 
+  "ACE2more_24", "MedDentCare_24", "FamResilience_24", 
+  "NbhdSafe_24", "frustrated_24"
+)
+
+formula_logit <- as.formula(
+  paste("PrevDent_24 ~", paste(covariates, collapse = " + "))
+)
+
+# 2. Data Preparation
+# Convert binary variable levels (In NSCH: 1 = Yes, 2 = No; recode to 0 = No, 1 = Yes for logit modeling)
+nsduh_clean <- nsduh_data %>%
+  select(all_of(c("PrevDent_24", covariates))) %>%
+  drop_na() %>%
+  mutate(
+    # Recode outcome: 1 = Yes, 2 = No -> 1 = Yes, 0 = No
+    PrevDent_24 = ifelse(PrevDent_24 == 1, 1, 0),
+    PrevDent_24 = factor(PrevDent_24, levels = c(0, 1), labels = c("No", "Yes")),
+    
+    # Ensure categorical survey indicators are treated as factors
+    SC_SEX = factor(SC_SEX),
+    race7_24 = factor(race7_24),
+    PrntNativity_24 = factor(PrntNativity_24),
+    povSCHIP_24 = factor(povSCHIP_24),
+    AdultEduc_24 = factor(AdultEduc_24),
+    OralProb_24 = factor(OralProb_24),
+    ACE2more_24 = factor(ACE2more_24),
+    MedDentCare_24 = factor(MedDentCare_24),
+    FamResilience_24 = factor(FamResilience_24),
+    NbhdSafe_24 = factor(NbhdSafe_24),
+    frustrated_24 = factor(frustrated_24)
+  )
+
+# 3. Fit Standard Logistic Regression (GLM)
+logit_model <- glm(
+  formula = formula_logit,
+  data = nsduh_clean,
+  family = binomial(link = "logit")
+)
+
+coef_mat <- summary(logit_model)$coefficients
+ci_mat <- suppressMessages(confint(logit_model))
+
+# 2. Identify common terms (drops MEDB10ScrQ5_24 automatically)
+common_terms <- intersect(rownames(coef_mat), rownames(ci_mat))
+
+# 3. Build data frame using aligned terms
+clean_table <- data.frame(
+  Variable = common_terms,
+  OR       = exp(coef_mat[common_terms, "Estimate"]),
+  CI_2.5   = exp(ci_mat[common_terms, 1]),
+  CI_97.5  = exp(ci_mat[common_terms, 2]),
+  p_value  = coef_mat[common_terms, "Pr(>|z|)"]
+)
+
+# 4. Format numbers for reporting
+clean_table[, 2:5] <- round(clean_table[, 2:5], 4)
+
+clean_table%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
+
+
+```
+
+
 
