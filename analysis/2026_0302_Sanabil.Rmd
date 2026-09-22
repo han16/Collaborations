@@ -21,6 +21,16 @@ root <- rprojroot::find_rstudio_root_file()
 ```{r, message=F, warning=F}
 #data=as_tibble(read.csv((file.path(root, "..\\2026\\202603\\Sanabil\\Sonendo research  - completed version part 3-2.csv")), header = T))
 data=as_tibble(read.csv((file.path(root, "..\\2026\\202603\\Sanabil\\analysis_data_20260902.csv")), header = T)) %>% select("Author...Year", "is.GW.favored", "COI")
+
+data%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+
 data=as_tibble(data[complete.cases(data), ]) 
 
 ```
