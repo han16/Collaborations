@@ -18,6 +18,9 @@ root <- rprojroot::find_rstudio_root_file()
 ```
 
 
+## full data 
+
+
 ```{r, message=F, warning=F}
 #data=as_tibble(read.csv((file.path(root, "..\\2026\\202603\\Sanabil\\Sonendo research  - completed version part 3-2.csv")), header = T))
 data=as_tibble(read.csv((file.path(root, "..\\2026\\202603\\Sanabil\\analysis_data_20260902.csv")), header = T)) %>% select("Author...Year", "is.GW.favored", "COI")
@@ -37,7 +40,7 @@ data=as_tibble(data[complete.cases(data), ])
 
 
 
-## data samlples 
+## data samlples with vaid values 
 
 
 ```{r, message=F, warning=F}
