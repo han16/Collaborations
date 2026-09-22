@@ -40,7 +40,7 @@ data=as_tibble(data[complete.cases(data), ])
 
 
 
-## data samlples with vaid values 
+## data samlples without missing values
 
 
 ```{r, message=F, warning=F}
