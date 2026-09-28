@@ -125,6 +125,56 @@ data.frame(Had_SDF_Failure_Treatment= data$Had_SDF_Failure_Treatment) %>%
 ```
 
 
+```{r, message=F, warning=F}
+library(tidyverse)
+
+# 1. Fixed helper function for continuous variables
+get_cont_stats <- function(vec, var_name) {
+  # Force conversion to numeric and strip NAs
+  num_vec <- as.numeric(as.character(vec))
+  v <- na.omit(num_vec)
+  
+  # Calculate quartiles safely
+  q_vals <- quantile(v, probs = c(0.25, 0.75), type = 7)
+  
+  tibble(
+    Variable = var_name,
+    Level = "Continuous Summary",
+    `n (%) / Stats` = sprintf(
+      "Mean: %.2f (SD: %.2f) | Median: %.2f [IQR: %.2f–%.2f] | Range: %.2f–%.2f (Missing: %d)",
+      mean(v), sd(v), median(v), q_vals[1], q_vals[2], min(v), max(v), sum(is.na(num_vec))
+    )
+  )
+}
+
+# 2. Helper function for categorical variables
+get_cat_stats <- function(vec, var_name) {
+  table(as.character(vec), useNA = "always") %>%
+    enframe(name = "Level", value = "n") %>%
+    mutate(
+      Variable = var_name,
+      Level = ifelse(is.na(Level) | Level == "NA", "Missing (NA)", Level),
+      pct = round(100 * n / sum(n), 2),
+      `n (%) / Stats` = sprintf("%d (%.2f%%)", n, pct)
+    ) %>%
+    select(Variable, Level, `n (%) / Stats`)
+}
+
+# 3. Combine into one Table 1 dataframe
+table_1 <- bind_rows(
+  get_cont_stats(data$Age_At_Treatment, "Age_At_Treatment"),
+  get_cont_stats(data$Days_From_SDF_To_Failure_Treatment, "Days_From_SDF_To_Failure_Treatment"),
+  get_cat_stats(data$Sex, "Sex"),
+  get_cat_stats(data$Ethnicity, "Ethnicity"),
+  get_cat_stats(data$Medicaid, "Medicaid"),
+  get_cat_stats(data$Had_SDF_Failure_Treatment, "Had_SDF_Failure_Treatment")
+)
+
+print(table_1, n = 40)
+```
+
+
+
 
 ## bivariate analysis 
 
