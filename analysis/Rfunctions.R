@@ -19,7 +19,7 @@ library(ggplot2)
 
 #install.packages("devtools")
 library(devtools)
-# devtools::install_github("zabore/condsurv")
+ #devtools::install_github("zabore/condsurv")
 library(condsurv)
 
 library("VennDiagram") 
