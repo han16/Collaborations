@@ -237,19 +237,17 @@ logit_model <- glm(
 )
 
 coef_mat <- summary(logit_model)$coefficients
-#ci_mat <- suppressMessages(confint(logit_model))
 
-# 2. Identify common terms (drops MEDB10ScrQ5_24 automatically)
-ci_mat=coef_mat
-common_terms <- rownames(coef_mat)
+#Wald CIs: Estimate ± 1.96 * Std. Error
+estimates  <- coef_mat[, "Estimate"]
+std_errors <- coef_mat[, "Std. Error"]
 
-# 3. Build data frame using aligned terms
 clean_table <- data.frame(
-  Variable = common_terms,
-  OR       = exp(coef_mat[common_terms, "Estimate"]),
-  CI_2.5   = exp(ci_mat[common_terms, 1]),
-  CI_97.5  = exp(ci_mat[common_terms, 2]),
-  p_value  = coef_mat[common_terms, "Pr(>|z|)"]
+  Variable = rownames(coef_mat),
+  OR       = exp(estimates),
+  CI_2.5   = exp(estimates - 1.96 * std_errors),
+  CI_97.5  = exp(estimates + 1.96 * std_errors),
+  p_value  = coef_mat[, "Pr(>|z|)"]
 )
 
 # 4. Format numbers for reporting
@@ -276,71 +274,60 @@ datatable(extensions = 'Buttons',
 
 
 
+
 ```{r, message=F, warning=F}
 library(dplyr)
 library(ggplot2)
 
-# 1. Read in the model estimates
-clean_table <- data.frame(
-  Variable = c("(Intercept)", "SC_AGE_YEARS", "SC_SEX2", "race7_242", "race7_243", 
-              "race7_244", "race7_245", "race7_246", "race7_247", "PrntNativity_242", 
-              "PrntNativity_243", "PrntNativity_2499", "povSCHIP_242", "povSCHIP_243", 
-              "povSCHIP_244", "AdultEduc_242", "AdultEduc_243", "AdultEduc_244", 
-              "OralProb_242", "OralProb_2499", "ACE2more_242", "ACE2more_243", 
-              "ACE2more_2499", "MedDentCare_242", "MedDentCare_2499", "FamResilience_242", 
-              "FamResilience_243", "FamResilience_2499", "NbhdSafe_242", "NbhdSafe_243", 
-              "NbhdSafe_2499", "frustrated_242", "frustrated_243", "frustrated_2499", "EmploymentSt_24", "SpEducPln_24"),
-  OR = c(1.56e12, 1.0782, 1.154, 0.656, 0.6367, 0.5742, 0.9277, 0, 0.6004, 0.911, 
-         1.2417, 0.5465, 1.0337, 1.4418, 1.774, 1.0378, 1.1254, 1.419, 0.8364, 
-         0.3409, 0.8214, 0.6744, 1.4782, 0, 0, 1.0297, 1.1411, 0.8428, 1.024, 
-         0.8498, 0.6654, 0.7208, 0.581, 0.5045, 1.000700e+00, 9.938000e-01),
-  CI_2.5 = c(6.07e204, 1.058, 0.9888, 0.5189, 0.4564, 0.3476, 0.35, 0, 0.4243, 0.7077, 
-            0.92, 0.2767, 0.8311, 1.1112, 1.4251, 0.7036, 0.766, 0.9603, 0.6893, 
-            0.0867, 0.6687, 0.5506, 0.6454, 0.0, 0.0, 0.755, 0.8867, 0.3992, 0.862, 
-            0.6068, 0.3057, 0.6057, 0.4485, 0.1949, 1.000700e+00, 9.938000e-01),
-  CI_97.5 = c(1.22e234, 1.099, 1.347, 0.8283, 0.8862, 0.9441, 2.5365, 0, 0.8474, 1.1726, 
-             1.6764, 1.0436, 1.2849, 1.8719, 2.2103, 1.5376, 1.6611, 2.1064, 1.0145, 
-             1.1136, 1.0087, 0.8255, 3.4437, 0, 0, 1.4049, 1.4703, 1.7664, 1.2168, 
-             1.1843, 1.4402, 0.8574, 0.7504, 1.2254, 1.003900e+00, 1.008000e+00),
-  p_value = c(0.9583, 0.0000, 0.0694, 0.0004, 0.0076, 0.0292, 0.8802, 0.9709, 0.0038, 
-              0.4690, 0.1569, 0.0727, 0.7657, 0.0059, 0.0000, 0.8520, 0.5491, 0.0803, 
-              0.0699, 0.0908, 0.0606, 0.0001, 0.3587, 0.9574, 0.9584, 0.8534, 0.3060, 
-              0.6507, 0.7870, 0.3394, 0.3003, 0.0002, 0.0000, 0.1407, 0.8670, 0.4343)
-)
-
-# 2. Prepare data for plotting
+# 1. Process and clean data directly from `clean_table`
 plot_data <- clean_table %>%
-  filter(Variable != "(Intercept)", OR > 0) %>%
+  # Exclude intercept, zero estimates, and infinite upper confidence bounds
+  filter(
+    Variable != "(Intercept)",
+    OR > 0,
+    !is.infinite(CI_97.5),
+    !is.infinite(CI_2.5)
+  ) %>%
   mutate(
+    # Set factor levels so variables plot in order top-to-bottom
     Variable = factor(Variable, levels = rev(Variable)),
     Significance = ifelse(p_value < 0.05, "p < 0.05", "p ≥ 0.05"),
-    # Truncate visual CI upper limits to prevent clipping on visual area
-    CI_97.5_plot = pmin(CI_97.5, 3.6),
-    # Text annotation formatted nicely
+    
+    # Cap upper CI for visual error bars to keep the plot scale readable (up to 4.5)
+    CI_97.5_plot = pmin(CI_97.5, 4.5),
+    
+    # Format actual text label for the right-hand side table column
     LabelText = sprintf("%.2f (%.2f, %.2f)", OR, CI_2.5, CI_97.5)
   )
 
-# 3. Draw Forest Plot on Original Scale
+# 2. Draw Forest Plot on Original Scale
 forest_linear <- ggplot(plot_data, aes(x = OR, y = Variable, color = Significance)) +
-  # Null reference line at OR = 1.0
-  geom_vline(xintercept = 1.0, linetype = "dashed", color = "black", linewidth = 0.6) +
-  # Error bars for 95% CIs
-  geom_errorbarh(aes(xmin = CI_2.5, xmax = CI_97.5_plot), height = 0.2, linewidth = 0.8) +
-  # Square markers for Odds Ratios
+  # Reference line at Null Effect (OR = 1.0)
+  geom_vline(xintercept = 1.0, linetype = "dashed", color = "gray40", linewidth = 0.6) +
+  
+  # 95% Confidence Interval error bars
+  geom_errorbarh(aes(xmin = CI_2.5, xmax = CI_97.5_plot), height = 0.25, linewidth = 0.8) +
+  
+  # Odds Ratio point estimates
   geom_point(shape = 15, size = 2.8) +
-  # Linear X-axis scale (0 to 4.6 for plotting + text padding)
+  
+  # Custom X-axis scale with padding on the right for text annotations
   scale_x_continuous(
-    limits = c(0, 4.8), 
-    breaks = seq(0, 3.5, by = 0.5),
+    limits = c(0, 6.2), 
+    breaks = seq(0, 4.5, by = 0.5),
     expand = c(0, 0)
   ) +
-  # Palette matching publication standards
+  
+  # Color palette matching publication standards
   scale_color_manual(values = c("p < 0.05" = "#d95f02", "p ≥ 0.05" = "#2b83ba")) +
-  # Annotate Odds Ratio & 95% CI text on the right side
+  
+  # Text annotations on the right side
   geom_text(
-    aes(x = 4.6, label = LabelText),
+    aes(x = 6.0, label = LabelText),
     hjust = 1, size = 3, color = "black", fontface = "plain"
   ) +
+  
+  # Labels and Layout
   labs(
     title = "FOREST PLOT: MULTIVARIABLE LOGISTIC REGRESSION OUTCOMES",
     subtitle = "Odds Ratios (95% CI) Presented on Original Scale",
