@@ -97,8 +97,8 @@ library(dplyr)
 # No COI: 1/9 (11.1%) | COI Present: 10/11 (90.9%)
 plot_data <- data.frame(
   COI_Status = factor(c("COI: No", "COI: Yes"), levels = c("COI: No", "COI: Yes")),
-  Favored = c(3, 14),
-  Total = c(10, 17)
+  Favored = c(3, 12),
+  Total = c(10, 15)
 ) %>%
   mutate(Proportion = (Favored / Total) * 100)
 plot_data
@@ -124,7 +124,7 @@ p1=ggplot(plot_data, aes(x = COI_Status, y = Proportion, fill = COI_Status)) +
   annotate("segment", x = 2, xend = 2, y = 115, yend = 120, size = 0.8) + # Right tick
   
   # MOVED P-VALUE UP: Placing text at y = 125
-  annotate("text", x = 1.5, y = 125, label = "P = 0.0127", size = 5, fontface = "bold") +
+  annotate("text", x = 1.5, y = 125, label = "P = 0.0344", size = 5, fontface = "bold") +
   
   # Labels and Title
   labs(
@@ -158,10 +158,10 @@ library(ggplot2)
 # 1. Create a data frame for the plot
 or_results <- data.frame(
   Group = "COI vs. GW Favored",
-  OR = 9.707,
-  Lower = 1.318,
-  Upper = 101.14,
-  Pval = "P = 0.0352"
+  OR = 8.35,
+  Lower = 1.111,
+  Upper = 88.068,
+  Pval = "P = 0.0344"
 )
 
 # 2. Plot using a Logarithmic Scale
@@ -182,7 +182,7 @@ p2=ggplot(or_results, aes(x = Group, y = OR)) +
     y = "Odds Ratio"
   ) +
   # Add the P-value as a text label
-  annotate("text", x = 1.2, y = 50, label = "P=0.0127", fontface = "italic") +
+  annotate("text", x = 1.2, y = 50, label = "P=0.0344", fontface = "italic") +
   theme_minimal()
 p2
 
@@ -258,7 +258,7 @@ boxplot(QUIN_24 ~ is_GW_favored, data = analysis_data_clean)
 ```
 
 
-### inlcuding sample size as covariate 
+### including sample size as covariate 
 
 
 
