@@ -267,10 +267,6 @@ datatable(extensions = 'Buttons',
 ```
 
 
-* for continuous variable, for example `SC_AGE_YEARS`, one unit of increase will results in odds increase by 10.24% of not having outcome variable. 
-
-* for discrete variable, such as `race7_24`, `race7_24_1` is the reference group, compared to the reference group, `race7_242` has (1-0.646)=0.354 (35.4%) decrease in odds of not having outcome variable. 
-
 
 
 
@@ -346,3 +342,9 @@ forest_linear <- ggplot(plot_data, aes(x = OR, y = Variable, color = Significanc
 
 print(forest_linear)
 ```
+
+
+
+* for continuous variable, for example `SC_AGE_YEARS`, one unit of increase will results in odds increase by 10% of having outcome variable. 
+
+* for discrete variable, such as `race7_24`, `race7_24_1` is the reference group, compared to the reference group, `race7_242` has (1-0.65)=0.35 (35%) decrease in odds of having outcome variable. 
