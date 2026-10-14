@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree64819d66af0027eea5eb1875229d365d91eab298targetblank64819d6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree32bc8d4b64090d0d1da2f5a27b8548593cd58bc8targetblank32bc8d4a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/64819d66af0027eea5eb1875229d365d91eab298" target="_blank">64819d6</a>
+<a href="https://github.com/han16/Collaborations/tree/32bc8d4b64090d0d1da2f5a27b8548593cd58bc8" target="_blank">32bc8d4</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree64819d66af0027eea5eb1875229d365d91eab298targetblank64819d6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree32bc8d4b64090d0d1da2f5a27b8548593cd58bc8targetblank32bc8d4a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/64819d66af0027eea5eb1875229d365d91eab298" target="_blank">64819d6</a>.
+<a href="https://github.com/han16/Collaborations/tree/32bc8d4b64090d0d1da2f5a27b8548593cd58bc8" target="_blank">32bc8d4</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -615,6 +615,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/32bc8d4b64090d0d1da2f5a27b8548593cd58bc8/analysis/2026_0801_LeeZa.Rmd" target="_blank">32bc8d4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-14
+</td>
+<td>
+10/14/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/32bc8d4b64090d0d1da2f5a27b8548593cd58bc8/docs/2026_0801_LeeZa.html" target="_blank">32bc8d4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-14
+</td>
+<td>
+10/14/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1348,129 +1382,18 @@ for (v in categorical_vars) {
 
 lapply(categorical_vars, function(v) {
   table(nsduh_clean[[v]], nsduh_clean$PrevDent_24, useNA = &quot;ifany&quot;)
-})</code></pre>
-<pre><code>[[1]]
-   
-      No  Yes
-  1  701 6350
+})
 
-[[2]]
-   
-      No  Yes
-  1  418 3541
-  2  283 2809
-
-[[3]]
-   
-      No  Yes
-  1  106  821
-  2  452 4507
-  3   60  357
-  4   16  154
-  5    4   43
-  6    0    3
-  7   63  465
-
-[[4]]
-   
-      No  Yes
-  1  554 5263
-  2   95  769
-  3   52  318
-
-[[5]]
-   
-      No  Yes
-  1  354 1636
-  2  142 1013
-  3   73  860
-  4  132 2841
-
-[[6]]
-   
-      No  Yes
-  1   35  100
-  2  189  758
-  3  227 1367
-  4  250 4125
-
-[[7]]
-   
-      No  Yes
-  1  154 1132
-  2  547 5218
-
-[[8]]
-   
-      No  Yes
-  1  206 2837
-  2  178 1449
-  3  317 2064
-
-[[9]]
-   
-      No  Yes
-  1    0 5687
-  2  701  663
-
-[[10]]
-   
-      No  Yes
-  1   93  442
-  2  105  818
-  3  503 5090
-
-[[11]]
-   
-      No  Yes
-  1  381 4221
-  2  268 1838
-  3   52  291
-
-[[12]]
-   
-      No  Yes
-  1  367 3659
-  2  225 2176
-  3  109  515
-
-[[13]]
-   
-      No  Yes
-  1  621 5469
-  2   30  296
-  3   50  585
-
-[[14]]
-   
-      No  Yes
-  1  210 1927
-  2  491 4423</code></pre>
-<pre class="r"><code>table(nsduh_clean$MedDentCare_24, nsduh_clean$PrevDent_24)</code></pre>
-<pre><code>   
-      No  Yes
-  1    0 5687
-  2  701  663</code></pre>
-<pre class="r"><code>table(nsduh_clean$MedDentCare_24, nsduh_clean$race7_24)</code></pre>
-<pre><code>   
-       1    2    3    4    5    6    7
-  1  699 4083  305  135   36    3  426
-  2  228  876  112   35   11    0  102</code></pre>
+table(nsduh_clean$MedDentCare_24, nsduh_clean$PrevDent_24)
+table(nsduh_clean$MedDentCare_24, nsduh_clean$race7_24)</code></pre>
 <pre class="r"><code># remove &quot;MedDentCare_24&quot;, &quot;MEDB10ScrQ5_24&quot;, 
 nsduh_clean &lt;- nsduh_clean[nsduh_clean$race7_24 != 6, ]
 nsduh_clean$race7_24 &lt;- droplevels(nsduh_clean$race7_24)
 
 # Verify that category 6 is completely gone
-table(nsduh_clean$race7_24, nsduh_clean$PrevDent_24)</code></pre>
-<pre><code>   
-      No  Yes
-  1  106  821
-  2  452 4507
-  3   60  357
-  4   16  154
-  5    4   43
-  7   63  465</code></pre>
-<pre class="r"><code>remaining_vars &lt;- c(&quot;SC_SEX&quot;, &quot;race7_24&quot;, &quot;PrntNativity_24&quot;, 
+table(nsduh_clean$race7_24, nsduh_clean$PrevDent_24)
+
+remaining_vars &lt;- c(&quot;SC_SEX&quot;, &quot;race7_24&quot;, &quot;PrntNativity_24&quot;, 
                     &quot;povSCHIP_24&quot;, &quot;AdultEduc_24&quot;, &quot;OralProb_24&quot;, &quot;ACE2more_24&quot;, 
                     &quot;FamResilience_24&quot;, &quot;NbhdSafe_24&quot;, &quot;frustrated_24&quot;, 
                     &quot;EmploymentSt_24&quot;, &quot;SpEducPln_24&quot;)
@@ -1480,177 +1403,6 @@ lapply(remaining_vars, function(v) {
   cat(&quot;\n--- Variable:&quot;, v, &quot;---\n&quot;)
   print(table(nsduh_clean[[v]], nsduh_clean$PrevDent_24, useNA = &quot;ifany&quot;))
 })</code></pre>
-<pre><code>
---- Variable: SC_SEX ---
-   
-      No  Yes
-  1  418 3540
-  2  283 2807
-
---- Variable: race7_24 ---
-   
-      No  Yes
-  1  106  821
-  2  452 4507
-  3   60  357
-  4   16  154
-  5    4   43
-  7   63  465
-
---- Variable: PrntNativity_24 ---
-   
-      No  Yes
-  1  554 5262
-  2   95  767
-  3   52  318
-
---- Variable: povSCHIP_24 ---
-   
-      No  Yes
-  1  354 1634
-  2  142 1012
-  3   73  860
-  4  132 2841
-
---- Variable: AdultEduc_24 ---
-   
-      No  Yes
-  1   35  100
-  2  189  757
-  3  227 1366
-  4  250 4124
-
---- Variable: OralProb_24 ---
-   
-      No  Yes
-  1  154 1132
-  2  547 5215
-
---- Variable: ACE2more_24 ---
-   
-      No  Yes
-  1  206 2836
-  2  178 1448
-  3  317 2063
-
---- Variable: FamResilience_24 ---
-   
-      No  Yes
-  1   93  442
-  2  105  817
-  3  503 5088
-
---- Variable: NbhdSafe_24 ---
-   
-      No  Yes
-  1  381 4220
-  2  268 1837
-  3   52  290
-
---- Variable: frustrated_24 ---
-   
-      No  Yes
-  1  367 3656
-  2  225 2176
-  3  109  515
-
---- Variable: EmploymentSt_24 ---
-   
-      No  Yes
-  1  621 5466
-  2   30  296
-  3   50  585
-
---- Variable: SpEducPln_24 ---
-   
-      No  Yes
-  1  210 1926
-  2  491 4421</code></pre>
-<pre><code>[[1]]
-   
-      No  Yes
-  1  418 3540
-  2  283 2807
-
-[[2]]
-   
-      No  Yes
-  1  106  821
-  2  452 4507
-  3   60  357
-  4   16  154
-  5    4   43
-  7   63  465
-
-[[3]]
-   
-      No  Yes
-  1  554 5262
-  2   95  767
-  3   52  318
-
-[[4]]
-   
-      No  Yes
-  1  354 1634
-  2  142 1012
-  3   73  860
-  4  132 2841
-
-[[5]]
-   
-      No  Yes
-  1   35  100
-  2  189  757
-  3  227 1366
-  4  250 4124
-
-[[6]]
-   
-      No  Yes
-  1  154 1132
-  2  547 5215
-
-[[7]]
-   
-      No  Yes
-  1  206 2836
-  2  178 1448
-  3  317 2063
-
-[[8]]
-   
-      No  Yes
-  1   93  442
-  2  105  817
-  3  503 5088
-
-[[9]]
-   
-      No  Yes
-  1  381 4220
-  2  268 1837
-  3   52  290
-
-[[10]]
-   
-      No  Yes
-  1  367 3656
-  2  225 2176
-  3  109  515
-
-[[11]]
-   
-      No  Yes
-  1  621 5466
-  2   30  296
-  3   50  585
-
-[[12]]
-   
-      No  Yes
-  1  210 1926
-  2  491 4421</code></pre>
 </div>
 <div id="center-age_years-variable" class="section level3">
 <h3>center AGE_YEARS variable</h3>
@@ -1843,6 +1595,122 @@ ggplot(plot_data, aes(x = OR, y = reorder(Variable, OR))) +
     axis.text.y = element_text(face = &quot;bold&quot;)
   )</code></pre>
 <p><img src="figure/2026_0801_LeeZa.Rmd/unnamed-chunk-18-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/32bc8d4b64090d0d1da2f5a27b8548593cd58bc8/docs/figure/2026_0801_LeeZa.Rmd/unnamed-chunk-18-1.png" target="_blank">32bc8d4</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>library(dplyr)
+
+# Define the categorical variables used in your model
+categorical_vars &lt;- c(&quot;SC_SEX&quot;, &quot;race7_24&quot;, &quot;PrntNativity_24&quot;, 
+                      &quot;povSCHIP_24&quot;, &quot;AdultEduc_24&quot;, &quot;OralProb_24&quot;, 
+                      &quot;ACE2more_24&quot;, &quot;FamResilience_24&quot;, &quot;NbhdSafe_24&quot;, 
+                      &quot;frustrated_24&quot;, &quot;EmploymentSt_24&quot;, &quot;SpEducPln_24&quot;)
+
+
+
+#SC_AGE_YEARS_centered + SC_SEX + race7_24 + 
+#    PrntNativity_24 + povSCHIP_24 + AdultEduc_24 + OralProb_24 + 
+#    ACE2more_24 + FamResilience_24 + NbhdSafe_24 + 
+#    frustrated_24 + EmploymentSt_24 + SpEducPln_24,
+
+# Loop through each variable to find its reference group (the first factor level)
+ref_groups &lt;- data.frame(
+  Variable = character(),
+  Reference_Group = character(),
+  stringsAsFactors = FALSE
+)
+
+for (v in categorical_vars) {
+  if (v %in% names(nsduh_clean)) {
+    # Convert to factor to ensure R&#39;s level ordering is accurately captured
+    var_factor &lt;- as.factor(nsduh_clean[[v]])
+    ref_level &lt;- levels(var_factor)[1]
+    
+    ref_groups &lt;- rbind(ref_groups, data.frame(
+      Variable = v, 
+      Reference_Group = ref_level,
+      stringsAsFactors = FALSE
+    ))
+  }
+}
+
+# Print the clean summary table of reference groups
+print(ref_groups)</code></pre>
+<pre><code>           Variable Reference_Group
+1            SC_SEX               1
+2          race7_24               1
+3   PrntNativity_24               1
+4       povSCHIP_24               1
+5      AdultEduc_24               1
+6       OralProb_24               1
+7       ACE2more_24               1
+8  FamResilience_24               1
+9       NbhdSafe_24               1
+10    frustrated_24               1
+11  EmploymentSt_24               1
+12     SpEducPln_24               1</code></pre>
+<ul>
+<li><p>data cleaning: <code>99</code> missing values are removed.
+covariates “MedDentCare_24”, “MEDB10ScrQ5_24” are deleted due to 0
+counts in certain groups.</p></li>
+<li><p><code>SC_AGE_YEARS</code> is centered, with mean 0,</p></li>
+<li><p>outcome variable <code>PrevDent_24</code>, code 1 = Yes, 2 =
+No;</p></li>
+<li><p>interpretations:</p></li>
+<li><p><code>SC_AGE_YEARS_centered</code> Odds Ratio (<span
+class="math inline">\(\text{exp}(0.057) \approx 1.059\)</span>): For
+each additional year older a participant is compared to the mean age,
+their odds of receiving preventive dental care increase by 5.9%, holding
+all other variables constant. Because the <span
+class="math inline">\(p\)</span>-value (<span class="math inline">\(1.59
+\times 10^{-6}\)</span>) is well below <span
+class="math inline">\(0.05\)</span>, this is a statistically significant
+positive association.</p></li>
+<li><p><code>SC_SEX2</code> Odds Ratio (<span
+class="math inline">\(\text{exp}(0.134)  \approx  1.143\)</span>): Level
+2 has about a 14.3% higher odds of preventive dental care compared to
+Level 1 (males), holding other variables constant. However, looking at
+the <span class="math inline">\(p\)</span>-value (<span
+class="math inline">\(0.112\)</span>), this effect is not statistically
+significant at the standard <span class="math inline">\(\alpha =
+0.05\)</span> threshold (the confidence interval includes 0 on the log
+scale / 1 on the OR scale: <span class="math inline">\([-0.031,
+0.299]\)</span>).</p></li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

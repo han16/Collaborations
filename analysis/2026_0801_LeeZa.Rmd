@@ -262,7 +262,7 @@ alias(PrevDent_24 ~ MEDB10ScrQ5_24+SC_AGE_YEARS+SC_SEX+race7_24+PrntNativity_24+
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, results=F}
 
 categorical_vars <- c("MEDB10ScrQ5_24", "SC_SEX", "race7_24", "PrntNativity_24", 
                       "povSCHIP_24", "AdultEduc_24", "OralProb_24", "ACE2more_24", 
@@ -292,7 +292,7 @@ table(nsduh_clean$MedDentCare_24, nsduh_clean$race7_24)
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, results=F}
 # remove "MedDentCare_24", "MEDB10ScrQ5_24", 
 nsduh_clean <- nsduh_clean[nsduh_clean$race7_24 != 6, ]
 nsduh_clean$race7_24 <- droplevels(nsduh_clean$race7_24)
@@ -417,3 +417,61 @@ ggplot(plot_data, aes(x = OR, y = reorder(Variable, OR))) +
     axis.text.y = element_text(face = "bold")
   )
 ```
+
+
+```{r, message=F, warning=F}
+library(dplyr)
+
+# Define the categorical variables used in your model
+categorical_vars <- c("SC_SEX", "race7_24", "PrntNativity_24", 
+                      "povSCHIP_24", "AdultEduc_24", "OralProb_24", 
+                      "ACE2more_24", "FamResilience_24", "NbhdSafe_24", 
+                      "frustrated_24", "EmploymentSt_24", "SpEducPln_24")
+
+
+
+#SC_AGE_YEARS_centered + SC_SEX + race7_24 + 
+#    PrntNativity_24 + povSCHIP_24 + AdultEduc_24 + OralProb_24 + 
+#    ACE2more_24 + FamResilience_24 + NbhdSafe_24 + 
+#    frustrated_24 + EmploymentSt_24 + SpEducPln_24,
+
+# Loop through each variable to find its reference group (the first factor level)
+ref_groups <- data.frame(
+  Variable = character(),
+  Reference_Group = character(),
+  stringsAsFactors = FALSE
+)
+
+for (v in categorical_vars) {
+  if (v %in% names(nsduh_clean)) {
+    # Convert to factor to ensure R's level ordering is accurately captured
+    var_factor <- as.factor(nsduh_clean[[v]])
+    ref_level <- levels(var_factor)[1]
+    
+    ref_groups <- rbind(ref_groups, data.frame(
+      Variable = v, 
+      Reference_Group = ref_level,
+      stringsAsFactors = FALSE
+    ))
+  }
+}
+
+# Print the clean summary table of reference groups
+print(ref_groups)
+```
+
+
+* data cleaning: `99` missing values are removed. covariates  "MedDentCare_24", "MEDB10ScrQ5_24" are deleted due to 0 counts in certain groups. 
+
+* `SC_AGE_YEARS` is centered, with mean 0, 
+
+* outcome variable `PrevDent_24`, code 1 = Yes, 2 = No;
+
+* interpretations: 
+
+* `SC_AGE_YEARS_centered` Odds Ratio ($\text{exp}(0.057) \approx 1.059$): For each additional year older a participant is compared to the mean age, their odds of receiving preventive dental care increase by 5.9%, holding all other variables constant. Because the $p$-value ($1.59 \times 10^{-6}$) is well below $0.05$, this is a statistically significant positive association.
+
+
+* `SC_SEX2` Odds Ratio ($\text{exp}(0.134)  \approx  1.143$): Level 2 has about a 14.3% higher odds of preventive dental care compared to Level 1 (males), holding other variables constant. However, looking at the $p$-value ($0.112$), this effect is not statistically significant at the standard $\alpha = 0.05$ threshold (the confidence interval includes 0 on the log scale / 1 on the OR scale: $[-0.031, 0.299]$).
+
+
