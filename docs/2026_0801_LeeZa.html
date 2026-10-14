@@ -37,23 +37,6 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
-<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script>
-<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
-<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
-<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
-<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
-<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
-<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -417,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-10-09
+<strong>Last updated:</strong> 2026-10-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -551,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1397652c36e56e56926f19dbb00124cb71d6f064targetblank1397652a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree64819d66af0027eea5eb1875229d365d91eab298targetblank64819d6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/1397652c36e56e56926f19dbb00124cb71d6f064" target="_blank">1397652</a>
+<a href="https://github.com/han16/Collaborations/tree/64819d66af0027eea5eb1875229d365d91eab298" target="_blank">64819d6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1397652c36e56e56926f19dbb00124cb71d6f064targetblank1397652a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree64819d66af0027eea5eb1875229d365d91eab298targetblank64819d6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/1397652c36e56e56926f19dbb00124cb71d6f064" target="_blank">1397652</a>.
+<a href="https://github.com/han16/Collaborations/tree/64819d66af0027eea5eb1875229d365d91eab298" target="_blank">64819d6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -632,6 +615,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/64819d66af0027eea5eb1875229d365d91eab298/analysis/2026_0801_LeeZa.Rmd" target="_blank">64819d6</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-09
+</td>
+<td>
+10/9/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/64819d66af0027eea5eb1875229d365d91eab298/docs/2026_0801_LeeZa.html" target="_blank">64819d6</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-10-09
+</td>
+<td>
+10/9/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1132,6 +1149,8 @@ missing</li>
 <h3>Child-level covariates</h3>
 <pre class="r"><code>library(gmodels)
 # Generate table with observed counts and expected values
+nsduh_data =nsduh_data %&gt;% filter(OralProb_24!=99)
+
 CrossTable(
   nsduh_data$PrevDent_24, 
   nsduh_data$OralProb_24, 
@@ -1150,20 +1169,20 @@ CrossTable(
 |-------------------------|
 
  
-Total Observations in Table:  13808 
+Total Observations in Table:  13765 
 
  
                        | nsduh_data$OralProb_24 
-nsduh_data$PrevDent_24 |         1 |         2 |        99 | Row Total | 
------------------------|-----------|-----------|-----------|-----------|
-                     1 |      2213 |     10116 |        35 |     12364 | 
-                       |  2260.048 | 10065.449 |    38.503 |           | 
------------------------|-----------|-----------|-----------|-----------|
-                     2 |       311 |      1125 |         8 |      1444 | 
-                       |   263.952 |  1175.551 |     4.497 |           | 
------------------------|-----------|-----------|-----------|-----------|
-          Column Total |      2524 |     11241 |        43 |     13808 | 
------------------------|-----------|-----------|-----------|-----------|
+nsduh_data$PrevDent_24 |         1 |         2 | Row Total | 
+-----------------------|-----------|-----------|-----------|
+                     1 |      2213 |     10116 |     12329 | 
+                       |  2260.690 | 10068.310 |           | 
+-----------------------|-----------|-----------|-----------|
+                     2 |       311 |      1125 |      1436 | 
+                       |   263.310 |  1172.690 |           | 
+-----------------------|-----------|-----------|-----------|
+          Column Total |      2524 |     11241 |     13765 | 
+-----------------------|-----------|-----------|-----------|
 
  
 Statistics for All Table Factors
@@ -1171,14 +1190,20 @@ Statistics for All Table Factors
 
 Pearson&#39;s Chi-squared test 
 ------------------------------------------------------------
-Chi^2 =  14.84074     d.f. =  2     p =  0.0005989278 
+Chi^2 =  11.80876     d.f. =  1     p =  0.0005895272 
 
+Pearson&#39;s Chi-squared test with Yates&#39; continuity correction 
+------------------------------------------------------------
+Chi^2 =  11.56244     d.f. =  1     p =  0.0006729744 
 
  </code></pre>
 <ul>
 <li>1 = Yes; 2 = No; 95 = less than 1 year old; 99 = missing</li>
 </ul>
-<pre class="r"><code>library(gmodels)
+<pre class="r"><code>nsduh_data =nsduh_data %&gt;% filter(ACE2more_24!=99)
+
+
+library(gmodels)
 # Generate table with observed counts and expected values
 CrossTable(
   nsduh_data$PrevDent_24, 
@@ -1198,20 +1223,20 @@ CrossTable(
 |-------------------------|
 
  
-Total Observations in Table:  13808 
+Total Observations in Table:  13634 
 
  
                        | nsduh_data$ACE2more_24 
-nsduh_data$PrevDent_24 |         1 |         2 |         3 |        99 | Row Total | 
------------------------|-----------|-----------|-----------|-----------|-----------|
-                     1 |      5462 |      2841 |      3947 |       114 |     12364 | 
-                       |  5271.355 |  2871.621 |  4103.723 |   117.300 |           | 
------------------------|-----------|-----------|-----------|-----------|-----------|
-                     2 |       425 |       366 |       636 |        17 |      1444 | 
-                       |   615.645 |   335.379 |   479.277 |    13.700 |           | 
------------------------|-----------|-----------|-----------|-----------|-----------|
-          Column Total |      5887 |      3207 |      4583 |       131 |     13808 | 
------------------------|-----------|-----------|-----------|-----------|-----------|
+nsduh_data$PrevDent_24 |         1 |         2 |         3 | Row Total | 
+-----------------------|-----------|-----------|-----------|-----------|
+                     1 |      5453 |      2830 |      3932 |     12215 | 
+                       |  5265.333 |  2861.575 |  4088.092 |           | 
+-----------------------|-----------|-----------|-----------|-----------|
+                     2 |       424 |       364 |       631 |      1419 | 
+                       |   611.667 |   332.425 |   474.908 |           | 
+-----------------------|-----------|-----------|-----------|-----------|
+          Column Total |      5877 |      3194 |      4563 |     13634 | 
+-----------------------|-----------|-----------|-----------|-----------|
 
  
 Statistics for All Table Factors
@@ -1219,7 +1244,7 @@ Statistics for All Table Factors
 
 Pearson&#39;s Chi-squared test 
 ------------------------------------------------------------
-Chi^2 =  127.1757     d.f. =  3     p =  2.196201e-27 
+Chi^2 =  124.8785     d.f. =  2     p =  7.63782e-28 
 
 
  </code></pre>
@@ -1229,8 +1254,9 @@ Chi^2 =  127.1757     d.f. =  3     p =  2.196201e-27
 </ul>
 </div>
 </div>
-<div id="logistic-regression" class="section level2">
-<h2>logistic regression</h2>
+<div id="logistic-regression--firths-penalized-likelihood"
+class="section level2">
+<h2>logistic regression- Firth’s Penalized Likelihood</h2>
 <pre class="r"><code>library(tidyverse)
 library(gtsummary)
 library(logistf)
@@ -1269,179 +1295,554 @@ nsduh_clean &lt;- nsduh_data %&gt;%
     FamResilience_24 = factor(FamResilience_24),
     NbhdSafe_24 = factor(NbhdSafe_24),
     frustrated_24 = factor(frustrated_24)
-  )
+  )</code></pre>
+<div id="check-perfectly-collinearity" class="section level3">
+<h3>check perfectly collinearity</h3>
+<pre class="r"><code>nsduh_clean=nsduh_clean %&gt;% filter(PrevDent_24!=99)  
 
-# 3. Fit Standard Logistic Regression (GLM)
-logit_model &lt;- glm(
-  formula = formula_logit,
-  data = nsduh_clean,
-  family = binomial(link = &quot;logit&quot;)
+
+# Check if any variables are perfectly collinear
+alias(PrevDent_24 ~ MEDB10ScrQ5_24+SC_AGE_YEARS+SC_SEX+race7_24+PrntNativity_24+povSCHIP_24+AdultEduc_24+OralProb_24+ACE2more_24+MedDentCare_24+FamResilience_24+NbhdSafe_24+frustrated_24+EmploymentSt_24+SpEducPln_24, ,  data = nsduh_clean)</code></pre>
+<pre><code>Model :
+PrevDent_24 ~ MEDB10ScrQ5_24 + SC_AGE_YEARS + SC_SEX + race7_24 + 
+    PrntNativity_24 + povSCHIP_24 + AdultEduc_24 + OralProb_24 + 
+    ACE2more_24 + MedDentCare_24 + FamResilience_24 + NbhdSafe_24 + 
+    frustrated_24 + EmploymentSt_24 + SpEducPln_24
+
+Complete :
+               (Intercept) SC_AGE_YEARS SC_SEX2 race7_242 race7_243 race7_244
+MEDB10ScrQ5_24 1           0            0       0         0         0        
+               race7_245 race7_246 race7_247 PrntNativity_242 PrntNativity_243
+MEDB10ScrQ5_24 0         0         0         0                0               
+               PrntNativity_2499 povSCHIP_242 povSCHIP_243 povSCHIP_244
+MEDB10ScrQ5_24 0                 0            0            0           
+               AdultEduc_242 AdultEduc_243 AdultEduc_244 OralProb_242
+MEDB10ScrQ5_24 0             0             0             0           
+               ACE2more_242 ACE2more_243 MedDentCare_242 MedDentCare_2499
+MEDB10ScrQ5_24 0            0            0               0               
+               FamResilience_242 FamResilience_243 FamResilience_2499
+MEDB10ScrQ5_24 0                 0                 0                 
+               NbhdSafe_242 NbhdSafe_243 NbhdSafe_2499 frustrated_242
+MEDB10ScrQ5_24 0            0            0             0             
+               frustrated_243 frustrated_2499 EmploymentSt_24 SpEducPln_24
+MEDB10ScrQ5_24 0              0               0               0           </code></pre>
+</div>
+<div id="remove-variables-with-0-counts" class="section level3">
+<h3>remove variables with 0 counts</h3>
+<pre class="r"><code>categorical_vars &lt;- c(&quot;MEDB10ScrQ5_24&quot;, &quot;SC_SEX&quot;, &quot;race7_24&quot;, &quot;PrntNativity_24&quot;, 
+                      &quot;povSCHIP_24&quot;, &quot;AdultEduc_24&quot;, &quot;OralProb_24&quot;, &quot;ACE2more_24&quot;, 
+                      &quot;MedDentCare_24&quot;, &quot;FamResilience_24&quot;, &quot;NbhdSafe_24&quot;, 
+                      &quot;frustrated_24&quot;, &quot;EmploymentSt_24&quot;, &quot;SpEducPln_24&quot;)
+
+# Loop through each variable and filter out rows where the value is 99 (or &quot;99&quot;)
+for (v in categorical_vars) {
+  if (v %in% names(nsduh_clean)) {
+    nsduh_clean &lt;- nsduh_clean[!is.na(nsduh_clean[[v]]) &amp; nsduh_clean[[v]] != 99, ]
+    # Drop unused factor levels if they are factors
+    if (is.factor(nsduh_clean[[v]])) {
+      nsduh_clean[[v]] &lt;- droplevels(nsduh_clean[[v]])
+    }
+  }
+}
+
+
+lapply(categorical_vars, function(v) {
+  table(nsduh_clean[[v]], nsduh_clean$PrevDent_24, useNA = &quot;ifany&quot;)
+})</code></pre>
+<pre><code>[[1]]
+   
+      No  Yes
+  1  701 6350
+
+[[2]]
+   
+      No  Yes
+  1  418 3541
+  2  283 2809
+
+[[3]]
+   
+      No  Yes
+  1  106  821
+  2  452 4507
+  3   60  357
+  4   16  154
+  5    4   43
+  6    0    3
+  7   63  465
+
+[[4]]
+   
+      No  Yes
+  1  554 5263
+  2   95  769
+  3   52  318
+
+[[5]]
+   
+      No  Yes
+  1  354 1636
+  2  142 1013
+  3   73  860
+  4  132 2841
+
+[[6]]
+   
+      No  Yes
+  1   35  100
+  2  189  758
+  3  227 1367
+  4  250 4125
+
+[[7]]
+   
+      No  Yes
+  1  154 1132
+  2  547 5218
+
+[[8]]
+   
+      No  Yes
+  1  206 2837
+  2  178 1449
+  3  317 2064
+
+[[9]]
+   
+      No  Yes
+  1    0 5687
+  2  701  663
+
+[[10]]
+   
+      No  Yes
+  1   93  442
+  2  105  818
+  3  503 5090
+
+[[11]]
+   
+      No  Yes
+  1  381 4221
+  2  268 1838
+  3   52  291
+
+[[12]]
+   
+      No  Yes
+  1  367 3659
+  2  225 2176
+  3  109  515
+
+[[13]]
+   
+      No  Yes
+  1  621 5469
+  2   30  296
+  3   50  585
+
+[[14]]
+   
+      No  Yes
+  1  210 1927
+  2  491 4423</code></pre>
+<pre class="r"><code>table(nsduh_clean$MedDentCare_24, nsduh_clean$PrevDent_24)</code></pre>
+<pre><code>   
+      No  Yes
+  1    0 5687
+  2  701  663</code></pre>
+<pre class="r"><code>table(nsduh_clean$MedDentCare_24, nsduh_clean$race7_24)</code></pre>
+<pre><code>   
+       1    2    3    4    5    6    7
+  1  699 4083  305  135   36    3  426
+  2  228  876  112   35   11    0  102</code></pre>
+<pre class="r"><code># remove &quot;MedDentCare_24&quot;, &quot;MEDB10ScrQ5_24&quot;, 
+nsduh_clean &lt;- nsduh_clean[nsduh_clean$race7_24 != 6, ]
+nsduh_clean$race7_24 &lt;- droplevels(nsduh_clean$race7_24)
+
+# Verify that category 6 is completely gone
+table(nsduh_clean$race7_24, nsduh_clean$PrevDent_24)</code></pre>
+<pre><code>   
+      No  Yes
+  1  106  821
+  2  452 4507
+  3   60  357
+  4   16  154
+  5    4   43
+  7   63  465</code></pre>
+<pre class="r"><code>remaining_vars &lt;- c(&quot;SC_SEX&quot;, &quot;race7_24&quot;, &quot;PrntNativity_24&quot;, 
+                    &quot;povSCHIP_24&quot;, &quot;AdultEduc_24&quot;, &quot;OralProb_24&quot;, &quot;ACE2more_24&quot;, 
+                    &quot;FamResilience_24&quot;, &quot;NbhdSafe_24&quot;, &quot;frustrated_24&quot;, 
+                    &quot;EmploymentSt_24&quot;, &quot;SpEducPln_24&quot;)
+
+# Print cross-tabs to spot any &#39;0&#39; counts
+lapply(remaining_vars, function(v) {
+  cat(&quot;\n--- Variable:&quot;, v, &quot;---\n&quot;)
+  print(table(nsduh_clean[[v]], nsduh_clean$PrevDent_24, useNA = &quot;ifany&quot;))
+})</code></pre>
+<pre><code>
+--- Variable: SC_SEX ---
+   
+      No  Yes
+  1  418 3540
+  2  283 2807
+
+--- Variable: race7_24 ---
+   
+      No  Yes
+  1  106  821
+  2  452 4507
+  3   60  357
+  4   16  154
+  5    4   43
+  7   63  465
+
+--- Variable: PrntNativity_24 ---
+   
+      No  Yes
+  1  554 5262
+  2   95  767
+  3   52  318
+
+--- Variable: povSCHIP_24 ---
+   
+      No  Yes
+  1  354 1634
+  2  142 1012
+  3   73  860
+  4  132 2841
+
+--- Variable: AdultEduc_24 ---
+   
+      No  Yes
+  1   35  100
+  2  189  757
+  3  227 1366
+  4  250 4124
+
+--- Variable: OralProb_24 ---
+   
+      No  Yes
+  1  154 1132
+  2  547 5215
+
+--- Variable: ACE2more_24 ---
+   
+      No  Yes
+  1  206 2836
+  2  178 1448
+  3  317 2063
+
+--- Variable: FamResilience_24 ---
+   
+      No  Yes
+  1   93  442
+  2  105  817
+  3  503 5088
+
+--- Variable: NbhdSafe_24 ---
+   
+      No  Yes
+  1  381 4220
+  2  268 1837
+  3   52  290
+
+--- Variable: frustrated_24 ---
+   
+      No  Yes
+  1  367 3656
+  2  225 2176
+  3  109  515
+
+--- Variable: EmploymentSt_24 ---
+   
+      No  Yes
+  1  621 5466
+  2   30  296
+  3   50  585
+
+--- Variable: SpEducPln_24 ---
+   
+      No  Yes
+  1  210 1926
+  2  491 4421</code></pre>
+<pre><code>[[1]]
+   
+      No  Yes
+  1  418 3540
+  2  283 2807
+
+[[2]]
+   
+      No  Yes
+  1  106  821
+  2  452 4507
+  3   60  357
+  4   16  154
+  5    4   43
+  7   63  465
+
+[[3]]
+   
+      No  Yes
+  1  554 5262
+  2   95  767
+  3   52  318
+
+[[4]]
+   
+      No  Yes
+  1  354 1634
+  2  142 1012
+  3   73  860
+  4  132 2841
+
+[[5]]
+   
+      No  Yes
+  1   35  100
+  2  189  757
+  3  227 1366
+  4  250 4124
+
+[[6]]
+   
+      No  Yes
+  1  154 1132
+  2  547 5215
+
+[[7]]
+   
+      No  Yes
+  1  206 2836
+  2  178 1448
+  3  317 2063
+
+[[8]]
+   
+      No  Yes
+  1   93  442
+  2  105  817
+  3  503 5088
+
+[[9]]
+   
+      No  Yes
+  1  381 4220
+  2  268 1837
+  3   52  290
+
+[[10]]
+   
+      No  Yes
+  1  367 3656
+  2  225 2176
+  3  109  515
+
+[[11]]
+   
+      No  Yes
+  1  621 5466
+  2   30  296
+  3   50  585
+
+[[12]]
+   
+      No  Yes
+  1  210 1926
+  2  491 4421</code></pre>
+</div>
+<div id="center-age_years-variable" class="section level3">
+<h3>center AGE_YEARS variable</h3>
+<pre class="r"><code>nsduh_clean$SC_AGE_YEARS_centered &lt;- scale(nsduh_clean$SC_AGE_YEARS, scale = FALSE)</code></pre>
+<pre class="r"><code>test_glm &lt;- glm(
+  PrevDent_24 ~ SC_AGE_YEARS_centered + SC_SEX + race7_24 + 
+    PrntNativity_24 + povSCHIP_24 + AdultEduc_24 + OralProb_24 + 
+    ACE2more_24 + FamResilience_24 + NbhdSafe_24 + 
+    frustrated_24 + EmploymentSt_24 + SpEducPln_24, 
+  data = nsduh_clean, 
+  family = binomial
+)
+# Check summary for any aliased (NA) coefficients
+summary(test_glm)</code></pre>
+<pre><code>
+Call:
+glm(formula = PrevDent_24 ~ SC_AGE_YEARS_centered + SC_SEX + 
+    race7_24 + PrntNativity_24 + povSCHIP_24 + AdultEduc_24 + 
+    OralProb_24 + ACE2more_24 + FamResilience_24 + NbhdSafe_24 + 
+    frustrated_24 + EmploymentSt_24 + SpEducPln_24, family = binomial, 
+    data = nsduh_clean)
+
+Coefficients:
+                       Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)            1.012983   0.337598   3.001  0.00269 ** 
+SC_AGE_YEARS_centered  0.057229   0.011809   4.846 1.26e-06 ***
+SC_SEX2                0.134839   0.084451   1.597  0.11034    
+race7_242             -0.219885   0.133350  -1.649  0.09916 .  
+race7_243             -0.301577   0.186109  -1.620  0.10514    
+race7_244             -0.299765   0.301264  -0.995  0.31973    
+race7_245              0.274849   0.551186   0.499  0.61803    
+race7_247             -0.326366   0.181479  -1.798  0.07212 .  
+PrntNativity_242      -0.147497   0.143342  -1.029  0.30349    
+PrntNativity_243       0.060002   0.165397   0.363  0.71677    
+povSCHIP_242           0.173109   0.112878   1.534  0.12513    
+povSCHIP_243           0.566742   0.143514   3.949 7.85e-05 ***
+povSCHIP_244           0.927767   0.127147   7.297 2.95e-13 ***
+AdultEduc_242          0.308162   0.220631   1.397  0.16249    
+AdultEduc_243          0.592028   0.219674   2.695  0.00704 ** 
+AdultEduc_244          1.196842   0.225036   5.318 1.05e-07 ***
+OralProb_242          -0.127919   0.103180  -1.240  0.21506    
+ACE2more_242          -0.228039   0.113789  -2.004  0.04506 *  
+ACE2more_243          -0.272619   0.108628  -2.510  0.01208 *  
+FamResilience_242      0.384029   0.161287   2.381  0.01726 *  
+FamResilience_243      0.424929   0.131913   3.221  0.00128 ** 
+NbhdSafe_242          -0.192845   0.090244  -2.137  0.03260 *  
+NbhdSafe_243          -0.057191   0.171958  -0.333  0.73944    
+frustrated_242         0.006010   0.093401   0.064  0.94869    
+frustrated_243        -0.555372   0.128210  -4.332 1.48e-05 ***
+EmploymentSt_24        0.143907   0.074691   1.927  0.05402 .  
+SpEducPln_24          -0.003443   0.090111  -0.038  0.96952    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 4565.6  on 7047  degrees of freedom
+Residual deviance: 4151.8  on 7021  degrees of freedom
+AIC: 4205.8
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>library(logistf)
+
+model_firth &lt;- logistf(
+  PrevDent_24 ~  SC_AGE_YEARS_centered + SC_SEX + race7_24 + 
+    PrntNativity_24 + povSCHIP_24 + AdultEduc_24 + OralProb_24 + 
+    ACE2more_24 + FamResilience_24 + NbhdSafe_24 + 
+    frustrated_24 + EmploymentSt_24 + SpEducPln_24, 
+  data = nsduh_clean
 )
 
-coef_mat &lt;- summary(logit_model)$coefficients
+summary(model_firth)</code></pre>
+<pre><code>logistf(formula = PrevDent_24 ~ SC_AGE_YEARS_centered + SC_SEX + 
+    race7_24 + PrntNativity_24 + povSCHIP_24 + AdultEduc_24 + 
+    OralProb_24 + ACE2more_24 + FamResilience_24 + NbhdSafe_24 + 
+    frustrated_24 + EmploymentSt_24 + SpEducPln_24, data = nsduh_clean)
 
-#Wald CIs: Estimate ± 1.96 * Std. Error
-estimates  &lt;- coef_mat[, &quot;Estimate&quot;]
-std_errors &lt;- coef_mat[, &quot;Std. Error&quot;]
+Model fitted by Penalized ML
+Coefficients:
+                              coef   se(coef)   lower 0.95   upper 0.95
+(Intercept)            0.999505163 0.33417733  0.346557605  1.663098761
+SC_AGE_YEARS_centered  0.056957630 0.01171050  0.033820549  0.079970791
+SC_SEX2                0.133521087 0.08373490 -0.030932402  0.299166579
+race7_242             -0.215005459 0.13215027 -0.479828044  0.041281142
+race7_243             -0.302673952 0.18425069 -0.662928522  0.063692174
+race7_244             -0.317373250 0.29581980 -0.877130740  0.294837686
+race7_245              0.177198374 0.52119691 -0.756193884  1.345310454
+race7_247             -0.327054982 0.17969217 -0.678672146  0.030055728
+PrntNativity_242      -0.150239815 0.14189273 -0.426031607  0.133985762
+PrntNativity_243       0.052407797 0.16359066 -0.261849759  0.383570807
+povSCHIP_242           0.170160201 0.11195748 -0.048540039  0.392549367
+povSCHIP_243           0.559333021 0.14212957  0.284259574  0.845097196
+povSCHIP_244           0.923450517 0.12606983  0.676409838  1.173864180
+AdultEduc_242          0.310766616 0.21809238 -0.127784925  0.731592480
+AdultEduc_243          0.592886588 0.21713403  0.155994381  1.011715940
+AdultEduc_244          1.195436695 0.22243964  0.748475694  1.625306127
+OralProb_242          -0.125460596 0.10224899 -0.329589391  0.073506136
+ACE2more_242          -0.227944281 0.11282918 -0.449799300 -0.004947001
+ACE2more_243          -0.271567118 0.10773970 -0.484481339 -0.059718511
+FamResilience_242      0.381534073 0.15975083  0.066146972  0.695796302
+FamResilience_243      0.425449593 0.13072082  0.163842984  0.678836905
+NbhdSafe_242          -0.192441224 0.08950290 -0.368110339 -0.015344612
+NbhdSafe_243          -0.062885020 0.17005670 -0.390360505  0.280520918
+frustrated_242         0.005279915 0.09260958 -0.176353910  0.188761517
+frustrated_243        -0.554001381 0.12709747 -0.801384501 -0.300708916
+EmploymentSt_24        0.139883819 0.07382300 -0.001903761  0.289723855
+SpEducPln_24          -0.002321107 0.08933241 -0.179852886  0.172326060
+                             Chisq            p method
+(Intercept)           9.062542e+00 2.608990e-03      2
+SC_AGE_YEARS_centered 2.303129e+01 1.593865e-06      2
+SC_SEX2               2.529453e+00 1.117389e-01      2
+race7_242             2.690020e+00 1.009785e-01      2
+race7_243             2.631833e+00 1.047407e-01      2
+race7_244             1.083501e+00 2.979157e-01      2
+race7_245             1.185520e-01 7.306103e-01      2
+race7_247             3.227656e+00 7.240426e-02      2
+PrntNativity_242      1.089555e+00 2.965699e-01      2
+PrntNativity_243      1.025277e-01 7.488172e-01      2
+povSCHIP_242          2.317920e+00 1.278910e-01      2
+povSCHIP_243          1.643206e+01 5.042507e-05      2
+povSCHIP_244          5.507310e+01 1.161293e-13      2
+AdultEduc_242         1.956368e+00 1.619023e-01      2
+AdultEduc_243         6.945390e+00 8.403551e-03      2
+AdultEduc_244         2.519346e+01 5.185789e-07      2
+OralProb_242          1.513715e+00 2.185731e-01      2
+ACE2more_242          4.013123e+00 4.514746e-02      2
+ACE2more_243          6.318193e+00 1.195053e-02      2
+FamResilience_242     5.612194e+00 1.783592e-02      2
+FamResilience_243     9.939988e+00 1.617266e-03      2
+NbhdSafe_242          4.532254e+00 3.326178e-02      2
+NbhdSafe_243          1.342214e-01 7.140946e-01      2
+frustrated_242        3.217066e-03 9.547689e-01      2
+frustrated_243        1.779398e+01 2.461610e-05      2
+EmploymentSt_24       3.736367e+00 5.324010e-02      2
+SpEducPln_24          6.682128e-04 9.793771e-01      2
 
-clean_table &lt;- data.frame(
-  Variable = rownames(coef_mat),
-  OR       = exp(estimates),
-  CI_2.5   = exp(estimates - 1.96 * std_errors),
-  CI_97.5  = exp(estimates + 1.96 * std_errors),
-  p_value  = coef_mat[, &quot;Pr(&gt;|z|)&quot;]
+Method: 1-Wald, 2-Profile penalized log-likelihood, 3-None
+
+Likelihood ratio test=415.2286 on 26 df, p=0, n=7048
+Wald test = 2636.755 on 26 df, p = 0</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+
+# 1. Extract directly from the model object vectors
+plot_data &lt;- data.frame(
+  Variable = names(model_firth$coefficients),
+  Coef     = model_firth$coefficients,
+  Lower    = model_firth$ci.lower,
+  Upper    = model_firth$ci.upper,
+  Pval     = model_firth$prob,
+  stringsAsFactors = FALSE
 )
 
-# 4. Format numbers for reporting
-clean_table[, 2:5] &lt;- round(clean_table[, 2:5], 4)
-
-clean_table%&gt;%
-datatable(extensions = &#39;Buttons&#39;,
-          caption = &quot;&quot;, 
-            options = list(dom = &#39;Blfrtip&#39;,
-                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
-                           lengthMenu = list(c(10,25,50,-1),
-                                             c(10,25,50,&quot;All&quot;))))</code></pre>
-<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["(Intercept)","SC_AGE_YEARS","SC_SEX2","race7_242","race7_243","race7_244","race7_245","race7_246","race7_247","PrntNativity_242","PrntNativity_243","PrntNativity_2499","povSCHIP_242","povSCHIP_243","povSCHIP_244","AdultEduc_242","AdultEduc_243","AdultEduc_244","OralProb_242","OralProb_2499","ACE2more_242","ACE2more_243","ACE2more_2499","MedDentCare_242","MedDentCare_2499","FamResilience_242","FamResilience_243","FamResilience_2499","NbhdSafe_242","NbhdSafe_243","NbhdSafe_2499","frustrated_242","frustrated_243","frustrated_2499","EmploymentSt_24","SpEducPln_24"],["(Intercept)","SC_AGE_YEARS","SC_SEX2","race7_242","race7_243","race7_244","race7_245","race7_246","race7_247","PrntNativity_242","PrntNativity_243","PrntNativity_2499","povSCHIP_242","povSCHIP_243","povSCHIP_244","AdultEduc_242","AdultEduc_243","AdultEduc_244","OralProb_242","OralProb_2499","ACE2more_242","ACE2more_243","ACE2more_2499","MedDentCare_242","MedDentCare_2499","FamResilience_242","FamResilience_243","FamResilience_2499","NbhdSafe_242","NbhdSafe_243","NbhdSafe_2499","frustrated_242","frustrated_243","frustrated_2499","EmploymentSt_24","SpEducPln_24"],[894920534.1832,1.1024,1.1864,0.646,0.6434,0.6731,1.2537,1.1293,0.4636,0.9422,1.2054,0.4565,1.1118,1.7674,1.7704,1.4133,1.3696,1.9004,0.7902,0.178,0.7297,0.5604,2.4408,0,0,1.345,1.1078,0.8652,0.867,0.6546999999999999,0.7000999999999999,0.8465,0.6238,3.5675,1.0007,0.9938],[0,1.0693,0.9543,0.464,0.406,0.33,0.3644,0,0.2833,0.6542,0.8003,0.178,0.8162,1.2297,1.3015,0.8061,0.7821,1.0784,0.6036,0.0184,0.5476,0.4222,0.7224,0,0,0.8747,0.7776,0.2396,0.6835,0.3978,0.1977,0.6637,0.4306,0.768,0.993,0.9782999999999999],[null,1.1366,1.475,0.8994,1.0196,1.3729,4.3126,null,0.7587,1.3569,1.8155,1.1709,1.5146,2.5402,2.4081,2.4778,2.3983,3.349,1.0344,1.7228,0.9722,0.7439,8.246700000000001,2.123418908448089e+300,1.517046420383422e+301,2.068,1.5783,3.1241,1.0998,1.0776,2.4792,1.0796,0.9038,16.5725,1.0084,1.0095],[0.9548,0,0.1237,0.009599999999999999,0.0605,0.2764,0.7198,1,0.0022,0.7488,0.3714,0.1027,0.5014999999999999,0.0021,0.0003,0.2272,0.2712,0.0263,0.0866,0.1361,0.0314,0.0001,0.1508,0.9527,0.9571,0.177,0.5708,0.825,0.2397,0.09569999999999999,0.5805,0.1794,0.0126,0.1046,0.867,0.4343]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>OR<\/th>\n      <th>CI_2.5<\/th>\n      <th>CI_97.5<\/th>\n      <th>p_value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"OR","targets":2},{"name":"CI_2.5","targets":3},{"name":"CI_97.5","targets":4},{"name":"p_value","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>library(dplyr)
-library(ggplot2)
-
-# 1. Process and clean data directly from `clean_table`
-plot_data &lt;- clean_table %&gt;%
-  # Exclude intercept, zero estimates, and infinite upper confidence bounds
-  filter(
-    Variable != &quot;(Intercept)&quot;,
-    OR &gt; 0,
-    !is.infinite(CI_97.5),
-    !is.infinite(CI_2.5)
-  ) %&gt;%
+# 2. Exponentiate to calculate Odds Ratios, CIs, and a formatted text column
+plot_data &lt;- plot_data %&gt;%
   mutate(
-    # Set factor levels so variables plot in order top-to-bottom
-    Variable = factor(Variable, levels = rev(Variable)),
-    Significance = ifelse(p_value &lt; 0.05, &quot;p &lt; 0.05&quot;, &quot;p ≥ 0.05&quot;),
-    
-    # Cap upper CI for visual error bars to keep the plot scale readable (up to 4.5)
-    CI_97.5_plot = pmin(CI_97.5, 4.5),
-    
-    # Format actual text label for the right-hand side table column
-    LabelText = sprintf(&quot;%.2f (%.2f, %.2f)&quot;, OR, CI_2.5, CI_97.5)
+    OR       = exp(Coef),
+    OR_lower = exp(Lower),
+    OR_upper = exp(Upper),
+    Signif   = Pval &lt; 0.05,
+    CI_text  = sprintf(&quot;%.2f [%.2f, %.2f]&quot;, OR, OR_lower, OR_upper)
   )
 
-# 2. Draw Forest Plot on Original Scale
-forest_linear &lt;- ggplot(plot_data, aes(x = OR, y = Variable, color = Significance)) +
-  # Reference line at Null Effect (OR = 1.0)
-  geom_vline(xintercept = 1.0, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;, linewidth = 0.6) +
-  
-  # 95% Confidence Interval error bars
-  geom_errorbarh(aes(xmin = CI_2.5, xmax = CI_97.5_plot), height = 0.25, linewidth = 0.8) +
-  
-  # Odds Ratio point estimates
-  geom_point(shape = 15, size = 2.8) +
-  
-  # Custom X-axis scale with padding on the right for text annotations
+# 3. Filter out the Intercept for a cleaner clinical visualization
+plot_data &lt;- plot_data %&gt;% filter(Variable != &quot;(Intercept)&quot;)
+
+# 4. Generate the Forest Plot with correct linear scale mappings
+ggplot(plot_data, aes(x = OR, y = reorder(Variable, OR))) +
+  geom_point(aes(color = Signif), size = 3) +
+  geom_errorbar(aes(xmin = OR_lower, xmax = OR_upper, color = Signif), width = 0.2, linewidth = 0.8) +
+  # Add text labels on the right side (placed at x = 5.5 on the linear scale)
+  geom_text(aes(x = 5.5, label = CI_text), hjust = 0, size = 3.3, color = &quot;black&quot;) +
+  geom_vline(xintercept = 1, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;, linewidth = 0.8) +
+  # Linear scale with extended limits to accommodate the text labels
   scale_x_continuous(
-    limits = c(0, 6.2), 
-    breaks = seq(0, 4.5, by = 0.5),
-    expand = c(0, 0)
-  ) +
-  
-  # Color palette matching publication standards
-  scale_color_manual(values = c(&quot;p &lt; 0.05&quot; = &quot;#d95f02&quot;, &quot;p ≥ 0.05&quot; = &quot;#2b83ba&quot;)) +
-  
-  # Text annotations on the right side
-  geom_text(
-    aes(x = 6.0, label = LabelText),
-    hjust = 1, size = 3, color = &quot;black&quot;, fontface = &quot;plain&quot;
-  ) +
-  
-  # Labels and Layout
+    limits = c(0, 7), 
+    breaks = seq(0, 5, by = 1)
+  ) + 
+  scale_color_manual(values = c(&quot;FALSE&quot; = &quot;steelblue&quot;, &quot;TRUE&quot; = &quot;darkred&quot;)) +
   labs(
-    title = &quot;FOREST PLOT: MULTIVARIABLE LOGISTIC REGRESSION OUTCOMES&quot;,
-    subtitle = &quot;Odds Ratios (95% CI) Presented on Original Scale&quot;,
-    x = &quot;Odds Ratio (OR)&quot;,
-    y = NULL,
-    color = NULL
+    title = &quot;Forest Plot: Firth&#39;s Penalized Logistic Regression&quot;,
+    subtitle = &quot;Outcome: PrevDent_24 (Adjusted Odds Ratios &amp; 95% Profile CIs)&quot;,
+    x = &quot;Adjusted Odds Ratio&quot;,
+    y = &quot;&quot;
   ) +
-  theme_classic(base_size = 11) +
+  theme_minimal(base_size = 12) +
   theme(
-    legend.position = &quot;top&quot;,
-    plot.title = element_text(face = &quot;bold&quot;, size = 12),
-    plot.subtitle = element_text(size = 10, face = &quot;italic&quot;),
-    axis.text.y = element_text(face = &quot;bold&quot;, color = &quot;black&quot;),
-    axis.line = element_line(color = &quot;black&quot;)
-  )
-
-print(forest_linear)</code></pre>
-<p><img src="figure/2026_0801_LeeZa.Rmd/unnamed-chunk-12-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/1397652c36e56e56926f19dbb00124cb71d6f064/docs/figure/2026_0801_LeeZa.Rmd/unnamed-chunk-12-1.png" target="_blank">1397652</a>
-</td>
-<td>
-Han
-</td>
-<td>
-2026-10-09
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/7d94ecf334da14dfbde4f67e100a1ad0eab4d41e/docs/figure/2026_0801_LeeZa.Rmd/unnamed-chunk-12-1.png" target="_blank">7d94ecf</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-09-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/han16/Collaborations/blob/94d35405067082010ec126a11ee6c017be60f80b/docs/figure/2026_0801_LeeZa.Rmd/unnamed-chunk-12-1.png" target="_blank">94d3540</a>
-</td>
-<td>
-han
-</td>
-<td>
-2026-09-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li><p>for continuous variable, for example <code>SC_AGE_YEARS</code>,
-one unit of increase will results in odds increase by 10% of having
-outcome variable.</p></li>
-<li><p>for discrete variable, such as <code>race7_24</code>,
-<code>race7_24_1</code> is the reference group, compared to the
-reference group, <code>race7_242</code> has (1-0.65)=0.35 (35%) decrease
-in odds of having outcome variable.</p></li>
-</ul>
+    legend.position = &quot;none&quot;,
+    plot.title = element_text(face = &quot;bold&quot;, size = 14),
+    axis.text.y = element_text(face = &quot;bold&quot;)
+  )</code></pre>
+<p><img src="figure/2026_0801_LeeZa.Rmd/unnamed-chunk-18-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1498,29 +1899,29 @@ loaded via a namespace (and not attached):
  [28] lifecycle_1.0.5        iterators_1.0.14       pkgconfig_2.0.3       
  [31] Matrix_1.7-5           R6_2.6.1               fastmap_1.2.0         
  [34] rbibutils_2.4.1        digest_0.6.39          pkgload_1.5.3         
- [37] crosstalk_1.2.2        textshaping_1.0.5      timechange_0.4.0      
- [40] gdata_3.0.1            abind_1.4-8            mgcv_1.9-4            
- [43] compiler_4.6.1         withr_3.0.3            S7_0.2.2              
- [46] backports_1.5.1        carData_3.0-6          pkgbuild_1.4.8        
- [49] ggsignif_0.6.4         pan_2.0                MASS_7.3-65           
- [52] sessioninfo_1.2.4      gtools_3.9.5           tools_4.6.1           
- [55] otel_0.2.0             httpuv_1.6.17          nnet_7.3-20           
- [58] glue_1.8.1             nlme_3.1-169           promises_1.5.0        
- [61] generics_0.1.4         operator.tools_1.6.3.1 gtable_0.3.6          
- [64] tzdb_0.5.0             formula.tools_1.7.1    hms_1.1.4             
- [67] xml2_1.6.0             car_3.1-5              foreach_1.5.2         
- [70] pillar_1.11.1          later_1.4.8            splines_4.6.1         
- [73] lattice_0.22-9         survival_3.8-6         tidyselect_1.2.1      
- [76] knitr_1.52             git2r_0.36.2           reformulas_0.4.4      
- [79] svglite_2.2.2          xfun_0.61              stringi_1.8.9         
- [82] workflowr_1.7.2        yaml_2.3.12            boot_1.3-32           
- [85] evaluate_1.0.5         codetools_0.2-20       cli_3.6.6             
- [88] rpart_4.1.27           xtable_1.8-8           systemfonts_1.3.2     
- [91] Rdpack_2.6.6           jquerylib_0.1.4        Rcpp_1.1.2            
- [94] coda_0.19-4.1          ellipsis_0.3.3         lme4_2.0-6            
- [97] glmnet_5.1             mvtnorm_1.4-2          viridisLite_0.4.3     
-[100] scales_1.4.0           rlang_1.3.0            formatR_1.14          
-[103] mice_3.19.0           </code></pre>
+ [37] textshaping_1.0.5      timechange_0.4.0       gdata_3.0.1           
+ [40] abind_1.4-8            mgcv_1.9-4             compiler_4.6.1        
+ [43] withr_3.0.3            S7_0.2.2               backports_1.5.1       
+ [46] carData_3.0-6          pkgbuild_1.4.8         ggsignif_0.6.4        
+ [49] pan_2.0                MASS_7.3-65            sessioninfo_1.2.4     
+ [52] gtools_3.9.5           tools_4.6.1            otel_0.2.0            
+ [55] httpuv_1.6.17          nnet_7.3-20            glue_1.8.1            
+ [58] nlme_3.1-169           promises_1.5.0         generics_0.1.4        
+ [61] operator.tools_1.6.3.1 gtable_0.3.6           tzdb_0.5.0            
+ [64] formula.tools_1.7.1    hms_1.1.4              xml2_1.6.0            
+ [67] car_3.1-5              foreach_1.5.2          pillar_1.11.1         
+ [70] later_1.4.8            splines_4.6.1          lattice_0.22-9        
+ [73] survival_3.8-6         tidyselect_1.2.1       knitr_1.52            
+ [76] git2r_0.36.2           reformulas_0.4.4       svglite_2.2.2         
+ [79] xfun_0.61              stringi_1.8.9          workflowr_1.7.2       
+ [82] yaml_2.3.12            boot_1.3-32            evaluate_1.0.5        
+ [85] codetools_0.2-20       cli_3.6.6              rpart_4.1.27          
+ [88] xtable_1.8-8           systemfonts_1.3.2      Rdpack_2.6.6          
+ [91] jquerylib_0.1.4        Rcpp_1.1.2             coda_0.19-4.1         
+ [94] ellipsis_0.3.3         lme4_2.0-6             glmnet_5.1            
+ [97] mvtnorm_1.4-2          viridisLite_0.4.3      scales_1.4.0          
+[100] rlang_1.3.0            formatR_1.14           mice_3.19.0           </code></pre>
+</div>
 </div>
 </div>
 </div>
