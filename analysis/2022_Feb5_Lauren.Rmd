@@ -936,6 +936,9 @@ data_comparison=multiplesheets("C:\\Shengtong\\Research\\AllCollaboration\\2022\
 
 ```
 
+
+
+
 ```{r, echo=F, message=F, warning=F, results=T}
 data_all_year=data_comparison
 data_all_year[[1]]=NULL  # remove the first element 
@@ -949,7 +952,10 @@ X=as.matrix(X[,-1])
     pvalue=numeric()
     pvalue[1]=round(prop.test(c(y[1], y[2]), n=c(total_students[1], total_students[2]))$p.value,4)
     pvalue[2]=round(prop.test(c(y[1], y[3]), n=c(total_students[1], total_students[3]))$p.value,4)
-    pvalue[3]=round(prop.test(c(y[2], y[3]), n=c(total_students[2], total_students[3]))$p.value,4)
+    pvalue[3]=round(prop.test(c(y[1], y[4]), n=c(total_students[1], total_students[4]))$p.value,4)
+    pvalue[4]=round(prop.test(c(y[2], y[3]), n=c(total_students[2], total_students[3]))$p.value,4)
+    pvalue[5]=round(prop.test(c(y[2], y[4]), n=c(total_students[2], total_students[4]))$p.value,4)
+    pvalue[6]=round(prop.test(c(y[3], y[4]), n=c(total_students[3], total_students[4]))$p.value,4)
     return(pvalue)
   }
 
@@ -960,7 +966,7 @@ pvalue_all_year=lapply(data_all_year, year_comaprison)
 
 print_function=function(X)
 {
-  rownames(X)=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+  rownames(X)=c("2023_vs_2024", "2023_vs_2025", "2023_vs_2026", "2024_vs_2025", "2024_vs_2026", "2025_vs_2026")
   X%>%
 datatable(extensions = 'Buttons',
           caption = "",
@@ -989,9 +995,10 @@ datatable(extensions = 'Buttons',
 
 
 ```{r, echo=F, message=F, warning=F}
+years_comparion=c("2023_vs_2024", "2023_vs_2025", "2023_vs_2026", "2024_vs_2025", "2024_vs_2026", "2025_vs_2026")
 
 i=1
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2023_vs_2026", "2024_vs_2025", "2024_vs_2026", "2025_vs_2026")
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1001,7 +1008,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=2
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1011,7 +1018,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=3
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1022,7 +1029,7 @@ datatable(extensions = 'Buttons',
 
 
 i=4
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1032,7 +1039,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=5
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1042,7 +1049,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=6
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1052,7 +1059,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=7
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1062,7 +1069,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=8
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1073,7 +1080,7 @@ datatable(extensions = 'Buttons',
 
 
 i=9
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1083,7 +1090,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=10
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1094,7 +1101,7 @@ datatable(extensions = 'Buttons',
 
 
 i=11
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],
@@ -1104,7 +1111,7 @@ datatable(extensions = 'Buttons',
                                              c(10,25,50,"All"))))
 
 i=12
-rownames(pvalue_all_year[[i]])=c("2023_vs_2024", "2023_vs_2025", "2024_vs_2025")
+rownames(pvalue_all_year[[i]])=years_comparion
 pvalue_all_year[[i]]%>%
 datatable(extensions = 'Buttons',
           caption = names(data_all_year)[i],

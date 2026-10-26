@@ -81,6 +81,8 @@ text(
 
 ```{r, message=F, warning=F}
 summary(as.numeric(data$Days_From_SDF_To_Failure_Treatment), na.rm=T)
+mean(as.numeric(data$Days_From_SDF_To_Failure_Treatment), na.rm = T)
+sd(as.numeric(data$Days_From_SDF_To_Failure_Treatment), na.rm = T)
 ```
 
 
