@@ -1,0 +1,108 @@
+---
+title: "dental survey"
+output: html_document
+date: "2026-10"
+---
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+
+library(irr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+#raw_data=multiplesheets(file.path(root,"..\\2026\\202610\\Voss\\Qualtrics_Survey_Dental_School_External_Rotations_clean.xlsx"))
+#data=raw_data$Sheet0
+#summary_data=raw_data$Sheet1
+
+#save(data, summary_data, file=file.path(root, "..\\2026\\202610\\Voss\\survey_data.RData"))
+load(file.path(root, "..\\2026\\202610\\Voss\\survey_data.RData"))
+```
+
+```{r, message=F, warning=F}
+colnames(data)
+```
+
+## Schools requiring external rotations
+
+
+```{r, message=F, warning=F}
+# Get the names of columns matching the pattern
+matching_cols <- names(data %>% select(matches("external rotations", ignore.case = TRUE)))
+
+print(matching_cols)
+
+
+target_col <- matching_cols[2]
+
+# 2. Create a frequency and percentage summary table
+freq_table <- table(data[[target_col]], useNA = "ifany") # Includes NA counts if any exist
+pct_table <- prop.table(freq_table) * 100
+
+# 3. Combine them into a clean, easy-to-read data frame
+summary_df <- data.frame(
+  Response = names(freq_table),
+  Count = as.numeric(freq_table),
+  Percentage = round(as.numeric(pct_table), 2)
+)
+
+# Print the final table
+summary_df%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+```
+
+
+## Duration of required external rotations
+
+```{r, message=F, warning=F}
+# Get the names of columns matching the pattern
+matching_cols <- names(data %>% select(matches("Duration", ignore.case = TRUE)))
+matching_cols
+```
+
+### Total duration of external rotations required for graduation:- Number - Duration - Please type in number"              
+
+```{r, message=F, warning=F}
+target_col <- matching_cols[1]
+# 2. Create a frequency and percentage summary table
+freq_table <- table(data[[target_col]], useNA = "ifany") # Includes NA counts if any exist
+pct_table <- prop.table(freq_table) * 100
+
+# 3. Combine them into a clean, easy-to-read data frame
+summary_df <- data.frame(
+  Response = names(freq_table),
+  Count = as.numeric(freq_table),
+  Percentage = round(as.numeric(pct_table), 2)
+)
+
+# Print the final table
+summary_df%>%
+datatable(extensions = 'Buttons',
+          caption = "", 
+            options = list(dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,"All"))))
+
+```
+
+
+## One-block length
+
+```{r, message=F, warning=F}
+matching_cols <- names(data %>% select(matches("clinic-site", ignore.case = TRUE)))
+matching_cols
+```

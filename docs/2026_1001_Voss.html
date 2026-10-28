@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>dental survey</title>
+
+<script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+<script src="site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">all projects</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/han16/Collaborations">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">dental survey</h1>
+<h4 class="date">2026-10</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2026-10-28
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Collaborations/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.2). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210523code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20210523)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210523code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210523)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree86856e09bfd1dc51572f78f4efc4f021ab530378targetblank86856e0a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/han16/Collaborations/tree/86856e09bfd1dc51572f78f4efc4f021ab530378" target="_blank">86856e0</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree86856e09bfd1dc51572f78f4efc4f021ab530378targetblank86856e0a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/han16/Collaborations/tree/86856e09bfd1dc51572f78f4efc4f021ab530378" target="_blank">86856e0</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    analysis/.Rhistory
+
+Untracked files:
+    Untracked:  analysis/2026_1001_Voss.Rmd
+
+Unstaged changes:
+    Modified:   analysis/2026.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>colnames(data)</code></pre>
+<pre><code> [1] &quot;(Your) Title and Role in Dental External Rotations - Title and Describe Your Role in Dental External Rotations&quot;                                                                                                                                                                                   
+ [2] &quot;Dental School&quot;                                                                                                                                                                                                                                                                                    
+ [3] &quot;At your school, are students required to complete external rotations where they perform \r\r\ndental procedures under supervision (not including sealant-only or prevention-only rotations)?&quot;                                                                                                     
+ [4] &quot;Total required duration that students must complete for graduation: - Number - Duration - Please type in number&quot;                                                                                                                                                                                  
+ [5] &quot;Total required duration that students must complete for graduation: - Unit Label - Duration&quot;                                                                                                                                                                                                      
+ [6] &quot;Length of one clinic site block (rotation/visit: how long a student goes to one location): - Number - Duration - Please type in number&quot;                                                                                                                                                           
+ [7] &quot;Length of one clinic site block (rotation/visit: how long a student goes to one location): - Unit Label - Duration&quot;                                                                                                                                                                               
+ [8] &quot;If your program deviates from the question above (length of one site rotation / visit), please describe here:&quot;                                                                                                                                                                                    
+ [9] &quot;How many patients do students see per day (on average) at externship sites?&quot;                                                                                                                                                                                                                      
+[10] &quot;Total FTE: What is the total approximate FTE devoted amongst faculty and staff at your dental institution towards externship programs and planning (for the previous academic year 2024-2025)?  (Example: 1.5 FTE from dentists and 0.75 FTE from other staff, total) - FTE faculty&quot;              
+[11] &quot;Total FTE: What is the total approximate FTE devoted amongst faculty and staff at your dental institution towards externship programs and planning (for the previous academic year 2024-2025)?  (Example: 1.5 FTE from dentists and 0.75 FTE from other staff, total) - FTE staff&quot;                
+[12] &quot;How many active clinics are in your program? (active clinics meaning individual locations and a student has rotated at that clinic in the past year)&quot;                                                                                                                                             
+[13] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % CHC / FQHC&quot;                                                                      
+[14] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % DSO (5 or more locations)&quot;                                                       
+[15] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % Private Practice (one location practice with one to two owners)&quot;                 
+[16] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % Group Practice (2 to 4 location practice and/or 3+ owners)&quot;                      
+[17] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % IHS&quot;                                                                             
+[18] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % Tribal&quot;                                                                          
+[19] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % Correctional Facilities&quot;                                                         
+[20] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % Mobile (non-school-based)&quot;                                                       
+[21] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % School-based clinics&quot;                                                            
+[22] &quot;Clinic Site Portfolio: Please list all the clinic types your students rotate at and what percent they account for in your externship clinic portfolio.  (ie. 50% CHC/FQHC, 30% private practice, 20% Tribal) - % other: list&quot;                                                                     
+[23] &quot;What percentage of your external rotation clinics are owned and operated by your dental school? - % Owned and operated by the dental school&quot;                                                                                                                                                      
+[24] &quot;What percentage of your external rotation clinics are owned and operated by your dental school? - % Not owned by the dental school&quot;                                                                                                                                                               
+[25] &quot;Major and Minor sites: What type of sites do you have (based on CODA definitions)?\r\n*Note: CODA defines a major site as an external clinic site where students are \r\r\nassessed using\r\r\ncompetency assessments\r\r\nor comparable summative\r\r\nassessments at this site. - % Major sites&quot;
+[26] &quot;Major and Minor sites: What type of sites do you have (based on CODA definitions)?\r\n*Note: CODA defines a major site as an external clinic site where students are \r\r\nassessed using\r\r\ncompetency assessments\r\r\nor comparable summative\r\r\nassessments at this site. - % Minor sites&quot;
+[27] &quot;Do students receive clinical credit toward graduation for procedures performed at external sites? - Selected Choice&quot;                                                                                                                                                                              
+[28] &quot;Do students receive clinical credit toward graduation for procedures performed at external sites? - Other, please explain - Text&quot;                                                                                                                                                                 
+[29] &quot;How do you track student procedures performed at an offsite clinic? - Selected Choice&quot;                                                                                                                                                                                                            
+[30] &quot;How do you track student procedures performed at an offsite clinic? - Other, please explain - Text&quot;                                                                                                                                                                                               
+[31] &quot;Rank the following methods for finding new clinics for your program with 1 being the most successful and 7 being the least successful: - School directly contacting a clinic or organization (cold call)&quot;                                                                                         
+[32] &quot;Rank the following methods for finding new clinics for your program with 1 being the most successful and 7 being the least successful: - Clinic or organization directly contacting the school&quot;                                                                                                   
+[33] &quot;Rank the following methods for finding new clinics for your program with 1 being the most successful and 7 being the least successful: - Expansion of new clinics within an existing organization that rotations occur&quot;                                                                           
+[34] &quot;Rank the following methods for finding new clinics for your program with 1 being the most successful and 7 being the least successful: - School faculty or leadership referral&quot;                                                                                                                   
+[35] &quot;Rank the following methods for finding new clinics for your program with 1 being the most successful and 7 being the least successful: - State organization referral&quot;                                                                                                                             
+[36] &quot;Rank the following methods for finding new clinics for your program with 1 being the most successful and 7 being the least successful: - Alumni referrals&quot;                                                                                                                                        
+[37] &quot;Rank the following methods for finding new clinics for your program with 1 being the most successful and 7 being the least successful: - Networking at conferences&quot;                                                                                                                               
+[38] &quot;What do you require of rotation faculty at off-site clinics for calibration (Select all that apply)? - Selected Choice&quot;                                                                                                                                                                           
+[39] &quot;What do you require of rotation faculty at off-site clinics for calibration (Select all that apply)? - Other (please describe): - Text&quot;                                                                                                                                                           
+[40] &quot;Do clinics provide funding to your program beyond travel and/or housing (ie. per diem or annual fee)?&quot;                                                                                                                                                                                            
+[41] &quot;Transportation: What percent of funding for transportation comes from these sources: - % Students arrange and fund, if necessary&quot;                                                                                                                                                                 
+[42] &quot;Transportation: What percent of funding for transportation comes from these sources: - % Clinics arrange and fund&quot;                                                                                                                                                                                
+[43] &quot;Transportation: What percent of funding for transportation comes from these sources: - % The school arranges housing and clinic funds&quot;                                                                                                                                                            
+[44] &quot;Transportation: What percent of funding for transportation comes from these sources: - % Grant funded&quot;                                                                                                                                                                                            
+[45] &quot;Transportation: What percent of funding for transportation comes from these sources: - % Other _______ (and please state the percentage and describe)&quot;                                                                                                                                            
+[46] &quot;If any externship sites are located a significant distance from the school, does the program require housing for the student(s)?\&quot;&quot;                                                                                                                                                               
+[47] &quot;For clinics requiring housing, what percent of funding for housing comes from these sources? - % Students arrange and fund, if necessary&quot;                                                                                                                                                         
+[48] &quot;For clinics requiring housing, what percent of funding for housing comes from these sources? - % School arranges and (the school) funds&quot;                                                                                                                                                          
+[49] &quot;For clinics requiring housing, what percent of funding for housing comes from these sources? - % Clinics arrange and fund&quot;                                                                                                                                                                        
+[50] &quot;For clinics requiring housing, what percent of funding for housing comes from these sources? - % The school arranges housing and clinic funds&quot;                                                                                                                                                    
+[51] &quot;For clinics requiring housing, what percent of funding for housing comes from these sources? - % Grant funded&quot;                                                                                                                                                                                    
+[52] &quot;For clinics requiring housing, what percent of funding for housing comes from these sources? - % Other _______ (and please state the percentage and describe)&quot;                                                                                                                                    </code></pre>
+<div id="schools-requiring-external-rotations" class="section level2">
+<h2>Schools requiring external rotations</h2>
+<pre class="r"><code># Get the names of columns matching the pattern
+matching_cols &lt;- names(data %&gt;% select(matches(&quot;external rotations&quot;, ignore.case = TRUE)))
+
+print(matching_cols)</code></pre>
+<pre><code>[1] &quot;(Your) Title and Role in Dental External Rotations - Title and Describe Your Role in Dental External Rotations&quot;                                                                              
+[2] &quot;At your school, are students required to complete external rotations where they perform \r\r\ndental procedures under supervision (not including sealant-only or prevention-only rotations)?&quot;</code></pre>
+<pre class="r"><code>target_col &lt;- matching_cols[2]
+
+# 2. Create a frequency and percentage summary table
+freq_table &lt;- table(data[[target_col]], useNA = &quot;ifany&quot;) # Includes NA counts if any exist
+pct_table &lt;- prop.table(freq_table) * 100
+
+# 3. Combine them into a clean, easy-to-read data frame
+summary_df &lt;- data.frame(
+  Response = names(freq_table),
+  Count = as.numeric(freq_table),
+  Percentage = round(as.numeric(pct_table), 2)
+)
+
+# Print the final table
+summary_df%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9eceb20dc2a931752ae4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9eceb20dc2a931752ae4">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3"],["No","Yes",null],[3,43,1],[6.38,91.48999999999999,2.13]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Response<\/th>\n      <th>Count<\/th>\n      <th>Percentage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Response","targets":1},{"name":"Count","targets":2},{"name":"Percentage","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="duration-of-required-external-rotations"
+class="section level2">
+<h2>Duration of required external rotations</h2>
+<pre class="r"><code># Get the names of columns matching the pattern
+matching_cols &lt;- names(data %&gt;% select(matches(&quot;Duration&quot;, ignore.case = TRUE)))
+matching_cols</code></pre>
+<pre><code>[1] &quot;Total required duration that students must complete for graduation: - Number - Duration - Please type in number&quot;                       
+[2] &quot;Total required duration that students must complete for graduation: - Unit Label - Duration&quot;                                           
+[3] &quot;Length of one clinic site block (rotation/visit: how long a student goes to one location): - Number - Duration - Please type in number&quot;
+[4] &quot;Length of one clinic site block (rotation/visit: how long a student goes to one location): - Unit Label - Duration&quot;                    </code></pre>
+<div
+id="total-duration-of-external-rotations-required-for-graduation--number---duration---please-type-in-number"
+class="section level3">
+<h3>Total duration of external rotations required for graduation:-
+Number - Duration - Please type in number”</h3>
+<pre class="r"><code>target_col &lt;- matching_cols[1]
+# 2. Create a frequency and percentage summary table
+freq_table &lt;- table(data[[target_col]], useNA = &quot;ifany&quot;) # Includes NA counts if any exist
+pct_table &lt;- prop.table(freq_table) * 100
+
+# 3. Combine them into a clean, easy-to-read data frame
+summary_df &lt;- data.frame(
+  Response = names(freq_table),
+  Count = as.numeric(freq_table),
+  Percentage = round(as.numeric(pct_table), 2)
+)
+
+# Print the final table
+summary_df%&gt;%
+datatable(extensions = &#39;Buttons&#39;,
+          caption = &quot;&quot;, 
+            options = list(dom = &#39;Blfrtip&#39;,
+                           buttons = c(&#39;copy&#39;, &#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;, &#39;print&#39;),
+                           lengthMenu = list(c(10,25,50,-1),
+                                             c(10,25,50,&quot;All&quot;))))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f30d7598595affc4f25a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f30d7598595affc4f25a">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["12","14","18","2","27","3","30","39.5","4","4.5","43","5","5-7","8","9",null],[2,1,1,4,1,1,1,1,2,1,1,5,1,2,1,22],[4.26,2.13,2.13,8.51,2.13,2.13,2.13,2.13,4.26,2.13,2.13,10.64,2.13,4.26,2.13,46.81]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Response<\/th>\n      <th>Count<\/th>\n      <th>Percentage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"lengthMenu":[[10,25,50,-1],["10","25","50","All"]],"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Response","targets":1},{"name":"Count","targets":2},{"name":"Percentage","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="one-block-length" class="section level2">
+<h2>One-block length</h2>
+<pre class="r"><code>matching_cols &lt;- names(data %&gt;% select(matches(&quot;clinic-site&quot;, ignore.case = TRUE)))
+matching_cols</code></pre>
+<pre><code>character(0)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] VennDiagram_1.8.2   futile.logger_1.4.9 condsurv_1.0.0     
+ [4] devtools_2.5.2      usethis_3.2.2       tidycmprsk_1.1.2   
+ [7] gtsummary_2.6.1     ggsurvfit_1.2.1     irr_0.85           
+[10] lpSolve_5.6.23      readxl_1.5.0.1      cowplot_1.2.0      
+[13] matrixStats_1.5.0   gridExtra_2.3.1     DT_0.34.0          
+[16] rstatix_1.1.0       ggpubr_1.0.0        kableExtra_1.4.1   
+[19] lubridate_1.9.5     forcats_1.0.1       stringr_1.6.0      
+[22] dplyr_1.2.1         purrr_1.2.2         readr_2.2.0        
+[25] tidyr_1.3.2         tibble_3.3.1        ggplot2_4.0.3      
+[28] tidyverse_2.0.0     rprojroot_2.1.1    
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.1     viridisLite_0.4.3    farver_2.1.2        
+ [4] S7_0.2.2             fastmap_1.2.0        promises_1.5.0      
+ [7] digest_0.6.39        timechange_0.4.0     lifecycle_1.0.5     
+[10] ellipsis_0.3.3       survival_3.8-6       magrittr_2.0.5      
+[13] compiler_4.6.1       rlang_1.3.0          sass_0.4.10         
+[16] tools_4.6.1          yaml_2.3.12          lambda.r_1.2.4      
+[19] knitr_1.52           ggsignif_0.6.4       htmlwidgets_1.6.4   
+[22] pkgbuild_1.4.8       xml2_1.6.0           RColorBrewer_1.1-3  
+[25] pkgload_1.5.3        abind_1.4-8          workflowr_1.7.2     
+[28] withr_3.0.3          git2r_0.36.2         scales_1.4.0        
+[31] cli_3.6.6            rmarkdown_2.32       generics_0.1.4      
+[34] otel_0.2.0           rstudioapi_0.19.0    tzdb_0.5.0          
+[37] sessioninfo_1.2.4    cachem_1.1.0         splines_4.6.1       
+[40] formatR_1.14         cellranger_1.1.0     vctrs_0.7.3         
+[43] Matrix_1.7-5         jsonlite_2.0.0       carData_3.0-6       
+[46] car_3.1-5            hms_1.1.4            Formula_1.2-6       
+[49] crosstalk_1.2.2      systemfonts_1.3.2    jquerylib_0.1.4     
+[52] glue_1.8.1           stringi_1.8.9        gtable_0.3.6        
+[55] later_1.4.8          pillar_1.11.1        htmltools_0.5.9     
+[58] R6_2.6.1             textshaping_1.0.5    evaluate_1.0.5      
+[61] lattice_0.22-9       futile.options_1.0.1 backports_1.5.1     
+[64] memoise_2.0.1        broom_1.0.13         httpuv_1.6.17       
+[67] bslib_0.12.0         Rcpp_1.1.2           svglite_2.2.2       
+[70] xfun_0.61            fs_2.1.0             pkgconfig_2.0.3     </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
