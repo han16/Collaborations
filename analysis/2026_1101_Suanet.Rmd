@@ -43,12 +43,11 @@ library(dplyr)
 library(tidyr)
 library(emmeans)
 
-# Define the group columns
+# 1. Define your group columns
 group_cols <- c("Group.1...ProRoot", "Group.2...Ion.", "Group.3...BC", "Group.4...AH.Plus")
 
-# 1. Add a Row ID for pairing/repeated measures, reshape to long format, and drop NAs
+# 2. Reshape into long format and drop NAs (independent structure)
 df_long <- endo_sealers %>%
-  mutate(RowID = row_number()) %>%
   pivot_longer(
     cols = all_of(group_cols),
     names_to = "Group",
@@ -56,27 +55,29 @@ df_long <- endo_sealers %>%
   ) %>%
   drop_na(Score)
 
-# Clean up group names for readable output
+# Clean up group names
 df_long$Group <- gsub("Group\\..*?\\.\\.\\.", "", df_long$Group)
 df_long$Group <- sub("\\.$", "", df_long$Group)
 
 
-# --- (1) ANOVA among ProRoot, Ion, and BC ---
+# --- (1) One-Way Independent ANOVA (ProRoot, Ion, BC) ---
 df_3groups <- df_long %>% filter(Group %in% c("ProRoot", "Ion", "BC"))
 
-anova_3 <- aov(Score ~ Group + Error(factor(RowID) / Group), data = df_3groups)
-print("--- ANOVA Results (ProRoot, Ion, BC) ---")
-summary(anova_3)
+model_3_indep <- lm(Score ~ Group, data = df_3groups)
+print("--- Independent One-Way ANOVA (ProRoot, Ion, BC) ---")
+summary(model_3_indep)
+anova(model_3_indep)
 
 
-# --- (2) Pairwise Comparisons among all 4 groups ---
-model_all <- aov(Score ~ Group + Error(factor(RowID)), data = df_long)
+# --- (2) Two-Sample Independent Pairwise Comparisons (All 4 Groups) ---
+# Fit standard linear model without the Error() blocking term
+model_all_indep <- lm(Score ~ Group, data = df_long)
 
-# Compute estimated marginal means with Tukey HSD adjustment
-emms <- emmeans(model_all, ~ Group)
-pairwise_results <- pairs(emms, adjust = "tukey")
+# Compute estimated marginal means and run pairwise two-sample t-tests with Tukey adjustment
+emms_indep <- emmeans(model_all_indep, ~ Group)
+pairwise_indep <- pairs(emms_indep, adjust = "tukey")
 
-print("--- Pairwise Comparisons (All 4 Groups) ---")
-print(pairwise_results)
+print("--- Two-Sample Independent Pairwise Comparisons (Tukey-adjusted) ---")
+print(pairwise_indep)
 
 ```
