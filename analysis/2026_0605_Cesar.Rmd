@@ -75,7 +75,39 @@ text(
 ```
 
 
+```{r, message=F, warning=F}
+library(ggplot2)
+library(dplyr)
 
+# 1. Calculate the 5-number summary values for Age_At_Treatment
+five_nums <- fivenum(data$Age_At_Treatment)
+names(five_nums) <- c("Min", "Q1", "Median", "Q3", "Max")
+
+# 2. Draw the boxplot and overlay the 5-number summary text
+ggplot(data, aes(y = Age_At_Treatment)) +
+  # Boxplot layer with a discrete x category
+  geom_boxplot(aes(x = "Patients"), fill = "steelblue", alpha = 0.5, width = 0.4, outlier.color = "red") +
+  # Add individual points with jitter
+  geom_jitter(aes(x = "Patients"), width = 0.08, alpha = 0.3, color = "black") +
+  # Annotate each value of the 5-number summary to the right of the plot
+  annotate("text", x = 1.3, y = five_nums, 
+           label = paste0(names(five_nums), " = ", round(five_nums, 1)),
+           hjust = 0, fontface = "bold", color = "darkblue") +
+  labs(
+    title = "Boxplot with Five-Number Summary",
+    subtitle = "Age at Treatment",
+    y = "Age (Years)",
+    x = ""
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+    plot.subtitle = element_text(hjust = 0.5, size = 11),
+    axis.text.x = element_blank() # Hide dummy x-axis label
+  ) +
+  # Use scale_x_discrete with expansion to give room on the right for text labels
+  scale_x_discrete(limits = c("Patients"), expand = expansion(mult = c(0.2, 0.6)))
+```
 
 
 

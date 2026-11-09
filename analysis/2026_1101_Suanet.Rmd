@@ -1,0 +1,82 @@
+---
+title: "11/09 2026"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2026-11-09"
+---
+
+
+
+```{r, echo=F, message=F, warning=F, results=F}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+source(file.path(root, "analysis/Rfunctions.R"))
+root <- rprojroot::find_rstudio_root_file()
+
+library(irr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
+```
+
+
+
+```{r, echo=F, message=F, warning=F}
+endo_sealers=read.csv(file.path(root,"..\\2026\\202611\\Suanet\\Endo sealers_Colony Count_110526_updated.csv"))
+
+ph_data=read.csv(file.path(root,"..\\2026\\202611\\Suanet\\pH data.csv"))
+
+
+viability=read.csv(file.path(root,"..\\2026\\202611\\Suanet\\viability.csv"))
+```
+
+
+## endo sealers 
+
+
+```{r, message=F, warning=F}
+
+library(dplyr)
+library(tidyr)
+library(emmeans)
+
+# Define the group columns
+group_cols <- c("Group.1...ProRoot", "Group.2...Ion.", "Group.3...BC", "Group.4...AH.Plus")
+
+# 1. Add a Row ID for pairing/repeated measures, reshape to long format, and drop NAs
+df_long <- endo_sealers %>%
+  mutate(RowID = row_number()) %>%
+  pivot_longer(
+    cols = all_of(group_cols),
+    names_to = "Group",
+    values_to = "Score"
+  ) %>%
+  drop_na(Score)
+
+# Clean up group names for readable output
+df_long$Group <- gsub("Group\\..*?\\.\\.\\.", "", df_long$Group)
+df_long$Group <- sub("\\.$", "", df_long$Group)
+
+
+# --- (1) ANOVA among ProRoot, Ion, and BC ---
+df_3groups <- df_long %>% filter(Group %in% c("ProRoot", "Ion", "BC"))
+
+anova_3 <- aov(Score ~ Group + Error(factor(RowID) / Group), data = df_3groups)
+print("--- ANOVA Results (ProRoot, Ion, BC) ---")
+summary(anova_3)
+
+
+# --- (2) Pairwise Comparisons among all 4 groups ---
+model_all <- aov(Score ~ Group + Error(factor(RowID)), data = df_long)
+
+# Compute estimated marginal means with Tukey HSD adjustment
+emms <- emmeans(model_all, ~ Group)
+pairwise_results <- pairs(emms, adjust = "tukey")
+
+print("--- Pairwise Comparisons (All 4 Groups) ---")
+print(pairwise_results)
+
+```

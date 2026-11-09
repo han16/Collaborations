@@ -1,6 +1,9 @@
 ---
 title: "dental survey"
-output: html_document
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 date: "2026-10"
 ---
 

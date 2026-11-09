@@ -44,6 +44,8 @@ date: "2026-01-23"
 
 18. [Oct-Voss](2026_1001_Voss.html)
 
+19. [Nov-Suanet](2026_1101_Suanet.html)
+
 
 
 
