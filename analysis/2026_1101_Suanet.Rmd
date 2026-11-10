@@ -30,7 +30,7 @@ endo_sealers=read.csv(file.path(root,"..\\2026\\202611\\Suanet\\Endo sealers_Col
 ph_data=read.csv(file.path(root,"..\\2026\\202611\\Suanet\\pH data.csv"))
 
 
-viability=read.csv(file.path(root,"..\\2026\\202611\\Suanet\\viability.csv"))
+viability=read.csv(file.path(root,"..\\2026\\202611\\Suanet\\viability_updated.csv"))
 ```
 
 
@@ -65,7 +65,7 @@ df_3groups <- df_long %>% filter(Group %in% c("ProRoot", "Ion", "BC"))
 
 model_3_indep <- lm(Score ~ Group, data = df_3groups)
 print("--- Independent One-Way ANOVA (ProRoot, Ion, BC) ---")
-summary(model_3_indep)
+#summary(model_3_indep)
 anova(model_3_indep)
 
 
@@ -78,9 +78,214 @@ emms_indep <- emmeans(model_all_indep, ~ Group)
 pairwise_indep <- pairs(emms_indep, adjust = "tukey")
 
 print("--- Two-Sample Independent Pairwise Comparisons (Tukey-adjusted) ---")
-print(pairwise_indep)
 
+pairwise_indep 
 ```
 
 
 * observations marked with * are removed. 
+
+* one way anova and two sample independent test was used 
+
+
+
+
+
+## ph data 
+
+
+
+### between sealer at every time point 
+
+
+```{r, message=F, warning=F}
+library(dplyr)
+library(tidyr)
+library(emmeans)
+
+# Define time point columns
+time_cols <- c("X3h", "X24h", "X48h", "X72h", "X7d", "X14d", "X21d", "X28d")
+
+
+# =========================================================================
+# PART (1): For each time point, compare Sealers (One-Way ANOVA + Pairwise)
+# =========================================================================
+print("=== PART 1: Comparisons Among Sealers at Each Time Point ===")
+
+for (tp in time_cols) {
+  cat("\n--------------------------------------------------\n")
+  cat("Time Point:", tp, "\n")
+  cat("--------------------------------------------------\n")
+  
+  # Extract relevant subset and ensure Sealer is a factor
+  df_tp <- ph_data %>% select(Sealer, all_of(tp)) %>% rename(Score = !!tp) %>% drop_na()
+  df_tp$Sealer <- as.factor(df_tp$Sealer)
+  
+  # One-way ANOVA
+  model_tp <- lm(Score ~ Sealer, data = df_tp)
+  cat("\nOne-Way ANOVA:\n")
+  #print(summary(model_tp))
+  print(anova(model_tp))
+  
+  # Pairwise comparisons (Independent two-sample t-tests with Tukey adjustment)
+  emms_tp <- emmeans(model_tp, ~ Sealer)
+  pairwise_tp <- pairs(emms_tp, adjust = "tukey")
+  
+  cat("\nPairwise Comparisons (Tukey-adjusted):\n")
+  print(pairwise_tp)
+}
+```
+
+
+* at every time point, one way anova and two sample independent test was used 
+
+
+
+### within each sealer 
+
+
+
+```{r, message=F, warning=F}
+
+# =========================================================================
+# PART (2): Within each Sealer, compare Time Points (Repeated Measures ANOVA + Paired)
+# =========================================================================
+print("\n\n=== PART 2: Comparisons Among Time Points Within Each Sealer ===")
+
+# Reshape data to long format and assign a Subject ID per row within each Sealer group
+ph_long <- ph_data %>%
+  group_by(Sealer) %>%
+  mutate(SubjectID = row_number()) %>%
+  ungroup() %>%
+  pivot_longer(
+    cols = all_of(time_cols),
+    names_to = "TimePoint",
+    values_to = "Score"
+  ) %>%
+  drop_na(Score)
+
+ph_long$TimePoint <- factor(ph_long$TimePoint, levels = time_cols)
+ph_long$Sealer <- as.factor(ph_long$Sealer)
+
+# Loop through each unique sealer to run repeated measures ANOVA and paired comparisons
+unique_sealers <- unique(ph_long$Sealer)
+
+for (s in unique_sealers) {
+  cat("\n==================================================\n")
+  cat("Sealer:", s, "\n")
+  cat("==================================================\n")
+  
+  df_s <- ph_long %>% filter(Sealer == s)
+  
+  # Repeated Measures ANOVA (SubjectID as the blocking/error term)
+  rm_anova <- aov(Score ~ TimePoint + Error(factor(SubjectID) / TimePoint), data = df_s)
+  cat("\nRepeated Measures ANOVA:\n")
+  summary(rm_anova)
+  
+  # Fit linear model equivalent for emmeans post-hoc testing
+  model_s <- lm(Score ~ TimePoint + factor(SubjectID), data = df_s)
+  emms_s <- emmeans(model_s, ~ TimePoint)
+  
+  # Pairwise paired t-tests across time points with Tukey adjustment
+  pairwise_s <- pairs(emms_s, adjust = "tukey")
+  
+  cat("\nPairwise Comparisons Across Time Points (Paired t-tests, Tukey-adjusted):\n")
+  print(pairwise_s)
+}
+
+```
+
+
+
+* anova p value is in `Error: factor(SubjectID):TimePoint`. 
+
+
+## viability 
+
+
+### between groups at every time point 
+
+```{r, message=F, warning=F}
+library(dplyr)
+library(emmeans)
+
+viability_data=viability 
+
+# Ensure group and time are factors
+viability_data$group <- as.factor(viability_data$group)
+viability_data$time <- as.factor(viability_data$time)
+
+groups <- unique(viability_data$group)
+
+# =========================================================================
+# PART (1): Between Groups at Each Time Point (Independent ANOVA & Tests)
+# =========================================================================
+print("=== PART 1: Comparisons Among Groups at Each Time Point ===")
+
+time_points <- unique(viability_data$time)
+for (tp in time_points) {
+  cat("\n--------------------------------------------------\n")
+  cat("Time Point:", tp, "\n")
+  cat("--------------------------------------------------\n")
+  
+  df_tp <- viability_data %>% filter(time == tp)
+  
+  model_tp <- lm(viability ~ group, data = df_tp)
+  cat("\nOne-Way ANOVA (Groups):\n")
+  print(anova(model_tp))
+  
+  emms_tp <- emmeans(model_tp, ~ group)
+  pairwise_tp <- pairs(emms_tp, adjust = "tukey")
+  
+  cat("\nPairwise Comparisons Among Groups (Tukey-adjusted):\n")
+  print(pairwise_tp)
+}
+```
+
+* one way anova test and two sample independent t test was used
+
+
+### within group across different time points 
+
+```{r, message=F, warning=F}
+
+# =========================================================================
+# PART (2): Within Each Group Across Time Points (Repeated Measures & Paired Tests)
+# =========================================================================
+print("\n\n=== PART 2: Comparisons Among Time Points Within Each Group (Repeated Measures) ===")
+
+for (g in groups) {
+  cat("\n==================================================\n")
+  cat("Group:", g, "\n")
+  cat("==================================================\n")
+  
+  df_g <- viability_data %>% filter(group == g)
+  
+  # Assign a SubjectID per replicate across time points 
+  # (Assumes rows are balanced/ordered identically across each time point)
+  df_g <- df_g %>%
+    group_by(time) %>%
+    mutate(SubjectID = row_number()) %>%
+    ungroup()
+  
+  # 1. One-Way Repeated Measures ANOVA
+  rm_anova <- aov(viability ~ time + Error(factor(SubjectID) / time), data = df_g)
+  cat("\nOne-Way Repeated Measures ANOVA:\n")
+  print(summary(rm_anova))
+  
+  # 2. Fit linear model equivalent for emmeans (incorporating SubjectID blocking)
+  model_g_rm <- lm(viability ~ time + factor(SubjectID), data = df_g)
+  emms_g <- emmeans(model_g_rm, ~ time)
+  
+  # 3. Pairwise comparisons (functions as paired t-tests with Tukey adjustment)
+  pairwise_g <- pairs(emms_g, adjust = "tukey")
+  
+  cat("\nPairwise Paired Comparisons Among Time Points (Tukey-adjusted):\n")
+  print(pairwise_g)
+}
+
+```
+
+
+
+* one way repeat anova test (p value in `Error: factor(SubjectID):time`) and two sample paired t test was used. 

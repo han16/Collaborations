@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-11-09
+<strong>Last updated:</strong> 2026-11-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1bfa38c995a8c1ecd2885a6354a88f1344b76211targetblank1bfa38ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefb25cea053428dcd52c5b7b8d47b3f247d015e22targetblankfb25ceaa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/Collaborations/tree/1bfa38c995a8c1ecd2885a6354a88f1344b76211" target="_blank">1bfa38c</a>
+<a href="https://github.com/han16/Collaborations/tree/fb25cea053428dcd52c5b7b8d47b3f247d015e22" target="_blank">fb25cea</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstree1bfa38c995a8c1ecd2885a6354a88f1344b76211targetblank1bfa38ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16Collaborationstreefb25cea053428dcd52c5b7b8d47b3f247d015e22targetblankfb25ceaa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/Collaborations/tree/1bfa38c995a8c1ecd2885a6354a88f1344b76211" target="_blank">1bfa38c</a>.
+<a href="https://github.com/han16/Collaborations/tree/fb25cea053428dcd52c5b7b8d47b3f247d015e22" target="_blank">fb25cea</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -615,6 +615,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/Collaborations/blob/fb25cea053428dcd52c5b7b8d47b3f247d015e22/analysis/2026_1101_Suanet.Rmd" target="_blank">fb25cea</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-11-09
+</td>
+<td>
+11/9/2026
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/Collaborations/fb25cea053428dcd52c5b7b8d47b3f247d015e22/docs/2026_1101_Suanet.html" target="_blank">fb25cea</a>
+</td>
+<td>
+Han
+</td>
+<td>
+2026-11-09
+</td>
+<td>
+11/9/2026
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -719,27 +753,8 @@ df_3groups &lt;- df_long %&gt;% filter(Group %in% c(&quot;ProRoot&quot;, &quot;I
 model_3_indep &lt;- lm(Score ~ Group, data = df_3groups)
 print(&quot;--- Independent One-Way ANOVA (ProRoot, Ion, BC) ---&quot;)</code></pre>
 <pre><code>[1] &quot;--- Independent One-Way ANOVA (ProRoot, Ion, BC) ---&quot;</code></pre>
-<pre class="r"><code>summary(model_3_indep)</code></pre>
-<pre><code>
-Call:
-lm(formula = Score ~ Group, data = df_3groups)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--33.393  -9.113   0.400   9.273  46.545 
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    11.050      5.468   2.021    0.053 .  
-GroupIon       39.703      7.907   5.021 2.62e-05 ***
-GroupProRoot  101.405      8.646  11.729 2.55e-12 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 18.94 on 28 degrees of freedom
-Multiple R-squared:  0.8309,    Adjusted R-squared:  0.8188 
-F-statistic: 68.79 on 2 and 28 DF,  p-value: 1.564e-11</code></pre>
-<pre class="r"><code>anova(model_3_indep)</code></pre>
+<pre class="r"><code>#summary(model_3_indep)
+anova(model_3_indep)</code></pre>
 <pre><code>Analysis of Variance Table
 
 Response: Score
@@ -758,7 +773,7 @@ pairwise_indep &lt;- pairs(emms_indep, adjust = &quot;tukey&quot;)
 
 print(&quot;--- Two-Sample Independent Pairwise Comparisons (Tukey-adjusted) ---&quot;)</code></pre>
 <pre><code>[1] &quot;--- Two-Sample Independent Pairwise Comparisons (Tukey-adjusted) ---&quot;</code></pre>
-<pre class="r"><code>print(pairwise_indep)</code></pre>
+<pre class="r"><code>pairwise_indep </code></pre>
 <pre><code> contrast           estimate   SE df t.ratio p.value
  AH.Plus - BC        39.7530 10.9 37   3.648  0.0043
  AH.Plus - Ion        0.0503 11.1 37   0.005  1.0000
@@ -769,7 +784,731 @@ print(&quot;--- Two-Sample Independent Pairwise Comparisons (Tukey-adjusted) ---
 
 P value adjustment: tukey method for comparing a family of 4 estimates </code></pre>
 <ul>
-<li>observations marked with * are removed.</li>
+<li><p>observations marked with * are removed.</p></li>
+<li><p>one way anova and two sample independent test was used</p></li>
+</ul>
+</div>
+<div id="ph-data" class="section level2">
+<h2>ph data</h2>
+<div id="between-sealer-at-every-time-point" class="section level3">
+<h3>between sealer at every time point</h3>
+<pre class="r"><code>library(dplyr)
+library(tidyr)
+library(emmeans)
+
+# Define time point columns
+time_cols &lt;- c(&quot;X3h&quot;, &quot;X24h&quot;, &quot;X48h&quot;, &quot;X72h&quot;, &quot;X7d&quot;, &quot;X14d&quot;, &quot;X21d&quot;, &quot;X28d&quot;)
+
+
+# =========================================================================
+# PART (1): For each time point, compare Sealers (One-Way ANOVA + Pairwise)
+# =========================================================================
+print(&quot;=== PART 1: Comparisons Among Sealers at Each Time Point ===&quot;)</code></pre>
+<pre><code>[1] &quot;=== PART 1: Comparisons Among Sealers at Each Time Point ===&quot;</code></pre>
+<pre class="r"><code>for (tp in time_cols) {
+  cat(&quot;\n--------------------------------------------------\n&quot;)
+  cat(&quot;Time Point:&quot;, tp, &quot;\n&quot;)
+  cat(&quot;--------------------------------------------------\n&quot;)
+  
+  # Extract relevant subset and ensure Sealer is a factor
+  df_tp &lt;- ph_data %&gt;% select(Sealer, all_of(tp)) %&gt;% rename(Score = !!tp) %&gt;% drop_na()
+  df_tp$Sealer &lt;- as.factor(df_tp$Sealer)
+  
+  # One-way ANOVA
+  model_tp &lt;- lm(Score ~ Sealer, data = df_tp)
+  cat(&quot;\nOne-Way ANOVA:\n&quot;)
+  #print(summary(model_tp))
+  print(anova(model_tp))
+  
+  # Pairwise comparisons (Independent two-sample t-tests with Tukey adjustment)
+  emms_tp &lt;- emmeans(model_tp, ~ Sealer)
+  pairwise_tp &lt;- pairs(emms_tp, adjust = &quot;tukey&quot;)
+  
+  cat(&quot;\nPairwise Comparisons (Tukey-adjusted):\n&quot;)
+  print(pairwise_tp)
+}</code></pre>
+<pre><code>
+--------------------------------------------------
+Time Point: X3h 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df  Sum Sq Mean Sq F value   Pr(&gt;F)    
+Sealer     3 26.6047  8.8682  31.855 5.58e-07 ***
+Residuals 16  4.4543  0.2784                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate    SE df t.ratio p.value
+ AH Plus - BC Sealer    -2.82 0.334 16  -8.463 &lt;0.0001
+ AH Plus - (iON+)       -2.76 0.334 16  -8.283 &lt;0.0001
+ AH Plus - ProRoot      -2.25 0.334 16  -6.755 &lt;0.0001
+ BC Sealer - (iON+)      0.06 0.334 16   0.180  0.9978
+ BC Sealer - ProRoot     0.57 0.334 16   1.708  0.3518
+ (iON+) - ProRoot        0.51 0.334 16   1.528  0.4447
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: X24h 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+Sealer     3 28.5949  9.5316  26.889 1.737e-06 ***
+Residuals 16  5.6716  0.3545                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate    SE df t.ratio p.value
+ AH Plus - BC Sealer   -2.986 0.377 16  -7.930 &lt;0.0001
+ AH Plus - (iON+)      -2.660 0.377 16  -7.064 &lt;0.0001
+ AH Plus - ProRoot     -2.568 0.377 16  -6.820 &lt;0.0001
+ BC Sealer - (iON+)     0.326 0.377 16   0.866  0.8222
+ BC Sealer - ProRoot    0.418 0.377 16   1.110  0.6887
+ (iON+) - ProRoot       0.092 0.377 16   0.244  0.9947
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: X48h 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+Sealer     3 19.6386  6.5462  19.613 1.311e-05 ***
+Residuals 16  5.3404  0.3338                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate    SE df t.ratio p.value
+ AH Plus - BC Sealer   -2.672 0.365 16  -7.313 &lt;0.0001
+ AH Plus - (iON+)      -2.016 0.365 16  -5.517  0.0002
+ AH Plus - ProRoot     -1.820 0.365 16  -4.981  0.0007
+ BC Sealer - (iON+)     0.656 0.365 16   1.795  0.3112
+ BC Sealer - ProRoot    0.852 0.365 16   2.332  0.1321
+ (iON+) - ProRoot       0.196 0.365 16   0.536  0.9488
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: X72h 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+Sealer     3 21.3705  7.1235  20.256 1.073e-05 ***
+Residuals 16  5.6268  0.3517                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate    SE df t.ratio p.value
+ AH Plus - BC Sealer   -2.780 0.375 16  -7.412 &lt;0.0001
+ AH Plus - (iON+)      -1.974 0.375 16  -5.263  0.0004
+ AH Plus - ProRoot     -2.078 0.375 16  -5.540  0.0002
+ BC Sealer - (iON+)     0.806 0.375 16   2.149  0.1801
+ BC Sealer - ProRoot    0.702 0.375 16   1.872  0.2784
+ (iON+) - ProRoot      -0.104 0.375 16  -0.277  0.9923
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: X7d 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+Sealer     3 22.3830  7.4610  20.828 9.012e-06 ***
+Residuals 16  5.7316  0.3582                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate    SE df t.ratio p.value
+ AH Plus - BC Sealer   -2.890 0.379 16  -7.635 &lt;0.0001
+ AH Plus - (iON+)      -1.948 0.379 16  -5.146  0.0005
+ AH Plus - ProRoot     -2.032 0.379 16  -5.368  0.0003
+ BC Sealer - (iON+)     0.942 0.379 16   2.489  0.1001
+ BC Sealer - ProRoot    0.858 0.379 16   2.267  0.1478
+ (iON+) - ProRoot      -0.084 0.379 16  -0.222  0.9960
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: X14d 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+Sealer     3 31.1004 10.3668   42.56 7.494e-08 ***
+Residuals 16  3.8973  0.2436                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate    SE df t.ratio p.value
+ AH Plus - BC Sealer   -3.374 0.312 16 -10.809 &lt;0.0001
+ AH Plus - (iON+)      -2.358 0.312 16  -7.554 &lt;0.0001
+ AH Plus - ProRoot     -2.462 0.312 16  -7.887 &lt;0.0001
+ BC Sealer - (iON+)     1.016 0.312 16   3.255  0.0231
+ BC Sealer - ProRoot    0.912 0.312 16   2.922  0.0445
+ (iON+) - ProRoot      -0.104 0.312 16  -0.333  0.9868
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: X21d 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+Sealer     3 41.065 13.6884  69.909 2.059e-09 ***
+Residuals 16  3.133  0.1958                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate   SE df t.ratio p.value
+ AH Plus - BC Sealer    -3.86 0.28 16 -13.786 &lt;0.0001
+ AH Plus - (iON+)       -2.78 0.28 16  -9.919 &lt;0.0001
+ AH Plus - ProRoot      -2.84 0.28 16 -10.134 &lt;0.0001
+ BC Sealer - (iON+)      1.08 0.28 16   3.866  0.0067
+ BC Sealer - ProRoot     1.02 0.28 16   3.652  0.0104
+ (iON+) - ProRoot       -0.06 0.28 16  -0.214  0.9964
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: X28d 
+--------------------------------------------------
+
+One-Way ANOVA:
+Analysis of Variance Table
+
+Response: Score
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+Sealer     3 46.943 15.6476  112.05 5.939e-11 ***
+Residuals 16  2.234  0.1396                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons (Tukey-adjusted):
+ contrast            estimate    SE df t.ratio p.value
+ AH Plus - BC Sealer   -4.094 0.236 16 -17.322 &lt;0.0001
+ AH Plus - (iON+)      -3.044 0.236 16 -12.879 &lt;0.0001
+ AH Plus - ProRoot     -3.058 0.236 16 -12.939 &lt;0.0001
+ BC Sealer - (iON+)     1.050 0.236 16   4.443  0.0021
+ BC Sealer - ProRoot    1.036 0.236 16   4.383  0.0023
+ (iON+) - ProRoot      -0.014 0.236 16  -0.059  0.9999
+
+P value adjustment: tukey method for comparing a family of 4 estimates </code></pre>
+<ul>
+<li>at every time point, one way anova and two sample independent test
+was used</li>
+</ul>
+</div>
+<div id="within-each-sealer" class="section level3">
+<h3>within each sealer</h3>
+<pre class="r"><code># =========================================================================
+# PART (2): Within each Sealer, compare Time Points (Repeated Measures ANOVA + Paired)
+# =========================================================================
+print(&quot;\n\n=== PART 2: Comparisons Among Time Points Within Each Sealer ===&quot;)</code></pre>
+<pre><code>[1] &quot;\n\n=== PART 2: Comparisons Among Time Points Within Each Sealer ===&quot;</code></pre>
+<pre class="r"><code># Reshape data to long format and assign a Subject ID per row within each Sealer group
+ph_long &lt;- ph_data %&gt;%
+  group_by(Sealer) %&gt;%
+  mutate(SubjectID = row_number()) %&gt;%
+  ungroup() %&gt;%
+  pivot_longer(
+    cols = all_of(time_cols),
+    names_to = &quot;TimePoint&quot;,
+    values_to = &quot;Score&quot;
+  ) %&gt;%
+  drop_na(Score)
+
+ph_long$TimePoint &lt;- factor(ph_long$TimePoint, levels = time_cols)
+ph_long$Sealer &lt;- as.factor(ph_long$Sealer)
+
+# Loop through each unique sealer to run repeated measures ANOVA and paired comparisons
+unique_sealers &lt;- unique(ph_long$Sealer)
+
+for (s in unique_sealers) {
+  cat(&quot;\n==================================================\n&quot;)
+  cat(&quot;Sealer:&quot;, s, &quot;\n&quot;)
+  cat(&quot;==================================================\n&quot;)
+  
+  df_s &lt;- ph_long %&gt;% filter(Sealer == s)
+  
+  # Repeated Measures ANOVA (SubjectID as the blocking/error term)
+  rm_anova &lt;- aov(Score ~ TimePoint + Error(factor(SubjectID) / TimePoint), data = df_s)
+  cat(&quot;\nRepeated Measures ANOVA:\n&quot;)
+  summary(rm_anova)
+  
+  # Fit linear model equivalent for emmeans post-hoc testing
+  model_s &lt;- lm(Score ~ TimePoint + factor(SubjectID), data = df_s)
+  emms_s &lt;- emmeans(model_s, ~ TimePoint)
+  
+  # Pairwise paired t-tests across time points with Tukey adjustment
+  pairwise_s &lt;- pairs(emms_s, adjust = &quot;tukey&quot;)
+  
+  cat(&quot;\nPairwise Comparisons Across Time Points (Paired t-tests, Tukey-adjusted):\n&quot;)
+  print(pairwise_s)
+}</code></pre>
+<pre><code>
+==================================================
+Sealer: ProRoot 
+==================================================
+
+Repeated Measures ANOVA:
+
+Pairwise Comparisons Across Time Points (Paired t-tests, Tukey-adjusted):
+ contrast    estimate     SE df t.ratio p.value
+ X3h - X24h    -1.028 0.0484 28 -21.240 &lt;0.0001
+ X3h - X48h     0.020 0.0484 28   0.413  0.9999
+ X3h - X72h    -0.250 0.0484 28  -5.165  0.0004
+ X3h - X7d     -0.240 0.0484 28  -4.959  0.0007
+ X3h - X14d    -0.648 0.0484 28 -13.389 &lt;0.0001
+ X3h - X21d    -0.926 0.0484 28 -19.133 &lt;0.0001
+ X3h - X28d    -1.110 0.0484 28 -22.935 &lt;0.0001
+ X24h - X48h    1.048 0.0484 28  21.654 &lt;0.0001
+ X24h - X72h    0.778 0.0484 28  16.075 &lt;0.0001
+ X24h - X7d     0.788 0.0484 28  16.281 &lt;0.0001
+ X24h - X14d    0.380 0.0484 28   7.851 &lt;0.0001
+ X24h - X21d    0.102 0.0484 28   2.107  0.4345
+ X24h - X28d   -0.082 0.0484 28  -1.694  0.6907
+ X48h - X72h   -0.270 0.0484 28  -5.579  0.0001
+ X48h - X7d    -0.260 0.0484 28  -5.372  0.0002
+ X48h - X14d   -0.668 0.0484 28 -13.802 &lt;0.0001
+ X48h - X21d   -0.946 0.0484 28 -19.546 &lt;0.0001
+ X48h - X28d   -1.130 0.0484 28 -23.348 &lt;0.0001
+ X72h - X7d     0.010 0.0484 28   0.207  1.0000
+ X72h - X14d   -0.398 0.0484 28  -8.223 &lt;0.0001
+ X72h - X21d   -0.676 0.0484 28 -13.967 &lt;0.0001
+ X72h - X28d   -0.860 0.0484 28 -17.769 &lt;0.0001
+ X7d - X14d    -0.408 0.0484 28  -8.430 &lt;0.0001
+ X7d - X21d    -0.686 0.0484 28 -14.174 &lt;0.0001
+ X7d - X28d    -0.870 0.0484 28 -17.976 &lt;0.0001
+ X14d - X21d   -0.278 0.0484 28  -5.744 &lt;0.0001
+ X14d - X28d   -0.462 0.0484 28  -9.546 &lt;0.0001
+ X21d - X28d   -0.184 0.0484 28  -3.802  0.0142
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 8 estimates 
+
+==================================================
+Sealer: iON+ 
+==================================================
+
+Repeated Measures ANOVA:
+
+Pairwise Comparisons Across Time Points (Paired t-tests, Tukey-adjusted):
+ contrast    estimate     SE df t.ratio p.value
+ X3h - X24h    -0.610 0.0697 28  -8.755 &lt;0.0001
+ X3h - X48h     0.334 0.0697 28   4.793  0.0011
+ X3h - X72h     0.364 0.0697 28   5.224  0.0004
+ X3h - X7d      0.354 0.0697 28   5.080  0.0005
+ X3h - X14d    -0.034 0.0697 28  -0.488  0.9996
+ X3h - X21d    -0.356 0.0697 28  -5.109  0.0005
+ X3h - X28d    -0.586 0.0697 28  -8.410 &lt;0.0001
+ X24h - X48h    0.944 0.0697 28  13.548 &lt;0.0001
+ X24h - X72h    0.974 0.0697 28  13.979 &lt;0.0001
+ X24h - X7d     0.964 0.0697 28  13.835 &lt;0.0001
+ X24h - X14d    0.576 0.0697 28   8.267 &lt;0.0001
+ X24h - X21d    0.254 0.0697 28   3.645  0.0208
+ X24h - X28d    0.024 0.0697 28   0.344  1.0000
+ X48h - X72h    0.030 0.0697 28   0.431  0.9998
+ X48h - X7d     0.020 0.0697 28   0.287  1.0000
+ X48h - X14d   -0.368 0.0697 28  -5.281  0.0003
+ X48h - X21d   -0.690 0.0697 28  -9.903 &lt;0.0001
+ X48h - X28d   -0.920 0.0697 28 -13.204 &lt;0.0001
+ X72h - X7d    -0.010 0.0697 28  -0.144  1.0000
+ X72h - X14d   -0.398 0.0697 28  -5.712 &lt;0.0001
+ X72h - X21d   -0.720 0.0697 28 -10.333 &lt;0.0001
+ X72h - X28d   -0.950 0.0697 28 -13.634 &lt;0.0001
+ X7d - X14d    -0.388 0.0697 28  -5.568  0.0001
+ X7d - X21d    -0.710 0.0697 28 -10.190 &lt;0.0001
+ X7d - X28d    -0.940 0.0697 28 -13.491 &lt;0.0001
+ X14d - X21d   -0.322 0.0697 28  -4.621  0.0018
+ X14d - X28d   -0.552 0.0697 28  -7.922 &lt;0.0001
+ X21d - X28d   -0.230 0.0697 28  -3.301  0.0467
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 8 estimates 
+
+==================================================
+Sealer: BC Sealer 
+==================================================
+
+Repeated Measures ANOVA:
+
+Pairwise Comparisons Across Time Points (Paired t-tests, Tukey-adjusted):
+ contrast    estimate     SE df t.ratio p.value
+ X3h - X24h    -0.876 0.0475 28 -18.425 &lt;0.0001
+ X3h - X48h    -0.262 0.0475 28  -5.511  0.0002
+ X3h - X72h    -0.382 0.0475 28  -8.035 &lt;0.0001
+ X3h - X7d     -0.528 0.0475 28 -11.106 &lt;0.0001
+ X3h - X14d    -0.990 0.0475 28 -20.823 &lt;0.0001
+ X3h - X21d    -1.378 0.0475 28 -28.984 &lt;0.0001
+ X3h - X28d    -1.576 0.0475 28 -33.149 &lt;0.0001
+ X24h - X48h    0.614 0.0475 28  12.915 &lt;0.0001
+ X24h - X72h    0.494 0.0475 28  10.391 &lt;0.0001
+ X24h - X7d     0.348 0.0475 28   7.320 &lt;0.0001
+ X24h - X14d   -0.114 0.0475 28  -2.398  0.2809
+ X24h - X21d   -0.502 0.0475 28 -10.559 &lt;0.0001
+ X24h - X28d   -0.700 0.0475 28 -14.723 &lt;0.0001
+ X48h - X72h   -0.120 0.0475 28  -2.524  0.2266
+ X48h - X7d    -0.266 0.0475 28  -5.595  0.0001
+ X48h - X14d   -0.728 0.0475 28 -15.312 &lt;0.0001
+ X48h - X21d   -1.116 0.0475 28 -23.473 &lt;0.0001
+ X48h - X28d   -1.314 0.0475 28 -27.638 &lt;0.0001
+ X72h - X7d    -0.146 0.0475 28  -3.071  0.0775
+ X72h - X14d   -0.608 0.0475 28 -12.788 &lt;0.0001
+ X72h - X21d   -0.996 0.0475 28 -20.949 &lt;0.0001
+ X72h - X28d   -1.194 0.0475 28 -25.114 &lt;0.0001
+ X7d - X14d    -0.462 0.0475 28  -9.717 &lt;0.0001
+ X7d - X21d    -0.850 0.0475 28 -17.878 &lt;0.0001
+ X7d - X28d    -1.048 0.0475 28 -22.043 &lt;0.0001
+ X14d - X21d   -0.388 0.0475 28  -8.161 &lt;0.0001
+ X14d - X28d   -0.586 0.0475 28 -12.326 &lt;0.0001
+ X21d - X28d   -0.198 0.0475 28  -4.165  0.0057
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 8 estimates 
+
+==================================================
+Sealer: AH Plus 
+==================================================
+
+Repeated Measures ANOVA:
+
+Pairwise Comparisons Across Time Points (Paired t-tests, Tukey-adjusted):
+ contrast    estimate    SE df t.ratio p.value
+ X3h - X24h    -0.714 0.146 28  -4.874  0.0009
+ X3h - X48h    -0.414 0.146 28  -2.826  0.1286
+ X3h - X72h    -0.426 0.146 28  -2.908  0.1090
+ X3h - X7d     -0.462 0.146 28  -3.154  0.0648
+ X3h - X14d    -0.440 0.146 28  -3.004  0.0894
+ X3h - X21d    -0.344 0.146 28  -2.348  0.3044
+ X3h - X28d    -0.306 0.146 28  -2.089  0.4456
+ X24h - X48h    0.300 0.146 28   2.048  0.4702
+ X24h - X72h    0.288 0.146 28   1.966  0.5206
+ X24h - X7d     0.252 0.146 28   1.720  0.6748
+ X24h - X14d    0.274 0.146 28   1.870  0.5808
+ X24h - X21d    0.370 0.146 28   2.526  0.2260
+ X24h - X28d    0.408 0.146 28   2.785  0.1394
+ X48h - X72h   -0.012 0.146 28  -0.082  1.0000
+ X48h - X7d    -0.048 0.146 28  -0.328  1.0000
+ X48h - X14d   -0.026 0.146 28  -0.177  1.0000
+ X48h - X21d    0.070 0.146 28   0.478  0.9997
+ X48h - X28d    0.108 0.146 28   0.737  0.9949
+ X72h - X7d    -0.036 0.146 28  -0.246  1.0000
+ X72h - X14d   -0.014 0.146 28  -0.096  1.0000
+ X72h - X21d    0.082 0.146 28   0.560  0.9991
+ X72h - X28d    0.120 0.146 28   0.819  0.9905
+ X7d - X14d     0.022 0.146 28   0.150  1.0000
+ X7d - X21d     0.118 0.146 28   0.806  0.9914
+ X7d - X28d     0.156 0.146 28   1.065  0.9590
+ X14d - X21d    0.096 0.146 28   0.655  0.9976
+ X14d - X28d    0.134 0.146 28   0.915  0.9820
+ X21d - X28d    0.038 0.146 28   0.259  1.0000
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 8 estimates </code></pre>
+<ul>
+<li>anova p value is in
+<code>Error: factor(SubjectID):TimePoint</code>.</li>
+</ul>
+</div>
+</div>
+<div id="viability" class="section level2">
+<h2>viability</h2>
+<div id="between-groups-at-every-time-point" class="section level3">
+<h3>between groups at every time point</h3>
+<pre class="r"><code>library(dplyr)
+library(emmeans)
+
+viability_data=viability 
+
+# Ensure group and time are factors
+viability_data$group &lt;- as.factor(viability_data$group)
+viability_data$time &lt;- as.factor(viability_data$time)
+
+groups &lt;- unique(viability_data$group)
+
+# =========================================================================
+# PART (1): Between Groups at Each Time Point (Independent ANOVA &amp; Tests)
+# =========================================================================
+print(&quot;=== PART 1: Comparisons Among Groups at Each Time Point ===&quot;)</code></pre>
+<pre><code>[1] &quot;=== PART 1: Comparisons Among Groups at Each Time Point ===&quot;</code></pre>
+<pre class="r"><code>time_points &lt;- unique(viability_data$time)
+for (tp in time_points) {
+  cat(&quot;\n--------------------------------------------------\n&quot;)
+  cat(&quot;Time Point:&quot;, tp, &quot;\n&quot;)
+  cat(&quot;--------------------------------------------------\n&quot;)
+  
+  df_tp &lt;- viability_data %&gt;% filter(time == tp)
+  
+  model_tp &lt;- lm(viability ~ group, data = df_tp)
+  cat(&quot;\nOne-Way ANOVA (Groups):\n&quot;)
+  print(anova(model_tp))
+  
+  emms_tp &lt;- emmeans(model_tp, ~ group)
+  pairwise_tp &lt;- pairs(emms_tp, adjust = &quot;tukey&quot;)
+  
+  cat(&quot;\nPairwise Comparisons Among Groups (Tukey-adjusted):\n&quot;)
+  print(pairwise_tp)
+}</code></pre>
+<pre><code>
+--------------------------------------------------
+Time Point: 24h 
+--------------------------------------------------
+
+One-Way ANOVA (Groups):
+Analysis of Variance Table
+
+Response: viability
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+group      3 142403   47468  97.059 &lt; 2.2e-16 ***
+Residuals 49  23964     489                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons Among Groups (Tukey-adjusted):
+ contrast        estimate   SE df t.ratio p.value
+ group1 - group2   -32.80 8.67 49  -3.781  0.0023
+ group1 - group3   -35.59 8.67 49  -4.103  0.0009
+ group1 - group4    90.50 8.52 49  10.624 &lt;0.0001
+ group2 - group3    -2.79 8.67 49  -0.322  0.9883
+ group2 - group4   123.29 8.52 49  14.475 &lt;0.0001
+ group3 - group4   126.08 8.52 49  14.802 &lt;0.0001
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: 48h 
+--------------------------------------------------
+
+One-Way ANOVA (Groups):
+Analysis of Variance Table
+
+Response: viability
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+group      3  86962 28987.2  117.11 &lt; 2.2e-16 ***
+Residuals 51  12624   247.5                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons Among Groups (Tukey-adjusted):
+ contrast        estimate   SE df t.ratio p.value
+ group1 - group2     6.54 5.95 51   1.100  0.6914
+ group1 - group3    -6.97 5.95 51  -1.173  0.6465
+ group1 - group4    92.76 6.06 51  15.307 &lt;0.0001
+ group2 - group3   -13.51 5.95 51  -2.273  0.1181
+ group2 - group4    86.22 6.06 51  14.228 &lt;0.0001
+ group3 - group4    99.73 6.06 51  16.458 &lt;0.0001
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+--------------------------------------------------
+Time Point: 72h 
+--------------------------------------------------
+
+One-Way ANOVA (Groups):
+Analysis of Variance Table
+
+Response: viability
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+group      3  79648 26549.3  37.331 2.208e-12 ***
+Residuals 46  32715   711.2                      
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Comparisons Among Groups (Tukey-adjusted):
+ contrast        estimate   SE df t.ratio p.value
+ group1 - group2   -2.931 10.7 46  -0.273  0.9928
+ group1 - group3   -3.770 11.1 46  -0.339  0.9865
+ group1 - group4   88.609 10.9 46   8.110 &lt;0.0001
+ group2 - group3   -0.839 10.5 46  -0.080  0.9998
+ group2 - group4   91.540 10.3 46   8.912 &lt;0.0001
+ group3 - group4   92.378 10.7 46   8.653 &lt;0.0001
+
+P value adjustment: tukey method for comparing a family of 4 estimates </code></pre>
+<ul>
+<li>one way anova test and two sample independent t test was used</li>
+</ul>
+</div>
+<div id="within-group-across-different-time-points"
+class="section level3">
+<h3>within group across different time points</h3>
+<pre class="r"><code># =========================================================================
+# PART (2): Within Each Group Across Time Points (Repeated Measures &amp; Paired Tests)
+# =========================================================================
+print(&quot;\n\n=== PART 2: Comparisons Among Time Points Within Each Group (Repeated Measures) ===&quot;)</code></pre>
+<pre><code>[1] &quot;\n\n=== PART 2: Comparisons Among Time Points Within Each Group (Repeated Measures) ===&quot;</code></pre>
+<pre class="r"><code>for (g in groups) {
+  cat(&quot;\n==================================================\n&quot;)
+  cat(&quot;Group:&quot;, g, &quot;\n&quot;)
+  cat(&quot;==================================================\n&quot;)
+  
+  df_g &lt;- viability_data %&gt;% filter(group == g)
+  
+  # Assign a SubjectID per replicate across time points 
+  # (Assumes rows are balanced/ordered identically across each time point)
+  df_g &lt;- df_g %&gt;%
+    group_by(time) %&gt;%
+    mutate(SubjectID = row_number()) %&gt;%
+    ungroup()
+  
+  # 1. One-Way Repeated Measures ANOVA
+  rm_anova &lt;- aov(viability ~ time + Error(factor(SubjectID) / time), data = df_g)
+  cat(&quot;\nOne-Way Repeated Measures ANOVA:\n&quot;)
+  print(summary(rm_anova))
+  
+  # 2. Fit linear model equivalent for emmeans (incorporating SubjectID blocking)
+  model_g_rm &lt;- lm(viability ~ time + factor(SubjectID), data = df_g)
+  emms_g &lt;- emmeans(model_g_rm, ~ time)
+  
+  # 3. Pairwise comparisons (functions as paired t-tests with Tukey adjustment)
+  pairwise_g &lt;- pairs(emms_g, adjust = &quot;tukey&quot;)
+  
+  cat(&quot;\nPairwise Paired Comparisons Among Time Points (Tukey-adjusted):\n&quot;)
+  print(pairwise_g)
+}</code></pre>
+<pre><code>
+==================================================
+Group: 1 
+==================================================</code></pre>
+<pre><code>
+One-Way Repeated Measures ANOVA:
+
+Error: factor(SubjectID)
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+time       2     21    10.7   0.011  0.989
+Residuals 11  10373   943.0               
+
+Error: factor(SubjectID):time
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+time       2     45    22.4   0.039  0.961
+Residuals 22  12499   568.1               
+
+Pairwise Paired Comparisons Among Time Points (Tukey-adjusted):
+ contrast  estimate   SE df t.ratio p.value
+ 24h - 48h    0.962 9.35 22   0.103  0.9942
+ 24h - 72h    2.783 9.97 22   0.279  0.9580
+ 48h - 72h    1.820 9.97 22   0.183  0.9818
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+==================================================
+Group: 2 
+==================================================</code></pre>
+<pre><code>
+One-Way Repeated Measures ANOVA:
+
+Error: factor(SubjectID)
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+time       1    171   171.1   0.385  0.547
+Residuals 12   5337   444.7               
+
+Error: factor(SubjectID):time
+          Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+time       2  11981    5990   10.85 0.000406 ***
+Residuals 25  13809     552                     
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Paired Comparisons Among Time Points (Tukey-adjusted):
+ contrast  estimate   SE df t.ratio p.value
+ 24h - 48h    40.24 9.14 25   4.405  0.0005
+ 24h - 72h    32.95 9.14 25   3.607  0.0037
+ 48h - 72h    -7.29 8.88 25  -0.821  0.6940
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+==================================================
+Group: 3 
+==================================================</code></pre>
+<pre><code>
+One-Way Repeated Measures ANOVA:
+
+Error: factor(SubjectID)
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+time       2    894   446.8   0.743  0.498
+Residuals 11   6614   601.2               
+
+Error: factor(SubjectID):time
+          Df Sum Sq Mean Sq F value Pr(&gt;F)  
+time       2   8912    4456   5.191 0.0138 *
+Residuals 23  19745     858                 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Paired Comparisons Among Time Points (Tukey-adjusted):
+ contrast  estimate   SE df t.ratio p.value
+ 24h - 48h    31.04 11.5 23   2.701  0.0329
+ 24h - 72h    33.72 11.8 23   2.846  0.0239
+ 48h - 72h     2.67 11.8 23   0.225  0.9724
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+==================================================
+Group: 4 
+==================================================</code></pre>
+<pre><code>
+One-Way Repeated Measures ANOVA:
+
+Error: factor(SubjectID)
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+time       1   1.76  1.7601    2.04  0.179
+Residuals 12  10.35  0.8628               
+
+Error: factor(SubjectID):time
+          Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+time       2  66.92   33.46   23.27 2.4e-06 ***
+Residuals 24  34.51    1.44                    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Pairwise Paired Comparisons Among Time Points (Tukey-adjusted):
+ contrast  estimate   SE df t.ratio p.value
+ 24h - 48h     3.18 0.47 24   6.758 &lt;0.0001
+ 24h - 72h     1.21 0.47 24   2.571  0.0427
+ 48h - 72h    -1.97 0.47 24  -4.187  0.0009
+
+Results are averaged over the levels of: SubjectID 
+P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
+<ul>
+<li>one way repeat anova test (p value in
+<code>Error: factor(SubjectID):time</code>) and two sample paired t test
+was used.</li>
 </ul>
 <br>
 <p>
@@ -840,6 +1579,7 @@ loaded via a namespace (and not attached):
 [70] sass_0.4.10          digest_0.6.39        htmlwidgets_1.6.4   
 [73] farver_2.1.2         memoise_2.0.1        htmltools_0.5.9     
 [76] lifecycle_1.0.5     </code></pre>
+</div>
 </div>
 </div>
 </div>
